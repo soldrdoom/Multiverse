@@ -1,0 +1,42 @@
+# Environment & secrets
+.env
+.env.*
+*.env
+config.json
+config.local.json
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build artifacts
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+
+# Archives & backups
+*.tar.gz
+*.tar.bz2
+*.zip
+*.bak
+/backups/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+
+# Certificates & keys
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
