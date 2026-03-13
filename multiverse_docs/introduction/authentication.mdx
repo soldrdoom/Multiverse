@@ -1,6 +1,14 @@
 ---
-title: 'Authentication'
-description: 'Token types and how to authenticate to Fluxer.'
+title: 'Sovereign Authentication'
+description: 'How the Multiverse utilizes Sign-In with Solana (SIWS)'
 ---
 
-TBD
+## ## The Sovereign Handshake
+The Multiverse replaces traditional passwords with **SIWS (Sign-In with Solana)**. This ensures that users maintain complete ownership of their identity via their cryptographic keys.
+
+### ### How it Works
+1. **Nonce Request:** The client requests a unique, single-use nonce from the Multiverse backend.
+2. **Message Signing:** The user signs a standard SIWS message using their Solana wallet.
+3. **Verification:** The backend verifies the signature against the wallet address to grant a session.
+
+Find the frontend implementation in [`/auth/SolanaAuthService.tsx`](/auth/SolanaAuthService.tsx).
