@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
@@ -28,7 +28,7 @@ import {ForbiddenError} from '@fluxer/errors/src/domains/core/ForbiddenError';
 import {InputValidationError} from '@fluxer/errors/src/domains/core/InputValidationError';
 import {InternalServerError} from '@fluxer/errors/src/domains/core/InternalServerError';
 import {NotFoundError} from '@fluxer/errors/src/domains/core/NotFoundError';
-import {FluxerError} from '@fluxer/errors/src/FluxerError';
+import {MultiverseError} from '@fluxer/errors/src/FluxerError';
 import {describe, expect, it} from 'vitest';
 
 interface ErrorResponse {
@@ -84,9 +84,9 @@ describe('Domain Errors', () => {
 				expect(error.messageVariables).toEqual({count: 5});
 			});
 
-			it('should be instance of FluxerError', () => {
+			it('should be instance of MultiverseError', () => {
 				const error = new BadRequestError({code: APIErrorCodes.INVALID_REQUEST});
-				expect(error).toBeInstanceOf(FluxerError);
+				expect(error).toBeInstanceOf(MultiverseError);
 			});
 		});
 
@@ -108,9 +108,9 @@ describe('Domain Errors', () => {
 				expect(error.messageVariables).toEqual({userId: '12345'});
 			});
 
-			it('should be instance of FluxerError', () => {
+			it('should be instance of MultiverseError', () => {
 				const error = new NotFoundError({code: APIErrorCodes.UNKNOWN_USER});
-				expect(error).toBeInstanceOf(FluxerError);
+				expect(error).toBeInstanceOf(MultiverseError);
 			});
 		});
 
@@ -123,9 +123,9 @@ describe('Domain Errors', () => {
 				expect(error.message).toBe(APIErrorCodes.ACCESS_DENIED);
 			});
 
-			it('should be instance of FluxerError', () => {
+			it('should be instance of MultiverseError', () => {
 				const error = new ForbiddenError({code: APIErrorCodes.ACCESS_DENIED});
-				expect(error).toBeInstanceOf(FluxerError);
+				expect(error).toBeInstanceOf(MultiverseError);
 			});
 		});
 
@@ -138,9 +138,9 @@ describe('Domain Errors', () => {
 				expect(error.message).toBe(APIErrorCodes.GENERAL_ERROR);
 			});
 
-			it('should be instance of FluxerError', () => {
+			it('should be instance of MultiverseError', () => {
 				const error = new InternalServerError({code: APIErrorCodes.GENERAL_ERROR});
-				expect(error).toBeInstanceOf(FluxerError);
+				expect(error).toBeInstanceOf(MultiverseError);
 			});
 		});
 
@@ -228,9 +228,9 @@ describe('Domain Errors', () => {
 				expect(error).toBeInstanceOf(BadRequestError);
 			});
 
-			it('should be instance of FluxerError', () => {
+			it('should be instance of MultiverseError', () => {
 				const error = new InvalidPhoneNumberError();
-				expect(error).toBeInstanceOf(FluxerError);
+				expect(error).toBeInstanceOf(MultiverseError);
 			});
 		});
 	});
@@ -249,9 +249,9 @@ describe('Domain Errors', () => {
 				expect(error).toBeInstanceOf(NotFoundError);
 			});
 
-			it('should be instance of FluxerError', () => {
+			it('should be instance of MultiverseError', () => {
 				const error = new UnknownChannelError();
-				expect(error).toBeInstanceOf(FluxerError);
+				expect(error).toBeInstanceOf(MultiverseError);
 			});
 		});
 
@@ -344,7 +344,7 @@ describe('Domain Errors', () => {
 
 			expect(error).toBeInstanceOf(InvalidPhoneNumberError);
 			expect(error).toBeInstanceOf(BadRequestError);
-			expect(error).toBeInstanceOf(FluxerError);
+			expect(error).toBeInstanceOf(MultiverseError);
 			expect(error).toBeInstanceOf(Error);
 		});
 
@@ -362,7 +362,7 @@ describe('Domain Errors', () => {
 			try {
 				throw error;
 			} catch (e) {
-				if (e instanceof FluxerError) {
+				if (e instanceof MultiverseError) {
 					expect(e.status).toBe(404);
 				}
 			}

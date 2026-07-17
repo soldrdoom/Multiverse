@@ -1,24 +1,25 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {FluxerIcon} from '@app/components/icons/FluxerIcon';
 import {NativeDragRegion} from '@app/components/layout/NativeDragRegion';
+import MultiverseLogo from '@app/images/multiverse-logo.svg?react';
+import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 import styles from '@app/components/layout/SplashScreen.module.css';
 import AccessibilityStore from '@app/stores/AccessibilityStore';
 import DeveloperOptionsStore from '@app/stores/DeveloperOptionsStore';
@@ -65,8 +66,12 @@ const SplashScreenContent = observer(() => {
 			<NativeDragRegion className={styles.topDragRegion} />
 			<div className={styles.splashContent}>
 				<div className={styles.iconWrapper}>
-					<div className={styles.iconPulse} />
-					<FluxerIcon className={styles.icon} />
+					<MultiverseLogo className={styles.iconAura} />
+					<img
+						src={multiverseOfficialLogo}
+						alt="Multiverse"
+						className={styles.iconLogo}
+					/>
 				</div>
 			</div>
 		</motion.div>

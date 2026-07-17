@@ -1,22 +1,22 @@
 #!/usr/bin/env tsx
 
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as fs from 'node:fs';
@@ -136,14 +136,14 @@ function generateSpec(): OpenAPISpec {
 	const spec: OpenAPISpec = {
 		openapi: '3.1.0',
 		info: {
-			title: 'Fluxer Relay Directory API',
+			title: 'Multiverse Relay Directory API',
 			version: '1.0.0',
 			description:
-				'API for discovering and managing Fluxer relay servers. ' +
+				'API for discovering and managing Multiverse relay servers. ' +
 				'The relay directory service maintains a registry of available relay servers ' +
-				'that clients can use to connect to Fluxer instances through encrypted tunnels.',
+				'that clients can use to connect to Multiverse instances through encrypted tunnels.',
 			contact: {
-				name: 'Fluxer Developers',
+				name: 'Multiverse Developers',
 				email: 'developers@fluxer.app',
 			},
 			license: {
@@ -364,7 +364,7 @@ function generateSpec(): OpenAPISpec {
 }
 
 function main(): void {
-	console.log('Fluxer Relay Directory OpenAPI Generator');
+	console.log('Multiverse Relay Directory OpenAPI Generator');
 	console.log('========================================');
 	console.log('');
 

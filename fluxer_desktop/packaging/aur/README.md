@@ -1,4 +1,4 @@
-# Fluxer AUR package
+# Multiverse AUR package
 
 PKGBUILD for the `fluxer-bin` AUR binary package. This installs pre-built binaries rather than building from source, since Electron apps are impractical to compile within the AUR build system.
 

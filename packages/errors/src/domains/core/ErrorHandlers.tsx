@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
@@ -32,7 +32,7 @@ import {
 	resolveMessageVariables,
 } from '@fluxer/errors/src/error_handling/ErrorIntrospection';
 import {createJsonErrorResponse} from '@fluxer/errors/src/error_handling/ErrorResponse';
-import {FluxerError} from '@fluxer/errors/src/FluxerError';
+import {MultiverseError} from '@fluxer/errors/src/FluxerError';
 import {ErrorCodeToI18nKey} from '@fluxer/errors/src/i18n/ErrorCodeMappings';
 import {getErrorMessage} from '@fluxer/errors/src/i18n/ErrorI18n';
 import type {ErrorI18nKey} from '@fluxer/errors/src/i18n/ErrorI18nTypes.generated';
@@ -178,7 +178,7 @@ function handleLocalizedValidationErrors<E extends BaseHonoEnv>(
 	}
 }
 
-function handleFluxerError<E extends BaseHonoEnv>(err: FluxerError, ctx: Context<E>): Response {
+function handleMultiverseError<E extends BaseHonoEnv>(err: MultiverseError, ctx: Context<E>): Response {
 	if (err instanceof InputValidationError) {
 		const localizedResponse = handleLocalizedValidationErrors(err, ctx);
 		if (localizedResponse) {
@@ -287,7 +287,7 @@ export function AppErrorHandler<E extends BaseHonoEnv = BaseHonoEnv>(
 	err: Error,
 	ctx: Context<E>,
 ): Response | Promise<Response> {
-	if (!(err instanceof FluxerError || isExpectedError(err))) {
+	if (!(err instanceof MultiverseError || isExpectedError(err))) {
 		captureException(err);
 	}
 
@@ -295,8 +295,8 @@ export function AppErrorHandler<E extends BaseHonoEnv = BaseHonoEnv>(
 		return err.getResponse();
 	}
 
-	if (err instanceof FluxerError) {
-		return handleFluxerError(err, ctx);
+	if (err instanceof MultiverseError) {
+		return handleMultiverseError(err, ctx);
 	}
 
 	const errorCode = resolveApiErrorCode(err);

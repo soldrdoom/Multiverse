@@ -1,5 +1,5 @@
 {
-	"name": "Fluxer",
+	"name": "Multiverse",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspace",
@@ -33,7 +33,7 @@
 
 	"portsAttributes": {
 		"48763": {
-			"label": "Fluxer (Caddy)",
+			"label": "Multiverse (Caddy)",
 			"onAutoForward": "openBrowser",
 			"protocol": "http"
 		},

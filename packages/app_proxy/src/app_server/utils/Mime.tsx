@@ -72,7 +72,12 @@ export function isStaticAsset(path: string): boolean {
 }
 
 export function isHashedAsset(path: string): boolean {
-	const hashPattern = /\.[a-f0-9]{8,}\.(?:js|css|mjs|woff2?|ttf|eot|otf|png|jpg|jpeg|gif|webp|avif|svg)$/i;
-	const hashPattern2 = /-[a-f0-9]{8,}\.(?:js|css|mjs|woff2?|ttf|eot|otf|png|jpg|jpeg|gif|webp|avif|svg)$/i;
-	return hashPattern.test(path) || hashPattern2.test(path);
+	const ext = '(?:js|css|mjs|woff2?|ttf|eot|otf|png|jpg|jpeg|gif|webp|avif|svg|wasm)';
+	// .hash.ext  or  -hash.ext  (webpack/vite style)
+	const hashPattern = new RegExp(`\\.[a-f0-9]{8,}\\.${ext}$`, 'i');
+	const hashPattern2 = new RegExp(`-[a-f0-9]{8,}\\.${ext}$`, 'i');
+	// hash.ext  (rspack content-hash-as-filename style: e.g. 425e6d65812b7e2b.js)
+	const hashPattern3 = new RegExp(`^[a-f0-9]{8,}\\.${ext}$`, 'i');
+	const filename = path.slice(path.lastIndexOf('/') + 1);
+	return hashPattern.test(path) || hashPattern2.test(path) || hashPattern3.test(filename);
 }

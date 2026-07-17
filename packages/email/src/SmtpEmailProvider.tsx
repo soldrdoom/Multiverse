@@ -29,6 +29,7 @@ export interface SmtpEmailConfig {
 	username: string;
 	password: string;
 	secure?: boolean;
+	ignoreTls?: boolean;
 	connectionTimeoutMs?: number;
 	greetingTimeoutMs?: number;
 	socketTimeoutMs?: number;
@@ -42,6 +43,7 @@ export class SmtpEmailProvider implements IEmailProvider {
 			host: config.host,
 			port: config.port,
 			secure: config.secure ?? true,
+			ignoreTLS: config.ignoreTls ?? false,
 			auth: {
 				user: config.username,
 				pass: config.password,
@@ -49,6 +51,7 @@ export class SmtpEmailProvider implements IEmailProvider {
 			connectionTimeout: config.connectionTimeoutMs,
 			greetingTimeout: config.greetingTimeoutMs,
 			socketTimeout: config.socketTimeoutMs,
+			tls: {rejectUnauthorized: false},
 		});
 	}
 

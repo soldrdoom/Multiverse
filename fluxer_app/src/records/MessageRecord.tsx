@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {UserRecord} from '@app/records/UserRecord';
@@ -37,6 +37,7 @@ import type {
 	Message,
 	MessageAttachment,
 	MessageCall,
+	MessageNftStickerItem,
 	MessageReaction,
 	MessageReference,
 	MessageSnapshot,
@@ -131,6 +132,7 @@ export class MessageRecord {
 	readonly _allowedMentions?: AllowedMentions;
 	readonly _favoriteMemeId?: string;
 	readonly stickers?: ReadonlyArray<MessageStickerItem>;
+	readonly nftStickerItems: ReadonlyArray<MessageNftStickerItem>;
 
 	constructor(message: Message, options?: MessageRecordOptions) {
 		this.instanceId = options?.instanceId ?? RuntimeConfigStore.localInstanceDomain;
@@ -181,6 +183,7 @@ export class MessageRecord {
 		);
 		this.attachments = Object.freeze(message.attachments ?? []);
 		this.stickerItems = Object.freeze(message.stickers ?? []);
+		this.nftStickerItems = Object.freeze(message.nft_stickers ?? []);
 		this.reactions = Object.freeze(message.reactions ?? []);
 
 		this.messageReference = message.message_reference;
@@ -279,6 +282,7 @@ export class MessageRecord {
 				embeds: updates.embeds ?? this.embeds,
 				attachments: updates.attachments ?? this.attachments,
 				stickers: updates.stickers ?? this.stickerItems,
+				nft_stickers: updates.nft_stickers ?? this.nftStickerItems,
 				reactions: updates.reactions ?? this.reactions,
 				message_reference: updates.message_reference ?? this.messageReference,
 				referenced_message: updates.referenced_message ?? this.referencedMessage?.toJSON(),
@@ -522,6 +526,7 @@ export class MessageRecord {
 			embeds: this.embeds,
 			attachments: this.attachments,
 			stickers: this.stickerItems,
+			nft_stickers: this.nftStickerItems.length > 0 ? this.nftStickerItems : undefined,
 			reactions: this.reactions,
 			message_reference: this.messageReference,
 			referenced_message: this.referencedMessage?.toJSON(),

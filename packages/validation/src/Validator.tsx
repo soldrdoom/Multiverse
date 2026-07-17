@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {createInputValidationError} from '@fluxer/validation/src/validator/ValidatorErrorFactory';
@@ -26,7 +26,7 @@ import type {
 	ValidatorPostHookResult,
 } from '@fluxer/validation/src/validator/ValidatorTypes';
 import {normalizeValidatorValue} from '@fluxer/validation/src/validator/ValidatorValueNormalizer';
-import {initializeFluxerErrorMap} from '@fluxer/validation/src/ZodErrorMap';
+import {initializeMultiverseErrorMap} from '@fluxer/validation/src/ZodErrorMap';
 import type {Env, Input, MiddlewareHandler, ValidationTargets} from 'hono';
 import type {ZodType} from 'zod';
 
@@ -70,7 +70,7 @@ export function createValidator<
 	I extends Input = ValidatorInput<T, Target, In, Out>,
 	V extends I = I,
 >(target: Target, schema: T, hookOrOptions?: ValidatorHookOrOptions<T, E, P, Target, V>): MiddlewareHandler<E, P, V> {
-	initializeFluxerErrorMap();
+	initializeMultiverseErrorMap();
 	const options = resolveValidatorOptions(hookOrOptions);
 
 	return async (c, next): Promise<Response | undefined> => {

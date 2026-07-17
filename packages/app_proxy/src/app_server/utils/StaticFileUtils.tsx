@@ -102,7 +102,7 @@ export function serveSpaFallback(options: ServeSpaFallbackOptions): ServeSpaFall
 export function applySpaHeaders(c: Context, csp: string): void {
 	c.header('Content-Security-Policy', csp);
 	c.header('Content-Type', 'text/html; charset=utf-8');
-	c.header('Cache-Control', 'no-cache');
+	c.header('Cache-Control', 'no-store, no-cache, must-revalidate');
 	c.header('X-Content-Type-Options', 'nosniff');
 	c.header('X-Frame-Options', 'DENY');
 	c.header('Referrer-Policy', 'strict-origin-when-cross-origin');

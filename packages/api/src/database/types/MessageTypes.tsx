@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {
@@ -111,6 +111,15 @@ export interface MessageStickerItem {
 	animated?: boolean;
 }
 
+export interface MessageNftStickerItem {
+	mint: string;
+	name: string;
+	image_url: string;
+	media_type: 'image' | 'video' | 'gif' | 'model';
+	collection?: string | null;
+	compressed: boolean;
+}
+
 export interface MessageReference {
 	channel_id: ChannelID;
 	message_id: MessageID;
@@ -147,6 +156,7 @@ export interface MessageRow {
 	webhook_name: Nullish<string>;
 	webhook_avatar_hash: Nullish<string>;
 	content: Nullish<string>;
+	encrypted_content: Nullish<string>;
 	edited_timestamp: Nullish<Date>;
 	pinned_timestamp: Nullish<Date>;
 	flags: number;
@@ -157,6 +167,7 @@ export interface MessageRow {
 	attachments: Nullish<Array<MessageAttachment>>;
 	embeds: Nullish<Array<MessageEmbed>>;
 	sticker_items: Nullish<Array<MessageStickerItem>>;
+	nft_sticker_items: Nullish<Array<MessageNftStickerItem>>;
 	message_reference: Nullish<MessageReference>;
 	message_snapshots: Nullish<Array<MessageSnapshot>>;
 	call: Nullish<MessageCall>;
@@ -174,6 +185,7 @@ export const MESSAGE_COLUMNS = [
 	'webhook_name',
 	'webhook_avatar_hash',
 	'content',
+	'encrypted_content',
 	'edited_timestamp',
 	'pinned_timestamp',
 	'flags',
@@ -184,6 +196,7 @@ export const MESSAGE_COLUMNS = [
 	'attachments',
 	'embeds',
 	'sticker_items',
+	'nft_sticker_items',
 	'message_reference',
 	'message_snapshots',
 	'call',

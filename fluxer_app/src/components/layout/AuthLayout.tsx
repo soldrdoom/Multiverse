@@ -1,24 +1,25 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {AuthBackground} from '@app/components/auth/AuthBackground';
 import {AuthCardContainer} from '@app/components/auth/AuthCardContainer';
+import {AuthLoginHero} from '@app/components/auth/AuthLoginHero';
 import styles from '@app/components/layout/AuthLayout.module.css';
 import {NativeDragRegion} from '@app/components/layout/NativeDragRegion';
 import {NativeTitlebar} from '@app/components/layout/NativeTitlebar';
@@ -29,7 +30,7 @@ import {useSetLayoutVariant} from '@app/contexts/LayoutVariantContext';
 import {useAuthBackground} from '@app/hooks/useAuthBackground';
 import {useNativePlatform} from '@app/hooks/useNativePlatform';
 import i18n, {initI18n} from '@app/I18n';
-import FluxerWordmarkMonochrome from '@app/images/fluxer-logo-wordmark-monochrome.svg?react';
+import MultiverseWordmarkMonochrome from '@app/images/fluxer-logo-wordmark-monochrome.svg?react';
 import foodPatternUrl from '@app/images/i-like-food.svg';
 import {useLocation} from '@app/lib/router/React';
 import {isMobileExperienceEnabled} from '@app/utils/MobileExperience';
@@ -53,6 +54,7 @@ const AuthLayoutContent = observer(function AuthLayoutContent({children}: {child
 	const registerFormDraftsRef = useRef<Map<string, AuthRegisterFormDraft>>(new Map());
 	const scrollerRef = useRef<ScrollerHandle>(null);
 	const location = useLocation();
+	const showLoginHero = location.pathname === '/login';
 
 	const {patternReady, splashLoaded, splashDimensions} = useAuthBackground(splashUrl, foodPatternUrl);
 
@@ -154,7 +156,7 @@ const AuthLayoutContent = observer(function AuthLayoutContent({children}: {child
 						>
 							<div className={styles.mobileContent}>
 								<div className={styles.mobileLogoContainer}>
-									<FluxerWordmarkMonochrome className={styles.mobileWordmark} />
+									<MultiverseWordmarkMonochrome className={styles.mobileWordmark} />
 								</div>
 								{children}
 							</div>
@@ -192,9 +194,18 @@ const AuthLayoutContent = observer(function AuthLayoutContent({children}: {child
 							>
 								<div className={styles.leftSplitWrapper}>
 									<div className={styles.leftSplitAnimated}>
-										<AuthCardContainer showLogoSide={showLogoSide} isInert={false}>
-											{children}
-										</AuthCardContainer>
+										{showLoginHero ? (
+											<div className={styles.heroRow}>
+												<AuthLoginHero />
+												<AuthCardContainer showLogoSide={showLogoSide} isInert={false}>
+													{children}
+												</AuthCardContainer>
+											</div>
+										) : (
+											<AuthCardContainer showLogoSide={showLogoSide} isInert={false}>
+												{children}
+											</AuthCardContainer>
+										)}
 									</div>
 								</div>
 							</div>

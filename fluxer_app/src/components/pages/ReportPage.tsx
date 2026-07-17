@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ToastActionCreators from '@app/actions/ToastActionCreators';
@@ -45,7 +45,7 @@ import {
 import type {RadioOption} from '@app/components/uikit/radio_group/RadioGroup';
 import {AuthLayoutContext} from '@app/contexts/AuthLayoutContext';
 import {Endpoints} from '@app/Endpoints';
-import {useFluxerDocumentTitle} from '@app/hooks/useFluxerDocumentTitle';
+import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
 import HttpClient from '@app/lib/HttpClient';
 import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
 import type {MessageDescriptor} from '@lingui/core';
@@ -62,7 +62,7 @@ export const ReportPage = observer(() => {
 	const {t} = useLingui();
 	const authLayout = useContext(AuthLayoutContext);
 
-	useFluxerDocumentTitle(t`Report Illegal Content`);
+	useMultiverseDocumentTitle(t`Report Illegal Content`);
 
 	useLayoutEffect(() => {
 		if (!authLayout) return;
@@ -82,7 +82,7 @@ export const ReportPage = observer(() => {
 					category: 'category',
 					reporter_full_legal_name: 'reporterFullName',
 					reporter_country_of_residence: 'reporterCountry',
-					reporter_fluxer_tag: 'reporterFluxerTag',
+					reporter_fluxer_tag: 'reporterMultiverseTag',
 					message_link: 'messageLink',
 					reported_user_tag: 'messageUserTag',
 					user_id: 'userId',
@@ -298,7 +298,7 @@ export const ReportPage = observer(() => {
 
 		const reporterFullName = state.formValues.reporterFullName.trim();
 		const reporterCountry = state.formValues.reporterCountry;
-		const reporterFluxerTag = state.formValues.reporterFluxerTag.trim();
+		const reporterMultiverseTag = state.formValues.reporterMultiverseTag.trim();
 		const additionalInfo = state.formValues.additionalInfo.trim();
 
 		if (!state.formValues.category) {
@@ -324,7 +324,7 @@ export const ReportPage = observer(() => {
 			reporter_country_of_residence: reporterCountry,
 		};
 
-		if (reporterFluxerTag) payload.reporter_fluxer_tag = reporterFluxerTag;
+		if (reporterMultiverseTag) payload.reporter_fluxer_tag = reporterMultiverseTag;
 		if (additionalInfo) payload.additional_info = additionalInfo;
 
 		switch (state.selectedType) {
@@ -356,7 +356,7 @@ export const ReportPage = observer(() => {
 				if (!userId && !userTag) {
 					dispatch({
 						type: 'SET_ERROR',
-						message: t`Provide either a user ID or a FluxerTag for the person you are reporting.`,
+						message: t`Provide either a user ID or a MultiverseTag for the person you are reporting.`,
 					});
 					return;
 				}

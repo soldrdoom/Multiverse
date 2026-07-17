@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {
@@ -92,6 +92,17 @@ export const MessageStickerResponse = z.object({
 
 export type MessageStickerResponse = z.infer<typeof MessageStickerResponse>;
 
+export const MessageNftStickerResponse = z.object({
+	mint: z.string().describe('The mint address of the NFT'),
+	name: z.string().describe('The name of the NFT sticker'),
+	image_url: z.string().describe('The URL of the NFT sticker image or video'),
+	media_type: z.enum(['image', 'video', 'gif', 'model']).describe('The media type of the sticker: image (jpg/png/webp/svg), video (mp4), gif, or model (glb)'),
+	collection: z.string().optional().describe('The collection name of the NFT'),
+	compressed: z.boolean().describe('Whether the NFT is a compressed cNFT'),
+});
+
+export type MessageNftStickerResponse = z.infer<typeof MessageNftStickerResponse>;
+
 export const MessageSnapshotResponse = z.object({
 	content: z.string().nullish().describe('The text content of the snapshot'),
 	timestamp: z.iso.datetime().describe('The ISO 8601 timestamp of when the original message was created'),
@@ -139,6 +150,7 @@ export const MessageBaseResponseSchema = z.object({
 		'MessageFlags',
 	),
 	content: z.string().describe('The text content of the message'),
+	encrypted_content: z.string().nullish().describe('Base64 JSON NaCl box payload (E2EE DMs only)'),
 	timestamp: z.iso.datetime().describe('The ISO 8601 timestamp of when the message was created'),
 	edited_timestamp: z.iso.datetime().nullish().describe('The ISO 8601 timestamp of when the message was last edited'),
 	pinned: z.boolean().describe('Whether the message is pinned'),
@@ -153,6 +165,7 @@ export const MessageBaseResponseSchema = z.object({
 	embeds: z.array(MessageEmbedResponse).max(10).nullish().describe('The embeds attached to the message'),
 	attachments: z.array(MessageAttachmentResponse).max(10).nullish().describe('The files attached to the message'),
 	stickers: z.array(MessageStickerResponse).max(3).nullish().describe('The stickers sent with the message'),
+	nft_stickers: z.array(MessageNftStickerResponse).max(1).nullish().describe('The NFT stickers sent with the message'),
 	reactions: z
 		.array(MessageReactionResponse)
 		.max(MAX_REACTIONS_PER_MESSAGE)
@@ -289,6 +302,16 @@ export interface MessageStickerItem {
 	readonly animated: boolean;
 }
 
+/** Wire format for an NFT or cNFT used as a sticker in a message. */
+export interface MessageNftStickerItem {
+	readonly mint: string;
+	readonly name: string;
+	readonly image_url: string;
+	readonly media_type: 'image' | 'video' | 'gif' | 'model';
+	readonly collection?: string;
+	readonly compressed: boolean;
+}
+
 export interface AllowedMentions {
 	readonly parse?: ReadonlyArray<'roles' | 'users' | 'everyone'>;
 	readonly roles?: ReadonlyArray<string>;
@@ -321,6 +344,7 @@ export interface Message {
 	readonly tts?: boolean;
 	readonly mention_everyone: boolean;
 	readonly content: string;
+	readonly encrypted_content?: string | null;
 	readonly timestamp: string;
 	readonly edited_timestamp?: string;
 	readonly mentions?: ReadonlyArray<MessageMention>;
@@ -329,6 +353,7 @@ export interface Message {
 	readonly embeds?: ReadonlyArray<MessageEmbed>;
 	readonly attachments?: ReadonlyArray<MessageAttachment>;
 	readonly stickers?: ReadonlyArray<MessageStickerItem>;
+	readonly nft_stickers?: ReadonlyArray<MessageNftStickerItem>;
 	readonly reactions?: ReadonlyArray<MessageReaction>;
 	readonly message_reference?: MessageReference;
 	readonly referenced_message?: Message | null;

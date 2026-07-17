@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -23,7 +23,7 @@
 import {defaultHeroPadding, HeroBase} from '@fluxer/marketing/src/components/HeroBase';
 import {ArrowRightIcon} from '@fluxer/marketing/src/components/icons/ArrowRightIcon';
 import {CheckIcon} from '@fluxer/marketing/src/components/icons/CheckIcon';
-import {FluxerPartnerIcon} from '@fluxer/marketing/src/components/icons/FluxerPartnerIcon';
+import {MultiversePartnerIcon} from '@fluxer/marketing/src/components/icons/FluxerPartnerIcon';
 import {Icon} from '@fluxer/marketing/src/components/icons/IconRegistry';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
 import {renderLayout} from '@fluxer/marketing/src/pages/Layout';
@@ -48,7 +48,7 @@ export async function renderPartnersPage(c: Context, ctx: MarketingContext): Pro
 function renderHeroSection(ctx: MarketingContext): JSX.Element {
 	return (
 		<HeroBase
-			icon={<FluxerPartnerIcon class="h-14 w-14 md:h-18 md:w-18" />}
+			icon={<MultiversePartnerIcon class="h-14 w-14 md:h-18 md:w-18" />}
 			title={ctx.i18n.getMessage('partner_program.become_partner.heading', ctx.locale)}
 			description={ctx.i18n.getMessage('partner_program.description', ctx.locale)}
 			extraContent={<div />}

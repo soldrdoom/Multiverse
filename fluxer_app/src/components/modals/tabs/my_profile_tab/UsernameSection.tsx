@@ -1,26 +1,26 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
 import * as PremiumModalActionCreators from '@app/actions/PremiumModalActionCreators';
-import {FluxerTagChangeModal} from '@app/components/modals/FluxerTagChangeModal';
+import {MultiverseTagChangeModal} from '@app/components/modals/MultiverseTagChangeModal';
 import styles from '@app/components/modals/tabs/my_profile_tab/UsernameSection.module.css';
 import {Button} from '@app/components/uikit/button/Button';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
@@ -53,23 +53,13 @@ export const UsernameSection = observer(({isClaimed, user}: UsernameSectionProps
 			</div>
 
 			<div className={styles.actions}>
-				{!isClaimed ? (
-					<Tooltip text={t(msg`Claim your account to change your FluxerTag`)}>
-						<div>
-							<Button variant="primary" small disabled>
-								<Trans>Change FluxerTag</Trans>
-							</Button>
-						</div>
-					</Tooltip>
-				) : (
-					<Button
-						variant="primary"
-						small
-						onClick={() => ModalActionCreators.push(modal(() => <FluxerTagChangeModal user={user} />))}
-					>
-						<Trans>Change FluxerTag</Trans>
-					</Button>
-				)}
+				<Tooltip text={t(msg`MultiverseTag customization is coming soon with Plutonium`)}>
+					<div>
+						<Button variant="primary" small disabled>
+							<Trans>Change MultiverseTag</Trans>
+						</Button>
+					</div>
+				</Tooltip>
 
 				{!hasCustomDiscriminator && shouldShowPremiumFeatures() && (
 					<Tooltip text={t(msg`Customize your 4-digit tag (#${user.discriminator}) to your liking with Plutonium`)}>

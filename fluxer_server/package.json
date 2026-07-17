@@ -11,28 +11,14 @@
 		"typecheck": "tsgo --noEmit"
 	},
 	"dependencies": {
-		"@fluxer/admin": "workspace:*",
-		"@fluxer/api": "workspace:*",
-		"@fluxer/app_proxy": "workspace:*",
-		"@fluxer/config": "workspace:*",
-		"@fluxer/constants": "workspace:*",
-		"@fluxer/errors": "workspace:*",
-		"@fluxer/hono": "workspace:*",
-		"@fluxer/hono_types": "workspace:*",
-		"@fluxer/initialization": "workspace:*",
-		"@fluxer/ip_utils": "workspace:*",
-		"@fluxer/kv_client": "workspace:*",
-		"@fluxer/logger": "workspace:*",
-		"@fluxer/media_proxy": "workspace:*",
-		"@fluxer/nats": "workspace:*",
-		"@fluxer/s3": "workspace:*",
-		"@fluxer/sentry": "workspace:*",
-		"hono": "catalog:",
-		"tsx": "catalog:"
+		"@solana/web3.js": "^1.98.4",
+		"bs58": "^6.0.0",
+		"hono": "4.11.9",
+		"tsx": "*"
 	},
 	"devDependencies": {
-		"@types/node": "catalog:",
-		"@typescript/native-preview": "catalog:"
+		"@types/node": "*",
+		"@typescript/native-preview": "*"
 	},
 	"packageManager": "pnpm@10.29.3",
 	"engines": {

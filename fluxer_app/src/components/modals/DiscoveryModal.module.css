@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 .hero {
@@ -26,19 +26,12 @@
 .heroBackground {
 	position: absolute;
 	inset: 0;
-	background-color: var(--brand-primary);
+	background: radial-gradient(ellipse at 60% 40%, #1A202C 0%, #0B0E14 70%);
 	pointer-events: none;
 }
 
 .heroPattern {
-	position: absolute;
-	inset: 0;
-	background-size: 260px 260px;
-	background-repeat: repeat;
-	opacity: 0.06;
-	filter: invert(1);
-	background-color: transparent;
-	pointer-events: none;
+	display: none;
 }
 
 .heroContent {
@@ -84,36 +77,40 @@
 	align-items: center;
 	padding: 0.375rem 0.75rem;
 	border-radius: var(--radius-full);
-	border: 1px solid rgba(255, 255, 255, 0.25);
-	background: rgba(255, 255, 255, 0.1);
-	color: rgba(255, 255, 255, 0.85);
+	border: 1px solid rgba(0, 200, 100, 0.3);
+	background: rgba(21, 25, 33, 0.8);
+	color: rgba(255, 255, 255, 0.75);
 	font-size: 0.8125rem;
 	font-weight: 500;
 	cursor: pointer;
 	white-space: nowrap;
 	transition:
 		background-color 0.1s ease,
+		border-color 0.1s ease,
 		color 0.1s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
 	.categoryChip:hover {
-		background: rgba(255, 255, 255, 0.2);
+		background: rgba(21, 25, 33, 1);
+		border-color: rgba(0, 200, 100, 0.6);
 		color: white;
 	}
 }
 
 .categoryChipActive {
 	composes: categoryChip;
-	background: white;
-	border-color: white;
-	color: var(--brand-primary);
+	background: #00C864;
+	border-color: #00C864;
+	color: #0B0E14;
+	font-weight: 700;
 }
 
 @media (hover: hover) and (pointer: fine) {
 	.categoryChipActive:hover {
-		background: rgba(255, 255, 255, 0.9);
-		color: var(--brand-primary);
+		background: #33E87A;
+		border-color: #33E87A;
+		color: #0B0E14;
 	}
 }
 

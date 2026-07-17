@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {AttachmentID, ChannelID, GuildID, MemeID, UserID} from '@fluxer/api/src/BrandedTypes';
@@ -78,6 +78,23 @@ import {
 	type WebhookRow,
 } from '@fluxer/api/src/database/types/ChannelTypes';
 import {USER_CONNECTION_COLUMNS, type UserConnectionRow} from '@fluxer/api/src/database/types/ConnectionTypes';
+import {USER_PUBLIC_KEY_COLUMNS, type UserPublicKeyRow} from '@fluxer/api/src/database/types/VaultTypes';
+import {
+	APPLIED_PROFILE_COSMETIC_COLUMNS,
+	APPLIED_SERVER_COSMETIC_COLUMNS,
+	type AppliedProfileCosmeticRow,
+	type AppliedServerCosmeticRow,
+	COSMETIC_LISTING_BY_CREATOR_COLUMNS,
+	COSMETIC_LISTING_COLUMNS,
+	type CosmeticListingByCreatorRow,
+	type CosmeticListingRow,
+	CREATOR_APPLICATION_COLUMNS,
+	CREATOR_BY_WALLET_COLUMNS,
+	CREATOR_COLUMNS,
+	type CreatorApplicationRow,
+	type CreatorByWalletRow,
+	type CreatorRow,
+} from '@fluxer/api/src/database/types/CosmeticTypes';
 import {
 	CSAM_EVIDENCE_EXPIRATION_COLUMNS,
 	CSAM_EVIDENCE_LEGAL_HOLD_COLUMNS,
@@ -210,8 +227,10 @@ import {
 	USER_HARVEST_COLUMNS,
 	USER_SETTINGS_COLUMNS,
 	USERS_PENDING_DELETION_COLUMNS,
+	USER_BY_SOLANA_ADDRESS_COLUMNS,
 	type UserByEmailRow,
 	type UserByPhoneRow,
+	type UserBySolanaAddressRow,
 	type UserByStripeCustomerIdRow,
 	type UserByStripeSubscriptionIdRow,
 	type UserByUsernameRow,
@@ -277,6 +296,12 @@ export const UserByStripeCustomerId = defineTable<UserByStripeCustomerIdRow, 'st
 	primaryKey: ['stripe_customer_id', 'user_id'],
 });
 
+export const UserBySolanaAddress = defineTable<UserBySolanaAddressRow, 'solana_address' | 'user_id'>({
+	name: 'users_by_solana_address',
+	columns: USER_BY_SOLANA_ADDRESS_COLUMNS,
+	primaryKey: ['solana_address', 'user_id'],
+});
+
 export const UserByStripeSubscriptionId = defineTable<
 	UserByStripeSubscriptionIdRow,
 	'stripe_subscription_id' | 'user_id'
@@ -308,6 +333,13 @@ export const UserConnections = defineTable<UserConnectionRow, 'user_id' | 'conne
 	name: 'user_connections',
 	columns: USER_CONNECTION_COLUMNS,
 	primaryKey: ['user_id', 'connection_type', 'connection_id'],
+	partitionKey: ['user_id'],
+});
+
+export const UserPublicKeys = defineTable<UserPublicKeyRow, 'user_id'>({
+	name: 'user_public_keys',
+	columns: USER_PUBLIC_KEY_COLUMNS,
+	primaryKey: ['user_id'],
 	partitionKey: ['user_id'],
 });
 
@@ -1042,4 +1074,53 @@ export const NcmecSubmissions = defineTable<NcmecSubmissionRow, 'report_id'>({
 	name: 'ncmec_submissions',
 	columns: NCMEC_SUBMISSION_COLUMNS,
 	primaryKey: ['report_id'],
+});
+
+// ─── Cosmetics ────────────────────────────────────────────────────────────────
+
+export const AppliedProfileCosmetics = defineTable<AppliedProfileCosmeticRow, 'user_id' | 'slot'>({
+	name: 'applied_profile_cosmetics',
+	columns: APPLIED_PROFILE_COSMETIC_COLUMNS,
+	primaryKey: ['user_id', 'slot'],
+	partitionKey: ['user_id'],
+});
+
+export const AppliedServerCosmetics = defineTable<AppliedServerCosmeticRow, 'guild_id' | 'slot'>({
+	name: 'applied_server_cosmetics',
+	columns: APPLIED_SERVER_COSMETIC_COLUMNS,
+	primaryKey: ['guild_id', 'slot'],
+	partitionKey: ['guild_id'],
+});
+
+// ─── Creator program ──────────────────────────────────────────────────────────
+
+export const CreatorApplications = defineTable<CreatorApplicationRow, 'solana_address'>({
+	name: 'creator_applications',
+	columns: CREATOR_APPLICATION_COLUMNS,
+	primaryKey: ['solana_address'],
+});
+
+export const Creators = defineTable<CreatorRow, 'creator_id'>({
+	name: 'creators',
+	columns: CREATOR_COLUMNS,
+	primaryKey: ['creator_id'],
+});
+
+export const CreatorsByWallet = defineTable<CreatorByWalletRow, 'solana_address'>({
+	name: 'creators_by_wallet',
+	columns: CREATOR_BY_WALLET_COLUMNS,
+	primaryKey: ['solana_address'],
+});
+
+export const CosmeticListings = defineTable<CosmeticListingRow, 'id'>({
+	name: 'cosmetic_listings',
+	columns: COSMETIC_LISTING_COLUMNS,
+	primaryKey: ['id'],
+});
+
+export const CosmeticListingsByCreator = defineTable<CosmeticListingByCreatorRow, 'creator_id' | 'id'>({
+	name: 'cosmetic_listings_by_creator',
+	columns: COSMETIC_LISTING_BY_CREATOR_COLUMNS,
+	primaryKey: ['creator_id', 'id'],
+	partitionKey: ['creator_id'],
 });

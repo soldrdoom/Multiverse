@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {type ChildProcess, spawn} from 'node:child_process';
@@ -333,17 +333,32 @@ function runRspack(): Promise<number> {
 	});
 }
 
+async function trySoftStep(label: string, fn: () => Promise<void>): Promise<void> {
+	try {
+		await fn();
+	} catch (error) {
+		console.warn(`[DevServer] ${label} failed — continuing anyway:`, error);
+	}
+}
+
 async function main(): Promise<void> {
 	await loadMetadata();
 
 	try {
-		await runCachedStep('wasm', gatherWasmInputs, 'pnpm', ['wasm:codegen']);
-		await runCachedStep('colors', gatherColorInputs, 'pnpm', ['generate:colors']);
-		await runCachedStep('masks', gatherMaskInputs, 'pnpm', ['generate:masks']);
-		await runCachedStep('cssTypes', gatherCssModuleInputs, 'pnpm', ['generate:css-types']);
-		await runCachedStep('lingui', gatherLinguiInputs, 'pnpm', ['lingui:compile']);
-		await cleanDist();
+		// Non-fatal pre-build steps: failures are logged and skipped.
+		await trySoftStep('wasm:codegen', () => runCachedStep('wasm', gatherWasmInputs, 'pnpm', ['wasm:codegen']));
+		await trySoftStep('generate:colors', () =>
+			runCachedStep('colors', gatherColorInputs, 'pnpm', ['generate:colors']),
+		);
+		await trySoftStep('generate:masks', () => runCachedStep('masks', gatherMaskInputs, 'pnpm', ['generate:masks']));
+		await trySoftStep('generate:css-types', () =>
+			runCachedStep('cssTypes', gatherCssModuleInputs, 'pnpm', ['generate:css-types']),
+		);
+		await trySoftStep('lingui:compile', () =>
+			runCachedStep('lingui', gatherLinguiInputs, 'pnpm', ['lingui:compile']),
+		);
 
+		await cleanDist();
 		startCssTypeWatcher();
 
 		const rspackExitCode = await runRspack();
@@ -355,9 +370,8 @@ async function main(): Promise<void> {
 		if (shuttingDown) {
 			process.exit(0);
 		}
-
-		console.error(error);
-		process.exit(1);
+		// Log but do not hard-exit — rspack may still be launchable.
+		console.error('[DevServer] Unexpected error in startup sequence:', error);
 	}
 }
 

@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {
@@ -32,22 +32,23 @@ import {
 	BellIcon,
 	ChatCircleIcon,
 	CodeIcon,
-	CrownIcon,
 	DevicesIcon,
 	EyeSlashIcon,
 	FlagIcon,
 	FlaskIcon,
-	GiftIcon,
 	type Icon,
 	type IconWeight,
 	KeyboardIcon,
+	LockKeyIcon,
 	MicrophoneIcon,
 	PaintBrushIcon,
 	PaletteIcon,
 	PersonSimpleCircleIcon,
 	ProhibitIcon,
 	RobotIcon,
+	ShieldCheckIcon,
 	ShieldIcon,
+	SparkleIcon,
 	StickerIcon,
 	TranslateIcon,
 	UserIcon,
@@ -119,16 +120,16 @@ const ALL_TABS_DESCRIPTORS: Array<SettingsTabDescriptor> = [
 		icon: ShieldIcon,
 	},
 	{
-		type: 'plutonium',
+		type: 'vault',
 		category: 'user_settings',
-		label: msg`Fluxer Plutonium`,
-		icon: CrownIcon,
+		label: msg`Identity Vault`,
+		icon: LockKeyIcon,
 	},
 	{
-		type: 'gift_inventory',
+		type: 'cosmetics',
 		category: 'user_settings',
-		label: msg`Gifts & Codes`,
-		icon: GiftIcon,
+		label: msg`Cosmetics`,
+		icon: SparkleIcon,
 	},
 	{
 		type: 'expression_packs',
@@ -221,6 +222,12 @@ const ALL_TABS_DESCRIPTORS: Array<SettingsTabDescriptor> = [
 		label: msg`Applications`,
 		icon: CodeIcon,
 		iconWeight: 'bold',
+	},
+	{
+		type: 'admin_panel',
+		category: 'staff_only',
+		label: msg`Admin Panel`,
+		icon: ShieldCheckIcon,
 	},
 	{
 		type: 'developer_options',

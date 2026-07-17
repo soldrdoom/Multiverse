@@ -1,7 +1,7 @@
 {
 	"$schema": "https://mintlify.com/docs.json",
 	"theme": "maple",
-	"name": "Fluxer",
+	"name": "Multiverse",
 	"colors": {
 		"primary": "#5865F2",
 		"light": "#7289DA",
@@ -138,13 +138,13 @@
 		],
 		"primary": {
 			"type": "button",
-			"label": "Open Fluxer",
+			"label": "Open Multiverse",
 			"href": "https://web.fluxer.app/channels/@me"
 		}
 	},
 	"logo": {
-		"light": "https://fluxerstatic.com/marketing/branding/logo-color.svg",
-		"dark": "https://fluxerstatic.com/marketing/branding/logo-white.svg"
+		"light": "https://multiverse.forum/marketing/branding/logo-color.svg",
+		"dark": "https://multiverse.forum/marketing/branding/logo-white.svg"
 	},
 	"footer": {
 		"socials": {

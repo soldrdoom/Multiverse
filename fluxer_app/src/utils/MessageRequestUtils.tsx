@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {MessageFlags} from '@fluxer/constants/src/ChannelConstants';
@@ -38,6 +38,7 @@ export interface ApiAttachmentMetadata {
 
 export interface MessageCreateRequest {
 	content?: string | null;
+	encrypted_content?: string | null;
 	nonce?: string;
 	attachments?: Array<ApiAttachmentMetadata>;
 	allowed_mentions?: AllowedMentions;
@@ -45,6 +46,7 @@ export interface MessageCreateRequest {
 	flags?: number;
 	favorite_meme_id?: string;
 	sticker_ids?: Array<string>;
+	nft_stickers?: Array<import('@app/records/NftStickerRecord').NftStickerItem>;
 	tts?: true;
 }
 
@@ -56,6 +58,7 @@ export interface MessageEditRequest {
 
 export interface MessageCreatePayload {
 	content?: string | null;
+	encryptedContent?: string | null;
 	nonce?: string;
 	attachments?: Array<ApiAttachmentMetadata>;
 	allowedMentions?: AllowedMentions;
@@ -63,6 +66,7 @@ export interface MessageCreatePayload {
 	flags?: number;
 	favoriteMemeId?: string;
 	stickers?: Array<MessageStickerItem>;
+	nftStickers?: Array<import('@app/records/NftStickerRecord').NftStickerItem>;
 	tts?: boolean;
 }
 
@@ -78,13 +82,17 @@ export function normalizeMessageContent(content: string, favoriteMemeId?: string
 }
 
 export function buildMessageCreateRequest(payload: MessageCreatePayload): MessageCreateRequest {
-	const {content, nonce, attachments, allowedMentions, messageReference, flags, favoriteMemeId, stickers, tts} =
+	const {content, encryptedContent, nonce, attachments, allowedMentions, messageReference, flags, favoriteMemeId, stickers, nftStickers, tts} =
 		payload;
 
 	const requestBody: MessageCreateRequest = {};
 
 	if (content != null && content.length > 0) {
 		requestBody.content = content;
+	}
+
+	if (encryptedContent != null) {
+		requestBody.encrypted_content = encryptedContent;
 	}
 
 	if (nonce != null) {
@@ -113,6 +121,10 @@ export function buildMessageCreateRequest(payload: MessageCreatePayload): Messag
 
 	if (stickers?.length) {
 		requestBody.sticker_ids = stickers.map((sticker) => sticker.id);
+	}
+
+	if (nftStickers?.length) {
+		requestBody.nft_stickers = nftStickers;
 	}
 
 	if (tts) {

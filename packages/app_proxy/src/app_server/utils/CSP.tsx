@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {randomBytes} from 'node:crypto';
@@ -33,7 +33,7 @@ export const CSP_HOSTS = {
 		'https://i.ytimg.com',
 		'https://*.youtube.com',
 		'https://fluxerusercontent.com',
-		'https://fluxerstatic.com',
+		'https://multiverse.forum',
 		'https://*.fluxer.media',
 		'https://fluxer.media',
 	],
@@ -41,7 +41,7 @@ export const CSP_HOSTS = {
 		'https://*.fluxer.app',
 		'https://*.youtube.com',
 		'https://fluxerusercontent.com',
-		'https://fluxerstatic.com',
+		'https://multiverse.forum',
 		'https://*.fluxer.media',
 		'https://fluxer.media',
 	],
@@ -50,16 +50,16 @@ export const CSP_HOSTS = {
 		'https://hcaptcha.com',
 		'https://*.hcaptcha.com',
 		'https://challenges.cloudflare.com',
-		'https://fluxerstatic.com',
+		'https://multiverse.forum',
 	],
 	STYLE: [
 		'https://*.fluxer.app',
 		'https://hcaptcha.com',
 		'https://*.hcaptcha.com',
 		'https://challenges.cloudflare.com',
-		'https://fluxerstatic.com',
+		'https://multiverse.forum',
 	],
-	FONT: ['https://*.fluxer.app', 'https://fluxerstatic.com'],
+	FONT: ['https://*.fluxer.app', 'https://multiverse.forum'],
 	CONNECT: [
 		'https://*.fluxer.app',
 		'wss://*.fluxer.app',
@@ -70,12 +70,14 @@ export const CSP_HOSTS = {
 		'https://challenges.cloudflare.com',
 		'https://*.fluxer.workers.dev',
 		'https://fluxerusercontent.com',
-		'https://fluxerstatic.com',
+		'https://multiverse.forum',
 		'https://fluxer.media',
+		'https://mainnet.helius-rpc.com',
+		'https://api.mainnet-beta.solana.com',
 		'http://127.0.0.1:21863',
 		'http://127.0.0.1:21864',
 	],
-	WORKER: ['https://*.fluxer.app', 'https://fluxerstatic.com', 'blob:'],
+	WORKER: ['https://*.fluxer.app', 'https://multiverse.forum', 'blob:'],
 	MANIFEST: ['https://*.fluxer.app'],
 } as const;
 
@@ -151,7 +153,7 @@ export function buildCSP(nonce: string, options?: CSPOptions): string {
 	return directives.join('; ');
 }
 
-export function buildFluxerCSPOptions(config: SentryCSPConfig): CSPOptions {
+export function buildMultiverseCSPOptions(config: SentryCSPConfig): CSPOptions {
 	const reportURI = buildSentryReportURI(config);
 	const sentry = parseSentryDSN(config.sentryDsn);
 	const connectSrc: Array<string> = [...CSP_HOSTS.CONNECT];
@@ -173,6 +175,6 @@ export function buildFluxerCSPOptions(config: SentryCSPConfig): CSPOptions {
 	};
 }
 
-export function buildFluxerCSP(nonce: string, config: SentryCSPConfig): string {
-	return buildCSP(nonce, buildFluxerCSPOptions(config));
+export function buildMultiverseCSP(nonce: string, config: SentryCSPConfig): string {
+	return buildCSP(nonce, buildMultiverseCSPOptions(config));
 }

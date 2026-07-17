@@ -1,23 +1,25 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as AuthenticationActionCreators from '@app/actions/AuthenticationActionCreators';
+import {initializeVault, loadPrivateKey} from '@app/services/vault/VaultService';
+import VaultStore from '@app/stores/VaultStore';
 import {AccountSelector} from '@app/components/accounts/AccountSelector';
 import {AuthRouterLink} from '@app/components/auth/AuthRouterLink';
 import AuthLoginEmailPasswordForm from '@app/components/auth/auth_login_core/AuthLoginEmailPasswordForm';
@@ -34,12 +36,12 @@ import {type Account, SessionExpiredError} from '@app/lib/SessionManager';
 import AccountManager from '@app/stores/AccountManager';
 import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import {isDesktop} from '@app/utils/NativeUtils';
+import {Routes} from '@app/Routes';
 import * as RouterUtils from '@app/utils/RouterUtils';
 import {type IpAuthorizationChallenge, type LoginSuccessPayload, startSsoLogin} from '@app/viewmodels/auth/AuthFlow';
 import {Trans, useLingui} from '@lingui/react/macro';
-import clsx from 'clsx';
 import {observer} from 'mobx-react-lite';
-import {cloneElement, type ReactElement, type ReactNode, useCallback, useEffect, useMemo, useState} from 'react';
+import {type ReactElement, type ReactNode, useCallback, useEffect, useState} from 'react';
 
 interface AuthLoginLayoutProps {
 	redirectPath?: string;
@@ -62,7 +64,6 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 	extraTopContent,
 	showTitle = true,
 	title,
-	registerLink,
 	onLoginComplete,
 	initialEmail,
 }: AuthLoginLayoutProps) {
@@ -199,12 +200,162 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 		}
 	}, [ssoConfig?.enabled, redirectPath, t]);
 
-	const styledRegisterLink = useMemo(() => {
-		const {className: linkClassName} = registerLink.props as {className?: string};
-		return cloneElement(registerLink, {
-			className: clsx(styles.footerLink, linkClassName),
-		});
-	}, [registerLink]);
+	const [isSolanaLoading, setIsSolanaLoading] = useState(false);
+
+	const handleSolanaLogin = useCallback(async () => {
+		// Prefer window.phantom.solana for Phantom mobile in-app browser; fall back to other known providers.
+		// Final fallback uses the Wallet Standard registry to support Jupiter and any other standard-compliant wallet.
+		const getWalletStandardProvider = (): any => {
+			try {
+				const registered: any[] = [];
+				// Apps dispatch wallet-standard:app-ready; wallets that are already initialized respond by calling register()
+				window.dispatchEvent(
+					new CustomEvent('wallet-standard:app-ready', {
+						bubbles: false,
+						cancelable: false,
+						composed: false,
+						detail: Object.freeze({ register: (w: any) => registered.push(w) }),
+					})
+				);
+				// Prefer Jupiter by name; fall back to the first registered Solana wallet
+				const wallet =
+					registered.find(w => w.name === 'Jupiter' && w.chains?.some((c: string) => c.startsWith('solana:'))) ??
+					registered.find(w => w.chains?.some((c: string) => c.startsWith('solana:')));
+				if (!wallet) return null;
+
+				let account: any = null;
+				const provider: any = {
+					connect: async () => {
+						const { accounts } = await wallet.features['standard:connect'].connect();
+						account = accounts[0];
+						if (!account) throw new Error('No accounts returned from wallet');
+					},
+					signIn: wallet.features['standard:signIn']
+						? async (input: any) => {
+							const [result] = await wallet.features['standard:signIn'].signIn(input);
+							return result;
+						}
+						: undefined,
+					signMessage: async (messageBytes: Uint8Array) => {
+						const [result] = await wallet.features['solana:signMessage'].signMessage({
+							account,
+							message: messageBytes,
+						});
+						// signedMessage contains the exact bytes the wallet signed (may include prefix)
+						return { signature: result.signature, signedMessage: result.signedMessage };
+					},
+				};
+				Object.defineProperty(provider, 'publicKey', {
+					get: () => account ? { toBase58: () => account.address } : null,
+				});
+				return provider;
+			} catch {
+				return null;
+			}
+		};
+
+		const sol =
+			(window as any).phantom?.solana ??
+			(window as any).solana ??
+			(window as any).solflare ??
+			(window as any).coinbaseSolana ??
+			(window as any).backpack?.solana ??
+			(window as any).magicEden?.solana ??
+			(window as any).station ??         // Jupiter Station mobile in-app browser
+			getWalletStandardProvider();
+		if (!sol) {
+			setSwitchError(t`No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps.`);
+			return;
+		}
+		setIsSolanaLoading(true);
+		setSwitchError(null);
+
+		// Safe Uint8Array → base64: avoids spread-operator call-stack limits on mobile WebKit
+		const u8ToBase64 = (bytes: Uint8Array): string => {
+			let binary = '';
+			const len = bytes.length;
+			for (let i = 0; i < len; i++) {
+				binary += String.fromCharCode(bytes[i]);
+			}
+			return btoa(binary);
+		};
+
+		try {
+			await sol.connect();
+			const address: string = sol.publicKey.toBase58();
+			const nonceRes = await fetch('/api/auth/solana/nonce', {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({address}),
+			});
+			const {nonce, message} = await nonceRes.json();
+
+			let sig64: string;
+			let signedMessageB64: string | undefined;
+
+			if (typeof sol.signIn === 'function') {
+				// Modern wallet-standard path: wallet constructs canonical SIWS, shows our icon
+				const signInInput = {
+					domain: window.location.host,
+					address,
+					statement: 'Sign in to Multiverse',
+					uri: window.location.origin,
+					version: '1',
+					nonce,
+					issuedAt: new Date().toISOString(),
+					icon: 'https://multiverse.forum/web/logo.png',
+				};
+				const result = await sol.signIn(signInInput);
+				// Normalize to plain Uint8Array — Phantom mobile may return array-like objects across the JS bridge
+				sig64 = u8ToBase64(new Uint8Array(result.signature as ArrayLike<number>));
+				signedMessageB64 = u8ToBase64(new Uint8Array(result.signedMessage as ArrayLike<number>));
+			} else {
+				// Legacy signMessage() fallback — sign the SIWS text the backend built.
+				// Do NOT pass the 'utf8' display hint: on Phantom mobile it can alter how bytes
+				// are presented/signed, causing backend verification to fail.
+				const msgBytes = new Uint8Array(new TextEncoder().encode(message));
+				const result = await sol.signMessage(msgBytes);
+				sig64 = u8ToBase64(new Uint8Array(result.signature as ArrayLike<number>));
+				// Wallet Standard wallets return signedMessage = exact bytes signed (may include prefix).
+				// Pass it to the backend so verification uses what was actually signed.
+				if (result.signedMessage) {
+					signedMessageB64 = u8ToBase64(new Uint8Array(result.signedMessage as ArrayLike<number>));
+				}
+			}
+
+			const verifyRes = await fetch('/api/auth/solana/verify', {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({address, signature: sig64, nonce, signedMessage: signedMessageB64}),
+			});
+			const result = await verifyRes.json();
+			if (!verifyRes.ok) throw new Error(result.error ?? 'Verification failed');
+			if (result.needsOnboarding) {
+				// Store sol reference for vault init after onboarding completes.
+				sessionStorage.setItem('solana_temp_token', result.tempToken);
+				RouterUtils.replaceWith(Routes.SOLANA_ONBOARDING);
+				return;
+			}
+			await handleLoginSuccess({token: result.token, userId: result.user_id});
+
+			// Derive the E2EE vault key from the wallet — deterministic, cross-device.
+			// Skip if already initialized on this device (IDB has the key).
+			const userId = result.user_id;
+			const existingKey = await loadPrivateKey(userId).catch(() => null);
+			if (!existingKey) {
+				const signFn = async (messageBytes: Uint8Array) => {
+					const sig = await sol.signMessage(messageBytes);
+					return {signature: new Uint8Array(sig.signature as ArrayLike<number>)};
+				};
+				const derived = await initializeVault(userId, signFn);
+				VaultStore.setKeyPair(derived);
+			}
+		} catch (error) {
+			setSwitchError(error instanceof Error ? error.message : t`Solana login failed`);
+		} finally {
+			setIsSolanaLoading(false);
+		}
+	}, [handleLoginSuccess, t]);
 
 	if (desktopHandoff && handoff.mode === 'selecting') {
 		return (
@@ -289,48 +440,50 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 				</div>
 			) : null}
 
-			<AuthLoginEmailPasswordForm
-				form={form}
-				isLoading={isLoading}
-				fieldErrors={fieldErrors}
-				submitLabel={<Trans>Log in</Trans>}
-				classes={{form: styles.form}}
-				linksWrapperClassName={styles.formLinks}
-				links={
-					<AuthRouterLink to="/forgot" className={styles.link}>
-						<Trans>Forgot your password?</Trans>
-					</AuthRouterLink>
-				}
-				disableSubmit={isPasskeyLoading}
-			/>
-
-			<AuthLoginDivider
-				classes={{
-					divider: styles.divider,
-					dividerLine: styles.dividerLine,
-					dividerText: styles.dividerText,
-				}}
-			/>
-
-			<AuthLoginPasskeyActions
-				classes={{
-					wrapper: styles.passkeyActions,
-				}}
-				disabled={passkeyControlsDisabled}
-				onPasskeyLogin={handlePasskeyLogin}
-				showBrowserOption={showBrowserPasskey}
-				onBrowserLogin={handlePasskeyBrowserLogin}
-				browserLabel={<Trans>Log in via browser</Trans>}
-			/>
-
-			<div className={styles.footer}>
-				<div className={styles.footerText}>
-					<span className={styles.footerLabel}>
-						<Trans>Need an account?</Trans>{' '}
-					</span>
-					{styledRegisterLink}
-				</div>
+			<div className={styles.solanaButtonWrapper}>
+			<Button fitContainer onClick={handleSolanaLogin} submitting={isSolanaLoading} type="button">
+				<Trans>Sign In with Solana</Trans>
+			</Button>
 			</div>
+
+			{IS_DEV ? (
+				<>
+					<AuthLoginEmailPasswordForm
+						form={form}
+						isLoading={isLoading}
+						fieldErrors={fieldErrors}
+						submitLabel={<Trans>Log in</Trans>}
+						classes={{form: styles.form}}
+						linksWrapperClassName={styles.formLinks}
+						links={
+							<AuthRouterLink to="/forgot" className={styles.link}>
+								<Trans>Forgot your password?</Trans>
+							</AuthRouterLink>
+						}
+						disableSubmit={isPasskeyLoading}
+					/>
+
+					<AuthLoginDivider
+						classes={{
+							divider: styles.divider,
+							dividerLine: styles.dividerLine,
+							dividerText: styles.dividerText,
+						}}
+					/>
+
+					<AuthLoginPasskeyActions
+						classes={{
+							wrapper: styles.passkeyActions,
+						}}
+						disabled={passkeyControlsDisabled}
+						onPasskeyLogin={handlePasskeyLogin}
+						showBrowserOption={showBrowserPasskey}
+						onBrowserLogin={handlePasskeyBrowserLogin}
+						browserLabel={<Trans>Log in via browser</Trans>}
+					/>
+				</>
+			) : null}
+
 		</>
 	);
 });

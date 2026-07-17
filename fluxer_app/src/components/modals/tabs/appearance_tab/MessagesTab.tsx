@@ -1,38 +1,32 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as AccessibilityActionCreators from '@app/actions/AccessibilityActionCreators';
-import * as UserSettingsActionCreators from '@app/actions/UserSettingsActionCreators';
 import {Message} from '@app/components/channel/Message';
-import {Switch} from '@app/components/form/Switch';
 import {SettingsTabSection} from '@app/components/modals/shared/SettingsTabLayout';
 import appearanceTabStyles from '@app/components/modals/tabs/AppearanceTab.module.css';
-import styles from '@app/components/modals/tabs/appearance_tab/MessagesTab.module.css';
-import type {RadioOption} from '@app/components/uikit/radio_group/RadioGroup';
-import {RadioGroup} from '@app/components/uikit/radio_group/RadioGroup';
 import {Slider} from '@app/components/uikit/Slider';
 import {ChannelRecord} from '@app/records/ChannelRecord';
 import {MessageRecord} from '@app/records/MessageRecord';
 import AccessibilityStore from '@app/stores/AccessibilityStore';
 import ChannelStore from '@app/stores/ChannelStore';
 import MobileLayoutStore from '@app/stores/MobileLayoutStore';
-import UserSettingsStore from '@app/stores/UserSettingsStore';
 import UserStore from '@app/stores/UserStore';
 import {isNewMessageGroup} from '@app/utils/MessageGroupingUtils';
 import {MessagePreviewContext, MessageStates, MessageTypes} from '@fluxer/constants/src/ChannelConstants';
@@ -44,7 +38,6 @@ import {useEffect, useMemo} from 'react';
 
 const MessagesPreview: React.FC = observer(() => {
 	const {t} = useLingui();
-	const {messageDisplayCompact} = UserSettingsStore;
 	const currentUser = UserStore.getCurrentUser();
 	const author = currentUser?.toJSON() || {
 		id: '1000000000000000030',
@@ -87,11 +80,9 @@ const MessagesPreview: React.FC = observer(() => {
 
 	const baseTime = new Date();
 	const messageContents = [
-		{content: t`This is how messages appear`, offsetMinutes: 0},
-		{content: t`With different display modes available`, offsetMinutes: 1},
-		{content: t`Customize the spacing and size`, offsetMinutes: 2},
-		{content: t`Waiting for you to...`, offsetMinutes: 10},
-		{content: t`... turn dense mode on. Nice!`, offsetMinutes: 11},
+		{content: t`This is how messages appear in Comfy mode`, offsetMinutes: 0},
+		{content: t`Consecutive messages from the same person are grouped`, offsetMinutes: 1},
+		{content: t`Adjust the spacing between groups below`, offsetMinutes: 2},
 	];
 	const fakeMessages = messageContents.map(({content, offsetMinutes}, index) => {
 		const timestamp = new Date(baseTime.getTime() + offsetMinutes * 60 * 1000);
@@ -114,19 +105,11 @@ const MessagesPreview: React.FC = observer(() => {
 
 	return (
 		<div className={appearanceTabStyles.previewWrapper}>
-			<div
-				className={clsx(
-					appearanceTabStyles.previewContainer,
-					messageDisplayCompact
-						? appearanceTabStyles.previewContainerCompact
-						: appearanceTabStyles.previewContainerCozy,
-				)}
-			>
+			<div className={clsx(appearanceTabStyles.previewContainer, appearanceTabStyles.previewContainerCozy)}>
 				<div className={appearanceTabStyles.previewMessagesContainer} key="appearance-messages-preview-scroller">
 					{fakeMessages.map((message, index) => {
 						const prevMessage = index > 0 ? fakeMessages[index - 1] : undefined;
 						const isNewGroup = isNewMessageGroup(fakeChannel, prevMessage, message);
-						const shouldGroup = !messageDisplayCompact && !isNewGroup;
 						return (
 							<Message
 								key={message.id}
@@ -134,7 +117,7 @@ const MessagesPreview: React.FC = observer(() => {
 								message={message}
 								prevMessage={prevMessage}
 								previewContext={MessagePreviewContext.SETTINGS}
-								shouldGroup={shouldGroup}
+								shouldGroup={!isNewGroup}
 							/>
 						);
 					})}
@@ -149,15 +132,8 @@ export const AppearanceTabPreview = MessagesPreview;
 
 export const MessagesTabContent: React.FC = observer(() => {
 	const {t} = useLingui();
-	const {messageDisplayCompact} = UserSettingsStore;
 	const messageGroupSpacing = AccessibilityStore.messageGroupSpacing;
-	const showUserAvatarsInCompactMode = AccessibilityStore.showUserAvatarsInCompactMode;
 	const mobileLayout = MobileLayoutStore;
-
-	const messageDisplayOptions: ReadonlyArray<RadioOption<boolean>> = [
-		{value: false, name: t`Comfy`, desc: t`Spacious layout with clear visual separation between messages.`},
-		{value: true, name: t`Dense`, desc: t`Maximizes visible messages with minimal spacing.`},
-	];
 
 	if (mobileLayout.enabled) {
 		return <Trans>Message display settings are only available on desktop.</Trans>;
@@ -165,32 +141,13 @@ export const MessagesTabContent: React.FC = observer(() => {
 
 	return (
 		<>
-			<RadioGroup
-				options={messageDisplayOptions}
-				value={messageDisplayCompact}
-				onChange={(value) => {
-					UserSettingsActionCreators.update({messageDisplayCompact: value});
-				}}
-				aria-label={t`Message display mode`}
-			/>
-
-			{messageDisplayCompact ? (
-				<div className={styles.switchWrapper}>
-					<Switch
-						label={t`Hide User Avatars`}
-						value={!showUserAvatarsInCompactMode}
-						onChange={(value) => AccessibilityActionCreators.update({showUserAvatarsInCompactMode: !value})}
-					/>
-				</div>
-			) : null}
-
 			<SettingsTabSection
 				title={t`Space between message groups`}
 				description={t`Adjust the spacing between groups of messages.`}
 			>
 				<Slider
 					defaultValue={messageGroupSpacing}
-					factoryDefaultValue={messageDisplayCompact ? 0 : 16}
+					factoryDefaultValue={8}
 					markers={[0, 4, 8, 16, 24]}
 					stickToMarkers={true}
 					onValueChange={(value) => AccessibilityActionCreators.update({messageGroupSpacing: value})}

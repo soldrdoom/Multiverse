@@ -1,6 +1,6 @@
-# Fluxer Desktop
+# Multiverse Desktop
 
-Electron desktop client for Fluxer. Wraps the web application with native platform integrations including notifications, global shortcuts, screen sharing, passkeys, and auto-updates.
+Electron desktop client for Multiverse. Wraps the web application with native platform integrations including notifications, global shortcuts, screen sharing, passkeys, and auto-updates.
 
 ## Configuration
 

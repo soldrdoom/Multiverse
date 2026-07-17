@@ -31,7 +31,7 @@ on:
         required: false
 
       build_server:
-        description: Build Fluxer Server
+        description: Build Multiverse Server
         type: boolean
         default: true
         required: false
@@ -197,12 +197,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ needs.meta.outputs.version }}
-          name: Fluxer Server v${{ needs.meta.outputs.version }}
+          name: Multiverse Server v${{ needs.meta.outputs.version }}
           draft: false
           prerelease: false
           generate_release_notes: true
           body: |
-            Fluxer Server
+            Multiverse Server
 
             Pull:
             ```bash
@@ -229,7 +229,7 @@ jobs:
           prerelease: true
           generate_release_notes: true
           body: |
-            Nightly Fluxer Server image from canary.
+            Nightly Multiverse Server image from canary.
 
             Pull:
             ```bash

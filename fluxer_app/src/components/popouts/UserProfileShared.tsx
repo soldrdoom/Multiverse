@@ -1,25 +1,25 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {AddRoleButton, RoleList} from '@app/components/guild/RoleManagement';
 import {BlueskyIcon} from '@app/components/icons/BlueskyIcon';
-import {FluxerIcon} from '@app/components/icons/FluxerIcon';
+import {MultiverseIcon} from '@app/components/icons/MultiverseIcon';
 import {UnverifiedConnectionIcon} from '@app/components/icons/UnverifiedConnectionIcon';
 import {VerifiedConnectionIcon} from '@app/components/icons/VerifiedConnectionIcon';
 import {GuildIcon} from '@app/components/popouts/GuildIcon';
@@ -204,9 +204,9 @@ export const UserProfileMembershipInfo: React.FC<{profile: ProfileRecord; user: 
 					</span>
 					<div className={styles.membershipDates}>
 						<div className={styles.membershipDate}>
-							<Tooltip text={t`Fluxer`}>
+							<Tooltip text={t`Multiverse`}>
 								<div className={styles.membershipIcon}>
-									<FluxerIcon className={clsx(styles.iconSmall, styles.textChat)} />
+									<MultiverseIcon className={clsx(styles.iconSmall, styles.textChat)} />
 								</div>
 							</Tooltip>
 							<span className={styles.membershipDateText}>{DateUtils.getFormattedShortDate(user.createdAt)}</span>
@@ -235,7 +235,7 @@ export const UserProfileMembershipInfo: React.FC<{profile: ProfileRecord; user: 
 		return (
 			<div className={styles.membershipContainer}>
 				<span className={styles.membershipTitle}>
-					<Trans>Fluxer Member Since</Trans>
+					<Trans>Multiverse Member Since</Trans>
 				</span>
 				<span className={styles.membershipDateText}>{DateUtils.getFormattedShortDate(user.createdAt)}</span>
 			</div>

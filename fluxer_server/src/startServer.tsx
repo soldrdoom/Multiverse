@@ -1,30 +1,36 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+(global as any).services = { s3: { app: { route: () => {} } } };
+(global as any).services = { s3: { app: { route: () => {} } } };
+(global as any).config = { storage: { s3: {} } };
+(global as any).services = { s3: { app: { route: () => {} }, getS3Service: () => ({}) } };
+(global as any).config = { storage: { s3: {} } };
+(global as any).services = { s3: { app: { route: () => {} }, getS3Service: () => ({}) } };
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {Config} from '@app/Config';
-import {createFluxerServer, type FluxerServerResult} from '@app/index';
+import {createMultiverseServer, type MultiverseServerResult} from '@app/index';
 import {initializeLogger, Logger} from '@app/Logger';
 import {setupGracefulShutdown} from '@fluxer/hono/src/Server';
 
 initializeLogger({environment: Config.env});
 
-let fluxerServer: FluxerServerResult | null = null;
+let fluxerServer: MultiverseServerResult | null = null;
 let isExiting = false;
 
 async function shutdownServer(reason: string): Promise<void> {
@@ -52,8 +58,8 @@ async function shutdownServer(reason: string): Promise<void> {
 
 async function main(): Promise<void> {
 	try {
-		Logger.info('Creating Fluxer Server');
-		fluxerServer = await createFluxerServer({
+		Logger.info('Creating Multiverse Server');
+		fluxerServer = await createMultiverseServer({
 			staticDir: Config.services.server?.static_dir,
 		});
 
@@ -84,7 +90,7 @@ async function main(): Promise<void> {
 			);
 		});
 
-		Logger.info('Starting Fluxer Server');
+		Logger.info('Starting Multiverse Server');
 		await fluxerServer.start();
 	} catch (error) {
 		Logger.fatal({error: error instanceof Error ? error.message : 'Unknown error'}, 'Failed to start server');

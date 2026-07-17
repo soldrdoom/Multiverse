@@ -69,7 +69,20 @@ devenv.local.nix
 /.devserver-cache.json
 **/.devserver-cache.json
 /.fluxer/
+/config.json
 /config/config.json
+/config/config_security.json
+/config/config_core.json
+/config/config_assets.json
+/config/CC_Part1.json
+/config/CC_Part2.json
+/config/CC_Part3.json
+/config/ssl/
+/nats.conf
+/server_data/
+/fluxer_api/data/
+/fluxer_relay_directory/data/
+/.claude/
 /fluxer_app/src/assets/emoji-sprites/
 /fluxer_app/src/components/uikit/AvatarStatusGeometry.ts
 /fluxer_app/src/components/uikit/SVGMasks.tsx
@@ -80,6 +93,7 @@ devenv.local.nix
 /fluxer_gateway/config/sys.config
 /fluxer_gateway/config/vm.args
 /fluxer_marketing/public/static/app.css
+/fluxer_server/config.json
 /fluxer_server/data/
 /packages/admin/public/static/app.css
 /packages/marketing/public/static/app.css
@@ -93,3 +107,4 @@ geoip_data
 next-env.d.ts
 .github/agents
 .github/prompts
+.devenv

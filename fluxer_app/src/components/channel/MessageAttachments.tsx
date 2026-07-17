@@ -1,22 +1,23 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import '@google/model-viewer';
 import * as ContextMenuActionCreators from '@app/actions/ContextMenuActionCreators';
 import {Attachment} from '@app/components/channel/embeds/attachments/Attachment';
 import {AttachmentMosaic} from '@app/components/channel/embeds/attachments/AttachmentMosaic';
@@ -49,6 +50,7 @@ import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
 import type {MessageEmbed} from '@fluxer/schema/src/domains/message/EmbedSchemas';
 import type {
 	MessageAttachment,
+	MessageNftStickerItem,
 	MessageSnapshot,
 	MessageStickerItem,
 } from '@fluxer/schema/src/domains/message/MessageResponseSchemas';
@@ -329,6 +331,83 @@ export const MessageAttachments = observer(() => {
 											width="160"
 											height="160"
 										/>
+									</div>
+								</FocusRing>
+							</Tooltip>
+						);
+					})}
+				</div>
+			)}
+
+			{message.nftStickerItems && message.nftStickerItems.length > 0 && (
+				<div className={styles.stickersContainer}>
+					{message.nftStickerItems.map((nftSticker: MessageNftStickerItem) => {
+						const tooltipContent = () => (
+							<div className={styles.stickerTooltip}>
+								<span className={styles.stickerName}>{nftSticker.name}</span>
+								{nftSticker.collection && (
+									<span style={{fontSize: '0.75rem', color: 'var(--text-primary-muted)'}}>
+										{nftSticker.collection}
+									</span>
+								)}
+							</div>
+						);
+
+						const handleContextMenu = (e: React.MouseEvent) => {
+							e.preventDefault();
+							e.stopPropagation();
+							ContextMenuActionCreators.openFromEvent(e, ({onClose}) => (
+								<MediaContextMenu
+									message={message}
+									originalSrc={nftSticker.image_url}
+									type="image"
+									defaultName={nftSticker.name}
+									onClose={onClose}
+									onDelete={handleDelete}
+								/>
+							));
+						};
+
+						return (
+							<Tooltip key={nftSticker.mint} text={tooltipContent}>
+								<FocusRing>
+									<div
+										role="img"
+										className={styles.stickerWrapper}
+										data-message-sticker="true"
+										onContextMenu={handleContextMenu}
+										{...interactionHandlers}
+									>
+										{nftSticker.media_type === 'video' ? (
+											<video
+												src={nftSticker.image_url}
+												className={styles.stickerImage}
+												width="160"
+												height="160"
+												autoPlay
+												loop
+												muted
+												playsInline
+											/>
+										) : nftSticker.media_type === 'model' ? (
+											// @ts-expect-error model-viewer is a web component without TS types in JSX
+											<model-viewer
+												src={nftSticker.image_url}
+												alt={nftSticker.name}
+												auto-rotate
+												camera-controls
+												style={{width: '160px', height: '160px'}}
+											/>
+										) : (
+											<img
+												src={nftSticker.image_url}
+												alt={nftSticker.name}
+												className={styles.stickerImage}
+												width="160"
+												height="160"
+												loading="lazy"
+											/>
+										)}
 									</div>
 								</FocusRing>
 							</Tooltip>

@@ -1,4 +1,4 @@
-Fluxer Platform AB is a Swedish limited liability company registered with the Swedish Companies Registration Office (Bolagsverket) under the laws of Sweden.
+Multiverse Platform AB is a Swedish limited liability company registered with the Swedish Companies Registration Office (Bolagsverket) under the laws of Sweden.
 
 ### Company Registration
 
@@ -7,14 +7,14 @@ Fluxer Platform AB is a Swedish limited liability company registered with the Sw
 
 ### Registered Address
 
-Fluxer Platform AB
+Multiverse Platform AB
 Norra Kronans Gata 430
 136 76 Brandbergen
 Stockholm County, Sweden
 
 ### Contact Information
 
-**Email:** support@fluxer.app (for account-related matters, please contact us from the email address associated with your Fluxer account where possible)
+**Email:** support@fluxer.app (for account-related matters, please contact us from the email address associated with your Multiverse account where possible)
 **Website:** [https://fluxer.app](https://fluxer.app)
 
 ### Authorized Representative
@@ -36,6 +36,6 @@ Hampus Kraft, Founder & CEO
 
 For information about how we handle legal and law-enforcement requests for user data, please see the "Law Enforcement and Legal Requests" section of our [Privacy Policy](/privacy).
 
-For all account-related inquiries and support requests, we normally provide assistance only when you contact us from the email address associated with your Fluxer account. This is our primary method of verifying your identity and ensuring secure communication. If you no longer have access to that email address, we may require additional verification and might not always be able to help with account changes or recovery.
+For all account-related inquiries and support requests, we normally provide assistance only when you contact us from the email address associated with your Multiverse account. This is our primary method of verifying your identity and ensuring secure communication. If you no longer have access to that email address, we may require additional verification and might not always be able to help with account changes or recovery.
 
-Fluxer will never request your password, complete payment card details, or other sensitive security credentials via email. All official Fluxer emails and communications originate from email addresses ending in `@fluxer.app` or `@m.fluxer.app`. Please be vigilant against phishing attempts using similar-looking domains or requesting sensitive information.
+Multiverse will never request your password, complete payment card details, or other sensitive security credentials via email. All official Multiverse emails and communications originate from email addresses ending in `@fluxer.app` or `@m.fluxer.app`. Please be vigilant against phishing attempts using similar-looking domains or requesting sensitive information.

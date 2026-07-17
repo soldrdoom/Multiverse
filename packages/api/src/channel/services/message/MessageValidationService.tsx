@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {type ChannelID, createChannelID, type MessageID, type UserID} from '@fluxer/api/src/BrandedTypes';
@@ -74,7 +74,9 @@ export class MessageValidationService {
 		const hasAttachments = Boolean(data.attachments && data.attachments.length > 0);
 		const hasFavoriteMeme = Boolean('favorite_meme_id' in data && data.favorite_meme_id != null);
 		const hasStickers = Boolean('sticker_ids' in data && data.sticker_ids != null && data.sticker_ids.length > 0);
+		const hasNftStickers = Boolean('nft_stickers' in data && data.nft_stickers != null && data.nft_stickers.length > 0);
 		const hasFlags = data.flags !== undefined && data.flags !== null;
+		const hasEncryptedContent = Boolean('encrypted_content' in data && data.encrypted_content != null);
 		const guildFeatures = options?.guildFeatures ?? null;
 
 		const hasVoiceMessageFlag = !!(data.flags && data.flags & MessageFlags.VOICE_MESSAGE);
@@ -90,7 +92,7 @@ export class MessageValidationService {
 			);
 		}
 
-		if (!hasContent && !hasEmbeds && !hasAttachments && !hasFavoriteMeme && !hasStickers && (!isUpdate || !hasFlags)) {
+		if (!hasContent && !hasEmbeds && !hasAttachments && !hasFavoriteMeme && !hasStickers && !hasNftStickers && !hasEncryptedContent && (!isUpdate || !hasFlags)) {
 			throw new CannotSendEmptyMessageError();
 		}
 

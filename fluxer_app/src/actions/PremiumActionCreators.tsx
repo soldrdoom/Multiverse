@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {Endpoints} from '@app/Endpoints';
@@ -101,4 +101,30 @@ export async function rejoinOperatorGuild(): Promise<void> {
 		logger.error('Failed to rejoin Operator guild', error);
 		throw error;
 	}
+}
+
+export interface SolanaInvoice {
+	invoiceId: string;
+	amountLamports: number;
+	sol: number;
+	usd: number;
+	solPriceUsd: number;
+	recipient: string;
+	recentBlockhash: string;
+	expiresAt: string;
+}
+
+export async function createSolanaInvoice(plan: 'monthly' | 'yearly'): Promise<SolanaInvoice> {
+	const response = await http.post<SolanaInvoice>({
+		url: Endpoints.PREMIUM_SOLANA_INVOICE,
+		body: {plan},
+	});
+	return response.body;
+}
+
+export async function verifySolanaPayment(invoiceId: string, txSignature: string): Promise<void> {
+	await http.post({
+		url: Endpoints.PREMIUM_SOLANA_VERIFY,
+		body: {invoiceId, txSignature},
+	});
 }

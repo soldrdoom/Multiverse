@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as AvatarUtils from '@app/utils/AvatarUtils';
@@ -27,9 +27,12 @@ export class GuildStickerRecord {
 	readonly name: string;
 	readonly description: string;
 	readonly tags: ReadonlyArray<string>;
-	readonly url: string;
 	readonly animated: boolean;
 	readonly user?: UserPartial;
+
+	get url(): string {
+		return AvatarUtils.getStickerURL({id: this.id, animated: this.animated, size: 320});
+	}
 
 	constructor(guildId: string, data: GuildSticker) {
 		this.id = data.id;
@@ -37,11 +40,6 @@ export class GuildStickerRecord {
 		this.name = data.name;
 		this.description = data.description;
 		this.tags = Object.freeze([...data.tags]);
-		this.url = AvatarUtils.getStickerURL({
-			id: data.id,
-			animated: data.animated,
-			size: 320,
-		});
 		this.animated = data.animated;
 		this.user = data.user;
 	}

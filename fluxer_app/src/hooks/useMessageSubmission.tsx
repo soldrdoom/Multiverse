@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as DraftActionCreators from '@app/actions/DraftActionCreators';
@@ -23,10 +23,14 @@ import * as SlowmodeActionCreators from '@app/actions/SlowmodeActionCreators';
 import {ComponentDispatch} from '@app/lib/ComponentDispatch';
 import type {ChannelRecord} from '@app/records/ChannelRecord';
 import {MessageRecord} from '@app/records/MessageRecord';
+import * as ToastActionCreators from '@app/actions/ToastActionCreators';
+import {getPublicKey} from '@app/services/vault/VaultService';
+import {sealMessage, base64ToU8} from '@app/services/crypto/crypto-utils';
+import VaultStore from '@app/stores/VaultStore';
 import UserStore from '@app/stores/UserStore';
 import * as MessageSubmitUtils from '@app/utils/MessageSubmitUtils';
 import {TypingUtils} from '@app/utils/TypingUtils';
-import {MessageStates, MessageTypes} from '@fluxer/constants/src/ChannelConstants';
+import {ChannelTypes, MessageFlags, MessageStates, MessageTypes} from '@fluxer/constants/src/ChannelConstants';
 import type {
 	AllowedMentions,
 	MessageAttachment,
@@ -52,7 +56,7 @@ export type SendMessageFunction = (
 
 export const useMessageSubmission = ({channel, referencedMessage, replyingMessage}: UseMessageSubmissionOptions) => {
 	const sendMessage = useCallback(
-		(
+		async (
 			content: string,
 			hasAttachments: boolean,
 			stickersOrTts: Array<MessageStickerItem> | boolean = [],
@@ -74,6 +78,13 @@ export const useMessageSubmission = ({channel, referencedMessage, replyingMessag
 
 			const currentUser = UserStore.getCurrentUser();
 			if (!channel || !currentUser) return;
+
+			// E2EE is mandatory for DMs. Block the send if the vault is not yet unlocked.
+			if (channel.type === ChannelTypes.DM && !VaultStore.isUnlocked) {
+				// The VaultBootstrap banner is already showing instructions; just bail.
+				return;
+			}
+
 			const nonce = SnowflakeUtils.fromTimestamp(Date.now());
 			const messageReference = MessageSubmitUtils.prepareMessageReference(channel.id, referencedMessage);
 
@@ -115,13 +126,35 @@ export const useMessageSubmission = ({channel, referencedMessage, replyingMessag
 
 			SlowmodeActionCreators.recordMessageSend(channel.id);
 
+			// E2EE: encrypt payload for 1:1 DM channels (vault is guaranteed unlocked above).
+			let encryptedContent: string | null = null;
+			let sendFlags = message.flags;
+			if (channel.type === ChannelTypes.DM) {
+				const recipientId = channel.getRecipientId();
+				if (recipientId) {
+					const recipientPk = await getPublicKey(recipientId);
+					if (recipientPk) {
+						const forRecipient = sealMessage(content, base64ToU8(recipientPk));
+						const senderPkB64 = VaultStore.keyPair?.publicKeyB64;
+						const forSender = senderPkB64 ? sealMessage(content, base64ToU8(senderPkB64)) : null;
+						encryptedContent = JSON.stringify({forRecipient, forSender});
+						sendFlags = (sendFlags ?? 0) | MessageFlags.E2EE;
+					} else {
+						// Recipient hasn't set up E2EE yet — block the send.
+						ToastActionCreators.createToast({type: 'error', children: 'This user has not set up E2EE. They must connect their Solana wallet first.'});
+						return;
+					}
+				}
+			}
+
 			MessageActionCreators.send(channel.id, {
-				content: message.content,
+				content: encryptedContent != null ? '' : message.content,
+				encryptedContent,
 				nonce,
 				hasAttachments: hasAttachmentsFinal,
 				allowedMentions,
 				messageReference,
-				flags: message.flags,
+				flags: sendFlags,
 				stickers,
 				favoriteMemeId,
 				tts,

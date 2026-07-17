@@ -13,3 +13,9 @@ png = "0.17"
 ruzstd = { version = "0.7", default-features = false, features = ["std"] }
 wasm-bindgen = { version = "0.2", features = ["std"] }
 serde = { version = "1.0", features = ["derive"] }
+
+[profile.release]
+opt-level = "s"        # optimize for size (WASM binary)
+strip = "symbols"      # drop debug symbols — smaller .wasm, faster link
+codegen-units = 1      # single-threaded codegen — caps peak RAM during wasm-pack
+lto = true             # link-time optimisation (pairs well with codegen-units=1)

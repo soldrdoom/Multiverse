@@ -2,7 +2,7 @@ app.communities.community: คอมมูนิตี้
 app.communities.community_support: การสนับสนุนคอมมูนิตี้
 app.communities.featured_in_discovery: แนะนำในหน้าค้นพบ
 app.communities.moderation.actions_and_tools: การดำเนินการและเครื่องมือดูแล
-app.communities.moderation.report_people_or_communities: รายงานคนหรือคอมมูนิตี้เพื่อให้ Fluxer ปลอดภัยสำหรับทุกคน
+app.communities.moderation.report_people_or_communities: รายงานคนหรือคอมมูนิตี้เพื่อให้ Multiverse ปลอดภัยสำหรับทุกคน
 app.communities.moderation.tools: เครื่องมือดูแล
 app.communities.roles_permissions_audit.audit_logs: บันทึกการตรวจสอบเพื่อความโปร่งใส
 app.communities.roles_permissions_audit.granular_roles_and_permissions: บทบาทและสิทธิ์แบบละเอียด
@@ -19,7 +19,7 @@ app.customization.custom_css_themes: ธีม CSS แบบกำหนดเ�
 app.customization.custom_sounds.entrance_sounds: เสียงเข้าห้องแบบกำหนดเอง
 app.customization.custom_sounds.notification_sounds: เสียงแจ้งเตือนแบบกำหนดเอง
 app.customization.custom_sounds.set_personalized_join_sounds: ตั้งเสียงเฉพาะตัวตอนเข้าช่องเสียง ให้คนรู้ว่าคุณมาแล้ว
-app.customization.custom_sounds.upload_custom_notification_sounds: อัปโหลดและใช้เสียงแจ้งเตือนของคุณเอง เพื่อปรับประสบการณ์ Fluxer ให้เป็นแบบคุณ
+app.customization.custom_sounds.upload_custom_notification_sounds: อัปโหลดและใช้เสียงแจ้งเตือนของคุณเอง เพื่อปรับประสบการณ์ Multiverse ให้เป็นแบบคุณ
 app.customization.custom_themes: ธีมแบบกำหนดเอง
 app.customization.global_emoji_and_sticker_access: ใช้อีโมจิและสติกเกอร์ได้ทั่วทั้งแอป
 app.customization.saved_media_and_css: เพิ่มอีโมจิแบบกำหนดเอง บันทึกสื่อไว้ดูทีหลัง และปรับสไตล์แอปด้วย CSS แบบกำหนดเอง
@@ -40,7 +40,7 @@ app.messaging.features.search.label: ค้นหาประวัติข้�
 app.messaging.features.search.quick_switcher_shortcuts: ตัวสลับแบบเร็วพร้อมคีย์ลัด
 app.messaging.features.search.search_and_quick_switcher: ค้นหาและตัวสลับแบบเร็ว
 app.messaging.title: ข้อความ
-app.open.open_fluxer: เปิด Fluxer
+app.open.open_fluxer: เปิด Multiverse
 app.open.open_web_app: เปิดเว็บแอป
 app.profiles_identity.custom_identity: ตัวตนแบบกำหนดเอง
 app.profiles_identity.customise_per_community: ปรับโปรไฟล์ให้ต่างกันในแต่ละคอมมูนิตี้ที่คุณอยู่ได้
@@ -62,18 +62,18 @@ beta_and_access.early_access.label: เข้าถึงก่อน
 beta_and_access.featured_benefit_line: ครบทุกอย่างที่คุณคาดหวัง แถมมีอีกนิดที่คุณอาจไม่คิดว่าจะมี
 beta_and_access.public_beta: เบต้าสาธารณะ
 beta_and_access.registration_limited_during_beta: ช่วงเบต้าเราจะจำกัดการสมัคร พอคุณเข้าได้แล้ว คุณจะให้โค้ดเพื่อนเพื่อข้ามคิวได้
-beta_and_access.try_without_email: ลอง Fluxer แบบไม่ใช้อีเมลได้ใน 30 วินาที
-community_funding_and_roles.focused_on_product: ตอนนี้เรามุ่งกับการปล่อยของให้เป็นโปรดักต์ที่ดี และทำให้ Fluxer เป็นอิสระแบบบูตสแตรป
+beta_and_access.try_without_email: ลอง Multiverse แบบไม่ใช้อีเมลได้ใน 30 วินาที
+community_funding_and_roles.focused_on_product: ตอนนี้เรามุ่งกับการปล่อยของให้เป็นโปรดักต์ที่ดี และทำให้ Multiverse เป็นอิสระแบบบูตสแตรป
 community_funding_and_roles.future_paid_roles_heading: อนาคตของบทบาทแบบมีค่าตอบแทน
-community_funding_and_roles.future_paid_roles_note: เรายังอยู่ระหว่างสร้างธุรกิจรอบๆ Fluxer และยังไม่พร้อมสำหรับบทบาทแบบมีค่าตอบแทน
-community_funding_and_roles.non_paid_recurring_role: บทบาทแบบไม่จ่าย ที่มอบให้กับผู้ร่วมพัฒนาที่ช่วยอย่างต่อเนื่อง และช่วยกำหนดทิศทาง Fluxer ไปกับทีมหลัก
+community_funding_and_roles.future_paid_roles_note: เรายังอยู่ระหว่างสร้างธุรกิจรอบๆ Multiverse และยังไม่พร้อมสำหรับบทบาทแบบมีค่าตอบแทน
+community_funding_and_roles.non_paid_recurring_role: บทบาทแบบไม่จ่าย ที่มอบให้กับผู้ร่วมพัฒนาที่ช่วยอย่างต่อเนื่อง และช่วยกำหนดทิศทาง Multiverse ไปกับทีมหลัก
 community_funding_and_roles.sustainability_note: ด้วยการสนับสนุนจากคุณ เราหวังว่าจะทำให้แพลตฟอร์มสื่อสารอิสระนี้ยั่งยืน และเริ่มเปิดบทบาทแบบมีค่าตอบแทนได้ในอนาคต
 company_and_resources.blog: บล็อก
-company_and_resources.careers.careers_at_fluxer: ร่วมงานกับ Fluxer
+company_and_resources.careers.careers_at_fluxer: ร่วมงานกับ Multiverse
 company_and_resources.careers.label: ร่วมงานกับเรา
 company_and_resources.careers.share_a_bit_about_yourself: เล่าเกี่ยวกับตัวคุณสักหน่อย และอยากช่วยแบบไหนได้บ้าง โดยอีเมลไปที่ careers@fluxer.app
-company_and_resources.community_team.fluxer_community_team: ทีมคอมมูนิตี้ Fluxer
-company_and_resources.community_team.share_feedback_report_bugs: ส่งฟีดแบ็ก รายงานบั๊ก และช่วยให้ Fluxer เป็นที่ต้อนรับสำหรับทุกคน
+company_and_resources.community_team.fluxer_community_team: ทีมคอมมูนิตี้ Multiverse
+company_and_resources.community_team.share_feedback_report_bugs: ส่งฟีดแบ็ก รายงานบั๊ก และช่วยให้ Multiverse เป็นที่ต้อนรับสำหรับทุกคน
 company_and_resources.company: บริษัท
 company_and_resources.company_info: ข้อมูลบริษัท
 company_and_resources.connect: ติดต่อ
@@ -89,31 +89,31 @@ company_and_resources.source_and_contribution.code_issues_docs_reviews: โค�
 company_and_resources.source_and_contribution.contribute_code: ร่วมเขียนโค้ด
 company_and_resources.source_and_contribution.contribute_on_github: ร่วมบน GitHub
 company_and_resources.source_and_contribution.fix_bugs_ship_features: แก้บั๊ก ปล่อยฟีเจอร์ใหม่ หรือขัดเกลาประสบการณ์ในรีโปหลักของเรา
-company_and_resources.source_and_contribution.fluxer_built_in_open: Fluxer สร้างแบบเปิด เลือกทางที่เข้ากับสไตล์การช่วยของคุณได้เลย
+company_and_resources.source_and_contribution.fluxer_built_in_open: Multiverse สร้างแบบเปิด เลือกทางที่เข้ากับสไตล์การช่วยของคุณได้เลย
 company_and_resources.source_and_contribution.get_involved: มีส่วนร่วม
 company_and_resources.source_and_contribution.source_code: ซอร์สโค้ด
-company_and_resources.source_and_contribution.translation.help_translate: ช่วยแปล Fluxer และเอกสารให้รู้สึกเป็นภาษาท้องถิ่นจริงๆ ในทุกที่
+company_and_resources.source_and_contribution.translation.help_translate: ช่วยแปล Multiverse และเอกสารให้รู้สึกเป็นภาษาท้องถิ่นจริงๆ ในทุกที่
 company_and_resources.source_and_contribution.translation.label: แปลและทำโลคัลไลซ์
-company_and_resources.source_and_contribution.translation.llm_translation_note: ตอนนี้คำแปลทั้งหมดสร้างด้วย LLM และแทบไม่ได้ผ่านการตรวจทานโดยคนจริง เราอยากได้คนมาช่วยโลคัลไลซ์ Fluxer เป็นภาษาของคุณ ถ้าสนใจอีเมลมาที่ i18n@fluxer.app แล้วเรายินดีรับผลงานจากคุณ
+company_and_resources.source_and_contribution.translation.llm_translation_note: ตอนนี้คำแปลทั้งหมดสร้างด้วย LLM และแทบไม่ได้ผ่านการตรวจทานโดยคนจริง เราอยากได้คนมาช่วยโลคัลไลซ์ Multiverse เป็นภาษาของคุณ ถ้าสนใจอีเมลมาที่ i18n@fluxer.app แล้วเรายินดีรับผลงานจากคุณ
 company_and_resources.source_and_contribution.translation.localization_label: โลคัลไลซ์
 company_and_resources.source_and_contribution.view_repository: ดูรีโพซิทอรี
-company_and_resources.source_and_contribution.want_to_help_build_fluxer: อยากช่วยสร้าง Fluxer ไหม
+company_and_resources.source_and_contribution.want_to_help_build_fluxer: อยากช่วยสร้าง Multiverse ไหม
 company_and_resources.source_and_contribution.ways_to_contribute: วิธีร่วมช่วย
 donations.business: ธุรกิจ
 donations.donate.action: บริจาค
-donations.donate.label: บริจาคให้ Fluxer
-donations.donate.description: สนับสนุน Fluxer ด้วยการบริจาคครั้งเดียวหรือแบบประจำ
+donations.donate.label: บริจาคให้ Multiverse
+donations.donate.description: สนับสนุน Multiverse ด้วยการบริจาคครั้งเดียวหรือแบบประจำ
 donations.donation_disclaimer: การบริจาคเป็นของขวัญโดยสมัครใจ และไม่ได้ทำให้คุณได้รับสินค้า บริการ ความเป็นเจ้าของ หรือสิทธิพิเศษใดๆ ถ้าคุณมองหาฟีเจอร์พรีเมียม ลองดูที่ {0}
 donations.individual: บุคคล
 donations.individual_vs_business.answer: ทั้งสองแบบช่วยสนับสนุนเป้าหมายเดียวกันเท่ากัน ความต่างมีแค่ว่าแบบธุรกิจให้คุณระบุเลขประจำตัวผู้เสียภาษีได้ (ถ้ามี) และจะได้ใบแจ้งหนี้ PDF หลังชำระเสร็จ ซึ่งช่วยเรื่องบัญชีบริษัทได้
 donations.individual_vs_business.question: บริจาคแบบบุคคลกับธุรกิจต่างกันยังไง
-donations.infrastructure_costs_detail: เงินบริจาคของคุณช่วยค่าโครงสร้างพื้นฐานของ Fluxer เช่น เซิร์ฟเวอร์ แบนด์วิดท์ พื้นที่เก็บข้อมูล และการพัฒนาฟีเจอร์ใหม่ๆ อย่างต่อเนื่อง ช่วยให้เราดูแลและพัฒนาแพลตฟอร์มให้ดีขึ้นสำหรับทุกคน
+donations.infrastructure_costs_detail: เงินบริจาคของคุณช่วยค่าโครงสร้างพื้นฐานของ Multiverse เช่น เซิร์ฟเวอร์ แบนด์วิดท์ พื้นที่เก็บข้อมูล และการพัฒนาฟีเจอร์ใหม่ๆ อย่างต่อเนื่อง ช่วยให้เราดูแลและพัฒนาแพลตฟอร์มให้ดีขึ้นสำหรับทุกคน
 donations.minimum_donation: 'บริจาคขั้นต่ำ: $5 / €5'
 donations.mobile_roadmap_sponsorship: เป็นสปอนเซอร์โรดแมปมือถือ
 donations.send_one_time_gift: ให้ของขวัญครั้งเดียว
 donations.support_future_development: สนับสนุนการพัฒนาต่อไป
 donations.support_message: ช่วยเราสร้างแพลตฟอร์มสื่อสารที่เป็นอิสระ เงินบริจาคของคุณจะช่วยดูแลโครงสร้างพื้นฐานและการพัฒนา
-donations.tax_deductible.answer: การบริจาคให้ Fluxer ไม่สามารถลดหย่อนภาษีได้ในปัจจุบัน แต่เงินที่คุณบริจาคจะเข้าสนับสนุนโครงสร้างพื้นฐานและการพัฒนาอย่างต่อเนื่องของเราโดยตรง
+donations.tax_deductible.answer: การบริจาคให้ Multiverse ไม่สามารถลดหย่อนภาษีได้ในปัจจุบัน แต่เงินที่คุณบริจาคจะเข้าสนับสนุนโครงสร้างพื้นฐานและการพัฒนาอย่างต่อเนื่องของเราโดยตรง
 donations.tax_deductible.question: บริจาคแล้วลดหย่อนภาษีได้ไหม
 donations.what_it_supports: เงินบริจาคของฉันช่วยอะไรบ้าง
 donations.why_support: ช่วยเราสร้างแพลตฟอร์มสื่อสารอีกแบบ – โอเพนซอร์ส ทุนจากชุมชน และทำอย่างตั้งใจ
@@ -148,8 +148,8 @@ donations.success.message: ขอบคุณสำหรับการบร�
 donations.success.email_notice: คุณจะได้รับอีเมลยืนยันพร้อมรายละเอียดการบริจาคและลิงก์ไปยังพอร์ทัลผู้บริจาคของคุณในไม่ช้า
 donations.success.back_to_donate: กลับไปหน้าบริจาค
 download.download: ดาวน์โหลด
-download.download_app_or_open_in_browser: ดาวน์โหลดแอปหรือเปิด Fluxer ในเบราว์เซอร์เพื่อเริ่มเชื่อมต่อกับคอมมูนิตี้ของคุณ
-download.download_fluxer: ดาวน์โหลด Fluxer
+download.download_app_or_open_in_browser: ดาวน์โหลดแอปหรือเปิด Multiverse ในเบราว์เซอร์เพื่อเริ่มเชื่อมต่อกับคอมมูนิตี้ของคุณ
+download.download_fluxer: ดาวน์โหลด Multiverse
 download.download_for_prefix: 'ดาวน์โหลดสำหรับ '
 download.open_in_browser: เปิดในเบราว์เซอร์
 download.screenshots_courtesy_of: 'ภาพหน้าจอจาก '
@@ -159,8 +159,8 @@ footer.company_information: ข้อมูลบริษัท
 footer.connect: ติดต่อ
 footer.donate: บริจาค
 footer.download: ดาวน์โหลด
-footer.fluxer: Fluxer
-footer.fluxer_platform_ab_swedish_limited: '© Fluxer Platform AB (บริษัทจำกัดของสวีเดน: 559537-3993)'
+footer.fluxer: Multiverse
+footer.fluxer_platform_ab_swedish_limited: '© Multiverse Platform AB (บริษัทจำกัดของสวีเดน: 559537-3993)'
 footer.help_support_an_independent_communication: สนับสนุนแพลตฟอร์มการสื่อสารที่เป็นอิสระ การบริจาคของคุณช่วยเงินสำหรับโครงสร้างพื้นฐานและการพัฒนาของแพลตฟอร์ม
 footer.partners: พาร์ทเนอร์
 footer.plutonium_tier: แพ็ก Plutonium
@@ -218,8 +218,8 @@ languages.list.thai: ไทย
 languages.list.turkish: ตุรกี
 languages.list.ukrainian: ยูเครน
 languages.list.vietnamese: เวียดนาม
-launch.description: เรียนรู้เกี่ยวกับนักพัฒนาเบื้องหลัง Fluxer เป้าหมายของโปรเจกต์ เทคสแต็ก และสิ่งที่จะมาถัดไป
-launch.heading: เรื่องราวเบื้องหลัง Fluxer
+launch.description: เรียนรู้เกี่ยวกับนักพัฒนาเบื้องหลัง Multiverse เป้าหมายของโปรเจกต์ เทคสแต็ก และสิ่งที่จะมาถัดไป
+launch.heading: เรื่องราวเบื้องหลัง Multiverse
 launch.read_more: อ่านโพสต์เปิดตัว
 launch.view_full_roadmap: ดูโรดแมปทั้งหมด
 misc_labels.design_and_branding: ดีไซน์และแบรนด์
@@ -229,12 +229,12 @@ misc_labels.exclusive_features: ฟีเจอร์พิเศษ
 misc_labels.feature: ฟีเจอร์
 misc_labels.get_updates: รับอัปเดต ดูฟีเจอร์ที่จะมา พูดคุยไอเดีย และแชตกับทีม
 misc_labels.join_and_spread_word: เข้าร่วมแล้วช่วยบอกต่อ
-misc_labels.join_fluxer_community_contribute: เข้าร่วมคอมมูนิตี้ Fluxer และช่วยสร้างอนาคตของการสื่อสารผ่านโอเพนซอร์สและการมีส่วนร่วมจากชุมชน
-misc_labels.join_fluxer_hq: เข้าร่วม Fluxer HQ
+misc_labels.join_fluxer_community_contribute: เข้าร่วมคอมมูนิตี้ Multiverse และช่วยสร้างอนาคตของการสื่อสารผ่านโอเพนซอร์สและการมีส่วนร่วมจากชุมชน
+misc_labels.join_fluxer_hq: เข้าร่วม Multiverse HQ
 misc_labels.join_multiple_devices: เข้าร่วมได้พร้อมกันหลายอุปกรณ์
-misc_labels.join_team_behind_fluxer: เข้าร่วมทีมเบื้องหลัง Fluxer
+misc_labels.join_team_behind_fluxer: เข้าร่วมทีมเบื้องหลัง Multiverse
 misc_labels.learn_more: ดูรายละเอียด
-misc_labels.product_hunt_badge_title: Fluxer - แพลตฟอร์มแชตทันทีและ VoIP แบบโอเพนซอร์สคล้าย Discord | โพสต์อันดับต้นๆ ใน Product Hunt
+misc_labels.product_hunt_badge_title: Multiverse - แพลตฟอร์มแชตทันทีและ VoIP แบบโอเพนซอร์สคล้าย Discord | โพสต์อันดับต้นๆ ใน Product Hunt
 misc_labels.profile_badge: แบดจ์โปรไฟล์
 misc_labels.read_the_guide: อ่านคู่มือ
 misc_labels.ready_to_get_started: พร้อมเริ่มแล้วหรือยัง
@@ -253,11 +253,11 @@ navigation.on_this_page: ในหน้านี้
 navigation.page_not_found.description: หน้านี้ไม่มีอยู่ แต่ยังมีอะไรให้สำรวจอีกเยอะนะ
 navigation.page_not_found.title: ไม่พบหน้านี้
 navigation.press.download_assets_intro: ดาวน์โหลดโลโก้ ดูสีแบรนด์ของเรา และติดต่อทีมสื่อของเรา
-navigation.press.download_fluxer_assets: ดาวน์โหลดโลโก้ Fluxer ไฟล์แบรนด์ และติดต่อทีมสื่อของเรา
+navigation.press.download_fluxer_assets: ดาวน์โหลดโลโก้ Multiverse ไฟล์แบรนด์ และติดต่อทีมสื่อของเรา
 navigation.press.press_and_brand_assets: สื่อและไฟล์แบรนด์
 partner_program.become_partner.apply_email: สมัครที่ partners@fluxer.app
 partner_program.become_partner.call_to_action: เป็นพาร์ทเนอร์
-partner_program.become_partner.heading: เป็น Fluxer Partner
+partner_program.become_partner.heading: เป็น Multiverse Partner
 partner_program.become_partner.if_youre_a_creator_or: ถ้าคุณเป็นครีเอเตอร์หรือดูแลคอมมูนิตี้ใหญ่ๆ เราอยากคุยด้วย
 partner_program.become_partner.learn_about_partners: ทำความรู้จักพาร์ทเนอร์
 partner_program.become_partner.learn_more: ดูรายละเอียด
@@ -268,10 +268,10 @@ partner_program.perks.creator_monetization.description: ได้ลองฟี
 partner_program.perks.creator_monetization.label: การสร้างรายได้ของครีเอเตอร์
 partner_program.perks.custom_vanity_url.description: รับ URL วานิตี้พิเศษ เช่น fluxer.gg/yourcommunity
 partner_program.perks.custom_vanity_url.label: URL วานิตี้แบบกำหนดเอง
-partner_program.perks.direct_team_access.description: เข้าร่วมคอมมูนิตี้พาร์ทเนอร์แบบเอ็กซ์คลูซีฟ ที่คุยกับทีม Fluxer ได้โดยตรง
+partner_program.perks.direct_team_access.description: เข้าร่วมคอมมูนิตี้พาร์ทเนอร์แบบเอ็กซ์คลูซีฟ ที่คุยกับทีม Multiverse ได้โดยตรง
 partner_program.perks.direct_team_access.label: เข้าถึงทีมโดยตรง
 partner_program.perks.discovery_visibility: เพิ่มการมองเห็นด้วยการถูกแนะนำในหน้าค้นพบ
-partner_program.perks.exclusive_merch.description: รับของที่ระลึกและสวากเฉพาะพาร์ทเนอร์ Fluxer เท่านั้น
+partner_program.perks.exclusive_merch.description: รับของที่ระลึกและสวากเฉพาะพาร์ทเนอร์ Multiverse เท่านั้น
 partner_program.perks.exclusive_merch.label: ของที่ระลึกพิเศษ
 partner_program.perks.free_plutonium.description: รับ Plutonium ฟรีสำหรับบัญชีของคุณ เพื่อใช้ฟีเจอร์พรีเมียมทั้งหมด
 partner_program.perks.free_plutonium.label: Plutonium ฟรี
@@ -284,20 +284,20 @@ partner_program.perks.vip_voice_servers.label: ช่องเสียง VIP
 partner_program.requirements.audience_description: อธิบายสั้นๆ ว่ากลุ่มผู้ชมของคุณเป็นใคร และคุณทำอะไร
 partner_program.requirements.links_to_content: ลิงก์ผลงานหรือคอมมูนิตี้ของคุณ (YouTube, Twitch, Discord ฯลฯ)
 partner_program.requirements.name_and_username: ชื่อของคุณและชื่อผู้ใช้บนแพลตฟอร์ม
-partner_program.requirements.usage_plan: คุณวางแผนใช้ Fluxer กับคอมมูนิตี้ของคุณอย่างไร
+partner_program.requirements.usage_plan: คุณวางแผนใช้ Multiverse กับคอมมูนิตี้ของคุณอย่างไร
 partner_program.who_its_for: 'ครีเอเตอร์และเจ้าของคอมมูนิตี้: ปลดล็อกสิทธิพิเศษ เช่น Plutonium ฟรี แบดจ์พาร์ทเนอร์ URL วานิตี้แบบกำหนดเอง และอีกมากมาย'
 partner_program.perks.heading: สิทธิพิเศษของพาร์ทเนอร์
 partner_program.perks.see_perks: ดูสิทธิพิเศษ
-partner_program.apply.instructions: ส่งอีเมลพร้อมข้อมูลต่อไปนี้มาให้เราเพื่อสมัครโปรแกรมพาร์ทเนอร์ Fluxer
+partner_program.apply.instructions: ส่งอีเมลพร้อมข้อมูลต่อไปนี้มาให้เราเพื่อสมัครโปรแกรมพาร์ทเนอร์ Multiverse
 partner_program.apply.response_time: เราจะพิจารณาใบสมัครทั้งหมดและติดต่อกลับภายในไม่กี่วัน
 platform_support.desktop.available_on_desktop_and_web: ใช้ได้บนเดสก์ท็อปและบนเว็บ
-platform_support.desktop.download_desktop_intro: ดาวน์โหลด Fluxer สำหรับ Windows, macOS และ Linux ตอนนี้ ส่วนแอปมือถือกำลังทำอยู่
-platform_support.desktop.interface_label: อินเทอร์เฟซ Fluxer บนเดสก์ท็อป
+platform_support.desktop.download_desktop_intro: ดาวน์โหลด Multiverse สำหรับ Windows, macOS และ Linux ตอนนี้ ส่วนแอปมือถือกำลังทำอยู่
+platform_support.desktop.interface_label: อินเทอร์เฟซ Multiverse บนเดสก์ท็อป
 platform_support.desktop.label: เดสก์ท็อป
 platform_support.desktop.use_desktop_client_mobile_soon: ใช้ไคลเอนต์เดสก์ท็อป (มือถือมาเร็วๆ นี้)
-platform_support.mobile.install_as_app.add_to_home: เพิ่ม Fluxer ไปที่หน้าจอหลักเพื่อซ่อน UI ของเบราว์เซอร์
-platform_support.mobile.install_as_app.done_desktop: เสร็จแล้ว! ตอนนี้คุณเปิด Fluxer ได้เหมือนโปรแกรมปกติเลย
-platform_support.mobile.install_as_app.done_mobile: เสร็จแล้ว! ตอนนี้คุณเปิด Fluxer จากหน้าจอหลักได้เลย
+platform_support.mobile.install_as_app.add_to_home: เพิ่ม Multiverse ไปที่หน้าจอหลักเพื่อซ่อน UI ของเบราว์เซอร์
+platform_support.mobile.install_as_app.done_desktop: เสร็จแล้ว! ตอนนี้คุณเปิด Multiverse ได้เหมือนโปรแกรมปกติเลย
+platform_support.mobile.install_as_app.done_mobile: เสร็จแล้ว! ตอนนี้คุณเปิด Multiverse จากหน้าจอหลักได้เลย
 platform_support.mobile.install_as_app.guides.in_chrome: ' ใน Chrome'
 platform_support.mobile.install_as_app.guides.in_chrome_or_another_browser: ' ใน Chrome หรือเบราว์เซอร์อื่นที่รองรับ PWA'
 platform_support.mobile.install_as_app.guides.in_safari: ' ใน Safari'
@@ -309,11 +309,11 @@ platform_support.mobile.install_as_app.guides.steps.press_install_button_address
 platform_support.mobile.install_as_app.guides.steps.press_install_in_popup: 'กด "ติดตั้ง" ในป๊อปอัปที่ขึ้นมา'
 platform_support.mobile.install_as_app.guides.steps.press_more_menu: 'กดปุ่ม "เพิ่มเติม" (⋮) มุมขวาบน'
 platform_support.mobile.install_as_app.guides.steps.press_share_button: กดปุ่มแชร์ (สี่เหลี่ยมกับลูกศรชี้ขึ้น)
-platform_support.mobile.install_as_app.install_fluxer_as_app: ติดตั้ง Fluxer เป็นแอป
+platform_support.mobile.install_as_app.install_fluxer_as_app: ติดตั้ง Multiverse เป็นแอป
 platform_support.mobile.install_as_app.title: วิธีติดตั้งเป็นแอป
-platform_support.mobile.interface_label: อินเทอร์เฟซ Fluxer บนมือถือ
+platform_support.mobile.interface_label: อินเทอร์เฟซ Multiverse บนมือถือ
 platform_support.mobile.mobile_apps_underway: แอปมือถือกำลังพัฒนาอยู่
-platform_support.mobile.mobile_browser_explainer: เรากำลังทำแอปสำหรับ iOS และ Android ระหว่างนี้ Fluxer ใช้ผ่านเบราว์เซอร์มือถือได้ และเราลงแรงเยอะเพื่อให้มันรู้สึกเหมือนแอปให้มากที่สุด
+platform_support.mobile.mobile_browser_explainer: เรากำลังทำแอปสำหรับ iOS และ Android ระหว่างนี้ Multiverse ใช้ผ่านเบราว์เซอร์มือถือได้ และเราลงแรงเยอะเพื่อให้มันรู้สึกเหมือนแอปให้มากที่สุด
 platform_support.mobile.not_full_replacement_yet: ตอนนี้ยังแทนแอปเดสก์ท็อปได้ไม่เต็มที่ และบางอย่างที่คาดหวังจากแชตแอปบนมือถือยังขาดอยู่
 platform_support.mobile.push_notifications: รับการแจ้งเตือนแบบพุชตอนคุณไม่ได้อยู่ในแอป
 platform_support.platforms.android.apk: APK
@@ -339,7 +339,7 @@ press_branding.assets.label: โลโก้
 press_branding.assets.logo_variants.black_logo: โลโก้สีดำ
 press_branding.assets.logo_variants.color_logo: โลโก้สี
 press_branding.assets.logo_variants.white_logo: โลโก้สีขาว
-press_branding.assets.palette_description: พาเลตสีที่เราคัดสรรมาอย่างตั้งใจ เพื่อเป็นตัวแทนของแบรนด์ Fluxer
+press_branding.assets.palette_description: พาเลตสีที่เราคัดสรรมาอย่างตั้งใจ เพื่อเป็นตัวแทนของแบรนด์ Multiverse
 press_branding.assets.premium_quality: คุณภาพพรีเมียม
 press_branding.assets.primary_brand_color_description: สีหลักของแบรนด์ ใช้กับองค์ประกอบสำคัญและแอ็กเซนต์
 press_branding.assets.symbol_variants.black_symbol: สัญลักษณ์สีดำ
@@ -355,7 +355,7 @@ press_branding.assets.usage_guidance.symbol_description: สัญลักษ�
 press_branding.colors.blue_da_ba_dee: Blue Da Ba Dee
 press_branding.colors.white: ขาว
 press_branding.colors.black: ดำ
-press_branding.contact.story_prompt: มีเรื่องราวเกี่ยวกับ Fluxer ไหม เราอยากฟังจากคุณ
+press_branding.contact.story_prompt: มีเรื่องราวเกี่ยวกับ Multiverse ไหม เราอยากฟังจากคุณ
 press_branding.contact.response_time: โดยปกติเราจะตอบกลับภายใน 24 ชั่วโมง
 pricing_and_tiers.billing.forever: ตลอดไป
 pricing_and_tiers.billing.most_popular: ยอดนิยม
@@ -368,7 +368,7 @@ pricing_and_tiers.free.comparison_label: ฟรี vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'ทุกอย่างในแพ็กฟรี และยังได้เพิ่มอีก:'
 pricing_and_tiers.free.full_access_to_all_features: เข้าถึงทุกฟีเจอร์ได้เต็มรูปแบบ
 pricing_and_tiers.free.label: ฟรี
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'หมายเหตุ: สิทธิประโยชน์ Plutonium และ Visionary ใช้ได้เฉพาะบนอินสแตนซ์ทางการ Fluxer.app เท่านั้น ไม่รวมอินสแตนซ์ของบุคคลที่สามหรือแบบโฮสต์เอง'
+pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'หมายเหตุ: สิทธิประโยชน์ Plutonium และ Visionary ใช้ได้เฉพาะบนอินสแตนซ์ทางการ Multiverse.app เท่านั้น ไม่รวมอินสแตนซ์ของบุคคลที่สามหรือแบบโฮสต์เอง'
 pricing_and_tiers.plutonium.feature_highlights: อัปโหลด 500 MB ข้อความยาว 4,000 ตัวอักษร บุ๊กมาร์ก 300 รายการ แพ็กอีโมจิ 50 แพ็ก และอีกมากมาย
 pricing_and_tiers.plutonium.features.bio_character_limit: ลิมิตตัวอักษรใน bio
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: เลือกแท็ก 4 หลักที่ว่างอยู่ตั้งแต่ #0001 ถึง #9999 เพื่อให้ชื่อผู้ใช้ของคุณไม่ซ้ำใคร
@@ -383,7 +383,7 @@ pricing_and_tiers.plutonium.features.message_scheduling: ตั้งเวล�
 pricing_and_tiers.plutonium.features.per_community_profiles: โปรไฟล์แยกตามคอมมูนิตี้
 pricing_and_tiers.plutonium.features.saved_media: สื่อที่บันทึกไว้
 pricing_and_tiers.plutonium.features.webhooks_and_bot_support: รองรับเว็บฮุคและบอท
-pricing_and_tiers.plutonium.get_more_with_plutonium: ได้มากขึ้นกับ Fluxer Plutonium
+pricing_and_tiers.plutonium.get_more_with_plutonium: ได้มากขึ้นกับ Multiverse Plutonium
 pricing_and_tiers.plutonium.get_plutonium: รับ Plutonium
 pricing_and_tiers.plutonium.higher_limits_and_early_access: ลิมิตสูงขึ้น ฟีเจอร์พิเศษ และได้ลองอัปเดตก่อนใคร
 pricing_and_tiers.plutonium.higher_limits_everywhere: ลิมิตสูงขึ้นทุกที่
@@ -396,7 +396,7 @@ pricing_and_tiers.visionary.bundle_label: Visionary – ได้ Plutonium แ�
 pricing_and_tiers.visionary.communities_with_team_access: คอมมูนิตี้ Visionary และ Operators พร้อมสิทธิ์เข้าถึงทีม
 pricing_and_tiers.visionary.get_visionary: รับ Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: รับ Plutonium ตลอดชีพบน Fluxer.app พร้อม Operator Pass สำหรับโฮสต์เอง จ่ายครั้งเดียว {0} ใช้ได้จนถึงวันที่ 1 ตุลาคม 2026 หรือจนกว่าที่นั่งทั้งหมดจะถูกจอง
+pricing_and_tiers.visionary.lifetime_offer_copy: รับ Plutonium ตลอดชีพบน Multiverse.app พร้อม Operator Pass สำหรับโฮสต์เอง จ่ายครั้งเดียว {0} ใช้ได้จนถึงวันที่ 1 ตุลาคม 2026 หรือจนกว่าที่นั่งทั้งหมดจะถูกจอง
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass ตลอดชีพ
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium ตลอดชีพ
 pricing_and_tiers.visionary.limited_offer_note: 'ข้อเสนอจำกัด: Visionary รวม Operator Pass'
@@ -407,8 +407,8 @@ pricing_and_tiers.visionary.purchase_flow: ซื้อ Visionary ได้ใ�
 pricing_and_tiers.visionary.slots_left.generic: เหลือ {0} จาก {1} ช่อง
 pricing_and_tiers.visionary.slots_left.visionary_bundle: เหลือ Visionary ตลอดชีพแค่ {0} จาก {1} ช่อง – ได้ Plutonium และ Operator Pass ตลอดชีพ
 pricing_and_tiers.visionary.slots_left.visionary_only: เหลือโควตา Visionary {0} ช่อง
-product_positioning.free_and_open_source: Fluxer ฟรีและโอเพนซอร์ส ทุกคนโฮสต์เองได้ฟรี
-product_positioning.intro: Fluxer คือแพลตฟอร์มแชตทันทีและ VoIP แบบฟรีและโอเพนซอร์ส สร้างมาเพื่อเพื่อน กลุ่ม และคอมมูนิตี้
+product_positioning.free_and_open_source: Multiverse ฟรีและโอเพนซอร์ส ทุกคนโฮสต์เองได้ฟรี
+product_positioning.intro: Multiverse คือแพลตฟอร์มแชตทันทีและ VoIP แบบฟรีและโอเพนซอร์ส สร้างมาเพื่อเพื่อน กลุ่ม และคอมมูนิตี้
 product_positioning.open_source.fully_open_source_agplv3: โอเพนซอร์สเต็มรูปแบบ (AGPLv3)
 product_positioning.open_source.label: โอเพนซอร์ส
 product_positioning.open_source.license: โอเพนซอร์ส (AGPL-3.0)
@@ -416,25 +416,25 @@ product_positioning.self_hosting.connect_from_any_client: เชื่อมต�
 product_positioning.self_hosting.free_self_hosting: โฮสต์เองได้ฟรี
 product_positioning.self_hosting.host_your_own_instance: โฮสต์อินสแตนซ์ของคุณเอง
 product_positioning.self_hosting.label: โฮสต์เอง
-product_positioning.self_hosting.operator_pass.access_to_operators_community: เข้าถึงคอมมูนิตี้ Fluxer Operators
+product_positioning.self_hosting.operator_pass.access_to_operators_community: เข้าถึงคอมมูนิตี้ Multiverse Operators
 product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: หลังโปรโมชันจบ Operator Pass ยังซื้อแยกได้ตามปกติ
 product_positioning.self_hosting.operator_pass.label: Operator Pass
 product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass เป็นตัวเลือกเสริม: จ่ายเพื่อรับการซัพพอร์ตและเข้าถึงคอมมูนิตี้ Operators'
 product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: การซัพพอร์ตแบบลำดับความสำคัญและสิทธิ์เข้าถึงคอมมูนิตี้ Operators สำหรับสายโฮสต์เอง
-product_positioning.self_hosting.run_backend_on_your_hardware: รันแบ็กเอนด์ของ Fluxer บนฮาร์ดแวร์ของคุณเอง แล้วเชื่อมต่อด้วยแอปของเรา
+product_positioning.self_hosting.run_backend_on_your_hardware: รันแบ็กเอนด์ของ Multiverse บนฮาร์ดแวร์ของคุณเอง แล้วเชื่อมต่อด้วยแอปของเรา
 product_positioning.self_hosting.switch_between_instances: สลับไปมาระหว่างหลายอินสแตนซ์ได้
 security.found_security_issue: เจอปัญหาด้านความปลอดภัยใช่ไหม
 security.report_vulnerabilities: รายงานช่องโหว่และช่วยให้แพลตฟอร์มปลอดภัย
 security.responsible_disclosure_note: ขอบคุณสำหรับการเปิดเผยอย่างรับผิดชอบผ่านหน้าโปรแกรมรางวัลบั๊กของเรา เรามอบโค้ด Plutonium และแบดจ์ Bug Hunter ตามความรุนแรง
 security.security_bug_bounty: โปรแกรมรางวัลบั๊กด้านความปลอดภัย
 security.security_reports: รายงานความปลอดภัย
-security.testers_access_from_reports: รายงานที่ได้รับอนุมัติจะได้สิทธิ์เข้า Fluxer Testers ซึ่งคุณสะสมแต้มเพื่อรับโค้ด Plutonium และแบดจ์ Bug Hunter ได้
+security.testers_access_from_reports: รายงานที่ได้รับอนุมัติจะได้สิทธิ์เข้า Multiverse Testers ซึ่งคุณสะสมแต้มเพื่อรับโค้ด Plutonium และแบดจ์ Bug Hunter ได้
 social_and_feeds.bluesky.follow_us: ติดตามเราบน Bluesky
 social_and_feeds.bluesky.label: Bluesky
 social_and_feeds.bluesky.rss_feed: ฟีด RSS ของ Bluesky
 social_and_feeds.follow_fluxer: ติดตาม @fluxer.app
 social_and_feeds.github: GitHub
 social_and_feeds.rss.blog_rss_feed: ฟีด RSS ของบล็อก
-social_and_feeds.rss.fluxer_blog_rss: ฟีด RSS บล็อก Fluxer
+social_and_feeds.rss.fluxer_blog_rss: ฟีด RSS บล็อก Multiverse
 social_and_feeds.rss.label: ฟีด RSS
 social_and_feeds.stay_updated_cta: ติดตามข่าว สถานะบริการ และเรื่องที่กำลังเกิดขึ้นได้ที่นี่ หรือจะสมัครรับ

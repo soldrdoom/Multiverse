@@ -1,24 +1,24 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
-import {FluxerError} from '@fluxer/errors/src/FluxerError';
+import {MultiverseError} from '@fluxer/errors/src/FluxerError';
 import {HTTPException} from 'hono/http-exception';
 
 const apiErrorCodeSet = new Set<string>(Object.values(APIErrorCodes));
@@ -39,7 +39,7 @@ export function getErrorRecord(err: unknown): Record<string, unknown> | null {
 }
 
 export function resolveApiErrorCode(err: unknown): string | null {
-	if (err instanceof FluxerError) {
+	if (err instanceof MultiverseError) {
 		return err.code;
 	}
 
@@ -66,7 +66,7 @@ export function resolveApiErrorCode(err: unknown): string | null {
 }
 
 export function resolveErrorStatus(err: unknown): number | null {
-	if (err instanceof FluxerError || err instanceof HTTPException) {
+	if (err instanceof MultiverseError || err instanceof HTTPException) {
 		return err.status;
 	}
 

@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {UserID} from '@fluxer/api/src/BrandedTypes';
@@ -22,6 +22,7 @@ import {fetchMany, fetchOne} from '@fluxer/api/src/database/Cassandra';
 import type {
 	UserByEmailRow,
 	UserByPhoneRow,
+	UserBySolanaAddressRow,
 	UserByStripeCustomerIdRow,
 	UserByStripeSubscriptionIdRow,
 	UserByUsernameRow,
@@ -30,6 +31,7 @@ import type {User} from '@fluxer/api/src/models/User';
 import {
 	UserByEmail,
 	UserByPhone,
+	UserBySolanaAddress,
 	UserByStripeCustomerId,
 	UserByStripeSubscriptionId,
 	UserByUsername,
@@ -61,6 +63,18 @@ const FETCH_USER_ID_BY_STRIPE_CUSTOMER_ID_QUERY = UserByStripeCustomerId.select(
 const FETCH_USER_ID_BY_STRIPE_SUBSCRIPTION_ID_QUERY = UserByStripeSubscriptionId.select({
 	columns: ['user_id'],
 	where: UserByStripeSubscriptionId.where.eq('stripe_subscription_id'),
+	limit: 1,
+});
+
+const FETCH_USER_ID_BY_SOLANA_ADDRESS_QUERY = UserBySolanaAddress.select({
+	columns: ['user_id'],
+	where: UserBySolanaAddress.where.eq('solana_address'),
+	limit: 1,
+});
+
+const FETCH_SOLANA_ADDRESS_BY_USER_ID_QUERY = UserBySolanaAddress.select({
+	columns: ['solana_address'],
+	where: UserBySolanaAddress.where.eq('user_id'),
 	limit: 1,
 });
 
@@ -102,6 +116,21 @@ export class UserLookupRepository {
 		);
 		if (!result) return null;
 		return await this.findUniqueUser(result.user_id);
+	}
+
+	async findBySolanaAddress(solanaAddress: string): Promise<User | null> {
+		const result = await fetchOne<Pick<UserBySolanaAddressRow, 'user_id'>>(
+			FETCH_USER_ID_BY_SOLANA_ADDRESS_QUERY.bind({solana_address: solanaAddress}),
+		);
+		if (!result) return null;
+		return await this.findUniqueUser(result.user_id);
+	}
+
+	async findSolanaAddressByUserId(userId: UserID): Promise<string | null> {
+		const result = await fetchOne<Pick<UserBySolanaAddressRow, 'solana_address'>>(
+			FETCH_SOLANA_ADDRESS_BY_USER_ID_QUERY.bind({user_id: userId}),
+		);
+		return result?.solana_address ?? null;
 	}
 
 	async findByUsernameDiscriminator(username: string, discriminator: number): Promise<User | null> {

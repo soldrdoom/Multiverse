@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -37,7 +37,7 @@ export function LoginPage({config, errorMessage}: LoginPageProps) {
 			<head>
 				<meta charset="UTF-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<title>Login ~ Fluxer Admin</title>
+				<title>Login ~ Multiverse Admin</title>
 				<link rel="stylesheet" href={`${config.basePath}/static/app.css`} />
 			</head>
 			<body class="flex min-h-screen items-center justify-center bg-neutral-50 p-4">
@@ -46,14 +46,14 @@ export function LoginPage({config, errorMessage}: LoginPageProps) {
 						<VStack gap={8}>
 							<VStack gap={2} align="center">
 								<Heading level={1} size="xl">
-									Fluxer Admin
+									Multiverse Admin
 								</Heading>
 							</VStack>
 
 							{errorMessage && <ErrorAlert error={errorMessage} />}
 
 							<Button href={`${config.basePath}/auth/start`} variant="primary" fullWidth>
-								Sign in with Fluxer
+								Sign in with Multiverse
 							</Button>
 						</VStack>
 					</Card>

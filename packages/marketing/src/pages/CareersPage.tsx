@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -23,7 +23,7 @@
 import {defaultHeroPadding, HeroBase} from '@fluxer/marketing/src/components/HeroBase';
 import {ChatsCircleIcon} from '@fluxer/marketing/src/components/icons/ChatsCircleIcon';
 import {CodeIcon} from '@fluxer/marketing/src/components/icons/CodeIcon';
-import {FluxerStaffIcon} from '@fluxer/marketing/src/components/icons/FluxerStaffIcon';
+import {MultiverseStaffIcon} from '@fluxer/marketing/src/components/icons/FluxerStaffIcon';
 import {PaletteIcon} from '@fluxer/marketing/src/components/icons/PaletteIcon';
 import {ShieldCheckIcon} from '@fluxer/marketing/src/components/icons/ShieldCheckIcon';
 import {TranslateIcon} from '@fluxer/marketing/src/components/icons/TranslateIcon';
@@ -57,7 +57,7 @@ export async function renderCareersPage(c: Context, ctx: MarketingContext): Prom
 function renderHeroSection(ctx: MarketingContext): JSX.Element {
 	return (
 		<HeroBase
-			icon={<FluxerStaffIcon class="h-14 w-14 text-white md:h-18 md:w-18" />}
+			icon={<MultiverseStaffIcon class="h-14 w-14 text-white md:h-18 md:w-18" />}
 			title={ctx.i18n.getMessage('misc_labels.join_team_behind_fluxer', ctx.locale)}
 			description={ctx.i18n.getMessage('donations.why_support', ctx.locale)}
 			extraContent={<div />}

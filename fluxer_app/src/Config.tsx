@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as v from 'valibot';
@@ -30,6 +30,12 @@ const envSchema = v.object({
 	PUBLIC_BOOTSTRAP_API_ENDPOINT: v.nullish(v.string(), '/api'),
 	PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT: v.nullish(v.string()),
 	PUBLIC_RELAY_DIRECTORY_URL: v.nullish(v.string()),
+	/**
+	 * DAS-compatible Solana RPC URL for NFT/cNFT sticker fetching.
+	 * Must support `getAssetsByOwner` (e.g. https://mainnet.helius-rpc.com/?api-key=KEY).
+	 * Leave unset to disable the NFT stickers tab.
+	 */
+	PUBLIC_SOLANA_RPC_URL: v.nullish(v.string()),
 });
 
 const env = v.parse(envSchema, {
@@ -40,6 +46,7 @@ const env = v.parse(envSchema, {
 	PUBLIC_BOOTSTRAP_API_ENDPOINT: import.meta.env.PUBLIC_BOOTSTRAP_API_ENDPOINT,
 	PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT: import.meta.env.PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT,
 	PUBLIC_RELAY_DIRECTORY_URL: import.meta.env.PUBLIC_RELAY_DIRECTORY_URL,
+	PUBLIC_SOLANA_RPC_URL: import.meta.env.PUBLIC_SOLANA_RPC_URL,
 });
 
 export default {
@@ -50,4 +57,5 @@ export default {
 	PUBLIC_BOOTSTRAP_API_ENDPOINT: env.PUBLIC_BOOTSTRAP_API_ENDPOINT,
 	PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT: env.PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT ?? env.PUBLIC_BOOTSTRAP_API_ENDPOINT,
 	PUBLIC_RELAY_DIRECTORY_URL: env.PUBLIC_RELAY_DIRECTORY_URL ?? null,
+	PUBLIC_SOLANA_RPC_URL: env.PUBLIC_SOLANA_RPC_URL ?? null,
 };

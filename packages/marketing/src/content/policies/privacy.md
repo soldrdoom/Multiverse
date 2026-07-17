@@ -4,22 +4,22 @@ We take your privacy seriously and are committed to protecting your personal inf
 
 In summary:
 
-- We do not sell, rent, or trade your personal data to third parties. We also do not "sell" or "share" personal information for cross-context behavioral advertising as defined by the CCPA/CPRA in relation to Fluxer. When you interact with third-party content such as embedded YouTube videos, those third parties may collect and use information under their own privacy policies, which may include advertising in their own services.
+- We do not sell, rent, or trade your personal data to third parties. We also do not "sell" or "share" personal information for cross-context behavioral advertising as defined by the CCPA/CPRA in relation to Multiverse. When you interact with third-party content such as embedded YouTube videos, those third parties may collect and use information under their own privacy policies, which may include advertising in their own services.
 - The service is not end-to-end encrypted, but we use strong encryption for data in transit and at rest.
 - We aim to collect only the minimum data necessary to provide, secure, and improve our service.
-- We do not train AI models on your messages, files, or any other content you create or share on Fluxer.
+- We do not train AI models on your messages, files, or any other content you create or share on Multiverse.
 - You can export, manage, and delete your data through your privacy dashboard and related tools.
 - We handle personal data in line with applicable privacy laws, such as GDPR in the EEA/UK and CCPA/CPRA in California, based on your location and use of our services.
 - We log limited feature usage and operational events to keep the service reliable and secure. We do not use this data for behavioral advertising or cross-site tracking.
-- Where we use automated systems that significantly affect your access to Fluxer (for example, regional eligibility checks based on IP geolocation), we do so in line with applicable law and describe your rights in this policy.
+- Where we use automated systems that significantly affect your access to Multiverse (for example, regional eligibility checks based on IP geolocation), we do so in line with applicable law and describe your rights in this policy.
 
 This summary is provided for convenience. You should read the full policy below to understand how we handle your information.
 
 ## 1. Who We Are
 
-We are **Fluxer Platform AB**, a Swedish limited liability company (Swedish organization number: 559537-3993). We operate the Fluxer chat platform and related services.
+We are **Multiverse Platform AB**, a Swedish limited liability company (Swedish organization number: 559537-3993). We operate the Multiverse chat platform and related services.
 
-Fluxer Platform AB is the "data controller" for your personal data when you use Fluxer, meaning we determine how and why your personal data is processed.
+Multiverse Platform AB is the "data controller" for your personal data when you use Multiverse, meaning we determine how and why your personal data is processed.
 
 As a company based in Sweden, we are subject to and comply with European Union data protection laws, including the General Data Protection Regulation (GDPR).
 
@@ -39,17 +39,17 @@ This includes:
 
 - **Support and correspondence:** Information you provide when you contact our support team or interact with customer service, including the content of messages, attachments, and any additional details you choose to provide.
 
-- **Payment information:** If you purchase premium features (such as Fluxer Plutonium), payment processing is handled securely by Stripe. We do not store your full payment card details. Stripe provides us with limited information necessary to record and manage your purchases (for example, billing country, partial card details, payment status, and timestamps).
+- **Payment information:** If you purchase premium features (such as Multiverse Plutonium), payment processing is handled securely by Stripe. We do not store your full payment card details. Stripe provides us with limited information necessary to record and manage your purchases (for example, billing country, partial card details, payment status, and timestamps).
 
 We do not require you to provide special categories of personal data (such as information about your health, religion, or political beliefs). If you choose to share such information in your messages or profile, you do so at your own discretion.
 
 ### 2.2 Information We Collect Automatically
 
-When you use Fluxer, we automatically collect certain technical and usage information, including:
+When you use Multiverse, we automatically collect certain technical and usage information, including:
 
 - **Device and technical information:** IP address, browser type and version, operating system, device type, device identifiers, language settings, and similar technical data.
 
-- **Usage information:** Information about how you interact with Fluxer, such as:
+- **Usage information:** Information about how you interact with Multiverse, such as:
   - pages and screens visited within the app or site;
   - features used (for example, voice calls, file uploads, reactions);
   - timestamps and duration of sessions;
@@ -80,7 +80,7 @@ We combine this information with the information we collect directly and automat
 
 We use your information for the following purposes:
 
-- To provide, operate, and maintain the Fluxer platform and services.
+- To provide, operate, and maintain the Multiverse platform and services.
 - To create and manage your account.
 - To deliver your messages, media, and other content to the intended recipients.
 - To secure your account and prevent unauthorized access.
@@ -89,9 +89,9 @@ We use your information for the following purposes:
 - To process payments, manage subscriptions, and handle financial transactions.
 - To understand which features are used and how the service performs, so we can prioritize support, fix issues, and plan improvements.
 - To comply with legal obligations and respond to lawful requests.
-- To protect the safety, rights, and property of our users, the public, and Fluxer.
+- To protect the safety, rights, and property of our users, the public, and Multiverse.
 
-We do not use your messages, files, or any other content you create or share on Fluxer for targeted advertising or for training AI models.
+We do not use your messages, files, or any other content you create or share on Multiverse for targeted advertising or for training AI models.
 
 ### 3.1 Lawful Bases for Processing (GDPR)
 
@@ -141,7 +141,7 @@ We do not sell your personal data. We share information only in the following li
 
 ### 4.1 When You Direct Us to Share
 
-We share your information when you intentionally interact with others on Fluxer, for example:
+We share your information when you intentionally interact with others on Multiverse, for example:
 
 - when you send messages to other users;
 - when you join or participate in Communities;
@@ -149,11 +149,11 @@ We share your information when you intentionally interact with others on Fluxer,
 - when your profile information is visible to others according to your settings; and
 - when you choose to connect to or use integrations or third-party services (where available).
 
-In these cases, other users can see the information you choose to share, and they may further share or store it outside Fluxer. We encourage you to be mindful about the content you share and with whom.
+In these cases, other users can see the information you choose to share, and they may further share or store it outside Multiverse. We encourage you to be mindful about the content you share and with whom.
 
 ### 4.2 With Service Providers
 
-We work with trusted third-party service providers who process data on our behalf to help us operate Fluxer. These providers include:
+We work with trusted third-party service providers who process data on our behalf to help us operate Multiverse. These providers include:
 
 #### Infrastructure and Data Storage
 
@@ -178,7 +178,7 @@ We work with trusted third-party service providers who process data on our behal
 - **Google** – YouTube embeds.
 - **KLIPY** – GIF search.
 
-To protect your privacy, we route all traffic to KLIPY through our servers, whether for search queries or for embedding their media in the app. This means your IP address and device identifiers are not visible to KLIPY for either search requests or when GIFs are displayed in Fluxer. For YouTube embeds, we fetch metadata server-side and only load a YouTube iframe from your device if and when you choose to play a video.
+To protect your privacy, we route all traffic to KLIPY through our servers, whether for search queries or for embedding their media in the app. This means your IP address and device identifiers are not visible to KLIPY for either search requests or when GIFs are displayed in Multiverse. For YouTube embeds, we fetch metadata server-side and only load a YouTube iframe from your device if and when you choose to play a video.
 
 #### Payment and Communications
 
@@ -203,7 +203,7 @@ We may disclose your information if we reasonably believe it is necessary to:
 
 - comply with a valid legal obligation, legal process, or enforceable governmental request;
 - enforce our Terms of Service or other agreements;
-- protect the safety, rights, or property of our users, the public, or Fluxer; or
+- protect the safety, rights, or property of our users, the public, or Multiverse; or
 - detect, prevent, or otherwise address fraud, security, or technical issues.
 
 Where legally permitted and appropriate, we will attempt to notify you before disclosing your information in response to legal requests, especially if the request concerns your account or content.
@@ -214,7 +214,7 @@ If we are involved in a merger, acquisition, reorganization, sale of assets, or 
 
 ## 5. Content Scanning for Safety
 
-We use automated tools and, in limited circumstances, human review to help keep Fluxer safe and compliant with the law.
+We use automated tools and, in limited circumstances, human review to help keep Multiverse safe and compliant with the law.
 
 ### 5.1 CSAM Scanning
 
@@ -224,7 +224,7 @@ We use the Arachnid Shield API, operated by the Canadian Centre for Child Protec
 - **No AI or content analysis:** This process does not use artificial intelligence, machine learning, or any form of automated content analysis. It only detects exact or near-exact matches of media that has already been identified and confirmed as CSAM by law enforcement or child safety organizations. Novel content that has not been previously identified cannot be detected by this system.
 - **Secure file submission:** Image and video files are securely transmitted to the Arachnid Shield API over HTTPS for scanning. Files are processed in real-time and are not retained by C3P after processing.
 - **What is scanned:** All user-uploaded media (for example, avatars, emojis, stickers, and file attachments) is subject to CSAM scanning before storage.
-- **What is not scanned:** Text messages and the main Fluxer application traffic are not scanned by this tool.
+- **What is not scanned:** Text messages and the main Multiverse application traffic are not scanned by this tool.
 - **Evidence retention:** If a match is detected, we may retain the matched media (or a limited evidentiary record, such as hashes, metadata, and logs) in a secure evidence store for the period required by law or as otherwise necessary for reporting and compliance. Evidence may be retained longer if subject to a legal hold or active investigation.
 
 When a match is detected:
@@ -279,7 +279,7 @@ We retain your personal data only for as long as necessary to fulfill the purpos
 
 ### 7.1 Active Accounts
 
-For active accounts, we generally keep your personal data for as long as you use Fluxer. This includes your messages, Communities, and other User Content while your account remains active, unless you delete specific content yourself.
+For active accounts, we generally keep your personal data for as long as you use Multiverse. This includes your messages, Communities, and other User Content while your account remains active, unless you delete specific content yourself.
 
 ### 7.2 Attachments and Expiry
 
@@ -322,7 +322,7 @@ Security logs, audit logs, and usage logs are retained only for as long as neces
 
 ## 8. Your Privacy Controls
 
-You have several tools and settings to help you manage your data and privacy on Fluxer.
+You have several tools and settings to help you manage your data and privacy on Multiverse.
 
 ### 8.1 Privacy Dashboard and In-App Controls
 
@@ -344,7 +344,7 @@ Attachments have expiry windows; if you want to keep specific files, download or
 
 If you need specific data removed or modified without deleting everything:
 
-- Email privacy@fluxer.app from the email address associated with your Fluxer account.
+- Email privacy@fluxer.app from the email address associated with your Multiverse account.
 - Clearly describe what you want us to do (for example, delete specific content, correct account information, or provide a data copy).
 - We may ask for additional information to verify your identity and confirm that you control the account.
 
@@ -406,7 +406,7 @@ Depending on where you live, you may have certain rights regarding your personal
   - right to know what personal information we collect, use, disclose, and share;
   - right to delete personal information in certain circumstances;
   - right to correct inaccurate personal information;
-  - right to opt out of the sale or sharing of personal information (we do not sell or share personal information for cross-context behavioral advertising in relation to Fluxer); and
+  - right to opt out of the sale or sharing of personal information (we do not sell or share personal information for cross-context behavioral advertising in relation to Multiverse); and
   - right to be free from discrimination for exercising your rights.
 
 ### 10.1 Exercising Your Rights
@@ -431,23 +431,23 @@ We encourage you to contact us first so we can try to resolve your concerns dire
 
 ### 10.3 Automated Decision-Making
 
-We use automated systems in certain limited ways that may affect your use of Fluxer, such as:
+We use automated systems in certain limited ways that may affect your use of Multiverse, such as:
 
-- determining whether your approximate location is in a region where access to Fluxer is permitted based on IP geolocation and applicable laws; and
+- determining whether your approximate location is in a region where access to Multiverse is permitted based on IP geolocation and applicable laws; and
 - detecting potential fraud, spam, or abusive behavior.
 
-These systems can influence, for example, whether you can access Fluxer from a given region or whether certain actions are temporarily blocked while we investigate potential abuse.
+These systems can influence, for example, whether you can access Multiverse from a given region or whether certain actions are temporarily blocked while we investigate potential abuse.
 
 Where applicable law (such as GDPR) grants you rights related to automated decision-making – such as the right to obtain human review, to express your point of view, or to contest certain decisions – you can contact us at privacy@fluxer.app. We will handle such requests in line with those laws and our legal obligations.
 
 ## 11. Children's Privacy
 
-Users must meet the minimum age requirement in their region to create and use a Fluxer account. We determine eligibility based on your self-reported information and your approximate geographic location.
+Users must meet the minimum age requirement in their region to create and use a Multiverse account. We determine eligibility based on your self-reported information and your approximate geographic location.
 
 For the purposes of this policy and our Terms of Service:
 
-- the **minimum age to use Fluxer** (the "Minimum Age") is the lowest age at which applicable law in your country permits you to use an online service like Fluxer. This is typically 13 years old, but it varies by country and may be higher in certain jurisdictions; and
-- users who are **above the Minimum Age but under the age of legal majority** in their jurisdiction (for example, under 18 in many countries) may use Fluxer, but our Terms require a parent or guardian to review and agree to them on the user's behalf.
+- the **minimum age to use Multiverse** (the "Minimum Age") is the lowest age at which applicable law in your country permits you to use an online service like Multiverse. This is typically 13 years old, but it varies by country and may be higher in certain jurisdictions; and
+- users who are **above the Minimum Age but under the age of legal majority** in their jurisdiction (for example, under 18 in many countries) may use Multiverse, but our Terms require a parent or guardian to review and agree to them on the user's behalf.
 
 We use IP geolocation and similar signals to determine whether access is allowed from your region and to apply regional age-related rules.
 
@@ -457,13 +457,13 @@ We generally do not manually override these automated regional determinations, b
 
 We do not knowingly collect personal information from children under the Minimum Age in their region. If we become aware that we have inadvertently collected personal information from a child who does not meet the Minimum Age requirement, we will take steps to delete that information and, where appropriate, delete the account.
 
-If you are a parent or legal guardian and believe that your child has used Fluxer without your consent or does not meet the Minimum Age requirement, you may contact privacy@fluxer.app from the child's registered email address (or with sufficient proof of guardianship) to request deletion of their account and associated data.
+If you are a parent or legal guardian and believe that your child has used Multiverse without your consent or does not meet the Minimum Age requirement, you may contact privacy@fluxer.app from the child's registered email address (or with sufficient proof of guardianship) to request deletion of their account and associated data.
 
 ## 12. Cookies and Similar Technologies
 
-### 12.1 Fluxer Application
+### 12.1 Multiverse Application
 
-We do not use third-party advertising or tracking cookies for our own analytics or advertising in the Fluxer application. Any cookies we set are strictly necessary for the operation and security of the service. We also do not run advertising trackers or analytics SDKs in the app. Operational logging and limited feature-usage telemetry are stored server-side to keep the service reliable and secure and to understand which features are used. This server-side data is not used for advertising or cross-site profiling.
+We do not use third-party advertising or tracking cookies for our own analytics or advertising in the Multiverse application. Any cookies we set are strictly necessary for the operation and security of the service. We also do not run advertising trackers or analytics SDKs in the app. Operational logging and limited feature-usage telemetry are stored server-side to keep the service reliable and secure and to understand which features are used. This server-side data is not used for advertising or cross-site profiling.
 
 When you interact with embedded third-party content in the app (for example, a YouTube video or a CAPTCHA challenge), those third parties may set their own cookies or similar technologies under their own privacy policies.
 
@@ -480,10 +480,10 @@ You can control cookie usage through your browser settings, which may allow you 
 
 ## 13. Third-Party Services and Links
 
-Fluxer may contain links to third-party websites, services, or content (for example, YouTube videos, GIF search, or other embedded content). When you use these features:
+Multiverse may contain links to third-party websites, services, or content (for example, YouTube videos, GIF search, or other embedded content). When you use these features:
 
 - we route requests through our servers where technically possible to reduce the amount of data sent directly from your device to third parties;
-- for GIF search through KLIPY, both search queries and GIF embedding are routed through our servers, so this provider does not see your IP address or device identifiers for searches or when GIFs are displayed in Fluxer;
+- for GIF search through KLIPY, both search queries and GIF embedding are routed through our servers, so this provider does not see your IP address or device identifiers for searches or when GIFs are displayed in Multiverse;
 - for YouTube links, we fetch basic metadata from the YouTube API on our servers so we can render previews without your device contacting YouTube until you choose to play the video; and
 - if you play an embedded YouTube video or interact with other embedded third-party content, that content is loaded directly from the third party (for example, in an iframe), and the third party may collect information from your device under its own terms and privacy policy.
 
@@ -513,11 +513,11 @@ If we make significant changes, we will:
 
 We maintain a changelog or archive of prior versions of this Privacy Policy for reference.
 
-Your continued use of Fluxer after the updated policy takes effect constitutes your acceptance of the changes. If you do not agree with the updated policy, you should stop using Fluxer and, if you wish, delete your account.
+Your continued use of Multiverse after the updated policy takes effect constitutes your acceptance of the changes. If you do not agree with the updated policy, you should stop using Multiverse and, if you wish, delete your account.
 
 ## 16. Contact Us
 
-For account-related and privacy-related requests, you should contact us from the email address associated with your Fluxer account wherever possible. This helps us verify your identity and protect your account.
+For account-related and privacy-related requests, you should contact us from the email address associated with your Multiverse account wherever possible. This helps us verify your identity and protect your account.
 
 ### Privacy and Data Protection Contact
 
@@ -534,7 +534,7 @@ You can use this address to exercise your privacy rights, ask questions about th
 
 ### Postal Address
 
-Fluxer Platform AB
+Multiverse Platform AB
 Norra Kronans Gata 430
 136 76 Brandbergen
 Stockholm County, Sweden

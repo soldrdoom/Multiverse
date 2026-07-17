@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
@@ -144,7 +144,7 @@ const ExpressionPacksTab: React.FC = observer(() => {
 				<StatusSlate
 					Icon={StickerIcon}
 					title={<Trans>Expression Packs are a Plutonium feature</Trans>}
-					description={<Trans>Create and share custom emoji and sticker packs with Fluxer Plutonium.</Trans>}
+					description={<Trans>Create and share custom emoji and sticker packs with Multiverse Plutonium.</Trans>}
 					actions={[
 						{
 							text: <Trans>Learn about Plutonium</Trans>,

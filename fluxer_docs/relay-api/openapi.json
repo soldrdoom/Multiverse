@@ -1,11 +1,11 @@
 {
 	"openapi": "3.1.0",
 	"info": {
-		"title": "Fluxer Relay Directory API",
+		"title": "Multiverse Relay Directory API",
 		"version": "1.0.0",
-		"description": "API for discovering and managing Fluxer relay servers for federation. The relay directory service maintains a registry of available relay servers that clients can use to connect to Fluxer instances through encrypted tunnels.",
+		"description": "API for discovering and managing Multiverse relay servers for federation. The relay directory service maintains a registry of available relay servers that clients can use to connect to Multiverse instances through encrypted tunnels.",
 		"contact": {
-			"name": "Fluxer Developers",
+			"name": "Multiverse Developers",
 			"email": "developers@fluxer.app"
 		},
 		"license": {

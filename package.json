@@ -52,6 +52,27 @@
 		},
 		"patchedDependencies": {
 			"@phosphor-icons/react@2.1.10": "patches/@phosphor-icons__react@2.1.10.patch"
-		}
+		},
+		"onlyBuiltDependencies": [
+			"@parcel/watcher",
+			"argon2",
+			"bufferutil",
+			"core-js",
+			"cpu-features",
+			"electron",
+			"electron-winstaller",
+			"esbuild",
+			"msgpackr-extract",
+			"msw",
+			"onnxruntime-node",
+			"protobufjs",
+			"puppeteer",
+			"sharp",
+			"sqlite3",
+			"ssh2",
+			"uiohook-napi",
+			"utf-8-validate",
+			"wasm-pack"
+		]
 	}
 }

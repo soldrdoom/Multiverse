@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {ME} from '@fluxer/constants/src/AppConstants';
@@ -56,6 +56,7 @@ export const Endpoints = {
 	SUDO_MFA_METHODS: '/users/@me/sudo/mfa-methods',
 	SUDO_SMS_SEND: '/users/@me/sudo/mfa/sms/send',
 	SUDO_WEBAUTHN_OPTIONS: '/users/@me/sudo/webauthn/authentication-options',
+	SUDO_SOLANA_NONCE: '/users/@me/sudo/solana/nonce',
 
 	OAUTH_AUTHORIZE: '/oauth2/authorize',
 	OAUTH_CONSENT: '/oauth2/authorize/consent',
@@ -139,6 +140,10 @@ export const Endpoints = {
 	PREMIUM_REACTIVATE_SUBSCRIPTION: '/premium/reactivate-subscription',
 	STRIPE_CHECKOUT_SUBSCRIPTION: '/stripe/checkout/subscription',
 	STRIPE_CHECKOUT_GIFT: '/stripe/checkout/gift',
+
+	PREMIUM_SOLANA_PRICES: '/premium/solana/prices',
+	PREMIUM_SOLANA_INVOICE: '/premium/solana/invoice',
+	PREMIUM_SOLANA_VERIFY: '/premium/solana/verify',
 
 	SWISH_AVAILABLE: '/swish/available',
 	SWISH_PRICES: '/swish/prices',
@@ -226,6 +231,38 @@ export const Endpoints = {
 	USER_PUSH_SUBSCRIBE: '/users/@me/push/subscribe',
 	USER_PUSH_SUBSCRIPTIONS: '/users/@me/push/subscriptions',
 	USER_PUSH_SUBSCRIPTION: (subscriptionId: string) => `/users/@me/push/subscriptions/${subscriptionId}`,
+	/** GET — fetch all cosmetic NFTs held by the authenticated user's linked Solana wallet. */
+	NFTS: '/nfts',
+
+	/** GET — fetch the public cosmetics shop catalog. */
+	COSMETICS_STORE: '/cosmetics/store',
+
+	/** GET — fetch applied profile cosmetics for the current user. */
+	USER_COSMETICS: '/users/@me/cosmetics',
+	/** GET — fetch applied profile cosmetics for any user (public read for rendering). */
+	USER_COSMETICS_PUBLIC: (userId: string) => `/users/${userId}/cosmetics`,
+	/** GET — fetch applied server cosmetics for a guild. */
+	GUILD_COSMETICS: (guildId: string) => `/guilds/${guildId}/cosmetics`,
+	/** POST — purchase a cosmetic NFT after on-chain payment confirmation. */
+	COSMETICS_PURCHASE: '/cosmetics/purchase',
+
+	/** POST — submit a creator application (wallet-only, no PII). */
+	CREATOR_APPLY: '/creators/apply',
+	/** GET — get current user's creator status, application, and listings. */
+	CREATOR_STATUS: '/creators/@me',
+	/** POST — create a new draft listing. */
+	CREATOR_LISTINGS: '/creators/@me/listings',
+	/** PUT / DELETE — update or delete a specific listing. */
+	CREATOR_LISTING: (id: string) => `/creators/@me/listings/${id}`,
+	/** POST — submit a draft listing for review. */
+	CREATOR_LISTING_SUBMIT: (id: string) => `/creators/@me/listings/${id}/submit`,
+	/** POST — upload a listing image; returns { url: string }. */
+	CREATOR_LISTING_UPLOAD_IMAGE: '/creators/@me/listings/upload-image',
+
+	/** POST — upsert the authenticated user's X25519 public key (E2EE Phase 1). */
+	VAULT_KEYS: '/vault/keys',
+	/** GET — fetch the X25519 public key for a given user (E2EE Phase 1). */
+	VAULT_KEY: (userId: string) => `/vault/keys/${userId}`,
 	PACKS: '/packs',
 	PACK: (packId: string) => `/packs/${packId}`,
 	PACK_CREATE: (packType: 'emoji' | 'sticker') => `/packs/${packType}`,
@@ -248,6 +285,15 @@ export const Endpoints = {
 	DISCOVERY_CATEGORIES: '/discovery/categories',
 	DISCOVERY_JOIN: (guildId: string) => `/discovery/guilds/${guildId}/join`,
 	GUILD_DISCOVERY: (guildId: string) => `/guilds/${guildId}/discovery`,
+
+	ADMIN_DISCOVERY_APPLICATIONS: '/admin/discovery/applications',
+	ADMIN_DISCOVERY_APPROVE: (guildId: string) => `/admin/discovery/applications/${guildId}/approve`,
+	ADMIN_DISCOVERY_REJECT: (guildId: string) => `/admin/discovery/applications/${guildId}/reject`,
+	ADMIN_DISCOVERY_REMOVE: (guildId: string) => `/admin/discovery/guilds/${guildId}/remove`,
+
+	ADMIN_CREATOR_APPLICATIONS: '/admin/creator-applications',
+	ADMIN_CREATOR_APPLICATION_APPROVE: (address: string) => `/admin/creator-applications/${address}/approve`,
+	ADMIN_CREATOR_APPLICATION_REJECT: (address: string) => `/admin/creator-applications/${address}/reject`,
 
 	CONNECTIONS: '/users/@me/connections',
 	CONNECTIONS_VERIFY_AND_CREATE: '/users/@me/connections/verify',

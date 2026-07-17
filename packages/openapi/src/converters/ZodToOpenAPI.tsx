@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {
@@ -80,7 +80,7 @@ interface EnumEntry {
 	description?: string;
 }
 
-interface FluxerTypeAnnotation {
+interface MultiverseTypeAnnotation {
 	typeName: string;
 	userDescription: string | undefined;
 	enumNames?: Array<string>;
@@ -210,7 +210,7 @@ function splitTypeAndDescription(rest: string): {typeAndData: string; userDescri
 	};
 }
 
-function parseFluxerTypeAnnotation(description: string | undefined): FluxerTypeAnnotation | null {
+function parseMultiverseTypeAnnotation(description: string | undefined): MultiverseTypeAnnotation | null {
 	if (!description?.startsWith('fluxer:')) return null;
 
 	const rest = description.slice('fluxer:'.length);
@@ -676,7 +676,7 @@ function getDescription(schema: ZodTypeAny): string | undefined {
 
 function getUserDescription(schema: ZodTypeAny): string | undefined {
 	const description = getDescription(schema);
-	const fluxer = parseFluxerTypeAnnotation(description);
+	const fluxer = parseMultiverseTypeAnnotation(description);
 	if (fluxer) return fluxer.userDescription;
 	return description;
 }
@@ -769,7 +769,7 @@ function getRefForCustomTypeName(typeName: string): OpenAPISchemaOrRef | null {
 	}
 }
 
-function getFluxerCustomTypeSchema(schema: ZodTypeAny, depth = 0): OpenAPISchemaOrRef | null {
+function getMultiverseCustomTypeSchema(schema: ZodTypeAny, depth = 0): OpenAPISchemaOrRef | null {
 	if (depth > 15) return null;
 
 	const customType = getCustomType(schema);
@@ -779,7 +779,7 @@ function getFluxerCustomTypeSchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 	}
 
 	const description = getDescription(schema);
-	const fluxer = parseFluxerTypeAnnotation(description);
+	const fluxer = parseMultiverseTypeAnnotation(description);
 	if (fluxer) {
 		const ref = getRefForCustomTypeName(fluxer.typeName);
 		if (ref) return ref;
@@ -920,7 +920,7 @@ function getFluxerCustomTypeSchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 				}
 			}
 
-			const innerCustomSchema = getFluxerCustomTypeSchema(inner, depth + 1);
+			const innerCustomSchema = getMultiverseCustomTypeSchema(inner, depth + 1);
 			if (innerCustomSchema) {
 				return innerCustomSchema;
 			}
@@ -937,7 +937,7 @@ function getFluxerCustomTypeSchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 	) {
 		const inner = getInnerType(schema);
 		if (inner) {
-			const innerCustomSchema = getFluxerCustomTypeSchema(inner, depth + 1);
+			const innerCustomSchema = getMultiverseCustomTypeSchema(inner, depth + 1);
 			if (innerCustomSchema) {
 				return innerCustomSchema;
 			}
@@ -950,7 +950,7 @@ function getFluxerCustomTypeSchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 function isSnowflakeType(schema: ZodTypeAny, depth = 0): boolean {
 	if (depth > 10) return false;
 
-	const customTypeSchema = getFluxerCustomTypeSchema(schema, depth);
+	const customTypeSchema = getMultiverseCustomTypeSchema(schema, depth);
 	if (customTypeSchema === SnowflakeTypeRef) {
 		return true;
 	}
@@ -1045,7 +1045,7 @@ export function zodToOpenAPISchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 		return {$ref: `#/components/schemas/${schemaName}`};
 	}
 
-	const customTypeSchema = getFluxerCustomTypeSchema(schema);
+	const customTypeSchema = getMultiverseCustomTypeSchema(schema);
 	if (customTypeSchema) {
 		return addDescription(customTypeSchema, schema);
 	}
@@ -1231,7 +1231,7 @@ export function zodToOpenAPISchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 			}
 
 			const description = getDescription(schema);
-			const fluxer = parseFluxerTypeAnnotation(description);
+			const fluxer = parseMultiverseTypeAnnotation(description);
 			if (fluxer?.typeName === 'EnumValues' && fluxer.enumEntries && fluxer.enumEntries.length > 0) {
 				const enumValues = fluxer.enumEntries.map((entry) => entry.value);
 				if (enumValues.every((value) => typeof value === 'number')) {
@@ -1376,7 +1376,7 @@ export function zodToOpenAPISchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 			}
 
 			const description = getDescription(schema);
-			const fluxer = parseFluxerTypeAnnotation(description);
+			const fluxer = parseMultiverseTypeAnnotation(description);
 
 			if (fluxer?.typeName === 'FlexibleEnumValues' && fluxer.enumEntries && fluxer.enumEntries.length > 0) {
 				const result: OpenAPISchema = {type: 'string'};
@@ -1402,7 +1402,7 @@ export function zodToOpenAPISchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 				if (literalValues.every((vals) => Array.isArray(vals) && vals.length > 0)) {
 					const flattened = literalValues.flatMap((vals) => vals ?? []);
 					const literalSchema = getLiteralSchema(flattened);
-					const fluxerForLiterals = parseFluxerTypeAnnotation(description);
+					const fluxerForLiterals = parseMultiverseTypeAnnotation(description);
 					if (
 						fluxerForLiterals?.typeName === 'EnumValues' &&
 						fluxerForLiterals.enumNames &&
@@ -1504,7 +1504,7 @@ export function zodToOpenAPISchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 				}
 				const literalSchema = getLiteralSchema(values);
 				const description = getDescription(schema);
-				const fluxer = parseFluxerTypeAnnotation(description);
+				const fluxer = parseMultiverseTypeAnnotation(description);
 				if (fluxer?.typeName === 'EnumValue' && fluxer.enumNames && fluxer.enumNames.length > 0) {
 					(literalSchema as OpenAPISchema & Record<string, unknown>)['x-enumNames'] = fluxer.enumNames;
 					if (fluxer.enumEntries && fluxer.enumEntries.length > 0 && fluxer.enumEntries[0].description) {

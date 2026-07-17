@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 .splashOverlay {
@@ -24,7 +24,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--background-secondary);
+	background-color: #0B0E14;
 	padding-left: var(--spacing-6);
 	padding-right: var(--spacing-6);
 }
@@ -94,65 +94,59 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 5rem;
-	height: 5rem;
+	width: 280px;
+	height: 160px;
 }
 
 @media (min-width: 640px) {
 	.iconWrapper {
-		width: 6rem;
-		height: 6rem;
+		width: 340px;
+		height: 190px;
 	}
 }
 
 @media (min-width: 768px) {
 	.iconWrapper {
-		width: 7rem;
-		height: 7rem;
+		width: 400px;
+		height: 220px;
 	}
 }
 
-.iconPulse {
+/* Bottom layer: pulsing gold aura rings */
+.iconAura {
 	position: absolute;
-	inset: 0;
-	border-radius: 50%;
-	background-color: var(--brand-primary);
-	opacity: 0.75;
-	animation: splashPulse 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+	inset: -30%;
+	z-index: 1;
+	width: 160%;
+	height: 160%;
+	color: #00C864;
+	animation: multiverse-pulse 1.6s ease-in-out infinite;
+	transform-origin: center;
 }
 
-.icon {
+/* Top layer: full-color official logo (static) */
+.iconLogo {
 	position: relative;
-	z-index: var(--z-index-elevated-1);
-	width: 5rem;
-	height: 5rem;
+	z-index: 2;
+	width: 100%;
+	height: auto;
+	object-fit: contain;
 }
 
-@media (min-width: 640px) {
-	.icon {
-		width: 6rem;
-		height: 6rem;
-	}
-}
-
-@media (min-width: 768px) {
-	.icon {
-		width: 7rem;
-		height: 7rem;
-	}
-}
-
-@keyframes splashPulse {
-	0% {
+@keyframes multiverse-pulse {
+	0%, 100% {
+		opacity: 0.55;
 		transform: scale(1);
-		opacity: 0.75;
+		filter: drop-shadow(0 0 8px rgba(0, 200, 100, 0.5));
 	}
-	75% {
-		transform: scale(2);
-		opacity: 0;
+	30% {
+		opacity: 0.9;
+		transform: scale(1.08);
+		filter: drop-shadow(0 0 24px rgba(0, 200, 100, 1));
 	}
-	100% {
-		transform: scale(2);
-		opacity: 0;
+	60% {
+		opacity: 0.7;
+		transform: scale(1.03);
+		filter: drop-shadow(0 0 14px rgba(0, 200, 100, 0.75));
 	}
 }

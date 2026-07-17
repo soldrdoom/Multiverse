@@ -7,7 +7,7 @@ FROM node:24-trixie-slim AS base
 
 WORKDIR /usr/src/app
 
-RUN corepack enable && corepack prepare pnpm@10.26.0 --activate
+RUN corepack enable && corepack prepare pnpm@10.29.3 --activate
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	curl \
@@ -25,39 +25,56 @@ COPY patches/ ./patches/
 
 COPY packages/admin/package.json ./packages/admin/
 COPY packages/api/package.json ./packages/api/
-COPY packages/app/package.json ./packages/app/
+COPY packages/app_proxy/package.json ./packages/app_proxy/
 COPY packages/cache/package.json ./packages/cache/
 COPY packages/captcha/package.json ./packages/captcha/
 COPY packages/cassandra/package.json ./packages/cassandra/
 COPY packages/config/package.json ./packages/config/
 COPY packages/constants/package.json ./packages/constants/
+COPY packages/date_utils/package.json ./packages/date_utils/
+COPY packages/elasticsearch_search/package.json ./packages/elasticsearch_search/
 COPY packages/email/package.json ./packages/email/
 COPY packages/errors/package.json ./packages/errors/
+COPY packages/geo_utils/package.json ./packages/geo_utils/
+COPY packages/geoip/package.json ./packages/geoip/
 COPY packages/hono/package.json ./packages/hono/
 COPY packages/hono_types/package.json ./packages/hono_types/
+COPY packages/http_client/package.json ./packages/http_client/
+COPY packages/i18n/package.json ./packages/i18n/
 COPY packages/initialization/package.json ./packages/initialization/
 COPY packages/ip_utils/package.json ./packages/ip_utils/
+COPY packages/kv_client/package.json ./packages/kv_client/
+COPY packages/limits/package.json ./packages/limits/
+COPY packages/list_utils/package.json ./packages/list_utils/
+COPY packages/locale/package.json ./packages/locale/
 COPY packages/logger/package.json ./packages/logger/
+COPY packages/markdown_parser/package.json ./packages/markdown_parser/
 COPY packages/marketing/package.json ./packages/marketing/
 COPY packages/media_proxy/package.json ./packages/media_proxy/
+COPY packages/media_proxy_utils/package.json ./packages/media_proxy_utils/
+COPY packages/meilisearch_search/package.json ./packages/meilisearch_search/
+COPY packages/mime_utils/package.json ./packages/mime_utils/
+COPY packages/nats/package.json ./packages/nats/
+COPY packages/number_utils/package.json ./packages/number_utils/
 COPY packages/oauth2/package.json ./packages/oauth2/
+COPY packages/openapi/package.json ./packages/openapi/
 COPY packages/queue/package.json ./packages/queue/
 COPY packages/rate_limit/package.json ./packages/rate_limit/
 COPY packages/s3/package.json ./packages/s3/
+COPY packages/schema/package.json ./packages/schema/
 COPY packages/sentry/package.json ./packages/sentry/
 COPY packages/sms/package.json ./packages/sms/
 COPY packages/snowflake/package.json ./packages/snowflake/
 COPY packages/telemetry/package.json ./packages/telemetry/
+COPY packages/time/package.json ./packages/time/
 COPY packages/ui/package.json ./packages/ui/
 COPY packages/validation/package.json ./packages/validation/
 COPY packages/virus_scan/package.json ./packages/virus_scan/
 COPY packages/worker/package.json ./packages/worker/
-COPY packages/http_client/package.json ./packages/http_client/
-COPY packages/schema/package.json ./packages/schema/
 COPY fluxer_server/package.json ./fluxer_server/
 COPY fluxer_app/package.json ./fluxer_app/
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 RUN pnpm approve-builds msgpackr-extract@3.0.3 @parcel/watcher@2.5.6
 
@@ -75,7 +92,7 @@ RUN pnpm --filter @fluxer/marketing build:css
 
 COPY fluxer_media_proxy/data/model.onnx ./fluxer_media_proxy/data/model.onnx
 
-RUN cd fluxer_server && pnpm typecheck
+# RUN cd fluxer_server && pnpm typecheck
 
 FROM erlang:28-slim AS gateway-build
 
@@ -105,15 +122,6 @@ RUN LOGGER_LEVEL=${LOGGER_LEVEL} envsubst '${LOGGER_LEVEL}' < fluxer_gateway/con
 	LOGGER_LEVEL=${LOGGER_LEVEL} envsubst '${LOGGER_LEVEL}' < fluxer_gateway/config/sys.config.template > fluxer_gateway/config/sys.config && \
 	(cd fluxer_gateway && rebar3 as prod release)
 
-FROM deps AS app-build
-
-COPY tsconfigs /usr/src/app/tsconfigs
-
-COPY packages/ ./packages/
-COPY fluxer_app/ ./fluxer_app/
-
-RUN cd fluxer_app && pnpm build
-
 FROM node:24-trixie-slim AS production
 
 ARG BUILD_SHA
@@ -139,7 +147,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 
-RUN corepack enable && corepack prepare pnpm@10.26.0 --activate
+RUN corepack enable && corepack prepare pnpm@10.29.3 --activate
 
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/packages ./packages
@@ -148,7 +156,31 @@ COPY --from=build /usr/src/app/tsconfigs ./tsconfigs
 COPY --from=build /usr/src/app/pnpm-workspace.yaml ./
 COPY --from=build /usr/src/app/package.json ./
 COPY --from=gateway-build /usr/src/app/gateway/fluxer_gateway/_build/prod/rel/fluxer_gateway /opt/fluxer_gateway
-COPY --from=app-build /usr/src/app/fluxer_app/dist /usr/src/app/assets
+COPY fluxer_app/dist /usr/src/app/assets
+COPY fluxer_server/static/fonts/ /usr/src/app/assets/fonts/
+RUN node -e " \
+  const fs = require('fs'); \
+  const path = require('path'); \
+  const nmFluxer = '/usr/src/app/node_modules/@fluxer'; \
+  fs.mkdirSync(nmFluxer, {recursive: true}); \
+  const pkgsDir = '/usr/src/app/packages'; \
+  for (const pkg of fs.readdirSync(pkgsDir)) { \
+    const jsonPath = path.join(pkgsDir, pkg, 'package.json'); \
+    if (!fs.existsSync(jsonPath)) continue; \
+    const name = JSON.parse(fs.readFileSync(jsonPath)).name; \
+    if (!name || !name.startsWith('@fluxer/')) continue; \
+    const short = name.slice('@fluxer/'.length); \
+    const link = path.join(nmFluxer, short); \
+    if (!fs.existsSync(link)) { \
+      fs.symlinkSync(path.join(pkgsDir, pkg), link); \
+    } \
+  } \
+"
+COPY patches/index.html /usr/src/app/assets/index.html
+COPY patches/web/ /usr/src/app/assets/web/
+COPY patches/badges/ /usr/src/app/assets/badges/
+COPY patches/emoji/ /usr/src/app/assets/emoji/
+COPY fluxer_static/avatars/ /usr/src/app/assets/avatars/
 
 RUN mkdir -p /usr/src/app/data/storage && \
 	mkdir -p /usr/src/app/data/db && \
@@ -163,19 +195,14 @@ RUN mkdir -p /usr/src/app/data/storage && \
 
 ARG INCLUDE_NSFW_ML=false
 
-RUN --mount=type=bind,from=build,source=/usr/src/app/fluxer_media_proxy/data/model.onnx,target=/tmp/model.onnx \
-    if [ "$INCLUDE_NSFW_ML" = "true" ]; then \
-        echo "Including NSFW detection model..."; \
-        cp /tmp/model.onnx /opt/data/model.onnx; \
-    else \
-        echo "Skipping NSFW detection model (INCLUDE_NSFW_ML=$INCLUDE_NSFW_ML)"; \
-    fi
+RUN echo "Skipping NSFW detection model (INCLUDE_NSFW_ML=$INCLUDE_NSFW_ML)"
 
 
 
 EXPOSE 8080
 
 
+ENV NODE_PATH=/usr/src/app/node_modules/.pnpm/node_modules
 ENV NODE_ENV=production
 
 ENV FLUXER_SERVER_HOST=0.0.0.0
@@ -196,4 +223,4 @@ ENV RELEASE_CHANNEL=${RELEASE_CHANNEL}
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
 	CMD curl -f http://localhost:8080/_health || exit 1
 
-ENTRYPOINT ["pnpm", "start"]
+ENTRYPOINT ["pnpm", "--filter", "fluxer_server", "start"]

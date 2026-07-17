@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a reproducible problem in Fluxer
+description: Report a reproducible problem in Multiverse
 labels: ['bug']
 body:
   - type: markdown

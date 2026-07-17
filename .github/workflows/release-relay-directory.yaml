@@ -178,12 +178,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: relay-directory-v${{ needs.meta.outputs.version }}
-          name: Fluxer Relay Directory v${{ needs.meta.outputs.version }}
+          name: Multiverse Relay Directory v${{ needs.meta.outputs.version }}
           draft: false
           prerelease: false
           generate_release_notes: true
           body: |
-            Fluxer Relay Directory
+            Multiverse Relay Directory
 
             Pull:
             ```bash
@@ -210,7 +210,7 @@ jobs:
           prerelease: true
           generate_release_notes: true
           body: |
-            Nightly Fluxer Relay Directory image from canary.
+            Nightly Multiverse Relay Directory image from canary.
 
             Pull:
             ```bash

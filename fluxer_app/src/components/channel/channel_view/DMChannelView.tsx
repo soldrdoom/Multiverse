@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as CallActionCreators from '@app/actions/CallActionCreators';
@@ -53,7 +53,7 @@ import {
 import {parseVoiceParticipantIdentity} from '@app/components/voice/VoiceParticipantSpeakingUtils';
 import {useChannelMemberListVisibility} from '@app/hooks/useChannelMemberListVisibility';
 import {useChannelSearchVisibility} from '@app/hooks/useChannelSearchVisibility';
-import {useFluxerDocumentTitle} from '@app/hooks/useFluxerDocumentTitle';
+import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
 import {useMemberListVisible} from '@app/hooks/useMemberListVisible';
 import {Logger} from '@app/lib/Logger';
 import type {ChannelRecord} from '@app/records/ChannelRecord';
@@ -390,7 +390,7 @@ export const DMChannelView = observer(({channelId}: DMChannelViewProps) => {
 	const isDM = channel?.type === ChannelTypes.DM;
 	const displayName = channel ? ChannelUtils.getDMDisplayName(channel) : null;
 	const title = isDM && displayName ? `@${displayName}` : displayName;
-	useFluxerDocumentTitle(title);
+	useMultiverseDocumentTitle(title);
 	const isGroupDM = channel?.type === ChannelTypes.GROUP_DM;
 	const isPersonalNotes = channel?.type === ChannelTypes.DM_PERSONAL_NOTES;
 	const callHeaderState = useCallHeaderState(channel);

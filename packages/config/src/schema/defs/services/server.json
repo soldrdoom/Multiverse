@@ -1,7 +1,7 @@
 {
 	"server_service": {
 		"type": "object",
-		"description": "Configuration for the main Fluxer Server.",
+		"description": "Configuration for the main Multiverse Server.",
 		"additionalProperties": false,
 		"properties": {
 			"host": {

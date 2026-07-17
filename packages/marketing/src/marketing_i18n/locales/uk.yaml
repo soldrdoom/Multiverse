@@ -2,7 +2,7 @@ app.communities.community: Спільнота
 app.communities.community_support: Підтримка спільнот
 app.communities.featured_in_discovery: Рекомендовано в огляді
 app.communities.moderation.actions_and_tools: Дії та інструменти модерації
-app.communities.moderation.report_people_or_communities: Скаржся на користувачів або спільноти, щоб Fluxer залишався безпечним для всіх.
+app.communities.moderation.report_people_or_communities: Скаржся на користувачів або спільноти, щоб Multiverse залишався безпечним для всіх.
 app.communities.moderation.tools: Інструменти модерації
 app.communities.roles_permissions_audit.audit_logs: Журнали аудиту для прозорості
 app.communities.roles_permissions_audit.granular_roles_and_permissions: Гнучкі ролі та дозволи
@@ -19,7 +19,7 @@ app.customization.custom_css_themes: Теми з власним CSS
 app.customization.custom_sounds.entrance_sounds: Кастомні звуки входу
 app.customization.custom_sounds.notification_sounds: Кастомні звуки сповіщень
 app.customization.custom_sounds.set_personalized_join_sounds: Налаштуй персональні звуки входу в голосові канали, щоб усі знали, що ти тут.
-app.customization.custom_sounds.upload_custom_notification_sounds: Завантажуй і використовуй власні звуки сповіщень для персоналізації Fluxer.
+app.customization.custom_sounds.upload_custom_notification_sounds: Завантажуй і використовуй власні звуки сповіщень для персоналізації Multiverse.
 app.customization.custom_themes: Кастомні теми
 app.customization.global_emoji_and_sticker_access: Глобальний доступ до емодзі та стікерів
 app.customization.saved_media_and_css: Додавай власні емодзі, зберігай медіа на потім і стилізуй додаток через CSS.
@@ -40,7 +40,7 @@ app.messaging.features.search.label: Пошук в історії повідом
 app.messaging.features.search.quick_switcher_shortcuts: Швидкий перемикач з клавіатурними скороченнями
 app.messaging.features.search.search_and_quick_switcher: Пошук і швидкий перемикач
 app.messaging.title: Повідомлення
-app.open.open_fluxer: Відкрити Fluxer
+app.open.open_fluxer: Відкрити Multiverse
 app.open.open_web_app: Відкрити веб-додаток
 app.profiles_identity.custom_identity: Власна ідентичність
 app.profiles_identity.customise_per_community: Налаштовуй профіль по-різному для кожної спільноти, де ти є.
@@ -62,18 +62,18 @@ beta_and_access.early_access.label: Ранній доступ
 beta_and_access.featured_benefit_line: Усі базові можливості, які ти очікуєш, плюс кілька неочікуваних.
 beta_and_access.public_beta: Публічна бета
 beta_and_access.registration_limited_during_beta: Під час бети ми обмежуємо реєстрацію. Коли ти всередині, зможеш ділитися кодами з друзями, щоб пропустити чергу.
-beta_and_access.try_without_email: Спробуй Fluxer без email за 30 секунд
-community_funding_and_roles.focused_on_product: Наразі ми зосереджені на створенні крутого продукту та збереженні незалежності Fluxer.
+beta_and_access.try_without_email: Спробуй Multiverse без email за 30 секунд
+community_funding_and_roles.focused_on_product: Наразі ми зосереджені на створенні крутого продукту та збереженні незалежності Multiverse.
 community_funding_and_roles.future_paid_roles_heading: Майбутнє оплачуваних ролей
-community_funding_and_roles.future_paid_roles_note: Ми ще будуємо бізнес навколо Fluxer і поки не готові до оплачуваних ролей.
-community_funding_and_roles.non_paid_recurring_role: Неоплачувана роль для регулярних контрибʼюторів, які допомагають формувати Fluxer разом з основною командою.
+community_funding_and_roles.future_paid_roles_note: Ми ще будуємо бізнес навколо Multiverse і поки не готові до оплачуваних ролей.
+community_funding_and_roles.non_paid_recurring_role: Неоплачувана роль для регулярних контрибʼюторів, які допомагають формувати Multiverse разом з основною командою.
 community_funding_and_roles.sustainability_note: З твоєю підтримкою ми сподіваємося зробити цю незалежну платформу сталою та з часом запропонувати оплачувані ролі.
 company_and_resources.blog: Блог
-company_and_resources.careers.careers_at_fluxer: Карʼєра в Fluxer
+company_and_resources.careers.careers_at_fluxer: Карʼєра в Multiverse
 company_and_resources.careers.label: Карʼєра
 company_and_resources.careers.share_a_bit_about_yourself: Розкажи трохи про себе та як ти хочеш долучитися, написавши на careers@fluxer.app
-company_and_resources.community_team.fluxer_community_team: Команда спільноти Fluxer
-company_and_resources.community_team.share_feedback_report_bugs: Ділися фідбеком, повідомляй про баги та допомагай робити Fluxer комфортним для всіх.
+company_and_resources.community_team.fluxer_community_team: Команда спільноти Multiverse
+company_and_resources.community_team.share_feedback_report_bugs: Ділися фідбеком, повідомляй про баги та допомагай робити Multiverse комфортним для всіх.
 company_and_resources.company: Компанія
 company_and_resources.company_info: Про компанію
 company_and_resources.connect: Звʼязок
@@ -89,31 +89,31 @@ company_and_resources.source_and_contribution.code_issues_docs_reviews: Код, 
 company_and_resources.source_and_contribution.contribute_code: Контрибʼют коду
 company_and_resources.source_and_contribution.contribute_on_github: Контрибʼют на GitHub
 company_and_resources.source_and_contribution.fix_bugs_ship_features: Фіксь баги, додавай фічі або поліруй досвід у нашому основному репо.
-company_and_resources.source_and_contribution.fluxer_built_in_open: Fluxer створюється відкрито. Обирай шлях, який підходить саме тобі.
+company_and_resources.source_and_contribution.fluxer_built_in_open: Multiverse створюється відкрито. Обирай шлях, який підходить саме тобі.
 company_and_resources.source_and_contribution.get_involved: Долучитися
 company_and_resources.source_and_contribution.source_code: Вихідний код
-company_and_resources.source_and_contribution.translation.help_translate: Допоможи перекласти Fluxer і документацію, щоб усе виглядало нативно всюди.
+company_and_resources.source_and_contribution.translation.help_translate: Допоможи перекласти Multiverse і документацію, щоб усе виглядало нативно всюди.
 company_and_resources.source_and_contribution.translation.label: Переклад і локалізація
-company_and_resources.source_and_contribution.translation.llm_translation_note: Усі переклади наразі згенеровані LLM з мінімальною людською перевіркою. Ми будемо раді реальним людям, які допоможуть локалізувати Fluxer твоєю мовою. Напиши на i18n@fluxer.app, і ми з радістю приймемо твій внесок.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Усі переклади наразі згенеровані LLM з мінімальною людською перевіркою. Ми будемо раді реальним людям, які допоможуть локалізувати Multiverse твоєю мовою. Напиши на i18n@fluxer.app, і ми з радістю приймемо твій внесок.
 company_and_resources.source_and_contribution.translation.localization_label: Локалізація
 company_and_resources.source_and_contribution.view_repository: Переглянути репозиторій
-company_and_resources.source_and_contribution.want_to_help_build_fluxer: Хочеш допомогти будувати Fluxer?
+company_and_resources.source_and_contribution.want_to_help_build_fluxer: Хочеш допомогти будувати Multiverse?
 company_and_resources.source_and_contribution.ways_to_contribute: Способи долучитися
 donations.business: Бізнес
 donations.donate.action: Підтримати
-donations.donate.label: Підтримати Fluxer
-donations.donate.description: Підтримайте Fluxer одноразовим або повторюваним пожертвуванням
+donations.donate.label: Підтримати Multiverse
+donations.donate.description: Підтримайте Multiverse одноразовим або повторюваним пожертвуванням
 donations.donation_disclaimer: Пожертви є добровільними й не надають жодних продуктів, послуг, прав власності чи особливих привілеїв. Якщо шукаєш преміум-функції, зазирни в {0}.
 donations.individual: Фізична особа
 donations.individual_vs_business.answer: Обидва типи пожертв однаково підтримують проєкт. Різниця лише в тому, що бізнес-пожертви дозволяють вказати податковий номер (за потреби) і отримати PDF-рахунок для бухгалтерії.
 donations.individual_vs_business.question: У чому різниця між Фізичною особою та Бізнесом?
-donations.infrastructure_costs_detail: Твій внесок допомагає покривати витрати на інфраструктуру Fluxer, включно з серверами, трафіком, зберіганням даних і постійною розробкою нових функцій. Це допомагає підтримувати та покращувати платформу для всіх.
+donations.infrastructure_costs_detail: Твій внесок допомагає покривати витрати на інфраструктуру Multiverse, включно з серверами, трафіком, зберіганням даних і постійною розробкою нових функцій. Це допомагає підтримувати та покращувати платформу для всіх.
 donations.minimum_donation: 'Мінімальний внесок: $5 / €5'
 donations.mobile_roadmap_sponsorship: Підтримати роадмап мобільних додатків
 donations.send_one_time_gift: Надіслати разовий внесок
 donations.support_future_development: Підтримати майбутній розвиток
 donations.support_message: Допоможи нам створювати незалежну платформу для спілкування. Твій внесок фінансує інфраструктуру та розробку.
-donations.tax_deductible.answer: Пожертви Fluxer наразі не підлягають податковому вирахуванню, але вони напряму фінансують нашу інфраструктуру та постійний розвиток.
+donations.tax_deductible.answer: Пожертви Multiverse наразі не підлягають податковому вирахуванню, але вони напряму фінансують нашу інфраструктуру та постійний розвиток.
 donations.tax_deductible.question: Чи є мій внесок податково вираховуваним?
 donations.what_it_supports: На що йде мій внесок?
 donations.why_support: Допоможи нам створити інший тип платформи для спілкування – з відкритим кодом, фінансовану спільнотою та зроблену з турботою.
@@ -148,8 +148,8 @@ donations.success.message: Дякуємо за твою пожертву! Ми �
 donations.success.email_notice: Незабаром ти отримаєш email із підтвердженням з деталями пожертви та посиланням на портал донора.
 donations.success.back_to_donate: Повернутися до пожертв
 download.download: Завантажити
-download.download_app_or_open_in_browser: Завантаж додаток або відкрий Fluxer у браузері, щоб почати спілкуватися зі своїми спільнотами.
-download.download_fluxer: Завантажити Fluxer
+download.download_app_or_open_in_browser: Завантаж додаток або відкрий Multiverse у браузері, щоб почати спілкуватися зі своїми спільнотами.
+download.download_fluxer: Завантажити Multiverse
 download.download_for_prefix: 'Завантажити для '
 download.open_in_browser: Відкрити у браузері
 download.screenshots_courtesy_of: 'Скріншоти надані '
@@ -159,8 +159,8 @@ footer.company_information: Інформація про компанію
 footer.connect: Звʼязок
 footer.donate: Підтримати
 footer.download: Завантажити
-footer.fluxer: Fluxer
-footer.fluxer_platform_ab_swedish_limited: '© Fluxer Platform AB (шведська компанія з обмеженою відповідальністю: 559537-3993)'
+footer.fluxer: Multiverse
+footer.fluxer_platform_ab_swedish_limited: '© Multiverse Platform AB (шведська компанія з обмеженою відповідальністю: 559537-3993)'
 footer.help_support_an_independent_communication: Підтримай незалежну платформу для спілкування. Твій внесок фінансує інфраструктуру та розвиток платформи.
 footer.partners: Партнери
 footer.plutonium_tier: Рівень Plutonium
@@ -218,8 +218,8 @@ languages.list.thai: Тайська
 languages.list.turkish: Турецька
 languages.list.ukrainian: Українська
 languages.list.vietnamese: Вʼєтнамська
-launch.description: Дізнайся про розробника Fluxer, цілі проєкту, техстек та що далі.
-launch.heading: Історія Fluxer
+launch.description: Дізнайся про розробника Multiverse, цілі проєкту, техстек та що далі.
+launch.heading: Історія Multiverse
 launch.read_more: Прочитати запусковий пост
 launch.view_full_roadmap: Переглянути повний роадмап
 misc_labels.design_and_branding: Дизайн і брендинг
@@ -229,12 +229,12 @@ misc_labels.exclusive_features: Ексклюзивні функції
 misc_labels.feature: Функція
 misc_labels.get_updates: Отримуй оновлення, дивись майбутні функції, обговорюй ідеї та спілкуйся з командою.
 misc_labels.join_and_spread_word: Долучайся та поширюй
-misc_labels.join_fluxer_community_contribute: Долучайся до спільноти Fluxer і допомагай будувати майбутнє спілкування через відкритий код і внески спільноти.
-misc_labels.join_fluxer_hq: Приєднатися до Fluxer HQ
+misc_labels.join_fluxer_community_contribute: Долучайся до спільноти Multiverse і допомагай будувати майбутнє спілкування через відкритий код і внески спільноти.
+misc_labels.join_fluxer_hq: Приєднатися до Multiverse HQ
 misc_labels.join_multiple_devices: Підключайся з кількох пристроїв одночасно
-misc_labels.join_team_behind_fluxer: Приєднатися до команди Fluxer
+misc_labels.join_team_behind_fluxer: Приєднатися до команди Multiverse
 misc_labels.learn_more: Дізнатися більше
-misc_labels.product_hunt_badge_title: Fluxer - платформа миттєвих повідомлень і VoIP з відкритим кодом | Топ-пост Product Hunt
+misc_labels.product_hunt_badge_title: Multiverse - платформа миттєвих повідомлень і VoIP з відкритим кодом | Топ-пост Product Hunt
 misc_labels.profile_badge: Бейдж профілю
 misc_labels.read_the_guide: Прочитати гід
 misc_labels.ready_to_get_started: Готовий почати?
@@ -253,11 +253,11 @@ navigation.on_this_page: На цій сторінці
 navigation.page_not_found.description: Цієї сторінки не існує. Але попереду ще багато цікавого.
 navigation.page_not_found.title: Сторінку не знайдено
 navigation.press.download_assets_intro: Завантажуйте наші логотипи, дізнавайтеся про бренд-кольори та звʼязуйтеся з нашою прес-командою.
-navigation.press.download_fluxer_assets: Завантажуйте логотипи Fluxer, бренд-матеріали та звʼязуйтеся з нашою прес-командою
+navigation.press.download_fluxer_assets: Завантажуйте логотипи Multiverse, бренд-матеріали та звʼязуйтеся з нашою прес-командою
 navigation.press.press_and_brand_assets: Преса та бренд-матеріали
 partner_program.become_partner.apply_email: Подай заявку на partners@fluxer.app
 partner_program.become_partner.call_to_action: Стати партнером
-partner_program.become_partner.heading: Стати партнером Fluxer
+partner_program.become_partner.heading: Стати партнером Multiverse
 partner_program.become_partner.if_youre_a_creator_or: Якщо ти контент-креатор або керуєш великою спільнотою, будемо раді почути тебе.
 partner_program.become_partner.learn_about_partners: Про партнерів
 partner_program.become_partner.learn_more: Дізнатися більше
@@ -268,10 +268,10 @@ partner_program.perks.creator_monetization.description: Ранній досту�
 partner_program.perks.creator_monetization.label: Монетизація для креаторів
 partner_program.perks.custom_vanity_url.description: Отримай ексклюзивний URL на кшталт fluxer.gg/yourcommunity.
 partner_program.perks.custom_vanity_url.label: Кастомний vanity URL
-partner_program.perks.direct_team_access.description: Приєднуйся до закритої спільноти партнерів з прямим доступом до команди Fluxer.
+partner_program.perks.direct_team_access.description: Приєднуйся до закритої спільноти партнерів з прямим доступом до команди Multiverse.
 partner_program.perks.direct_team_access.label: Прямий доступ до команди
 partner_program.perks.discovery_visibility: Отримай більше видимості завдяки рекомендаціям в огляді спільнот.
-partner_program.perks.exclusive_merch.description: Отримай ексклюзивний мерч і сувеніри лише для партнерів Fluxer.
+partner_program.perks.exclusive_merch.description: Отримай ексклюзивний мерч і сувеніри лише для партнерів Multiverse.
 partner_program.perks.exclusive_merch.label: Ексклюзивний мерч
 partner_program.perks.free_plutonium.description: Отримай Plutonium безкоштовно для доступу до всіх преміум-функцій.
 partner_program.perks.free_plutonium.label: Безкоштовний Plutonium
@@ -284,20 +284,20 @@ partner_program.perks.vip_voice_servers.label: VIP голосові канали
 partner_program.requirements.audience_description: Короткий опис твоєї аудиторії та діяльності
 partner_program.requirements.links_to_content: Посилання на контент або спільноту (YouTube, Twitch, Discord тощо)
 partner_program.requirements.name_and_username: Твоє імʼя та нік на платформі
-partner_program.requirements.usage_plan: Як ти плануєш використовувати Fluxer зі своєю спільнотою
+partner_program.requirements.usage_plan: Як ти плануєш використовувати Multiverse зі своєю спільнотою
 partner_program.who_its_for: Контент-креатори та власники спільнот – відкрий ексклюзивні бонуси, включно з безкоштовним Plutonium, партнерським бейджем, кастомними vanity URL та іншим.
 partner_program.perks.heading: Переваги партнерів
 partner_program.perks.see_perks: Переглянути переваги
-partner_program.apply.instructions: Надішли нам email з наступною інформацією, щоб подати заявку на партнерську програму Fluxer.
+partner_program.apply.instructions: Надішли нам email з наступною інформацією, щоб подати заявку на партнерську програму Multiverse.
 partner_program.apply.response_time: Ми розглядаємо всі заявки й відповімо протягом кількох днів.
 platform_support.desktop.available_on_desktop_and_web: Доступно на компʼютері та у вебі
-platform_support.desktop.download_desktop_intro: Завантажуй Fluxer для Windows, macOS і Linux. Мобільні додатки вже в роботі.
-platform_support.desktop.interface_label: Десктопний інтерфейс Fluxer
+platform_support.desktop.download_desktop_intro: Завантажуй Multiverse для Windows, macOS і Linux. Мобільні додатки вже в роботі.
+platform_support.desktop.interface_label: Десктопний інтерфейс Multiverse
 platform_support.desktop.label: Десктоп
 platform_support.desktop.use_desktop_client_mobile_soon: Користуйся десктоп-клієнтом (мобільний скоро)
-platform_support.mobile.install_as_app.add_to_home: Додай Fluxer на головний екран, щоб сховати інтерфейс браузера.
-platform_support.mobile.install_as_app.done_desktop: Готово! Тепер ти можеш відкривати Fluxer як звичайну програму.
-platform_support.mobile.install_as_app.done_mobile: Готово! Тепер ти можеш відкривати Fluxer з головного екрана.
+platform_support.mobile.install_as_app.add_to_home: Додай Multiverse на головний екран, щоб сховати інтерфейс браузера.
+platform_support.mobile.install_as_app.done_desktop: Готово! Тепер ти можеш відкривати Multiverse як звичайну програму.
+platform_support.mobile.install_as_app.done_mobile: Готово! Тепер ти можеш відкривати Multiverse з головного екрана.
 platform_support.mobile.install_as_app.guides.in_chrome: ' у Chrome'
 platform_support.mobile.install_as_app.guides.in_chrome_or_another_browser: ' у Chrome або іншому браузері з підтримкою PWA'
 platform_support.mobile.install_as_app.guides.in_safari: ' у Safari'
@@ -309,11 +309,11 @@ platform_support.mobile.install_as_app.guides.steps.press_install_button_address
 platform_support.mobile.install_as_app.guides.steps.press_install_in_popup: 'Натисни "Встановити" у спливаючому вікні'
 platform_support.mobile.install_as_app.guides.steps.press_more_menu: 'Натисни кнопку "Більше" (⋮) у верхньому правому куті'
 platform_support.mobile.install_as_app.guides.steps.press_share_button: Натисни кнопку поширення (прямокутник зі стрілкою вгору)
-platform_support.mobile.install_as_app.install_fluxer_as_app: Встановити Fluxer як додаток
+platform_support.mobile.install_as_app.install_fluxer_as_app: Встановити Multiverse як додаток
 platform_support.mobile.install_as_app.title: Як встановити як додаток
-platform_support.mobile.interface_label: Мобільний інтерфейс Fluxer
+platform_support.mobile.interface_label: Мобільний інтерфейс Multiverse
 platform_support.mobile.mobile_apps_underway: Мобільні додатки в розробці
-platform_support.mobile.mobile_browser_explainer: Ми створюємо додатки для iOS і Android. Поки вони не готові, Fluxer працює в мобільному браузері, і ми зробили все, щоб це відчувалося максимально як додаток.
+platform_support.mobile.mobile_browser_explainer: Ми створюємо додатки для iOS і Android. Поки вони не готові, Multiverse працює в мобільному браузері, і ми зробили все, щоб це відчувалося максимально як додаток.
 platform_support.mobile.not_full_replacement_yet: Поки що це не повна заміна десктопного додатка, і деяких звичних мобільних функцій ще бракує.
 platform_support.mobile.push_notifications: Отримуй push-сповіщення, коли ти не в додатку.
 platform_support.platforms.android.apk: APK
@@ -339,7 +339,7 @@ press_branding.assets.label: Логотип
 press_branding.assets.logo_variants.black_logo: Чорний логотип
 press_branding.assets.logo_variants.color_logo: Кольоровий логотип
 press_branding.assets.logo_variants.white_logo: Білий логотип
-press_branding.assets.palette_description: Ретельно підібрана палітра, що представляє бренд Fluxer.
+press_branding.assets.palette_description: Ретельно підібрана палітра, що представляє бренд Multiverse.
 press_branding.assets.premium_quality: Преміум-якість
 press_branding.assets.primary_brand_color_description: Наш основний бренд-колір. Використовуй його для ключових елементів і акцентів.
 press_branding.assets.symbol_variants.black_symbol: Чорний символ
@@ -355,7 +355,7 @@ press_branding.assets.usage_guidance.symbol_description: Окремий симв
 press_branding.colors.blue_da_ba_dee: Blue Da Ba Dee
 press_branding.colors.white: Білий
 press_branding.colors.black: Чорний
-press_branding.contact.story_prompt: Є історія про Fluxer? Ми будемо раді почути від тебе.
+press_branding.contact.story_prompt: Є історія про Multiverse? Ми будемо раді почути від тебе.
 press_branding.contact.response_time: Зазвичай ми відповідаємо протягом 24 годин.
 pricing_and_tiers.billing.forever: Назавжди
 pricing_and_tiers.billing.most_popular: Найпопулярніше
@@ -368,7 +368,7 @@ pricing_and_tiers.free.comparison_label: Безкоштовно vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Усе з Безкоштовно, плюс:'
 pricing_and_tiers.free.full_access_to_all_features: Повний доступ до всіх функцій
 pricing_and_tiers.free.label: Безкоштовно
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Примітка: переваги Plutonium і Visionary діють лише на офіційному інстансі Fluxer.app, а не на сторонніх чи самохостингових.'
+pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Примітка: переваги Plutonium і Visionary діють лише на офіційному інстансі Multiverse.app, а не на сторонніх чи самохостингових.'
 pricing_and_tiers.plutonium.feature_highlights: Завантаження до 500 МБ, повідомлення до 4 000 символів, 300 закладок, 50 паків емодзі та багато іншого.
 pricing_and_tiers.plutonium.features.bio_character_limit: Ліміт символів у біо
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Обери будь-який доступний 4-цифровий тег від #0001 до #9999, щоб зробити свій нікнейм дійсно унікальним.
@@ -383,7 +383,7 @@ pricing_and_tiers.plutonium.features.message_scheduling: Планування п
 pricing_and_tiers.plutonium.features.per_community_profiles: Профілі для кожної спільноти
 pricing_and_tiers.plutonium.features.saved_media: Збережені медіа
 pricing_and_tiers.plutonium.features.webhooks_and_bot_support: Підтримка вебхуків і ботів
-pricing_and_tiers.plutonium.get_more_with_plutonium: Отримай більше з Fluxer Plutonium
+pricing_and_tiers.plutonium.get_more_with_plutonium: Отримай більше з Multiverse Plutonium
 pricing_and_tiers.plutonium.get_plutonium: Отримати Plutonium
 pricing_and_tiers.plutonium.higher_limits_and_early_access: Вищі ліміти, ексклюзивні фічі та ранній доступ до оновлень
 pricing_and_tiers.plutonium.higher_limits_everywhere: Вищі ліміти всюди
@@ -396,7 +396,7 @@ pricing_and_tiers.visionary.bundle_label: Plutonium і Operator Pass назав�
 pricing_and_tiers.visionary.communities_with_team_access: Спільноти Visionary та Operators з доступом до команди
 pricing_and_tiers.visionary.get_visionary: Отримати Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Отримай Plutonium назавжди на Fluxer.app плюс Operator Pass для самохостингу. Разовий платіж {0}. Доступно до 1 жовтня 2026 року або поки не будуть зайняті всі місця.
+pricing_and_tiers.visionary.lifetime_offer_copy: Отримай Plutonium назавжди на Multiverse.app плюс Operator Pass для самохостингу. Разовий платіж {0}. Доступно до 1 жовтня 2026 року або поки не будуть зайняті всі місця.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass назавжди
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium назавжди
 pricing_and_tiers.visionary.limited_offer_note: 'Обмежена пропозиція: Visionary включає Operator Pass'
@@ -407,8 +407,8 @@ pricing_and_tiers.visionary.purchase_flow: Придбай Visionary прямо �
 pricing_and_tiers.visionary.slots_left.generic: Залишилось {0} з {1} місць
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Лише {0} з {1} місць Visionary – Plutonium і Operator Pass назавжди
 pricing_and_tiers.visionary.slots_left.visionary_only: Залишилось {0} місць Visionary
-product_positioning.free_and_open_source: Fluxer безкоштовний і з відкритим кодом. Кожен може безкоштовно хостити власний інстанс.
-product_positioning.intro: Fluxer – це безкоштовна платформа миттєвих повідомлень і VoIP з відкритим кодом для друзів, груп і спільнот.
+product_positioning.free_and_open_source: Multiverse безкоштовний і з відкритим кодом. Кожен може безкоштовно хостити власний інстанс.
+product_positioning.intro: Multiverse – це безкоштовна платформа миттєвих повідомлень і VoIP з відкритим кодом для друзів, груп і спільнот.
 product_positioning.open_source.fully_open_source_agplv3: Повністю з відкритим кодом (AGPLv3)
 product_positioning.open_source.label: Відкритий код
 product_positioning.open_source.license: Відкритий код (AGPL-3.0)
@@ -416,25 +416,25 @@ product_positioning.self_hosting.connect_from_any_client: Підключайся
 product_positioning.self_hosting.free_self_hosting: Безкоштовний самохостинг
 product_positioning.self_hosting.host_your_own_instance: Хости власний інстанс
 product_positioning.self_hosting.label: Самохостинг
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Доступ до спільноти Fluxer Operators
+product_positioning.self_hosting.operator_pass.access_to_operators_community: Доступ до спільноти Multiverse Operators
 product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Після завершення пропозиції Operator Pass залишиться доступним окремо.
 product_positioning.self_hosting.operator_pass.label: Operator Pass
 product_positioning.self_hosting.operator_pass.note_optional: Operator Pass необовʼязковий – це оплата за підтримку та доступ до спільноти.
 product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Пріоритетна підтримка та доступ до спільноти Operators для самохостингу
-product_positioning.self_hosting.run_backend_on_your_hardware: Запускай бекенд Fluxer на своєму залізі та підключайся через наші додатки.
+product_positioning.self_hosting.run_backend_on_your_hardware: Запускай бекенд Multiverse на своєму залізі та підключайся через наші додатки.
 product_positioning.self_hosting.switch_between_instances: Перемикайся між кількома інстансами
 security.found_security_issue: Знайшов проблему з безпекою?
 security.report_vulnerabilities: Повідомляй про вразливості та допомагай нам зберігати платформу безпечною.
 security.responsible_disclosure_note: Ми цінуємо відповідальне розкриття через сторінку баунті. За серйозність надаємо коди Plutonium і бейджі Bug Hunter.
 security.security_bug_bounty: Баунті за баги безпеки
 security.security_reports: Звіти з безпеки
-security.testers_access_from_reports: Схвалені звіти відкривають доступ до Fluxer Testers, де можна заробляти бали за коди Plutonium і бейдж Bug Hunter.
+security.testers_access_from_reports: Схвалені звіти відкривають доступ до Multiverse Testers, де можна заробляти бали за коди Plutonium і бейдж Bug Hunter.
 social_and_feeds.bluesky.follow_us: Слідкуй за нами в Bluesky
 social_and_feeds.bluesky.label: Bluesky
 social_and_feeds.bluesky.rss_feed: RSS фід Bluesky
 social_and_feeds.follow_fluxer: Слідкуй за @fluxer.app
 social_and_feeds.github: GitHub
 social_and_feeds.rss.blog_rss_feed: RSS фід блогу
-social_and_feeds.rss.fluxer_blog_rss: RSS блогу Fluxer
+social_and_feeds.rss.fluxer_blog_rss: RSS блогу Multiverse
 social_and_feeds.rss.label: RSS фід
 social_and_feeds.stay_updated_cta: Будь у курсі новин, статусу сервісу та всього, що відбувається. Також ти можеш підписатися на наш

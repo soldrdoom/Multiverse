@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import styles from '@app/components/modals/tabs/developer_options_tab/TypographyTab.module.css';
@@ -133,7 +133,7 @@ export const TypographyTabContent: React.FC = observer(() => {
 				</h2>
 				<p className={styles.description}>
 					<Trans>
-						Preview all available fonts, weights, and styles across different languages supported by Fluxer.
+						Preview all available fonts, weights, and styles across different languages supported by Multiverse.
 					</Trans>
 				</p>
 			</div>
@@ -332,31 +332,31 @@ export const TypographyTabContent: React.FC = observer(() => {
 				<div className={styles.multilingualCard}>
 					<div className={styles.multilingualList} style={{fontFamily: 'var(--font-sans)', lineHeight: 1.6}}>
 						<div className={styles.multilingualItem}>
-							<strong>English:</strong> Welcome to Fluxer's typography showcase
+							<strong>English:</strong> Welcome to Multiverse's typography showcase
 						</div>
 						<div className={styles.multilingualItem} lang="ja">
 							<strong>日本語:</strong> フラクサーのタイポグラフィショーケースへようこそ
 						</div>
 						<div className={styles.multilingualItem} lang="ko">
-							<strong>한국어:</strong> Fluxer의 타이포그래피 쇼케이스에 오신 것을 환영합니다
+							<strong>한국어:</strong> Multiverse의 타이포그래피 쇼케이스에 오신 것을 환영합니다
 						</div>
 						<div className={styles.multilingualItem} lang="zh-CN">
-							<strong>简体中文:</strong> 欢迎来到 Fluxer 的字体展示
+							<strong>简体中文:</strong> 欢迎来到 Multiverse 的字体展示
 						</div>
 						<div className={styles.multilingualItem} lang="zh-TW">
-							<strong>繁體中文:</strong> 歡迎來到 Fluxer 的字體展示
+							<strong>繁體中文:</strong> 歡迎來到 Multiverse 的字體展示
 						</div>
 						<div className={styles.multilingualItem} lang="ar" dir="rtl">
-							<strong>العربية:</strong> مرحباً بك في عرض طباعة Fluxer
+							<strong>العربية:</strong> مرحباً بك في عرض طباعة Multiverse
 						</div>
 						<div className={styles.multilingualItem} lang="he">
-							<strong>עברית:</strong> ברוכים הבאים לתצוגת הטיפוגרפיה של Fluxer
+							<strong>עברית:</strong> ברוכים הבאים לתצוגת הטיפוגרפיה של Multiverse
 						</div>
 						<div className={styles.multilingualItem} lang="hi">
-							<strong>हिंदी:</strong> Fluxer के टाइपोग्राफी शोकेस में आपका स्वागत है
+							<strong>हिंदी:</strong> Multiverse के टाइपोग्राफी शोकेस में आपका स्वागत है
 						</div>
 						<div className={styles.multilingualItem} lang="th">
-							<strong>ไทย:</strong> ยินดีต้อนรับสู่การจัดแสดงพิมพ์ของ Fluxer
+							<strong>ไทย:</strong> ยินดีต้อนรับสู่การจัดแสดงพิมพ์ของ Multiverse
 						</div>
 					</div>
 				</div>

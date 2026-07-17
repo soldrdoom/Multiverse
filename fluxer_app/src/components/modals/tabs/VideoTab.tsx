@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
@@ -172,11 +172,11 @@ export const VideoTab: React.FC<VideoTabProps> = observer(
 							<p className={styles.deviceNoticeDescription}>
 								{permissionStatus === 'denied' ? (
 									<Trans>
-										Allow Fluxer to access your camera in System Settings → Privacy &amp; Security → Camera to preview
+										Allow Multiverse to access your camera in System Settings → Privacy &amp; Security → Camera to preview
 										and select devices.
 									</Trans>
 								) : (
-									<Trans>Fluxer needs access to your camera before we can list it here.</Trans>
+									<Trans>Multiverse needs access to your camera before we can list it here.</Trans>
 								)}
 							</p>
 						</div>
@@ -234,7 +234,7 @@ export const VideoTab: React.FC<VideoTabProps> = observer(
 
 				<Switch
 					label={<Trans>Pause my screen share preview when unfocused</Trans>}
-					description={<Trans>Freezes your preview while Fluxer is in the background to save resources.</Trans>}
+					description={<Trans>Freezes your preview while Multiverse is in the background to save resources.</Trans>}
 					value={pauseOwnScreenSharePreviewOnUnfocus}
 					onChange={(value) => VoiceSettingsActionCreators.update({pauseOwnScreenSharePreviewOnUnfocus: value})}
 				/>

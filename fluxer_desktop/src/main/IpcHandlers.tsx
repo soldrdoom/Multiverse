@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import child_process from 'node:child_process';
@@ -125,7 +125,7 @@ function isValidWellKnownPayload(payload: unknown): boolean {
 	return typeof api === 'string' && typeof gateway === 'string';
 }
 
-async function assertValidFluxerInstance(instanceOrigin: string): Promise<void> {
+async function assertValidMultiverseInstance(instanceOrigin: string): Promise<void> {
 	const url = new URL('/.well-known/fluxer', instanceOrigin).toString();
 	const controller = new AbortController();
 	const timeout = setTimeout(() => controller.abort(), 5000);
@@ -149,7 +149,7 @@ async function assertValidFluxerInstance(instanceOrigin: string): Promise<void> 
 		}
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
-		throw new Error(`Not a valid Fluxer instance (${message})`);
+		throw new Error(`Not a valid Multiverse instance (${message})`);
 	} finally {
 		clearTimeout(timeout);
 	}
@@ -482,7 +482,7 @@ export function registerIpcHandlers(): void {
 	ipcMain.handle('switch-instance-url', async (_event, options: SwitchInstanceUrlOptions): Promise<void> => {
 		const instanceOrigin = normalizeInstanceOrigin(options.instanceUrl);
 
-		await assertValidFluxerInstance(instanceOrigin);
+		await assertValidMultiverseInstance(instanceOrigin);
 
 		const mainWindow = getMainWindow();
 		if (!mainWindow || mainWindow.isDestroyed()) {

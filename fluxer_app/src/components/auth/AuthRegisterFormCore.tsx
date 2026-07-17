@@ -1,25 +1,24 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as AuthenticationActionCreators from '@app/actions/AuthenticationActionCreators';
 import styles from '@app/components/auth/AuthPageStyles.module.css';
-import {DateOfBirthField} from '@app/components/auth/DateOfBirthField';
 import FormField from '@app/components/auth/FormField';
 import {type MissingField, SubmitTooltip, shouldDisableSubmit} from '@app/components/auth/SubmitTooltip';
 import {ExternalLink} from '@app/components/common/ExternalLink';
@@ -95,9 +94,6 @@ export function AuthRegisterFormCore({
 		formValues: {...initialDraft.formValues},
 	});
 
-	const [selectedMonth, setSelectedMonthState] = useState(initialDraft.selectedMonth);
-	const [selectedDay, setSelectedDayState] = useState(initialDraft.selectedDay);
-	const [selectedYear, setSelectedYearState] = useState(initialDraft.selectedYear);
 	const [consent, setConsentState] = useState(initialDraft.consent);
 	const [_usernameFocused, setUsernameFocused] = useState(false);
 
@@ -125,30 +121,6 @@ export function AuthRegisterFormCore({
 		[draftKey, setRegisterFormDraft],
 	);
 
-	const handleMonthChange = useCallback(
-		(month: string) => {
-			setSelectedMonthState(month);
-			persistDraft({selectedMonth: month});
-		},
-		[persistDraft],
-	);
-
-	const handleDayChange = useCallback(
-		(day: string) => {
-			setSelectedDayState(day);
-			persistDraft({selectedDay: day});
-		},
-		[persistDraft],
-	);
-
-	const handleYearChange = useCallback(
-		(year: string) => {
-			setSelectedYearState(year);
-			persistDraft({selectedYear: year});
-		},
-		[persistDraft],
-	);
-
 	const handleConsentChange = useCallback(
 		(nextConsent: boolean) => {
 			setConsentState(nextConsent);
@@ -163,17 +135,11 @@ export function AuthRegisterFormCore({
 			return;
 		}
 
-		const dateOfBirth =
-			selectedYear && selectedMonth && selectedDay
-				? `${selectedYear}-${selectedMonth.padStart(2, '0')}-${selectedDay.padStart(2, '0')}`
-				: '';
-
 		const response = await AuthenticationActionCreators.register({
 			global_name: values.global_name || undefined,
 			username: values.username || undefined,
 			email: showEmail ? values.email : undefined,
 			password: showPassword ? values.password : undefined,
-			date_of_birth: dateOfBirth,
 			consent,
 			invite_code: inviteCode,
 		});
@@ -224,11 +190,8 @@ export function AuthRegisterFormCore({
 		if (showPassword && showPasswordConfirmation && !form.getValue('confirm_password')) {
 			missing.push({key: 'confirm_password', label: t`Confirm Password`});
 		}
-		if (!selectedMonth || !selectedDay || !selectedYear) {
-			missing.push({key: 'date_of_birth', label: t`Date of Birth`});
-		}
 		return missing;
-	}, [form, selectedMonth, selectedDay, selectedYear, showEmail, showPassword, showPasswordConfirmation]);
+	}, [form, showEmail, showPassword, showPasswordConfirmation]);
 
 	type HelperTextState = {type: 'error'; message: string} | {type: 'suggestion'; username: string} | {type: 'hint'};
 
@@ -366,16 +329,6 @@ export function AuthRegisterFormCore({
 					error={form.getError('confirm_password')}
 				/>
 			)}
-
-			<DateOfBirthField
-				selectedMonth={selectedMonth}
-				selectedDay={selectedDay}
-				selectedYear={selectedYear}
-				onMonthChange={handleMonthChange}
-				onDayChange={handleDayChange}
-				onYearChange={handleYearChange}
-				error={fieldErrors?.date_of_birth}
-			/>
 
 			{extraContent}
 

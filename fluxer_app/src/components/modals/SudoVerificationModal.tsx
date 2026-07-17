@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {Form} from '@app/components/form/Form';
@@ -50,6 +50,12 @@ enum SmsStatus {
 	SENT = 'sent',
 }
 
+interface SolanaPayload {
+	address: string;
+	signature: string;
+	nonce: string;
+}
+
 const isMacAppIdentifierError = (error: unknown): boolean => {
 	const message = error instanceof Error ? error.message : '';
 	return message.toLowerCase().includes('application identifier');
@@ -57,7 +63,7 @@ const isMacAppIdentifierError = (error: unknown): boolean => {
 
 const getMethodAvailable = (
 	method: SudoVerificationMethod,
-	available: {password: boolean; totp: boolean; sms: boolean; webauthn: boolean},
+	available: {password: boolean; totp: boolean; sms: boolean; webauthn: boolean; solana: boolean},
 ): boolean => {
 	switch (method) {
 		case SudoVerificationMethod.PASSWORD:
@@ -68,13 +74,15 @@ const getMethodAvailable = (
 			return available.sms;
 		case SudoVerificationMethod.WEBAUTHN:
 			return available.webauthn;
+		case SudoVerificationMethod.SOLANA:
+			return available.solana;
 		default:
 			return false;
 	}
 };
 
 const getDefaultMethod = (
-	available: {password: boolean; totp: boolean; sms: boolean; webauthn: boolean},
+	available: {password: boolean; totp: boolean; sms: boolean; webauthn: boolean; solana: boolean},
 	lastUsed: SudoVerificationPayload['mfa_method'] | null,
 ): SudoVerificationMethod | null => {
 	if (lastUsed && getMethodAvailable(lastUsed as SudoVerificationMethod, available)) {
@@ -82,6 +90,7 @@ const getDefaultMethod = (
 	}
 
 	const preference = [
+		SudoVerificationMethod.SOLANA,
 		SudoVerificationMethod.WEBAUTHN,
 		SudoVerificationMethod.TOTP,
 		SudoVerificationMethod.SMS,
@@ -98,6 +107,8 @@ const getDefaultFieldForMethod = (method: SudoVerificationMethod | null): keyof 
 		case SudoVerificationMethod.SMS:
 			return 'smsCode';
 		case SudoVerificationMethod.WEBAUTHN:
+			return 'password';
+		case SudoVerificationMethod.SOLANA:
 			return 'password';
 		default:
 			return 'password';
@@ -116,6 +127,8 @@ const SudoVerificationModal: React.FC = observer(() => {
 	const [selectedMethod, setSelectedMethod] = useState<SudoVerificationMethod | null>(null);
 	const [smsStatus, setSmsStatus] = useState<SmsStatus>(SmsStatus.IDLE);
 	const [webAuthnPayload, setWebAuthnPayload] = useState<{challenge: string; response: unknown} | null>(null);
+	const [solanaPayload, setSolanaPayload] = useState<SolanaPayload | null>(null);
+	const [solanaError, setSolanaError] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (!isOpen) return;
@@ -123,6 +136,8 @@ const SudoVerificationModal: React.FC = observer(() => {
 		setSelectedMethod(null);
 		setSmsStatus(SmsStatus.IDLE);
 		setWebAuthnPayload(null);
+		setSolanaPayload(null);
+		setSolanaError(null);
 		form.reset({password: '', totpCode: '', smsCode: ''});
 
 		SudoPromptStore.loadAvailableMethods().catch(() => {});
@@ -152,6 +167,11 @@ const SudoVerificationModal: React.FC = observer(() => {
 		if (verificationError) {
 			form.setError(fallbackField, {type: 'server', message: verificationError});
 		}
+
+		if (selectedMethod === SudoVerificationMethod.SOLANA) {
+			setSolanaError(verificationError ?? 'Verification failed');
+			setSolanaPayload(null);
+		}
 	}, [form, verificationError, rawError, selectedMethod, i18n]);
 
 	useEffect(() => {
@@ -165,6 +185,17 @@ const SudoVerificationModal: React.FC = observer(() => {
 		});
 	}, [selectedMethod, webAuthnPayload, isVerifying]);
 
+	useEffect(() => {
+		if (selectedMethod !== SudoVerificationMethod.SOLANA) return;
+		if (!solanaPayload || isVerifying) return;
+
+		SudoPromptStore.submit({
+			solana_address: solanaPayload.address,
+			solana_signature: solanaPayload.signature,
+			solana_nonce: solanaPayload.nonce,
+		});
+	}, [selectedMethod, solanaPayload, isVerifying]);
+
 	const methodButtons = (Object.values(SudoVerificationMethod) as Array<SudoVerificationMethod>).filter((method) =>
 		getMethodAvailable(method, availableMethods),
 	);
@@ -175,6 +206,7 @@ const SudoVerificationModal: React.FC = observer(() => {
 			[SudoVerificationMethod.TOTP]: t`Authenticator app`,
 			[SudoVerificationMethod.SMS]: t`SMS code`,
 			[SudoVerificationMethod.WEBAUTHN]: t`Security key / Passkey`,
+			[SudoVerificationMethod.SOLANA]: t`Solana wallet`,
 		}),
 		[t],
 	);
@@ -223,6 +255,46 @@ const SudoVerificationModal: React.FC = observer(() => {
 			}
 
 			setFieldError(t`Security key verification failed. Please try again.`);
+		}
+	};
+
+	const handleSolanaSign = async () => {
+		setSolanaError(null);
+		setSolanaPayload(null);
+
+		const sol = (window as any).phantom?.solana ?? (window as any).solana;
+		if (!sol) {
+			setSolanaError(t`Solana wallet not found. Please install Phantom.`);
+			return;
+		}
+
+		try {
+			if (!sol.isConnected) {
+				await sol.connect();
+			}
+
+			const address: string = sol.publicKey?.toString();
+			if (!address) {
+				setSolanaError(t`Could not get wallet address.`);
+				return;
+			}
+
+			const nonceRes = await HttpClient.post<{nonce: string}>({
+				url: Endpoints.SUDO_SOLANA_NONCE,
+				body: {address},
+			});
+			const nonce = nonceRes.body.nonce;
+
+			const message = `Sign in to Multiverse\nNonce: ${nonce}`;
+			const messageBytes = new TextEncoder().encode(message);
+			const signResult = await sol.signMessage(messageBytes);
+			const sigBytes = new Uint8Array(signResult.signature as ArrayLike<number>);
+			const signature = btoa(String.fromCharCode(...sigBytes));
+
+			setSolanaPayload({address, signature, nonce});
+		} catch (err) {
+			logger.error('Solana sudo signing failed', err);
+			setSolanaError(t`Wallet signing failed. Please try again.`);
 		}
 	};
 
@@ -291,6 +363,22 @@ const SudoVerificationModal: React.FC = observer(() => {
 						<Trans>Use security key</Trans>
 					</Button>
 				);
+			case SudoVerificationMethod.SOLANA:
+				return solanaPayload ? (
+					<div className={styles.webauthnReady}>
+						<Spinner />
+						<span className={styles.srOnly}>
+							<Trans>Verifying...</Trans>
+						</span>
+					</div>
+				) : (
+					<div>
+						<Button type="button" onClick={handleSolanaSign} fitContainer disabled={isVerifying}>
+							<Trans>Sign with Solana wallet</Trans>
+						</Button>
+						{solanaError && <p className={styles.solanaError}>{solanaError}</p>}
+					</div>
+				);
 			default:
 				return null;
 		}
@@ -354,6 +442,7 @@ const SudoVerificationModal: React.FC = observer(() => {
 
 	const shouldShowSubmit =
 		selectedMethod !== SudoVerificationMethod.WEBAUTHN &&
+		selectedMethod !== SudoVerificationMethod.SOLANA &&
 		!(selectedMethod === SudoVerificationMethod.SMS && smsStatus !== SmsStatus.SENT);
 
 	return (
@@ -385,6 +474,8 @@ const SudoVerificationModal: React.FC = observer(() => {
 												onClick={() => {
 													setSelectedMethod(method);
 													form.clearErrors();
+													setSolanaError(null);
+													setSolanaPayload(null);
 													if (method !== SudoVerificationMethod.SMS) {
 														setSmsStatus(SmsStatus.IDLE);
 													}

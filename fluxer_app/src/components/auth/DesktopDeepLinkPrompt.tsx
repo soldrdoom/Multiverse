@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import styles from '@app/components/auth/DesktopDeepLinkPrompt.module.css';
@@ -102,7 +102,7 @@ export const DesktopDeepLinkPrompt: React.FC<DesktopDeepLinkPromptProps> = ({cod
 		<div className={styles.banner}>
 			<div className={styles.copy}>
 				<p className={styles.title}>
-					<Trans>Open in Fluxer for desktop</Trans>
+					<Trans>Open in Multiverse for desktop</Trans>
 				</p>
 				{error ? (
 					<p className={styles.notInstalled}>{error}</p>
@@ -115,7 +115,7 @@ export const DesktopDeepLinkPrompt: React.FC<DesktopDeepLinkPromptProps> = ({cod
 			<Button variant="primary" onClick={handleOpen} className={styles.cta} submitting={isLoading}>
 				<ArrowSquareOutIcon size={18} weight="fill" />
 				<span>
-					<Trans>Open Fluxer</Trans>
+					<Trans>Open Multiverse</Trans>
 				</span>
 			</Button>
 		</div>

@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -30,9 +30,9 @@ import {ChatsIcon} from '@fluxer/marketing/src/components/icons/ChatsIcon';
 import {CodeIcon} from '@fluxer/marketing/src/components/icons/CodeIcon';
 import {CoinsIcon} from '@fluxer/marketing/src/components/icons/CoinsIcon';
 import {DevicesIcon} from '@fluxer/marketing/src/components/icons/DevicesIcon';
-import {FluxerPartnerIcon} from '@fluxer/marketing/src/components/icons/FluxerPartnerIcon';
-import {FluxerPremiumIcon} from '@fluxer/marketing/src/components/icons/FluxerPremiumIcon';
-import {FluxerStaffIcon} from '@fluxer/marketing/src/components/icons/FluxerStaffIcon';
+import {MultiversePartnerIcon} from '@fluxer/marketing/src/components/icons/FluxerPartnerIcon';
+import {MultiversePremiumIcon} from '@fluxer/marketing/src/components/icons/FluxerPremiumIcon';
+import {MultiverseStaffIcon} from '@fluxer/marketing/src/components/icons/FluxerStaffIcon';
 import {GearIcon} from '@fluxer/marketing/src/components/icons/GearIcon';
 import {GifIcon} from '@fluxer/marketing/src/components/icons/GifIcon';
 import {GlobeIcon} from '@fluxer/marketing/src/components/icons/GlobeIcon';
@@ -72,7 +72,7 @@ const ICON_MAP = {
 	newspaper: NewspaperIcon,
 
 	rocket_launch: RocketLaunchIcon,
-	fluxer_partner: FluxerPartnerIcon,
+	fluxer_partner: MultiversePartnerIcon,
 	chat_centered_text: ChatCenteredTextIcon,
 	bluesky: BlueskyIcon,
 	bug: BugIcon,
@@ -80,8 +80,8 @@ const ICON_MAP = {
 	translate: TranslateIcon,
 	shield_check: ShieldCheckIcon,
 
-	fluxer_premium: FluxerPremiumIcon,
-	fluxer_staff: FluxerStaffIcon,
+	fluxer_premium: MultiversePremiumIcon,
+	fluxer_staff: MultiverseStaffIcon,
 	seal_check: SealCheckIcon,
 	link: LinkIcon,
 	arrow_up: ArrowUpIcon,

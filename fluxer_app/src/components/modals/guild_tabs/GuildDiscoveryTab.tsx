@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as GuildActionCreators from '@app/actions/GuildActionCreators';
@@ -75,6 +75,8 @@ const GuildDiscoveryTab: React.FC<{guildId: string}> = ({guildId}) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isWithdrawing, setIsWithdrawing] = useState(false);
 
+	const MULTIVERSE_OFFICIAL_GUILD_ID = '1481511583992512513';
+
 	const categoryOptions: ReadonlyArray<SelectOption<number>> = useMemo(
 		() => [
 			{value: 0, label: t`Gaming`},
@@ -86,8 +88,9 @@ const GuildDiscoveryTab: React.FC<{guildId: string}> = ({guildId}) => {
 			{value: 6, label: t`Anime & Manga`},
 			{value: 7, label: t`Movies & TV`},
 			{value: 8, label: t`Other`},
+			...(guildId === MULTIVERSE_OFFICIAL_GUILD_ID ? [{value: 9, label: t`Sovereign Origin`}] : []),
 		],
-		[t],
+		[t, guildId],
 	);
 
 	const fetchStatus = useCallback(async () => {

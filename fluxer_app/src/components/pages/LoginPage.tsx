@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as AuthenticationActionCreators from '@app/actions/AuthenticationActionCreators';
@@ -23,7 +23,7 @@ import {AuthRouterLink} from '@app/components/auth/AuthRouterLink';
 import {useDesktopHandoffFlow} from '@app/components/auth/auth_login_core/useDesktopHandoffFlow';
 import {HandoffCodeDisplay} from '@app/components/auth/HandoffCodeDisplay';
 import MfaScreen from '@app/components/auth/MfaScreen';
-import {useFluxerDocumentTitle} from '@app/hooks/useFluxerDocumentTitle';
+import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
 import {useLocation} from '@app/lib/router/React';
 import AccountManager from '@app/stores/AccountManager';
 import AuthenticationStore from '@app/stores/AuthenticationStore';
@@ -126,7 +126,7 @@ const LoginPageContainer = observer(() => {
 	const {t} = useLingui();
 	const loginState = AuthenticationStore.loginState;
 
-	useFluxerDocumentTitle(t`Log in`);
+	useMultiverseDocumentTitle(t`Log in`);
 
 	switch (loginState) {
 		case 'default':

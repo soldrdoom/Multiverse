@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
@@ -38,6 +38,7 @@ export enum SudoVerificationMethod {
 	TOTP = 'totp',
 	SMS = 'sms',
 	WEBAUTHN = 'webauthn',
+	SOLANA = 'solana',
 }
 
 export function isAbortError(error: unknown): boolean {
@@ -60,11 +61,12 @@ class SudoPromptStore {
 	verificationError: string | null = null;
 	rawError: HttpError | null = null;
 	currentRequest: SudoRequestContext | null = null;
-	availableMethods: {password: boolean; totp: boolean; sms: boolean; webauthn: boolean; has_mfa: boolean} = {
+	availableMethods: {password: boolean; totp: boolean; sms: boolean; webauthn: boolean; solana: boolean; has_mfa: boolean} = {
 		password: true,
 		totp: false,
 		sms: false,
 		webauthn: false,
+		solana: true,
 		has_mfa: false,
 	};
 	lastUsedMfaMethod: SudoVerificationPayload['mfa_method'] | null = null;
@@ -129,13 +131,14 @@ class SudoPromptStore {
 					totp: response.body.totp,
 					sms: response.body.sms,
 					webauthn: response.body.webauthn,
+					solana: true,
 					has_mfa: hasMfa,
 				};
 			});
 		} catch (error) {
 			this.logger.error('Failed to load sudo MFA methods', error);
 			runInAction(() => {
-				this.availableMethods = {password: true, totp: false, sms: false, webauthn: false, has_mfa: false};
+				this.availableMethods = {password: true, totp: false, sms: false, webauthn: false, solana: true, has_mfa: false};
 			});
 		} finally {
 			runInAction(() => {

@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
@@ -33,7 +33,8 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 
-const maskEmail = (email: string): string => {
+const maskEmail = (email: string | null | undefined): string => {
+	if (!email) return '';
 	const [username, domain] = email.split('@');
 	const maskedUsername = username.replace(/./g, '*');
 	return `${maskedUsername}@${domain}`;
@@ -55,7 +56,7 @@ export const AccountTabContent: React.FC<AccountTabProps> = observer(
 
 				<SettingsTabSection
 					title={<Trans>Email Settings</Trans>}
-					description={<Trans>Manage the email address you use to sign in to Fluxer</Trans>}
+					description={<Trans>Manage the email address you use to sign in to Multiverse</Trans>}
 				>
 					{isClaimed ? (
 						<>

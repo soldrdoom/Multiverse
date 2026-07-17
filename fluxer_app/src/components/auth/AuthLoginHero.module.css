@@ -1,0 +1,84 @@
+/*
+ * Copyright (C) 2026 Multiverse Contributors
+ *
+ * This file is part of Multiverse.
+ *
+ * Multiverse is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Multiverse is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.column {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 26rem;
+	color: #ffffff;
+}
+
+.headline {
+	font-size: clamp(1.5rem, 3vw, 2rem);
+	font-weight: 800;
+	line-height: 1.2;
+	margin: 0 0 0.5rem 0;
+	color: #ffffff;
+}
+
+.subhead {
+	font-size: 0.95rem;
+	color: rgba(255, 255, 255, 0.65);
+	line-height: 1.5;
+	margin: 0 0 1.75rem 0;
+}
+
+.featureList {
+	display: flex;
+	flex-direction: column;
+	gap: 1.1rem;
+}
+
+.featureItem {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+}
+
+.featureIcon {
+	flex-shrink: 0;
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: 0.6rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(74, 144, 140, 0.14);
+	border: 1px solid rgba(74, 144, 140, 0.3);
+	color: rgba(74, 144, 140, 0.95);
+}
+
+.featureText {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+}
+
+.featureLabel {
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: #ffffff;
+}
+
+.featureDescription {
+	font-size: 0.8rem;
+	color: rgba(255, 255, 255, 0.55);
+	line-height: 1.4;
+}

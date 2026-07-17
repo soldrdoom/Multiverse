@@ -1,27 +1,27 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {Config} from '@app/Config';
 import {shutdownInstrumentation} from '@app/Instrument';
 import {Logger} from '@app/Logger';
 import {createAppProxyApp} from '@fluxer/app_proxy/src/App';
-import {buildFluxerCSPOptions} from '@fluxer/app_proxy/src/app_server/utils/CSP';
+import {buildMultiverseCSPOptions} from '@fluxer/app_proxy/src/app_server/utils/CSP';
 import {createServiceTelemetry} from '@fluxer/hono/src/middleware/TelemetryAdapters';
 import {createServer, setupGracefulShutdown} from '@fluxer/hono/src/Server';
 
@@ -31,7 +31,7 @@ const telemetry = createServiceTelemetry({
 });
 
 async function main(): Promise<void> {
-	const cspDirectives = buildFluxerCSPOptions({sentryDsn: Config.sentry_dsn});
+	const cspDirectives = buildMultiverseCSPOptions({sentryDsn: Config.sentry_dsn});
 
 	const {app, shutdown} = await createAppProxyApp({
 		config: Config,
@@ -44,7 +44,7 @@ async function main(): Promise<void> {
 	});
 
 	const port = Config.port;
-	Logger.info({port}, 'Starting Fluxer App Proxy');
+	Logger.info({port}, 'Starting Multiverse App Proxy');
 
 	const server = createServer(app, {port});
 

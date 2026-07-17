@@ -8,7 +8,7 @@ We keep the information needed to run your account and comply with the law: your
 
 You can remove anything you've posted while you still have access to the space where you posted it:
 
-- Delete individual messages or attachments directly inside Fluxer.
+- Delete individual messages or attachments directly inside Multiverse.
 - Bulk delete via the Privacy Dashboard. See [Requesting data deletion](/help/data-deletion).
 - For the full account deletion flow, see [How to delete or disable your account](/help/delete-account).
 
@@ -33,4 +33,4 @@ We keep aggregated or anonymised information (which can no longer identify you) 
 
 ## Your rights
 
-Every user can manage their data inside Fluxer or by contacting **privacy@fluxer.app**. EU users have additional rights under the GDPR (access, rectification, erasure, restriction, portability, and objection), which you can exercise through your account or by emailing us.
+Every user can manage their data inside Multiverse or by contacting **privacy@fluxer.app**. EU users have additional rights under the GDPR (access, rectification, erasure, restriction, portability, and objection), which you can exercise through your account or by emailing us.

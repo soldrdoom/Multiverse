@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
@@ -29,7 +29,7 @@ export const CameraPermissionDeniedModal = observer(() => {
 		return (
 			<ConfirmModal
 				title={t`Camera Permission Required`}
-				description={t`Fluxer needs access to your camera. Open System Settings → Privacy & Security → Camera, allow Fluxer, and then restart the app.`}
+				description={t`Multiverse needs access to your camera. Open System Settings → Privacy & Security → Camera, allow Multiverse, and then restart the app.`}
 				primaryText={t`Open Settings`}
 				primaryVariant="primary"
 				onPrimary={() => openNativePermissionSettings('camera')}
@@ -39,8 +39,8 @@ export const CameraPermissionDeniedModal = observer(() => {
 	}
 
 	const message = isDesktop()
-		? t`Fluxer needs access to your camera. Allow camera access in your operating system privacy settings and restart the app.`
-		: t`Fluxer needs access to your camera to enable video chat. Please grant camera permission in your browser settings and try again.`;
+		? t`Multiverse needs access to your camera. Allow camera access in your operating system privacy settings and restart the app.`
+		: t`Multiverse needs access to your camera to enable video chat. Please grant camera permission in your browser settings and try again.`;
 
 	return (
 		<ConfirmModal

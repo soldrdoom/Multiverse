@@ -1,8 +1,8 @@
-## Welcome to Fluxer
+## Welcome to Multiverse
 
-These terms of service ("Terms") constitute a legally binding contract between you and Fluxer Platform AB (Swedish organization number: 559537-3993). We are based in Stockholm County, Sweden, and we operate the Fluxer chat platform and related services. Throughout these Terms, references to "Fluxer", "we", "us" or "our" refer to Fluxer Platform AB and our Services.
+These terms of service ("Terms") constitute a legally binding contract between you and Multiverse Platform AB (Swedish organization number: 559537-3993). We are based in Stockholm County, Sweden, and we operate the Multiverse chat platform and related services. Throughout these Terms, references to "Multiverse", "we", "us" or "our" refer to Multiverse Platform AB and our Services.
 
-By creating an account or using Fluxer in any way, you agree to be bound by these Terms, our [Privacy Policy](/privacy), and our [Community Guidelines](/guidelines). If you do not agree to these Terms, you must not use Fluxer.
+By creating an account or using Multiverse in any way, you agree to be bound by these Terms, our [Privacy Policy](/privacy), and our [Community Guidelines](/guidelines). If you do not agree to these Terms, you must not use Multiverse.
 
 If there is any conflict between these Terms and any applicable local mandatory law, the mandatory law will prevail.
 
@@ -10,20 +10,20 @@ If there is any conflict between these Terms and any applicable local mandatory 
 
 For the purposes of these Terms:
 
-- **"Services"** means the Fluxer applications (web, mobile, desktop), HTTP and WebSocket APIs, related websites and domains, and any other products, software, features, or services provided by Fluxer.
+- **"Services"** means the Multiverse applications (web, mobile, desktop), HTTP and WebSocket APIs, related websites and domains, and any other products, software, features, or services provided by Multiverse.
 - **"User Content"** means any data, text, messages, media, files, communities, reactions, or metadata you or other users submit, upload, transmit, store, or display on or through the Services.
-- **"Plutonium"** means Fluxer's optional paid subscription offering that provides enhanced features and benefits.
-- **"Community"** means a server, space, or similar environment created or administered on Fluxer where users can communicate or share content.
+- **"Plutonium"** means Multiverse's optional paid subscription offering that provides enhanced features and benefits.
+- **"Community"** means a server, space, or similar environment created or administered on Multiverse where users can communicate or share content.
 - **"Community Owners"** means users who create, own, or administer Communities and who are responsible for setting rules (subject to these Terms and our Community Guidelines) and moderating those Communities.
-- **"Account"** means a user account registered with Fluxer that is associated with a unique identifier and, typically, an email address.
+- **"Account"** means a user account registered with Multiverse that is associated with a unique identifier and, typically, an email address.
 - **"Privacy Policy"** means our [Privacy Policy](/privacy), which explains how we collect, use, and protect personal data.
-- **"Community Guidelines"** means our [Community Guidelines](/guidelines), which govern acceptable behavior and content on Fluxer.
+- **"Community Guidelines"** means our [Community Guidelines](/guidelines), which govern acceptable behavior and content on Multiverse.
 
 Capitalized terms that are not defined in this section have the meaning given to them elsewhere in these Terms.
 
 ## 1. Eligibility and Accounts
 
-### 1.1 Eligibility to Use Fluxer
+### 1.1 Eligibility to Use Multiverse
 
 You may use the Services only if:
 
@@ -48,7 +48,7 @@ You must not use the Services if:
 
 ### 1.2 Your Account and Security
 
-To use most features of Fluxer, you must create an Account. You are solely responsible for:
+To use most features of Multiverse, you must create an Account. You are solely responsible for:
 
 - maintaining the confidentiality and security of your login credentials;
 - all activities that occur under your Account, whether or not authorized by you, **except where applicable law provides that you are not responsible (for example, where activity results from a security incident for which we are responsible);**
@@ -68,15 +68,15 @@ Nothing in this Section 1.2 affects any non-waivable rights you may have under a
 
 ### 1.3 Consumer Use and Custom Contracts
 
-These Terms govern your use of Fluxer as a consumer and for general personal or community use.
+These Terms govern your use of Multiverse as a consumer and for general personal or community use.
 
 If you or your organization negotiate and sign a separate written enterprise, business, or custom agreement with us that expressly supersedes these Terms, that agreement will govern to the extent it conflicts with these Terms. In all other respects, these Terms will continue to apply.
 
-## 2. Using Fluxer
+## 2. Using Multiverse
 
 ### 2.1 Permitted Uses
 
-Fluxer is a communication and community platform where you can:
+Multiverse is a communication and community platform where you can:
 
 - send and receive messages, files, and media;
 - create, manage, and participate in Communities;
@@ -116,11 +116,11 @@ You retain full ownership of all User Content you create and share on or through
 
 You are responsible for ensuring that you have all necessary rights, licenses, and permissions to submit, upload, or share User Content on the Services and to grant the rights described in these Terms.
 
-### 3.2 License to Fluxer
+### 3.2 License to Multiverse
 
-To operate, secure, and improve the Services, you grant Fluxer a limited license to your User Content.
+To operate, secure, and improve the Services, you grant Multiverse a limited license to your User Content.
 
-Specifically, by submitting, uploading, or otherwise making User Content available on or through the Services, you grant Fluxer a worldwide, non-exclusive, royalty-free, transferable, and sublicensable license to:
+Specifically, by submitting, uploading, or otherwise making User Content available on or through the Services, you grant Multiverse a worldwide, non-exclusive, royalty-free, transferable, and sublicensable license to:
 
 - host, cache, store, reproduce, and display your User Content;
 - use your User Content to operate, maintain, secure, and provide the Services;
@@ -164,7 +164,7 @@ Our safety and moderation systems are designed to protect both users and the int
 
 ### 3.5 Copyright and Intellectual Property
 
-If you believe that content on Fluxer infringes your copyrights, please notify us at dmca@fluxer.app with the following information:
+If you believe that content on Multiverse infringes your copyrights, please notify us at dmca@fluxer.app with the following information:
 
 - your full name and contact details;
 - a description of the copyrighted work you claim has been infringed;
@@ -200,13 +200,13 @@ We offer a generous free tier, but we expect you to use it reasonably and for it
 
 We may take enforcement action if you:
 
-- use Fluxer primarily as unlimited cloud storage rather than for communication or community activities;
+- use Multiverse primarily as unlimited cloud storage rather than for communication or community activities;
 - accumulate excessive amounts of data or create unusual loads that negatively impact service quality or availability for other users;
 - distribute malware or illegal content, or use the Services for malicious, fraudulent, or abusive purposes;
-- use Fluxer infrastructure for command-and-control of malware, botnets, or other harmful systems; or
+- use Multiverse infrastructure for command-and-control of malware, botnets, or other harmful systems; or
 - deliberately attempt to stress test, overload, or degrade our infrastructure without our prior written permission.
 
-We will not target normal users who are using Fluxer in good faith for its intended purposes. This policy exists to prevent abuse that harms the platform and other users.
+We will not target normal users who are using Multiverse in good faith for its intended purposes. This policy exists to prevent abuse that harms the platform and other users.
 
 ### 5.2 Platform Integrity Protection
 
@@ -225,7 +225,7 @@ Violations of platform integrity may result in immediate content removal, featur
 
 ### 6.1 Payment Authorization
 
-By providing a payment method to Fluxer, you:
+By providing a payment method to Multiverse, you:
 
 - authorize us to charge your payment method for any Services you purchase, including recurring subscription fees where applicable;
 - confirm that you have the legal right and authority to use that payment method;
@@ -235,9 +235,9 @@ By providing a payment method to Fluxer, you:
 
 You are responsible for all applicable taxes, fees, and charges related to your purchases, except where we are required by law to collect and remit them.
 
-### 6.2 Fluxer Plutonium Subscription
+### 6.2 Multiverse Plutonium Subscription
 
-We offer an optional premium subscription service called **Fluxer Plutonium** that provides enhanced features and benefits.
+We offer an optional premium subscription service called **Multiverse Plutonium** that provides enhanced features and benefits.
 
 #### 6.2.1 Automatic Renewal
 
@@ -289,7 +289,7 @@ If a payment fails to process:
 - we will automatically attempt to retry charging your payment method a reasonable number of times;
 - we may charge any backup payment methods you have added to your Account;
 - we may suspend or downgrade your access to premium features until payment is successfully processed; and
-- you remain responsible for any unpaid amounts owed to Fluxer.
+- you remain responsible for any unpaid amounts owed to Multiverse.
 
 We are not responsible for any fees, charges, penalties, or interest imposed by your bank, payment provider, or financial institution in connection with failed payments or chargebacks.
 
@@ -297,7 +297,7 @@ We are not responsible for any fees, charges, penalties, or interest imposed by 
 
 If you believe there is an error or unauthorized charge on your Account, we encourage you to contact us first at support@fluxer.app so we can investigate and attempt to resolve the issue quickly.
 
-If you initiate a chargeback or payment dispute with your bank or payment provider for a payment made to Fluxer, we may:
+If you initiate a chargeback or payment dispute with your bank or payment provider for a payment made to Multiverse, we may:
 
 - temporarily suspend or restrict your access to paid features while the dispute is investigated; and
 - limit your ability to make future purchases if we reasonably believe the dispute is unfounded or forms part of a pattern of abusive behavior.
@@ -310,11 +310,11 @@ Stripe or your payment provider may also contact you directly with receipts, ale
 
 ## 7. Third-Party Services
 
-Fluxer integrates with and relies upon various third-party services to provide the Services, including hosting and infrastructure providers, payment processors, content delivery networks, security services, and communication platforms.
+Multiverse integrates with and relies upon various third-party services to provide the Services, including hosting and infrastructure providers, payment processors, content delivery networks, security services, and communication platforms.
 
 For a description of the categories of third-party services we use and how they handle data, please see our [Privacy Policy](/privacy).
 
-These third-party services have their own independent terms of service and privacy policies. Your use of such services may be subject to those additional terms. Fluxer is not responsible for the content, availability, policies, or practices of third-party services.
+These third-party services have their own independent terms of service and privacy policies. Your use of such services may be subject to those additional terms. Multiverse is not responsible for the content, availability, policies, or practices of third-party services.
 
 Some integrations involve you interacting directly with third-party content (for example, playing an embedded YouTube video). In those cases, the third party may receive information directly from your device and process it as an independent controller under its own terms and privacy policy.
 
@@ -324,9 +324,9 @@ Where required by law or by the terms of our agreements with providers that proc
 
 ### 8.1 Voluntary Account Deletion
 
-You may delete your Fluxer Account at any time through your Account settings. While we will be sorry to see you go, we respect your choice and will process your deletion request in accordance with our data retention practices and applicable law. For details about the deletion process, including any grace period during which you can cancel deletion, see [the guide to deleting or disabling an account](/help/delete-account).
+You may delete your Multiverse Account at any time through your Account settings. While we will be sorry to see you go, we respect your choice and will process your deletion request in accordance with our data retention practices and applicable law. For details about the deletion process, including any grace period during which you can cancel deletion, see [the guide to deleting or disabling an account](/help/delete-account).
 
-### 8.2 Suspension and Termination by Fluxer
+### 8.2 Suspension and Termination by Multiverse
 
 We may suspend or permanently terminate Accounts, or restrict access to the Services, if we reasonably believe that:
 
@@ -361,9 +361,9 @@ You can remove messages and other content through your Privacy Dashboard or by c
 
 ### 9.1 No Warranties
 
-We work diligently to maintain Fluxer as a reliable and stable platform, but the Services are provided on an "as is" and "as available" basis.
+We work diligently to maintain Multiverse as a reliable and stable platform, but the Services are provided on an "as is" and "as available" basis.
 
-To the fullest extent permitted by law, Fluxer and its affiliates make no express or implied warranties or representations about the Services, including but not limited to warranties of merchantability, fitness for a particular purpose, non-infringement, or that the Services will be uninterrupted, secure, or error-free.
+To the fullest extent permitted by law, Multiverse and its affiliates make no express or implied warranties or representations about the Services, including but not limited to warranties of merchantability, fitness for a particular purpose, non-infringement, or that the Services will be uninterrupted, secure, or error-free.
 
 We cannot guarantee:
 
@@ -373,7 +373,7 @@ We cannot guarantee:
 
 ### 9.2 Limitation of Liability
 
-To the maximum extent permitted by applicable law, Fluxer and its affiliates will not be liable for:
+To the maximum extent permitted by applicable law, Multiverse and its affiliates will not be liable for:
 
 - any indirect, incidental, consequential, special, or punitive damages; or
 - any loss of profits, revenues, data, goodwill, or other intangible losses;
@@ -383,7 +383,7 @@ arising out of or in connection with your use of, or inability to use, the Servi
 To the extent we are liable under applicable law, our total aggregate liability for all claims arising out of or relating to the Services or these Terms will be limited to the greater of:
 
 - EUR 100; or
-- the total amount you have paid to Fluxer for the Services during the twelve (12) months immediately preceding the event giving rise to the claim.
+- the total amount you have paid to Multiverse for the Services during the twelve (12) months immediately preceding the event giving rise to the claim.
 
 Nothing in these Terms limits or excludes:
 
@@ -394,7 +394,7 @@ If you are a consumer residing in the EU/EEA, the United Kingdom, or another jur
 
 ### 9.3 Indemnification
 
-To the extent permitted by applicable law, you agree to defend, indemnify, and hold harmless Fluxer, its officers, directors, employees, and agents from and against any claims, demands, actions, damages, losses, and expenses (including reasonable legal fees) arising out of or related to:
+To the extent permitted by applicable law, you agree to defend, indemnify, and hold harmless Multiverse, its officers, directors, employees, and agents from and against any claims, demands, actions, damages, losses, and expenses (including reasonable legal fees) arising out of or related to:
 
 - your violation of these Terms or our [Community Guidelines](/guidelines);
 - your violation of any applicable law or regulation; or
@@ -429,13 +429,13 @@ Your continued use of the Services after the updated Terms take effect constitut
 
 ## 12. Account Communications and Verification
 
-All account-related communications with Fluxer should be sent from the email address associated with your Account. We use this as our primary method of verifying your identity and ensuring we are communicating with the actual Account holder.
+All account-related communications with Multiverse should be sent from the email address associated with your Account. We use this as our primary method of verifying your identity and ensuring we are communicating with the actual Account holder.
 
 For security reasons, we normally only provide account support, share sensitive information, or make changes to your Account when you contact us from that email address. If you lose access to your registered email address, we may need additional information to verify your identity and might not always be able to recover or modify your Account.
 
-Fluxer will never ask you to provide your password, full payment card number, or other highly sensitive security information via email. All official Fluxer emails and communications originate from email addresses ending in `@fluxer.app` or `@m.fluxer.app`. Be cautious of phishing attempts using similar-looking domain names or requesting sensitive information.
+Multiverse will never ask you to provide your password, full payment card number, or other highly sensitive security information via email. All official Multiverse emails and communications originate from email addresses ending in `@fluxer.app` or `@m.fluxer.app`. Be cautious of phishing attempts using similar-looking domain names or requesting sensitive information.
 
-If you receive a suspicious message claiming to be from Fluxer, please do not click any links or provide any information. Instead, contact us directly at support@fluxer.app.
+If you receive a suspicious message claiming to be from Multiverse, please do not click any links or provide any information. Instead, contact us directly at support@fluxer.app.
 
 ## 13. Contact Information
 
@@ -447,7 +447,7 @@ If you have questions, concerns, or need assistance with the Services or these T
 
 ### Postal Address
 
-Fluxer Platform AB
+Multiverse Platform AB
 Norra Kronans Gata 430
 136 76 Brandbergen
 Stockholm County, Sweden

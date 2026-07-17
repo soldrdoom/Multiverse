@@ -1,4 +1,4 @@
-# Contributing to Fluxer
+# Contributing to Multiverse
 
 Thanks for contributing. This document explains how we work so your changes can land smoothly and nobody wastes time on work we can't merge.
 

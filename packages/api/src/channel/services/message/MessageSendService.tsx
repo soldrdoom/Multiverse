@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {ChannelID, GuildID, RoleID, UserID} from '@fluxer/api/src/BrandedTypes';
@@ -61,6 +61,7 @@ import {withBusinessSpan} from '@fluxer/api/src/telemetry/BusinessSpans';
 import {recordMessageSendDuration, recordMessageSent} from '@fluxer/api/src/telemetry/MessageTelemetry';
 import {
 	ChannelTypes,
+	MessageFlags,
 	MessageReferenceTypes,
 	MessageTypes,
 	Permissions,
@@ -731,6 +732,10 @@ export class MessageSendService {
 
 		this.deps.validationService.ensureTextChannel(channel);
 
+		if (data.flags && data.flags & MessageFlags.E2EE && channel.type !== ChannelTypes.DM) {
+			throw InputValidationError.fromCode('flags', ValidationErrorCodes.CANNOT_EXECUTE_ON_DM_CHANNEL);
+		}
+
 		const isForwardMessage = this.ensureMessageRequestIsValid({user, data, guildFeatures: guild?.features ?? null});
 
 		this.deps.embedAttachmentResolver.validateAttachmentReferences({
@@ -842,12 +847,14 @@ export class MessageSendService {
 			user,
 			type: this.getMessageTypeForRequest(data),
 			content: data.content,
+			encryptedContent: data.encrypted_content,
 			flags: this.deps.validationService.calculateMessageFlags(data),
 			embeds: data.embeds,
 			attachments: attachmentsToProcess,
 			processedAttachments: favoriteMemeAttachment ? [favoriteMemeAttachment] : undefined,
 			attachmentDecayExcludedIds: favoriteMemeAttachment ? [favoriteMemeAttachment.attachment_id] : undefined,
 			stickerIds: data.sticker_ids ? data.sticker_ids.flatMap((stickerId) => createStickerID(stickerId)) : undefined,
+			nftStickers: data.nft_stickers ?? undefined,
 			messageReference,
 			messageSnapshots,
 			guildId: guild?.id ? createGuildID(BigInt(guild.id)) : null,

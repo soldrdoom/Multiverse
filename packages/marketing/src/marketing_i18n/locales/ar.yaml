@@ -2,7 +2,7 @@ app.communities.community: مجتمع
 app.communities.community_support: دعم المجتمعات
 app.communities.featured_in_discovery: مميز في الاكتشاف
 app.communities.moderation.actions_and_tools: إجراءات وأدوات الإشراف
-app.communities.moderation.report_people_or_communities: بلّغ عن أشخاص أو مجتمعات لنحافظ على Fluxer آمناً للجميع.
+app.communities.moderation.report_people_or_communities: بلّغ عن أشخاص أو مجتمعات لنحافظ على Multiverse آمناً للجميع.
 app.communities.moderation.tools: أدوات الإشراف
 app.communities.roles_permissions_audit.audit_logs: سجلات تدقيق للشفافية
 app.communities.roles_permissions_audit.granular_roles_and_permissions: أدوار وصلاحيات دقيقة
@@ -19,7 +19,7 @@ app.customization.custom_css_themes: سمات CSS مخصصة
 app.customization.custom_sounds.entrance_sounds: أصوات دخول مخصصة
 app.customization.custom_sounds.notification_sounds: أصوات إشعارات مخصصة
 app.customization.custom_sounds.set_personalized_join_sounds: اضبط أصواتاً مخصصة عند دخولك قنوات الصوت ليعرف الجميع بوجودك.
-app.customization.custom_sounds.upload_custom_notification_sounds: ارفع واستخدم أصوات إشعاراتك لتخصيص تجربة Fluxer.
+app.customization.custom_sounds.upload_custom_notification_sounds: ارفع واستخدم أصوات إشعاراتك لتخصيص تجربة Multiverse.
 app.customization.custom_themes: سمات مخصصة
 app.customization.global_emoji_and_sticker_access: وصول عالمي للإيموجي والملصقات
 app.customization.saved_media_and_css: أضف إيموجيات مخصصة، احفظ الوسائط لوقت لاحق، وغيّر شكل التطبيق عبر CSS مخصص.
@@ -40,7 +40,7 @@ app.messaging.features.search.label: البحث في سجل الرسائل
 app.messaging.features.search.quick_switcher_shortcuts: مبدل سريع مع اختصارات لوحة المفاتيح
 app.messaging.features.search.search_and_quick_switcher: البحث ومبدل سريع
 app.messaging.title: المراسلة
-app.open.open_fluxer: افتح Fluxer
+app.open.open_fluxer: افتح Multiverse
 app.open.open_web_app: افتح تطبيق الويب
 app.profiles_identity.custom_identity: هوية مخصصة
 app.profiles_identity.customise_per_community: خصّص ملفك الشخصي بشكل مختلف لكل مجتمع أنت جزء منه.
@@ -62,18 +62,18 @@ beta_and_access.early_access.label: وصول مبكر
 beta_and_access.featured_benefit_line: كل الأساسيات التي تتوقعها، مع بعض الإضافات التي قد لا تتوقعها.
 beta_and_access.public_beta: بيتا عامة
 beta_and_access.registration_limited_during_beta: نحن نحد من التسجيلات خلال البيتا. بمجرد دخولك، يمكنك إعطاء أصدقائك رمزاً لتجاوز الطابور.
-beta_and_access.try_without_email: جرّب Fluxer بدون بريد إلكتروني خلال 30 ثانية
-community_funding_and_roles.focused_on_product: حالياً نركز على إطلاق منتج ممتاز مع الحفاظ على استقلال Fluxer واعتماده على التمويل الذاتي.
+beta_and_access.try_without_email: جرّب Multiverse بدون بريد إلكتروني خلال 30 ثانية
+community_funding_and_roles.focused_on_product: حالياً نركز على إطلاق منتج ممتاز مع الحفاظ على استقلال Multiverse واعتماده على التمويل الذاتي.
 community_funding_and_roles.future_paid_roles_heading: مستقبل الأدوار المدفوعة
-community_funding_and_roles.future_paid_roles_note: نحن ما زلنا نبني النشاط التجاري حول Fluxer ولسنا جاهزين تماماً للأدوار المدفوعة بعد.
-community_funding_and_roles.non_paid_recurring_role: دور غير مدفوع للمساهمين المتكررين الذين يساعدون في تشكيل Fluxer مع الفريق الأساسي.
+community_funding_and_roles.future_paid_roles_note: نحن ما زلنا نبني النشاط التجاري حول Multiverse ولسنا جاهزين تماماً للأدوار المدفوعة بعد.
+community_funding_and_roles.non_paid_recurring_role: دور غير مدفوع للمساهمين المتكررين الذين يساعدون في تشكيل Multiverse مع الفريق الأساسي.
 community_funding_and_roles.sustainability_note: بدعمك، نأمل أن نجعل هذه المنصة المستقلة مستدامة ونبدأ بتقديم أدوار مدفوعة في المستقبل.
 company_and_resources.blog: المدونة
-company_and_resources.careers.careers_at_fluxer: الوظائف في Fluxer
+company_and_resources.careers.careers_at_fluxer: الوظائف في Multiverse
 company_and_resources.careers.label: الوظائف
 company_and_resources.careers.share_a_bit_about_yourself: عرّفنا عن نفسك قليلاً وكيف تحب تساهم عبر مراسلة careers@fluxer.app
-company_and_resources.community_team.fluxer_community_team: فريق مجتمع Fluxer
-company_and_resources.community_team.share_feedback_report_bugs: شارك ملاحظاتك، بلّغ عن الأخطاء، وساعدنا في جعل Fluxer مرحباً بالجميع.
+company_and_resources.community_team.fluxer_community_team: فريق مجتمع Multiverse
+company_and_resources.community_team.share_feedback_report_bugs: شارك ملاحظاتك، بلّغ عن الأخطاء، وساعدنا في جعل Multiverse مرحباً بالجميع.
 company_and_resources.company: الشركة
 company_and_resources.company_info: معلومات الشركة
 company_and_resources.connect: تواصل
@@ -89,31 +89,31 @@ company_and_resources.source_and_contribution.code_issues_docs_reviews: كود،
 company_and_resources.source_and_contribution.contribute_code: ساهم بالكود
 company_and_resources.source_and_contribution.contribute_on_github: ساهم على GitHub
 company_and_resources.source_and_contribution.fix_bugs_ship_features: أصلح الأخطاء، أطلق الميزات، أو صقل التجربة في مستودعنا الرئيسي.
-company_and_resources.source_and_contribution.fluxer_built_in_open: Fluxer يُبنى على المكشوف. اختر الطريق الذي يناسب طريقة مساعدتك.
+company_and_resources.source_and_contribution.fluxer_built_in_open: Multiverse يُبنى على المكشوف. اختر الطريق الذي يناسب طريقة مساعدتك.
 company_and_resources.source_and_contribution.get_involved: شارك معنا
 company_and_resources.source_and_contribution.source_code: الكود المصدري
-company_and_resources.source_and_contribution.translation.help_translate: ساعد في ترجمة Fluxer ووثائقه ليبدو طبيعياً في كل مكان.
+company_and_resources.source_and_contribution.translation.help_translate: ساعد في ترجمة Multiverse ووثائقه ليبدو طبيعياً في كل مكان.
 company_and_resources.source_and_contribution.translation.label: الترجمة والتوطين
-company_and_resources.source_and_contribution.translation.llm_translation_note: كل الترجمات حالياً مولدة عبر نماذج لغوية مع مراجعة بشرية قليلة. يسعدنا أن يساعدنا أشخاص حقيقيون في توطين Fluxer للغتك. إذا رغبت بذلك، راسل i18n@fluxer.app وسنكون سعداء بقبول مساهماتك.
+company_and_resources.source_and_contribution.translation.llm_translation_note: كل الترجمات حالياً مولدة عبر نماذج لغوية مع مراجعة بشرية قليلة. يسعدنا أن يساعدنا أشخاص حقيقيون في توطين Multiverse للغتك. إذا رغبت بذلك، راسل i18n@fluxer.app وسنكون سعداء بقبول مساهماتك.
 company_and_resources.source_and_contribution.translation.localization_label: التوطين
 company_and_resources.source_and_contribution.view_repository: اعرض المستودع
-company_and_resources.source_and_contribution.want_to_help_build_fluxer: تحب تساعدنا نبني Fluxer؟
+company_and_resources.source_and_contribution.want_to_help_build_fluxer: تحب تساعدنا نبني Multiverse؟
 company_and_resources.source_and_contribution.ways_to_contribute: طرق المساهمة
 donations.business: شركة
 donations.donate.action: تبرع
-donations.donate.label: تبرع لـ Fluxer
-donations.donate.description: ادعم Fluxer بتبرع لمرة واحدة أو متكرر
+donations.donate.label: تبرع لـ Multiverse
+donations.donate.description: ادعم Multiverse بتبرع لمرة واحدة أو متكرر
 donations.donation_disclaimer: التبرعات هدايا طوعية ولا تمنحك أي منتج أو خدمة أو ملكية أو حقوق خاصة. إذا كنت تبحث عن ميزات مدفوعة، ألق نظرة على {0}.
 donations.individual: فردي
 donations.individual_vs_business.answer: كلا نوعي التبرع يدعمان نفس الهدف بنفس القدر. الفرق الوحيد هو أن تبرعات الشركات تتيح لك إدخال رقم ضريبي (إن وجد) والحصول على فاتورة PDF عند إتمام العملية، وهذا قد يفيد في محاسبة الشركة.
 donations.individual_vs_business.question: ما الفرق بين التبرع الفردي وتبرع الشركات؟
-donations.infrastructure_costs_detail: تبرعك يساعد في تغطية تكاليف بنية Fluxer التحتية، بما في ذلك الخوادم وعرض النطاق والتخزين، إضافة إلى التطوير المستمر للميزات الجديدة. ويساعدنا في الحفاظ على المنصة وتحسينها للجميع.
+donations.infrastructure_costs_detail: تبرعك يساعد في تغطية تكاليف بنية Multiverse التحتية، بما في ذلك الخوادم وعرض النطاق والتخزين، إضافة إلى التطوير المستمر للميزات الجديدة. ويساعدنا في الحفاظ على المنصة وتحسينها للجميع.
 donations.minimum_donation: 'الحد الأدنى للتبرع: $5 / €5'
 donations.mobile_roadmap_sponsorship: ادعم خارطة طريق تطبيقات الهاتف
 donations.send_one_time_gift: أرسل هدية لمرة واحدة
 donations.support_future_development: ادعم التطوير المستقبلي
 donations.support_message: ساعدنا في بناء منصة تواصل مستقلة. تبرعك يمول بنية المنصة التحتية وتطويرها.
-donations.tax_deductible.answer: التبرعات لـ Fluxer غير قابلة للخصم الضريبي حالياً، لكنها تمول بنيتنا التحتية والتطوير المستمر بشكل مباشر.
+donations.tax_deductible.answer: التبرعات لـ Multiverse غير قابلة للخصم الضريبي حالياً، لكنها تمول بنيتنا التحتية والتطوير المستمر بشكل مباشر.
 donations.tax_deductible.question: هل تبرعي قابل للخصم الضريبي؟
 donations.what_it_supports: ماذا يدعم تبرعي؟
 donations.why_support: 'ساعدنا في بناء نوع مختلف من منصات التواصل: مفتوح المصدر، ممول من المجتمع، ومصنوع بعناية.'
@@ -148,8 +148,8 @@ donations.success.message: شكراً لك على تبرعك! نحن نقدّر 
 donations.success.email_notice: ستتلقى رسالة تأكيد بالبريد الإلكتروني قريباً مع تفاصيل تبرعك ورابط إلى بوابة المتبرعين.
 donations.success.back_to_donate: العودة إلى التبرع
 download.download: تحميل
-download.download_app_or_open_in_browser: حمّل التطبيق أو افتح Fluxer في متصفحك لتبدأ بالتواصل مع مجتمعاتك.
-download.download_fluxer: تحميل Fluxer
+download.download_app_or_open_in_browser: حمّل التطبيق أو افتح Multiverse في متصفحك لتبدأ بالتواصل مع مجتمعاتك.
+download.download_fluxer: تحميل Multiverse
 download.download_for_prefix: 'تحميل لـ '
 download.open_in_browser: افتح في المتصفح
 download.screenshots_courtesy_of: 'اللقطات مقدمة من '
@@ -159,8 +159,8 @@ footer.company_information: معلومات الشركة
 footer.connect: تواصل
 footer.donate: تبرع
 footer.download: تحميل
-footer.fluxer: Fluxer
-footer.fluxer_platform_ab_swedish_limited: '© Fluxer Platform AB (شركة ذات مسؤولية محدودة سويدية: 559537-3993)'
+footer.fluxer: Multiverse
+footer.fluxer_platform_ab_swedish_limited: '© Multiverse Platform AB (شركة ذات مسؤولية محدودة سويدية: 559537-3993)'
 footer.help_support_an_independent_communication: ادعم منصة تواصل مستقلة. تبرعك يموّل بنية المنصة التحتية والتطوير.
 footer.partners: الشركاء
 footer.plutonium_tier: خطة Plutonium
@@ -218,8 +218,8 @@ languages.list.thai: التايلاندية
 languages.list.turkish: التركية
 languages.list.ukrainian: الأوكرانية
 languages.list.vietnamese: الفيتنامية
-launch.description: تعرّف على المطور وراء Fluxer، وأهداف المشروع، وحزمة التقنيات، وما القادم.
-launch.heading: قصة Fluxer
+launch.description: تعرّف على المطور وراء Multiverse، وأهداف المشروع، وحزمة التقنيات، وما القادم.
+launch.heading: قصة Multiverse
 launch.read_more: اقرأ تدوينة الإطلاق
 launch.view_full_roadmap: اعرض خارطة الطريق كاملة
 misc_labels.design_and_branding: التصميم والهوية
@@ -229,12 +229,12 @@ misc_labels.exclusive_features: ميزات حصرية
 misc_labels.feature: ميزة
 misc_labels.get_updates: احصل على التحديثات، وشاهد الميزات القادمة، وناقش الاقتراحات، ودردش مع الفريق.
 misc_labels.join_and_spread_word: انضم وانشر الكلمة
-misc_labels.join_fluxer_community_contribute: انضم إلى مجتمع Fluxer وساعد في بناء مستقبل التواصل عبر المصادر المفتوحة ومساهمات المجتمع.
-misc_labels.join_fluxer_hq: انضم إلى Fluxer HQ
+misc_labels.join_fluxer_community_contribute: انضم إلى مجتمع Multiverse وساعد في بناء مستقبل التواصل عبر المصادر المفتوحة ومساهمات المجتمع.
+misc_labels.join_fluxer_hq: انضم إلى Multiverse HQ
 misc_labels.join_multiple_devices: انضم من عدة أجهزة في نفس الوقت
-misc_labels.join_team_behind_fluxer: انضم إلى الفريق وراء Fluxer
+misc_labels.join_team_behind_fluxer: انضم إلى الفريق وراء Multiverse
 misc_labels.learn_more: اعرف أكثر
-misc_labels.product_hunt_badge_title: Fluxer – منصة مراسلة فورية وVoIP مفتوحة المصدر على نمط Discord | أفضل منشور على Product Hunt
+misc_labels.product_hunt_badge_title: Multiverse – منصة مراسلة فورية وVoIP مفتوحة المصدر على نمط Discord | أفضل منشور على Product Hunt
 misc_labels.profile_badge: شارة الملف الشخصي
 misc_labels.read_the_guide: اقرأ الدليل
 misc_labels.ready_to_get_started: جاهز تبدأ؟
@@ -253,11 +253,11 @@ navigation.on_this_page: في هذه الصفحة
 navigation.page_not_found.description: هذه الصفحة غير موجودة، لكن ما زال هناك الكثير لتستكشفه.
 navigation.page_not_found.title: الصفحة غير موجودة
 navigation.press.download_assets_intro: حمّل شعاراتنا، تعرّف على ألوان العلامة، وتواصل مع فريق الصحافة.
-navigation.press.download_fluxer_assets: حمّل شعارات Fluxer ومواد الهوية، وتواصل مع فريق الصحافة
+navigation.press.download_fluxer_assets: حمّل شعارات Multiverse ومواد الهوية، وتواصل مع فريق الصحافة
 navigation.press.press_and_brand_assets: مواد الصحافة وهوية العلامة
 partner_program.become_partner.apply_email: قدّم عبر partners@fluxer.app
 partner_program.become_partner.call_to_action: كن شريكاً
-partner_program.become_partner.heading: كن شريكاً في Fluxer
+partner_program.become_partner.heading: كن شريكاً في Multiverse
 partner_program.become_partner.if_youre_a_creator_or: إذا كنت صانع محتوى أو تدير مجتمعاً كبيراً، يسعدنا أن نسمع منك.
 partner_program.become_partner.learn_about_partners: تعرف على برنامج الشركاء
 partner_program.become_partner.learn_more: اعرف أكثر
@@ -268,7 +268,7 @@ partner_program.perks.creator_monetization.description: وصول مبكر لمي
 partner_program.perks.creator_monetization.label: تحقيق الدخل لصناع المحتوى
 partner_program.perks.custom_vanity_url.description: احصل على رابط مخصص مثل fluxer.gg/yourcommunity.
 partner_program.perks.custom_vanity_url.label: رابط مخصص
-partner_program.perks.direct_team_access.description: انضم إلى مجتمع الشركاء الحصري مع وصول مباشر لفريق Fluxer.
+partner_program.perks.direct_team_access.description: انضم إلى مجتمع الشركاء الحصري مع وصول مباشر لفريق Multiverse.
 partner_program.perks.direct_team_access.label: وصول مباشر للفريق
 partner_program.perks.discovery_visibility: احصل على ظهور أعلى عبر تمييزك في الاكتشاف.
 partner_program.perks.exclusive_merch.description: احصل على منتجات وسواغ حصرية للشركاء فقط.
@@ -284,20 +284,20 @@ partner_program.perks.vip_voice_servers.label: قنوات صوتية VIP
 partner_program.requirements.audience_description: وصف مختصر لجمهورك وما الذي تقدمه
 partner_program.requirements.links_to_content: روابط لمحتواك أو مجتمعك (YouTube أو Twitch أو Discord وغيرها)
 partner_program.requirements.name_and_username: اسمك واسم المستخدم على المنصة
-partner_program.requirements.usage_plan: كيف تخطط لاستخدام Fluxer مع مجتمعك
+partner_program.requirements.usage_plan: كيف تخطط لاستخدام Multiverse مع مجتمعك
 partner_program.who_its_for: 'صناع المحتوى وأصحاب المجتمعات: افتح مزايا حصرية تشمل Plutonium مجاني، شارة شريك، روابط مخصصة، وأكثر.'
 partner_program.perks.heading: مزايا الشركاء
 partner_program.perks.see_perks: عرض المزايا
-partner_program.apply.instructions: أرسل لنا بريداً إلكترونياً بالمعلومات التالية للتقدم إلى برنامج شركاء Fluxer.
+partner_program.apply.instructions: أرسل لنا بريداً إلكترونياً بالمعلومات التالية للتقدم إلى برنامج شركاء Multiverse.
 partner_program.apply.response_time: نراجع جميع الطلبات وسنعود إليك خلال أيام قليلة.
 platform_support.desktop.available_on_desktop_and_web: متاح على سطح المكتب وعبر الويب
-platform_support.desktop.download_desktop_intro: حمّل Fluxer لويندوز وmacOS ولينكس. تطبيقات الهاتف قيد التطوير.
-platform_support.desktop.interface_label: واجهة Fluxer لسطح المكتب
+platform_support.desktop.download_desktop_intro: حمّل Multiverse لويندوز وmacOS ولينكس. تطبيقات الهاتف قيد التطوير.
+platform_support.desktop.interface_label: واجهة Multiverse لسطح المكتب
 platform_support.desktop.label: سطح المكتب
 platform_support.desktop.use_desktop_client_mobile_soon: استخدم تطبيق سطح المكتب (تطبيق الهاتف قريباً)
-platform_support.mobile.install_as_app.add_to_home: أضف Fluxer إلى الشاشة الرئيسية لإخفاء واجهة المتصفح.
-platform_support.mobile.install_as_app.done_desktop: تم! يمكنك الآن فتح Fluxer وكأنه برنامج عادي.
-platform_support.mobile.install_as_app.done_mobile: تم! يمكنك الآن فتح Fluxer من الشاشة الرئيسية.
+platform_support.mobile.install_as_app.add_to_home: أضف Multiverse إلى الشاشة الرئيسية لإخفاء واجهة المتصفح.
+platform_support.mobile.install_as_app.done_desktop: تم! يمكنك الآن فتح Multiverse وكأنه برنامج عادي.
+platform_support.mobile.install_as_app.done_mobile: تم! يمكنك الآن فتح Multiverse من الشاشة الرئيسية.
 platform_support.mobile.install_as_app.guides.in_chrome: ' في Chrome'
 platform_support.mobile.install_as_app.guides.in_chrome_or_another_browser: ' في Chrome أو أي متصفح آخر يدعم PWA'
 platform_support.mobile.install_as_app.guides.in_safari: ' في Safari'
@@ -309,11 +309,11 @@ platform_support.mobile.install_as_app.guides.steps.press_install_button_address
 platform_support.mobile.install_as_app.guides.steps.press_install_in_popup: 'اضغط "تثبيت" في النافذة المنبثقة'
 platform_support.mobile.install_as_app.guides.steps.press_more_menu: 'اضغط زر "المزيد" (⋮) في الزاوية العلوية اليمنى'
 platform_support.mobile.install_as_app.guides.steps.press_share_button: اضغط زر المشاركة (مستطيل مع سهم للأعلى)
-platform_support.mobile.install_as_app.install_fluxer_as_app: ثبّت Fluxer كتطبيق
+platform_support.mobile.install_as_app.install_fluxer_as_app: ثبّت Multiverse كتطبيق
 platform_support.mobile.install_as_app.title: طريقة التثبيت كتطبيق
-platform_support.mobile.interface_label: واجهة Fluxer للهاتف
+platform_support.mobile.interface_label: واجهة Multiverse للهاتف
 platform_support.mobile.mobile_apps_underway: تطبيقات الهاتف قيد التطوير
-platform_support.mobile.mobile_browser_explainer: نحن نبني تطبيقات لـ iOS وAndroid. إلى أن تصبح جاهزة، يعمل Fluxer في متصفح الهاتف، وقد بذلنا جهداً كبيراً ليبدو أقرب ما يكون لتطبيق.
+platform_support.mobile.mobile_browser_explainer: نحن نبني تطبيقات لـ iOS وAndroid. إلى أن تصبح جاهزة، يعمل Multiverse في متصفح الهاتف، وقد بذلنا جهداً كبيراً ليبدو أقرب ما يكون لتطبيق.
 platform_support.mobile.not_full_replacement_yet: هذا ليس بديلاً كاملاً لتطبيق سطح المكتب بعد، وما زالت بعض الأمور التي تتوقعها من تطبيق دردشة على الهاتف غير متوفرة.
 platform_support.mobile.push_notifications: احصل على إشعارات فورية عندما تكون بعيداً عن التطبيق.
 platform_support.platforms.android.apk: APK
@@ -339,7 +339,7 @@ press_branding.assets.label: الشعار
 press_branding.assets.logo_variants.black_logo: شعار أسود
 press_branding.assets.logo_variants.color_logo: شعار ملون
 press_branding.assets.logo_variants.white_logo: شعار أبيض
-press_branding.assets.palette_description: لوحة ألواننا المختارة بعناية والتي تمثل هوية Fluxer.
+press_branding.assets.palette_description: لوحة ألواننا المختارة بعناية والتي تمثل هوية Multiverse.
 press_branding.assets.premium_quality: جودة عالية
 press_branding.assets.primary_brand_color_description: لون العلامة الأساسي. استخدمه للعناصر الأساسية ولمسات التمييز.
 press_branding.assets.symbol_variants.black_symbol: رمز أسود
@@ -355,7 +355,7 @@ press_branding.assets.usage_guidance.symbol_description: رمزنا المنفص
 press_branding.colors.blue_da_ba_dee: Blue Da Ba Dee
 press_branding.colors.white: أبيض
 press_branding.colors.black: أسود
-press_branding.contact.story_prompt: لديك قصة عن Fluxer؟ نحب أن نسمع منك.
+press_branding.contact.story_prompt: لديك قصة عن Multiverse؟ نحب أن نسمع منك.
 press_branding.contact.response_time: نرد عادة خلال 24 ساعة.
 pricing_and_tiers.billing.forever: للأبد
 pricing_and_tiers.billing.most_popular: الأكثر شيوعاً
@@ -368,7 +368,7 @@ pricing_and_tiers.free.comparison_label: مجاني مقابل Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'كل ما في الخطة المجانية، بالإضافة إلى:'
 pricing_and_tiers.free.full_access_to_all_features: وصول كامل لكل الميزات
 pricing_and_tiers.free.label: مجاني
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'ملاحظة: مزايا Plutonium وVisionary تنطبق فقط على نسخة Fluxer.app الرسمية، وليس على النسخ الخارجية أو المستضافة ذاتياً.'
+pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'ملاحظة: مزايا Plutonium وVisionary تنطبق فقط على نسخة Multiverse.app الرسمية، وليس على النسخ الخارجية أو المستضافة ذاتياً.'
 pricing_and_tiers.plutonium.feature_highlights: رفع 500 MB، رسائل حتى 4,000 حرف، 300 علامة مرجعية، 50 حزمة إيموجي، وأكثر بكثير.
 pricing_and_tiers.plutonium.features.bio_character_limit: حد أحرف النبذة
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: اختر أي وسم 4 أرقام متاح من #0001 إلى #9999 لاسم مستخدم فريد حقاً.
@@ -383,7 +383,7 @@ pricing_and_tiers.plutonium.features.message_scheduling: جدولة الرسائ
 pricing_and_tiers.plutonium.features.per_community_profiles: ملفات شخصية لكل مجتمع
 pricing_and_tiers.plutonium.features.saved_media: وسائط محفوظة
 pricing_and_tiers.plutonium.features.webhooks_and_bot_support: دعم Webhooks والبوتات
-pricing_and_tiers.plutonium.get_more_with_plutonium: احصل على المزيد مع Fluxer Plutonium
+pricing_and_tiers.plutonium.get_more_with_plutonium: احصل على المزيد مع Multiverse Plutonium
 pricing_and_tiers.plutonium.get_plutonium: احصل على Plutonium
 pricing_and_tiers.plutonium.higher_limits_and_early_access: حدود أعلى، ميزات حصرية، ووصول مبكر للتحديثات الجديدة
 pricing_and_tiers.plutonium.higher_limits_everywhere: حدود أعلى في كل مكان
@@ -396,7 +396,7 @@ pricing_and_tiers.visionary.bundle_label: Plutonium وOperator Pass مدى ال�
 pricing_and_tiers.visionary.communities_with_team_access: مجتمعات Visionary وOperators مع وصول للفريق
 pricing_and_tiers.visionary.get_visionary: احصل على Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: احصل على Plutonium مدى الحياة على Fluxer.app بالإضافة إلى Operator Pass للاستضافة الذاتية. ادفع {0} مرة واحدة. متاح حتى 1 أكتوبر 2026 أو حتى يتم حجز جميع المقاعد.
+pricing_and_tiers.visionary.lifetime_offer_copy: احصل على Plutonium مدى الحياة على Multiverse.app بالإضافة إلى Operator Pass للاستضافة الذاتية. ادفع {0} مرة واحدة. متاح حتى 1 أكتوبر 2026 أو حتى يتم حجز جميع المقاعد.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass مدى الحياة
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium مدى الحياة
 pricing_and_tiers.visionary.limited_offer_note: 'عرض محدود: Visionary يتضمن Operator Pass'
@@ -407,8 +407,8 @@ pricing_and_tiers.visionary.purchase_flow: اشترِ Visionary مباشرة د�
 pricing_and_tiers.visionary.slots_left.generic: متبقي {0} من {1} مقعد
 pricing_and_tiers.visionary.slots_left.visionary_bundle: متبقي فقط {0} من {1} مقعد Visionary – Plutonium وOperator Pass مدى الحياة
 pricing_and_tiers.visionary.slots_left.visionary_only: متبقي {0} مقعد Visionary
-product_positioning.free_and_open_source: Fluxer مجاني ومفتوح المصدر. أي شخص يمكنه الاستضافة الذاتية مجاناً.
-product_positioning.intro: Fluxer منصة مراسلة فورية وVoIP مجانية ومفتوحة المصدر، مصممة للأصدقاء والمجموعات والمجتمعات.
+product_positioning.free_and_open_source: Multiverse مجاني ومفتوح المصدر. أي شخص يمكنه الاستضافة الذاتية مجاناً.
+product_positioning.intro: Multiverse منصة مراسلة فورية وVoIP مجانية ومفتوحة المصدر، مصممة للأصدقاء والمجموعات والمجتمعات.
 product_positioning.open_source.fully_open_source_agplv3: مفتوح المصدر بالكامل (AGPLv3)
 product_positioning.open_source.label: مفتوح المصدر
 product_positioning.open_source.license: مفتوح المصدر (AGPL-3.0)
@@ -416,25 +416,25 @@ product_positioning.self_hosting.connect_from_any_client: اتصل من أي ع�
 product_positioning.self_hosting.free_self_hosting: استضافة ذاتية مجانية
 product_positioning.self_hosting.host_your_own_instance: استضف نسختك الخاصة
 product_positioning.self_hosting.label: الاستضافة الذاتية
-product_positioning.self_hosting.operator_pass.access_to_operators_community: الوصول لمجتمع Fluxer Operators
+product_positioning.self_hosting.operator_pass.access_to_operators_community: الوصول لمجتمع Multiverse Operators
 product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: بعد انتهاء العرض، يبقى Operator Pass متاحاً بشكل مستقل.
 product_positioning.self_hosting.operator_pass.label: Operator Pass
 product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass اختياري: ادفع مقابل الدعم والوصول لمجتمع Operators.'
 product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: دعم أولوية ووصول لمجتمع Operators للاستضافة الذاتية
-product_positioning.self_hosting.run_backend_on_your_hardware: شغّل خادم Fluxer على عتادك وتواصل عبر تطبيقاتنا.
+product_positioning.self_hosting.run_backend_on_your_hardware: شغّل خادم Multiverse على عتادك وتواصل عبر تطبيقاتنا.
 product_positioning.self_hosting.switch_between_instances: بدّل بين عدة نسخ
 security.found_security_issue: وجدت مشكلة أمنية؟
 security.report_vulnerabilities: بلّغ عن الثغرات وساعدنا نحافظ على أمان المنصة.
 security.responsible_disclosure_note: نقدر الإفصاح المسؤول عبر صفحة مكافآت الثغرات. نقدم رموز Plutonium وشارات Bug Hunter حسب شدة المشكلة.
 security.security_bug_bounty: مكافآت الثغرات الأمنية
 security.security_reports: تقارير الأمان
-security.testers_access_from_reports: التقارير المعتمدة تمنحك وصولاً إلى Fluxer Testers، حيث يمكنك جمع نقاط لرموز Plutonium وشارة Bug Hunter.
+security.testers_access_from_reports: التقارير المعتمدة تمنحك وصولاً إلى Multiverse Testers، حيث يمكنك جمع نقاط لرموز Plutonium وشارة Bug Hunter.
 social_and_feeds.bluesky.follow_us: تابعنا على Bluesky
 social_and_feeds.bluesky.label: Bluesky
 social_and_feeds.bluesky.rss_feed: خلاصة RSS لـ Bluesky
 social_and_feeds.follow_fluxer: تابع @fluxer.app
 social_and_feeds.github: GitHub
 social_and_feeds.rss.blog_rss_feed: خلاصة RSS للمدونة
-social_and_feeds.rss.fluxer_blog_rss: خلاصة RSS لمدونة Fluxer
+social_and_feeds.rss.fluxer_blog_rss: خلاصة RSS لمدونة Multiverse
 social_and_feeds.rss.label: خلاصة RSS
 social_and_feeds.stay_updated_cta: خلك على اطلاع بالأخبار وحالة الخدمة وما يحدث. وتقدر كمان تشترك في

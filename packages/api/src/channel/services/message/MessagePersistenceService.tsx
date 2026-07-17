@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {AttachmentDecayService} from '@fluxer/api/src/attachment/AttachmentDecayService';
@@ -77,12 +77,14 @@ interface CreateMessageParams {
 	webhookAvatar?: string | null;
 	type: number;
 	content: string | null | undefined;
+	encryptedContent?: string | null;
 	flags: number;
 	embeds?: Array<RichEmbedRequest>;
 	attachments?: Array<AttachmentToProcess>;
 	processedAttachments?: Array<MessageAttachment>;
 	attachmentDecayExcludedIds?: Array<AttachmentID>;
 	stickerIds?: Array<StickerID>;
+	nftStickers?: Array<{mint: string; name: string; image_url: string; media_type: 'image' | 'video' | 'gif' | 'model'; collection?: string | null; compressed: boolean}>;
 	messageReference?: MessageReference;
 	messageSnapshots?: Array<MessageSnapshot>;
 	guildId: GuildID | null;
@@ -228,6 +230,7 @@ export class MessagePersistenceService {
 			webhook_name: params.webhookName || null,
 			webhook_avatar_hash: params.webhookAvatar || null,
 			content: messageContent,
+			encrypted_content: params.encryptedContent ?? null,
 			edited_timestamp: null,
 			pinned_timestamp: null,
 			flags: mentionData.flags,
@@ -238,6 +241,7 @@ export class MessagePersistenceService {
 			attachments: processedAttachments.length > 0 ? processedAttachments : null,
 			embeds: allowEmbeds ? initialEmbeds : null,
 			sticker_items: processedStickers.length > 0 ? processedStickers : null,
+			nft_sticker_items: params.nftStickers && params.nftStickers.length > 0 ? params.nftStickers : null,
 			message_reference: params.messageReference || null,
 			message_snapshots:
 				params.messageSnapshots && params.messageSnapshots.length > 0

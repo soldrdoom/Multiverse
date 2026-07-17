@@ -1,10 +1,10 @@
 > [!NOTE]
-> Learn about the developer behind Fluxer, the goals of the project, the tech stack, and what's coming next.
+> Learn about the developer behind Multiverse, the goals of the project, the tech stack, and what's coming next.
 >
 > [Read the launch blog post](https://blog.fluxer.app/how-i-built-fluxer-a-discord-like-chat-app/) · [View full roadmap](https://blog.fluxer.app/roadmap-2026/)
 
 <p align="center">
-  <img src="./media/logo-graphic.png" alt="Fluxer graphic logo" width="400">
+  <img src="./media/logo-graphic.png" alt="Multiverse graphic logo" width="400">
 </p>
 
 <p align="center">
@@ -16,9 +16,9 @@
     <img src="https://img.shields.io/badge/License-AGPLv3-purple" alt="AGPLv3 License" /></a>
 </p>
 
-# Fluxer
+# Multiverse
 
-Fluxer is a **free and open source instant messaging and VoIP platform** for friends, groups, and communities. Self-host it and every feature is unlocked.
+Multiverse is a **free and open source instant messaging and VoIP platform** for friends, groups, and communities. Self-host it and every feature is unlocked.
 
 ## Quick links
 
@@ -29,7 +29,7 @@ Fluxer is a **free and open source instant messaging and VoIP platform** for fri
 
 ## Features
 
-<img src="./media/app-showcase.png" alt="Fluxer showcase" align="right" width="45%" />
+<img src="./media/app-showcase.png" alt="Multiverse showcase" align="right" width="45%" />
 
 **Real-time messaging** – typing indicators, reactions, and threaded replies.
 
@@ -49,7 +49,7 @@ Fluxer is a **free and open source instant messaging and VoIP platform** for fri
 ## Self-hosting
 
 > [!NOTE]
-> New to Fluxer? Follow the [self-hosting guide](https://docs.fluxer.app/self-hosting) for step-by-step setup instructions.
+> New to Multiverse? Follow the [self-hosting guide](https://docs.fluxer.app/self-hosting) for step-by-step setup instructions.
 
 TBD
 
@@ -73,7 +73,7 @@ TBD
 
 ### Devenv development environment
 
-Fluxer supports development through **devenv** only. It provides a reproducible Nix environment and a single, declarative process manager for the dev stack.
+Multiverse supports development through **devenv** only. It provides a reproducible Nix environment and a single, declarative process manager for the dev stack.
 
 1. Install Nix and devenv using the [devenv getting started guide](https://devenv.sh/getting-started/).
 2. Enter the environment:
@@ -132,7 +132,7 @@ pnpm dev:docs
 
 ## Contributing
 
-Fluxer is **free and open source software** licensed under **AGPLv3**. Contributions are welcome.
+Multiverse is **free and open source software** licensed under **AGPLv3**. Contributions are welcome.
 
 See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for development processes and how to propose changes, and [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) for community guidelines.
 
@@ -144,12 +144,12 @@ Report vulnerabilities at [fluxer.app/security](https://fluxer.app/security). Do
 <summary><strong>License</strong></summary>
 <br>
 
-Copyright (c) 2026 Fluxer Contributors
+Copyright (c) 2026 Multiverse Contributors
 
 Licensed under the [GNU Affero General Public License v3](./LICENSE):
 
 ```text
-Copyright (c) 2026 Fluxer Contributors
+Copyright (c) 2026 Multiverse Contributors
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU Affero General Public License as published by the Free

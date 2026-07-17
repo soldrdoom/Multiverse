@@ -1,77 +1,77 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 
 const TS_LICENSE_HEADER = `/*
- * Copyright (C) {year} Fluxer Contributors
+ * Copyright (C) {year} Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */`;
 
-const ERLANG_LICENSE_HEADER = `%% Copyright (C) {year} Fluxer Contributors
+const ERLANG_LICENSE_HEADER = `%% Copyright (C) {year} Multiverse Contributors
 %%
-%% This file is part of Fluxer.
+%% This file is part of Multiverse.
 %%
-%% Fluxer is free software: you can redistribute it and/or modify
+%% Multiverse is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU Affero General Public License as published by
 %% the Free Software Foundation, either version 3 of the License, or
 %% (at your option) any later version.
 %%
-%% Fluxer is distributed in the hope that it will be useful,
+%% Multiverse is distributed in the hope that it will be useful,
 %% but WITHOUT ANY WARRANTY; without even the implied warranty of
 %% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 %% GNU Affero General Public License for more details.
 %%
 %% You should have received a copy of the GNU Affero General Public License
-%% along with Fluxer. If not, see <https://www.gnu.org/licenses/>.`;
+%% along with Multiverse. If not, see <https://www.gnu.org/licenses/>.`;
 
-const SHELL_LICENSE_HEADER = `# Copyright (C) {year} Fluxer Contributors
+const SHELL_LICENSE_HEADER = `# Copyright (C) {year} Multiverse Contributors
 #
-# This file is part of Fluxer.
+# This file is part of Multiverse.
 #
-# Fluxer is free software: you can redistribute it and/or modify
+# Multiverse is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Fluxer is distributed in the hope that it will be useful,
+# Multiverse is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Fluxer. If not, see <https://www.gnu.org/licenses/>.`;
+# along with Multiverse. If not, see <https://www.gnu.org/licenses/>.`;
 
 const BLOCK_COMMENT_EXTS = new Set([
 	'ts',
@@ -202,7 +202,7 @@ class Processor {
 	private detectLicense(content: string): {hasHeader: boolean; detectedYear: number | null} {
 		const lines = content.split('\n').slice(0, 25);
 		let hasAgpl = false;
-		let hasFluxer = false;
+		let hasMultiverse = false;
 		let detectedYear: number | null = null;
 
 		const yearRegex = /\b(20\d{2})\b/;
@@ -213,7 +213,7 @@ class Processor {
 				hasAgpl = true;
 			}
 			if (lower.includes('fluxer')) {
-				hasFluxer = true;
+				hasMultiverse = true;
 			}
 			if (lower.includes('copyright') && lower.includes('fluxer') && detectedYear === null) {
 				const match = line.match(yearRegex);
@@ -226,7 +226,7 @@ class Processor {
 			}
 		}
 
-		return {hasHeader: hasAgpl && hasFluxer, detectedYear};
+		return {hasHeader: hasAgpl && hasMultiverse, detectedYear};
 	}
 
 	private updateYear(content: string, oldYear: number): string {

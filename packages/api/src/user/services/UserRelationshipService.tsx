@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {UserID} from '@fluxer/api/src/BrandedTypes';
@@ -41,7 +41,7 @@ import {CannotSendFriendRequestToSelfError} from '@fluxer/errors/src/domains/use
 import {FriendRequestBlockedError} from '@fluxer/errors/src/domains/user/FriendRequestBlockedError';
 import {InvalidDiscriminatorError} from '@fluxer/errors/src/domains/user/InvalidDiscriminatorError';
 import {MaxRelationshipsError} from '@fluxer/errors/src/domains/user/MaxRelationshipsError';
-import {NoUsersWithFluxertagError} from '@fluxer/errors/src/domains/user/NoUsersWithFluxertagError';
+import {NoUsersWithMultiversetagError} from '@fluxer/errors/src/domains/user/NoUsersWithMultiversetagError';
 import {UnclaimedAccountCannotAcceptFriendRequestsError} from '@fluxer/errors/src/domains/user/UnclaimedAccountCannotAcceptFriendRequestsError';
 import {UnclaimedAccountCannotSendFriendRequestsError} from '@fluxer/errors/src/domains/user/UnclaimedAccountCannotSendFriendRequestsError';
 import {UnknownUserError} from '@fluxer/errors/src/domains/user/UnknownUserError';
@@ -78,7 +78,7 @@ export class UserRelationshipService {
 		}
 		const targetUser = await this.userAccountRepository.findByUsernameDiscriminator(username, discrimValue);
 		if (!targetUser) {
-			throw new NoUsersWithFluxertagError();
+			throw new NoUsersWithMultiversetagError();
 		}
 		if (this.isDeletedUser(targetUser)) {
 			throw new FriendRequestBlockedError();

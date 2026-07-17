@@ -1,6 +1,6 @@
 # livekitctl
 
-A CLI tool for bootstrapping self-hosted LiveKit SFU infrastructure for Fluxer voice and video.
+A CLI tool for bootstrapping self-hosted LiveKit SFU infrastructure for Multiverse voice and video.
 
 ## Installation
 

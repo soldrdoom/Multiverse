@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ContextMenuActionCreators from '@app/actions/ContextMenuActionCreators';
@@ -26,6 +26,7 @@ import {NativeDragRegion} from '@app/components/layout/NativeDragRegion';
 import {GuildHeaderPopout} from '@app/components/popouts/GuildHeaderPopout';
 import {GuildContextMenu} from '@app/components/uikit/context_menu/GuildContextMenu';
 import type {GuildRecord} from '@app/records/GuildRecord';
+import CosmeticsStore from '@app/stores/CosmeticsStore';
 import MobileLayoutStore from '@app/stores/MobileLayoutStore';
 import PopoutStore from '@app/stores/PopoutStore';
 import * as AvatarUtils from '@app/utils/AvatarUtils';
@@ -48,12 +49,15 @@ export const GuildHeader = observer(({guild}: {guild: GuildRecord}) => {
 
 	const bannerURL = AvatarUtils.getGuildBannerURL({id: guild.id, banner: guild.banner}, true);
 	const isDetachedBanner = guild.features.has(GuildFeatures.DETACHED_BANNER);
-	const showIntegratedBanner = Boolean(bannerURL && !isDetachedBanner);
+	// Cosmetic server banner shows when no guild-uploaded banner is present (or supplements it).
+	const cosmeticServerBannerUrl = CosmeticsStore.getGuildCosmeticImageUrl(guild.id, 'server_banner');
+	const effectiveBannerURL = bannerURL ?? cosmeticServerBannerUrl;
+	const showIntegratedBanner = Boolean(effectiveBannerURL && !isDetachedBanner);
 
 	const headerContainerRef = useRef<HTMLDivElement | null>(null);
 
 	const calculateBannerLayout = useCallback(() => {
-		if (!showIntegratedBanner || !bannerURL) {
+		if (!showIntegratedBanner || !effectiveBannerURL) {
 			return {height: HEADER_MIN_HEIGHT, centerCrop: false};
 		}
 
@@ -71,7 +75,7 @@ export const GuildHeader = observer(({guild}: {guild: GuildRecord}) => {
 			height: Math.max(HEADER_MIN_HEIGHT, Math.min(idealHeight, viewportCap)),
 			centerCrop: isMobile && isCapped,
 		};
-	}, [showIntegratedBanner, bannerURL, guild.bannerWidth, guild.bannerHeight, isMobile]);
+	}, [showIntegratedBanner, effectiveBannerURL, guild.bannerWidth, guild.bannerHeight, isMobile]);
 
 	const [{height: bannerMaxHeight, centerCrop}, setBannerLayout] = useState(() => calculateBannerLayout());
 
@@ -109,7 +113,7 @@ export const GuildHeader = observer(({guild}: {guild: GuildRecord}) => {
 					<>
 						<div
 							className={clsx(styles.bannerBackground, centerCrop && styles.bannerBackgroundCentered)}
-							style={{backgroundImage: `url(${bannerURL})`}}
+							style={{backgroundImage: `url(${effectiveBannerURL})`}}
 						/>
 						<div className={styles.bannerGradient} />
 					</>

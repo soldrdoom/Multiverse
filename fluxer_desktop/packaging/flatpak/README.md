@@ -1,6 +1,6 @@
-# Fluxer Flatpak packaging
+# Multiverse Flatpak packaging
 
-These files are for submitting Fluxer to [Flathub](https://flathub.org), the centralised Flatpak application repository.
+These files are for submitting Multiverse to [Flathub](https://flathub.org), the centralised Flatpak application repository.
 
 ## Files
 

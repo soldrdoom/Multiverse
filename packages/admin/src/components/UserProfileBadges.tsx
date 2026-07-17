@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -51,7 +51,7 @@ export function UserProfileBadges({config, user, size = 'sm', class: className}:
 		badges.push({
 			key: 'staff',
 			iconUrl: `${staticCdnEndpoint}/badges/staff.svg`,
-			tooltip: 'Fluxer Staff',
+			tooltip: 'Multiverse Staff',
 		});
 	}
 
@@ -59,7 +59,7 @@ export function UserProfileBadges({config, user, size = 'sm', class: className}:
 		badges.push({
 			key: 'ctp',
 			iconUrl: `${staticCdnEndpoint}/badges/ctp.svg`,
-			tooltip: 'Fluxer Community Team',
+			tooltip: 'Multiverse Community Team',
 		});
 	}
 
@@ -67,7 +67,7 @@ export function UserProfileBadges({config, user, size = 'sm', class: className}:
 		badges.push({
 			key: 'partner',
 			iconUrl: `${staticCdnEndpoint}/badges/partner.svg`,
-			tooltip: 'Fluxer Partner',
+			tooltip: 'Multiverse Partner',
 		});
 	}
 
@@ -75,23 +75,23 @@ export function UserProfileBadges({config, user, size = 'sm', class: className}:
 		badges.push({
 			key: 'bug_hunter',
 			iconUrl: `${staticCdnEndpoint}/badges/bug-hunter.svg`,
-			tooltip: 'Fluxer Bug Hunter',
+			tooltip: 'Multiverse Bug Hunter',
 		});
 	}
 
 	if (!isSelfHosted && user.premium_type && user.premium_type !== UserPremiumTypes.NONE) {
-		let tooltip = 'Fluxer Plutonium';
+		let tooltip = 'Multiverse Plutonium';
 
 		if (user.premium_type === UserPremiumTypes.LIFETIME) {
 			if (user.premium_since) {
 				const premiumSince = getFormattedShortDate(user.premium_since);
-				tooltip = `Fluxer Visionary since ${premiumSince}`;
+				tooltip = `Multiverse Visionary since ${premiumSince}`;
 			} else {
-				tooltip = 'Fluxer Visionary';
+				tooltip = 'Multiverse Visionary';
 			}
 		} else if (user.premium_since) {
 			const premiumSince = getFormattedShortDate(user.premium_since);
-			tooltip = `Fluxer Plutonium subscriber since ${premiumSince}`;
+			tooltip = `Multiverse Plutonium subscriber since ${premiumSince}`;
 		}
 
 		badges.push({

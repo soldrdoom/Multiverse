@@ -5,8 +5,22 @@ x-logging: &default-logging
     max-file: '5'
 
 services:
+  nats:
+    image: nats@sha256:b83efabe3e7def1e0a4a31ec6e078999bb17c80363f881df35edc70fcb6bb927
+    container_name: nats
+    restart: unless-stopped
+    command: ['-js', '-sd', '/data/jetstream', '-m', '8222']
+    volumes:
+      - nats_data:/data/jetstream
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://127.0.0.1:8222/healthz || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging: *default-logging
+
   valkey:
-    image: valkey/valkey:8.0.6-alpine
+    image: valkey/valkey@sha256:abfa1257a96f0de6a8bb0dbc5425c34c09724ef078c3a4371cde344e748dbe71
     container_name: valkey
     restart: unless-stopped
     command: ['valkey-server', '--appendonly', 'yes', '--save', '60', '1', '--loglevel', 'warning']
@@ -20,23 +34,53 @@ services:
     logging: *default-logging
 
   fluxer_server:
-    image: ${FLUXER_SERVER_IMAGE:-ghcr.io/fluxerapp/fluxer-server:stable}
+    image: multiverse-server:local
     container_name: fluxer_server
     restart: unless-stopped
     init: true
+    user: "1001:1001"
     environment:
       FLUXER_CONFIG: /usr/src/app/config/config.json
       NODE_ENV: production
+      SOLANA_DAS_URL: https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}
+      SOLANA_TREASURY_WALLET: 4iLSmzRJzm682ojiqM6xhNaWTAx6EpCcgypYh8srzrii
+      COREPACK_HOME: /tmp/corepack
     ports:
-      - '${FLUXER_HTTP_PORT:-8080}:8080'
+      - '127.0.0.1:${FLUXER_HTTP_PORT:-8080}:8080'
     depends_on:
       valkey:
         condition: service_healthy
+      nats:
+        condition: service_healthy
     volumes:
       - ./config:/usr/src/app/config:ro
-      - fluxer_data:/usr/src/app/data
+      - ./server_data:/usr/src/app/fluxer_server/data
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
     healthcheck:
       test: ['CMD-SHELL', 'curl -fsS http://127.0.0.1:8080/_health || exit 1']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    logging: *default-logging
+
+  fluxer_gateway:
+    image: fluxer-gateway:local
+    container_name: fluxer_gateway
+    restart: unless-stopped
+    network_mode: "service:fluxer_server"
+    environment:
+      FLUXER_CONFIG: /usr/src/app/config/config.json
+    volumes:
+      - ./config:/usr/src/app/config:ro
+    depends_on:
+      nats:
+        condition: service_healthy
+      fluxer_server:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -fsS http://127.0.0.1:8082/_health || exit 1']
       interval: 15s
       timeout: 5s
       retries: 5
@@ -106,6 +150,7 @@ services:
     logging: *default-logging
 
 volumes:
+  nats_data:
   valkey_data:
   fluxer_data:
   meilisearch_data:

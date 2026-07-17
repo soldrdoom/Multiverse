@@ -18,7 +18,7 @@ account_disabled_suspicious:
 
     אם נראה לכם שזו טעות, פנו לצוות התמיכה שלנו.
 
-    – צוות הבטיחות של Fluxer
+    – צוות הבטיחות של Multiverse
 account_scheduled_deletion:
   subject: החשבון שלכם ב-Fluxer מיועד למחיקה
   body: |-
@@ -46,9 +46,9 @@ account_scheduled_deletion:
     - הסבירו בבירור מדוע לדעתכם ההחלטה שגויה או לא מוצדקת
     - צרפו ראיות או הקשר רלוונטיים, אם יש
 
-    נציג או נציגה מצוות הבטיחות של Fluxer יבדקו את הערעור, וייתכן שהמחיקה המתוכננת תוקפא עד לקבלת החלטה סופית.
+    נציג או נציגה מצוות הבטיחות של Multiverse יבדקו את הערעור, וייתכן שהמחיקה המתוכננת תוקפא עד לקבלת החלטה סופית.
 
-    – צוות הבטיחות של Fluxer
+    – צוות הבטיחות של Multiverse
 account_temp_banned:
   subject: החשבון שלכם ב-Fluxer הושעה זמנית
   body: |-
@@ -75,7 +75,7 @@ account_temp_banned:
 
     אם לדעתכם ההחלטה שגויה או לא מוצדקת, תוכלו להגיש ערעור ל-appeals@fluxer.app מהכתובת הזו. הסבירו בבירור מדוע לדעתכם ההחלטה שגויה. נבדוק את הערעור ונחזור אליכם עם החלטה.
 
-    – צוות הבטיחות של Fluxer
+    – צוות הבטיחות של Multiverse
 donation_confirmation:
   subject: תודה על התרומה שלך ל-Fluxer
   body: |-
@@ -108,9 +108,9 @@ donation_confirmation:
 
     {manageUrl}
 
-    התמיכה שלך עוזרת לשמור על Fluxer פעיל. תודה!
+    התמיכה שלך עוזרת לשמור על Multiverse פעיל. תודה!
 
-    – צוות Fluxer
+    – צוות Multiverse
 donation_magic_link:
   subject: נהלו את התרומות שלכם ל-Fluxer
   body: |-
@@ -126,7 +126,7 @@ donation_magic_link:
 
     אם לא ביקשתם את הקישור הזה, תוכלו להתעלם מהאימייל בלי חשש.
 
-    – צוות Fluxer
+    – צוות Multiverse
 dsa_report_verification:
   subject: אמתו את כתובת האימייל להגשת דיווח DSA
   body: |-
@@ -140,7 +140,7 @@ dsa_report_verification:
 
     אם לא ביקשתם זאת, תוכלו להתעלם מהאימייל הזה.
 
-    – צוות הבטיחות של Fluxer
+    – צוות הבטיחות של Multiverse
 email_change_new:
   subject: אמתו את כתובת האימייל החדשה שלכם ב-Fluxer
   body: |-
@@ -154,7 +154,7 @@ email_change_new:
 
     אם לא ביקשתם זאת, תוכלו להתעלם מהאימייל הזה.
 
-    – צוות Fluxer
+    – צוות Multiverse
 email_change_original:
   subject: אשרו שינוי כתובת אימייל ב-Fluxer
   body: |-
@@ -170,7 +170,7 @@ email_change_original:
 
     אם לא ביקשתם זאת, אבטחו את החשבון שלכם מיד.
 
-    – צוות Fluxer
+    – צוות Multiverse
 email_change_revert:
   subject: כתובת האימייל שלכם ב-Fluxer השתנתה
   body: |-
@@ -184,7 +184,7 @@ email_change_revert:
 
     הפעולה הזו תחזיר את כתובת האימייל הקודמת, תנתק אתכם מכל המכשירים, תסיר מספרי טלפון מקושרים, תכבה אימות דו-שלבי, ותדרוש מכם לבחור סיסמה חדשה.
 
-    – צוות הבטיחות של Fluxer
+    – צוות הבטיחות של Multiverse
 email_verification:
   subject: אמתו את כתובת האימייל שלכם ב-Fluxer
   body: |-
@@ -194,11 +194,11 @@ email_verification:
 
     {verifyUrl}
 
-    אם לא פתחתם חשבון Fluxer, תוכלו להתעלם מהאימייל הזה בלי חשש.
+    אם לא פתחתם חשבון Multiverse, תוכלו להתעלם מהאימייל הזה בלי חשש.
 
     הקישור הזה תקף ל-24 שעות.
 
-    – צוות Fluxer
+    – צוות Multiverse
 gift_chargeback_notification:
   subject: ההטבות מהמתנה שמימשתם הוסרו
   body: |-
@@ -210,7 +210,7 @@ gift_chargeback_notification:
 
     אם נראה לכם שזו טעות, פנו לצוות התמיכה שלנו וצרפו כל פרט שיש לכם על קוד המתנה ועל מועד המימוש.
 
-    – צוות Fluxer
+    – צוות Multiverse
 harvest_completed:
   subject: ייצוא הנתונים שלכם מ-Fluxer מוכן להורדה
   body: |-
@@ -228,7 +228,7 @@ harvest_completed:
 
     אם לא ביקשתם את הייצוא הזה, החליפו סיסמה מיד ופנו לצוות התמיכה שלנו.
 
-    – צוות Fluxer
+    – צוות Multiverse
 inactivity_warning:
   subject: החשבון שלכם ב-Fluxer מתוכנן למחיקה בגלל חוסר פעילות
   body: |-
@@ -243,7 +243,7 @@ inactivity_warning:
 
     אם השתמשתם ב-Fluxer לאחרונה, פנו לצוות התמיכה שלנו מיד.
 
-    – צוות Fluxer
+    – צוות Multiverse
 ip_authorization:
   subject: אשרו התחברות מכתובת IP חדשה
   body: |-
@@ -262,7 +262,7 @@ ip_authorization:
 
     הקישור לאישור תקף ל-30 דקות.
 
-    – צוות Fluxer
+    – צוות Multiverse
 password_change_verification:
   subject: אשרו את שינוי הסיסמה ב-Fluxer
   body: |-
@@ -278,7 +278,7 @@ password_change_verification:
 
     אם לא ביקשתם זאת, ייתכן שיש למישהו גישה לחשבון שלכם. החליפו את הסיסמה מיד והפעילו אימות דו-שלבי.
 
-    – צוות Fluxer
+    – צוות Multiverse
 password_reset:
   subject: אפסו את הסיסמה שלכם ב-Fluxer
   body: |-
@@ -292,7 +292,7 @@ password_reset:
 
     הקישור הזה תקף לשעה אחת.
 
-    – צוות Fluxer
+    – צוות Multiverse
 registration_approved:
   subject: ההרשמה שלכם ל-Fluxer אושרה
   body: |-
@@ -300,12 +300,12 @@ registration_approved:
 
     חדשות טובות: ההרשמה שלכם ל-Fluxer אושרה.
 
-    תוכלו להתחבר לאפליקציית Fluxer כאן:
+    תוכלו להתחבר לאפליקציית Multiverse כאן:
     {channelsUrl}
 
-    ברוכים הבאים לקהילת Fluxer.
+    ברוכים הבאים לקהילת Multiverse.
 
-    – צוות Fluxer
+    – צוות Multiverse
 report_resolved:
   subject: הדיווח שלכם ב-Fluxer נבדק
   body: |-
@@ -316,11 +316,11 @@ report_resolved:
     תשובת צוות הבטיחות:
     {publicComment}
 
-    תודה שאתם עוזרים לשמור על Fluxer בטוחה לכולם. אנחנו מתייחסים לכל דיווח ברצינות ומעריכים את התרומה שלכם לקהילה.
+    תודה שאתם עוזרים לשמור על Multiverse בטוחה לכולם. אנחנו מתייחסים לכל דיווח ברצינות ומעריכים את התרומה שלכם לקהילה.
 
     אם יש לכם שאלות או חששות לגבי התוצאה, כתבו ל-safety@fluxer.app.
 
-    – צוות הבטיחות של Fluxer
+    – צוות הבטיחות של Multiverse
 scheduled_deletion_notification:
   subject: החשבון שלכם ב-Fluxer מיועד למחיקה
   body: |-
@@ -339,7 +339,7 @@ scheduled_deletion_notification:
 
     אם לדעתכם ההחלטה שגויה, תוכלו להגיש ערעור ל-appeals@fluxer.app מהכתובת הזו.
 
-    – צוות הבטיחות של Fluxer
+    – צוות הבטיחות של Multiverse
 self_deletion_scheduled:
   subject: מחיקת חשבון ה-Fluxer שלכם מתוכננת
   body: |-
@@ -351,7 +351,7 @@ self_deletion_scheduled:
 
     אם לא ביקשתם זאת, התחברו לחשבון כדי לבטל את המחיקה. מומלץ גם להחליף סיסמה כדי לאבטח את החשבון.
 
-    – צוות Fluxer
+    – צוות Multiverse
 unban_notification:
   subject: ההשעיה של החשבון שלכם ב-Fluxer בוטלה
   body: |-
@@ -366,4 +366,4 @@ unban_notification:
 
     תוכלו להתחבר שוב לחשבון ולהמשיך להשתמש ב-Fluxer כרגיל.
 
-    – צוות הבטיחות של Fluxer
+    – צוות הבטיחות של Multiverse

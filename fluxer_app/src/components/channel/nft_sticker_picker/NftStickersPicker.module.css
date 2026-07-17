@@ -1,0 +1,266 @@
+/*
+ * Copyright (C) 2026 Multiverse Contributors
+ *
+ * This file is part of Multiverse.
+ *
+ * Multiverse is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Multiverse is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/* ── Category sidebar NFT button ─────────────────────────────────────────────── */
+
+.nftCategoryDivider {
+	width: 24px;
+	height: 1px;
+	background-color: var(--background-modifier-accent);
+	flex-shrink: 0;
+	margin: 2px 0;
+}
+
+.nftCategoryButton {
+	flex-shrink: 0;
+	margin-bottom: var(--spacing-2);
+}
+
+/* ── Connect / empty / error states ─────────────────────────────────────────── */
+
+.centeredState {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	height: 100%;
+	padding: 24px;
+	text-align: center;
+	color: var(--text-primary-muted);
+}
+
+.centeredStateIcon {
+	font-size: 40px;
+	line-height: 1;
+	opacity: 0.6;
+}
+
+.centeredStateTitle {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--text-primary);
+	margin: 0;
+}
+
+.centeredStateDescription {
+	font-size: 0.8125rem;
+	margin: 0;
+	max-width: 220px;
+}
+
+.errorText {
+	font-size: 0.75rem;
+	color: var(--status-danger);
+	margin: 0;
+	max-width: 240px;
+	word-break: break-word;
+}
+
+.connectButton {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 16px;
+	border-radius: var(--radius-md);
+	background-color: var(--brand-experiment);
+	color: #fff;
+	font-size: 0.875rem;
+	font-weight: 600;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.15s ease;
+}
+
+.connectButton:hover:not(:disabled) {
+	background-color: var(--brand-experiment-560);
+}
+
+.connectButton:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+/* ── NFT grid ────────────────────────────────────────────────────────────────── */
+
+.nftGrid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 4px;
+	padding: 0 var(--spacing-2) var(--spacing-2);
+}
+
+@media (max-width: 480px) {
+	.nftGrid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 6px;
+	}
+}
+
+/* ── Collection header ───────────────────────────────────────────────────────── */
+
+.collectionHeader {
+	padding: 8px var(--spacing-2) 4px;
+	font-size: 0.6875rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--text-primary-muted);
+}
+
+/* ── Grid item ───────────────────────────────────────────────────────────────── */
+
+.nftItem {
+	position: relative;
+	aspect-ratio: 1;
+	border-radius: var(--radius-sm);
+	overflow: hidden;
+	background-color: var(--background-modifier-accent);
+	cursor: pointer;
+	border: 2px solid transparent;
+	transition:
+		border-color 0.1s ease,
+		background-color 0.1s ease;
+	padding: 0;
+}
+
+.nftItem:hover,
+.nftItem:focus-visible,
+.nftItem:active {
+	border-color: var(--brand-experiment);
+	background-color: var(--background-modifier-hover);
+	outline: none;
+}
+
+.nftImage {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.nftImagePlaceholder {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-primary-muted);
+	font-size: 24px;
+}
+
+/* Compressed (cNFT) badge */
+.compressedBadge {
+	position: absolute;
+	bottom: 2px;
+	right: 2px;
+	background-color: rgb(0 0 0 / 0.6);
+	color: #fff;
+	font-size: 0.5rem;
+	font-weight: 700;
+	padding: 1px 3px;
+	border-radius: 2px;
+	line-height: 1.2;
+	letter-spacing: 0.02em;
+	pointer-events: none;
+}
+
+/* ── Wallet footer ────────────────────────────────────────────────────────────── */
+
+.walletFooter {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 6px var(--spacing-3);
+	border-top: 1px solid var(--background-modifier-accent);
+	font-size: 0.75rem;
+	color: var(--text-primary-muted);
+	flex-shrink: 0;
+}
+
+.walletAddress {
+	font-family: 'Menlo', 'Consolas', monospace;
+}
+
+.disconnectButton {
+	background: none;
+	border: none;
+	color: var(--text-primary-muted);
+	font-size: 0.75rem;
+	cursor: pointer;
+	padding: 2px 4px;
+	border-radius: var(--radius-sm);
+	transition: color 0.1s ease;
+}
+
+.disconnectButton:hover {
+	color: var(--status-danger);
+}
+
+/* ── RPC setup screen ────────────────────────────────────────────────────────── */
+
+.setupInputRow {
+	display: flex;
+	gap: 8px;
+	width: 100%;
+	max-width: 280px;
+}
+
+.setupInput {
+	flex: 1;
+	min-width: 0;
+	padding: 8px 10px;
+	border-radius: var(--radius-md);
+	border: 1px solid var(--background-modifier-accent);
+	background-color: var(--background-primary);
+	color: var(--text-primary);
+	font-size: 0.8125rem;
+	outline: none;
+}
+
+.setupInput:focus {
+	border-color: var(--brand-experiment);
+}
+
+.setupLink {
+	color: var(--brand-experiment);
+	text-decoration: underline;
+}
+
+.setupLink:hover {
+	color: var(--brand-experiment-560);
+}
+
+/* ── Refresh button ──────────────────────────────────────────────────────────── */
+
+.refreshButton {
+	background: none;
+	border: none;
+	color: var(--text-primary-muted);
+	cursor: pointer;
+	padding: 2px;
+	border-radius: var(--radius-sm);
+	display: flex;
+	align-items: center;
+	transition: color 0.1s ease;
+}
+
+.refreshButton:hover {
+	color: var(--text-primary);
+}

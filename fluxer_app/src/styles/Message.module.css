@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 :root {
@@ -36,9 +36,9 @@
 	--system-message-icon-opacity: 0.6;
 
 	--message-highlight-bar-width: 2px;
-	--message-mention-color: rgb(234 197 50);
-	--message-mention-bg: rgb(234 197 50 / 0.1);
-	--message-mention-bg-hover: rgb(234 197 50 / 0.14);
+	--message-mention-color: #00C864;
+	--message-mention-bg: rgba(0, 200, 100, 0.08);
+	--message-mention-bg-hover: rgba(0, 200, 100, 0.13);
 	--message-reply-color: rgb(59 130 246);
 	--message-reply-bg: rgb(59 130 246 / 0.1);
 
@@ -135,6 +135,7 @@
 .messageCompact:hover {
 	background-color: var(--background-modifier-hover);
 }
+
 
 .message.messagePreview:hover {
 	background-color: transparent;
@@ -375,7 +376,7 @@
 	display: inline-block;
 	position: relative;
 	cursor: pointer;
-	font-weight: 500;
+	font-weight: 600;
 	color: var(--text-primary);
 	line-height: var(--message-line-height);
 	vertical-align: baseline;
@@ -492,9 +493,9 @@
 	user-select: none;
 	-webkit-user-select: none;
 	white-space: nowrap;
-	opacity: 0;
+	opacity: 0.35;
 	pointer-events: none;
-	transform: translateX(8px);
+	transform: translateX(0);
 }
 
 .message:hover .messageTimestampHover {

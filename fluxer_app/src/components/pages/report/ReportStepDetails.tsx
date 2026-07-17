@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {Input, Textarea} from '@app/components/form/Input';
@@ -210,12 +210,12 @@ export const ReportStepDetails: React.FC<Props> = ({
 					/>
 
 					<Input
-						label={t`Your FluxerTag (Optional)`}
+						label={t`Your MultiverseTag (Optional)`}
 						type="text"
-						value={formValues.reporterFluxerTag}
-						onChange={(e) => onFieldChange('reporterFluxerTag', e.target.value)}
+						value={formValues.reporterMultiverseTag}
+						onChange={(e) => onFieldChange('reporterMultiverseTag', e.target.value)}
 						placeholder="username#1234"
-						error={fieldErrors.reporterFluxerTag}
+						error={fieldErrors.reporterMultiverseTag}
 					/>
 
 					<Textarea

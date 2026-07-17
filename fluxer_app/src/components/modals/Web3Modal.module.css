@@ -1,0 +1,215 @@
+/*
+ * Copyright (C) 2026 Multiverse Contributors
+ *
+ * This file is part of Multiverse.
+ *
+ * Multiverse is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Multiverse is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.section {
+	margin-bottom: 24px;
+}
+
+.sectionTitle {
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--header-secondary);
+	margin: 0 0 12px;
+}
+
+.card {
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-accent);
+	border-radius: 8px;
+	padding: 16px;
+}
+
+.addressRow {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.addressLabel {
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--text-muted);
+	flex-shrink: 0;
+}
+
+.addressValue {
+	font-family: var(--font-code, monospace);
+	font-size: 12px;
+	color: var(--text-normal);
+	background: var(--background-tertiary);
+	padding: 4px 8px;
+	border-radius: 4px;
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	user-select: all;
+}
+
+.copyButton {
+	background: none;
+	border: none;
+	padding: 4px;
+	cursor: pointer;
+	color: var(--text-muted);
+	display: flex;
+	align-items: center;
+	border-radius: 4px;
+	flex-shrink: 0;
+}
+
+.copyButton:hover {
+	color: var(--text-normal);
+	background: var(--background-modifier-hover);
+}
+
+.balanceRow {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	margin-bottom: 16px;
+}
+
+.balanceAmount {
+	font-size: 28px;
+	font-weight: 700;
+	color: var(--header-primary);
+	line-height: 1;
+}
+
+.balanceCurrency {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--text-muted);
+}
+
+.balanceLoading {
+	font-size: 14px;
+	color: var(--text-muted);
+}
+
+.disconnectRow {
+	display: flex;
+	gap: 8px;
+}
+
+.divider {
+	border: none;
+	border-top: 1px solid var(--background-modifier-accent);
+	margin: 24px 0;
+}
+
+.vaultCard {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+	padding: 16px;
+	border-radius: 8px;
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-accent);
+	margin-bottom: 16px;
+}
+
+.vaultCardIcon {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+}
+
+.vaultCardBody {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.vaultStatusLabel {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--header-primary);
+	margin: 0;
+}
+
+.vaultStatusDesc {
+	font-size: 13px;
+	color: var(--text-muted);
+	margin: 0;
+	line-height: 1.5;
+}
+
+.iconInactive {
+	color: var(--text-muted);
+}
+
+.iconActive {
+	color: var(--text-positive);
+}
+
+.iconError {
+	color: var(--text-danger);
+}
+
+.keyDisplay {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.keyLabel {
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--text-muted);
+}
+
+.keyValue {
+	font-family: var(--font-code, monospace);
+	font-size: 11px;
+	color: var(--text-normal);
+	background: var(--background-tertiary);
+	padding: 5px 8px;
+	border-radius: 4px;
+	word-break: break-all;
+	user-select: all;
+}
+
+.errorMessage {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	color: var(--text-danger);
+	margin: 0;
+}
+
+.noWallet {
+	font-size: 14px;
+	color: var(--text-muted);
+	text-align: center;
+	padding: 24px;
+}

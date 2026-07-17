@@ -1,29 +1,31 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ExpressionPickerActionCreators from '@app/actions/ExpressionPickerActionCreators';
 import {EmojiPicker} from '@app/components/channel/EmojiPicker';
+import {NftStickersPicker} from '@app/components/channel/nft_sticker_picker/NftStickersPicker';
 import {GifPicker} from '@app/components/channel/pickers/gif/GifPicker';
 import {MemesPicker} from '@app/components/channel/pickers/memes/MemesPicker';
 import {StickersPicker} from '@app/components/channel/StickersPicker';
 import styles from '@app/components/popouts/ExpressionPickerPopout.module.css';
 import * as StickerSendUtils from '@app/lib/StickerSendUtils';
+import type {NftStickerRecord} from '@app/records/NftStickerRecord';
 import type {GuildStickerRecord} from '@app/records/GuildStickerRecord';
 import ExpressionPickerStore from '@app/stores/ExpressionPickerStore';
 import type {FlatEmoji} from '@app/types/EmojiTypes';
@@ -53,7 +55,7 @@ export const ExpressionPickerHeaderPortal = ({children}: {children: React.ReactN
 	return ReactDOM.createPortal(children, context.headerPortalElement);
 };
 
-export type ExpressionPickerTabType = 'gifs' | 'memes' | 'stickers' | 'emojis';
+export type ExpressionPickerTabType = 'gifs' | 'memes' | 'stickers' | 'emojis' | 'nft-stickers';
 
 interface ExpressionPickerCategory {
 	type: ExpressionPickerTabType;
@@ -88,7 +90,6 @@ const createAllCategories = (i18n: I18n): Array<ExpressionPickerCategory> => [
 					}
 				}
 			};
-
 			return <StickersPicker channelId={channelId} handleSelect={handleStickerSelect} />;
 		},
 	},
@@ -96,6 +97,21 @@ const createAllCategories = (i18n: I18n): Array<ExpressionPickerCategory> => [
 		type: 'emojis' as const,
 		label: i18n._(msg`Emojis`),
 		renderComponent: ({channelId, onSelect}) => <EmojiPicker channelId={channelId} handleSelect={onSelect} />,
+	},
+	{
+		type: 'nft-stickers' as const,
+		label: i18n._(msg`NFTs`),
+		renderComponent: ({channelId, onClose}) => {
+			const handleNftSelect = (nft: NftStickerRecord) => {
+				if (channelId) {
+					StickerSendUtils.handleNftStickerSelect(channelId, nft);
+					if (onClose) {
+						onClose();
+					}
+				}
+			};
+			return <NftStickersPicker handleSelect={handleNftSelect} />;
+		},
 	},
 ];
 
@@ -113,7 +129,7 @@ export const ExpressionPickerPopout = observer(
 		channelId,
 		onEmojiSelect,
 		onClose,
-		visibleTabs = ['gifs', 'memes', 'stickers', 'emojis'],
+		visibleTabs = ['gifs', 'memes', 'stickers', 'emojis', 'nft-stickers'],
 		selectedTab: controlledSelectedTab,
 		onTabChange,
 	}: ExpressionPickerPopoutProps) => {

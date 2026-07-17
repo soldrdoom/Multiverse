@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -48,9 +48,9 @@ export function renderLayout(
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				{buildMetaTags(ctx, pageMeta, pageUrl)}
 				<title>{pageMeta.title}</title>
-				<link rel="preconnect" href="https://fluxerstatic.com" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/ibm-plex.css" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/bricolage.css" />
+				<link rel="preconnect" href="https://multiverse.forum" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/ibm-plex.css" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/bricolage.css" />
 				<link rel="stylesheet" href={cacheBustedAsset(ctx, '/static/app.css')} />
 				{buildIconLinks(ctx.staticCdnEndpoint)}
 				{mainPageScript()}
@@ -83,9 +83,9 @@ export function renderDocsLayout(
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				{buildMetaTags(ctx, pageMeta, pageUrl)}
 				<title>{pageMeta.title}</title>
-				<link rel="preconnect" href="https://fluxerstatic.com" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/ibm-plex.css" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/bricolage.css" />
+				<link rel="preconnect" href="https://multiverse.forum" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/ibm-plex.css" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/bricolage.css" />
 				<link rel="stylesheet" href={cacheBustedAsset(ctx, '/static/app.css')} />
 				{buildIconLinks(ctx.staticCdnEndpoint)}
 				{docsPageScript()}
@@ -122,9 +122,9 @@ export function renderBlogLayout(
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				{buildMetaTags(ctx, pageMeta, pageUrl)}
 				<title>{pageMeta.title}</title>
-				<link rel="preconnect" href="https://fluxerstatic.com" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/ibm-plex.css" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/bricolage.css" />
+				<link rel="preconnect" href="https://multiverse.forum" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/ibm-plex.css" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/bricolage.css" />
 				<link rel="stylesheet" href={cacheBustedAsset(ctx, '/static/app.css')} />
 				{buildIconLinks(ctx.staticCdnEndpoint)}
 				{docsPageScript()}
@@ -160,9 +160,9 @@ export function renderBlogPostLayout(
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				{buildMetaTags(ctx, pageMeta, pageUrl)}
 				<title>{pageMeta.title}</title>
-				<link rel="preconnect" href="https://fluxerstatic.com" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/ibm-plex.css" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/bricolage.css" />
+				<link rel="preconnect" href="https://multiverse.forum" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/ibm-plex.css" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/bricolage.css" />
 				<link rel="stylesheet" href={cacheBustedAsset(ctx, '/static/app.css')} />
 				{buildIconLinks(ctx.staticCdnEndpoint)}
 				{docsPageScript()}
@@ -201,9 +201,9 @@ export function renderContentLayout(
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				{buildMetaTags(ctx, pageMeta, pageUrl)}
 				<title>{pageMeta.title}</title>
-				<link rel="preconnect" href="https://fluxerstatic.com" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/ibm-plex.css" />
-				<link rel="stylesheet" href="https://fluxerstatic.com/fonts/bricolage.css" />
+				<link rel="preconnect" href="https://multiverse.forum" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/ibm-plex.css" />
+				<link rel="stylesheet" href="https://multiverse.forum/fonts/bricolage.css" />
 				<link rel="stylesheet" href={cacheBustedAsset(ctx, '/static/app.css')} />
 				{buildIconLinks(ctx.staticCdnEndpoint)}
 				{docsPageScript()}

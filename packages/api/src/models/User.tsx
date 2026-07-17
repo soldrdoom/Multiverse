@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {UserID} from '@fluxer/api/src/BrandedTypes';
@@ -72,6 +72,7 @@ export class User {
 	readonly deletionReasonCode: number | null;
 	readonly deletionPublicReason: string | null;
 	readonly deletionAuditLogReason: string | null;
+	readonly solanaAddress: string | null;
 	readonly acls: Set<string>;
 	private readonly _traits: Set<string>;
 	readonly firstRefundAt: Date | null;
@@ -127,6 +128,7 @@ export class User {
 		this.deletionReasonCode = row.deletion_reason_code ?? null;
 		this.deletionPublicReason = row.deletion_public_reason ?? null;
 		this.deletionAuditLogReason = row.deletion_audit_log_reason ?? null;
+		this.solanaAddress = row.solana_address ?? null;
 		this.acls = row.acls ?? new Set();
 		this._traits = row.traits ?? new Set();
 		this.firstRefundAt = row.first_refund_at ?? null;
@@ -145,6 +147,10 @@ export class User {
 	}
 
 	isUnclaimedAccount(): boolean {
+		// An account with an email is considered claimed — wallet-authenticated users
+		// have email but no password, and should not be restricted as unclaimed.
+		// Aligns with the client-side isClaimed() definition: !!email means claimed.
+		if (this.email !== null) return false;
 		return this.passwordHash === null && !this.isBot;
 	}
 

@@ -113,7 +113,7 @@ build_notification_payload(
         <<"title">> => Title,
         <<"body">> => ContentPreview,
         <<"icon">> => AuthorAvatarUrl,
-        <<"badge">> => <<"https://fluxerstatic.com/web/apple-touch-icon.png">>,
+        <<"badge">> => <<"https://multiverse.forum/web/apple-touch-icon.png">>,
         <<"data">> =>
             #{
                 <<"channel_id">> => integer_to_binary(ChannelId),

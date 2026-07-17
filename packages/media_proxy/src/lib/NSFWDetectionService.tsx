@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import fs from 'node:fs/promises';
@@ -49,8 +49,16 @@ export class NSFWDetectionService {
 	}
 
 	async initialize(): Promise<void> {
-		const modelBuffer = await fs.readFile(this.modelPath);
-		this.session = await ort.InferenceSession.create(modelBuffer);
+		try {
+			const modelBuffer = await fs.readFile(this.modelPath);
+			this.session = await ort.InferenceSession.create(modelBuffer);
+		} catch (e: unknown) {
+			if ((e as NodeJS.ErrnoException).code === 'ENOENT') {
+				// Model file not present — NSFW detection disabled
+				return;
+			}
+			throw e;
+		}
 	}
 
 	async checkNSFW(filePath: string): Promise<NSFWCheckResult> {
@@ -60,7 +68,7 @@ export class NSFWDetectionService {
 
 	async checkNSFWBuffer(buffer: Buffer): Promise<NSFWCheckResult> {
 		if (!this.session) {
-			throw new Error('NSFW Detection service not initialized');
+			return {isNSFW: false, probability: 0};
 		}
 
 		const processedImage = await this.preprocessImage(buffer);

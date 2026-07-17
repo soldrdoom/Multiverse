@@ -57,7 +57,7 @@
 			"from_name": {
 				"type": "string",
 				"description": "Default sender name.",
-				"default": "Fluxer"
+				"default": "Multiverse"
 			},
 			"smtp": {
 				"$ref": "#/$defs/smtp_email"

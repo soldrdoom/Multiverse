@@ -1,24 +1,24 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import styles from '@app/components/ErrorFallback.module.css';
-import {FluxerIcon} from '@app/components/icons/FluxerIcon';
+import {MultiverseIcon} from '@app/components/icons/MultiverseIcon';
 import {Button} from '@app/components/uikit/button/Button';
 import AppStorage from '@app/lib/AppStorage';
 import {Trans} from '@lingui/react/macro';
@@ -43,13 +43,13 @@ export const BootstrapErrorScreen: React.FC<BootstrapErrorScreenProps> = ({error
 
 	return (
 		<div className={styles.errorFallbackContainer}>
-			<FluxerIcon className={styles.errorFallbackIcon} />
+			<MultiverseIcon className={styles.errorFallbackIcon} />
 			<div className={styles.errorFallbackContent}>
 				<h1 className={styles.errorFallbackTitle}>
 					<Trans>Failed to Start</Trans>
 				</h1>
 				<p className={styles.errorFallbackDescription}>
-					<Trans>Fluxer failed to start properly. This could be due to corrupted data or a temporary issue.</Trans>
+					<Trans>Multiverse failed to start properly. This could be due to corrupted data or a temporary issue.</Trans>
 				</p>
 				{error && (
 					<p className={styles.errorFallbackDescription} style={{fontSize: '0.875rem', opacity: 0.8}}>

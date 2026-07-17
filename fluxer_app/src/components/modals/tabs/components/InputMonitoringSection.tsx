@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ToastActionCreators from '@app/actions/ToastActionCreators';
@@ -49,7 +49,7 @@ export const InputMonitoringSection: React.FC = observer(() => {
 			await KeybindManager.reapplyGlobalShortcuts();
 		} else if (result === 'denied') {
 			await openNativePermissionSettings('input-monitoring');
-			ToastActionCreators.error(t`Please enable Fluxer in System Settings → Privacy & Security → Input Monitoring.`);
+			ToastActionCreators.error(t`Please enable Multiverse in System Settings → Privacy & Security → Input Monitoring.`);
 		}
 	};
 
@@ -67,13 +67,13 @@ export const InputMonitoringSection: React.FC = observer(() => {
 				</div>
 				<p className={styles.permissionDescription}>
 					<Trans>
-						Fluxer needs Input Monitoring permission to keep push-to-talk and global shortcuts working while the window
+						Multiverse needs Input Monitoring permission to keep push-to-talk and global shortcuts working while the window
 						is in the background.
 					</Trans>
 				</p>
 				{status === 'denied' ? (
 					<p className={styles.permissionHelp}>
-						<Trans>Click "Open Settings" to open System Settings, then enable Fluxer in Input Monitoring.</Trans>
+						<Trans>Click "Open Settings" to open System Settings, then enable Multiverse in Input Monitoring.</Trans>
 					</p>
 				) : null}
 			</div>

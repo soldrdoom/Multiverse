@@ -1,26 +1,26 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {HttpStatus} from '@fluxer/constants/src/HttpConstants';
 import {CaptchaRequiredError, InvalidCaptchaError} from '@fluxer/errors/src/CaptchaErrors';
 import {BadRequestError} from '@fluxer/errors/src/domains/core/BadRequestError';
-import {FluxerError} from '@fluxer/errors/src/FluxerError';
+import {MultiverseError} from '@fluxer/errors/src/FluxerError';
 import {ErrorCodeToI18nKey} from '@fluxer/errors/src/i18n/ErrorCodeMappings';
 import {getErrorMessage} from '@fluxer/errors/src/i18n/ErrorI18n';
 import type {ErrorI18nKey} from '@fluxer/errors/src/i18n/ErrorI18nTypes.generated';
@@ -47,10 +47,10 @@ describe('CaptchaErrors', () => {
 			expect(error).toBeInstanceOf(BadRequestError);
 		});
 
-		it('should extend FluxerError', () => {
+		it('should extend MultiverseError', () => {
 			const error = new CaptchaRequiredError();
 
-			expect(error).toBeInstanceOf(FluxerError);
+			expect(error).toBeInstanceOf(MultiverseError);
 		});
 
 		it('should have an i18n mapping that resolves to the correct message', () => {
@@ -82,10 +82,10 @@ describe('CaptchaErrors', () => {
 			expect(error).toBeInstanceOf(BadRequestError);
 		});
 
-		it('should extend FluxerError', () => {
+		it('should extend MultiverseError', () => {
 			const error = new InvalidCaptchaError();
 
-			expect(error).toBeInstanceOf(FluxerError);
+			expect(error).toBeInstanceOf(MultiverseError);
 		});
 
 		it('should have an i18n mapping that resolves to the correct message', () => {

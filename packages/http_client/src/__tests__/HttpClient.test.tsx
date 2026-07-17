@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {HttpStatus} from '@fluxer/constants/src/HttpConstants';
@@ -29,7 +29,7 @@ import type {RequestUrlPolicy, RequestUrlValidationContext} from '@fluxer/http_c
 import {HttpError} from '@fluxer/http_client/src/HttpError';
 import {afterAll, beforeAll, describe, expect, it} from 'vitest';
 
-const TEST_USER_AGENT = 'FluxerHttpClient/1.0 (Test)';
+const TEST_USER_AGENT = 'MultiverseHttpClient/1.0 (Test)';
 
 describe('HttpClient', () => {
 	let testServer: TestServer;

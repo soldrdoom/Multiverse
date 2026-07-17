@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 .guildsLayoutContainer {
@@ -129,8 +129,8 @@
 	min-width: 0;
 	background-color: var(--background-secondary);
 	position: relative;
-	height: 100%;
-	max-height: 100%;
+	height: calc(100% - var(--layout-mobile-bottom-nav-reserved-height, 0px));
+	max-height: calc(100% - var(--layout-mobile-bottom-nav-reserved-height, 0px));
 	width: 100%;
 	max-width: 100%;
 }
@@ -369,28 +369,30 @@
 	composes: guildIcon;
 }
 
-.fluxerButton {
+.multiverseButton {
 	composes: guildListItem;
 }
 
-.fluxerButtonIcon {
+.multiverseButtonIcon {
 	composes: guildIcon;
 	background-color: var(--guilds-layout-item-bg, var(--guild-list-foreground));
 	color: var(--text-primary);
 	transition-property: background-color, color, border-radius;
 	transition-duration: 70ms;
 	transition-timing-function: ease-out;
+	padding: 0;
+	overflow: clip;
 }
 
-.fluxerButtonIconSelected {
+.multiverseButtonIconSelected {
 	background-color: var(--brand-primary);
 	color: white;
 }
 
 @media (hover: hover) and (pointer: fine) {
-	.fluxerButton:hover .fluxerButtonIcon,
-	.fluxerButtonIcon:hover,
-	.fluxerButton.contextMenuHover .fluxerButtonIcon {
+	.multiverseButton:hover .multiverseButtonIcon,
+	.multiverseButtonIcon:hover,
+	.multiverseButton.contextMenuHover .multiverseButtonIcon {
 		background-color: var(--brand-primary);
 		color: white;
 	}
@@ -402,17 +404,19 @@
 
 .addGuildButtonIcon {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	gap: 2px;
 	height: var(--guild-icon-size);
 	width: var(--guild-icon-size);
 	flex-shrink: 0;
 	cursor: pointer;
 	border-radius: var(--radius-full);
-	border: 2px dashed var(--background-modifier-accent);
-	background-color: transparent;
-	color: var(--text-primary);
-	transition-property: border-radius, border-color;
+	border: none;
+	background-color: #00C864;
+	color: #0B0E14;
+	transition-property: border-radius, background-color;
 	transition-duration: 70ms;
 	transition-timing-function: ease-out;
 }
@@ -421,7 +425,7 @@
 	.addGuildButton:hover .addGuildButtonIcon,
 	.addGuildButtonIcon:hover,
 	.addGuildButton.contextMenuHover .addGuildButtonIcon {
-		border-color: var(--text-primary);
+		background-color: #33E87A;
 	}
 }
 
@@ -452,9 +456,7 @@
 	width: 100%;
 }
 
-.fluxerSymbolIcon {
-	height: 2.75rem;
-	width: 2.75rem;
+.multiverseSymbolIcon {
 	color: currentColor;
 }
 

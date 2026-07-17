@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as AuthenticationActionCreators from '@app/actions/AuthenticationActionCreators';
@@ -29,7 +29,7 @@ import {DesktopDeepLinkPrompt} from '@app/components/auth/DesktopDeepLinkPrompt'
 import {GiftHeader} from '@app/components/auth/GiftHeader';
 import {HandoffCodeDisplay} from '@app/components/auth/HandoffCodeDisplay';
 import MfaScreen from '@app/components/auth/MfaScreen';
-import {useFluxerDocumentTitle} from '@app/hooks/useFluxerDocumentTitle';
+import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
 import {useLocation, useParams} from '@app/lib/router/React';
 import {Routes} from '@app/Routes';
 import AccountManager from '@app/stores/AccountManager';
@@ -153,7 +153,7 @@ const GiftLoginPageContainer = observer(() => {
 	const loginState = AuthenticationStore.loginState;
 	const {code} = useParams() as {code: string};
 
-	useFluxerDocumentTitle(t`Claim Gift`);
+	useMultiverseDocumentTitle(t`Claim Gift`);
 
 	const giftState = GiftStore.gifts.get(code) ?? null;
 

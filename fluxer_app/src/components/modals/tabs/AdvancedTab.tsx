@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as UserSettingsActionCreators from '@app/actions/UserSettingsActionCreators';
@@ -86,10 +86,10 @@ const AdvancedTab: React.FC = observer(() => {
 			{isDesktop() && (
 				<SettingsTabSection
 					title={<Trans>Desktop Startup</Trans>}
-					description={<Trans>Run Fluxer automatically when your computer starts. Or don't. Your choice!</Trans>}
+					description={<Trans>Run Multiverse automatically when your computer starts. Or don't. Your choice!</Trans>}
 				>
 					<Switch
-						label={<Trans>Launch Fluxer at Login</Trans>}
+						label={<Trans>Launch Multiverse at Login</Trans>}
 						description={<Trans>Applies only to the desktop app on this device.</Trans>}
 						value={platform === 'macos' ? autostartEnabled : false}
 						disabled={platform !== 'macos' || autostartBusy}
@@ -106,7 +106,7 @@ const AdvancedTab: React.FC = observer(() => {
 				<SettingsTabSection
 					title={<Trans>Desktop Window</Trans>}
 					description={
-						<Trans>Choose what Fluxer remembers about your window between restarts and reloads on this device.</Trans>
+						<Trans>Choose what Multiverse remembers about your window between restarts and reloads on this device.</Trans>
 					}
 				>
 					<Switch
@@ -117,7 +117,7 @@ const AdvancedTab: React.FC = observer(() => {
 					/>
 					<Switch
 						label={<Trans>Restore Maximized</Trans>}
-						description={<Trans>Reopen in maximized mode if that&rsquo;s how you last used Fluxer.</Trans>}
+						description={<Trans>Reopen in maximized mode if that&rsquo;s how you last used Multiverse.</Trans>}
 						value={NativeWindowStateStore.rememberMaximized}
 						onChange={NativeWindowStateStore.setRememberMaximized}
 					/>
@@ -131,7 +131,7 @@ const AdvancedTab: React.FC = observer(() => {
 			)}
 			<SettingsTabSection
 				title={<Trans>Screen Sharing</Trans>}
-				description={<Trans>Choose how Fluxer selects the video codec for screen sharing.</Trans>}
+				description={<Trans>Choose how Multiverse selects the video codec for screen sharing.</Trans>}
 			>
 				<Switch
 					label={<Trans>Hardware Acceleration</Trans>}
@@ -159,7 +159,7 @@ const AdvancedTab: React.FC = observer(() => {
 					description={
 						<Trans>
 							When enabled, reveals debugging menus throughout the app to inspect and copy raw JSON objects of internal
-							data structures like messages, channels, users, and communities. Also includes tools to debug the Fluxer
+							data structures like messages, channels, users, and communities. Also includes tools to debug the Multiverse
 							Markdown parser performance and AST for any given message.
 						</Trans>
 					}

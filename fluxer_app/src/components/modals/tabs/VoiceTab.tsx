@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
@@ -140,7 +140,7 @@ export const VoiceTab: React.FC<VoiceTabProps> = observer(({voiceSettings, autoR
 						description={
 							<p>
 								<Trans>
-									In your browser, Push-to-Talk will only work when the Fluxer tab is focused. For system-wide
+									In your browser, Push-to-Talk will only work when the Multiverse tab is focused. For system-wide
 									Push-to-Talk that works even when gaming or using other apps, download the desktop app.
 								</Trans>
 							</p>
@@ -200,16 +200,16 @@ export const VoiceTab: React.FC<VoiceTabProps> = observer(({voiceSettings, autoR
 							{permissionStatus === 'denied' ? (
 								isNativeDesktop ? (
 									<Trans>
-										Allow Fluxer to access your microphone in System Settings → Privacy &amp; Security → Microphone.
+										Allow Multiverse to access your microphone in System Settings → Privacy &amp; Security → Microphone.
 									</Trans>
 								) : (
 									<Trans>
-										Allow Fluxer to access your microphone. Check your browser address bar or settings to enable
+										Allow Multiverse to access your microphone. Check your browser address bar or settings to enable
 										permissions.
 									</Trans>
 								)
 							) : (
-								<Trans>Fluxer needs access to list the available microphones and speakers.</Trans>
+								<Trans>Multiverse needs access to list the available microphones and speakers.</Trans>
 							)}
 						</p>
 					</div>

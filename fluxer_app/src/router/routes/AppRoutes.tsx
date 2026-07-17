@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {AppBadge} from '@app/components/AppBadge';
@@ -48,10 +48,23 @@ import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
 import {observer} from 'mobx-react-lite';
 import {useEffect, useState} from 'react';
 
+// ─── DEV AUTH BYPASS — Milestone 0.0.1.5 ─────────────────────────────────────
+// Allows UI inspection when the backend provider is offline.
+// Seeds a fake session so AuthenticationStore.currentUserId / UserStore.currentUserId
+// resolve to a stable dev identity without requiring a live backend.
+// !! REMOVE THIS BLOCK BEFORE PROMOTING TO PRODUCTION !!
+const DEV_AUTH_BYPASS = process.env.NODE_ENV === 'development';
+
+if (DEV_AUTH_BYPASS) {
+	void SessionManager.login('mv-dev-bypass-token-00000000', '100000000000000');
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 const appLayoutRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	id: 'appLayout',
 	onEnter: () => {
+		if (DEV_AUTH_BYPASS) return undefined;
 		if (!SessionManager.isInitialized) {
 			return undefined;
 		}

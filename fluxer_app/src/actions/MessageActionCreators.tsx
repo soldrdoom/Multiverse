@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
@@ -44,6 +44,8 @@ import MessageReferenceStore from '@app/stores/MessageReferenceStore';
 import MessageReplyStore from '@app/stores/MessageReplyStore';
 import MessageStore from '@app/stores/MessageStore';
 import ReadStateStore from '@app/stores/ReadStateStore';
+import VaultStore from '@app/stores/VaultStore';
+import {openMessage, base64ToU8} from '@app/services/crypto/crypto-utils';
 import {getApiErrorCode} from '@app/utils/ApiErrorUtils';
 import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
 import {MessageFlags} from '@fluxer/constants/src/ChannelConstants';
@@ -53,6 +55,7 @@ import type {MessageId} from '@fluxer/schema/src/branded/WireIds';
 import type {
 	AllowedMentions,
 	Message,
+	MessageNftStickerItem,
 	MessageReference,
 	MessageStickerItem,
 } from '@fluxer/schema/src/domains/message/MessageResponseSchemas';
@@ -61,6 +64,26 @@ import type {I18n} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 
 const logger = new Logger('MessageActionCreators');
+
+function decryptE2EEMessages(messages: Array<Message>): Array<Message> {
+	if (!VaultStore.isUnlocked) return messages;
+	const privateKeyBytes = base64ToU8(VaultStore.keyPair!.privateKeyB64);
+	return messages.map((msg) => {
+		if (!(msg.flags & MessageFlags.E2EE) || !msg.encrypted_content) return msg;
+		try {
+			const parsed = JSON.parse(msg.encrypted_content);
+			const forRecipient = parsed.forRecipient ?? parsed;
+			const forSender = parsed.forSender ?? null;
+			const plaintext =
+				openMessage(forRecipient, privateKeyBytes) ??
+				(forSender ? openMessage(forSender, privateKeyBytes) : null);
+			if (plaintext != null) return {...msg, content: plaintext};
+		} catch {
+			// ignore
+		}
+		return {...msg, content: '🔒 Could not decrypt message'};
+	});
+}
 
 const pendingDeletePromises = new Map<string, Promise<void>>();
 const pendingFetchPromises = new Map<string, Promise<Array<Message>>>();
@@ -121,6 +144,7 @@ async function requestMissingGuildMembers(channelId: string, messages: Array<Mes
 
 interface SendMessageParams {
 	content: string;
+	encryptedContent?: string | null;
 	nonce: string;
 	hasAttachments?: boolean;
 	allowedMentions?: AllowedMentions;
@@ -128,6 +152,7 @@ interface SendMessageParams {
 	flags?: number;
 	favoriteMemeId?: string;
 	stickers?: Array<MessageStickerItem>;
+	nft_stickers?: Array<MessageNftStickerItem>;
 	tts?: boolean;
 }
 
@@ -232,7 +257,7 @@ export async function fetchMessages(
 				query: {before, after, limit, around: around ?? null},
 				retries: 2,
 			});
-			const messages = response.body ?? [];
+			const messages = decryptE2EEMessages(response.body ?? []);
 
 			const isBefore = before != null;
 			const isAfter = after != null;
@@ -309,12 +334,14 @@ export function send(channelId: string, params: SendMessageParams): Promise<Mess
 				channelId,
 				nonce: params.nonce,
 				content: params.content,
+				encryptedContent: params.encryptedContent,
 				hasAttachments: params.hasAttachments,
 				allowedMentions: params.allowedMentions,
 				messageReference: params.messageReference,
 				flags: params.flags,
 				favoriteMemeId: params.favoriteMemeId,
 				stickers: params.stickers,
+				nft_stickers: params.nft_stickers,
 				tts: params.tts,
 			},
 			(result, error) => {

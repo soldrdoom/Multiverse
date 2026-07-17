@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -31,7 +31,7 @@ import {FinalCtaSection} from '@fluxer/marketing/src/components/FinalCtaSection'
 import {defaultHeroPadding, HeroBase} from '@fluxer/marketing/src/components/HeroBase';
 import {CheckIcon} from '@fluxer/marketing/src/components/icons/CheckIcon';
 import {CrossIcon} from '@fluxer/marketing/src/components/icons/CrossIcon';
-import {FluxerPremiumIcon} from '@fluxer/marketing/src/components/icons/FluxerPremiumIcon';
+import {MultiversePremiumIcon} from '@fluxer/marketing/src/components/icons/FluxerPremiumIcon';
 import {Icon} from '@fluxer/marketing/src/components/icons/IconRegistry';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
 import {Currency, getCurrency, getFormattedPrice, PricingTier} from '@fluxer/marketing/src/PricingUtils';
@@ -63,7 +63,7 @@ function renderHeroSection(ctx: MarketingContext): JSX.Element {
 
 	return (
 		<HeroBase
-			icon={<FluxerPremiumIcon class="h-14 w-14 text-white md:h-18 md:w-18" fillColor="#4641D9" />}
+			icon={<MultiversePremiumIcon class="h-14 w-14 text-white md:h-18 md:w-18" fillColor="#4641D9" />}
 			title={ctx.i18n.getMessage('pricing_and_tiers.plutonium.tier_name', ctx.locale)}
 			description={ctx.i18n.getMessage('pricing_and_tiers.plutonium.higher_limits_and_early_access', ctx.locale)}
 			extraContent={

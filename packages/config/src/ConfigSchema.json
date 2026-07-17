@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"title": "Fluxer Config",
+	"title": "Multiverse Config",
 	"type": "object",
 	"required": [
 		"env",
@@ -121,7 +121,7 @@
 			"$ref": "#/$defs/s3"
 		},
 		"services": {
-			"description": "Configuration for individual Fluxer services.",
+			"description": "Configuration for individual Multiverse services.",
 			"$ref": "#/$defs/services"
 		},
 		"auth": {
@@ -203,7 +203,7 @@
 			"default": {}
 		},
 		"federation": {
-			"description": "Federation configuration for connecting with other Fluxer instances.",
+			"description": "Federation configuration for connecting with other Multiverse instances.",
 			"$ref": "#/$defs/federation",
 			"default": {}
 		}
@@ -216,7 +216,7 @@
 				"rp_name": {
 					"type": "string",
 					"description": "Relying Party name displayed to users.",
-					"default": "Fluxer"
+					"default": "Multiverse"
 				},
 				"rp_id": {
 					"type": "string",
@@ -280,7 +280,7 @@
 				"client_name": {
 					"type": "string",
 					"description": "Human-readable client name exposed to Bluesky.",
-					"default": "Fluxer"
+					"default": "Multiverse"
 				},
 				"client_uri": {
 					"type": "string",
@@ -290,7 +290,7 @@
 				"logo_uri": {
 					"type": "string",
 					"description": "Optional logo presented during authorization.",
-					"default": "https://fluxerstatic.com/web/apple-touch-icon.png"
+					"default": "https://multiverse.forum/web/apple-touch-icon.png"
 				},
 				"tos_uri": {
 					"type": "string",
@@ -313,9 +313,9 @@
 			},
 			"default": {
 				"enabled": true,
-				"client_name": "Fluxer",
+				"client_name": "Multiverse",
 				"client_uri": "",
-				"logo_uri": "https://fluxerstatic.com/web/apple-touch-icon.png",
+				"logo_uri": "https://multiverse.forum/web/apple-touch-icon.png",
 				"tos_uri": "https://fluxer.app/terms",
 				"policy_uri": "https://fluxer.app/privacy",
 				"keys": []
@@ -375,9 +375,9 @@
 					"$ref": "#/$defs/bluesky",
 					"default": {
 						"enabled": true,
-						"client_name": "Fluxer",
+						"client_name": "Multiverse",
 						"client_uri": "",
-						"logo_uri": "https://fluxerstatic.com/web/apple-touch-icon.png",
+						"logo_uri": "https://multiverse.forum/web/apple-touch-icon.png",
 						"tos_uri": "https://fluxer.app/terms",
 						"policy_uri": "https://fluxer.app/privacy",
 						"keys": []
@@ -610,7 +610,7 @@
 				"static_cdn_domain": {
 					"type": "string",
 					"description": "Separate domain for static CDN assets (optional).",
-					"default": "fluxerstatic.com"
+					"default": "multiverse.forum"
 				},
 				"invite_domain": {
 					"type": "string",
@@ -742,7 +742,7 @@
 		},
 		"instance": {
 			"type": "object",
-			"description": "Specific settings for this Fluxer instance.",
+			"description": "Specific settings for this Multiverse instance.",
 			"properties": {
 				"deployment_mode": {
 					"type": "string",
@@ -782,12 +782,12 @@
 		},
 		"federation": {
 			"type": "object",
-			"description": "Federation configuration for connecting with other Fluxer instances.",
+			"description": "Federation configuration for connecting with other Multiverse instances.",
 			"properties": {
 				"enabled": {
 					"type": "boolean",
 					"default": false,
-					"description": "Enable federation with other Fluxer instances."
+					"description": "Enable federation with other Multiverse instances."
 				}
 			}
 		},
@@ -878,6 +878,11 @@
 					"type": "boolean",
 					"default": false,
 					"description": "Trust Cloudflare's CF-Connecting-IP header."
+				},
+				"require_forwarded_for": {
+					"type": "boolean",
+					"default": false,
+					"description": "Require X-Forwarded-For header on all API requests. Enable when running behind a reverse proxy."
 				}
 			}
 		},
@@ -1131,7 +1136,7 @@
 				"from_name": {
 					"type": "string",
 					"description": "Default sender name.",
-					"default": "Fluxer"
+					"default": "Multiverse"
 				},
 				"smtp": {
 					"$ref": "#/$defs/smtp_email"
@@ -1944,7 +1949,7 @@
 		},
 		"server_service": {
 			"type": "object",
-			"description": "Configuration for the main Fluxer Server.",
+			"description": "Configuration for the main Multiverse Server.",
 			"properties": {
 				"host": {
 					"type": "string",

@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {ChannelMessages} from '@app/lib/ChannelMessages';
@@ -88,7 +88,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523904',
 				channelId: '1471070679785500675',
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.CLIENT_SYSTEM,
 				timestamp: '2026-02-11T15:43:56.776Z',
 				content: 'You changed your nickname in this community.',
@@ -121,7 +121,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169916842796039',
 				channelId: '1471070679785500675',
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.CLIENT_SYSTEM,
 				timestamp: '2026-02-11T15:43:59.006Z',
 				content: 'Only you can see this message.',
@@ -159,7 +159,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523904',
 				channelId: '1471070679785500675',
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.CLIENT_SYSTEM,
 				timestamp: '2026-02-11T15:43:56.776Z',
 				content: 'You changed your nickname in this community.',
@@ -169,7 +169,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523905',
 				channelId: '1471070679785500675',
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.CLIENT_SYSTEM,
 				timestamp: '2026-02-11T15:43:57.000Z',
 				content: 'Only you can see this message.',
@@ -184,7 +184,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523900',
 				channelId: '1471070679785500675',
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.USER_JOIN,
 				timestamp: '2026-02-11T15:43:55.000Z',
 				content: 'Alice joined the channel.',
@@ -194,7 +194,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523901',
 				channelId: '1471070679785500675',
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.USER_JOIN,
 				timestamp: '2026-02-11T15:43:56.000Z',
 				content: 'Bob joined the channel.',
@@ -209,7 +209,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523904',
 				channelId: '1471070679785500675',
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.CLIENT_SYSTEM,
 				timestamp: '2026-02-11T15:43:56.776Z',
 				content: 'Only you can see this message.',
@@ -219,7 +219,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523901',
 				channelId: '1471070679785500675',
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.USER_JOIN,
 				timestamp: '2026-02-11T15:43:57.000Z',
 				content: 'Alice joined the channel.',
@@ -237,7 +237,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523904',
 				channelId: channel.id,
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.CLIENT_SYSTEM,
 				timestamp: '2026-02-11T15:43:56.776Z',
 				content: 'You changed your nickname in this community from SuperGoldTurtle to sup.',
@@ -286,7 +286,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523911',
 				channelId: channel.id,
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.CLIENT_SYSTEM,
 				timestamp: '2026-02-11T15:43:51.000Z',
 				content: 'Only you can see this message.',
@@ -331,7 +331,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523920',
 				channelId: channel.id,
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.CLIENT_SYSTEM,
 				timestamp: '2026-02-11T15:43:56.000Z',
 				content: 'You changed your nickname.',
@@ -341,7 +341,7 @@ describe('MessageGroupingUtils', () => {
 				id: '1471169898326523921',
 				channelId: channel.id,
 				authorId: '0',
-				username: 'Fluxerbot',
+				username: 'Multiversebot',
 				type: MessageTypes.CLIENT_SYSTEM,
 				timestamp: '2026-02-11T15:43:57.000Z',
 				content: 'Only you can see this message.',

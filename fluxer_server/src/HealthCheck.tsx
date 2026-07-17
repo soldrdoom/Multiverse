@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {InitializedServices} from '@app/ServiceInitializer';
@@ -91,13 +91,14 @@ async function checkKVHealth(services: InitializedServices, latencyThresholdMs: 
 }
 
 async function checkS3Health(services: InitializedServices, latencyThresholdMs: number): Promise<ServiceHealth> {
+        if (!services.s3) services.s3 = {} as any;
 	if (services.s3 === undefined) {
 		return {status: 'disabled'};
 	}
 
 	try {
 		const start = Date.now();
-		const s3Service = services.s3.getS3Service();
+		const s3Service = services.s3?.getS3Service ? services.s3.getS3Service() : null;
 		const buckets = await s3Service.listBuckets();
 		const latencyMs = Date.now() - start;
 
@@ -263,7 +264,7 @@ export function createReadinessCheckHandler(config: HealthCheckConfig) {
 
 		if (services.s3 !== undefined) {
 			try {
-				const s3Service = services.s3.getS3Service();
+				const s3Service = services.s3?.getS3Service ? services.s3.getS3Service() : null;
 				await s3Service.listBuckets();
 				checks.s3 = {ready: true};
 			} catch (error) {

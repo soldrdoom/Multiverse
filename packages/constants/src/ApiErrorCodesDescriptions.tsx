@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
@@ -209,7 +209,7 @@ export const APIErrorCodesDescriptions: Record<keyof typeof APIErrorCodes, strin
 	NOT_IMPLEMENTED: 'Feature not implemented',
 	NO_PASSKEYS_REGISTERED: 'No passkeys registered for this account',
 	NO_PENDING_DELETION: 'No pending deletion for this account',
-	NO_USERS_WITH_FLUXERTAG_EXIST: 'No users with this Fluxertag exist',
+	NO_USERS_WITH_FLUXERTAG_EXIST: 'No users with this Multiversetag exist',
 	NO_VISIONARY_SLOTS_AVAILABLE: 'No Visionary slots available',
 	NOT_FRIENDS_WITH_USER: 'You are not friends with this user',
 	NOT_OWNER_OF_ADMIN_API_KEY: 'You are not the owner of this admin API key',

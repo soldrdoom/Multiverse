@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ContextMenuActionCreators from '@app/actions/ContextMenuActionCreators';
@@ -36,7 +36,7 @@ import {Scroller} from '@app/components/uikit/Scroller';
 import {StatusAwareAvatar} from '@app/components/uikit/StatusAwareAvatar';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {Endpoints} from '@app/Endpoints';
-import {useFluxerDocumentTitle} from '@app/hooks/useFluxerDocumentTitle';
+import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
 import http from '@app/lib/HttpClient';
 import {Logger} from '@app/lib/Logger';
 import {formatTimestamp} from '@app/lib/markdown/utils/DateFormatter';
@@ -505,7 +505,7 @@ const MembersTableView: React.FC<{guildId: string}> = observer(({guildId}) => {
 	const [sortMode, setSortMode] = useState<SortMode>('newest');
 	const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
 	const [memberSinceFilter, setMemberSinceFilter] = useState<DateRangeFilter>({});
-	const [joinedFluxerFilter, setJoinedFluxerFilter] = useState<DateRangeFilter>({});
+	const [joinedMultiverseFilter, setJoinedMultiverseFilter] = useState<DateRangeFilter>({});
 	const [joinMethodFilter, setJoinMethodFilter] = useState<JoinMethodFilter>({});
 	const [roleFilter, setRoleFilter] = useState<Array<string>>([]);
 
@@ -568,11 +568,11 @@ const MembersTableView: React.FC<{guildId: string}> = observer(({guildId}) => {
 					searchParams.joined_at_lte = memberSinceFilter.lte;
 				}
 
-				if (joinedFluxerFilter.gte != null) {
-					searchParams.user_created_at_gte = joinedFluxerFilter.gte;
+				if (joinedMultiverseFilter.gte != null) {
+					searchParams.user_created_at_gte = joinedMultiverseFilter.gte;
 				}
-				if (joinedFluxerFilter.lte != null) {
-					searchParams.user_created_at_lte = joinedFluxerFilter.lte;
+				if (joinedMultiverseFilter.lte != null) {
+					searchParams.user_created_at_lte = joinedMultiverseFilter.lte;
 				}
 
 				if (joinMethodFilter.sourceType && joinMethodFilter.sourceType.length > 0) {
@@ -619,7 +619,7 @@ const MembersTableView: React.FC<{guildId: string}> = observer(({guildId}) => {
 				}
 			}
 		},
-		[guildId, sortMode, pageSize, roleFilter, memberSinceFilter, joinedFluxerFilter, joinMethodFilter],
+		[guildId, sortMode, pageSize, roleFilter, memberSinceFilter, joinedMultiverseFilter, joinMethodFilter],
 	);
 
 	useEffect(() => {
@@ -788,11 +788,11 @@ const MembersTableView: React.FC<{guildId: string}> = observer(({guildId}) => {
 		[openDateRangeFilter, memberSinceFilter],
 	);
 
-	const handleJoinedFluxerFilterOpen = useCallback(
+	const handleJoinedMultiverseFilterOpen = useCallback(
 		(event: React.MouseEvent<HTMLButtonElement>) => {
-			openDateRangeFilter(event, joinedFluxerFilter, setJoinedFluxerFilter);
+			openDateRangeFilter(event, joinedMultiverseFilter, setJoinedMultiverseFilter);
 		},
-		[openDateRangeFilter, joinedFluxerFilter],
+		[openDateRangeFilter, joinedMultiverseFilter],
 	);
 
 	const handleJoinMethodFilterOpen = useCallback(
@@ -923,7 +923,7 @@ const MembersTableView: React.FC<{guildId: string}> = observer(({guildId}) => {
 	const showEmptySearch = dataReady && displayedMembers.length === 0 && !searchError;
 	const showError = dataReady && searchError;
 	const memberSinceActive = memberSinceFilter.gte != null || memberSinceFilter.lte != null;
-	const joinedFluxerActive = joinedFluxerFilter.gte != null || joinedFluxerFilter.lte != null;
+	const joinedMultiverseActive = joinedMultiverseFilter.gte != null || joinedMultiverseFilter.lte != null;
 	const joinMethodActive =
 		(joinMethodFilter.sourceType != null && joinMethodFilter.sourceType.length > 0) ||
 		(joinMethodFilter.inviteCode != null && joinMethodFilter.inviteCode.length > 0);
@@ -983,13 +983,13 @@ const MembersTableView: React.FC<{guildId: string}> = observer(({guildId}) => {
 										</th>
 										<th className={clsx(styles.th, styles.dateCol)}>
 											<div className={styles.thContent}>
-												<Trans>Joined Fluxer</Trans>
+												<Trans>Joined Multiverse</Trans>
 												<button
 													type="button"
-													className={clsx(styles.filterButton, joinedFluxerActive && styles.filterButtonActive)}
-													onClick={handleJoinedFluxerFilterOpen}
+													className={clsx(styles.filterButton, joinedMultiverseActive && styles.filterButtonActive)}
+													onClick={handleJoinedMultiverseFilterOpen}
 												>
-													<FunnelIcon size={12} weight={joinedFluxerActive ? 'fill' : 'bold'} />
+													<FunnelIcon size={12} weight={joinedMultiverseActive ? 'fill' : 'bold'} />
 												</button>
 											</div>
 										</th>
@@ -1107,7 +1107,7 @@ export const GuildMembersPage: React.FC<GuildMembersPageProps> = observer(({guil
 	const {t} = useLingui();
 	const guild = GuildStore.getGuild(guildId);
 
-	useFluxerDocumentTitle(useMemo(() => [t`Members`, guild?.name], [t, guild?.name]));
+	useMultiverseDocumentTitle(useMemo(() => [t`Members`, guild?.name], [t, guild?.name]));
 
 	const headerLeftContent = useMemo(
 		() => (

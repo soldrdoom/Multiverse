@@ -1,23 +1,24 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {createAttachmentID, createChannelID, createMessageID} from '@fluxer/api/src/BrandedTypes';
+import {getTokenActivityRepository} from '@fluxer/api/src/middleware/ServiceMiddleware';
 import type {MessageRequest, MessageUpdateRequest} from '@fluxer/api/src/channel/MessageTypes';
 import {parseMultipartMessageData} from '@fluxer/api/src/channel/services/message/MessageRequestParser';
 import {DefaultUserOnly, LoginRequired} from '@fluxer/api/src/middleware/AuthMiddleware';
@@ -155,14 +156,14 @@ export function MessageController(app: HonoApp) {
 						}
 						return validationResult.data;
 					})();
-			return ctx.json(
-				await messageRequestService.sendMessage({
-					user,
-					channelId,
-					data: validatedData as MessageRequest,
-					requestCache,
-				}),
-			);
+			const response = await messageRequestService.sendMessage({
+				user,
+				channelId,
+				data: validatedData as MessageRequest,
+				requestCache,
+			});
+			getTokenActivityRepository().recordEvent(user.id, 'message_sent');
+			return ctx.json(response);
 		},
 	);
 

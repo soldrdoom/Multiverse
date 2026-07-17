@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as DimensionActionCreators from '@app/actions/DimensionActionCreators';
@@ -25,9 +25,10 @@ import {TopNagbarContext} from '@app/components/layout/app_layout/TopNagbarConte
 import styles from '@app/components/layout/GuildsLayout.module.css';
 import {AddGuildButton} from '@app/components/layout/guild_list/AddGuildButton';
 import {DiscoveryButton} from '@app/components/layout/guild_list/DiscoveryButton';
-import {DownloadButton} from '@app/components/layout/guild_list/DownloadButton';
+import {Web3Button} from '@app/components/layout/guild_list/Web3Button';
+import {CosmeticsShopButton} from '@app/components/layout/guild_list/CosmeticsShopButton';
 import {FavoritesButton} from '@app/components/layout/guild_list/FavoritesButton';
-import {FluxerButton} from '@app/components/layout/guild_list/FluxerButton';
+import {MultiverseButton} from '@app/components/layout/guild_list/FluxerButton';
 import {GuildFolderItem} from '@app/components/layout/guild_list/GuildFolderItem';
 import {DMListItem} from '@app/components/layout/guild_list/GuildListDMItem';
 import {GuildListItem} from '@app/components/layout/guild_list/GuildListItem';
@@ -41,7 +42,6 @@ import {Scroller, type ScrollerHandle} from '@app/components/uikit/Scroller';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {useRovingFocusList} from '@app/hooks/useRovingFocusList';
 import {ComponentDispatch} from '@app/lib/ComponentDispatch';
-import {Platform} from '@app/lib/Platform';
 import {useLocation} from '@app/lib/router/React';
 import {Routes} from '@app/Routes';
 import type {ChannelRecord} from '@app/records/ChannelRecord';
@@ -565,7 +565,7 @@ const GuildList = observer(() => {
 			>
 				<div className={styles.guildListContent} ref={guildListNavigationRef}>
 					<div className={styles.guildListTopSection}>
-						<FluxerButton />
+						<MultiverseButton />
 						<FavoritesButton />
 
 						<div className={styles.dmListSection}>
@@ -664,7 +664,8 @@ const GuildList = observer(() => {
 
 						<DiscoveryButton />
 						<AddGuildButton />
-						{!Platform.isElectron && !Platform.isPWA && <DownloadButton />}
+						<CosmeticsShopButton />
+						<Web3Button />
 						<HelpButton />
 					</div>
 				</div>
@@ -694,7 +695,7 @@ export const GuildsLayout = observer(({children}: {children: React.ReactNode}) =
 			Routes.isFavoritesRoute(location.pathname) ||
 			location.pathname === Routes.NOTIFICATIONS ||
 			location.pathname === Routes.YOU ||
-			(Routes.isGuildChannelRoute(location.pathname) && location.pathname.split('/').length === 3));
+			Routes.isGuildChannelRoute(location.pathname));
 
 	const nagbarConditions = useNagbarConditions();
 	const activeNagbars = useActiveNagbars(nagbarConditions);

@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -24,7 +24,7 @@ import {CdnEndpoints} from '@fluxer/constants/src/CdnEndpoints';
 import type {HttpStatusCode} from '@fluxer/constants/src/HttpConstants';
 import {HttpStatus} from '@fluxer/constants/src/HttpConstants';
 import {createErrorHandler} from '@fluxer/errors/src/ErrorHandler';
-import {FluxerError} from '@fluxer/errors/src/FluxerError';
+import {MultiverseError} from '@fluxer/errors/src/FluxerError';
 import {applyMiddlewareStack} from '@fluxer/hono/src/middleware/MiddlewareStack';
 import type {MetricsCollector} from '@fluxer/hono_types/src/MetricsTypes';
 import type {TracingOptions} from '@fluxer/hono_types/src/TracingTypes';
@@ -97,7 +97,7 @@ function createMarketingErrorHandler(logger: LoggerInterface, config: MarketingC
 	return createErrorHandler({
 		includeStack: config.env === 'development',
 		logError: (error, c) => {
-			if (!(error instanceof FluxerError)) {
+			if (!(error instanceof MultiverseError)) {
 				captureException(error);
 			}
 

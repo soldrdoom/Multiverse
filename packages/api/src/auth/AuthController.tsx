@@ -1,22 +1,23 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {SolanaAuthService} from '@fluxer/api/src/auth/services/SolanaAuthService';
 import {requireSudoMode} from '@fluxer/api/src/auth/services/SudoVerificationService';
 import {DefaultUserOnly, LoginRequiredAllowSuspicious} from '@fluxer/api/src/middleware/AuthMiddleware';
 import {CaptchaMiddleware} from '@fluxer/api/src/middleware/CaptchaMiddleware';
@@ -667,4 +668,87 @@ export function AuthController(app: HonoApp) {
 			return ctx.body(null, 204);
 		},
 	);
+
+	app.post('/auth/solana/nonce', async (ctx) => {
+		const {address} = await ctx.req.json<{address: string}>();
+		if (!address || typeof address !== 'string') {
+			return ctx.json({error: 'address required'}, 400);
+		}
+		const solanaService = new SolanaAuthService(
+			ctx.get('cacheService'),
+			ctx.get('userRepository'),
+			ctx.get('snowflakeService'),
+			ctx.get('authService').createAuthSession.bind(ctx.get('authService')),
+		);
+		const {nonce, message} = await solanaService.getNonce(address);
+		return ctx.json({nonce, message});
+	});
+
+	app.post('/auth/solana/verify', async (ctx) => {
+		const {address, signature, nonce, signedMessage} = await ctx.req.json<{
+			address: string;
+			signature: string;
+			nonce: string;
+			signedMessage?: string;
+		}>();
+		if (!address || !signature || !nonce) {
+			return ctx.json({error: 'address, signature, and nonce required'}, 400);
+		}
+		try {
+			const solanaService = new SolanaAuthService(
+				ctx.get('cacheService'),
+				ctx.get('userRepository'),
+				ctx.get('snowflakeService'),
+				ctx.get('authService').createAuthSession.bind(ctx.get('authService')),
+			);
+			const result = await solanaService.verifySiws({address, signature, nonce, signedMessage, request: ctx.req.raw});
+			return ctx.json(result);
+		} catch (err: any) {
+			return ctx.json({error: err?.message ?? 'Verification failed'}, 401);
+		}
+	});
+
+	app.post('/auth/solana/finalize', async (ctx) => {
+		const {tempToken, username, email} = await ctx.req.json<{tempToken: string; username: string; email: string}>();
+		if (!tempToken || !username || !email) {
+			return ctx.json({error: 'tempToken, username, and email are required'}, 400);
+		}
+		try {
+			const solanaService = new SolanaAuthService(
+				ctx.get('cacheService'),
+				ctx.get('userRepository'),
+				ctx.get('snowflakeService'),
+				ctx.get('authService').createAuthSession.bind(ctx.get('authService')),
+			);
+			const result = await solanaService.finalizeOnboarding({
+				tempToken,
+				username,
+				email,
+				emailService: ctx.get('emailService'),
+				request: ctx.req.raw,
+			});
+			return ctx.json(result);
+		} catch (err: any) {
+			return ctx.json({error: err?.message ?? 'Onboarding failed'}, 400);
+		}
+	});
+
+	app.post('/auth/solana/verify-email', async (ctx) => {
+		const {pendingToken, code} = await ctx.req.json<{pendingToken: string; code: string}>();
+		if (!pendingToken || !code) {
+			return ctx.json({error: 'pendingToken and code are required'}, 400);
+		}
+		try {
+			const solanaService = new SolanaAuthService(
+				ctx.get('cacheService'),
+				ctx.get('userRepository'),
+				ctx.get('snowflakeService'),
+				ctx.get('authService').createAuthSession.bind(ctx.get('authService')),
+			);
+			const result = await solanaService.verifyOnboardingEmail({pendingToken, code, request: ctx.req.raw});
+			return ctx.json(result);
+		} catch (err: any) {
+			return ctx.json({error: err?.message ?? 'Verification failed'}, 400);
+		}
+	});
 }

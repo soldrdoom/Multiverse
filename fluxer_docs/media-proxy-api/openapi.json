@@ -1,11 +1,11 @@
 {
 	"openapi": "3.1.0",
 	"info": {
-		"title": "Fluxer Media Proxy API",
+		"title": "Multiverse Media Proxy API",
 		"version": "1.0.0",
-		"description": "Media proxy API for Fluxer. Serves avatars, icons, banners, attachments, emojis, stickers, and proxied external media.",
+		"description": "Media proxy API for Multiverse. Serves avatars, icons, banners, attachments, emojis, stickers, and proxied external media.",
 		"contact": {
-			"name": "Fluxer Developers",
+			"name": "Multiverse Developers",
 			"email": "developers@fluxer.app"
 		},
 		"license": {
@@ -835,7 +835,7 @@
 			"get": {
 				"operationId": "getExternalMedia",
 				"summary": "Proxy external media",
-				"description": "Proxy external media through the Fluxer media proxy. External URLs are signed with HMAC-SHA256 to prevent abuse. The signature and timestamp parameters ensure URLs cannot be forged and expire after a configured period.",
+				"description": "Proxy external media through the Multiverse media proxy. External URLs are signed with HMAC-SHA256 to prevent abuse. The signature and timestamp parameters ensure URLs cannot be forged and expire after a configured period.",
 				"tags": ["External"],
 				"parameters": [
 					{

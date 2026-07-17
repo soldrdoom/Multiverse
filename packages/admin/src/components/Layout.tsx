@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -59,7 +59,7 @@ const Head: FC<{
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		{autoRefresh && <meta http-equiv="refresh" content="3" />}
-		<title>{title} ~ Fluxer Admin</title>
+		<title>{title} ~ Multiverse Admin</title>
 		<link rel="stylesheet" href={`${staticCdnEndpoint}/fonts/ibm-plex.css`} />
 		<link rel="stylesheet" href={`${staticCdnEndpoint}/fonts/bricolage.css`} />
 		<link rel="stylesheet" href={cacheBustedAsset(basePath, assetVersion, '/static/app.css')} />
@@ -110,7 +110,7 @@ const Sidebar: FC<{
 		>
 			<div class="flex items-center justify-between gap-3 border-neutral-800 border-b p-6">
 				<a href={`${basePath}/users`}>
-					<h1 class="font-semibold text-base">Fluxer Admin</h1>
+					<h1 class="font-semibold text-base">Multiverse Admin</h1>
 				</a>
 				<button
 					type="button"

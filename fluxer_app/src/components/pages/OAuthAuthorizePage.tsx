@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {getOAuth2ScopeDescription} from '@app/AppConstants';
@@ -33,8 +33,8 @@ import {Spinner} from '@app/components/uikit/Spinner';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {useAuthLayoutContext} from '@app/contexts/AuthLayoutContext';
 import {Endpoints} from '@app/Endpoints';
-import {useFluxerDocumentTitle} from '@app/hooks/useFluxerDocumentTitle';
-import FluxerWordmarkMonochrome from '@app/images/fluxer-logo-wordmark-monochrome.svg?react';
+import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
+import MultiverseWordmarkMonochrome from '@app/images/fluxer-logo-wordmark-monochrome.svg?react';
 import http from '@app/lib/HttpClient';
 import {HttpError} from '@app/lib/HttpError';
 import {Logger} from '@app/lib/Logger';
@@ -105,7 +105,7 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 
 	const {setShowLogoSide} = useAuthLayoutContext();
 
-	useFluxerDocumentTitle(t`Authorize Application`);
+	useMultiverseDocumentTitle(t`Authorize Application`);
 
 	useLayoutEffect(() => {
 		setShowLogoSide(false);
@@ -557,7 +557,7 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 		return (
 			<div className={styles.page}>
 				<div className={styles.pageLogo}>
-					<FluxerWordmarkMonochrome className={styles.pageWordmark} />
+					<MultiverseWordmarkMonochrome className={styles.pageWordmark} />
 				</div>
 
 				<div className={styles.breadcrumbs}>
@@ -682,7 +682,7 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 	return (
 		<div className={styles.page}>
 			<div className={styles.pageLogo}>
-				<FluxerWordmarkMonochrome className={styles.pageWordmark} />
+				<MultiverseWordmarkMonochrome className={styles.pageWordmark} />
 			</div>
 
 			{needsPermissionsStep && (

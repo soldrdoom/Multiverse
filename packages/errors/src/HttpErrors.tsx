@@ -1,35 +1,35 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
 import {HttpStatus} from '@fluxer/constants/src/HttpConstants';
-import {FluxerError, type FluxerErrorData} from '@fluxer/errors/src/FluxerError';
+import {MultiverseError, type MultiverseErrorData} from '@fluxer/errors/src/FluxerError';
 
 interface HttpErrorOptions {
 	code?: string;
 	message?: string;
-	data?: FluxerErrorData;
+	data?: MultiverseErrorData;
 	headers?: Record<string, string>;
 	cause?: Error;
 }
 
-export class BadRequestError extends FluxerError {
+export class BadRequestError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.BAD_REQUEST,
@@ -43,7 +43,7 @@ export class BadRequestError extends FluxerError {
 	}
 }
 
-export class UnauthorizedError extends FluxerError {
+export class UnauthorizedError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.UNAUTHORIZED,
@@ -57,7 +57,7 @@ export class UnauthorizedError extends FluxerError {
 	}
 }
 
-export class ForbiddenError extends FluxerError {
+export class ForbiddenError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.FORBIDDEN,
@@ -71,7 +71,7 @@ export class ForbiddenError extends FluxerError {
 	}
 }
 
-export class NotFoundError extends FluxerError {
+export class NotFoundError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.NOT_FOUND,
@@ -85,7 +85,7 @@ export class NotFoundError extends FluxerError {
 	}
 }
 
-export class MethodNotAllowedError extends FluxerError {
+export class MethodNotAllowedError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.METHOD_NOT_ALLOWED,
@@ -99,7 +99,7 @@ export class MethodNotAllowedError extends FluxerError {
 	}
 }
 
-export class ConflictError extends FluxerError {
+export class ConflictError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.CONFLICT,
@@ -113,7 +113,7 @@ export class ConflictError extends FluxerError {
 	}
 }
 
-export class GoneError extends FluxerError {
+export class GoneError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.GONE,
@@ -127,7 +127,7 @@ export class GoneError extends FluxerError {
 	}
 }
 
-export class InternalServerError extends FluxerError {
+export class InternalServerError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.INTERNAL_SERVER_ERROR,
@@ -141,7 +141,7 @@ export class InternalServerError extends FluxerError {
 	}
 }
 
-export class NotImplementedError extends FluxerError {
+export class NotImplementedError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.NOT_IMPLEMENTED,
@@ -155,7 +155,7 @@ export class NotImplementedError extends FluxerError {
 	}
 }
 
-export class ServiceUnavailableError extends FluxerError {
+export class ServiceUnavailableError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.SERVICE_UNAVAILABLE,
@@ -169,7 +169,7 @@ export class ServiceUnavailableError extends FluxerError {
 	}
 }
 
-export class BadGatewayError extends FluxerError {
+export class BadGatewayError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.BAD_GATEWAY,
@@ -183,7 +183,7 @@ export class BadGatewayError extends FluxerError {
 	}
 }
 
-export class GatewayTimeoutError extends FluxerError {
+export class GatewayTimeoutError extends MultiverseError {
 	constructor(options: HttpErrorOptions = {}) {
 		super({
 			code: options.code ?? APIErrorCodes.GATEWAY_TIMEOUT,

@@ -1,0 +1,219 @@
+/*
+ * Copyright (C) 2026 Multiverse Contributors
+ *
+ * This file is part of Multiverse.
+ *
+ * Multiverse is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Multiverse is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.sectionTabs {
+	display: flex;
+	gap: var(--spacing-1);
+	margin-bottom: var(--spacing-4);
+	border-bottom: 1px solid var(--background-modifier-accent);
+	padding-bottom: var(--spacing-2);
+}
+
+.sectionTab {
+	padding: var(--spacing-1) var(--spacing-3);
+	border-radius: var(--radius-md);
+	background-color: transparent;
+	color: var(--text-secondary);
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sectionTab:hover {
+	background-color: var(--background-modifier-hover);
+	color: var(--text-primary);
+}
+
+.sectionTabActive {
+	background-color: var(--brand-accent);
+	color: var(--white);
+}
+
+.applicantUsername {
+	font-size: 0.9375rem;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.walletAddress {
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: var(--text-muted);
+	font-family: monospace;
+	word-break: break-all;
+}
+
+.toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing-3);
+	margin-bottom: var(--spacing-4);
+}
+
+.filterRow {
+	display: flex;
+	gap: var(--spacing-1);
+}
+
+.filterBtn {
+	padding: var(--spacing-1) var(--spacing-3);
+	border-radius: var(--radius-md);
+	border: 1px solid var(--background-modifier-accent);
+	background-color: transparent;
+	color: var(--text-secondary);
+	font-size: 0.8125rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.filterBtn:hover {
+	background-color: var(--background-modifier-hover);
+	color: var(--text-primary);
+}
+
+.filterBtnActive {
+	background-color: var(--brand-accent);
+	border-color: var(--brand-accent);
+	color: var(--white);
+}
+
+.error {
+	padding: var(--spacing-3);
+	margin-bottom: var(--spacing-3);
+	border-radius: var(--radius-md);
+	background-color: var(--status-danger-background);
+	color: var(--status-danger);
+	font-size: 0.875rem;
+}
+
+.emptyState {
+	padding: var(--spacing-6) 0;
+	text-align: center;
+	color: var(--text-muted);
+	font-size: 0.875rem;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-3);
+}
+
+.card {
+	padding: var(--spacing-4);
+	border-radius: var(--radius-lg);
+	background-color: var(--background-overlay);
+	border: 1px solid var(--background-modifier-accent);
+}
+
+.cardHeader {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--spacing-3);
+	margin-bottom: var(--spacing-2);
+}
+
+.cardMeta {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--spacing-1);
+}
+
+.cardMetaRow {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-2);
+}
+
+.guildName {
+	font-size: 1rem;
+	font-weight: 700;
+	color: var(--text-primary);
+}
+
+.guildId {
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: var(--text-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.badge {
+	padding: 2px var(--spacing-2);
+	border-radius: var(--radius-full);
+	background-color: var(--background-modifier-accent);
+	color: var(--text-secondary);
+	font-size: 0.6875rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.date {
+	font-size: 0.75rem;
+	color: var(--text-muted);
+	flex-shrink: 0;
+}
+
+.description {
+	margin: 0 0 var(--spacing-2);
+	font-size: 0.875rem;
+	color: var(--text-secondary);
+	line-height: 1.5;
+}
+
+.reviewReason {
+	margin: 0 0 var(--spacing-2);
+	font-size: 0.8125rem;
+	color: var(--text-muted);
+	font-style: italic;
+}
+
+.actions {
+	display: flex;
+	gap: var(--spacing-2);
+	margin-top: var(--spacing-3);
+}
+
+.reviewForm {
+	margin-top: var(--spacing-3);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-2);
+}
+
+.reasonInput {
+	width: 100%;
+	padding: var(--spacing-2) var(--spacing-3);
+	border-radius: var(--radius-md);
+	border: 1px solid var(--background-modifier-accent);
+	background-color: var(--background-body);
+	color: var(--text-primary);
+	font-size: 0.875rem;
+	box-sizing: border-box;
+}
+
+.reasonInput::placeholder {
+	color: var(--text-muted);
+}

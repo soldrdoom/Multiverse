@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {MessageFlags, MessageFlagsDescriptions} from '@fluxer/constants/src/ChannelConstants';
@@ -247,6 +247,7 @@ export type GlobalSearchMessagesRequest = z.infer<typeof GlobalSearchMessagesReq
 export const MessageRequestSchema = z
 	.object({
 		content: createUnboundedStringType().nullish().describe('The message content (up to 2000 characters)'),
+		encrypted_content: createUnboundedStringType().nullish().describe('Base64 JSON NaCl box payload for E2EE DMs'),
 		embeds: z.array(RichEmbedRequest).describe('Array of embed objects to include in the message'),
 		attachments: z.array(ClientAttachmentRequest).describe('Array of attachment objects'),
 		message_reference: MessageReferenceRequest.nullish().describe(
@@ -262,6 +263,20 @@ export const MessageRequestSchema = z
 		nonce: createStringType(1, 32).describe('Client-generated identifier for the message'),
 		favorite_meme_id: SnowflakeType.nullish().describe('ID of a favorite meme to attach'),
 		sticker_ids: z.array(SnowflakeType).max(3).nullish().describe('Array of sticker IDs to include (max 3)'),
+		nft_stickers: z
+			.array(
+				z.object({
+					mint: z.string(),
+					name: z.string(),
+					image_url: z.string().url(),
+					media_type: z.enum(['image', 'video', 'gif', 'model']).default('image'),
+					collection: z.string().nullable().optional(),
+					compressed: z.boolean(),
+				}),
+			)
+			.max(1)
+			.nullish()
+			.describe('Array of NFT stickers to include (max 1)'),
 		tts: z.boolean().optional().describe('Whether this is a text-to-speech message'),
 	})
 	.partial();

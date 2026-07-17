@@ -1,33 +1,33 @@
-If you believe you have found a security vulnerability in Fluxer, please report it responsibly. This policy explains what is in scope, how to submit a report, what we need from you, and what you can expect from us.
+If you believe you have found a security vulnerability in Multiverse, please report it responsibly. This policy explains what is in scope, how to submit a report, what we need from you, and what you can expect from us.
 
 ## Safe harbor
 
-If you follow this policy, act in good faith, and avoid privacy violations or service disruption, Fluxer will not pursue legal action against you for your security research.
+If you follow this policy, act in good faith, and avoid privacy violations or service disruption, Multiverse will not pursue legal action against you for your security research.
 
 ## Who should read this
 
-Security researchers, community members, and anyone who discovers a potential security issue in Fluxer should read this policy before sending a report. It explains what is in scope, how we triage findings, and how we acknowledge and reward responsible disclosures.
+Security researchers, community members, and anyone who discovers a potential security issue in Multiverse should read this policy before sending a report. It explains what is in scope, how we triage findings, and how we acknowledge and reward responsible disclosures.
 
 ## Scope
 
 ### In scope
 
-Fluxer websites, applications, and services operated by Fluxer Platform AB, including the following domains and any subdomain of these domains:
+Multiverse websites, applications, and services operated by Multiverse Platform AB, including the following domains and any subdomain of these domains:
 
 - `fluxer.gg`
 - `fluxer.gift`
 - `fluxerapp.com`
 - `fluxer.dev`
 - `fluxerusercontent.com`
-- `fluxerstatic.com`
+- `multiverse.forum`
 - `fluxer.media`
 - `fluxer.app`
 
 Also in scope:
 
-- Infrastructure, systems, and operational services directly managed by Fluxer that impact authentication, authorization, payments, community data, or the processing of security- or privacy-relevant data (including user identifiers, account metadata, logs, analytics, telemetry, and similar signals).
+- Infrastructure, systems, and operational services directly managed by Multiverse that impact authentication, authorization, payments, community data, or the processing of security- or privacy-relevant data (including user identifiers, account metadata, logs, analytics, telemetry, and similar signals).
 - Abuse cases that enable unauthorized persistence, privilege escalation, or data disclosure when triggered through officially supported product features.
-- Self-hosted Fluxer instances that declare trust in Fluxer security guidance, provided:
+- Self-hosted Multiverse instances that declare trust in Multiverse security guidance, provided:
   - the issue is reproducible on the latest official release as we ship it, and
   - the issue is not solely caused by third-party modifications or local misconfiguration.
 
@@ -39,7 +39,7 @@ The following are out of scope (not an exhaustive list):
 
 - Third-party services, infrastructure, or integrations we do not control (for example partner communities' independent integrations, bots, or external hosting providers).
 - Vulnerabilities that require physical access to facilities, servers, or devices.
-- Social engineering, phishing, bribery, coercion, or attempts to manipulate Fluxer staff or users.
+- Social engineering, phishing, bribery, coercion, or attempts to manipulate Multiverse staff or users.
 - Denial-of-service (DoS) attacks, traffic flooding, rate-limit exhaustion, or resource exhaustion testing.
 - Automated scanning or bulk testing that produces noisy/low-signal findings, especially without a clear security impact and a reliable reproduction path.
 - General UI bugs, feature requests, or non-security support issues (email support@fluxer.app for those).
@@ -73,7 +73,7 @@ To help us validate and fix the issue quickly, include as much of the following 
 
 Depending on validity, severity, and impact, we may award:
 
-- A Bug Hunter badge on your Fluxer profile.
+- A Bug Hunter badge on your Multiverse profile.
 - Plutonium gift codes on fluxer.app so you can access premium features.
 
 Higher-severity findings receive more recognition. We intend to add cash payouts in the future once our payments tooling is ready. At this time, we do not guarantee monetary rewards, but we do credit valid research that follows this policy.
@@ -101,4 +101,4 @@ Higher-severity findings receive more recognition. We intend to add cash payouts
 - If your testing could trigger real user notifications, support workflows, emails, billing events, or payments, contact us first so we can monitor.
 - Follow applicable laws where you live and where the systems operate. If you are unsure, err on the side of caution and ask before escalating a high-impact test.
 
-Thank you for helping keep Fluxer secure.
+Thank you for helping keep Multiverse secure.

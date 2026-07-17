@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {mkdirSync} from 'node:fs';
@@ -55,9 +55,9 @@ function upperBound(prefix: string): string {
 const FLUXER_TAG = '__fluxer__' as const;
 const FLUXER_TAG_VERSION = 1 as const;
 
-type FluxerTagType = 'bigint' | 'date' | 'set' | 'map' | 'buffer' | 'uint8array';
+type MultiverseTagType = 'bigint' | 'date' | 'set' | 'map' | 'buffer' | 'uint8array';
 
-type FluxerTagged =
+type MultiverseTagged =
 	| {[FLUXER_TAG]: {v: typeof FLUXER_TAG_VERSION; t: 'bigint'; d: string}}
 	| {[FLUXER_TAG]: {v: typeof FLUXER_TAG_VERSION; t: 'date'; d: string}}
 	| {[FLUXER_TAG]: {v: typeof FLUXER_TAG_VERSION; t: 'set'; d: Array<unknown>}}
@@ -65,12 +65,12 @@ type FluxerTagged =
 	| {[FLUXER_TAG]: {v: typeof FLUXER_TAG_VERSION; t: 'buffer'; d: string}}
 	| {[FLUXER_TAG]: {v: typeof FLUXER_TAG_VERSION; t: 'uint8array'; d: string}};
 
-class FluxerSerialisationError extends Error {
-	override name = 'FluxerSerialisationError';
+class MultiverseSerialisationError extends Error {
+	override name = 'MultiverseSerialisationError';
 }
 
-class FluxerDeserialisationError extends Error {
-	override name = 'FluxerDeserialisationError';
+class MultiverseDeserialisationError extends Error {
+	override name = 'MultiverseDeserialisationError';
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -79,19 +79,19 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
 	return proto === Object.prototype || proto === null;
 }
 
-function tag<T extends FluxerTagged[typeof FLUXER_TAG]['t']>(
+function tag<T extends MultiverseTagged[typeof FLUXER_TAG]['t']>(
 	t: T,
-	d: Extract<FluxerTagged, {[FLUXER_TAG]: {t: T}}>['__fluxer__']['d'],
-): Extract<FluxerTagged, {[FLUXER_TAG]: {t: T}}> {
-	return {[FLUXER_TAG]: {v: FLUXER_TAG_VERSION, t, d}} as Extract<FluxerTagged, {[FLUXER_TAG]: {t: T}}>;
+	d: Extract<MultiverseTagged, {[FLUXER_TAG]: {t: T}}>['__fluxer__']['d'],
+): Extract<MultiverseTagged, {[FLUXER_TAG]: {t: T}}> {
+	return {[FLUXER_TAG]: {v: FLUXER_TAG_VERSION, t, d}} as Extract<MultiverseTagged, {[FLUXER_TAG]: {t: T}}>;
 }
 
-function isKnownTagType(t: unknown): t is FluxerTagType {
+function isKnownTagType(t: unknown): t is MultiverseTagType {
 	return t === 'bigint' || t === 'date' || t === 'set' || t === 'map' || t === 'buffer' || t === 'uint8array';
 }
 
 function assertNever(_x: never, msg: string): never {
-	throw new FluxerDeserialisationError(msg);
+	throw new MultiverseDeserialisationError(msg);
 }
 
 function fluxerReplacer(this: unknown, key: string, value: unknown): unknown {
@@ -127,7 +127,7 @@ function fluxerReplacer(this: unknown, key: string, value: unknown): unknown {
 
 function decodeTagged(meta: unknown): unknown {
 	if (!isPlainObject(meta)) {
-		throw new FluxerDeserialisationError('Malformed __fluxer__ tag: meta is not an object');
+		throw new MultiverseDeserialisationError('Malformed __fluxer__ tag: meta is not an object');
 	}
 
 	const v = meta['v'];
@@ -135,65 +135,65 @@ function decodeTagged(meta: unknown): unknown {
 	const d = meta['d'];
 
 	if (v !== FLUXER_TAG_VERSION) {
-		throw new FluxerDeserialisationError(
+		throw new MultiverseDeserialisationError(
 			`Unsupported __fluxer__ tag version: ${String(v)} (expected ${String(FLUXER_TAG_VERSION)})`,
 		);
 	}
 
 	if (!isKnownTagType(t)) {
-		throw new FluxerDeserialisationError(`Unknown __fluxer__ tag type: ${String(t)}`);
+		throw new MultiverseDeserialisationError(`Unknown __fluxer__ tag type: ${String(t)}`);
 	}
 
 	switch (t) {
 		case 'bigint': {
-			if (typeof d !== 'string') throw new FluxerDeserialisationError('Malformed bigint tag: d must be a string');
+			if (typeof d !== 'string') throw new MultiverseDeserialisationError('Malformed bigint tag: d must be a string');
 			try {
 				return BigInt(d);
 			} catch (_e) {
-				throw new FluxerDeserialisationError(`Invalid bigint payload: ${String(d)}`);
+				throw new MultiverseDeserialisationError(`Invalid bigint payload: ${String(d)}`);
 			}
 		}
 
 		case 'date': {
-			if (typeof d !== 'string') throw new FluxerDeserialisationError('Malformed date tag: d must be a string');
+			if (typeof d !== 'string') throw new MultiverseDeserialisationError('Malformed date tag: d must be a string');
 			const dt = new Date(d);
 			if (Number.isNaN(dt.getTime())) {
-				throw new FluxerDeserialisationError(`Invalid date payload: ${String(d)}`);
+				throw new MultiverseDeserialisationError(`Invalid date payload: ${String(d)}`);
 			}
 			return dt;
 		}
 
 		case 'set': {
-			if (!Array.isArray(d)) throw new FluxerDeserialisationError('Malformed set tag: d must be an array');
+			if (!Array.isArray(d)) throw new MultiverseDeserialisationError('Malformed set tag: d must be an array');
 			return new Set(d);
 		}
 
 		case 'map': {
-			if (!Array.isArray(d)) throw new FluxerDeserialisationError('Malformed map tag: d must be an array');
+			if (!Array.isArray(d)) throw new MultiverseDeserialisationError('Malformed map tag: d must be an array');
 			for (const entry of d) {
 				if (!Array.isArray(entry) || entry.length !== 2) {
-					throw new FluxerDeserialisationError('Malformed map tag: every entry must be a [k, v] tuple');
+					throw new MultiverseDeserialisationError('Malformed map tag: every entry must be a [k, v] tuple');
 				}
 			}
 			return new Map(d as Array<[unknown, unknown]>);
 		}
 
 		case 'buffer': {
-			if (typeof d !== 'string') throw new FluxerDeserialisationError('Malformed buffer tag: d must be a string');
+			if (typeof d !== 'string') throw new MultiverseDeserialisationError('Malformed buffer tag: d must be a string');
 			try {
 				return Buffer.from(d, 'base64');
 			} catch {
-				throw new FluxerDeserialisationError('Invalid buffer payload: base64 decode failed');
+				throw new MultiverseDeserialisationError('Invalid buffer payload: base64 decode failed');
 			}
 		}
 
 		case 'uint8array': {
-			if (typeof d !== 'string') throw new FluxerDeserialisationError('Malformed uint8array tag: d must be a string');
+			if (typeof d !== 'string') throw new MultiverseDeserialisationError('Malformed uint8array tag: d must be a string');
 			let buf: Buffer;
 			try {
 				buf = Buffer.from(d, 'base64');
 			} catch {
-				throw new FluxerDeserialisationError('Invalid uint8array payload: base64 decode failed');
+				throw new MultiverseDeserialisationError('Invalid uint8array payload: base64 decode failed');
 			}
 			return new Uint8Array(buf);
 		}
@@ -214,11 +214,11 @@ function fluxerReviver(_key: string, value: unknown): unknown {
 
 		if (value['type'] === 'Buffer') {
 			const data = (value as Record<string, unknown>)['data'];
-			if (!Array.isArray(data)) throw new FluxerDeserialisationError('Malformed Buffer JSON: data must be an array');
+			if (!Array.isArray(data)) throw new MultiverseDeserialisationError('Malformed Buffer JSON: data must be an array');
 
 			for (const n of data) {
 				if (typeof n !== 'number' || !Number.isInteger(n) || n < 0 || n > 255) {
-					throw new FluxerDeserialisationError('Malformed Buffer JSON: data must be byte integers 0..255');
+					throw new MultiverseDeserialisationError('Malformed Buffer JSON: data must be byte integers 0..255');
 				}
 			}
 
@@ -233,12 +233,12 @@ function serialize(value: unknown): Buffer {
 	try {
 		const json = JSON.stringify(value, fluxerReplacer);
 		if (json === undefined) {
-			throw new FluxerSerialisationError('Value is not JSON serialisable');
+			throw new MultiverseSerialisationError('Value is not JSON serialisable');
 		}
 		return Buffer.from(json, 'utf8');
 	} catch (e) {
-		if (e instanceof FluxerSerialisationError) throw e;
-		throw new FluxerSerialisationError(`Failed to serialise value: ${e instanceof Error ? e.message : String(e)}`);
+		if (e instanceof MultiverseSerialisationError) throw e;
+		throw new MultiverseSerialisationError(`Failed to serialise value: ${e instanceof Error ? e.message : String(e)}`);
 	}
 }
 
@@ -253,8 +253,8 @@ function deserialize<T>(blob: Buffer | Uint8Array | string): T {
 	try {
 		return JSON.parse(text, fluxerReviver) as T;
 	} catch (e) {
-		if (e instanceof FluxerDeserialisationError) throw e;
-		throw new FluxerDeserialisationError(`Failed to deserialise value: ${e instanceof Error ? e.message : String(e)}`);
+		if (e instanceof MultiverseDeserialisationError) throw e;
+		throw new MultiverseDeserialisationError(`Failed to deserialise value: ${e instanceof Error ? e.message : String(e)}`);
 	}
 }
 

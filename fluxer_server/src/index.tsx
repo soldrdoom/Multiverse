@@ -1,24 +1,24 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {Server} from 'node:http';
-import {Config, type Config as FluxerServerConfig} from '@app/Config';
+import {Config, type Config as MultiverseServerConfig} from '@app/Config';
 import {shutdownInstrumentation} from '@app/Instrument';
 import {createComponentLogger, Logger} from '@app/Logger';
 import {mountRoutes} from '@app/Routes';
@@ -35,19 +35,19 @@ import {createServerWithUpgrade} from '@fluxer/hono/src/Server';
 import type {BaseHonoEnv} from '@fluxer/hono_types/src/HonoTypes';
 import type {Hono} from 'hono';
 
-export interface FluxerServerOptions {
-	config?: FluxerServerConfig;
+export interface MultiverseServerOptions {
+	config?: MultiverseServerConfig;
 	staticDir?: string;
 }
 
-export interface FluxerServerResult {
+export interface MultiverseServerResult {
 	app: Hono<BaseHonoEnv>;
 	initialize: () => Promise<void>;
 	start: () => Promise<void>;
 	shutdown: () => Promise<void>;
 }
 
-export async function createFluxerServer(options: FluxerServerOptions = {}): Promise<FluxerServerResult> {
+export async function createMultiverseServer(options: MultiverseServerOptions = {}): Promise<MultiverseServerResult> {
 	const config = options.config ?? Config;
 	const staticDir = options.staticDir;
 
@@ -70,7 +70,7 @@ export async function createFluxerServer(options: FluxerServerOptions = {}): Pro
 				env: config.env,
 				database: config.database.backend,
 			},
-			'Starting Fluxer Server',
+			'Starting Multiverse Server',
 		);
 
 		Logger.info('Starting background services');
@@ -136,7 +136,7 @@ export async function createFluxerServer(options: FluxerServerOptions = {}): Pro
 							address: info.address,
 							port: info.port,
 						},
-						'Fluxer Server listening',
+						'Multiverse Server listening',
 					);
 					resolve();
 				},
@@ -151,7 +151,7 @@ export async function createFluxerServer(options: FluxerServerOptions = {}): Pro
 		}
 		isShuttingDown = true;
 
-		Logger.info('Beginning graceful shutdown of Fluxer Server');
+		Logger.info('Beginning graceful shutdown of Multiverse Server');
 
 		const shutdownSteps = [
 			{
@@ -232,7 +232,7 @@ export async function createFluxerServer(options: FluxerServerOptions = {}): Pro
 			}
 		}
 
-		Logger.info('Fluxer Server shutdown complete');
+		Logger.info('Multiverse Server shutdown complete');
 	};
 
 	const initialize = async (): Promise<void> => {

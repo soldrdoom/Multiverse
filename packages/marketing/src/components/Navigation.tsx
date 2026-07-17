@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
@@ -22,7 +22,7 @@
 
 import {BlueskyIcon} from '@fluxer/marketing/src/components/icons/BlueskyIcon';
 import {DownloadIcon} from '@fluxer/marketing/src/components/icons/DownloadIcon';
-import {FluxerLogoWordmarkIcon} from '@fluxer/marketing/src/components/icons/FluxerLogoWordmarkIcon';
+import {MultiverseLogoWordmarkIcon} from '@fluxer/marketing/src/components/icons/FluxerLogoWordmarkIcon';
 import {GithubIcon} from '@fluxer/marketing/src/components/icons/GithubIcon';
 import {MenuIcon} from '@fluxer/marketing/src/components/icons/MenuIcon';
 import {RssIcon} from '@fluxer/marketing/src/components/icons/RssIcon';
@@ -56,7 +56,7 @@ export function Navigation(props: NavigationProps): JSX.Element {
 								class="relative z-10 flex shrink-0 items-center transition-opacity hover:opacity-80"
 								aria-label={ctx.i18n.getMessage('navigation.go_home', ctx.locale)}
 							>
-								<FluxerLogoWordmarkIcon class="h-8 text-[#4641D9] md:h-9" />
+								<MultiverseLogoWordmarkIcon class="h-8 text-[#4641D9] md:h-9" />
 								<span class="absolute right-0 -bottom-1.5 whitespace-nowrap rounded-full border border-white bg-[#4641D9] px-1.5 py-0.5 font-bold text-[8px] text-white leading-none">
 									{ctx.i18n.getMessage('beta_and_access.public_beta', ctx.locale)}
 								</span>
@@ -165,7 +165,7 @@ export function Navigation(props: NavigationProps): JSX.Element {
 							class="flex items-center gap-3 rounded-xl px-2 py-1 transition-colors hover:bg-gray-50"
 							aria-label={ctx.i18n.getMessage('navigation.go_home', ctx.locale)}
 						>
-							<FluxerLogoWordmarkIcon class="h-7 text-[#4641D9]" />
+							<MultiverseLogoWordmarkIcon class="h-7 text-[#4641D9]" />
 						</a>
 						<label for="nav-toggle" class="cursor-pointer rounded-lg p-2 transition-colors hover:bg-gray-100">
 							<XIcon class="h-6 w-6 text-gray-900" />

@@ -2,9 +2,9 @@
 
 ## Table of contents
 
-- [Welcome to Fluxer](#welcome-to-fluxer)
+- [Welcome to Multiverse](#welcome-to-fluxer)
 
-## Welcome to Fluxer {#welcome-to-fluxer}
+## Welcome to Multiverse {#welcome-to-fluxer}
 
 we will automatically attempt to retry charging your payment method a reasonable number of times;
 

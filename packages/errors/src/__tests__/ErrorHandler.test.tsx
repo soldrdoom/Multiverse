@@ -1,25 +1,25 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {HttpStatus} from '@fluxer/constants/src/HttpConstants';
 import {createErrorHandler, type ErrorHandlerOptions} from '@fluxer/errors/src/ErrorHandler';
-import {FluxerError} from '@fluxer/errors/src/FluxerError';
+import {MultiverseError} from '@fluxer/errors/src/FluxerError';
 import {Hono} from 'hono';
 import {HTTPException} from 'hono/http-exception';
 import {describe, expect, it, vi} from 'vitest';
@@ -38,11 +38,11 @@ function createTestApp(options: ErrorHandlerOptions = {}) {
 }
 
 describe('createErrorHandler', () => {
-	describe('FluxerError handling', () => {
-		it('should return FluxerError response directly', async () => {
+	describe('MultiverseError handling', () => {
+		it('should return MultiverseError response directly', async () => {
 			const app = createTestApp();
 			app.get('/test', () => {
-				throw new FluxerError({
+				throw new MultiverseError({
 					code: 'TEST_ERROR',
 					message: 'Test error message',
 					status: 400,
@@ -59,10 +59,10 @@ describe('createErrorHandler', () => {
 			});
 		});
 
-		it('should include FluxerError data in response', async () => {
+		it('should include MultiverseError data in response', async () => {
 			const app = createTestApp();
 			app.get('/test', () => {
-				throw new FluxerError({
+				throw new MultiverseError({
 					code: 'VALIDATION_ERROR',
 					message: 'Validation failed',
 					status: 400,
@@ -80,10 +80,10 @@ describe('createErrorHandler', () => {
 			});
 		});
 
-		it('should include FluxerError custom headers', async () => {
+		it('should include MultiverseError custom headers', async () => {
 			const app = createTestApp();
 			app.get('/test', () => {
-				throw new FluxerError({
+				throw new MultiverseError({
 					code: 'RATE_LIMITED',
 					status: 429,
 					headers: {'Retry-After': '60'},
@@ -194,17 +194,17 @@ describe('createErrorHandler', () => {
 			expect((logError.mock.calls[0][0] as Error).message).toBe('Logged error');
 		});
 
-		it('should call logError for FluxerError', async () => {
+		it('should call logError for MultiverseError', async () => {
 			const logError = vi.fn();
 			const app = createTestApp({logError});
 			app.get('/test', () => {
-				throw new FluxerError({code: 'TEST', status: 400});
+				throw new MultiverseError({code: 'TEST', status: 400});
 			});
 
 			await app.request('/test');
 
 			expect(logError).toHaveBeenCalledTimes(1);
-			expect(logError.mock.calls[0][0]).toBeInstanceOf(FluxerError);
+			expect(logError.mock.calls[0][0]).toBeInstanceOf(MultiverseError);
 		});
 	});
 
@@ -233,7 +233,7 @@ describe('createErrorHandler', () => {
 			const customHandler = vi.fn().mockReturnValue(undefined);
 			const app = createTestApp({customHandler});
 			app.get('/test', () => {
-				throw new FluxerError({code: 'FALLBACK', status: 400});
+				throw new MultiverseError({code: 'FALLBACK', status: 400});
 			});
 
 			const response = await app.request('/test');

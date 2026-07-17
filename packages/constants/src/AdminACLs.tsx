@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 export const AdminACLs = {
@@ -110,4 +110,10 @@ export const AdminACLs = {
 	VOICE_SERVER_DELETE: 'voice:server:delete',
 	VOICE_SERVER_LIST: 'voice:server:list',
 	VOICE_SERVER_UPDATE: 'voice:server:update',
+	CREATOR_APPLICATION_REVIEW: 'creator:application:review',
+	CREATOR_APPLICATION_VIEW: 'creator:application:view',
+	CREATOR_MANAGE: 'creator:manage',
+	CREATOR_VIEW: 'creator:view',
+	CREATOR_LISTING_REVIEW: 'creator:listing:review',
+	CREATOR_LISTING_VIEW: 'creator:listing:view',
 } as const;

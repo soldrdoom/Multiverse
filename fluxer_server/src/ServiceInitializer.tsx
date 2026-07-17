@@ -286,15 +286,21 @@ function createAppServerInitializer(context: ServiceInitializationContext): Serv
 			metricsCollector: telemetry.metricsCollector,
 			tracing: telemetry.tracing,
 		},
+		// CSP is intentionally restricted to self-hosted origins only.
+		// External CDN sources (e.g. fluxerstatic.com) have been removed.
+		// All scripts, styles, fonts, and images are served from this instance.
+		// frame-src is empty (resolves to 'self' only) — 'none' alongside other sources is invalid.
+		// NFT sticker images are externally-hosted (IPFS, Arweave, arbitrary CDNs), so https: is
+		// required in imgSrc — there is no practical alternative without a full image proxy.
 		cspDirectives: {
 			defaultSrc: ["'self'"],
 			scriptSrc: ["'self'", "'unsafe-inline'"],
 			styleSrc: ["'self'", "'unsafe-inline'"],
-			imgSrc: ["'self'", 'data:', 'blob:', publicUrlHost, mediaUrlHost],
-			connectSrc: ["'self'", 'wss:', 'ws:', publicUrlHost],
+			imgSrc: ["'self'", 'data:', 'blob:', 'https:', publicUrlHost, mediaUrlHost],
+			connectSrc: ["'self'", 'wss:', 'ws:', publicUrlHost, 'https://ip.fluxer.workers.dev', 'https://mainnet.helius-rpc.com', 'https://api.mainnet-beta.solana.com'],
 			fontSrc: ["'self'"],
 			mediaSrc: ["'self'", 'blob:', mediaUrlHost],
-			frameSrc: ["'none'"],
+			frameSrc: [],
 		},
 	});
 

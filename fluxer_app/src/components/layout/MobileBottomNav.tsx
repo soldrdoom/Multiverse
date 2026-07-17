@@ -1,26 +1,29 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import * as ModalActionCreators from '@app/actions/ModalActionCreators';
+import {modal} from '@app/actions/ModalActionCreators';
 import * as NavigationActionCreators from '@app/actions/NavigationActionCreators';
 import {DirectCallLobbyBottomSheet} from '@app/components/bottomsheets/DirectCallLobbyBottomSheet';
 import {VoiceLobbyBottomSheet} from '@app/components/bottomsheets/VoiceLobbyBottomSheet';
 import styles from '@app/components/layout/MobileBottomNav.module.css';
+import {CosmeticsShopModal} from '@app/components/modals/CosmeticsShopModal';
 import {StatusAwareAvatar} from '@app/components/uikit/StatusAwareAvatar';
 import {useConnectedVoiceSession} from '@app/hooks/useConnectedVoiceSession';
 import {useLocation} from '@app/lib/router/React';
@@ -30,7 +33,7 @@ import NavigationStore from '@app/stores/NavigationStore';
 import * as RouterUtils from '@app/utils/RouterUtils';
 import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
 import {Trans} from '@lingui/react/macro';
-import {BellIcon, HouseIcon, SpeakerHighIcon} from '@phosphor-icons/react';
+import {BellIcon, HouseIcon, SpeakerHighIcon, StorefrontIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import {useEffect, useRef, useState} from 'react';
@@ -70,6 +73,10 @@ export const MobileBottomNav = observer(({currentUser}: MobileBottomNavProps) =>
 
 	const handleNavigation = (path: string) => {
 		RouterUtils.transitionTo(path);
+	};
+
+	const handleShop = () => {
+		ModalActionCreators.push(modal(() => <CosmeticsShopModal />));
 	};
 
 	const handleVoiceIndicatorPress = () => {
@@ -115,6 +122,17 @@ export const MobileBottomNav = observer(({currentUser}: MobileBottomNavProps) =>
 					<BellIcon weight="fill" className={styles.icon} />
 					<span className={styles.label}>
 						<Trans>Notifications</Trans>
+					</span>
+				</button>
+
+				<button
+					type="button"
+					onClick={handleShop}
+					className={clsx(styles.navButton, styles.navButtonInactive)}
+				>
+					<StorefrontIcon weight="fill" className={styles.icon} />
+					<span className={styles.label}>
+						<Trans>Shop</Trans>
 					</span>
 				</button>
 

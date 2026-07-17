@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as GiftActionCreators from '@app/actions/GiftActionCreators';
@@ -24,6 +24,7 @@ import {AuthLayout} from '@app/components/layout/AuthLayout';
 import AuthorizeIPPage from '@app/components/pages/AuthorizeIPPage';
 import EmailRevertPage from '@app/components/pages/EmailRevertPage';
 import ForgotPasswordPage from '@app/components/pages/ForgotPasswordPage';
+import SolanaOnboardingPage from '@app/components/pages/SolanaOnboardingPage';
 import GiftLoginPage from '@app/components/pages/GiftLoginPage';
 import GiftRegisterPage from '@app/components/pages/GiftRegisterPage';
 import InviteLoginPage from '@app/components/pages/InviteLoginPage';
@@ -153,13 +154,8 @@ const registerRoute = createRoute({
 	getParentRoute: () => authLayoutRoute,
 	id: 'register',
 	path: '/register',
-	onEnter: whenAuthenticated(() => {
-		const search = window.location.search;
-		const qp = new URLSearchParams(search);
-		const redirectTo = qp.get('redirect_to');
-		return new Redirect(redirectTo || Routes.ME);
-	}),
-	component: () => <RegisterPage />,
+	onEnter: () => new Redirect(Routes.LOGIN),
+	component: () => <LoginPage />,
 });
 
 const oauthAuthorizeRoute = createRoute({
@@ -293,6 +289,13 @@ const reportRoute = createRoute({
 	component: () => <ReportPage />,
 });
 
+const solanaOnboardingRoute = createRoute({
+	getParentRoute: () => authLayoutRoute,
+	id: 'solanaOnboarding',
+	path: Routes.SOLANA_ONBOARDING,
+	component: () => <SolanaOnboardingPage />,
+});
+
 const themeRegisterRoute = createRoute({
 	getParentRoute: () => authLayoutRoute,
 	id: 'themeRegister',
@@ -340,5 +343,6 @@ export const authRouteTree = authLayoutRoute.addChildren([
 	authorizeIPRoute,
 	pendingRoute,
 	reportRoute,
+	solanaOnboardingRoute,
 	...(RuntimeConfigStore.isSelfHosted() ? [] : [giftRegisterRoute, giftLoginRoute]),
 ]);

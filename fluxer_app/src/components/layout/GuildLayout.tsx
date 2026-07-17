@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as GuildActionCreators from '@app/actions/GuildActionCreators';
@@ -32,6 +32,7 @@ import {ComponentDispatch} from '@app/lib/ComponentDispatch';
 import {useParams} from '@app/lib/router/React';
 import {Routes} from '@app/Routes';
 import ChannelStore from '@app/stores/ChannelStore';
+import CosmeticsStore from '@app/stores/CosmeticsStore';
 import GuildAvailabilityStore from '@app/stores/GuildAvailabilityStore';
 import GuildStore from '@app/stores/GuildStore';
 import MobileLayoutStore from '@app/stores/MobileLayoutStore';
@@ -132,7 +133,7 @@ const StaffOnlyGuildNagbar = observer(({isMobile, guildId}: {isMobile: boolean; 
 			<div className={isMobile ? styles.nagbarContentMobile : styles.nagbarContent}>
 				<p className={styles.nagbarText}>
 					<Trans>
-						<strong>{guild.name}</strong> is currently only accessible to Fluxer staff members
+						<strong>{guild.name}</strong> is currently only accessible to Multiverse staff members
 					</Trans>
 				</p>
 				<div className={isMobile ? styles.nagbarActions : styles.nagbarActionsDesktop}>
@@ -377,13 +378,25 @@ export const GuildLayout = observer(({children}: {children: React.ReactNode}) =>
 		);
 	}
 
+	const chatBgUrl = CosmeticsStore.getGuildCosmeticImageUrl(guildId, 'chat_background');
+
 	return (
 		<TopNagbarContext.Provider value={nagbarContextValue}>
 			<div className={hasGuildNagbars ? styles.guildLayoutContainerWithNagbar : styles.guildLayoutContainer}>
 				{guildNagbars}
 				<div className={styles.guildLayoutContent}>
 					<GuildNavbar guild={guild!} />
-					<div className={styles.guildMainContent}>{children}</div>
+					<div
+						className={styles.guildMainContent}
+						style={chatBgUrl ? {
+							backgroundImage: `url(${chatBgUrl})`,
+							backgroundSize: 'cover',
+							backgroundPosition: 'center',
+							backgroundRepeat: 'no-repeat',
+						} : undefined}
+					>
+						{children}
+					</div>
 				</div>
 			</div>
 		</TopNagbarContext.Provider>

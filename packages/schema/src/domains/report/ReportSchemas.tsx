@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {
@@ -105,8 +105,8 @@ const FLUXER_TAG_TYPE = z
 	.string()
 	.min(3)
 	.max(37)
-	.refine((value) => FLUXER_TAG_REGEX.test(value), 'Fluxer tag must be in the format username#1234')
-	.describe('A Fluxer username tag in the format username#1234');
+	.refine((value) => FLUXER_TAG_REGEX.test(value), 'Multiverse tag must be in the format username#1234')
+	.describe('A Multiverse username tag in the format username#1234');
 
 const EU_COUNTRY_CODE_ENUM = createNamedStringLiteralUnion(
 	[
@@ -185,14 +185,14 @@ const DsaReportBase = z.object({
 	additional_info: z.optional(createStringType(0, 1000)).describe('Additional context or details about the report'),
 	reporter_full_legal_name: createStringType(1, 160).describe('Full legal name of the person filing the report'),
 	reporter_country_of_residence: EU_COUNTRY_CODE_ENUM.describe('EU country code of the reporter residence'),
-	reporter_fluxer_tag: z.optional(FLUXER_TAG_TYPE).describe('Fluxer tag of the reporter if they have an account'),
+	reporter_fluxer_tag: z.optional(FLUXER_TAG_TYPE).describe('Multiverse tag of the reporter if they have an account'),
 });
 
 export const DsaReportMessageRequest = DsaReportBase.extend({
 	report_type: z.literal('message').describe('Type of report'),
 	category: MessageReportCategoryEnum,
 	message_link: createStringType(1, 2048).describe('Link to the message being reported'),
-	reported_user_tag: z.optional(FLUXER_TAG_TYPE).describe('Fluxer tag of the user who sent the message'),
+	reported_user_tag: z.optional(FLUXER_TAG_TYPE).describe('Multiverse tag of the user who sent the message'),
 });
 export type DsaReportMessageRequest = z.infer<typeof DsaReportMessageRequest>;
 
@@ -200,7 +200,7 @@ export const DsaReportUserRequest = DsaReportBase.extend({
 	report_type: z.literal('user').describe('Type of report'),
 	category: UserReportCategoryEnum,
 	user_id: SnowflakeType.optional().describe('ID of the user being reported'),
-	user_tag: z.optional(FLUXER_TAG_TYPE).describe('Fluxer tag of the user being reported'),
+	user_tag: z.optional(FLUXER_TAG_TYPE).describe('Multiverse tag of the user being reported'),
 }).superRefine((value, ctx) => {
 	if (!value.user_id && !value.user_tag) {
 		ctx.addIssue({

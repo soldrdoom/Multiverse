@@ -13,7 +13,7 @@
 			"port": {
 				"type": "number",
 				"description": "Port to listen on.",
-				"default": 8080
+				"default": 8084
 			},
 			"secret_key": {
 				"type": "string",

@@ -1,23 +1,24 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import styles from '@app/components/popouts/UserProfileBadges.module.css';
+import CosmeticsStore from '@app/stores/CosmeticsStore';
 import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {Routes} from '@app/Routes';
@@ -68,7 +69,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 					type: 'icon',
 					key: 'staff',
 					iconUrl: cdnUrl('badges/staff.svg'),
-					tooltip: t`Fluxer Staff`,
+					tooltip: t`Multiverse Staff`,
 					url: Routes.careers(),
 				});
 			}
@@ -78,7 +79,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 					type: 'icon',
 					key: 'ctp',
 					iconUrl: cdnUrl('badges/ctp.svg'),
-					tooltip: t`Fluxer Community Team`,
+					tooltip: t`Multiverse Community Team`,
 					url: Routes.careers(),
 				});
 			}
@@ -88,7 +89,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 					type: 'icon',
 					key: 'partner',
 					iconUrl: cdnUrl('badges/partner.svg'),
-					tooltip: t`Fluxer Partner`,
+					tooltip: t`Multiverse Partner`,
 					url: Routes.partners(),
 				});
 			}
@@ -98,26 +99,26 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 					type: 'icon',
 					key: 'bug_hunter',
 					iconUrl: cdnUrl('badges/bug-hunter.svg'),
-					tooltip: t`Fluxer Bug Hunter`,
+					tooltip: t`Multiverse Bug Hunter`,
 					url: Routes.bugs(),
 				});
 			}
 
 			if (!selfHosted && profile?.premiumType && profile.premiumType !== UserPremiumTypes.NONE) {
-				let tooltipText = t`Fluxer Plutonium`;
+				let tooltipText = t`Multiverse Plutonium`;
 				let badgeUrl = Routes.plutonium();
 
 				if (profile.premiumType === UserPremiumTypes.LIFETIME) {
 					if (profile.premiumSince) {
 						const premiumSinceFormatted = DateUtils.getFormattedShortDate(profile.premiumSince);
-						tooltipText = `Fluxer Visionary since ${premiumSinceFormatted}`;
+						tooltipText = `Multiverse Visionary since ${premiumSinceFormatted}`;
 					} else {
-						tooltipText = `Fluxer Visionary`;
+						tooltipText = `Multiverse Visionary`;
 					}
 					badgeUrl = Routes.helpArticle('visionary');
 				} else if (profile.premiumSince) {
 					const premiumSinceFormatted = DateUtils.getFormattedShortDate(profile.premiumSince);
-					tooltipText = `Fluxer Plutonium subscriber since ${premiumSinceFormatted}`;
+					tooltipText = `Multiverse Plutonium subscriber since ${premiumSinceFormatted}`;
 				}
 
 				result.push({
@@ -142,7 +143,22 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 			return result;
 		}, [selfHosted, user.flags, profile?.premiumType, profile?.premiumSince, profile?.premiumLifetimeSequence]);
 
-		if (badges.length === 0) {
+		// Cosmetic badge NFT — read outside useMemo so MobX observer tracks it reactively.
+		const cosmeticBadgeUrl = CosmeticsStore.getProfileCosmeticImageUrl(user.id, 'badge');
+		const allBadges = cosmeticBadgeUrl
+			? [
+					...badges,
+					{
+						type: 'icon' as const,
+						key: 'cosmetic_badge',
+						iconUrl: cosmeticBadgeUrl,
+						tooltip: 'Cosmetic Badge',
+						url: '',
+					},
+			  ]
+			: badges;
+
+		if (allBadges.length === 0) {
 			return null;
 		}
 
@@ -154,7 +170,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 		const isDesktopInteractions = !isMobile;
 
 		const renderInteractiveWrapper = (url: string, children: React.ReactNode) => {
-			if (isDesktopInteractions) {
+			if (isDesktopInteractions && url) {
 				return (
 					<a href={url} target="_blank" rel="noopener noreferrer" className={styles.link}>
 						{children}
@@ -167,7 +183,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 
 		return (
 			<div className={containerClassName}>
-				{badges.map((badge) => {
+				{allBadges.map((badge) => {
 					const sequenceClassName = isModal && isMobile ? styles.sequenceBadgeMobile : styles.sequenceBadgeDesktop;
 					const badgeContent =
 						badge.type === 'icon' ? (

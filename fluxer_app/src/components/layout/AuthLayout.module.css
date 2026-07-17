@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 .topDragRegion {
@@ -42,7 +42,7 @@
 	position: relative;
 	min-height: 100svh;
 	width: 100%;
-	background-color: var(--brand-primary);
+	background: radial-gradient(circle at center, #1A202C 0%, #0B0E14 100%);
 }
 
 :global(.auth-page),
@@ -96,6 +96,15 @@
 	justify-content: center;
 }
 
+.heroRow {
+	display: flex;
+	align-items: center;
+	gap: clamp(2rem, 4vw, 4rem);
+	width: 100%;
+	max-width: 76rem;
+	justify-content: center;
+}
+
 .splashImage {
 	position: fixed;
 	right: 0;
@@ -112,14 +121,7 @@
 }
 
 .patternHost {
-	position: fixed;
-	inset: 0;
-	opacity: 0.06;
-	pointer-events: none;
-	z-index: 0;
-	background-repeat: repeat;
-	background-size: 260px 260px;
-	filter: invert(1);
+	display: none;
 }
 
 .cardContainer {
@@ -144,8 +146,11 @@
 	max-width: 56rem;
 	overflow: hidden;
 	border-radius: 1rem;
-	background-color: var(--background-secondary);
-	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+	background-color: rgba(11, 14, 20, 0.82);
+	backdrop-filter: blur(24px);
+	-webkit-backdrop-filter: blur(24px);
+	border: 1px solid rgba(74, 144, 140, 0.14);
+	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.6), 0 0 60px rgba(74, 144, 140, 0.04);
 }
 
 .cardSingle {
@@ -159,18 +164,25 @@
 	align-items: center;
 	justify-content: center;
 	padding: 3rem 2rem;
-	border-right: 1px solid var(--background-modifier-accent);
-	background-color: var(--background-secondary);
+	border-right: 1px solid rgba(74, 144, 140, 0.18);
+	background-color: rgba(7, 9, 14, 0.55);
 }
 
 .logo {
-	margin-bottom: 1.5rem;
-	height: 8rem;
-	width: 8rem;
+	width: 100%;
+	max-width: 220px;
+	height: auto;
+	object-fit: contain;
+	margin-bottom: 1rem;
 }
 
 .wordmark {
-	height: 2rem;
+	font-size: 1.5rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	color: #ffffff;
+	font-family: 'Inter', system-ui, sans-serif;
+	text-align: center;
 }
 
 .formSide {
@@ -179,7 +191,7 @@
 	flex-direction: column;
 	justify-content: center;
 	padding: 3rem;
-	background: var(--background-secondary);
+	background: rgba(13, 16, 22, 0.65);
 }
 
 .formSideSingle {

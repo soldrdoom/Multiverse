@@ -1,45 +1,45 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {HTTPException} from 'hono/http-exception';
 
-export type FluxerErrorData = Record<string, unknown>;
-export type FluxerErrorStatus = HTTPException['status'];
-export interface FluxerErrorOptions {
+export type MultiverseErrorData = Record<string, unknown>;
+export type MultiverseErrorStatus = HTTPException['status'];
+export interface MultiverseErrorOptions {
 	code: string;
 	message?: string;
-	status: FluxerErrorStatus;
-	data?: FluxerErrorData;
+	status: MultiverseErrorStatus;
+	data?: MultiverseErrorData;
 	headers?: Record<string, string>;
 	messageVariables?: Record<string, unknown>;
 	cause?: Error;
 }
 
-export class FluxerError extends HTTPException {
+export class MultiverseError extends HTTPException {
 	readonly code: string;
 	override readonly message: string;
-	override readonly status: FluxerErrorStatus;
-	readonly data?: FluxerErrorData;
+	override readonly status: MultiverseErrorStatus;
+	readonly data?: MultiverseErrorData;
 	readonly headers?: Record<string, string>;
 	readonly messageVariables?: Record<string, unknown>;
 
-	constructor(options: FluxerErrorOptions) {
+	constructor(options: MultiverseErrorOptions) {
 		const resolvedMessage = options.message ?? options.code;
 		super(options.status, {message: resolvedMessage, cause: options.cause});
 		this.code = options.code;
@@ -48,7 +48,7 @@ export class FluxerError extends HTTPException {
 		this.data = options.data;
 		this.headers = options.headers;
 		this.messageVariables = options.messageVariables;
-		this.name = 'FluxerError';
+		this.name = 'MultiverseError';
 	}
 
 	override getResponse(): Response {

@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {FeatureComparisonTable} from '@app/components/modals/components/FeatureComparisonTable';
@@ -25,7 +25,6 @@ import {GiftInventoryBanner} from '@app/components/modals/components/plutonium/G
 import {GiftSection} from '@app/components/modals/components/plutonium/GiftSection';
 import {useCheckoutActions} from '@app/components/modals/components/plutonium/hooks/useCheckoutActions';
 import {useCommunityActions} from '@app/components/modals/components/plutonium/hooks/useCommunityActions';
-import {usePremiumData} from '@app/components/modals/components/plutonium/hooks/usePremiumData';
 import {useSubscriptionActions} from '@app/components/modals/components/plutonium/hooks/useSubscriptionActions';
 import {useSubscriptionStatus} from '@app/components/modals/components/plutonium/hooks/useSubscriptionStatus';
 import {PlutoniumUpsellBanner} from '@app/components/modals/components/plutonium/PlutoniumUpsellBanner';
@@ -34,12 +33,11 @@ import {PurchaseHistorySection} from '@app/components/modals/components/plutoniu
 import {SectionHeader} from '@app/components/modals/components/plutonium/SectionHeader';
 import {SubscriptionCard} from '@app/components/modals/components/plutonium/SubscriptionCard';
 import {ComponentDispatch} from '@app/lib/ComponentDispatch';
-import GeoIPStore from '@app/stores/GeoIPStore';
 import GuildStore from '@app/stores/GuildStore';
 import MobileLayoutStore from '@app/stores/MobileLayoutStore';
 import UserStore from '@app/stores/UserStore';
 import * as LocaleUtils from '@app/utils/LocaleUtils';
-import {getFormattedPrice, PricingTier} from '@app/utils/PricingUtils';
+import {getSolPrice, PricingTier} from '@app/utils/PricingUtils';
 import {GuildFeatures} from '@fluxer/constants/src/GuildConstants';
 import {Trans} from '@lingui/react/macro';
 import {CrownIcon} from '@phosphor-icons/react';
@@ -60,7 +58,6 @@ export const PlutoniumContent = observer(({defaultGiftMode = false}: PlutoniumCo
 	const giftSectionRef = useRef<HTMLDivElement | null>(null);
 	const perksSectionRef = useRef<HTMLDivElement | null>(null);
 
-	const countryCode = GeoIPStore.countryCode;
 	const guilds = GuildStore.getGuilds();
 
 	const visionaryGuild = useMemo(() => {
@@ -72,7 +69,6 @@ export const PlutoniumContent = observer(({defaultGiftMode = false}: PlutoniumCo
 	}, [guilds]);
 
 	const subscriptionStatus = useSubscriptionStatus(currentUser);
-	const {priceIds} = usePremiumData(countryCode);
 	const {
 		loadingPortal,
 		loadingCancel,
@@ -89,14 +85,14 @@ export const PlutoniumContent = observer(({defaultGiftMode = false}: PlutoniumCo
 		handleCommunityButtonClick,
 	} = useCommunityActions(visionaryGuild, operatorGuild);
 	const {loadingCheckout, handleSelectPlan} = useCheckoutActions(
-		priceIds,
+		null,
 		subscriptionStatus.isGiftSubscription,
 		mobileLayoutState.enabled,
 	);
 
 	const isClaimed = currentUser?.isClaimed() ?? false;
 	const purchaseDisabled = !isClaimed;
-	const purchaseDisabledTooltip = <Trans>Claim your account to purchase Fluxer Plutonium.</Trans>;
+	const purchaseDisabledTooltip = <Trans>Claim your account to purchase Multiverse Plutonium.</Trans>;
 	const handleSelectPlanGuarded = useCallback(
 		(plan: 'monthly' | 'yearly' | 'gift_1_month' | 'gift_1_year') => {
 			if (purchaseDisabled) return;
@@ -105,8 +101,8 @@ export const PlutoniumContent = observer(({defaultGiftMode = false}: PlutoniumCo
 		[handleSelectPlan, purchaseDisabled],
 	);
 
-	const monthlyPrice = useMemo(() => getFormattedPrice(PricingTier.Monthly, countryCode), [countryCode]);
-	const yearlyPrice = useMemo(() => getFormattedPrice(PricingTier.Yearly, countryCode), [countryCode]);
+	const monthlyPrice = getSolPrice(PricingTier.Monthly);
+	const yearlyPrice = getSolPrice(PricingTier.Yearly);
 
 	const scrollToPerks = useCallback(() => {
 		perksSectionRef.current?.scrollIntoView({behavior: 'auto', block: 'start'});
@@ -162,7 +158,7 @@ export const PlutoniumContent = observer(({defaultGiftMode = false}: PlutoniumCo
 					<CrownIcon className={styles.icon} weight="fill" />
 				</div>
 				<h1 className={styles.title}>
-					<Trans>Fluxer Plutonium</Trans>
+					<Trans>Multiverse Plutonium</Trans>
 				</h1>
 				<p className={styles.description}>
 					<Trans>

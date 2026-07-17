@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {SsoStatusResponse} from '@fluxer/schema/src/domains/auth/AuthSchemas';
@@ -121,7 +121,7 @@ export const InstanceInfoResponse = z.object({
 });
 export type InstanceInfoResponse = z.infer<typeof InstanceInfoResponse>;
 
-export const WellKnownFluxerResponse = z.object({
+export const WellKnownMultiverseResponse = z.object({
 	api_code_version: z.number().int().describe('Version of the API server code'),
 	endpoints: z
 		.object({
@@ -192,4 +192,4 @@ export const WellKnownFluxerResponse = z.object({
 		.optional()
 		.describe('OAuth2 endpoints for federation'),
 });
-export type WellKnownFluxerResponse = z.infer<typeof WellKnownFluxerResponse>;
+export type WellKnownMultiverseResponse = z.infer<typeof WellKnownMultiverseResponse>;

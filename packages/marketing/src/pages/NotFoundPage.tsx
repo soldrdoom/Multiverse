@@ -1,26 +1,26 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** @jsxRuntime automatic */
 /** @jsxImportSource hono/jsx */
 
-import {FluxerLogoWordmarkIcon} from '@fluxer/marketing/src/components/icons/FluxerLogoWordmarkIcon';
+import {MultiverseLogoWordmarkIcon} from '@fluxer/marketing/src/components/icons/MultiverseLogoWordmarkIcon';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
 import {renderLayout} from '@fluxer/marketing/src/pages/Layout';
 import {pageMeta} from '@fluxer/marketing/src/pages/layout/Meta';
@@ -36,7 +36,7 @@ export async function renderNotFoundPage(c: Context, ctx: MarketingContext): Pro
 		<main class="flex flex-1 flex-col items-center justify-center px-6 pt-36 pb-12 text-center sm:px-8 md:px-12 md:pt-44 md:pb-16 lg:px-16 xl:px-20">
 			<div class="mx-auto max-w-2xl">
 				<div class="mb-8">
-					<FluxerLogoWordmarkIcon class="mx-auto h-16 opacity-80" />
+					<MultiverseLogoWordmarkIcon class="mx-auto h-16 opacity-80" />
 				</div>
 				<div class="mb-6">
 					<h1 class="hero text-white/90">404</h1>
@@ -65,7 +65,7 @@ export async function renderNotFoundPage(c: Context, ctx: MarketingContext): Pro
 	];
 
 	const meta = pageMeta(
-		`Fluxer | ${ctx.i18n.getMessage('navigation.page_not_found.title', ctx.locale)}`,
+		`Multiverse | ${ctx.i18n.getMessage('navigation.page_not_found.title', ctx.locale)}`,
 		subtitle,
 		'website',
 	);

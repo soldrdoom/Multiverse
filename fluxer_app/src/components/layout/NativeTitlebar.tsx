@@ -1,25 +1,25 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import styles from '@app/components/layout/NativeTitlebar.module.css';
 import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
-import FluxerWordmark from '@app/images/fluxer-wordmark.svg?react';
+import MultiverseWordmark from '@app/images/fluxer-wordmark.svg?react';
 import {getElectronAPI, type NativePlatform} from '@app/utils/NativeUtils';
 import {useLingui} from '@lingui/react/macro';
 import {CopySimpleIcon, MinusIcon, SquareIcon, XIcon} from '@phosphor-icons/react';
@@ -73,7 +73,7 @@ export const NativeTitlebar: React.FC<NativeTitlebarProps> = ({platform}) => {
 		// biome-ignore lint/a11y/noStaticElementInteractions: Titlebar needs to capture double clicks
 		<div className={styles.titlebar} onDoubleClick={handleDoubleClick} data-platform={platform}>
 			<div className={styles.left}>
-				<FluxerWordmark className={styles.wordmark} />
+				<MultiverseWordmark className={styles.wordmark} />
 			</div>
 			<div className={styles.spacer} />
 			<div className={styles.controls}>

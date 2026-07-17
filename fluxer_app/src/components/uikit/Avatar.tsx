@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {getStatusTypeLabel} from '@app/AppConstants';
@@ -22,12 +22,13 @@ import {BaseAvatar} from '@app/components/uikit/BaseAvatar';
 import {useHover} from '@app/hooks/useHover';
 import {useMergeRefs} from '@app/hooks/useMergeRefs';
 import type {UserRecord} from '@app/records/UserRecord';
+import CosmeticsStore from '@app/stores/CosmeticsStore';
 import GuildMemberStore from '@app/stores/GuildMemberStore';
 import * as AvatarUtils from '@app/utils/AvatarUtils';
 import * as ImageCacheUtils from '@app/utils/ImageCacheUtils';
 import {useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
-import React, {type CSSProperties, useEffect, useMemo, useState} from 'react';
+import React, {type CSSProperties, useEffect, useState} from 'react';
 
 interface AvatarProps {
 	user: UserRecord;
@@ -69,7 +70,7 @@ const AvatarComponent = React.forwardRef<HTMLDivElement, AvatarProps>(
 		const {i18n} = useLingui();
 		const guildMember = GuildMemberStore.getMember(guildId || '', user.id);
 
-		const avatarUrl = useMemo(() => {
+		const avatarUrl = (() => {
 			if (customAvatarUrl !== undefined) return customAvatarUrl;
 
 			if (guildId && guildMember?.avatar) {
@@ -83,9 +84,9 @@ const AvatarComponent = React.forwardRef<HTMLDivElement, AvatarProps>(
 			}
 
 			return AvatarUtils.getUserAvatarURL(user, false);
-		}, [user, customAvatarUrl, guildId, guildMember]);
+		})();
 
-		const hoverAvatarUrl = useMemo(() => {
+		const hoverAvatarUrl = (() => {
 			if (customHoverAvatarUrl !== undefined) return customHoverAvatarUrl;
 
 			if (guildId && guildMember?.avatar) {
@@ -99,7 +100,7 @@ const AvatarComponent = React.forwardRef<HTMLDivElement, AvatarProps>(
 			}
 
 			return AvatarUtils.getUserAvatarURL(user, true);
-		}, [user, customHoverAvatarUrl, guildId, guildMember]);
+		})();
 
 		const statusLabel = status != null ? getStatusTypeLabel(i18n, status) : null;
 
@@ -122,6 +123,8 @@ const AvatarComponent = React.forwardRef<HTMLDivElement, AvatarProps>(
 		const safeAvatarUrl = avatarUrl || AvatarUtils.getUserAvatarURL({id: user.id, avatar: null}, false);
 		const safeHoverAvatarUrl = hoverAvatarUrl || undefined;
 
+		const frameUrl = CosmeticsStore.getProfileCosmeticImageUrl(user.id, 'avatar_frame');
+
 		return (
 			<BaseAvatar
 				ref={useMergeRefs([ref, hoverRef])}
@@ -138,6 +141,7 @@ const AvatarComponent = React.forwardRef<HTMLDivElement, AvatarProps>(
 				userTag={user.tag}
 				statusLabel={statusLabel}
 				disableStatusTooltip={disableStatusTooltip}
+				frameUrl={frameUrl}
 				{...props}
 			/>
 		);

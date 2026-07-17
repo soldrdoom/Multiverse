@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {UserID} from '@fluxer/api/src/BrandedTypes';
@@ -23,6 +23,7 @@ import type {UserRow} from '@fluxer/api/src/database/types/UserTypes';
 import {
 	UserByEmail,
 	UserByPhone,
+	UserBySolanaAddress,
 	UserByStripeCustomerId,
 	UserByStripeSubscriptionId,
 	UserByUsername,
@@ -119,6 +120,23 @@ export class UserIndexRepository {
 			batch.addPrepared(
 				UserByStripeCustomerId.deleteByPk({
 					stripe_customer_id: oldData.stripe_customer_id,
+					user_id: oldData.user_id,
+				}),
+			);
+		}
+
+		if (data.solana_address) {
+			batch.addPrepared(
+				UserBySolanaAddress.upsertAll({
+					solana_address: data.solana_address,
+					user_id: data.user_id,
+				}),
+			);
+		}
+		if (oldData?.solana_address && oldData.solana_address !== data.solana_address) {
+			batch.addPrepared(
+				UserBySolanaAddress.deleteByPk({
+					solana_address: oldData.solana_address,
 					user_id: oldData.user_id,
 				}),
 			);

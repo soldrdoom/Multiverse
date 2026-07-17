@@ -1,25 +1,26 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
 import {CustomStatusDisplay} from '@app/components/common/custom_status_display/CustomStatusDisplay';
+import {CosmeticsShopModal} from '@app/components/modals/CosmeticsShopModal';
 import {NoteEditSheet} from '@app/components/modals/NoteEditSheet';
 import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
 import styles from '@app/components/pages/YouPage.module.css';
@@ -34,7 +35,7 @@ import UserStore from '@app/stores/UserStore';
 import * as AvatarUtils from '@app/utils/AvatarUtils';
 import {createMockProfile} from '@app/utils/ProfileUtils';
 import {Trans} from '@lingui/react/macro';
-import {GearIcon, NotePencilIcon, PencilIcon} from '@phosphor-icons/react';
+import {GearIcon, NotePencilIcon, PencilIcon, SparkleIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import {useMemo, useState} from 'react';
 
@@ -53,6 +54,10 @@ export const YouPage = observer(({onAvatarClick}: YouPageProps) => {
 
 	const handleEditProfile = () => {
 		ModalActionCreators.push(modal(() => <UserSettingsModal initialTab="my_profile" />));
+	};
+
+	const handleCosmetics = () => {
+		ModalActionCreators.push(modal(() => <CosmeticsShopModal />));
 	};
 
 	const profile = useMemo(() => (user ? createMockProfile(user) : null), [user]);
@@ -87,6 +92,9 @@ export const YouPage = observer(({onAvatarClick}: YouPageProps) => {
 
 							<div className={styles.content}>
 								<div className={styles.actions}>
+									<button type="button" onClick={handleCosmetics} className={styles.settingsButton} aria-label="Cosmetics Shop">
+										<SparkleIcon className={styles.settingsIcon} weight="fill" />
+									</button>
 									<button type="button" onClick={handleSettings} className={styles.settingsButton}>
 										<GearIcon className={styles.settingsIcon} weight="fill" />
 									</button>

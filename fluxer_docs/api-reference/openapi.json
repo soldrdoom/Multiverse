@@ -1,11 +1,11 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Fluxer API",
+    "title": "Multiverse API",
     "version": "1.0.0",
-    "description": "API for Fluxer, a free and open source instant messaging and VoIP platform built for friends, groups, and communities.",
+    "description": "API for Multiverse, a free and open source instant messaging and VoIP platform built for friends, groups, and communities.",
     "contact": {
-      "name": "Fluxer Developers",
+      "name": "Multiverse Developers",
       "email": "developers@fluxer.app"
     },
     "license": {
@@ -33,7 +33,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WellKnownFluxerResponse"
+                  "$ref": "#/components/schemas/WellKnownMultiverseResponse"
                 }
               }
             }
@@ -124,7 +124,7 @@
             "title": "Get instance discovery document"
           }
         },
-        "description": "Returns the instance discovery document including API endpoints, feature flags, limits, and federation capabilities. This is the canonical discovery endpoint for all Fluxer clients."
+        "description": "Returns the instance discovery document including API endpoints, feature flags, limits, and federation capabilities. This is the canonical discovery endpoint for all Multiverse clients."
       }
     },
     "/admin/api-keys": {
@@ -60163,7 +60163,7 @@
   },
   "components": {
     "schemas": {
-      "WellKnownFluxerResponse": {
+      "WellKnownMultiverseResponse": {
         "type": "object",
         "properties": {
           "api_code_version": {
@@ -61054,7 +61054,7 @@
           "Feature not implemented",
           "No passkeys registered for this account",
           "No pending deletion for this account",
-          "No users with this Fluxertag exist",
+          "No users with this Multiversetag exist",
           "No Visionary slots available",
           "Application is not a bot",
           "You are not friends with this user",
@@ -78913,7 +78913,7 @@
             "type": "string",
             "minLength": 3,
             "maxLength": 37,
-            "description": "Fluxer tag of the reporter if they have an account"
+            "description": "Multiverse tag of the reporter if they have an account"
           },
           "report_type": {
             "type": "string",
@@ -78933,7 +78933,7 @@
             "type": "string",
             "minLength": 3,
             "maxLength": 37,
-            "description": "Fluxer tag of the user who sent the message"
+            "description": "Multiverse tag of the user who sent the message"
           }
         },
         "required": [
@@ -79043,7 +79043,7 @@
             "type": "string",
             "minLength": 3,
             "maxLength": 37,
-            "description": "Fluxer tag of the reporter if they have an account"
+            "description": "Multiverse tag of the reporter if they have an account"
           },
           "report_type": {
             "type": "string",
@@ -79062,7 +79062,7 @@
             "type": "string",
             "minLength": 3,
             "maxLength": 37,
-            "description": "Fluxer tag of the user being reported"
+            "description": "Multiverse tag of the user being reported"
           }
         },
         "required": [
@@ -79156,7 +79156,7 @@
             "type": "string",
             "minLength": 3,
             "maxLength": 37,
-            "description": "Fluxer tag of the reporter if they have an account"
+            "description": "Multiverse tag of the reporter if they have an account"
           },
           "report_type": {
             "type": "string",

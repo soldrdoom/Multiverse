@@ -1,6 +1,6 @@
-# Fluxer Winget manifest
+# Multiverse Winget manifest
 
-Windows Package Manager (winget) manifest for installing Fluxer on Windows.
+Windows Package Manager (winget) manifest for installing Multiverse on Windows.
 
 ## Placeholders
 
@@ -8,9 +8,9 @@ The `PackageVersion` and `InstallerSha256` fields are set to placeholder values 
 
 ## Manifest files
 
-- `Fluxer.Fluxer.yaml` -- version manifest (required)
-- `Fluxer.Fluxer.installer.yaml` -- installer details for x64 and arm64
-- `Fluxer.Fluxer.locale.en-US.yaml` -- default locale metadata
+- `Multiverse.Multiverse.yaml` -- version manifest (required)
+- `Multiverse.Multiverse.installer.yaml` -- installer details for x64 and arm64
+- `Multiverse.Multiverse.locale.en-US.yaml` -- default locale metadata
 
 ## Validating
 

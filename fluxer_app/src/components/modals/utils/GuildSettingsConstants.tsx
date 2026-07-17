@@ -1,23 +1,24 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import GuildAuditLogTab from '@app/components/modals/guild_tabs/GuildAuditLogTab';
+import GuildCosmeticsTab from '@app/components/modals/guild_tabs/GuildCosmeticsTab';
 import GuildBansTab from '@app/components/modals/guild_tabs/GuildBansTab';
 import GuildDiscoveryTab from '@app/components/modals/guild_tabs/GuildDiscoveryTab';
 import GuildEmojiTab from '@app/components/modals/guild_tabs/GuildEmojiTab';
@@ -43,6 +44,7 @@ import {
 	ProhibitIcon,
 	ShieldIcon,
 	SmileyIcon,
+	SparkleIcon,
 	StickerIcon,
 	TicketIcon,
 	UserIcon,
@@ -55,6 +57,7 @@ export type GuildSettingsTabType =
 	| 'roles'
 	| 'emoji'
 	| 'stickers'
+	| 'cosmetics'
 	| 'moderation'
 	| 'audit_log'
 	| 'webhooks'
@@ -119,6 +122,14 @@ const GUILD_SETTINGS_TABS_DESCRIPTORS: Array<GuildSettingsTabDescriptor> = [
 		icon: StickerIcon,
 		component: GuildStickersTab,
 		permission: [Permissions.CREATE_EXPRESSIONS, Permissions.MANAGE_EXPRESSIONS],
+	},
+	{
+		type: 'cosmetics',
+		category: 'guild_settings',
+		label: msg`Server Cosmetics`,
+		icon: SparkleIcon,
+		component: GuildCosmeticsTab,
+		permission: Permissions.MANAGE_GUILD,
 	},
 	{
 		type: 'moderation',

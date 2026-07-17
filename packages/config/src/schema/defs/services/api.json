@@ -7,7 +7,7 @@
 			"port": {
 				"type": "number",
 				"description": "Port to listen on.",
-				"default": 8080
+				"default": 8081
 			},
 			"host": {
 				"type": "string",

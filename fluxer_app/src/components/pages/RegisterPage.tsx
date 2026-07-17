@@ -1,26 +1,26 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import {AuthBottomLink} from '@app/components/auth/AuthBottomLink';
 import sharedStyles from '@app/components/auth/AuthPageStyles.module.css';
 import {AuthRegisterFormCore} from '@app/components/auth/AuthRegisterFormCore';
-import {useFluxerDocumentTitle} from '@app/hooks/useFluxerDocumentTitle';
+import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
 import {useLocation} from '@app/lib/router/React';
 import {setPathQueryParams} from '@app/utils/UrlUtils';
 import {Trans, useLingui} from '@lingui/react/macro';
@@ -59,7 +59,7 @@ const RegisterPageContent = observer(function RegisterPageContent() {
 
 const RegisterPage = observer(function RegisterPage() {
 	const {t} = useLingui();
-	useFluxerDocumentTitle(t`Register`);
+	useMultiverseDocumentTitle(t`Register`);
 
 	return <RegisterPageContent />;
 });

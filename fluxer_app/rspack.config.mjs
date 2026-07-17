@@ -35,7 +35,7 @@ const DIST_DIR = path.join(ROOT_DIR, 'dist');
 const PKGS_DIR = path.join(ROOT_DIR, 'pkgs');
 const PUBLIC_DIR = path.join(ROOT_DIR, 'assets');
 
-const CDN_ENDPOINT = 'https://fluxerstatic.com';
+const CDN_ENDPOINT = 'https://multiverse.forum';
 
 function resolveMode() {
 	const modeIndex = process.argv.indexOf('--mode');
@@ -59,10 +59,7 @@ function isPlainObject(value) {
 }
 
 function readConfig() {
-	const configPath = process.env.FLUXER_CONFIG;
-	if (!configPath) {
-		throw new Error('FLUXER_CONFIG must be set to a JSON config path.');
-	}
+	const configPath = process.env.FLUXER_CONFIG || 'config.json';
 	const resolvedConfigPath = path.isAbsolute(configPath) ? configPath : path.resolve(MONOREPO_ROOT, configPath);
 	const content = fs.readFileSync(resolvedConfigPath, 'utf-8');
 	const parsed = JSON.parse(content);
@@ -178,12 +175,14 @@ function resolveAppPublic(config) {
 	const defaultBootstrapEndpoint = endpoints.api;
 	const defaultPublicEndpoint = stripApiSuffix(endpoints.api);
 	const sentryDsn = asString(appPublic.sentry_dsn);
+	const solanaRpcUrl = asString(appPublic.solana_rpc_url);
 	return {
 		apiVersion: asString(appPublic.api_version, '1'),
 		bootstrapApiEndpoint: asString(appPublic.bootstrap_api_endpoint, defaultBootstrapEndpoint),
 		bootstrapApiPublicEndpoint: asString(appPublic.bootstrap_api_public_endpoint, defaultPublicEndpoint),
 		relayDirectoryUrl: asString(appPublic.relay_directory_url),
 		sentryDsn,
+		solanaRpcUrl,
 	};
 }
 
@@ -238,6 +237,7 @@ export default () => {
 		PUBLIC_BOOTSTRAP_API_ENDPOINT: appPublic.bootstrapApiEndpoint,
 		PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT: appPublic.bootstrapApiPublicEndpoint ?? appPublic.bootstrapApiEndpoint,
 		PUBLIC_RELAY_DIRECTORY_URL: appPublic.relayDirectoryUrl ?? null,
+		PUBLIC_SOLANA_RPC_URL: appPublic.solanaRpcUrl ?? null,
 	};
 
 	return {
@@ -272,9 +272,9 @@ export default () => {
 
 		resolve: {
 			alias: {
-				'~': SRC_DIR,
-				'@app': SRC_DIR,
-				'@pkgs': PKGS_DIR,
+				'~': path.resolve(SRC_DIR),
+				'@app': path.resolve(SRC_DIR),
+				'@pkgs': path.resolve(PKGS_DIR),
 				'@fluxer/constants/src': path.join(MONOREPO_ROOT, 'packages/constants/src'),
 				'@fluxer/date_utils/src': path.join(MONOREPO_ROOT, 'packages/date_utils/src'),
 				'@fluxer/geo_utils/src': path.join(MONOREPO_ROOT, 'packages/geo_utils/src'),
@@ -458,6 +458,7 @@ export default () => {
 					'PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT',
 				),
 				'import.meta.env.PUBLIC_RELAY_DIRECTORY_URL': getPublicEnvVar(publicValues, 'PUBLIC_RELAY_DIRECTORY_URL'),
+				'import.meta.env.PUBLIC_SOLANA_RPC_URL': getPublicEnvVar(publicValues, 'PUBLIC_SOLANA_RPC_URL'),
 			}),
 		],
 
@@ -599,6 +600,7 @@ export default () => {
 		},
 
 		devServer: {
+			host: '0.0.0.0',
 			port: Number(process.env.FLUXER_APP_DEV_PORT) || 49427,
 			hot: false,
 			liveReload: false,
@@ -618,5 +620,12 @@ export default () => {
 		},
 
 		experiments: {css: true},
+
+		node: {
+			// Provide __filename and __dirname shims for libraries like libsodium-wrappers
+			// that reference them in browser bundles.
+			__filename: true,
+			__dirname: true,
+		},
 	};
 };

@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {ValueOf} from '@fluxer/constants/src/ValueOf';
@@ -126,6 +126,7 @@ export const MessageFlags = {
 	SUPPRESS_EMBEDS: 1 << 2,
 	SUPPRESS_NOTIFICATIONS: 1 << 12,
 	VOICE_MESSAGE: 1 << 13,
+	E2EE: 1 << 14,
 	COMPACT_ATTACHMENTS: 1 << 17,
 } as const;
 
@@ -133,6 +134,7 @@ export const MessageFlagsDescriptions: Record<keyof typeof MessageFlags, string>
 	SUPPRESS_EMBEDS: 'Do not include embeds when serialising this message',
 	SUPPRESS_NOTIFICATIONS: 'This message will not trigger push or desktop notifications',
 	VOICE_MESSAGE: 'This message is a voice message',
+	E2EE: 'Message content is end-to-end encrypted (DMs only)',
 	COMPACT_ATTACHMENTS: 'Display attachments in a compact format',
 };
 
@@ -140,7 +142,8 @@ export const SENDABLE_MESSAGE_FLAGS =
 	MessageFlags.SUPPRESS_EMBEDS |
 	MessageFlags.SUPPRESS_NOTIFICATIONS |
 	MessageFlags.COMPACT_ATTACHMENTS |
-	MessageFlags.VOICE_MESSAGE;
+	MessageFlags.VOICE_MESSAGE |
+	MessageFlags.E2EE;
 
 export const MessageAttachmentFlags = {
 	IS_SPOILER: 1 << 3,

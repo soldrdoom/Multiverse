@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import * as ContextMenuActionCreators from '@app/actions/ContextMenuActionCreators';
@@ -84,6 +84,7 @@ import {getUserAccentColor} from '@app/utils/AccentColorUtils';
 import * as CallUtils from '@app/utils/CallUtils';
 import * as ChannelUtils from '@app/utils/ChannelUtils';
 import * as NicknameUtils from '@app/utils/NicknameUtils';
+import CosmeticsStore from '@app/stores/CosmeticsStore';
 import * as ProfileDisplayUtils from '@app/utils/ProfileDisplayUtils';
 import {createMockProfile} from '@app/utils/ProfileUtils';
 import * as RelationshipActionUtils from '@app/utils/RelationshipActionUtils';
@@ -334,6 +335,15 @@ const ProfileModalContent: React.FC<ProfileModalContentProps> = observer(
 				),
 			[profileContext, previewOverrides, shouldAutoplayProfileAnimations],
 		);
+
+		// Load cosmetics for this user so the banner cosmetic and effect render.
+		useEffect(() => {
+			void CosmeticsStore.loadUserCosmetics(user.id);
+		}, [user.id]);
+
+		const cosmeticBannerUrl = CosmeticsStore.getProfileCosmeticImageUrl(user.id, 'profile_banner');
+		const effectiveBannerUrl = cosmeticBannerUrl ?? bannerUrl;
+		const profileEffectUrl = CosmeticsStore.getProfileCosmeticImageUrl(user.id, 'profile_effect');
 
 		type MutualView = 'mutual_friends' | 'mutual_communities' | 'mutual_groups';
 
@@ -672,11 +682,19 @@ const ProfileModalContent: React.FC<ProfileModalContentProps> = observer(
 									className={userProfileModalStyles.bannerImage}
 									style={{
 										backgroundColor: bannerColor,
-										...(bannerUrl ? {backgroundImage: `url(${bannerUrl})`} : {}),
+										...(effectiveBannerUrl ? {backgroundImage: `url(${effectiveBannerUrl})`} : {}),
 									}}
 								/>
 							</foreignObject>
 						</svg>
+						{profileEffectUrl && (
+							<img
+								src={profileEffectUrl}
+								alt=""
+								aria-hidden
+								className={userProfileModalStyles.profileEffect}
+							/>
+						)}
 					</div>
 
 					<div className={userProfileModalStyles.headerContainer}>
@@ -1072,7 +1090,7 @@ export const UserProfileModal: UserProfileModalComponent = observer(
 			ModalActionCreators.push(modal(() => <IARModal context={context} />));
 		};
 
-		const handleCopyFluxerTag = () => {
+		const handleCopyMultiverseTag = () => {
 			TextCopyActionCreators.copy(i18n, `${displayUser.username}#${displayUser.discriminator}`, true);
 		};
 
@@ -1170,11 +1188,11 @@ export const UserProfileModal: UserProfileModalComponent = observer(
 						<MenuItem
 							icon={<CopyIcon />}
 							onClick={() => {
-								handleCopyFluxerTag();
+								handleCopyMultiverseTag();
 								props.onClose();
 							}}
 						>
-							{t`Copy FluxerTag`}
+							{t`Copy MultiverseTag`}
 						</MenuItem>
 						<MenuItem
 							icon={<IdentificationCardIcon />}

@@ -1,6 +1,6 @@
-# Fluxer Homebrew cask
+# Multiverse Homebrew cask
 
-Homebrew cask definition for installing Fluxer on macOS.
+Homebrew cask definition for installing Multiverse on macOS.
 
 ## Placeholders
 
@@ -8,7 +8,7 @@ The `version` and `sha256` fields are set to placeholder values. Update them bef
 
 ## Livecheck
 
-The cask includes a `livecheck` block that queries the Fluxer download API for the latest stable version. Homebrew's automated tooling uses this to detect new releases.
+The cask includes a `livecheck` block that queries the Multiverse download API for the latest stable version. Homebrew's automated tooling uses this to detect new releases.
 
 ## Testing locally
 

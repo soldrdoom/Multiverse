@@ -1,26 +1,27 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import styles from '@app/components/profile/profile_card/ProfileCardBanner.module.css';
 import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
 import {StatusAwareAvatar} from '@app/components/uikit/StatusAwareAvatar';
 import type {UserRecord} from '@app/records/UserRecord';
+import CosmeticsStore from '@app/stores/CosmeticsStore';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useId} from 'react';
@@ -35,6 +36,8 @@ interface ProfileCardBannerProps {
 	isClickable?: boolean;
 	onAvatarClick?: () => void;
 	headerHeight?: number;
+	/** When provided, cosmetic banner/effect for this user will be rendered. */
+	userId?: string;
 }
 
 export const ProfileCardBanner: React.FC<ProfileCardBannerProps> = observer(
@@ -48,6 +51,7 @@ export const ProfileCardBanner: React.FC<ProfileCardBannerProps> = observer(
 		isClickable = true,
 		onAvatarClick,
 		headerHeight = 140,
+		userId,
 	}) => {
 		const bannerHeight = headerHeight === 140 ? 105 : 105;
 
@@ -55,11 +59,22 @@ export const ProfileCardBanner: React.FC<ProfileCardBannerProps> = observer(
 		const safeId = reactId.replace(/[^a-zA-Z0-9_-]/g, '');
 		const maskId = `uid_${safeId}`;
 
+		// Cosmetic banner overrides the user's uploaded profile banner when set.
+		const cosmeticBannerUrl = userId
+			? CosmeticsStore.getProfileCosmeticImageUrl(userId, 'profile_banner')
+			: null;
+		const effectiveBannerUrl = cosmeticBannerUrl ?? bannerUrl;
+
+		// Profile effect is an animated overlay rendered on top of the banner.
+		const profileEffectUrl = userId
+			? CosmeticsStore.getProfileCosmeticImageUrl(userId, 'profile_effect')
+			: null;
+
 		const bannerStyle = {
 			height: bannerHeight,
 			minHeight: bannerHeight,
 			backgroundColor: bannerColor,
-			...(bannerUrl ? {backgroundImage: `url(${bannerUrl})`} : {}),
+			...(effectiveBannerUrl ? {backgroundImage: `url(${effectiveBannerUrl})`} : {}),
 		};
 
 		return (
@@ -75,6 +90,15 @@ export const ProfileCardBanner: React.FC<ProfileCardBannerProps> = observer(
 							<div className={styles.banner} style={bannerStyle} />
 						</foreignObject>
 					</svg>
+
+					{profileEffectUrl && (
+						<img
+							src={profileEffectUrl}
+							alt=""
+							aria-hidden
+							className={styles.profileEffect}
+						/>
+					)}
 				</div>
 
 				<FocusRing offset={-2}>

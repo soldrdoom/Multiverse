@@ -1,24 +1,24 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import errorFallbackStyles from '@app/components/ErrorFallback.module.css';
-import {FluxerIcon} from '@app/components/icons/FluxerIcon';
+import {MultiverseIcon} from '@app/components/icons/MultiverseIcon';
 import {NativeTitlebar} from '@app/components/layout/NativeTitlebar';
 import {Button} from '@app/components/uikit/button/Button';
 import {useNativePlatform} from '@app/hooks/useNativePlatform';
@@ -99,7 +99,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = observer(() => {
 	return (
 		<div className={errorFallbackStyles.errorFallbackContainer}>
 			{isNative && !isMacOS && <NativeTitlebar platform={platform} />}
-			<FluxerIcon className={errorFallbackStyles.errorFallbackIcon} />
+			<MultiverseIcon className={errorFallbackStyles.errorFallbackIcon} />
 			<div className={errorFallbackStyles.errorFallbackContent}>
 				<h1 className={errorFallbackStyles.errorFallbackTitle}>
 					<Trans>Whoa, this is heavy.</Trans>

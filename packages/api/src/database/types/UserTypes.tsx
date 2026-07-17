@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import type {AttachmentID, ChannelID, EmojiID, GuildID, MemeID, MessageID, UserID} from '@fluxer/api/src/BrandedTypes';
@@ -73,6 +73,7 @@ export interface UserRow {
 	deletion_audit_log_reason: Nullish<string>;
 	acls: Nullish<Set<string>>;
 	traits: Nullish<Set<string>>;
+	solana_address: Nullish<string>;
 	first_refund_at: Nullish<Date>;
 	gift_inventory_server_seq: Nullish<number>;
 	gift_inventory_client_seq: Nullish<number>;
@@ -129,6 +130,7 @@ export const USER_COLUMNS = [
 	'deletion_audit_log_reason',
 	'acls',
 	'traits',
+	'solana_address',
 	'first_refund_at',
 	'gift_inventory_server_seq',
 	'gift_inventory_client_seq',
@@ -612,3 +614,13 @@ export interface UserDmHistoryRow {
 export const USER_DM_HISTORY_COLUMNS = ['user_id', 'channel_id'] as const satisfies ReadonlyArray<
 	keyof UserDmHistoryRow
 >;
+
+export interface UserBySolanaAddressRow {
+	solana_address: string;
+	user_id: UserID;
+}
+
+export const USER_BY_SOLANA_ADDRESS_COLUMNS = [
+	'solana_address',
+	'user_id',
+] as const satisfies ReadonlyArray<keyof UserBySolanaAddressRow>;

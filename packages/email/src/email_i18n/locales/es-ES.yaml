@@ -1,9 +1,9 @@
 account_disabled_suspicious:
-  subject: Tu cuenta de Fluxer se ha desactivado temporalmente
+  subject: Tu cuenta de Multiverse se ha desactivado temporalmente
   body: |-
     Hola {username},
 
-    Hemos desactivado temporalmente tu cuenta de Fluxer porque hemos detectado actividad sospechosa.
+    Hemos desactivado temporalmente tu cuenta de Multiverse porque hemos detectado actividad sospechosa.
 
     {reason, select,
       null {}
@@ -18,13 +18,13 @@ account_disabled_suspicious:
 
     Si crees que esto se ha hecho por error, ponte en contacto con nuestro equipo de soporte.
 
-    – Equipo de seguridad de Fluxer
+    – Equipo de seguridad de Multiverse
 account_scheduled_deletion:
-  subject: Tu cuenta de Fluxer se eliminará de forma permanente
+  subject: Tu cuenta de Multiverse se eliminará de forma permanente
   body: |-
     Hola {username},
 
-    Tu cuenta de Fluxer se ha programado para su eliminación permanente por infracciones de nuestras condiciones del servicio o de las directrices de la comunidad.
+    Tu cuenta de Multiverse se ha programado para su eliminación permanente por infracciones de nuestras condiciones del servicio o de las directrices de la comunidad.
 
     Fecha de eliminación: {deletionDate, date, full} {deletionDate, time, short}
 
@@ -46,15 +46,15 @@ account_scheduled_deletion:
     - Explica claramente por qué crees que la decisión es incorrecta o injustificada
     - Aporta, si es posible, pruebas o contexto relevantes
 
-    Una persona del equipo de seguridad de Fluxer revisará tu apelación y puede pausar la eliminación prevista hasta que se tome una decisión final.
+    Una persona del equipo de seguridad de Multiverse revisará tu apelación y puede pausar la eliminación prevista hasta que se tome una decisión final.
 
-    – Equipo de seguridad de Fluxer
+    – Equipo de seguridad de Multiverse
 account_temp_banned:
-  subject: Tu cuenta de Fluxer se ha suspendido temporalmente
+  subject: Tu cuenta de Multiverse se ha suspendido temporalmente
   body: |-
     Hola {username},
 
-    Tu cuenta de Fluxer se ha suspendido temporalmente por infringir nuestras condiciones del servicio o las directrices de la comunidad.
+    Tu cuenta de Multiverse se ha suspendido temporalmente por infringir nuestras condiciones del servicio o las directrices de la comunidad.
 
     Duración: {durationHours, plural,
       =1 {1 hora}
@@ -75,13 +75,13 @@ account_temp_banned:
 
     Si crees que esta decisión es incorrecta o injustificada, puedes presentar una apelación: envía un correo a appeals@fluxer.app desde esta misma dirección de correo electrónico. Explica claramente por qué crees que la decisión es incorrecta. Revisaremos tu apelación y te responderemos con nuestra decisión.
 
-    – Equipo de seguridad de Fluxer
+    – Equipo de seguridad de Multiverse
 donation_confirmation:
-  subject: Gracias por tu donación a Fluxer
+  subject: Gracias por tu donación a Multiverse
   body: |-
     Hola,
 
-    ¡Gracias por tu donación a Fluxer! Tu {interval, select,
+    ¡Gracias por tu donación a Multiverse! Tu {interval, select,
       month {donación recurrente}
       year {donación recurrente}
       other {donación única}
@@ -108,11 +108,11 @@ donation_confirmation:
 
     {manageUrl}
 
-    Tu apoyo ayuda a mantener Fluxer funcionando. ¡Gracias!
+    Tu apoyo ayuda a mantener Multiverse funcionando. ¡Gracias!
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 donation_magic_link:
-  subject: Gestiona tus donaciones a Fluxer
+  subject: Gestiona tus donaciones a Multiverse
   body: |-
     Hola,
 
@@ -126,13 +126,13 @@ donation_magic_link:
 
     Si no has solicitado este enlace, puedes ignorar este correo electrónico sin problema.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 dsa_report_verification:
   subject: Verifica tu correo electrónico para una notificación de la DSA
   body: |-
     Hola,
 
-    Usa el código de verificación de abajo para enviar tu notificación en virtud del Reglamento de Servicios Digitales (DSA) en Fluxer:
+    Usa el código de verificación de abajo para enviar tu notificación en virtud del Reglamento de Servicios Digitales (DSA) en Multiverse:
 
     {code}
 
@@ -140,13 +140,13 @@ dsa_report_verification:
 
     Si no lo has solicitado, puedes ignorar este correo electrónico.
 
-    – Equipo de seguridad de Fluxer
+    – Equipo de seguridad de Multiverse
 email_change_new:
-  subject: Verifica tu nuevo correo electrónico de Fluxer
+  subject: Verifica tu nuevo correo electrónico de Multiverse
   body: |-
     Hola {username},
 
-    Introduce este código en la app para verificar tu nuevo correo electrónico de Fluxer:
+    Introduce este código en la app para verificar tu nuevo correo electrónico de Multiverse:
 
     {code}
 
@@ -154,13 +154,13 @@ email_change_new:
 
     Si no lo has solicitado, puedes ignorar este correo electrónico.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 email_change_original:
-  subject: Confirma el cambio de correo electrónico de tu cuenta de Fluxer
+  subject: Confirma el cambio de correo electrónico de tu cuenta de Multiverse
   body: |-
     Hola {username},
 
-    Hemos recibido una solicitud para cambiar el correo electrónico de tu cuenta de Fluxer.
+    Hemos recibido una solicitud para cambiar el correo electrónico de tu cuenta de Multiverse.
 
     Para confirmar el cambio, introduce este código en la app:
 
@@ -170,13 +170,13 @@ email_change_original:
 
     Si no has solicitado esto, protege tu cuenta cuanto antes.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 email_change_revert:
-  subject: Se ha cambiado el correo electrónico de tu cuenta de Fluxer
+  subject: Se ha cambiado el correo electrónico de tu cuenta de Multiverse
   body: |-
     Hola {username},
 
-    El correo electrónico de tu cuenta de Fluxer se ha cambiado a {newEmail}.
+    El correo electrónico de tu cuenta de Multiverse se ha cambiado a {newEmail}.
 
     Si has sido tú, no tienes que hacer nada. Si no, puedes deshacer el cambio y proteger tu cuenta con este enlace:
 
@@ -184,21 +184,21 @@ email_change_revert:
 
     Esto restaurará tu correo electrónico anterior, cerrará la sesión en todos tus dispositivos, eliminará los números de teléfono vinculados, desactivará la autenticación multifactor y te pedirá que establezcas una nueva contraseña.
 
-    – Equipo de seguridad de Fluxer
+    – Equipo de seguridad de Multiverse
 email_verification:
-  subject: Verifica tu correo electrónico de Fluxer
+  subject: Verifica tu correo electrónico de Multiverse
   body: |-
     Hola {username},
 
-    Verifica el correo electrónico de tu cuenta de Fluxer haciendo clic en el enlace de abajo:
+    Verifica el correo electrónico de tu cuenta de Multiverse haciendo clic en el enlace de abajo:
 
     {verifyUrl}
 
-    Si no has creado una cuenta de Fluxer, puedes ignorar este correo electrónico con tranquilidad.
+    Si no has creado una cuenta de Multiverse, puedes ignorar este correo electrónico con tranquilidad.
 
     Este enlace es válido durante 24 horas.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 gift_chargeback_notification:
   subject: Se han eliminado las ventajas de tu regalo canjeado
   body: |-
@@ -210,9 +210,9 @@ gift_chargeback_notification:
 
     Si crees que esto es un error, ponte en contacto con nuestro equipo de soporte e incluye cualquier detalle que tengas sobre el código de regalo y cuándo lo canjeaste.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 harvest_completed:
-  subject: Tu exportación de datos de Fluxer está lista para descargar
+  subject: Tu exportación de datos de Multiverse está lista para descargar
   body: |-
     Hola {username},
 
@@ -228,28 +228,28 @@ harvest_completed:
 
     Si no has solicitado esta exportación, cambia tu contraseña cuanto antes y ponte en contacto con nuestro equipo de soporte.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 inactivity_warning:
-  subject: Tu cuenta de Fluxer se eliminará por inactividad
+  subject: Tu cuenta de Multiverse se eliminará por inactividad
   body: |-
     Hola {username},
 
-    No hemos visto actividad en tu cuenta de Fluxer desde {lastActiveDate, date, full}.
+    No hemos visto actividad en tu cuenta de Multiverse desde {lastActiveDate, date, full}.
 
     Si no inicias sesión antes del {deletionDate, date, full} a las {deletionDate, time, short}, tu cuenta se eliminará de forma permanente por inactividad.
 
     Inicia sesión aquí:
     {loginUrl}
 
-    Si has usado Fluxer recientemente, ponte en contacto con nuestro equipo de soporte cuanto antes.
+    Si has usado Multiverse recientemente, ponte en contacto con nuestro equipo de soporte cuanto antes.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 ip_authorization:
   subject: Autoriza el inicio de sesión desde una nueva dirección IP
   body: |-
     Hola {username},
 
-    Hemos detectado un intento de inicio de sesión en tu cuenta de Fluxer desde una nueva dirección IP:
+    Hemos detectado un intento de inicio de sesión en tu cuenta de Multiverse desde una nueva dirección IP:
 
     Dirección IP: {ipAddress}
     Ubicación: {location}
@@ -262,13 +262,13 @@ ip_authorization:
 
     Este enlace caduca en 30 minutos.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 password_change_verification:
-  subject: Confirma el cambio de contraseña de tu cuenta de Fluxer
+  subject: Confirma el cambio de contraseña de tu cuenta de Multiverse
   body: |-
     Hola {username},
 
-    Hemos recibido una solicitud para cambiar la contraseña de tu cuenta de Fluxer.
+    Hemos recibido una solicitud para cambiar la contraseña de tu cuenta de Multiverse.
 
     Para confirmar el cambio, introduce este código en la app:
 
@@ -278,13 +278,13 @@ password_change_verification:
 
     Si no has solicitado esto, puede que alguien tenga acceso a tu cuenta. Cambia tu contraseña cuanto antes y activa la autenticación de dos factores.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 password_reset:
-  subject: Restablece tu contraseña de Fluxer
+  subject: Restablece tu contraseña de Multiverse
   body: |-
     Hola {username},
 
-    Has solicitado restablecer tu contraseña de Fluxer. Usa el enlace de abajo para establecer una nueva:
+    Has solicitado restablecer tu contraseña de Multiverse. Usa el enlace de abajo para establecer una nueva:
 
     {resetUrl}
 
@@ -292,20 +292,20 @@ password_reset:
 
     Este enlace es válido durante 1 hora.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 registration_approved:
-  subject: Tu registro en Fluxer se ha aprobado
+  subject: Tu registro en Multiverse se ha aprobado
   body: |-
     Hola {username},
 
-    Buenas noticias: tu registro en Fluxer se ha aprobado.
+    Buenas noticias: tu registro en Multiverse se ha aprobado.
 
-    Ya puedes iniciar sesión en la app de Fluxer aquí:
+    Ya puedes iniciar sesión en la app de Multiverse aquí:
     {channelsUrl}
 
-    Te damos la bienvenida a la comunidad de Fluxer.
+    Te damos la bienvenida a la comunidad de Multiverse.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 report_resolved:
   subject: Hemos revisado tu notificación
   body: |-
@@ -316,17 +316,17 @@ report_resolved:
     Respuesta del equipo de seguridad:
     {publicComment}
 
-    Gracias por ayudar a que Fluxer sea un lugar más seguro para todo el mundo. Nos tomamos todas las notificaciones en serio y agradecemos tu aportación a la comunidad.
+    Gracias por ayudar a que Multiverse sea un lugar más seguro para todo el mundo. Nos tomamos todas las notificaciones en serio y agradecemos tu aportación a la comunidad.
 
     Si tienes preguntas o dudas sobre este resultado, escribe a safety@fluxer.app.
 
-    – Equipo de seguridad de Fluxer
+    – Equipo de seguridad de Multiverse
 scheduled_deletion_notification:
-  subject: Tu cuenta de Fluxer se eliminará de forma permanente
+  subject: Tu cuenta de Multiverse se eliminará de forma permanente
   body: |-
     Hola {username},
 
-    Tu cuenta de Fluxer se ha programado para su eliminación permanente.
+    Tu cuenta de Multiverse se ha programado para su eliminación permanente.
 
     Fecha de eliminación: {deletionDate, date, full} {deletionDate, time, short}
 
@@ -339,31 +339,31 @@ scheduled_deletion_notification:
 
     Si crees que esta decisión es incorrecta, puedes presentar una apelación: envía un correo a appeals@fluxer.app desde esta misma dirección de correo electrónico.
 
-    – Equipo de seguridad de Fluxer
+    – Equipo de seguridad de Multiverse
 self_deletion_scheduled:
-  subject: La eliminación de tu cuenta de Fluxer está programada
+  subject: La eliminación de tu cuenta de Multiverse está programada
   body: |-
     Hola {username},
 
-    Has solicitado eliminar tu cuenta de Fluxer. Tu cuenta se eliminará de forma permanente el:
+    Has solicitado eliminar tu cuenta de Multiverse. Tu cuenta se eliminará de forma permanente el:
 
     {deletionDate, date, full} a las {deletionDate, time, short}
 
     Si no has solicitado esto, inicia sesión en tu cuenta para cancelar la eliminación. También recomendamos cambiar tu contraseña para proteger tu cuenta.
 
-    – Equipo de Fluxer
+    – Equipo de Multiverse
 unban_notification:
-  subject: Se ha levantado la suspensión de tu cuenta de Fluxer
+  subject: Se ha levantado la suspensión de tu cuenta de Multiverse
   body: |-
     Hola {username},
 
-    Buenas noticias: se ha levantado la suspensión de tu cuenta de Fluxer.
+    Buenas noticias: se ha levantado la suspensión de tu cuenta de Multiverse.
 
     {reason, select,
       null {}
       other {Motivo: {reason}}
     }
 
-    Ya puedes volver a iniciar sesión y seguir usando Fluxer con normalidad.
+    Ya puedes volver a iniciar sesión y seguir usando Multiverse con normalidad.
 
-    – Equipo de seguridad de Fluxer
+    – Equipo de seguridad de Multiverse

@@ -1,30 +1,30 @@
 /*
- * Copyright (C) 2026 Fluxer Contributors
+ * Copyright (C) 2026 Multiverse Contributors
  *
- * This file is part of Fluxer.
+ * This file is part of Multiverse.
  *
- * Fluxer is free software: you can redistribute it and/or modify
+ * Multiverse is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Fluxer is distributed in the hope that it will be useful,
+ * Multiverse is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {FluxerError} from '@fluxer/errors/src/FluxerError';
+import {MultiverseError} from '@fluxer/errors/src/FluxerError';
 import {HTTPException} from 'hono/http-exception';
 import {describe, expect, it} from 'vitest';
 
-describe('FluxerError', () => {
+describe('MultiverseError', () => {
 	describe('constructor', () => {
 		it('should create an error with required options', () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'TEST_ERROR',
 				status: 400,
 			});
@@ -32,11 +32,11 @@ describe('FluxerError', () => {
 			expect(error.code).toBe('TEST_ERROR');
 			expect(error.status).toBe(400);
 			expect(error.message).toBe('TEST_ERROR');
-			expect(error.name).toBe('FluxerError');
+			expect(error.name).toBe('MultiverseError');
 		});
 
 		it('should use provided message instead of code', () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'TEST_ERROR',
 				message: 'Custom error message',
 				status: 400,
@@ -47,7 +47,7 @@ describe('FluxerError', () => {
 		});
 
 		it('should include optional data', () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'TEST_ERROR',
 				status: 400,
 				data: {field: 'username', reason: 'invalid'},
@@ -57,7 +57,7 @@ describe('FluxerError', () => {
 		});
 
 		it('should include optional headers', () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'TEST_ERROR',
 				status: 400,
 				headers: {'X-Custom-Header': 'value'},
@@ -67,7 +67,7 @@ describe('FluxerError', () => {
 		});
 
 		it('should include message variables for i18n', () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'RATE_LIMITED',
 				status: 429,
 				messageVariables: {retryAfter: 60},
@@ -78,7 +78,7 @@ describe('FluxerError', () => {
 
 		it('should include cause for error chaining', () => {
 			const cause = new Error('Original error');
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'WRAPPED_ERROR',
 				status: 500,
 				cause,
@@ -88,7 +88,7 @@ describe('FluxerError', () => {
 		});
 
 		it('should be an instance of HTTPException', () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'TEST_ERROR',
 				status: 400,
 			});
@@ -99,7 +99,7 @@ describe('FluxerError', () => {
 
 	describe('getResponse', () => {
 		it('should return a JSON Response with correct status', async () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'TEST_ERROR',
 				message: 'Test message',
 				status: 400,
@@ -118,7 +118,7 @@ describe('FluxerError', () => {
 		});
 
 		it('should include data in response body', async () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'VALIDATION_ERROR',
 				message: 'Validation failed',
 				status: 400,
@@ -136,7 +136,7 @@ describe('FluxerError', () => {
 		});
 
 		it('should include custom headers in response', async () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'RATE_LIMITED',
 				status: 429,
 				headers: {'Retry-After': '60', 'X-RateLimit-Reset': '1234567890'},
@@ -150,7 +150,7 @@ describe('FluxerError', () => {
 		});
 
 		it('should handle empty data', async () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'SIMPLE_ERROR',
 				status: 403,
 			});
@@ -167,7 +167,7 @@ describe('FluxerError', () => {
 
 	describe('toJSON', () => {
 		it('should serialize to JSON object', () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'TEST_ERROR',
 				message: 'Test message',
 				status: 400,
@@ -182,7 +182,7 @@ describe('FluxerError', () => {
 		});
 
 		it('should include data in JSON output', () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'VALIDATION_ERROR',
 				message: 'Validation failed',
 				status: 400,
@@ -199,7 +199,7 @@ describe('FluxerError', () => {
 		});
 
 		it('should not include status or headers in JSON output', () => {
-			const error = new FluxerError({
+			const error = new MultiverseError({
 				code: 'TEST_ERROR',
 				status: 500,
 				headers: {'X-Custom': 'value'},
@@ -224,7 +224,7 @@ describe('FluxerError', () => {
 			] as const;
 
 			for (const {status} of testCases) {
-				const error = new FluxerError({code: 'TEST', status});
+				const error = new MultiverseError({code: 'TEST', status});
 				expect(error.status).toBe(status);
 			}
 		});
@@ -239,7 +239,7 @@ describe('FluxerError', () => {
 			] as const;
 
 			for (const {status} of testCases) {
-				const error = new FluxerError({code: 'TEST', status});
+				const error = new MultiverseError({code: 'TEST', status});
 				expect(error.status).toBe(status);
 			}
 		});
@@ -247,26 +247,26 @@ describe('FluxerError', () => {
 
 	describe('error properties', () => {
 		it('should have correct name property', () => {
-			const error = new FluxerError({code: 'TEST', status: 400});
-			expect(error.name).toBe('FluxerError');
+			const error = new MultiverseError({code: 'TEST', status: 400});
+			expect(error.name).toBe('MultiverseError');
 		});
 
 		it('should be throwable', () => {
-			const error = new FluxerError({code: 'THROWN_ERROR', status: 400});
+			const error = new MultiverseError({code: 'THROWN_ERROR', status: 400});
 
 			expect(() => {
 				throw error;
-			}).toThrow(FluxerError);
+			}).toThrow(MultiverseError);
 		});
 
 		it('should be catchable as Error', () => {
-			const error = new FluxerError({code: 'CAUGHT_ERROR', status: 400});
+			const error = new MultiverseError({code: 'CAUGHT_ERROR', status: 400});
 
 			try {
 				throw error;
 			} catch (e) {
 				expect(e).toBeInstanceOf(Error);
-				expect(e).toBeInstanceOf(FluxerError);
+				expect(e).toBeInstanceOf(MultiverseError);
 			}
 		});
 	});

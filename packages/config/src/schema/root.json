@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"title": "Fluxer Config",
+	"title": "Multiverse Config",
 	"type": "object",
 	"additionalProperties": false,
 	"required": ["env", "domain", "database", "services", "auth"],
@@ -86,7 +86,7 @@
 			"$ref": "#/$defs/s3"
 		},
 		"services": {
-			"description": "Configuration for individual Fluxer services.",
+			"description": "Configuration for individual Multiverse services.",
 			"$ref": "#/$defs/services"
 		},
 		"auth": {
@@ -168,7 +168,7 @@
 			"default": {}
 		},
 		"federation": {
-			"description": "Federation configuration for connecting with other Fluxer instances.",
+			"description": "Federation configuration for connecting with other Multiverse instances.",
 			"$ref": "#/$defs/federation",
 			"default": {}
 		}
