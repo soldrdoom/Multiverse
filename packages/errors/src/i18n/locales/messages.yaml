@@ -453,6 +453,9 @@ stripe.webhook_not_available: Webhook processing isn't available.
 stripe.webhook_signature_invalid: Stripe webhook signature is invalid.
 stripe.webhook_signature_missing: Stripe webhook signature is missing.
 tickets.ticket_already_completed: This ticket has already been completed.
+tips.tip_recipient_has_no_wallet: This user hasn't linked a Solana wallet, so they can't receive tips.
+tips.tip_self_not_allowed: You can't tip yourself.
+tips.tip_tx_already_used: This transaction has already been recorded as a tip.
 tos_and_age.date_of_birth_format_invalid: Invalid date of birth format.
 tos_and_age.must_agree_to_tos_and_privacy: You must agree to the Terms of Service and Privacy Policy.
 tos_and_age.must_be_minimum_age: You must be at least {minAge} {minAge, plural, one {year} other {years}} old to create an account.
@@ -486,6 +489,8 @@ usernames_and_tags.username_length_invalid: Username must be between {min} and {
 usernames_and_tags.username_not_available: This username is not available.
 usernames_and_tags.username_reserved_terms: Username can't contain "fluxer" or "system message".
 usernames_and_tags.username_reserved_value: Username can't be "everyone" or "here".
+vanity_urls.guild_vanity_already_purchased: This guild already has a permanent vanity link.
+vanity_urls.guild_vanity_tx_already_used: This transaction has already been used for a purchase.
 vanity_urls.vanity_url_already_taken: This vanity URL is already taken.
 vanity_urls.vanity_url_code_already_taken: Vanity URL code is already taken.
 vanity_urls.vanity_url_code_cannot_contain_fluxer: Vanity URL code can't contain "fluxer".

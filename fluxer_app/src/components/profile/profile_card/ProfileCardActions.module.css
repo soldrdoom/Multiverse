@@ -72,3 +72,26 @@
 	padding-top: 0.25rem;
 	color: var(--text-primary-muted);
 }
+
+.tipButtonContainer {
+	transition: opacity 0.3s ease-in-out;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.tipButtonContainerVisible {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.tipButton {
+	cursor: pointer;
+	border: none;
+	background: transparent;
+	padding: 0;
+}
+
+.tipIconWrapper {
+	padding-top: 0.25rem;
+	color: var(--status-online);
+}

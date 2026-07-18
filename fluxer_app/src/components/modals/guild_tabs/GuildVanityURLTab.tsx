@@ -18,10 +18,13 @@
  */
 
 import * as GuildActionCreators from '@app/actions/GuildActionCreators';
+import * as ModalActionCreators from '@app/actions/ModalActionCreators';
+import {modal} from '@app/actions/ModalActionCreators';
 import * as ToastActionCreators from '@app/actions/ToastActionCreators';
 import {Form} from '@app/components/form/Form';
 import {Input} from '@app/components/form/Input';
 import styles from '@app/components/modals/guild_tabs/GuildVanityURLTab.module.css';
+import {GuildVanityPurchaseModal} from '@app/components/modals/GuildVanityPurchaseModal';
 import {Button} from '@app/components/uikit/button/Button';
 import {Spinner} from '@app/components/uikit/Spinner';
 import {useFormSubmit} from '@app/hooks/useFormSubmit';
@@ -30,10 +33,12 @@ import ChannelStore from '@app/stores/ChannelStore';
 import DeveloperOptionsStore from '@app/stores/DeveloperOptionsStore';
 import GuildStore from '@app/stores/GuildStore';
 import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
+import UserStore from '@app/stores/UserStore';
 import * as PermissionUtils from '@app/utils/PermissionUtils';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
+import {GuildFeatures} from '@fluxer/constants/src/GuildConstants';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {WarningIcon} from '@phosphor-icons/react';
+import {LockIcon, WarningIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useEffect, useMemo, useState} from 'react';
@@ -77,6 +82,14 @@ const GuildVanityURLTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 	const hasViewableChannel = useMemo(() => {
 		return hasAnyChannelViewableToEveryone(guildId);
 	}, [guildId, channels, guild]);
+
+	const currentUserId = UserStore.currentUser?.id ?? null;
+	const isOwner = guild?.isOwner(currentUserId) ?? false;
+	const hasVanityFeature = guild?.features.has(GuildFeatures.VANITY_URL) ?? false;
+
+	const handleBuyVanityLink = useCallback(() => {
+		ModalActionCreators.push(modal(() => <GuildVanityPurchaseModal guildId={guildId} />));
+	}, [guildId]);
 
 	const fetchVanityURL = useCallback(async () => {
 		try {
@@ -135,6 +148,46 @@ const GuildVanityURLTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 		return (
 			<div className={styles.spinnerContainer}>
 				<Spinner />
+			</div>
+		);
+	}
+
+	if (!hasVanityFeature) {
+		return (
+			<div className={styles.container}>
+				<div className={styles.header}>
+					<h2 className={styles.title}>
+						<Trans>Custom Invite URL</Trans>
+					</h2>
+					<p className={styles.subtitle}>
+						<Trans>Set a custom invite URL for your community.</Trans>
+					</p>
+				</div>
+				<div className={styles.formCard}>
+					<div className={styles.lockedState}>
+						<LockIcon size={28} weight="fill" className={styles.lockedIcon} />
+						<p className={styles.lockedTitle}>
+							<Trans>Permanent vanity links are a one-time purchase</Trans>
+						</p>
+						{isOwner ? (
+							<>
+								<p className={styles.lockedText}>
+									<Trans>
+										Buy a custom invite link (e.g. multiverse.forum/your-server) for this server, permanently, for
+										$1.99 in SOL.
+									</Trans>
+								</p>
+								<Button type="button" onClick={handleBuyVanityLink}>
+									<Trans>Buy for $1.99 (SOL)</Trans>
+								</Button>
+							</>
+						) : (
+							<p className={styles.lockedText}>
+								<Trans>Only the server owner can purchase a permanent vanity link.</Trans>
+							</p>
+						)}
+					</div>
+				</div>
 			</div>
 		);
 	}

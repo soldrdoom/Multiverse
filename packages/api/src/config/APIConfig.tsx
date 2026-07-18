@@ -159,22 +159,6 @@ export interface APIConfig {
 		password: string;
 	};
 
-	stripe: {
-		enabled: boolean;
-		secretKey?: string;
-		webhookSecret?: string;
-		prices?: {
-			monthlyUsd?: string;
-			monthlyEur?: string;
-			yearlyUsd?: string;
-			yearlyEur?: string;
-			gift1MonthUsd?: string;
-			gift1MonthEur?: string;
-			gift1YearUsd?: string;
-			gift1YearEur?: string;
-		};
-	};
-
 	cloudflare: {
 		purgeEnabled: boolean;
 		zoneId?: string;

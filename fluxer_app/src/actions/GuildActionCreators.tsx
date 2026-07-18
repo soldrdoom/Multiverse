@@ -160,6 +160,39 @@ export async function updateVanityURL(guildId: string, code: string | null): Pro
 	}
 }
 
+export interface GuildVanityInvoice {
+	purchase_id: string;
+	merchant_wallet: string;
+	amount_lamports: number;
+	recent_blockhash: string;
+	usd_amount: number;
+	sol_price_usd: number;
+}
+
+export async function createVanityPurchaseInvoice(guildId: string): Promise<GuildVanityInvoice> {
+	try {
+		const response = await http.post<GuildVanityInvoice>(Endpoints.GUILD_VANITY_PURCHASE_INVOICE(guildId));
+		logger.debug(`Created vanity purchase invoice for guild ${guildId}`);
+		return response.body;
+	} catch (error) {
+		logger.error(`Failed to create vanity purchase invoice for guild ${guildId}:`, error);
+		throw error;
+	}
+}
+
+export async function verifyVanityPurchase(guildId: string, purchaseId: string, txSignature: string): Promise<void> {
+	try {
+		await http.post(Endpoints.GUILD_VANITY_PURCHASE_VERIFY(guildId), {
+			purchase_id: purchaseId,
+			tx_signature: txSignature,
+		});
+		logger.debug(`Verified vanity purchase for guild ${guildId}`);
+	} catch (error) {
+		logger.error(`Failed to verify vanity purchase for guild ${guildId}:`, error);
+		throw error;
+	}
+}
+
 export async function createRole(guildId: string, name: string): Promise<void> {
 	try {
 		await http.post({url: Endpoints.GUILD_ROLES(guildId), body: {name}});

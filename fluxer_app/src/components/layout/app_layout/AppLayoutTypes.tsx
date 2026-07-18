@@ -23,15 +23,11 @@ export const NagbarType = {
 	UNCLAIMED_ACCOUNT: 'unclaimed-account',
 	EMAIL_VERIFICATION: 'email-verification',
 	DESKTOP_NOTIFICATION: 'desktop-notification',
-	PREMIUM_GRACE_PERIOD: 'premium-grace-period',
-	PREMIUM_EXPIRED: 'premium-expired',
 	PREMIUM_ONBOARDING: 'premium-onboarding',
-	GIFT_INVENTORY: 'gift-inventory',
 	BULK_DELETE_PENDING: 'bulk-delete-pending',
 	DESKTOP_DOWNLOAD: 'desktop-download',
 	MOBILE_DOWNLOAD: 'mobile-download',
 	GUILD_MEMBERSHIP_CTA: 'guild-membership-cta',
-	VISIONARY_MFA: 'visionary-mfa',
 } as const;
 
 export type NagbarType = ValueOf<typeof NagbarType>;
@@ -50,15 +46,11 @@ export interface NagbarConditions {
 	userIsUnclaimed: boolean;
 	userNeedsVerification: boolean;
 	canShowDesktopNotification: boolean;
-	canShowPremiumGracePeriod: boolean;
-	canShowPremiumExpired: boolean;
 	canShowPremiumOnboarding: boolean;
-	canShowGiftInventory: boolean;
 	canShowDesktopDownload: boolean;
 	canShowMobileDownload: boolean;
 	hasPendingBulkMessageDeletion: boolean;
 	canShowGuildMembershipCta: boolean;
-	canShowVisionaryMfa: boolean;
 }
 
 export const UPDATE_DISMISS_KEY = 'fluxer_update_dismissed_until';

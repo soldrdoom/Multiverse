@@ -44,8 +44,6 @@ import {
 } from '@fluxer/constants/src/UserConstants';
 import * as BucketUtils from '@fluxer/snowflake/src/SnowflakeBuckets';
 import type {IWorkerService} from '@fluxer/worker/src/contracts/IWorkerService';
-import {ms} from 'itty-time';
-import type Stripe from 'stripe';
 
 const CHUNK_SIZE = 100;
 
@@ -61,7 +59,6 @@ export interface UserDeletionDependencies {
 	gatewayService: IGatewayService;
 	snowflakeService: SnowflakeService;
 	discriminatorService: DiscriminatorService;
-	stripe: Stripe | null;
 	applicationRepository: ApplicationRepository;
 	workerService: IWorkerService;
 }
@@ -82,7 +79,6 @@ export async function processUserDeletion(
 		userCacheService,
 		gatewayService,
 		snowflakeService,
-		stripe,
 		applicationRepository,
 		workerService,
 	} = deps;
@@ -93,57 +89,6 @@ export async function processUserDeletion(
 	if (!user) {
 		Logger.warn({userId}, 'User not found, skipping deletion');
 		return;
-	}
-
-	if (user.stripeSubscriptionId && stripe) {
-		const MAX_RETRIES = 3;
-		let lastError: unknown = null;
-
-		for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-			try {
-				Logger.debug(
-					{userId, subscriptionId: user.stripeSubscriptionId, attempt},
-					'Canceling active Stripe subscription',
-				);
-				await stripe.subscriptions.cancel(user.stripeSubscriptionId, {
-					invoice_now: false,
-					prorate: false,
-				});
-				Logger.debug({userId, subscriptionId: user.stripeSubscriptionId}, 'Stripe subscription cancelled successfully');
-				lastError = null;
-				break;
-			} catch (error) {
-				lastError = error;
-				const isLastAttempt = attempt === MAX_RETRIES - 1;
-
-				Logger.error(
-					{
-						error,
-						userId,
-						subscriptionId: user.stripeSubscriptionId,
-						attempt: attempt + 1,
-						maxRetries: MAX_RETRIES,
-						willRetry: !isLastAttempt,
-					},
-					isLastAttempt
-						? 'Failed to cancel Stripe subscription after all retries'
-						: 'Failed to cancel Stripe subscription, retrying with exponential backoff',
-				);
-
-				if (!isLastAttempt) {
-					const backoffDelay = ms('1 second') * 2 ** attempt + Math.random() * 500;
-					await new Promise((resolve) => setTimeout(resolve, backoffDelay));
-				}
-			}
-		}
-
-		if (lastError) {
-			const error = new Error(
-				`Failed to cancel Stripe subscription ${user.stripeSubscriptionId} for user ${userId} after ${MAX_RETRIES} attempts. User deletion halted to prevent billing issues.`,
-				{cause: lastError},
-			);
-			throw error;
-		}
 	}
 
 	const deletedUserId = createUserID(await snowflakeService.generate());

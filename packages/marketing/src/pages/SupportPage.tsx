@@ -34,45 +34,48 @@ export async function renderSupportPage(c: Context, ctx: MarketingContext): Prom
 		'website',
 	);
 
-	return c.html(renderContentLayout(c, ctx, meta, content, {footerClassName: 'rounded-t-3xl'}));
+	return c.html(renderContentLayout(c, ctx, meta, content, {footerClassName: 'rounded-t-3xl', theme: 'dark'}));
 }
+
+const darkCardClass =
+	'block rounded-xl border border-white/10 bg-[#151921] p-5 transition-colors duration-150 ease-in-out hover:border-white/20';
 
 function renderSupportBody(ctx: MarketingContext): JSX.Element {
 	return (
 		<section class="mx-auto max-w-5xl">
 			<header class="mb-10 space-y-3">
-				<h1 class="font-bold text-4xl text-foreground">
+				<h1 class="font-bold text-4xl text-white">
 					{ctx.i18n.getMessage('company_and_resources.support.label', ctx.locale)}
 				</h1>
-				<p class="text-lg text-muted-foreground">
+				<p class="text-lg text-white/70">
 					{ctx.i18n.getMessage('company_and_resources.support.page_description', ctx.locale)}
 				</p>
 			</header>
 			<div class="help-grid">
-				<a href="https://docs.fluxer.app" class="help-card">
-					<h2 class="mb-1 font-semibold text-foreground">
+				<a href="https://docs.fluxer.app" class={darkCardClass}>
+					<h2 class="mb-1 font-semibold text-white">
 						{ctx.i18n.getMessage('company_and_resources.support.documentation', ctx.locale)}
 					</h2>
-					<p class="text-muted-foreground text-sm">
+					<p class="text-sm text-white/60">
 						{ctx.i18n.getMessage('company_and_resources.support.documentation_description', ctx.locale)}
 					</p>
 				</a>
-				<div class="help-card relative">
-					<div class="caption absolute -top-2 -right-2 rounded-full bg-[#4641D9] px-3 py-1 text-white">
+				<div class={`${darkCardClass} relative`}>
+					<div class="caption absolute -top-2 -right-2 rounded-full bg-[#00C864] px-3 py-1 text-[#0B0E14]">
 						{ctx.i18n.getMessage('general.coming_soon.label', ctx.locale)}
 					</div>
-					<h2 class="mb-1 font-semibold text-foreground">
+					<h2 class="mb-1 font-semibold text-white">
 						{ctx.i18n.getMessage('company_and_resources.support.whitepaper', ctx.locale)}
 					</h2>
-					<p class="text-muted-foreground text-sm">
+					<p class="text-sm text-white/60">
 						{ctx.i18n.getMessage('company_and_resources.support.whitepaper_description', ctx.locale)}
 					</p>
 				</div>
-				<a href="https://blog.fluxer.app/roadmap-2026" class="help-card">
-					<h2 class="mb-1 font-semibold text-foreground">
+				<a href="https://blog.fluxer.app/roadmap-2026" class={darkCardClass}>
+					<h2 class="mb-1 font-semibold text-white">
 						{ctx.i18n.getMessage('company_and_resources.support.roadmap', ctx.locale)}
 					</h2>
-					<p class="text-muted-foreground text-sm">
+					<p class="text-sm text-white/60">
 						{ctx.i18n.getMessage('company_and_resources.support.roadmap_description', ctx.locale)}
 					</p>
 				</a>

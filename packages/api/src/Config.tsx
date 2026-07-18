@@ -255,23 +255,6 @@ export function buildAPIConfigFromMaster(master: MasterConfig): APIConfig {
 			username: (master.integrations.search as {username?: string}).username ?? '',
 			password: (master.integrations.search as {password?: string}).password ?? '',
 		},
-		stripe: {
-			enabled: master.integrations.stripe.enabled,
-			secretKey: master.integrations.stripe.secret_key,
-			webhookSecret: master.integrations.stripe.webhook_secret,
-			prices: master.integrations.stripe.prices
-				? {
-						monthlyUsd: master.integrations.stripe.prices.monthly_usd,
-						monthlyEur: master.integrations.stripe.prices.monthly_eur,
-						yearlyUsd: master.integrations.stripe.prices.yearly_usd,
-						yearlyEur: master.integrations.stripe.prices.yearly_eur,
-						gift1MonthUsd: master.integrations.stripe.prices.gift_1_month_usd,
-						gift1MonthEur: master.integrations.stripe.prices.gift_1_month_eur,
-						gift1YearUsd: master.integrations.stripe.prices.gift_1_year_usd,
-						gift1YearEur: master.integrations.stripe.prices.gift_1_year_eur,
-					}
-				: undefined,
-		},
 		cloudflare: {
 			purgeEnabled: master.integrations.cloudflare.purge_enabled,
 			zoneId: master.integrations.cloudflare.zone_id,

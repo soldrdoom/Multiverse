@@ -46,10 +46,6 @@ import {CsamEvidenceRetentionService} from '@fluxer/api/src/csam/CsamEvidenceRet
 import {CsamLegalHoldService} from '@fluxer/api/src/csam/CsamLegalHoldService';
 import {createNcmecApiConfig, NcmecReporter} from '@fluxer/api/src/csam/NcmecReporter';
 import {NcmecSubmissionService} from '@fluxer/api/src/csam/NcmecSubmissionService';
-import {DonationRepository} from '@fluxer/api/src/donation/DonationRepository';
-import {DonationService} from '@fluxer/api/src/donation/DonationService';
-import {DonationCheckoutService} from '@fluxer/api/src/donation/services/DonationCheckoutService';
-import {DonationMagicLinkService} from '@fluxer/api/src/donation/services/DonationMagicLinkService';
 import {DownloadService} from '@fluxer/api/src/download/DownloadService';
 import {createEmailProvider} from '@fluxer/api/src/email/EmailProviderFactory';
 import {FavoriteMemeRepository} from '@fluxer/api/src/favorite_meme/FavoriteMemeRepository';
@@ -132,7 +128,6 @@ import {ReportService} from '@fluxer/api/src/report/ReportService';
 import {RpcService} from '@fluxer/api/src/rpc/RpcService';
 import {getGuildSearchService, getReportSearchService} from '@fluxer/api/src/SearchFactory';
 import {SearchService} from '@fluxer/api/src/search/SearchService';
-import {StripeService} from '@fluxer/api/src/stripe/StripeService';
 import {TenorService} from '@fluxer/api/src/tenor/TenorService';
 import {ThemeService} from '@fluxer/api/src/theme/ThemeService';
 import type {HonoEnv} from '@fluxer/api/src/types/HonoEnv';
@@ -786,35 +781,6 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	const userContentRequestService = new UserContentRequestService(userService, userCacheService, mediaService);
 	const userRelationshipRequestService = new UserRelationshipRequestService(userService, userCacheService);
 
-	const donationRepository = new DonationRepository();
-	let stripeService: StripeService | null = null;
-	let donationService: DonationService | null = null;
-	if (!Config.instance.selfHosted) {
-		stripeService = new StripeService(
-			userRepository,
-			userCacheService,
-			authService,
-			gatewayService,
-			emailService,
-			guildRepository,
-			guildService,
-			cacheService,
-			donationRepository,
-		);
-
-		const donationMagicLinkService = new DonationMagicLinkService(
-			donationRepository,
-			emailService,
-			emailDnsValidationService,
-		);
-		const donationCheckoutService = new DonationCheckoutService(
-			stripeService.getStripe(),
-			donationRepository,
-			emailDnsValidationService,
-		);
-		donationService = new DonationService(donationMagicLinkService, donationCheckoutService);
-	}
-
 	const sweegoWebhookService = new SweegoWebhookService(userRepository, gatewayService);
 
 	const applicationService = new ApplicationService({
@@ -938,12 +904,6 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	ctx.set('snowflakeService', snowflakeService);
 	ctx.set('storageService', storageService);
 	ctx.set('themeService', themeService);
-	if (stripeService) {
-		ctx.set('stripeService', stripeService);
-	}
-	if (donationService) {
-		ctx.set('donationService', donationService);
-	}
 	ctx.set('sudoModeValid', false);
 	ctx.set('klipyService', klipyService);
 	ctx.set('tenorService', tenorService);

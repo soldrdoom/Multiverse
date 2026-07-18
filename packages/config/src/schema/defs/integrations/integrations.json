@@ -24,10 +24,6 @@
 				"$ref": "#/$defs/search_integration",
 				"default": {}
 			},
-			"stripe": {
-				"$ref": "#/$defs/stripe_integration",
-				"default": {}
-			},
 			"photo_dna": {
 				"$ref": "#/$defs/photo_dna_integration",
 				"default": {}

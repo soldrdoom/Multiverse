@@ -61,6 +61,16 @@ export const GuildRateLimitConfigs = {
 		config: {limit: 10, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
 
+	GUILD_VANITY_PURCHASE_INVOICE: {
+		bucket: 'guild:vanity_purchase:invoice::guild_id',
+		config: {limit: 10, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+
+	GUILD_VANITY_PURCHASE_VERIFY: {
+		bucket: 'guild:vanity_purchase:verify::guild_id',
+		config: {limit: 10, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+
 	GUILD_MEMBERS: {
 		bucket: 'guild:members::guild_id',
 		config: {limit: 40, windowMs: ms('10 seconds')},

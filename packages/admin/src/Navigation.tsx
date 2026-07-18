@@ -181,30 +181,6 @@ export function getSections(): Array<NavSection> {
 				},
 			],
 		},
-		{
-			title: 'Codes',
-			items: [
-				{
-					title: 'Gift Codes',
-					path: '/gift-codes',
-					activeKey: 'gift-codes',
-					requiredAcls: [AdminACLs.GIFT_CODES_GENERATE],
-					hostedOnly: true,
-				},
-			],
-		},
-		{
-			title: 'Premium',
-			items: [
-				{
-					title: 'Visionary Slots',
-					path: '/visionary-slots',
-					activeKey: 'visionary-slots',
-					requiredAcls: [AdminACLs.VISIONARY_SLOT_VIEW],
-					hostedOnly: true,
-				},
-			],
-		},
 	];
 }
 

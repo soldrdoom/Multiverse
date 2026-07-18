@@ -17,21 +17,4 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {useMemo} from 'react';
-
-export interface PremiumModalProps {
-	defaultGiftMode?: boolean;
-}
-
-export interface PremiumModalLogicState {
-	defaultGiftMode: boolean;
-}
-
-export function usePremiumModalLogic({defaultGiftMode = false}: PremiumModalProps): PremiumModalLogicState {
-	return useMemo(
-		() => ({
-			defaultGiftMode,
-		}),
-		[defaultGiftMode],
-	);
-}
+export interface PremiumModalProps {}

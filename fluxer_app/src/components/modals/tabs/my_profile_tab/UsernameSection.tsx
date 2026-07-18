@@ -19,18 +19,11 @@
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
-import * as PremiumModalActionCreators from '@app/actions/PremiumModalActionCreators';
 import {MultiverseTagChangeModal} from '@app/components/modals/MultiverseTagChangeModal';
 import styles from '@app/components/modals/tabs/my_profile_tab/UsernameSection.module.css';
 import {Button} from '@app/components/uikit/button/Button';
-import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import type {UserRecord} from '@app/records/UserRecord';
-import {LimitResolver} from '@app/utils/limits/LimitResolverAdapter';
-import {isLimitToggleEnabled} from '@app/utils/limits/LimitUtils';
-import {shouldShowPremiumFeatures} from '@app/utils/PremiumUtils';
-import {msg} from '@lingui/core/macro';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {CrownIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 
 interface UsernameSectionProps {
@@ -41,10 +34,9 @@ interface UsernameSectionProps {
 export const UsernameSection = observer(({isClaimed, user}: UsernameSectionProps) => {
 	const {t} = useLingui();
 
-	const hasCustomDiscriminator = isLimitToggleEnabled(
-		{feature_custom_discriminator: LimitResolver.resolve({key: 'feature_custom_discriminator', fallback: 0})},
-		'feature_custom_discriminator',
-	);
+	const handleChangeTag = () => {
+		ModalActionCreators.push(modal(() => <MultiverseTagChangeModal user={user} />));
+	};
 
 	return (
 		<div>
@@ -53,28 +45,9 @@ export const UsernameSection = observer(({isClaimed, user}: UsernameSectionProps
 			</div>
 
 			<div className={styles.actions}>
-				<Tooltip text={t(msg`MultiverseTag customization is coming soon with Plutonium`)}>
-					<div>
-						<Button variant="primary" small disabled>
-							<Trans>Change MultiverseTag</Trans>
-						</Button>
-					</div>
-				</Tooltip>
-
-				{!hasCustomDiscriminator && shouldShowPremiumFeatures() && (
-					<Tooltip text={t(msg`Customize your 4-digit tag (#${user.discriminator}) to your liking with Plutonium`)}>
-						<button
-							type="button"
-							onClick={() => {
-								PremiumModalActionCreators.open();
-							}}
-							className={styles.premiumButton}
-							aria-label={t(msg`Get Plutonium to customize your tag`)}
-						>
-							<CrownIcon weight="fill" size={18} />
-						</button>
-					</Tooltip>
-				)}
+				<Button variant="primary" small disabled={!isClaimed} onClick={handleChangeTag} aria-label={t`Change MultiverseTag`}>
+					<Trans>Change MultiverseTag</Trans>
+				</Button>
 			</div>
 
 			<div className={styles.description}>

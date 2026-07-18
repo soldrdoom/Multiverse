@@ -48,9 +48,7 @@ export const PremiumOnboardingNagbar = observer(({isMobile}: {isMobile: boolean}
 			<NagbarContent
 				isMobile={isMobile}
 				onDismiss={handleDismiss}
-				message={
-					<Trans>Welcome to Multiverse Plutonium! Explore your premium features and manage your subscription.</Trans>
-				}
+				message={<Trans>Welcome to Multiverse Plutonium! Every premium feature is included free — explore what's new.</Trans>}
 				actions={
 					<NagbarButton isMobile={isMobile} onClick={handleOpenPremiumSettings}>
 						<Trans>View Premium Features</Trans>

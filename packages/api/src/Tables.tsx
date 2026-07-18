@@ -134,6 +134,13 @@ import {
 	type GuildStickerRow,
 } from '@fluxer/api/src/database/types/GuildTypes';
 import {
+	GUILD_VANITY_PURCHASE_BY_TX_SIGNATURE_COLUMNS,
+	GUILD_VANITY_PURCHASE_COLUMNS,
+	type GuildVanityPurchaseByTxSignatureRow,
+	type GuildVanityPurchaseRow,
+} from '@fluxer/api/src/database/types/GuildVanityPurchaseTypes';
+import {USER_TIP_COLUMNS, type UserTipRow} from '@fluxer/api/src/database/types/UserTipTypes';
+import {
 	INSTANCE_CONFIGURATION_COLUMNS,
 	type InstanceConfigurationRow,
 } from '@fluxer/api/src/database/types/InstanceConfigTypes';
@@ -168,26 +175,6 @@ import {
 	type OAuth2RefreshTokenByUserRow,
 	type OAuth2RefreshTokenRow,
 } from '@fluxer/api/src/database/types/OAuth2Types';
-import {
-	GIFT_CODE_BY_CREATOR_COLUMNS,
-	GIFT_CODE_BY_PAYMENT_INTENT_COLUMNS,
-	GIFT_CODE_BY_REDEEMER_COLUMNS,
-	GIFT_CODE_COLUMNS,
-	type GiftCodeByCreatorRow,
-	type GiftCodeByPaymentIntentRow,
-	type GiftCodeByRedeemerRow,
-	type GiftCodeRow,
-	PAYMENT_BY_PAYMENT_INTENT_COLUMNS,
-	PAYMENT_BY_SUBSCRIPTION_COLUMNS,
-	PAYMENT_BY_USER_COLUMNS,
-	PAYMENT_COLUMNS,
-	type PaymentByPaymentIntentRow,
-	type PaymentBySubscriptionRow,
-	type PaymentByUserRow,
-	type PaymentRow,
-	VISIONARY_SLOT_COLUMNS,
-	type VisionarySlotRow,
-} from '@fluxer/api/src/database/types/PaymentTypes';
 import {
 	DSA_REPORT_EMAIL_VERIFICATION_COLUMNS,
 	DSA_REPORT_TICKET_COLUMNS,
@@ -623,65 +610,6 @@ export const PushSubscriptions = defineTable<PushSubscriptionRow, 'user_id' | 's
 	name: 'push_subscriptions',
 	columns: PUSH_SUBSCRIPTION_COLUMNS,
 	primaryKey: ['user_id', 'subscription_id'],
-});
-
-export const Payments = defineTable<PaymentRow, 'checkout_session_id'>({
-	name: 'payments',
-	columns: PAYMENT_COLUMNS,
-	primaryKey: ['checkout_session_id'],
-});
-
-export const PaymentsByPaymentIntent = defineTable<PaymentByPaymentIntentRow, 'payment_intent_id'>({
-	name: 'payments_by_payment_intent',
-	columns: PAYMENT_BY_PAYMENT_INTENT_COLUMNS,
-	primaryKey: ['payment_intent_id'],
-});
-
-export const PaymentsBySubscription = defineTable<PaymentBySubscriptionRow, 'subscription_id'>({
-	name: 'payments_by_subscription',
-	columns: PAYMENT_BY_SUBSCRIPTION_COLUMNS,
-	primaryKey: ['subscription_id'],
-});
-
-export const PaymentsByUser = defineTable<PaymentByUserRow, 'user_id' | 'created_at'>({
-	name: 'payments_by_user',
-	columns: PAYMENT_BY_USER_COLUMNS,
-	primaryKey: ['user_id', 'created_at'],
-});
-
-export const VisionarySlots = defineTable<VisionarySlotRow, 'slot_index'>({
-	name: 'visionary_slots',
-	columns: VISIONARY_SLOT_COLUMNS,
-	primaryKey: ['slot_index'],
-});
-
-export const GiftCodes = defineTable<GiftCodeRow, 'code'>({
-	name: 'gift_codes',
-	columns: GIFT_CODE_COLUMNS,
-	primaryKey: ['code'],
-});
-
-export const GiftCodesByCreator = defineTable<GiftCodeByCreatorRow, 'created_by_user_id' | 'code'>({
-	name: 'gift_codes_by_creator',
-	columns: GIFT_CODE_BY_CREATOR_COLUMNS,
-	primaryKey: ['created_by_user_id', 'code'],
-});
-
-export const GiftCodesByPaymentIntent = defineTable<
-	GiftCodeByPaymentIntentRow,
-	'stripe_payment_intent_id' | 'code',
-	'stripe_payment_intent_id'
->({
-	name: 'gift_codes_by_payment_intent',
-	columns: GIFT_CODE_BY_PAYMENT_INTENT_COLUMNS,
-	primaryKey: ['stripe_payment_intent_id', 'code'],
-	partitionKey: ['stripe_payment_intent_id'],
-});
-
-export const GiftCodesByRedeemer = defineTable<GiftCodeByRedeemerRow, 'redeemed_by_user_id' | 'code'>({
-	name: 'gift_codes_by_redeemer',
-	columns: GIFT_CODE_BY_REDEEMER_COLUMNS,
-	primaryKey: ['redeemed_by_user_id', 'code'],
 });
 
 export const AdminArchivesBySubject = defineTable<AdminArchiveRow, 'subject_type' | 'subject_id' | 'archive_id'>({
@@ -1123,4 +1051,23 @@ export const CosmeticListingsByCreator = defineTable<CosmeticListingByCreatorRow
 	columns: COSMETIC_LISTING_BY_CREATOR_COLUMNS,
 	primaryKey: ['creator_id', 'id'],
 	partitionKey: ['creator_id'],
+});
+
+export const GuildVanityPurchases = defineTable<GuildVanityPurchaseRow, 'guild_id' | 'purchase_id'>({
+	name: 'guild_vanity_purchases',
+	columns: GUILD_VANITY_PURCHASE_COLUMNS,
+	primaryKey: ['guild_id', 'purchase_id'],
+	partitionKey: ['guild_id'],
+});
+
+export const GuildVanityPurchasesByTxSignature = defineTable<GuildVanityPurchaseByTxSignatureRow, 'tx_signature'>({
+	name: 'guild_vanity_purchases_by_tx_signature',
+	columns: GUILD_VANITY_PURCHASE_BY_TX_SIGNATURE_COLUMNS,
+	primaryKey: ['tx_signature'],
+});
+
+export const UserTips = defineTable<UserTipRow, 'tx_signature'>({
+	name: 'user_tips',
+	columns: USER_TIP_COLUMNS,
+	primaryKey: ['tx_signature'],
 });

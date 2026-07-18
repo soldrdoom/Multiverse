@@ -35,7 +35,6 @@ import {ReportRepository} from '@fluxer/api/src/report/ReportRepository';
 import {NatsApiRpcListener} from '@fluxer/api/src/rpc/NatsApiRpcListener';
 import {initializeSearch, shutdownSearch} from '@fluxer/api/src/SearchFactory';
 import {warmupAdminSearchIndexes} from '@fluxer/api/src/search/SearchWarmup';
-import {VisionarySlotInitializer} from '@fluxer/api/src/stripe/VisionarySlotInitializer';
 import {UserRepository} from '@fluxer/api/src/user/repositories/UserRepository';
 import {VoiceDataInitializer} from '@fluxer/api/src/voice/VoiceDataInitializer';
 import {JetStreamWorkerQueue} from '@fluxer/api/src/worker/JetStreamWorkerQueue';
@@ -132,12 +131,6 @@ export function createInitializer(config: APIConfig, logger: ILogger): () => Pro
 			await voiceDataInitializer.initialize();
 			await ensureVoiceResourcesInitialized();
 			logger.info('Voice data initialized');
-		}
-
-		if (config.dev.testModeEnabled && config.stripe.enabled) {
-			const visionarySlotInitializer = new VisionarySlotInitializer();
-			await visionarySlotInitializer.initialize();
-			logger.info('Stripe visionary slots initialized');
 		}
 
 		if (config.dev.testModeEnabled) {

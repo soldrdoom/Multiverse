@@ -20,11 +20,7 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource hono/jsx */
 
-import {ArrowRightIcon} from '@fluxer/marketing/src/components/icons/ArrowRightIcon';
-import {MultiverseLogoWordmarkIcon} from '@fluxer/marketing/src/components/icons/FluxerLogoWordmarkIcon';
-import {HeartIcon} from '@fluxer/marketing/src/components/icons/HeartIcon';
 import {RssIcon} from '@fluxer/marketing/src/components/icons/RssIcon';
-import {MarketingButtonInverted} from '@fluxer/marketing/src/components/MarketingButton';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
 import {href} from '@fluxer/marketing/src/UrlUtils';
 import {GRADIENTS} from '@fluxer/ui/src/styles/Gradients';
@@ -75,36 +71,13 @@ export function Footer(props: FooterProps): JSX.Element {
 			class={`${GRADIENTS.purple} px-6 py-20 text-white sm:px-8 md:px-12 md:py-24 lg:px-16 xl:px-20 ${className}`}
 		>
 			<div class="mx-auto max-w-7xl">
-				<div class="mb-10 md:mb-12">
-					<div class="flex flex-col items-start gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-						<div class="flex flex-col items-start gap-3">
-							<div class="flex shrink-0 items-center justify-center sm:h-12 sm:w-12 sm:rounded-full sm:bg-white/10">
-								<HeartIcon class="h-8 w-8 text-white" />
-							</div>
-							<p class="body-lg max-w-xl text-white/90">
-								{ctx.i18n.getMessage('footer.help_support_an_independent_communication', ctx.locale)}
-							</p>
-						</div>
-						<MarketingButtonInverted
-							href={link('/donate')}
-							size="medium"
-							class="mt-2 inline-flex w-fit shrink-0 items-center justify-center gap-2 rounded-full transition-opacity hover:opacity-90 lg:mt-0"
-						>
-							{ctx.i18n.getMessage('footer.donate', ctx.locale)}
-							<ArrowRightIcon class="h-4 w-4 shrink-0" />
-						</MarketingButtonInverted>
-					</div>
-				</div>
-
-				<div class="mb-10">
-					<MultiverseLogoWordmarkIcon class="h-8" />
+				<div class="mb-10 flex items-center gap-2">
+					<img src={`${ctx.staticCdnEndpoint}/images/multiverse-mark.png`} alt="" class="h-8 w-8 shrink-0 object-contain" />
+					<span class="font-display font-bold text-[#00C864] text-xl">Multiverse</span>
 				</div>
 
 				<div class="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10 md:gap-x-12 md:gap-y-10 min-[480px]:grid-cols-2 min-[480px]:gap-x-6 min-[480px]:gap-y-8">
 					<FooterSection title={ctx.i18n.getMessage('footer.fluxer', ctx.locale)}>
-						<FooterLink href={link('/plutonium')}>
-							{ctx.i18n.getMessage('footer.plutonium_tier', ctx.locale)}
-						</FooterLink>
 						<FooterLink href={link('/partners')}>{ctx.i18n.getMessage('footer.partners', ctx.locale)}</FooterLink>
 						<FooterLink href={link('/download')}>{ctx.i18n.getMessage('footer.download', ctx.locale)}</FooterLink>
 						<FooterLink href="https://github.com/fluxerapp/fluxer">

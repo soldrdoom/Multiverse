@@ -23,7 +23,6 @@ import {BlueskyOAuthController} from '@fluxer/api/src/bluesky/BlueskyOAuthContro
 import {ChannelController} from '@fluxer/api/src/channel/ChannelController';
 import type {APIConfig} from '@fluxer/api/src/config/APIConfig';
 import {ConnectionController} from '@fluxer/api/src/connection/ConnectionController';
-import {DonationController} from '@fluxer/api/src/donation/DonationController';
 import {DownloadController} from '@fluxer/api/src/download/DownloadController';
 import {FavoriteMemeController} from '@fluxer/api/src/favorite_meme/FavoriteMemeController';
 import {GatewayController} from '@fluxer/api/src/gateway/GatewayController';
@@ -37,7 +36,6 @@ import {registerPackControllers} from '@fluxer/api/src/pack/controllers';
 import {ReadStateController} from '@fluxer/api/src/read_state/ReadStateController';
 import {ReportController} from '@fluxer/api/src/report/ReportController';
 import {SearchController} from '@fluxer/api/src/search/controllers/SearchController';
-import {StripeController} from '@fluxer/api/src/stripe/StripeController';
 import {TenorController} from '@fluxer/api/src/tenor/TenorController';
 import {TestHarnessController} from '@fluxer/api/src/test/TestHarnessController';
 import {ThemeController} from '@fluxer/api/src/theme/ThemeController';
@@ -77,9 +75,4 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	WebhookController(routes);
 	OAuth2Controller(routes);
 	OAuth2ApplicationsController(routes);
-
-	if (!config.instance.selfHosted) {
-		DonationController(routes);
-		StripeController(routes);
-	}
 }

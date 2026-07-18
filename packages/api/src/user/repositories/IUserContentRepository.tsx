@@ -19,14 +19,10 @@
 
 import type {ChannelID, MessageID, UserID} from '@fluxer/api/src/BrandedTypes';
 import type {ExactRow} from '@fluxer/api/src/database/types/DatabaseRowTypes';
-import type {GiftCodeRow, PaymentBySubscriptionRow, PaymentRow} from '@fluxer/api/src/database/types/PaymentTypes';
 import type {PushSubscriptionRow, RecentMentionRow} from '@fluxer/api/src/database/types/UserTypes';
-import type {GiftCode} from '@fluxer/api/src/models/GiftCode';
-import type {Payment} from '@fluxer/api/src/models/Payment';
 import type {PushSubscription} from '@fluxer/api/src/models/PushSubscription';
 import type {RecentMention} from '@fluxer/api/src/models/RecentMention';
 import type {SavedMessage} from '@fluxer/api/src/models/SavedMessage';
-import type {VisionarySlot} from '@fluxer/api/src/models/VisionarySlot';
 
 export interface IUserContentRepository {
 	getRecentMention(userId: UserID, messageId: MessageID): Promise<RecentMention | null>;
@@ -48,37 +44,9 @@ export interface IUserContentRepository {
 	deleteSavedMessage(userId: UserID, messageId: MessageID): Promise<void>;
 	deleteAllSavedMessages(userId: UserID): Promise<void>;
 
-	createGiftCode(data: ExactRow<GiftCodeRow>): Promise<void>;
-	findGiftCode(code: string): Promise<GiftCode | null>;
-	findGiftCodeByPaymentIntent(paymentIntentId: string): Promise<GiftCode | null>;
-	findGiftCodesByCreator(userId: UserID): Promise<Array<GiftCode>>;
-	redeemGiftCode(code: string, userId: UserID): Promise<{applied: boolean}>;
-	updateGiftCode(code: string, data: Partial<GiftCodeRow>): Promise<void>;
-	linkGiftCodeToCheckoutSession(code: string, checkoutSessionId: string): Promise<void>;
-
 	listPushSubscriptions(userId: UserID): Promise<Array<PushSubscription>>;
 	createPushSubscription(data: ExactRow<PushSubscriptionRow>): Promise<PushSubscription>;
 	deletePushSubscription(userId: UserID, subscriptionId: string): Promise<void>;
 	getBulkPushSubscriptions(userIds: Array<UserID>): Promise<Map<UserID, Array<PushSubscription>>>;
 	deleteAllPushSubscriptions(userId: UserID): Promise<void>;
-
-	createPayment(data: {
-		checkout_session_id: string;
-		user_id: UserID;
-		price_id: string;
-		product_type: string;
-		status: string;
-		is_gift: boolean;
-		created_at: Date;
-	}): Promise<void>;
-	updatePayment(data: Partial<PaymentRow> & {checkout_session_id: string}): Promise<{applied: boolean}>;
-	getPaymentByCheckoutSession(checkoutSessionId: string): Promise<Payment | null>;
-	getPaymentByPaymentIntent(paymentIntentId: string): Promise<Payment | null>;
-	getSubscriptionInfo(subscriptionId: string): Promise<PaymentBySubscriptionRow | null>;
-
-	listVisionarySlots(): Promise<Array<VisionarySlot>>;
-	expandVisionarySlots(byCount: number): Promise<void>;
-	shrinkVisionarySlots(toCount: number): Promise<void>;
-	reserveVisionarySlot(slotIndex: number, userId: UserID): Promise<void>;
-	unreserveVisionarySlot(slotIndex: number, userId: UserID): Promise<void>;
 }

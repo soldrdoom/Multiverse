@@ -256,26 +256,11 @@ const ADDITIONAL_SEARCHABLE_ITEMS: Array<SearchableSettingDescriptor> = [
 	},
 
 	{
-		id: 'plutonium-subscription',
-		tabType: 'plutonium',
-		label: msg`Subscription`,
-		keywords: [msg`plutonium`, msg`premium`, msg`subscription`, msg`nitro`, msg`upgrade`, msg`plan`],
-		description: msg`Manage your subscription`,
-	},
-	{
 		id: 'plutonium-perks',
 		tabType: 'plutonium',
-		label: msg`Premium Perks`,
-		keywords: [msg`perks`, msg`benefits`, msg`features`, msg`premium`],
-		description: msg`View premium perks`,
-	},
-
-	{
-		id: 'gift-inventory',
-		tabType: 'gift_inventory',
-		label: msg`Gift Inventory`,
-		keywords: [msg`gifts`, msg`inventory`, msg`codes`, msg`redeem`, msg`gift codes`],
-		description: msg`Manage your gifts`,
+		label: msg`Plutonium`,
+		keywords: [msg`plutonium`, msg`perks`, msg`benefits`, msg`features`, msg`premium`],
+		description: msg`View included Plutonium perks`,
 	},
 
 	{

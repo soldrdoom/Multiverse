@@ -39,7 +39,6 @@ import type {SettingsTab} from '@app/components/modals/utils/SettingsConstants';
 import {getCategoryLabel} from '@app/components/modals/utils/SettingsConstants';
 import type {UserSettingsTabType} from '@app/components/modals/utils/SettingsSectionRegistry';
 import {filterSettingsTabsForDeveloperMode} from '@app/components/modals/utils/SettingsTabFilters';
-import {MentionBadgeAnimated} from '@app/components/uikit/MentionBadge';
 import {Scroller, type ScrollerHandle} from '@app/components/uikit/Scroller';
 import {Spinner} from '@app/components/uikit/Spinner';
 import {usePressable} from '@app/hooks/usePressable';
@@ -48,7 +47,6 @@ import {Logger} from '@app/lib/Logger';
 import {activateLatestServiceWorker} from '@app/lib/Versioning';
 import * as PushSubscriptionService from '@app/services/push/PushSubscriptionService';
 import DeveloperModeStore from '@app/stores/DeveloperModeStore';
-import UserStore from '@app/stores/UserStore';
 import {isPwaOnMobileOrTablet} from '@app/utils/PwaUtils';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {ArrowClockwiseIcon, ArrowLeftIcon, BellSlashIcon, type IconWeight, SignOutIcon} from '@phosphor-icons/react';
@@ -177,7 +175,6 @@ const MobileSettingsList = observer(
 		onScroll?: (event: UIEvent<HTMLDivElement>) => void;
 	}) => {
 		const {t} = useLingui();
-		const currentUser = UserStore.currentUser;
 		const isDeveloper = DeveloperModeStore.isDeveloper;
 
 		const filteredTabs = useMemo(
@@ -269,13 +266,9 @@ const MobileSettingsList = observer(
 							{tabs.map((tab, index) => {
 								const isLastTab = index === tabs.length - 1;
 								const isLastCategory = categoryIndex === lastCategoryIndex;
-								const badge =
-									tab.type === 'gift_inventory' && currentUser?.hasUnreadGiftInventory ? (
-										<MentionBadgeAnimated mentionCount={currentUser.unreadGiftInventoryCount ?? 1} />
-									) : undefined;
 								return (
 									<div key={tab.type}>
-										<PressableSettingsItem tab={tab} onSelect={() => onTabSelect(tab.type, tab.label)} badge={badge} />
+										<PressableSettingsItem tab={tab} onSelect={() => onTabSelect(tab.type, tab.label)} />
 										{(!isLastTab || isLastCategory) && <div className={styles.divider} />}
 									</div>
 								);

@@ -377,6 +377,24 @@ export class GuildService {
 		return this.data.updateVanityURL(params, auditLogReason);
 	}
 
+	async initiateVanityPurchase(
+		...args: Parameters<GuildDataService['initiateVanityPurchase']>
+	): ReturnType<GuildDataService['initiateVanityPurchase']> {
+		return this.data.initiateVanityPurchase(...args);
+	}
+
+	async getPendingVanityPurchase(
+		...args: Parameters<GuildDataService['getPendingVanityPurchase']>
+	): ReturnType<GuildDataService['getPendingVanityPurchase']> {
+		return this.data.getPendingVanityPurchase(...args);
+	}
+
+	async confirmVanityPurchase(
+		...args: Parameters<GuildDataService['confirmVanityPurchase']>
+	): ReturnType<GuildDataService['confirmVanityPurchase']> {
+		return this.data.confirmVanityPurchase(...args);
+	}
+
 	async deleteGuild(params: {user: User; guildId: GuildID}, auditLogReason?: string | null): Promise<void> {
 		return this.data.deleteGuild(params, auditLogReason);
 	}

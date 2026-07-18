@@ -30,7 +30,6 @@ import GuildVanityURLTab from '@app/components/modals/guild_tabs/GuildVanityURLT
 import GuildWebhooksTab from '@app/components/modals/guild_tabs/GuildWebhooksTab';
 import GuildOverviewTab from '@app/components/modals/guild_tabs/guild_overview_tab';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
-import {GuildFeatures} from '@fluxer/constants/src/GuildConstants';
 import type {I18n, MessageDescriptor} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 import {
@@ -163,7 +162,6 @@ const GUILD_SETTINGS_TABS_DESCRIPTORS: Array<GuildSettingsTabDescriptor> = [
 		iconWeight: 'bold',
 		component: GuildVanityURLTab,
 		permission: Permissions.MANAGE_GUILD,
-		requireFeature: GuildFeatures.VANITY_URL,
 	},
 	{
 		type: 'discovery',

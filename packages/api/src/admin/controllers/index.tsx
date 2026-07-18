@@ -24,7 +24,6 @@ import {AuditLogAdminController} from '@fluxer/api/src/admin/controllers/AuditLo
 import {BanAdminController} from '@fluxer/api/src/admin/controllers/BanAdminController';
 import {BulkAdminController} from '@fluxer/api/src/admin/controllers/BulkAdminController';
 import {ChildSafetyAdminController} from '@fluxer/api/src/admin/controllers/ChildSafetyAdminController';
-import {CodesAdminController} from '@fluxer/api/src/admin/controllers/CodesAdminController';
 import {DiscoveryAdminController} from '@fluxer/api/src/admin/controllers/DiscoveryAdminController';
 import {GatewayAdminController} from '@fluxer/api/src/admin/controllers/GatewayAdminController';
 import {GuildAdminController} from '@fluxer/api/src/admin/controllers/GuildAdminController';
@@ -36,14 +35,12 @@ import {SearchAdminController} from '@fluxer/api/src/admin/controllers/SearchAdm
 import {SnowflakeReservationAdminController} from '@fluxer/api/src/admin/controllers/SnowflakeReservationAdminController';
 import {SystemDmAdminController} from '@fluxer/api/src/admin/controllers/SystemDmAdminController';
 import {UserAdminController} from '@fluxer/api/src/admin/controllers/UserAdminController';
-import {VisionarySlotAdminController} from '@fluxer/api/src/admin/controllers/VisionarySlotAdminController';
 import {VoiceAdminController} from '@fluxer/api/src/admin/controllers/VoiceAdminController';
 import type {HonoApp} from '@fluxer/api/src/types/HonoEnv';
 
 export function registerAdminControllers(app: HonoApp) {
 	AdminApiKeyAdminController(app);
 	UserAdminController(app);
-	CodesAdminController(app);
 	GuildAdminController(app);
 	AssetAdminController(app);
 	BanAdminController(app);
@@ -60,6 +57,5 @@ export function registerAdminControllers(app: HonoApp) {
 	GatewayAdminController(app);
 	SearchAdminController(app);
 	DiscoveryAdminController(app);
-	VisionarySlotAdminController(app);
 	SystemDmAdminController(app);
 }

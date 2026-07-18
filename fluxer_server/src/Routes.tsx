@@ -20,6 +20,9 @@
 import type {Config} from '@app/Config';
 import {fetchNftsForWallet} from '@app/utils/NftFetcher';
 import {SolanaAuthService} from '@fluxer/api/src/auth/services/SolanaAuthService';
+import {createGuildID, createUserID} from '@fluxer/api/src/BrandedTypes';
+import {GUILD_VANITY_MERCHANT_WALLET} from '@fluxer/api/src/guild/services/data/GuildVanityPurchaseService';
+import {UserTipService} from '@fluxer/api/src/user/services/data/UserTipService';
 import {DefaultUserOnly} from '@fluxer/api/src/middleware/AuthMiddleware';
 import {createHealthCheckHandler, createLivenessCheckHandler, createReadinessCheckHandler} from '@app/HealthCheck';
 import {createComponentLogger} from '@app/Logger';
@@ -176,21 +179,11 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 				}
 			});
 
-			// ── Solana premium payment endpoints ────────────────────────────
-
-			const MERCHANT_WALLET = 'AwsW3kad25Uk7ptX3YY3wy4o1mN5BJTATfuMa1u4Di23';
-
-			// USD prices — SOL amount is computed at invoice time from live price
-			const USD_PRICES = {
-				monthly: {usd: 5.00,  months: 1,  billingCycle: 'monthly'},
-				yearly:  {usd: 50.00, months: 12, billingCycle: 'yearly'},
-			} as const;
-
 			const SOL_PRICE_CACHE_KEY = 'sol_usd_price';
 			const SOL_PRICE_CACHE_TTL = 60; // seconds
 
 			async function fetchSolPriceUsd(cacheService: {get: (k: string) => Promise<unknown>; set: (k: string, v: unknown, ttl: number) => Promise<void>}): Promise<number> {
-				const cached = await cacheService.get<number>(SOL_PRICE_CACHE_KEY);
+				const cached = await cacheService.get(SOL_PRICE_CACHE_KEY);
 				if (cached && typeof cached === 'number' && cached > 0) return cached;
 				const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd', {
 					headers: {'Accept': 'application/json'},
@@ -202,25 +195,65 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 				return price;
 			}
 
-			// GET /premium/solana/prices — returns USD pricing info
-			apiService.app.get('/v1/premium/solana/prices', async (ctx) => {
-				return ctx.json({
-					merchant: MERCHANT_WALLET,
-					monthly: {usd: USD_PRICES.monthly.usd},
-					yearly:  {usd: USD_PRICES.yearly.usd},
+			async function fetchRecentBlockhash(): Promise<string> {
+				const rpcRes = await fetch('https://api.mainnet-beta.solana.com', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify({jsonrpc: '2.0', id: 1, method: 'getLatestBlockhash', params: [{commitment: 'confirmed'}]}),
 				});
-			});
+				const rpcData = await rpcRes.json() as any;
+				const blockhash: string | undefined = rpcData?.result?.value?.blockhash;
+				if (!blockhash) throw new Error('No blockhash in response');
+				return blockhash;
+			}
 
-			// POST /premium/solana/invoice — creates a short-lived payment invoice with live SOL price
-			apiService.app.post('/v1/premium/solana/invoice', DefaultUserOnly, async (ctx) => {
-				const {plan} = await ctx.req.json<{plan: string}>();
-				if (plan !== 'monthly' && plan !== 'yearly') {
-					return ctx.json({error: 'plan must be monthly or yearly'}, 400);
+			/** Polls `getTransaction` for a signature, retrying up to 8x with a 3s delay to ride out confirmation lag. */
+			async function pollSolanaTransaction(txSignature: string): Promise<any> {
+				let txData: any;
+				for (let attempt = 0; attempt < 8; attempt++) {
+					try {
+						const rpcRes = await fetch('https://api.mainnet-beta.solana.com', {
+							method: 'POST',
+							headers: {'Content-Type': 'application/json'},
+							body: JSON.stringify({
+								jsonrpc: '2.0', id: 1,
+								method: 'getTransaction',
+								params: [txSignature, {encoding: 'jsonParsed', commitment: 'confirmed', maxSupportedTransactionVersion: 0}],
+							}),
+						});
+						const rpcJson = await rpcRes.json() as any;
+						txData = rpcJson?.result;
+					} catch { /* ignore transient error, retry */ }
+					if (txData) break;
+					if (attempt < 7) await new Promise(r => setTimeout(r, 3000));
 				}
+				return txData;
+			}
+
+			// ── Guild vanity link purchase (SOL-only, one-time, $1.99) ───────
+			//
+			// Guild owners can buy a permanent custom vanity invite link
+			// (e.g. multiverse.forum/official) with SOL. The invoice/verify
+			// shape mirrors the Solana RPC pattern used elsewhere in this
+			// file (live price + blockhash fetched here, on-chain
+			// confirmation polled here), but — unlike the old premium flow —
+			// every purchase attempt is durably recorded in
+			// guild_vanity_purchases via GuildVanityPurchaseService, so
+			// there's a permanent, independently-verifiable audit trail
+			// (tx signature, payer wallet, amount) rather than a cache blob
+			// that vanishes after 30 minutes.
+
+			const VANITY_USD_PRICE = 1.99;
+
+			apiService.app.post('/v1/guilds/:guild_id/vanity/invoice', DefaultUserOnly, async (ctx) => {
+				const guildIdParam = ctx.req.param('guild_id');
+				if (!guildIdParam) {
+					return ctx.json({error: 'guild_id required'}, 400);
+				}
+				const guildId = createGuildID(BigInt(guildIdParam));
 				const user = ctx.get('user');
 				const cacheService = ctx.get('cacheService');
 
-				// Fetch live SOL price and compute lamports for the USD amount
 				let solPriceUsd: number;
 				try {
 					solPriceUsd = await fetchSolPriceUsd(cacheService);
@@ -228,12 +261,9 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 					return ctx.json({error: 'Unable to fetch current SOL price. Please try again.'}, 503);
 				}
 
-				const usdAmount = USD_PRICES[plan].usd;
-				const solAmount = usdAmount / solPriceUsd;
+				const solAmount = VANITY_USD_PRICE / solPriceUsd;
 				const amountLamports = Math.ceil(solAmount * 1_000_000_000);
-				const solDisplay = Math.ceil(solAmount * 10000) / 10000; // 4 decimal places
 
-				// Fetch recent blockhash server-side to avoid CORS issues with browser→RPC calls
 				let recentBlockhash: string;
 				try {
 					const rpcRes = await fetch('https://api.mainnet-beta.solana.com', {
@@ -248,48 +278,52 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 					return ctx.json({error: 'Unable to fetch Solana blockhash. Please try again.'}, 503);
 				}
 
-				const invoiceId = crypto.randomUUID();
-				const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
-				await cacheService.set(
-					`premium-invoice:${invoiceId}`,
-					JSON.stringify({userId: user.id.toString(), plan, amountLamports, usdAmount, solPriceUsd, used: false}),
-					1800,
-				);
-				return ctx.json({
-					invoiceId,
-					amountLamports,
-					sol: solDisplay,
-					usd: usdAmount,
-					solPriceUsd,
-					recipient: MERCHANT_WALLET,
-					recentBlockhash,
-					expiresAt: expiresAt.toISOString(),
-				});
+				try {
+					const {purchaseId, merchantWallet} = await ctx.get('guildService').initiateVanityPurchase({
+						userId: user.id,
+						guildId,
+						amountLamports,
+						solPriceUsd,
+						usdAmount: VANITY_USD_PRICE,
+					});
+
+					return ctx.json({
+						purchase_id: purchaseId,
+						merchant_wallet: merchantWallet,
+						amount_lamports: amountLamports,
+						recent_blockhash: recentBlockhash,
+						usd_amount: VANITY_USD_PRICE,
+						sol_price_usd: solPriceUsd,
+					});
+				} catch (err: any) {
+					return ctx.json({error: err?.message ?? 'Failed to create invoice'}, err?.status ?? 400);
+				}
 			});
 
-			// POST /premium/solana/verify — verifies tx and grants premium
-			apiService.app.post('/v1/premium/solana/verify', DefaultUserOnly, async (ctx) => {
-				const {invoiceId, txSignature} = await ctx.req.json<{invoiceId: string; txSignature: string}>();
-				if (!invoiceId || !txSignature) {
-					return ctx.json({error: 'invoiceId and txSignature required'}, 400);
+			apiService.app.post('/v1/guilds/:guild_id/vanity/verify', DefaultUserOnly, async (ctx) => {
+				const guildIdParam = ctx.req.param('guild_id');
+				if (!guildIdParam) {
+					return ctx.json({error: 'guild_id required'}, 400);
 				}
-
-				const cacheService = ctx.get('cacheService');
-				const invoiceKey = `premium-invoice:${invoiceId}`;
-				const rawInvoice = await cacheService.getAndDelete<string>(invoiceKey);
-				if (!rawInvoice) {
-					return ctx.json({error: 'Invoice not found or expired'}, 404);
+				const guildId = createGuildID(BigInt(guildIdParam));
+				const {purchase_id: purchaseId, tx_signature: txSignature} = await ctx.req.json<{
+					purchase_id: string;
+					tx_signature: string;
+				}>();
+				if (!purchaseId || !txSignature) {
+					return ctx.json({error: 'purchase_id and tx_signature required'}, 400);
 				}
-				const invoice = JSON.parse(typeof rawInvoice === 'string' ? rawInvoice : JSON.stringify(rawInvoice)) as {
-					userId: string; plan: 'monthly' | 'yearly'; amountLamports: number; used: boolean;
-				};
-
 				const user = ctx.get('user');
-				if (invoice.userId !== user.id.toString()) {
-					return ctx.json({error: 'Invoice does not belong to this user'}, 403);
+				const guildService = ctx.get('guildService');
+
+				let purchase: {amount_lamports: number};
+				try {
+					purchase = await guildService.getPendingVanityPurchase({userId: user.id, guildId, purchaseId});
+				} catch (err: any) {
+					return ctx.json({error: err?.message ?? 'Purchase not found'}, err?.status ?? 404);
 				}
 
-				// Verify the transaction on Solana mainnet — retry up to 8x with 3s delay for confirmation lag
+				// Verify the transaction on Solana mainnet — retry up to 8x with 3s delay for confirmation lag.
 				let txData: any;
 				for (let attempt = 0; attempt < 8; attempt++) {
 					try {
@@ -316,9 +350,8 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 					return ctx.json({error: 'Transaction failed on-chain'}, 400);
 				}
 
-				// Find merchant wallet in account keys and check balance increase
 				const accountKeys: Array<{pubkey: string}> = txData.transaction?.message?.accountKeys ?? [];
-				const merchantIdx = accountKeys.findIndex((k: any) => k.pubkey === MERCHANT_WALLET);
+				const merchantIdx = accountKeys.findIndex((k: any) => k.pubkey === GUILD_VANITY_MERCHANT_WALLET);
 				if (merchantIdx < 0) {
 					return ctx.json({error: 'Merchant wallet not found in transaction accounts'}, 400);
 				}
@@ -327,50 +360,172 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 				const postBalances: number[] = txData.meta?.postBalances ?? [];
 				const received = (postBalances[merchantIdx] ?? 0) - (preBalances[merchantIdx] ?? 0);
 
-				if (received < invoice.amountLamports) {
-					// Put the invoice back so user can retry with correct amount
-					await cacheService.set(invoiceKey, JSON.stringify({...invoice, used: false}), 1800);
-					return ctx.json({error: `Insufficient payment. Expected ${invoice.amountLamports} lamports, received ${received}`}, 400);
+				if (received < purchase.amount_lamports) {
+					return ctx.json({error: `Insufficient payment. Expected ${purchase.amount_lamports} lamports, received ${received}`}, 400);
 				}
 
+				// Account 0 is always the fee-payer/sender for a simple transfer transaction.
+				const payerWalletAddress = accountKeys[0]?.pubkey ?? '';
 
+				try {
+					await guildService.confirmVanityPurchase({
+						userId: user.id,
+						guildId,
+						purchaseId,
+						txSignature,
+						payerWalletAddress,
+					});
+				} catch (err: any) {
+					return ctx.json({error: err?.message ?? 'Failed to confirm purchase'}, err?.status ?? 400);
+				}
 
-				// Grant premium
-				const price = USD_PRICES[invoice.plan];
-				const stripeService = ctx.get('stripeService') as any;
-				const hasEverPurchased = user.premiumSince !== null;
-				await stripeService.premiumService.grantPremium(user.id, 1, price.months, price.billingCycle, hasEverPurchased);
-
-				return ctx.json({ok: true, plan: invoice.plan});
+				return ctx.json({ok: true});
 			});
 
-			// POST /premium/solana/recover — one-time recovery: grant premium for a confirmed tx
-			apiService.app.post('/v1/premium/solana/recover', DefaultUserOnly, async (ctx) => {
-				const {txSignature, plan} = await ctx.req.json<{txSignature: string; plan: string}>();
-				if (!txSignature || (plan !== 'monthly' && plan !== 'yearly')) {
-					return ctx.json({error: 'txSignature and plan (monthly|yearly) required'}, 400);
+			// ── Direct user-to-user SOL tipping ───────────────────────────────
+			//
+			// Clicking the tip button on a profile lets a user send an
+			// arbitrary SOL amount straight to another user's linked wallet,
+			// plus a tiny flat platform fee (quoted here, shown to the user
+			// before they sign). Unlike the vanity-purchase flow, the amount
+			// is chosen by the sender rather than computed server-side, so
+			// there's no "invoice" pre-registration step — the flow is just
+			// quote → sign a single two-instruction transaction (tip +
+			// fee) → verify on-chain → record. tx_signature is the record's
+			// primary key, so verification doubles as anti-replay.
+
+			const TIP_FEE_USD = 0.01;
+
+			apiService.app.get('/v1/users/:user_id/tip-target', DefaultUserOnly, async (ctx) => {
+				const targetIdParam = ctx.req.param('user_id');
+				if (!targetIdParam) {
+					return ctx.json({error: 'user_id required'}, 400);
 				}
+
+				let recipientUserId;
+				try {
+					recipientUserId = createUserID(BigInt(targetIdParam));
+				} catch {
+					return ctx.json({error: 'Invalid user_id'}, 400);
+				}
+
 				const user = ctx.get('user');
-				const rpcRes = await fetch('https://api.mainnet-beta.solana.com', {
-					method: 'POST',
-					headers: {'Content-Type': 'application/json'},
-					body: JSON.stringify({jsonrpc: '2.0', id: 1, method: 'getTransaction',
-						params: [txSignature, {encoding: 'jsonParsed', commitment: 'confirmed', maxSupportedTransactionVersion: 0}]}),
+				const tipService = new UserTipService(ctx.get('userRepository'));
+
+				let recipientWalletAddress: string;
+				try {
+					({recipientWalletAddress} = await tipService.getTipTarget({senderUserId: user.id, recipientUserId}));
+				} catch (err: any) {
+					return ctx.json({error: err?.message ?? 'Unable to resolve tip target'}, err?.status ?? 400);
+				}
+
+				let solPriceUsd: number;
+				try {
+					solPriceUsd = await fetchSolPriceUsd(ctx.get('cacheService'));
+				} catch {
+					return ctx.json({error: 'Unable to fetch current SOL price. Please try again.'}, 503);
+				}
+				const feeLamports = Math.max(1, Math.ceil((TIP_FEE_USD / solPriceUsd) * 1_000_000_000));
+
+				let recentBlockhash: string;
+				try {
+					recentBlockhash = await fetchRecentBlockhash();
+				} catch {
+					return ctx.json({error: 'Unable to fetch Solana blockhash. Please try again.'}, 503);
+				}
+
+				return ctx.json({
+					recipient_wallet: recipientWalletAddress,
+					platform_wallet: GUILD_VANITY_MERCHANT_WALLET,
+					fee_lamports: feeLamports,
+					fee_usd: TIP_FEE_USD,
+					recent_blockhash: recentBlockhash,
+					sol_price_usd: solPriceUsd,
 				});
-				const rpcJson = await rpcRes.json() as any;
-				const txData = rpcJson?.result;
-				if (!txData || txData.meta?.err) return ctx.json({error: 'Transaction invalid or not confirmed'}, 400);
-				const accountKeys = txData.transaction?.message?.accountKeys ?? [];
-				const merchantIdx = accountKeys.findIndex((k: any) => k.pubkey === MERCHANT_WALLET);
-				if (merchantIdx < 0) return ctx.json({error: 'Merchant wallet not in tx'}, 400);
-				const received = (txData.meta.postBalances[merchantIdx] ?? 0) - (txData.meta.preBalances[merchantIdx] ?? 0);
-				const price = USD_PRICES[plan as 'monthly' | 'yearly'];
-				const minLamports = Math.floor(price.usd / 100 * 1_000_000_000); // at least $0.01 worth
-				if (received < minLamports) return ctx.json({error: `Received only ${received} lamports`}, 400);
-				const stripeService = ctx.get('stripeService') as any;
-				const hasEverPurchased = user.premiumSince !== null;
-				await stripeService.premiumService.grantPremium(user.id, 1, price.months, price.billingCycle, hasEverPurchased);
-				return ctx.json({ok: true, plan, received});
+			});
+
+			apiService.app.post('/v1/users/:user_id/tip/verify', DefaultUserOnly, async (ctx) => {
+				const targetIdParam = ctx.req.param('user_id');
+				if (!targetIdParam) {
+					return ctx.json({error: 'user_id required'}, 400);
+				}
+
+				let recipientUserId;
+				try {
+					recipientUserId = createUserID(BigInt(targetIdParam));
+				} catch {
+					return ctx.json({error: 'Invalid user_id'}, 400);
+				}
+
+				const {tx_signature: txSignature} = await ctx.req.json<{tx_signature: string}>();
+				if (!txSignature) {
+					return ctx.json({error: 'tx_signature required'}, 400);
+				}
+
+				const user = ctx.get('user');
+				const tipService = new UserTipService(ctx.get('userRepository'));
+
+				let recipientWalletAddress: string;
+				try {
+					({recipientWalletAddress} = await tipService.getTipTarget({senderUserId: user.id, recipientUserId}));
+				} catch (err: any) {
+					return ctx.json({error: err?.message ?? 'Unable to resolve tip target'}, err?.status ?? 400);
+				}
+
+				const txData = await pollSolanaTransaction(txSignature);
+				if (!txData) {
+					return ctx.json({error: 'Transaction not found after waiting. Please contact support with your tx signature.'}, 400);
+				}
+				if (txData.meta?.err !== null && txData.meta?.err !== undefined) {
+					return ctx.json({error: 'Transaction failed on-chain'}, 400);
+				}
+
+				const accountKeys: Array<{pubkey: string}> = txData.transaction?.message?.accountKeys ?? [];
+				const recipientIdx = accountKeys.findIndex((k: any) => k.pubkey === recipientWalletAddress);
+				const platformIdx = accountKeys.findIndex((k: any) => k.pubkey === GUILD_VANITY_MERCHANT_WALLET);
+				if (recipientIdx < 0) {
+					return ctx.json({error: 'Recipient wallet not found in transaction accounts'}, 400);
+				}
+				if (platformIdx < 0) {
+					return ctx.json({error: 'Platform fee wallet not found in transaction accounts'}, 400);
+				}
+
+				const preBalances: number[] = txData.meta?.preBalances ?? [];
+				const postBalances: number[] = txData.meta?.postBalances ?? [];
+				const amountLamports = (postBalances[recipientIdx] ?? 0) - (preBalances[recipientIdx] ?? 0);
+				const feeLamports = (postBalances[platformIdx] ?? 0) - (preBalances[platformIdx] ?? 0);
+
+				if (amountLamports <= 0) {
+					return ctx.json({error: 'No SOL was transferred to the recipient'}, 400);
+				}
+				if (feeLamports <= 0) {
+					return ctx.json({error: 'Platform fee was not paid'}, 400);
+				}
+
+				// Account 0 is always the fee-payer/sender for this transaction shape.
+				const senderWalletAddress = accountKeys[0]?.pubkey ?? '';
+
+				let solPriceUsd = 0;
+				try {
+					solPriceUsd = await fetchSolPriceUsd(ctx.get('cacheService'));
+				} catch { /* non-critical — only used for the historical record */ }
+
+				try {
+					await tipService.recordTip({
+						senderUserId: user.id,
+						recipientUserId,
+						txSignature,
+						senderWalletAddress,
+						recipientWalletAddress,
+						amountLamports,
+						feeLamports,
+						solPriceUsd,
+					});
+				} catch (err: any) {
+					return ctx.json({error: err?.message ?? 'Failed to record tip'}, err?.status ?? 400);
+				}
+
+				return ctx.json({ok: true, amount_lamports: amountLamports, fee_lamports: feeLamports});
 			});
 
 			// ── NFT sticker fetcher ──────────────────────────────────────────

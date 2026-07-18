@@ -181,6 +181,7 @@ export function renderBlogPostLayout(
 
 interface ContentLayoutOptions {
 	footerClassName?: string;
+	theme?: 'light' | 'dark';
 }
 
 export function renderContentLayout(
@@ -192,7 +193,8 @@ export function renderContentLayout(
 ): JSX.Element {
 	const currentPath = getCurrentPath(getPathWithinBasePath(req.req.path, ctx.basePath));
 	const pageUrl = currentPath === '/' ? ctx.baseUrl : `${ctx.baseUrl}${currentPath}`;
-	const {footerClassName = ''} = options;
+	const {footerClassName = '', theme = 'light'} = options;
+	const bodyBg = theme === 'dark' ? 'bg-[#0B0E14]' : 'bg-white';
 
 	return (
 		<html lang={ctx.locale}>
@@ -208,9 +210,9 @@ export function renderContentLayout(
 				{buildIconLinks(ctx.staticCdnEndpoint)}
 				{docsPageScript()}
 			</head>
-			<body class="bg-white">
-				<Navigation ctx={ctx} request={req} />
-				<main class="min-h-screen bg-white px-6 pt-48 pb-16 sm:px-8 md:px-12 md:pt-60 lg:px-16 xl:px-20">
+			<body class={bodyBg}>
+				<Navigation ctx={ctx} request={req} theme={theme} />
+				<main class={`min-h-screen ${bodyBg} px-6 pt-48 pb-16 sm:px-8 md:px-12 md:pt-60 lg:px-16 xl:px-20`}>
 					{content}
 				</main>
 				<Footer ctx={ctx} className={footerClassName} />

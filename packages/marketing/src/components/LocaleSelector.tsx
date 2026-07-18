@@ -46,18 +46,23 @@ interface LocaleSelectorTriggerProps {
 	ctx: MarketingContext;
 	className?: string;
 	text?: string;
+	dark?: boolean;
 }
 
 export function LocaleSelectorTrigger(props: LocaleSelectorTriggerProps): JSX.Element {
-	const {ctx, className, text} = props;
+	const {ctx, className, text, dark = false} = props;
 	const label = ctx.i18n.getMessage('languages.change_language', ctx.locale);
-	const baseClass = 'locale-toggle flex items-center justify-center rounded-lg p-2 transition-colors hover:bg-gray-100';
+	const baseClass = dark
+		? 'locale-toggle flex items-center justify-center rounded-lg p-2 transition-colors hover:bg-white/10'
+		: 'locale-toggle flex items-center justify-center rounded-lg p-2 transition-colors hover:bg-gray-100';
 	const classes = [baseClass, className].filter(Boolean).join(' ');
 
 	return (
 		<a class={classes} aria-label={label} id="locale-button" href={href(ctx, '#locale-modal-backdrop')}>
 			<TranslateIcon class="h-5 w-5" />
-			{text ? <span class="ml-2 font-semibold text-base text-gray-900">{text}</span> : null}
+			{text ? (
+				<span class={`ml-2 font-semibold text-base ${dark ? 'text-white' : 'text-gray-900'}`}>{text}</span>
+			) : null}
 		</a>
 	);
 }

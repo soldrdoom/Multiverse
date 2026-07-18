@@ -57,7 +57,6 @@ import {
 	filterSettingsTabsForDeveloperMode,
 } from '@app/components/modals/utils/SettingsTabFilters';
 import {Button} from '@app/components/uikit/button/Button';
-import {MentionBadgeAnimated} from '@app/components/uikit/MentionBadge';
 import {StatusAwareAvatar} from '@app/components/uikit/StatusAwareAvatar';
 import {Routes} from '@app/Routes';
 import AccessibilityStore from '@app/stores/AccessibilityStore';
@@ -317,13 +316,6 @@ export const DesktopSettingsView: React.FC<DesktopSettingsViewProps> = observer(
 																	label={
 																		<div className={styles.tabLabel}>
 																			<span>{tab.label}</span>
-																			{tab.type === 'gift_inventory' && currentUser?.hasUnreadGiftInventory && (
-																				<span className={styles.badgeContainer}>
-																					<MentionBadgeAnimated
-																						mentionCount={currentUser.unreadGiftInventoryCount ?? 1}
-																					/>
-																				</span>
-																			)}
 																		</div>
 																	}
 																	selected={isSelected}

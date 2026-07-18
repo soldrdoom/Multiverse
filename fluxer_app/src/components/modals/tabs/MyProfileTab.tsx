@@ -36,7 +36,6 @@ import {AccentColorPicker} from '@app/components/modals/tabs/my_profile_tab/Acce
 import {type AvatarMode, AvatarUploader} from '@app/components/modals/tabs/my_profile_tab/AvatarUploader';
 import {type BannerMode, BannerUploader} from '@app/components/modals/tabs/my_profile_tab/BannerUploader';
 import {BioEditor} from '@app/components/modals/tabs/my_profile_tab/BioEditor';
-import {PerGuildPremiumUpsell} from '@app/components/modals/tabs/my_profile_tab/PerGuildPremiumUpsell';
 import {PremiumBadgeSettings} from '@app/components/modals/tabs/my_profile_tab/PremiumBadgeSettings';
 import {ProfileTypeSelector} from '@app/components/modals/tabs/my_profile_tab/ProfileTypeSelector';
 import {UsernameSection} from '@app/components/modals/tabs/my_profile_tab/UsernameSection';
@@ -713,8 +712,6 @@ const MyProfileTabComponent = observer(function MyProfileTabComponent({
 											error={form.formState.errors.pronouns?.message}
 										/>
 									</div>
-
-									{isPerGuildProfile && !hasPerGuildProfiles && <PerGuildPremiumUpsell />}
 
 									<div>
 										<AvatarUploader

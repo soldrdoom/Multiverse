@@ -219,6 +219,7 @@ export function mapUserToProfileResponse(user: User): UserProfileResponse {
 		banner: hasAnimatedBanner > 0 ? user.bannerHash : null,
 		banner_color: hasAnimatedBanner > 0 ? user.bannerColor : null,
 		accent_color: user.accentColor,
+		has_solana_wallet: user.solanaAddress !== null,
 	};
 }
 

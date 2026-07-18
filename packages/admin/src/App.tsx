@@ -27,7 +27,6 @@ import {resolveAdminPublicDir} from '@fluxer/admin/src/PublicDir';
 import {createAdminRoutes} from '@fluxer/admin/src/routes/Admin';
 import {createAuthRoutes} from '@fluxer/admin/src/routes/Auth';
 import {createBansRoutes} from '@fluxer/admin/src/routes/Bans';
-import {createCodesRoutes} from '@fluxer/admin/src/routes/Codes';
 import {createDiscoveryRoutes} from '@fluxer/admin/src/routes/Discovery';
 import {createGuildsRoutes} from '@fluxer/admin/src/routes/Guilds';
 import {createMessagesRoutes} from '@fluxer/admin/src/routes/Messages';
@@ -35,7 +34,6 @@ import {createReportsRoutes} from '@fluxer/admin/src/routes/Reports';
 import type {RouteFactory} from '@fluxer/admin/src/routes/RouteTypes';
 import {createSystemRoutes} from '@fluxer/admin/src/routes/System';
 import {createUsersRoutes} from '@fluxer/admin/src/routes/Users';
-import {createVisionarySlotsRoutes} from '@fluxer/admin/src/routes/VisionarySlots';
 import {createVoiceRoutes} from '@fluxer/admin/src/routes/Voice';
 import type {AppVariables} from '@fluxer/admin/src/types/App';
 import type {AdminConfig} from '@fluxer/admin/src/types/Config';
@@ -186,9 +184,7 @@ export function createAdminApp(options: CreateAdminAppOptions): AdminAppResult {
 		createReportsRoutes,
 		createMessagesRoutes,
 		createVoiceRoutes,
-		createCodesRoutes,
 		createDiscoveryRoutes,
-		createVisionarySlotsRoutes,
 		createAdminRoutes,
 	];
 

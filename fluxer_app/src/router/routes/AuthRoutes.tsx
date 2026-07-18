@@ -17,7 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as GiftActionCreators from '@app/actions/GiftActionCreators';
 import * as InviteActionCreators from '@app/actions/InviteActionCreators';
 import * as ThemeActionCreators from '@app/actions/ThemeActionCreators';
 import {AuthLayout} from '@app/components/layout/AuthLayout';
@@ -25,8 +24,6 @@ import AuthorizeIPPage from '@app/components/pages/AuthorizeIPPage';
 import EmailRevertPage from '@app/components/pages/EmailRevertPage';
 import ForgotPasswordPage from '@app/components/pages/ForgotPasswordPage';
 import SolanaOnboardingPage from '@app/components/pages/SolanaOnboardingPage';
-import GiftLoginPage from '@app/components/pages/GiftLoginPage';
-import GiftRegisterPage from '@app/components/pages/GiftRegisterPage';
 import InviteLoginPage from '@app/components/pages/InviteLoginPage';
 import InviteRegisterPage from '@app/components/pages/InviteRegisterPage';
 import LoginPage from '@app/components/pages/LoginPage';
@@ -45,7 +42,6 @@ import SessionManager from '@app/lib/SessionManager';
 import {Routes} from '@app/Routes';
 import {rootRoute} from '@app/router/routes/RootRoutes';
 import AuthenticationStore from '@app/stores/AuthenticationStore';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import * as RouterUtils from '@app/utils/RouterUtils';
 import {setPathQueryParams} from '@app/utils/UrlUtils';
 import {i18n} from '@lingui/core';
@@ -211,32 +207,26 @@ const inviteLoginRoute = createRoute({
 	component: () => <InviteLoginPage />,
 });
 
-const giftRegisterRoute = createRoute({
+// Bare top-level vanity link, e.g. multiverse.forum/official — matches only
+// when no other route claims the path first (the router sorts by segment
+// count then wildcard count, so every literal top-level route above always
+// outranks this one; see Core.tsx's matchUrl). Vanity codes are literally
+// invite codes at the resolution layer (vanityCodeToInviteCode is a no-op
+// rebrand), so this reuses the invite flow verbatim rather than a separate
+// resolution path — an unresolvable code still surfaces as "not found" inside
+// InviteRegisterPage, exactly like an unknown /invite/:code does today.
+const bareVanityRoute = createRoute({
 	getParentRoute: () => authLayoutRoute,
-	id: 'giftRegister',
-	path: '/gift/:code',
+	id: 'bareVanity',
+	path: '/:code',
 	onEnter: whenAuthenticated((ctx) => {
 		const code = ctx.params['code'];
 		if (code) {
-			GiftActionCreators.openAcceptModal(code);
+			InviteActionCreators.openAcceptModal(code);
 		}
 		return new Redirect(Routes.ME);
 	}),
-	component: () => <GiftRegisterPage />,
-});
-
-const giftLoginRoute = createRoute({
-	getParentRoute: () => authLayoutRoute,
-	id: 'giftLogin',
-	path: '/gift/:code/login',
-	onEnter: whenAuthenticated((ctx) => {
-		const code = ctx.params['code'];
-		if (code) {
-			GiftActionCreators.openAcceptModal(code);
-		}
-		return new Redirect(Routes.ME);
-	}),
-	component: () => <GiftLoginPage />,
+	component: () => <InviteRegisterPage />,
 });
 
 const forgotPasswordRoute = createRoute({
@@ -344,5 +334,5 @@ export const authRouteTree = authLayoutRoute.addChildren([
 	pendingRoute,
 	reportRoute,
 	solanaOnboardingRoute,
-	...(RuntimeConfigStore.isSelfHosted() ? [] : [giftRegisterRoute, giftLoginRoute]),
+	bareVanityRoute,
 ]);

@@ -20,7 +20,6 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource hono/jsx */
 
-import {MultiverseLogoWordmarkIcon} from '@fluxer/marketing/src/components/icons/FluxerLogoWordmarkIcon';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
 import {renderLayout} from '@fluxer/marketing/src/pages/Layout';
 import {pageMeta} from '@fluxer/marketing/src/pages/layout/Meta';
@@ -36,7 +35,11 @@ export async function renderNotFoundPage(c: Context, ctx: MarketingContext): Pro
 		<main class="flex flex-1 flex-col items-center justify-center px-6 pt-36 pb-12 text-center sm:px-8 md:px-12 md:pt-44 md:pb-16 lg:px-16 xl:px-20">
 			<div class="mx-auto max-w-2xl">
 				<div class="mb-8">
-					<MultiverseLogoWordmarkIcon class="mx-auto h-16 opacity-80" />
+					<img
+						src={`${ctx.staticCdnEndpoint}/images/multiverse-mark.png`}
+						alt="Multiverse"
+						class="mx-auto h-16 w-16 object-contain opacity-80"
+					/>
 				</div>
 				<div class="mb-6">
 					<h1 class="hero text-white/90">404</h1>

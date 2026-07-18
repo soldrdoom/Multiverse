@@ -19,7 +19,6 @@
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
-import * as PremiumModalActionCreators from '@app/actions/PremiumModalActionCreators';
 import * as ToastActionCreators from '@app/actions/ToastActionCreators';
 import * as UserActionCreators from '@app/actions/UserActionCreators';
 import {Form} from '@app/components/form/Form';
@@ -29,15 +28,11 @@ import {ConfirmModal} from '@app/components/modals/ConfirmModal';
 import styles from '@app/components/modals/MultiverseTagChangeModal.module.css';
 import * as Modal from '@app/components/modals/Modal';
 import {Button} from '@app/components/uikit/button/Button';
-import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
-import {PlutoniumUpsell} from '@app/components/uikit/plutonium_upsell/PlutoniumUpsell';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {useFormSubmit} from '@app/hooks/useFormSubmit';
 import type {UserRecord} from '@app/records/UserRecord';
 import {LimitResolver} from '@app/utils/limits/LimitResolverAdapter';
 import {isLimitToggleEnabled} from '@app/utils/limits/LimitUtils';
-import {shouldShowPremiumFeatures} from '@app/utils/PremiumUtils';
-import {UserPremiumTypes} from '@fluxer/constants/src/UserConstants';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 import {useCallback, useEffect, useRef} from 'react';
@@ -59,8 +54,6 @@ export const MultiverseTagChangeModal = observer(({user}: MultiverseTagChangeMod
 		{feature_custom_discriminator: LimitResolver.resolve({key: 'feature_custom_discriminator', fallback: 0})},
 		'feature_custom_discriminator',
 	);
-	const isVisionary = user.premiumType === UserPremiumTypes.LIFETIME;
-	const showPremium = shouldShowPremiumFeatures();
 	const skipAvailabilityCheckRef = useRef(false);
 	const resubmitHandlerRef = useRef<(() => Promise<void>) | null>(null);
 	const confirmedRerollRef = useRef(false);
@@ -166,19 +159,11 @@ export const MultiverseTagChangeModal = observer(({user}: MultiverseTagChangeMod
 					<Modal.ContentLayout>
 						<Modal.Description>
 							{hasCustomDiscriminator ? (
-								isVisionary ? (
-									<Trans>
-										Usernames can only contain letters (a-z, A-Z), numbers (0-9), and underscores.
-										Usernames are case-insensitive. You can pick any available 4-digit tag from #0000
-										to #9999.
-									</Trans>
-								) : (
-									<Trans>
-										Usernames can only contain letters (a-z, A-Z), numbers (0-9), and underscores.
-										Usernames are case-insensitive. You can pick any available 4-digit tag from #0001
-										to #9999.
-									</Trans>
-								)
+								<Trans>
+									Usernames can only contain letters (a-z, A-Z), numbers (0-9), and underscores.
+									Usernames are case-insensitive. You can pick any available 4-digit tag from #0001
+									to #9999.
+								</Trans>
 							) : (
 								<Trans>
 									Usernames can only contain letters (a-z, A-Z), numbers (0-9), and underscores. Usernames are
@@ -209,53 +194,23 @@ export const MultiverseTagChangeModal = observer(({user}: MultiverseTagChangeMod
 								<span className={styles.separator}>#</span>
 								<div className={styles.discriminatorInput}>
 									{!hasCustomDiscriminator ? (
-										showPremium ? (
-											<Tooltip text={t`Get Plutonium to customize your tag or keep it when changing your username`}>
-												<div className={styles.discriminatorInputDisabled}>
-													<Input
-														{...form.register('discriminator')}
-														aria-label={t`4-digit tag`}
-														maxLength={4}
-														placeholder="0000"
-														required={true}
-														type="text"
-														disabled={true}
-														onChange={(e) => {
-															const value = e.target.value.replace(/\D/g, '');
-															form.setValue('discriminator', value);
-														}}
-													/>
-													<FocusRing offset={-2}>
-														<button
-															type="button"
-															onClick={() => {
-																PremiumModalActionCreators.open();
-															}}
-															className={styles.discriminatorOverlay}
-															aria-label={t`Get Plutonium`}
-														/>
-													</FocusRing>
-												</div>
-											</Tooltip>
-										) : (
-											<Tooltip text={t`Custom discriminators are not available on this instance`}>
-												<div className={styles.discriminatorInputDisabled}>
-													<Input
-														{...form.register('discriminator')}
-														aria-label={t`4-digit tag`}
-														maxLength={4}
-														placeholder="0000"
-														required={true}
-														type="text"
-														disabled={true}
-														onChange={(e) => {
-															const value = e.target.value.replace(/\D/g, '');
-															form.setValue('discriminator', value);
-														}}
-													/>
-												</div>
-											</Tooltip>
-										)
+										<Tooltip text={t`Custom discriminators are not available on this instance`}>
+											<div className={styles.discriminatorInputDisabled}>
+												<Input
+													{...form.register('discriminator')}
+													aria-label={t`4-digit tag`}
+													maxLength={4}
+													placeholder="0000"
+													required={true}
+													type="text"
+													disabled={true}
+													onChange={(e) => {
+														const value = e.target.value.replace(/\D/g, '');
+														form.setValue('discriminator', value);
+													}}
+												/>
+											</div>
+										</Tooltip>
 									) : (
 										<Input
 											{...form.register('discriminator')}
@@ -281,11 +236,6 @@ export const MultiverseTagChangeModal = observer(({user}: MultiverseTagChangeMod
 							<div className={styles.validationBox}>
 								<UsernameValidationRules username={form.watch('username')} />
 							</div>
-							{!hasCustomDiscriminator && (
-								<PlutoniumUpsell className={styles.premiumUpsell}>
-									<Trans>Customize your 4-digit tag or keep it when changing your username</Trans>
-								</PlutoniumUpsell>
-							)}
 						</div>
 					</Modal.ContentLayout>
 				</Modal.Content>

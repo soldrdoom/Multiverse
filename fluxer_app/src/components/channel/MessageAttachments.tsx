@@ -22,7 +22,6 @@ import * as ContextMenuActionCreators from '@app/actions/ContextMenuActionCreato
 import {Attachment} from '@app/components/channel/embeds/attachments/Attachment';
 import {AttachmentMosaic} from '@app/components/channel/embeds/attachments/AttachmentMosaic';
 import {Embed} from '@app/components/channel/embeds/Embed';
-import {GiftEmbed} from '@app/components/channel/GiftEmbed';
 import {InviteEmbed} from '@app/components/channel/InviteEmbed';
 import {getAttachmentRenderingState} from '@app/components/channel/MessageAttachmentStateUtils';
 import styles from '@app/components/channel/MessageAttachments.module.css';
@@ -259,12 +258,6 @@ export const MessageAttachments = observer(() => {
 			{message.themes.map((themeId) => (
 				<FocusRing key={themeId}>
 					<ThemeEmbed themeId={themeId} />
-				</FocusRing>
-			))}
-
-			{message.gifts.map((code) => (
-				<FocusRing key={code}>
-					<GiftEmbed code={code} />
 				</FocusRing>
 			))}
 

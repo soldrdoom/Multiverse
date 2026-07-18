@@ -33,8 +33,6 @@ import UserStore from '@app/stores/UserStore';
 import {isDesktop} from '@app/utils/NativeUtils';
 import * as NotificationUtils from '@app/utils/NotificationUtils';
 import {isStandalonePwa} from '@app/utils/PwaUtils';
-import {UserPremiumTypes} from '@fluxer/constants/src/UserConstants';
-import {MS_PER_DAY} from '@fluxer/date_utils/src/DateConstants';
 import {useEffect, useMemo, useRef, useState} from 'react';
 
 export const useAppLayoutState = (): AppLayoutState => {
@@ -61,7 +59,6 @@ export const useNagbarConditions = (): NagbarConditions => {
 	const user = UserStore.currentUser;
 	const nagbarState = NagbarStore;
 	const premiumOverrideType = DeveloperOptionsStore.premiumTypeOverride;
-	const premiumWillCancel = user?.premiumWillCancel ?? false;
 	const isMockPremium = premiumOverrideType != null && premiumOverrideType > 0;
 	const isSelfHosted = RuntimeConfigStore.isSelfHosted();
 	const previousPendingBulkDeletionKeyRef = useRef<string | null>(null);
@@ -96,42 +93,6 @@ export const useNagbarConditions = (): NagbarConditions => {
 			if (Notification.permission === 'denied') return false;
 		}
 		return true;
-	})();
-
-	const canShowPremiumGracePeriod = (() => {
-		if (isSelfHosted) return false;
-		if (nagbarState.forceHidePremiumGracePeriod) return false;
-		if (nagbarState.forcePremiumGracePeriod) return true;
-		if (!user?.premiumUntil || user.premiumType === 2 || premiumWillCancel) return false;
-		const now = new Date();
-		const expiryDate = new Date(user.premiumUntil);
-		const gracePeriodMs = 3 * MS_PER_DAY;
-		const graceEndDate = new Date(expiryDate.getTime() + gracePeriodMs);
-		const isInGracePeriod = now > expiryDate && now <= graceEndDate;
-		return isInGracePeriod;
-	})();
-
-	const canShowPremiumExpired = (() => {
-		if (isSelfHosted) return false;
-		if (nagbarState.forceHidePremiumExpired) return false;
-		if (nagbarState.forcePremiumExpired) return true;
-		if (!user?.premiumUntil || user.premiumType === 2 || premiumWillCancel) return false;
-		const now = new Date();
-		const expiryDate = new Date(user.premiumUntil);
-		const gracePeriodMs = 3 * MS_PER_DAY;
-		const expiredStateDurationMs = 30 * MS_PER_DAY;
-		const graceEndDate = new Date(expiryDate.getTime() + gracePeriodMs);
-		const expiredStateEndDate = new Date(expiryDate.getTime() + expiredStateDurationMs);
-		const isExpired = now > graceEndDate;
-		const showExpiredState = isExpired && now <= expiredStateEndDate;
-		return showExpiredState;
-	})();
-
-	const canShowGiftInventory = (() => {
-		if (isSelfHosted) return false;
-		if (nagbarState.forceHideGiftInventory) return false;
-		if (nagbarState.forceGiftInventory) return true;
-		return Boolean(user?.hasUnreadGiftInventory && !nagbarState.giftInventoryDismissed);
 	})();
 
 	const canShowPremiumOnboarding = (() => {
@@ -176,14 +137,6 @@ export const useNagbarConditions = (): NagbarConditions => {
 		pendingBulkDeletion && !nagbarState.hasPendingBulkDeletionDismissed(pendingBulkDeletionKey),
 	);
 
-	const canShowVisionaryMfa = (() => {
-		if (isSelfHosted) return false;
-		if (nagbarState.forceHideVisionaryMfa) return false;
-		if (nagbarState.forceVisionaryMfa) return true;
-		if (!user) return false;
-		return user.premiumType === UserPremiumTypes.LIFETIME && !user.mfaEnabled && !nagbarState.visionaryMfaDismissed;
-	})();
-
 	const canShowGuildMembershipCta = (() => {
 		if (nagbarState.forceHideGuildMembershipCta) return false;
 		if (nagbarState.forceGuildMembershipCta) return true;
@@ -204,15 +157,11 @@ export const useNagbarConditions = (): NagbarConditions => {
 			: nagbarState.forceDesktopNotification
 				? true
 				: shouldShowDesktopNotification && !nagbarState.desktopNotificationDismissed,
-		canShowPremiumGracePeriod,
-		canShowPremiumExpired,
 		canShowPremiumOnboarding,
-		canShowGiftInventory,
 		canShowDesktopDownload,
 		canShowMobileDownload,
 		hasPendingBulkMessageDeletion,
 		canShowGuildMembershipCta,
-		canShowVisionaryMfa,
 	};
 };
 
@@ -246,43 +195,23 @@ export const useActiveNagbars = (conditions: NagbarConditions): Array<NagbarStat
 				visible: conditions.userNeedsVerification,
 			},
 			{
-				type: NagbarType.PREMIUM_GRACE_PERIOD,
-				priority: 4,
-				visible: conditions.canShowPremiumGracePeriod,
-			},
-			{
-				type: NagbarType.PREMIUM_EXPIRED,
-				priority: 5,
-				visible: conditions.canShowPremiumExpired,
-			},
-			{
 				type: NagbarType.PREMIUM_ONBOARDING,
-				priority: 6,
+				priority: 4,
 				visible: conditions.canShowPremiumOnboarding,
 			},
 			{
-				type: NagbarType.VISIONARY_MFA,
-				priority: 7,
-				visible: conditions.canShowVisionaryMfa,
-			},
-			{
 				type: NagbarType.DESKTOP_NOTIFICATION,
-				priority: 8,
+				priority: 5,
 				visible: conditions.canShowDesktopNotification,
 			},
 			{
-				type: NagbarType.GIFT_INVENTORY,
-				priority: 9,
-				visible: conditions.canShowGiftInventory,
-			},
-			{
 				type: NagbarType.DESKTOP_DOWNLOAD,
-				priority: 10,
+				priority: 6,
 				visible: conditions.canShowDesktopDownload,
 			},
 			{
 				type: NagbarType.MOBILE_DOWNLOAD,
-				priority: 11,
+				priority: 7,
 				visible: conditions.canShowMobileDownload,
 			},
 		];

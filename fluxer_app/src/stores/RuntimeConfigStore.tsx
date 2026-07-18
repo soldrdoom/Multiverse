@@ -31,7 +31,6 @@ import {makeAutoObservable, reaction, runInAction} from 'mobx';
 export interface InstanceFeatures {
 	sms_mfa_enabled: boolean;
 	voice_enabled: boolean;
-	stripe_enabled: boolean;
 	self_hosted: boolean;
 	manual_review_enabled: boolean;
 }
@@ -142,7 +141,6 @@ class RuntimeConfigStore {
 	features: InstanceFeatures = {
 		sms_mfa_enabled: false,
 		voice_enabled: false,
-		stripe_enabled: false,
 		self_hosted: false,
 		manual_review_enabled: false,
 	};

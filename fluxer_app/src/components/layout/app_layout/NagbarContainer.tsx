@@ -22,15 +22,11 @@ import styles from '@app/components/layout/app_layout/NagbarContainer.module.css
 import {DesktopDownloadNagbar} from '@app/components/layout/app_layout/nagbars/DesktopDownloadNagbar';
 import {DesktopNotificationNagbar} from '@app/components/layout/app_layout/nagbars/DesktopNotificationNagbar';
 import {EmailVerificationNagbar} from '@app/components/layout/app_layout/nagbars/EmailVerificationNagbar';
-import {GiftInventoryNagbar} from '@app/components/layout/app_layout/nagbars/GiftInventoryNagbar';
 import {GuildMembershipCtaNagbar} from '@app/components/layout/app_layout/nagbars/GuildMembershipCtaNagbar';
 import {MobileDownloadNagbar} from '@app/components/layout/app_layout/nagbars/MobileDownloadNagbar';
 import {PendingBulkDeletionNagbar} from '@app/components/layout/app_layout/nagbars/PendingBulkDeletionNagbar';
-import {PremiumExpiredNagbar} from '@app/components/layout/app_layout/nagbars/PremiumExpiredNagbar';
-import {PremiumGracePeriodNagbar} from '@app/components/layout/app_layout/nagbars/PremiumGracePeriodNagbar';
 import {PremiumOnboardingNagbar} from '@app/components/layout/app_layout/nagbars/PremiumOnboardingNagbar';
 import {UnclaimedAccountNagbar} from '@app/components/layout/app_layout/nagbars/UnclaimedAccountNagbar';
-import {VisionaryMfaNagbar} from '@app/components/layout/app_layout/nagbars/VisionaryMfaNagbar';
 import MobileLayoutStore from '@app/stores/MobileLayoutStore';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
@@ -56,22 +52,14 @@ export const NagbarContainer: React.FC<NagbarContainerProps> = observer(({nagbar
 						return <PendingBulkDeletionNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
 					case NagbarType.DESKTOP_NOTIFICATION:
 						return <DesktopNotificationNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
-					case NagbarType.PREMIUM_GRACE_PERIOD:
-						return <PremiumGracePeriodNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
-					case NagbarType.PREMIUM_EXPIRED:
-						return <PremiumExpiredNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
 					case NagbarType.PREMIUM_ONBOARDING:
 						return <PremiumOnboardingNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
-					case NagbarType.GIFT_INVENTORY:
-						return <GiftInventoryNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
 					case NagbarType.DESKTOP_DOWNLOAD:
 						return <DesktopDownloadNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
 					case NagbarType.MOBILE_DOWNLOAD:
 						return <MobileDownloadNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
 					case NagbarType.GUILD_MEMBERSHIP_CTA:
 						return <GuildMembershipCtaNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
-					case NagbarType.VISIONARY_MFA:
-						return <VisionaryMfaNagbar key={nagbar.type} isMobile={mobileLayout.enabled} />;
 					default:
 						return null;
 				}

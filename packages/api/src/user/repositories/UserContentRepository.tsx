@@ -18,93 +18,24 @@
  */
 
 import type {ChannelID, MessageID, UserID} from '@fluxer/api/src/BrandedTypes';
-import type {GiftCodeRow, PaymentBySubscriptionRow, PaymentRow} from '@fluxer/api/src/database/types/PaymentTypes';
 import type {PushSubscriptionRow, RecentMentionRow} from '@fluxer/api/src/database/types/UserTypes';
-import type {GiftCode} from '@fluxer/api/src/models/GiftCode';
-import type {Payment} from '@fluxer/api/src/models/Payment';
 import type {PushSubscription} from '@fluxer/api/src/models/PushSubscription';
 import type {RecentMention} from '@fluxer/api/src/models/RecentMention';
 import type {SavedMessage} from '@fluxer/api/src/models/SavedMessage';
-import type {VisionarySlot} from '@fluxer/api/src/models/VisionarySlot';
-import {GiftCodeRepository} from '@fluxer/api/src/user/repositories/GiftCodeRepository';
 import type {IUserContentRepository} from '@fluxer/api/src/user/repositories/IUserContentRepository';
-import {PaymentRepository} from '@fluxer/api/src/user/repositories/PaymentRepository';
 import {PushSubscriptionRepository} from '@fluxer/api/src/user/repositories/PushSubscriptionRepository';
 import {RecentMentionRepository} from '@fluxer/api/src/user/repositories/RecentMentionRepository';
 import {SavedMessageRepository} from '@fluxer/api/src/user/repositories/SavedMessageRepository';
-import {VisionarySlotRepository} from '@fluxer/api/src/user/repositories/VisionarySlotRepository';
 
 export class UserContentRepository implements IUserContentRepository {
-	private giftCodeRepository: GiftCodeRepository;
-	private paymentRepository: PaymentRepository;
 	private pushSubscriptionRepository: PushSubscriptionRepository;
 	private recentMentionRepository: RecentMentionRepository;
 	private savedMessageRepository: SavedMessageRepository;
-	private visionarySlotRepository: VisionarySlotRepository;
 
 	constructor() {
-		this.giftCodeRepository = new GiftCodeRepository();
-		this.paymentRepository = new PaymentRepository();
 		this.pushSubscriptionRepository = new PushSubscriptionRepository();
 		this.recentMentionRepository = new RecentMentionRepository();
 		this.savedMessageRepository = new SavedMessageRepository();
-		this.visionarySlotRepository = new VisionarySlotRepository();
-	}
-
-	async createGiftCode(data: GiftCodeRow): Promise<void> {
-		return this.giftCodeRepository.createGiftCode(data);
-	}
-
-	async findGiftCode(code: string): Promise<GiftCode | null> {
-		return this.giftCodeRepository.findGiftCode(code);
-	}
-
-	async findGiftCodeByPaymentIntent(paymentIntentId: string): Promise<GiftCode | null> {
-		return this.giftCodeRepository.findGiftCodeByPaymentIntent(paymentIntentId);
-	}
-
-	async findGiftCodesByCreator(userId: UserID): Promise<Array<GiftCode>> {
-		return this.giftCodeRepository.findGiftCodesByCreator(userId);
-	}
-
-	async redeemGiftCode(code: string, userId: UserID): Promise<{applied: boolean}> {
-		return this.giftCodeRepository.redeemGiftCode(code, userId);
-	}
-
-	async updateGiftCode(code: string, data: Partial<GiftCodeRow>): Promise<void> {
-		return this.giftCodeRepository.updateGiftCode(code, data);
-	}
-
-	async linkGiftCodeToCheckoutSession(code: string, checkoutSessionId: string): Promise<void> {
-		return this.giftCodeRepository.linkGiftCodeToCheckoutSession(code, checkoutSessionId);
-	}
-
-	async createPayment(data: {
-		checkout_session_id: string;
-		user_id: UserID;
-		price_id: string;
-		product_type: string;
-		status: string;
-		is_gift: boolean;
-		created_at: Date;
-	}): Promise<void> {
-		return this.paymentRepository.createPayment(data);
-	}
-
-	async updatePayment(data: Partial<PaymentRow> & {checkout_session_id: string}): Promise<{applied: boolean}> {
-		return this.paymentRepository.updatePayment(data);
-	}
-
-	async getPaymentByCheckoutSession(checkoutSessionId: string): Promise<Payment | null> {
-		return this.paymentRepository.getPaymentByCheckoutSession(checkoutSessionId);
-	}
-
-	async getPaymentByPaymentIntent(paymentIntentId: string): Promise<Payment | null> {
-		return this.paymentRepository.getPaymentByPaymentIntent(paymentIntentId);
-	}
-
-	async getSubscriptionInfo(subscriptionId: string): Promise<PaymentBySubscriptionRow | null> {
-		return this.paymentRepository.getSubscriptionInfo(subscriptionId);
 	}
 
 	async listPushSubscriptions(userId: UserID): Promise<Array<PushSubscription>> {
@@ -179,25 +110,5 @@ export class UserContentRepository implements IUserContentRepository {
 
 	async deleteAllSavedMessages(userId: UserID): Promise<void> {
 		return this.savedMessageRepository.deleteAllSavedMessages(userId);
-	}
-
-	async listVisionarySlots(): Promise<Array<VisionarySlot>> {
-		return this.visionarySlotRepository.listVisionarySlots();
-	}
-
-	async expandVisionarySlots(byCount: number): Promise<void> {
-		return this.visionarySlotRepository.expandVisionarySlots(byCount);
-	}
-
-	async shrinkVisionarySlots(toCount: number): Promise<void> {
-		return this.visionarySlotRepository.shrinkVisionarySlots(toCount);
-	}
-
-	async reserveVisionarySlot(slotIndex: number, userId: UserID): Promise<void> {
-		return this.visionarySlotRepository.reserveVisionarySlot(slotIndex, userId);
-	}
-
-	async unreserveVisionarySlot(slotIndex: number, userId: UserID): Promise<void> {
-		return this.visionarySlotRepository.unreserveVisionarySlot(slotIndex, userId);
 	}
 }

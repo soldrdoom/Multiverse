@@ -45,6 +45,7 @@ export type UserSettingsTabType =
 	| 'linked_accounts'
 	| 'vault'
 	| 'cosmetics'
+	| 'plutonium'
 	| 'admin_panel';
 
 export interface SectionDefinition {

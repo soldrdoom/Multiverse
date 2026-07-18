@@ -1,0 +1,95 @@
+/*
+ * Copyright (C) 2026 Multiverse Contributors
+ *
+ * This file is part of Multiverse.
+ *
+ * Multiverse is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Multiverse is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.875rem;
+	padding: 0.25rem 0;
+}
+
+.spinnerContainer {
+	display: flex;
+	justify-content: center;
+	padding: 1.5rem;
+}
+
+.feeNotice {
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-accent);
+	border-radius: 8px;
+	padding: 0.625rem 0.75rem;
+	font-size: 0.8125rem;
+	color: var(--text-secondary);
+	line-height: 1.4;
+}
+
+.busyRow {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	padding: 0.5rem 0;
+}
+
+.busyText {
+	font-size: 0.875rem;
+	color: var(--text-secondary);
+}
+
+.payButton {
+	width: 100%;
+}
+
+.error {
+	margin: 0;
+	color: var(--status-danger);
+	font-size: 0.875rem;
+}
+
+.successCard {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	text-align: center;
+	padding: 1rem 0.5rem;
+}
+
+.successTitle {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: var(--text-primary);
+}
+
+.successText {
+	margin: 0;
+	font-size: 0.875rem;
+	color: var(--text-secondary);
+}
+
+.solscanLink {
+	font-size: 0.8125rem;
+	color: var(--text-link);
+	text-decoration: none;
+}
+
+.solscanLink:hover {
+	text-decoration: underline;
+}

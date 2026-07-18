@@ -23,7 +23,7 @@ import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import UserNoteStore from '@app/stores/UserNoteStore';
 import {useLingui} from '@lingui/react/macro';
-import {ListPlusIcon, SnowflakeIcon} from '@phosphor-icons/react';
+import {CoinIcon, ListPlusIcon, SnowflakeIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
@@ -33,43 +33,60 @@ interface ProfileCardActionsProps {
 	userId: string;
 	isHovering: boolean;
 	onNoteClick: () => void;
+	showTipButton?: boolean;
+	onTipClick?: () => void;
 }
 
-export const ProfileCardActions: React.FC<ProfileCardActionsProps> = observer(({userId, isHovering, onNoteClick}) => {
-	const {t, i18n} = useLingui();
-	const userNote = UserNoteStore.getUserNote(userId);
-	const noteButtonRef = useRef<HTMLButtonElement>(null);
-	const copyIdButtonRef = useRef<HTMLButtonElement>(null);
+export const ProfileCardActions: React.FC<ProfileCardActionsProps> = observer(
+	({userId, isHovering, onNoteClick, showTipButton, onTipClick}) => {
+		const {t, i18n} = useLingui();
+		const userNote = UserNoteStore.getUserNote(userId);
+		const noteButtonRef = useRef<HTMLButtonElement>(null);
+		const copyIdButtonRef = useRef<HTMLButtonElement>(null);
+		const tipButtonRef = useRef<HTMLButtonElement>(null);
 
-	return (
-		<>
-			<div className={clsx(styles.noteButtonContainer, isHovering && styles.noteButtonContainerVisible)}>
-				<FocusRing offset={-2} focusTarget={noteButtonRef} ringTarget={noteButtonRef}>
-					<Tooltip
-						text={userNote ? () => <div className={styles.noteTooltipContent}>{userNote}</div> : t`Add Note`}
-						maxWidth="none"
-					>
-						<button ref={noteButtonRef} type="button" onClick={onNoteClick} className={styles.noteButton}>
-							<ListPlusIcon className={clsx(styles.iconMedium, styles.noteIconWrapper)} />
-						</button>
-					</Tooltip>
-				</FocusRing>
-			</div>
+		return (
+			<>
+				{showTipButton && (
+					<div className={clsx(styles.tipButtonContainer, isHovering && styles.tipButtonContainerVisible)}>
+						<FocusRing offset={-2} focusTarget={tipButtonRef} ringTarget={tipButtonRef}>
+							<Tooltip text={t`Send SOL`} maxWidth="none">
+								<button ref={tipButtonRef} type="button" onClick={onTipClick} className={styles.tipButton}>
+									<CoinIcon weight="fill" className={clsx(styles.iconMedium, styles.tipIconWrapper)} />
+								</button>
+							</Tooltip>
+						</FocusRing>
+					</div>
+				)}
 
-			<div className={clsx(styles.copyIdButtonContainer, isHovering && styles.copyIdButtonContainerVisible)}>
-				<FocusRing offset={-2} focusTarget={copyIdButtonRef} ringTarget={copyIdButtonRef}>
-					<Tooltip text={t`Copy User ID`} maxWidth="none">
-						<button
-							ref={copyIdButtonRef}
-							type="button"
-							onClick={() => TextCopyActionCreators.copy(i18n, userId)}
-							className={styles.copyIdButton}
+				<div className={clsx(styles.noteButtonContainer, isHovering && styles.noteButtonContainerVisible)}>
+					<FocusRing offset={-2} focusTarget={noteButtonRef} ringTarget={noteButtonRef}>
+						<Tooltip
+							text={userNote ? () => <div className={styles.noteTooltipContent}>{userNote}</div> : t`Add Note`}
+							maxWidth="none"
 						>
-							<SnowflakeIcon weight="bold" className={clsx(styles.iconMedium, styles.copyIdIconWrapper)} />
-						</button>
-					</Tooltip>
-				</FocusRing>
-			</div>
-		</>
-	);
-});
+							<button ref={noteButtonRef} type="button" onClick={onNoteClick} className={styles.noteButton}>
+								<ListPlusIcon className={clsx(styles.iconMedium, styles.noteIconWrapper)} />
+							</button>
+						</Tooltip>
+					</FocusRing>
+				</div>
+
+				<div className={clsx(styles.copyIdButtonContainer, isHovering && styles.copyIdButtonContainerVisible)}>
+					<FocusRing offset={-2} focusTarget={copyIdButtonRef} ringTarget={copyIdButtonRef}>
+						<Tooltip text={t`Copy User ID`} maxWidth="none">
+							<button
+								ref={copyIdButtonRef}
+								type="button"
+								onClick={() => TextCopyActionCreators.copy(i18n, userId)}
+								className={styles.copyIdButton}
+							>
+								<SnowflakeIcon weight="bold" className={clsx(styles.iconMedium, styles.copyIdIconWrapper)} />
+							</button>
+						</Tooltip>
+					</FocusRing>
+				</div>
+			</>
+		);
+	},
+);

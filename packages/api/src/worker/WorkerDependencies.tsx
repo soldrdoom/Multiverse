@@ -75,7 +75,6 @@ import {PackService} from '@fluxer/api/src/pack/PackService';
 import {ReadStateRepository} from '@fluxer/api/src/read_state/ReadStateRepository';
 import {ReadStateService} from '@fluxer/api/src/read_state/ReadStateService';
 import {ReportRepository} from '@fluxer/api/src/report/ReportRepository';
-import {PaymentRepository} from '@fluxer/api/src/user/repositories/PaymentRepository';
 import {UserContactChangeLogRepository} from '@fluxer/api/src/user/repositories/UserContactChangeLogRepository';
 import {UserRepository} from '@fluxer/api/src/user/repositories/UserRepository';
 import {UserContactChangeLogService} from '@fluxer/api/src/user/services/UserContactChangeLogService';
@@ -94,7 +93,6 @@ import {TestEmailService} from '@fluxer/email/src/TestEmailService';
 import type {IKVProvider} from '@fluxer/kv_client/src/IKVProvider';
 import {RateLimitService} from '@fluxer/rate_limit/src/RateLimitService';
 import type {IWorkerService} from '@fluxer/worker/src/contracts/IWorkerService';
-import Stripe from 'stripe';
 
 let _workerTestEmailService: TestEmailService | null = null;
 function getWorkerTestEmailService(): TestEmailService {
@@ -118,7 +116,6 @@ export interface WorkerDependencies {
 	readStateRepository: ReadStateRepository;
 	adminRepository: AdminRepository;
 	reportRepository: ReportRepository;
-	paymentRepository: PaymentRepository;
 	userHarvestRepository: UserHarvestRepository;
 	adminArchiveRepository: AdminArchiveRepository;
 	systemDmJobRepository: SystemDmJobRepository;
@@ -160,7 +157,6 @@ export interface WorkerDependencies {
 	contactChangeLogService: UserContactChangeLogService;
 	csamEvidenceRetentionService: CsamEvidenceRetentionService;
 
-	stripe: Stripe | null;
 	csamScanJobService: CsamScanJobService;
 }
 
@@ -180,7 +176,6 @@ export async function initializeWorkerDependencies(snowflakeService: SnowflakeSe
 	const adminArchiveRepository = new AdminArchiveRepository();
 	const systemDmJobRepository = new SystemDmJobRepository();
 	const reportRepository = new ReportRepository();
-	const paymentRepository = new PaymentRepository();
 	const userHarvestRepository = new UserHarvestRepository();
 	const contactChangeLogRepository = new UserContactChangeLogRepository();
 	const contactChangeLogService = new UserContactChangeLogService(contactChangeLogRepository);
@@ -335,15 +330,6 @@ export async function initializeWorkerDependencies(snowflakeService: SnowflakeSe
 		limitConfigService,
 	);
 
-	let stripe: Stripe | null = null;
-	if (Config.stripe.enabled && Config.stripe.secretKey) {
-		stripe = new Stripe(Config.stripe.secretKey, {
-			apiVersion: '2026-01-28.clover',
-			httpClient: Config.dev.testModeEnabled ? Stripe.createFetchHttpClient() : undefined,
-		});
-		Logger.info('Stripe initialized');
-	}
-
 	Logger.info('Worker dependencies initialized successfully');
 
 	return {
@@ -359,7 +345,6 @@ export async function initializeWorkerDependencies(snowflakeService: SnowflakeSe
 		readStateRepository,
 		adminRepository,
 		reportRepository,
-		paymentRepository,
 		userHarvestRepository,
 		adminArchiveRepository,
 		systemDmJobRepository,
@@ -395,7 +380,6 @@ export async function initializeWorkerDependencies(snowflakeService: SnowflakeSe
 		guildAuditLogService,
 		contactChangeLogService,
 		csamEvidenceRetentionService,
-		stripe,
 		csamScanJobService,
 	};
 }

@@ -259,7 +259,7 @@ export const getSettingsTabs = (i18n: I18n): Array<SettingsTab> => {
 	const isSelfHosted = RuntimeConfigStore.isSelfHosted();
 
 	return allTabs.filter((tab) => {
-		if (isSelfHosted && (tab.type === 'plutonium' || tab.type === 'gift_inventory')) {
+		if (isSelfHosted && tab.type === 'plutonium') {
 			return false;
 		}
 		return true;

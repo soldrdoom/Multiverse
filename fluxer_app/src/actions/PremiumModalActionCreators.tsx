@@ -22,19 +22,10 @@ import {modal} from '@app/actions/ModalActionCreators';
 import {PremiumModal} from '@app/components/modals/PremiumModal';
 import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 
-interface OpenOptions {
-	defaultGiftMode?: boolean;
-}
-
-export function open(optionsOrDefaultGiftMode: OpenOptions | boolean = {}): void {
+export function open(): void {
 	if (RuntimeConfigStore.isSelfHosted()) {
 		return;
 	}
 
-	const options =
-		typeof optionsOrDefaultGiftMode === 'boolean'
-			? {defaultGiftMode: optionsOrDefaultGiftMode}
-			: optionsOrDefaultGiftMode;
-	const {defaultGiftMode = false} = options;
-	ModalActionCreators.push(modal(() => <PremiumModal defaultGiftMode={defaultGiftMode} />));
+	ModalActionCreators.push(modal(() => <PremiumModal />));
 }

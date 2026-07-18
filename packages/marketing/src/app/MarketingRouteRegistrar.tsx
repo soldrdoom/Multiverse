@@ -29,9 +29,6 @@ import {getLocaleFromCode} from '@fluxer/locale/src/LocaleService';
 import type {MarketingConfig} from '@fluxer/marketing/src/MarketingConfig';
 import {sendMarketingRequest} from '@fluxer/marketing/src/MarketingHttpClient';
 import {renderCareersPage} from '@fluxer/marketing/src/pages/CareersPage';
-import {renderDonateManagePage} from '@fluxer/marketing/src/pages/DonateManagePage';
-import {renderDonatePage} from '@fluxer/marketing/src/pages/DonatePage';
-import {renderDonateSuccessPage} from '@fluxer/marketing/src/pages/DonateSuccessPage';
 import {renderDownloadPage} from '@fluxer/marketing/src/pages/DownloadPage';
 import {renderHelpArticlePage} from '@fluxer/marketing/src/pages/HelpArticlePage';
 import {renderHelpIndexPage} from '@fluxer/marketing/src/pages/HelpIndexPage';
@@ -81,9 +78,6 @@ const PAGE_ROUTE_DEFINITIONS: ReadonlyArray<{
 	{path: '/', handler: renderHomePage},
 	{path: '/careers', handler: renderCareersPage},
 	{path: '/download', handler: renderDownloadPage},
-	{path: '/donate', handler: renderDonatePage},
-	{path: '/donate/manage', handler: renderDonateManagePage},
-	{path: '/donate/success', handler: renderDonateSuccessPage},
 	{path: '/plutonium', handler: renderPlutoniumPage},
 	{path: '/partners', handler: renderPartnersPage},
 	{path: '/press', handler: renderPressPage},

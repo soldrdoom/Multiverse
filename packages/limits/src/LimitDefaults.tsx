@@ -103,24 +103,5 @@ export const DEFAULT_FREE_LIMITS: Record<LimitKey, number> = {
 	sticker_max_size: STICKER_MAX_SIZE,
 };
 
-export const DEFAULT_PREMIUM_LIMITS: Record<LimitKey, number> = {
-	...DEFAULT_FREE_LIMITS,
-	feature_animated_avatar: 1,
-	feature_animated_banner: 1,
-	feature_custom_discriminator: 1,
-	feature_custom_notification_sounds: 1,
-	feature_early_access: 1,
-	feature_global_expressions: 1,
-	feature_higher_video_quality: 1,
-	feature_per_guild_profiles: 1,
-	feature_voice_entrance_sounds: 1,
-	max_attachment_file_size: ATTACHMENT_MAX_SIZE_PREMIUM,
-	max_bio_length: MAX_BIO_LENGTH,
-	max_bookmarks: MAX_BOOKMARKS_PREMIUM,
-	max_created_packs: MAX_CREATED_PACKS_PREMIUM,
-	max_custom_backgrounds: 15,
-	max_favorite_memes: MAX_FAVORITE_MEMES_PREMIUM,
-	max_guilds: 200,
-	max_installed_packs: MAX_INSTALLED_PACKS_PREMIUM,
-	max_message_length: MAX_MESSAGE_LENGTH_PREMIUM,
-};
+// Plutonium is free for everyone — premium and free limits are the same tier now.
+export const DEFAULT_PREMIUM_LIMITS: Record<LimitKey, number> = DEFAULT_FREE_LIMITS;

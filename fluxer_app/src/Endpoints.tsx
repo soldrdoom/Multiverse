@@ -123,6 +123,8 @@ export const Endpoints = {
 	GUILD_STICKERS: (guildId: string) => `/guilds/${guildId}/stickers`,
 	GUILD_INVITES: (guildId: string) => `/guilds/${guildId}/invites`,
 	GUILD_VANITY_URL: (guildId: string) => `/guilds/${guildId}/vanity-url`,
+	GUILD_VANITY_PURCHASE_INVOICE: (guildId: string) => `/guilds/${guildId}/vanity/invoice`,
+	GUILD_VANITY_PURCHASE_VERIFY: (guildId: string) => `/guilds/${guildId}/vanity/verify`,
 	GUILD_WEBHOOKS: (guildId: string) => `/guilds/${guildId}/webhooks`,
 	GUILD_AUDIT_LOGS: (guildId: string) => `/guilds/${guildId}/audit-logs`,
 
@@ -213,6 +215,8 @@ export const Endpoints = {
 	USER_NOTE: (userId: string) => `/users/@me/notes/${userId}`,
 	USER_CHECK_TAG: '/users/check-tag',
 	USER_PROFILE: (query = ME) => `/users/${query}/profile`,
+	USER_TIP_TARGET: (userId: string) => `/users/${userId}/tip-target`,
+	USER_TIP_VERIFY: (userId: string) => `/users/${userId}/tip/verify`,
 	USER_RELATIONSHIP: (userId: string) => `/users/@me/relationships/${userId}`,
 	USER_RELATIONSHIPS: '/users/@me/relationships',
 	USER_THEMES: '/users/@me/themes',

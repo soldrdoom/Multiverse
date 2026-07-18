@@ -25,7 +25,7 @@ import {Logger} from '@app/lib/Logger';
 import {useLocation} from '@app/lib/router/React';
 import SessionManager from '@app/lib/SessionManager';
 import {Routes} from '@app/Routes';
-import {isAutoRedirectExemptPath} from '@app/router/RouterConstants';
+import {isAutoRedirectExemptPath, isBareVanityCodePath} from '@app/router/RouterConstants';
 import * as PushSubscriptionService from '@app/services/push/PushSubscriptionService';
 import AccountManager from '@app/stores/AccountManager';
 import AuthenticationStore from '@app/stores/AuthenticationStore';
@@ -81,7 +81,8 @@ export const RootComponent: React.FC<{children?: React.ReactNode}> = observer(({
 			pathname === '/__notfound' ||
 			pathname.startsWith('/invite/') ||
 			pathname.startsWith('/gift/') ||
-			pathname.startsWith('/theme/')
+			pathname.startsWith('/theme/') ||
+			isBareVanityCodePath(pathname)
 		);
 	}, [pathname]);
 

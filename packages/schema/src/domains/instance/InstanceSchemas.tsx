@@ -76,7 +76,6 @@ export const InstanceInfoResponse = z.object({
 		.object({
 			sms_mfa_enabled: z.boolean().describe('Whether SMS-based MFA is available'),
 			voice_enabled: z.boolean().describe('Whether voice/video calling is enabled'),
-			stripe_enabled: z.boolean().describe('Whether Stripe payments are enabled'),
 			self_hosted: z.boolean().describe('Whether this is a self-hosted instance'),
 			manual_review_enabled: z.boolean().describe('Whether manual review mode is enabled for registrations'),
 		})
@@ -149,7 +148,6 @@ export const WellKnownMultiverseResponse = z.object({
 		.object({
 			sms_mfa_enabled: z.boolean().describe('Whether SMS-based MFA is available'),
 			voice_enabled: z.boolean().describe('Whether voice/video calling is enabled'),
-			stripe_enabled: z.boolean().describe('Whether Stripe payments are enabled'),
 			self_hosted: z.boolean().describe('Whether this is a self-hosted instance'),
 			manual_review_enabled: z.boolean().describe('Whether manual review mode is enabled for registrations'),
 		})

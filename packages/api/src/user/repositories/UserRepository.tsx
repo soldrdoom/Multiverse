@@ -25,7 +25,6 @@ import type {
 	PasswordResetTokenRow,
 	PhoneTokenRow,
 } from '@fluxer/api/src/database/types/AuthTypes';
-import type {GiftCodeRow, PaymentBySubscriptionRow, PaymentRow} from '@fluxer/api/src/database/types/PaymentTypes';
 import type {
 	PushSubscriptionRow,
 	RecentMentionRow,
@@ -38,10 +37,8 @@ import type {AuthSession} from '@fluxer/api/src/models/AuthSession';
 import type {Channel} from '@fluxer/api/src/models/Channel';
 import type {EmailRevertToken} from '@fluxer/api/src/models/EmailRevertToken';
 import type {EmailVerificationToken} from '@fluxer/api/src/models/EmailVerificationToken';
-import type {GiftCode} from '@fluxer/api/src/models/GiftCode';
 import type {MfaBackupCode} from '@fluxer/api/src/models/MfaBackupCode';
 import type {PasswordResetToken} from '@fluxer/api/src/models/PasswordResetToken';
-import type {Payment} from '@fluxer/api/src/models/Payment';
 import type {PushSubscription} from '@fluxer/api/src/models/PushSubscription';
 import type {ReadState} from '@fluxer/api/src/models/ReadState';
 import type {RecentMention} from '@fluxer/api/src/models/RecentMention';
@@ -51,7 +48,6 @@ import type {User} from '@fluxer/api/src/models/User';
 import type {UserGuildSettings} from '@fluxer/api/src/models/UserGuildSettings';
 import type {UserNote} from '@fluxer/api/src/models/UserNote';
 import type {UserSettings} from '@fluxer/api/src/models/UserSettings';
-import type {VisionarySlot} from '@fluxer/api/src/models/VisionarySlot';
 import type {WebAuthnCredential} from '@fluxer/api/src/models/WebAuthnCredential';
 import {ReadStateRepository} from '@fluxer/api/src/read_state/ReadStateRepository';
 import type {
@@ -568,34 +564,6 @@ export class UserRepository implements IUserRepositoryAggregate {
 		return this.contentRepo.deleteAllSavedMessages(userId);
 	}
 
-	async createGiftCode(data: GiftCodeRow): Promise<void> {
-		return this.contentRepo.createGiftCode(data);
-	}
-
-	async findGiftCode(code: string): Promise<GiftCode | null> {
-		return this.contentRepo.findGiftCode(code);
-	}
-
-	async findGiftCodeByPaymentIntent(paymentIntentId: string): Promise<GiftCode | null> {
-		return this.contentRepo.findGiftCodeByPaymentIntent(paymentIntentId);
-	}
-
-	async findGiftCodesByCreator(userId: UserID): Promise<Array<GiftCode>> {
-		return this.contentRepo.findGiftCodesByCreator(userId);
-	}
-
-	async redeemGiftCode(code: string, userId: UserID): Promise<{applied: boolean}> {
-		return this.contentRepo.redeemGiftCode(code, userId);
-	}
-
-	async updateGiftCode(code: string, data: Partial<GiftCodeRow>): Promise<void> {
-		return this.contentRepo.updateGiftCode(code, data);
-	}
-
-	async linkGiftCodeToCheckoutSession(code: string, checkoutSessionId: string): Promise<void> {
-		return this.contentRepo.linkGiftCodeToCheckoutSession(code, checkoutSessionId);
-	}
-
 	async listPushSubscriptions(userId: UserID): Promise<Array<PushSubscription>> {
 		return this.contentRepo.listPushSubscriptions(userId);
 	}
@@ -616,51 +584,4 @@ export class UserRepository implements IUserRepositoryAggregate {
 		return this.contentRepo.deleteAllPushSubscriptions(userId);
 	}
 
-	async createPayment(data: {
-		checkout_session_id: string;
-		user_id: UserID;
-		price_id: string;
-		product_type: string;
-		status: string;
-		is_gift: boolean;
-		created_at: Date;
-	}): Promise<void> {
-		return this.contentRepo.createPayment(data);
-	}
-
-	async updatePayment(data: Partial<PaymentRow> & {checkout_session_id: string}): Promise<{applied: boolean}> {
-		return this.contentRepo.updatePayment(data);
-	}
-
-	async getPaymentByCheckoutSession(checkoutSessionId: string): Promise<Payment | null> {
-		return this.contentRepo.getPaymentByCheckoutSession(checkoutSessionId);
-	}
-
-	async getPaymentByPaymentIntent(paymentIntentId: string): Promise<Payment | null> {
-		return this.contentRepo.getPaymentByPaymentIntent(paymentIntentId);
-	}
-
-	async getSubscriptionInfo(subscriptionId: string): Promise<PaymentBySubscriptionRow | null> {
-		return this.contentRepo.getSubscriptionInfo(subscriptionId);
-	}
-
-	async listVisionarySlots(): Promise<Array<VisionarySlot>> {
-		return this.contentRepo.listVisionarySlots();
-	}
-
-	async expandVisionarySlots(byCount: number): Promise<void> {
-		return this.contentRepo.expandVisionarySlots(byCount);
-	}
-
-	async shrinkVisionarySlots(toCount: number): Promise<void> {
-		return this.contentRepo.shrinkVisionarySlots(toCount);
-	}
-
-	async reserveVisionarySlot(slotIndex: number, userId: UserID): Promise<void> {
-		return this.contentRepo.reserveVisionarySlot(slotIndex, userId);
-	}
-
-	async unreserveVisionarySlot(slotIndex: number, userId: UserID): Promise<void> {
-		return this.contentRepo.unreserveVisionarySlot(slotIndex, userId);
-	}
 }

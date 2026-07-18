@@ -17,7 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as GiftActionCreators from '@app/actions/GiftActionCreators';
 import * as InviteActionCreators from '@app/actions/InviteActionCreators';
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
@@ -37,10 +36,7 @@ import React from 'react';
 
 const logger = new Logger('DeepLinkUtils');
 
-type DeepLinkTarget =
-	| {type: 'invite'; code: string; preferLogin: boolean}
-	| {type: 'gift'; code: string; preferLogin: boolean}
-	| {type: 'user'; userId: string};
+type DeepLinkTarget = {type: 'invite'; code: string; preferLogin: boolean} | {type: 'user'; userId: string};
 
 const parseDeepLink = (rawUrl: string): DeepLinkTarget | null => {
 	const tryFromSegments = (segments: Array<string>, search?: string): DeepLinkTarget | null => {
@@ -49,10 +45,6 @@ const parseDeepLink = (rawUrl: string): DeepLinkTarget | null => {
 
 		if (first === 'invite' && second) {
 			return {type: 'invite', code: second, preferLogin};
-		}
-
-		if (first === 'gift' && second) {
-			return {type: 'gift', code: second, preferLogin};
 		}
 
 		if (first === 'users' && second) {
@@ -79,19 +71,11 @@ const parseDeepLink = (rawUrl: string): DeepLinkTarget | null => {
 const navigateForTarget = (target: DeepLinkTarget) => {
 	const isAuthenticated = AuthenticationStore.isAuthenticated;
 
-	if (target.type === 'gift' && RuntimeConfigStore.isSelfHosted()) {
-		return;
-	}
-
 	if (isAuthenticated) {
 		if (target.type === 'invite') {
 			void InviteActionCreators.openAcceptModal(target.code);
-		} else {
-			if (target.type === 'gift') {
-				void GiftActionCreators.openAcceptModal(target.code);
-			} else if (target.type === 'user') {
-				void openUserProfile(target.userId);
-			}
+		} else if (target.type === 'user') {
+			void openUserProfile(target.userId);
 		}
 		RouterUtils.transitionTo(Routes.ME);
 		return;
@@ -105,11 +89,7 @@ const navigateForTarget = (target: DeepLinkTarget) => {
 	if (target.type === 'invite') {
 		const dest = target.preferLogin ? Routes.inviteLogin(target.code) : Routes.inviteRegister(target.code);
 		RouterUtils.transitionTo(dest);
-		return;
 	}
-
-	const dest = target.preferLogin ? Routes.giftLogin(target.code) : Routes.giftRegister(target.code);
-	RouterUtils.transitionTo(dest);
 };
 
 export function handleDeepLinkUrl(rawUrl: string): boolean {

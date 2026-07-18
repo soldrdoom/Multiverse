@@ -184,6 +184,7 @@ export interface UserProfileResponse {
 	banner: string | null;
 	banner_color?: number | null;
 	accent_color: number | null;
+	has_solana_wallet?: boolean;
 }
 
 export const CustomStatusResponse = z.object({
@@ -363,6 +364,7 @@ export interface UserProfile {
 	readonly banner_color?: number | null;
 	readonly pronouns: string | null;
 	readonly accent_color: number | null;
+	readonly has_solana_wallet?: boolean;
 }
 
 export interface UserPartial {
@@ -452,6 +454,7 @@ export const UserProfileDataResponse = z.object({
 	banner: z.string().nullable().describe('Hash of the profile banner image'),
 	banner_color: Int32Type.nullable().optional().describe('Default banner color if no custom banner'),
 	accent_color: Int32Type.nullable().describe('User-selected accent color'),
+	has_solana_wallet: z.boolean().optional().describe('Whether this user has a Solana wallet linked (can receive tips)'),
 });
 export type UserProfileDataResponse = z.infer<typeof UserProfileDataResponse>;
 

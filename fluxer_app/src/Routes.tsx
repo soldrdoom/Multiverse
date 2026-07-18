@@ -72,8 +72,6 @@ export const Routes = {
 		`${Routes.favoritesChannel(channelId)}/${messageId}`,
 	inviteRegister: (code: string) => `/invite/${code}`,
 	inviteLogin: (code: string) => `/invite/${code}/login`,
-	giftRegister: (code: string) => `/gift/${code}`,
-	giftLogin: (code: string) => `/gift/${code}/login`,
 	theme: (themeId: string) => `/theme/${themeId}`,
 	themeRegister: (themeId: string) => `/theme/${themeId}`,
 	themeLogin: (themeId: string) => `/theme/${themeId}/login`,

@@ -30,11 +30,9 @@ import type {Application} from '@fluxer/api/src/models/Application';
 import type {AuthSession} from '@fluxer/api/src/models/AuthSession';
 import type {Channel} from '@fluxer/api/src/models/Channel';
 import type {FavoriteMeme} from '@fluxer/api/src/models/FavoriteMeme';
-import type {GiftCode} from '@fluxer/api/src/models/GiftCode';
 import type {Guild} from '@fluxer/api/src/models/Guild';
 import type {GuildMember} from '@fluxer/api/src/models/GuildMember';
 import type {MfaBackupCode} from '@fluxer/api/src/models/MfaBackupCode';
-import type {Payment} from '@fluxer/api/src/models/Payment';
 import type {PushSubscription} from '@fluxer/api/src/models/PushSubscription';
 import type {Relationship} from '@fluxer/api/src/models/Relationship';
 import type {SavedMessage} from '@fluxer/api/src/models/SavedMessage';
@@ -99,8 +97,6 @@ interface UserDataJsonParams {
 	pushSubscriptions: Array<PushSubscription>;
 	webAuthnCredentials: Array<WebAuthnCredential>;
 	mfaBackupCodes: Array<MfaBackupCode>;
-	createdGiftCodes: Array<GiftCode>;
-	payments: Array<Payment>;
 	oauthClients: Array<Application>;
 	pinnedDms: Array<{channel_id: bigint; sort_order: number}>;
 	authorizedIps: Array<{ip: string}>;
@@ -114,7 +110,6 @@ interface ArchiveParams {
 	userDataJsonBuffer: Buffer;
 	user: User;
 	channelMessagesMap: Map<string, Array<HarvestedMessage>>;
-	payments: Array<Payment>;
 	oauthClients: Array<Application>;
 	authorizedIps: Array<{ip: string}>;
 	activityData: {last_active_at: Date | null; last_active_ip: string | null};
@@ -136,22 +131,6 @@ const ZIP_PROGRESS = 70;
 const COMPLETE_PROGRESS = 100;
 
 const ZIP_EXPIRY_MS = ms('7 days');
-
-function mapPayment(payment: Payment) {
-	return {
-		checkout_session_id: payment.checkoutSessionId,
-		amount_cents: payment.amountCents,
-		currency: payment.currency,
-		status: payment.status,
-		subscription_id: payment.subscriptionId,
-		payment_intent_id: payment.paymentIntentId,
-		product_type: payment.productType,
-		is_gift: payment.isGift,
-		gift_code: payment.giftCode,
-		created_at: payment.createdAt.toISOString(),
-		completed_at: payment.completedAt?.toISOString() ?? null,
-	};
-}
 
 function mapOAuthApplication(app: Application) {
 	return {
@@ -287,8 +266,6 @@ function buildUserDataJson(params: UserDataJsonParams) {
 		pushSubscriptions,
 		webAuthnCredentials,
 		mfaBackupCodes,
-		createdGiftCodes,
-		payments,
 		oauthClients,
 		pinnedDms,
 		authorizedIps,
@@ -464,15 +441,6 @@ function buildUserDataJson(params: UserDataJsonParams) {
 			consumed_count: mfaBackupCodes.filter((code) => code.consumed).length,
 			remaining_count: mfaBackupCodes.filter((code) => !code.consumed).length,
 		},
-		gift_codes_created: createdGiftCodes.map((gift) => ({
-			code: gift.code,
-			duration_months: gift.durationMonths,
-			created_at: gift.createdAt.toISOString(),
-			redeemed_by_user_id: gift.redeemedByUserId?.toString() ?? null,
-			redeemed_at: gift.redeemedAt?.toISOString() ?? null,
-			stripe_payment_intent_id: gift.stripePaymentIntentId,
-		})),
-		payments: payments.map(mapPayment),
 		oauth_applications: oauthClients.map(mapOAuthApplication),
 		pinned_dms: pinnedDms.map((pin) => ({
 			channel_id: pin.channel_id.toString(),
@@ -490,7 +458,6 @@ async function createAndUploadArchive(params: ArchiveParams): Promise<ArchiveRes
 		userDataJsonBuffer,
 		user,
 		channelMessagesMap,
-		payments,
 		oauthClients,
 		authorizedIps,
 		activityData,
@@ -540,10 +507,6 @@ async function createAndUploadArchive(params: ArchiveParams): Promise<ArchiveRes
 			const messagesJson = JSON.stringify(messages, null, 2);
 			archive.append(messagesJson, {name: `channels/${channelId}/messages.json`});
 		}
-
-		archive.append(JSON.stringify(payments.map(mapPayment), null, 2), {
-			name: 'payments/payment_history.json',
-		});
 
 		archive.append(JSON.stringify({applications: oauthClients.map(mapOAuthApplication)}, null, 2), {
 			name: 'integrations/oauth.json',
@@ -608,7 +571,6 @@ const harvestUserData: WorkerTaskHandler = async (payload, helpers) => {
 		userHarvestRepository,
 		adminArchiveRepository,
 		favoriteMemeRepository,
-		paymentRepository,
 		applicationRepository,
 		storageService,
 		emailService,
@@ -700,8 +662,6 @@ const harvestUserData: WorkerTaskHandler = async (payload, helpers) => {
 			pushSubscriptions,
 			webAuthnCredentials,
 			mfaBackupCodes,
-			createdGiftCodes,
-			payments,
 			oauthClients,
 			pinnedDms,
 			authorizedIps,
@@ -718,8 +678,6 @@ const harvestUserData: WorkerTaskHandler = async (payload, helpers) => {
 			userRepository.listPushSubscriptions(userId) as Promise<Array<PushSubscription>>,
 			userRepository.listWebAuthnCredentials(userId) as Promise<Array<WebAuthnCredential>>,
 			userRepository.listMfaBackupCodes(userId) as Promise<Array<MfaBackupCode>>,
-			userRepository.findGiftCodesByCreator(userId) as Promise<Array<GiftCode>>,
-			paymentRepository.findPaymentsByUserId(userId) as Promise<Array<Payment>>,
 			applicationRepository.listApplicationsByOwner(userId) as Promise<Array<Application>>,
 			userRepository.getPinnedDmsWithDetails(userId) as Promise<Array<{channel_id: bigint; sort_order: number}>>,
 			userRepository.getAuthorizedIps(userId) as Promise<Array<{ip: string}>>,
@@ -759,8 +717,6 @@ const harvestUserData: WorkerTaskHandler = async (payload, helpers) => {
 			pushSubscriptions,
 			webAuthnCredentials,
 			mfaBackupCodes,
-			createdGiftCodes,
-			payments,
 			oauthClients,
 			pinnedDms,
 			authorizedIps,
@@ -782,7 +738,6 @@ const harvestUserData: WorkerTaskHandler = async (payload, helpers) => {
 			userDataJsonBuffer,
 			user,
 			channelMessagesMap,
-			payments,
 			oauthClients,
 			authorizedIps,
 			activityData,

@@ -24,6 +24,7 @@ import * as PrivateChannelActionCreators from '@app/actions/PrivateChannelAction
 import * as UserProfileActionCreators from '@app/actions/UserProfileActionCreators';
 import {CustomStatusDisplay} from '@app/components/common/custom_status_display/CustomStatusDisplay';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
+import {TipUserModal} from '@app/components/modals/TipUserModal';
 import {UserProfileModal} from '@app/components/modals/UserProfileModal';
 import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
 import {UserProfileBadges} from '@app/components/popouts/UserProfileBadges';
@@ -190,6 +191,10 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 			};
 		}, [guildId, user.id, isWebhook]);
 
+		const handleTipClick = () => {
+			ModalActionCreators.push(modal(() => <TipUserModal userId={user.id} displayName={displayName} />));
+		};
+
 		const handleEditProfile = () => {
 			ModalActionCreators.push(modal(() => <UserSettingsModal initialTab="my_profile" />));
 			PopoutActionCreators.close(popoutKey);
@@ -294,6 +299,8 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 											userId={user.id}
 											isHovering={isHovering}
 											onNoteClick={() => openFullProfile(true)}
+											showTipButton={!isCurrentUser && Boolean(profile?.userProfile.has_solana_wallet)}
+											onTipClick={handleTipClick}
 										/>
 									)
 								}

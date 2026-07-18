@@ -25,7 +25,6 @@ import GuildStore from '@app/stores/GuildStore';
 import RelationshipStore from '@app/stores/RelationshipStore';
 import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import UserStore from '@app/stores/UserStore';
-import * as GiftCodeUtils from '@app/utils/GiftCodeUtils';
 import * as InviteUtils from '@app/utils/InviteUtils';
 import {emojiEquals} from '@app/utils/ReactionUtils';
 import * as ThemeUtils from '@app/utils/ThemeUtils';
@@ -126,7 +125,6 @@ export class MessageRecord {
 	readonly loggingName?: string;
 
 	readonly invites: ReadonlyArray<string>;
-	readonly gifts: ReadonlyArray<string>;
 	readonly themes: ReadonlyArray<string>;
 
 	readonly _allowedMentions?: AllowedMentions;
@@ -195,7 +193,6 @@ export class MessageRecord {
 		this.call = transformMessageCall(message.call);
 
 		this.invites = Object.freeze(InviteUtils.findInvites(message.content));
-		this.gifts = Object.freeze(GiftCodeUtils.findGifts(message.content));
 		this.themes = Object.freeze(ThemeUtils.findThemes(message.content));
 
 		this._allowedMentions = message._allowedMentions;
@@ -388,7 +385,6 @@ export class MessageRecord {
 		if (this.stickerItems.length !== other.stickerItems.length) return false;
 		if (this.reactions.length !== other.reactions.length) return false;
 		if (this.invites.length !== other.invites.length) return false;
-		if (this.gifts.length !== other.gifts.length) return false;
 		if (this.themes.length !== other.themes.length) return false;
 
 		for (let i = 0; i < this.mentions.length; i++) {
@@ -447,10 +443,6 @@ export class MessageRecord {
 
 		for (let i = 0; i < this.invites.length; i++) {
 			if (this.invites[i] !== other.invites[i]) return false;
-		}
-
-		for (let i = 0; i < this.gifts.length; i++) {
-			if (this.gifts[i] !== other.gifts[i]) return false;
 		}
 
 		for (let i = 0; i < this.themes.length; i++) {

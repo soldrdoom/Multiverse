@@ -17,10 +17,7 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Config} from '@fluxer/api/src/Config';
 import type {UserRow} from '@fluxer/api/src/database/types/UserTypes';
-import {UserFlags} from '@fluxer/constants/src/UserConstants';
-import {ms} from 'itty-time';
 
 interface PremiumCheckable {
 	premiumType: number | null;
@@ -29,31 +26,9 @@ interface PremiumCheckable {
 	flags: bigint;
 }
 
-export function checkIsPremium(user: PremiumCheckable): boolean {
-	if (Config.instance.selfHosted) {
-		return true;
-	}
-
-	if ((user.flags & UserFlags.PREMIUM_ENABLED_OVERRIDE) !== 0n) {
-		return true;
-	}
-
-	if (user.premiumType == null || user.premiumType <= 0) {
-		return false;
-	}
-
-	if (user.premiumUntil == null) {
-		return true;
-	}
-
-	const nowMs = Date.now();
-	const untilMs = user.premiumUntil.getTime();
-
-	if (user.premiumWillCancel) {
-		return nowMs <= untilMs;
-	}
-
-	return nowMs <= untilMs + ms('3 days');
+export function checkIsPremium(_user: PremiumCheckable): boolean {
+	// Plutonium is free for everyone — there is no paid tier to gate anymore.
+	return true;
 }
 
 export const PREMIUM_CLEAR_FIELDS = [

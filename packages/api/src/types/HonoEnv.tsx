@@ -40,7 +40,6 @@ import type {ConnectionService} from '@fluxer/api/src/connection/ConnectionServi
 import type {CsamEvidenceRetentionService} from '@fluxer/api/src/csam/CsamEvidenceRetentionService';
 import type {CsamLegalHoldService} from '@fluxer/api/src/csam/CsamLegalHoldService';
 import type {NcmecSubmissionService} from '@fluxer/api/src/csam/NcmecSubmissionService';
-import type {DonationService} from '@fluxer/api/src/donation/DonationService';
 import type {DownloadService} from '@fluxer/api/src/download/DownloadService';
 import type {FavoriteMemeRequestService} from '@fluxer/api/src/favorite_meme/FavoriteMemeRequestService';
 import type {FavoriteMemeService} from '@fluxer/api/src/favorite_meme/FavoriteMemeService';
@@ -82,7 +81,6 @@ import type {ReportRequestService} from '@fluxer/api/src/report/ReportRequestSer
 import type {ReportService} from '@fluxer/api/src/report/ReportService';
 import type {RpcService} from '@fluxer/api/src/rpc/RpcService';
 import type {SearchService} from '@fluxer/api/src/search/SearchService';
-import type {StripeService} from '@fluxer/api/src/stripe/StripeService';
 import type {ThemeService} from '@fluxer/api/src/theme/ThemeService';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
 import type {EmailChangeService} from '@fluxer/api/src/user/services/EmailChangeService';
@@ -137,7 +135,6 @@ export interface HonoEnv {
 		connectionService: ConnectionService;
 		connectionRequestService: ConnectionRequestService;
 		blueskyOAuthService: IBlueskyOAuthService | null;
-		donationService: DonationService;
 		downloadService: DownloadService;
 		streamPreviewService: StreamPreviewService;
 		streamService: StreamService;
@@ -191,7 +188,6 @@ export interface HonoEnv {
 		webhookRequestService: WebhookRequestService;
 		workerService: IWorkerService;
 		scheduledMessageService: ScheduledMessageService;
-		stripeService: StripeService;
 		applicationService: ApplicationService;
 		oauth2Service: OAuth2Service;
 		oauth2RequestService: OAuth2RequestService;

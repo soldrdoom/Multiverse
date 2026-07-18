@@ -23,7 +23,6 @@ import * as ToastActionCreators from '@app/actions/ToastActionCreators';
 import {AssetCropModal, AssetType} from '@app/components/modals/AssetCropModal';
 import styles from '@app/components/modals/tabs/my_profile_tab/BannerUploader.module.css';
 import {Button} from '@app/components/uikit/button/Button';
-import {PlutoniumUpsell} from '@app/components/uikit/plutonium_upsell/PlutoniumUpsell';
 import {RadioGroup} from '@app/components/uikit/radio_group/RadioGroup';
 import * as AvatarUtils from '@app/utils/AvatarUtils';
 import {openFilePicker} from '@app/utils/FilePickerUtils';
@@ -215,9 +214,9 @@ export const BannerUploader = observer(
 						</div>
 					</>
 				) : (
-					<PlutoniumUpsell>
+					<div className={styles.description}>
 						<Trans>Customize your profile with a static or animated banner image to make it stand out.</Trans>
-					</PlutoniumUpsell>
+					</div>
 				)}
 				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 			</div>

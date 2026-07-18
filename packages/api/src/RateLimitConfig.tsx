@@ -21,7 +21,6 @@ import {AdminRateLimitConfigs} from '@fluxer/api/src/rate_limit_configs/AdminRat
 import {AuthRateLimitConfigs} from '@fluxer/api/src/rate_limit_configs/AuthRateLimitConfig';
 import {ChannelRateLimitConfigs} from '@fluxer/api/src/rate_limit_configs/ChannelRateLimitConfig';
 import {DiscoveryRateLimitConfigs} from '@fluxer/api/src/rate_limit_configs/DiscoveryRateLimitConfig';
-import {DonationRateLimitConfigs} from '@fluxer/api/src/rate_limit_configs/DonationRateLimitConfig';
 import {GuildRateLimitConfigs} from '@fluxer/api/src/rate_limit_configs/GuildRateLimitConfig';
 import {IntegrationRateLimitConfigs} from '@fluxer/api/src/rate_limit_configs/IntegrationRateLimitConfig';
 import {InviteRateLimitConfigs} from '@fluxer/api/src/rate_limit_configs/InviteRateLimitConfig';
@@ -39,7 +38,6 @@ const rateLimitSections = [
 	UserRateLimitConfigs,
 	ChannelRateLimitConfigs,
 	DiscoveryRateLimitConfigs,
-	DonationRateLimitConfigs,
 	GuildRateLimitConfigs,
 	InviteRateLimitConfigs,
 	WebhookRateLimitConfigs,

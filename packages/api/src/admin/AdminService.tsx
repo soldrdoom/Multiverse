@@ -21,7 +21,6 @@ import type {IAdminRepository} from '@fluxer/api/src/admin/IAdminRepository';
 import {SystemDmJobRepository} from '@fluxer/api/src/admin/repositories/SystemDmJobRepository';
 import {AdminAssetPurgeService} from '@fluxer/api/src/admin/services/AdminAssetPurgeService';
 import {AdminAuditService} from '@fluxer/api/src/admin/services/AdminAuditService';
-import {AdminCodeGenerationService} from '@fluxer/api/src/admin/services/AdminCodeGenerationService';
 import {AdminGuildService} from '@fluxer/api/src/admin/services/AdminGuildService';
 import {AdminMessageDeletionService} from '@fluxer/api/src/admin/services/AdminMessageDeletionService';
 import {AdminMessageService} from '@fluxer/api/src/admin/services/AdminMessageService';
@@ -30,7 +29,6 @@ import {AdminReportService} from '@fluxer/api/src/admin/services/AdminReportServ
 import {AdminSearchService} from '@fluxer/api/src/admin/services/AdminSearchService';
 import {AdminSnowflakeReservationService} from '@fluxer/api/src/admin/services/AdminSnowflakeReservationService';
 import {AdminUserService} from '@fluxer/api/src/admin/services/AdminUserService';
-import {AdminVisionarySlotService} from '@fluxer/api/src/admin/services/AdminVisionarySlotService';
 import {AdminVoiceService} from '@fluxer/api/src/admin/services/AdminVoiceService';
 import {SystemDmService} from '@fluxer/api/src/admin/services/SystemDmService';
 import type {AuthService} from '@fluxer/api/src/auth/AuthService';
@@ -55,7 +53,6 @@ import type {RequestCache} from '@fluxer/api/src/middleware/RequestCacheMiddlewa
 import type {BotMfaMirrorService} from '@fluxer/api/src/oauth/BotMfaMirrorService';
 import type {ReportService} from '@fluxer/api/src/report/ReportService';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
-import {VisionarySlotRepository} from '@fluxer/api/src/user/repositories/VisionarySlotRepository';
 import type {UserContactChangeLogService} from '@fluxer/api/src/user/services/UserContactChangeLogService';
 import type {VoiceRepository} from '@fluxer/api/src/voice/VoiceRepository';
 import type {ICacheService} from '@fluxer/cache/src/ICacheService';
@@ -153,11 +150,9 @@ export class AdminService {
 	private readonly reportServiceAggregate: AdminReportService;
 	private readonly voiceService: AdminVoiceService;
 	private readonly searchService: AdminSearchService;
-	private readonly codeGenerationService: AdminCodeGenerationService;
 	private readonly systemDmService: SystemDmService;
 	private readonly assetPurgeService: AdminAssetPurgeService;
 	private readonly snowflakeReservationService: AdminSnowflakeReservationService;
-	private readonly visionarySlotService: AdminVisionarySlotService;
 
 	constructor(
 		private readonly userRepository: IUserRepository,
@@ -271,11 +266,6 @@ export class AdminService {
 			cacheService: this.cacheService,
 			auditService: this.auditService,
 		});
-		this.visionarySlotService = new AdminVisionarySlotService({
-			repository: new VisionarySlotRepository(),
-			auditService: this.auditService,
-		});
-		this.codeGenerationService = new AdminCodeGenerationService(this.userRepository);
 	}
 
 	async lookupUser(data: LookupUserRequest) {
@@ -296,30 +286,6 @@ export class AdminService {
 
 	async deleteSnowflakeReservation(data: {email: string}, adminUserId: UserID, auditLogReason: string | null) {
 		return this.snowflakeReservationService.deleteReservation(data, adminUserId, auditLogReason);
-	}
-
-	async expandVisionarySlots(data: {count: number}, adminUserId: UserID, auditLogReason: string | null) {
-		return this.visionarySlotService.expandSlots(data, adminUserId, auditLogReason);
-	}
-
-	async shrinkVisionarySlots(data: {targetCount: number}, adminUserId: UserID, auditLogReason: string | null) {
-		return this.visionarySlotService.shrinkSlots(data, adminUserId, auditLogReason);
-	}
-
-	async setVisionarySlotReservation(
-		data: {slotIndex: number; userId: UserID | null},
-		adminUserId: UserID,
-		auditLogReason: string | null,
-	) {
-		return this.visionarySlotService.setSlotReservation(data, adminUserId, auditLogReason);
-	}
-
-	async swapVisionarySlots(
-		data: {slotIndexA: number; slotIndexB: number},
-		adminUserId: UserID,
-		auditLogReason: string | null,
-	) {
-		return this.visionarySlotService.swapSlots(data, adminUserId, auditLogReason);
 	}
 
 	async createSystemDmJob(
@@ -861,9 +827,5 @@ export class AdminService {
 
 	async deleteVoiceServer(data: DeleteVoiceServerRequest, adminUserId: UserID, auditLogReason: string | null) {
 		return this.voiceService.deleteVoiceServer(data, adminUserId, auditLogReason);
-	}
-
-	async generateGiftCodes(count: number, durationMonths: number) {
-		return this.codeGenerationService.generateGiftCodes(count, durationMonths);
 	}
 }

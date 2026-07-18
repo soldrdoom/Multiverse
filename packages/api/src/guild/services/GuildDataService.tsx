@@ -26,6 +26,7 @@ import type {IGuildRepositoryAggregate} from '@fluxer/api/src/guild/repositories
 import {GuildDataHelpers} from '@fluxer/api/src/guild/services/data/GuildDataHelpers';
 import {GuildOperationsService} from '@fluxer/api/src/guild/services/data/GuildOperationsService';
 import {GuildOwnershipService} from '@fluxer/api/src/guild/services/data/GuildOwnershipService';
+import {GuildVanityPurchaseService} from '@fluxer/api/src/guild/services/data/GuildVanityPurchaseService';
 import {GuildVanityService} from '@fluxer/api/src/guild/services/data/GuildVanityService';
 import type {EntityAssetService} from '@fluxer/api/src/infrastructure/EntityAssetService';
 import type {IGatewayService} from '@fluxer/api/src/infrastructure/IGatewayService';
@@ -49,6 +50,7 @@ export class GuildDataService {
 	private readonly helpers: GuildDataHelpers;
 	private readonly operationsService: GuildOperationsService;
 	private readonly vanityService: GuildVanityService;
+	private readonly vanityPurchaseService: GuildVanityPurchaseService;
 	private readonly ownershipService: GuildOwnershipService;
 
 	constructor(
@@ -82,6 +84,7 @@ export class GuildDataService {
 		);
 
 		this.vanityService = new GuildVanityService(this.guildRepository, this.inviteRepository, this.helpers);
+		this.vanityPurchaseService = new GuildVanityPurchaseService(this.guildRepository, this.helpers);
 
 		this.ownershipService = new GuildOwnershipService(this.guildRepository, this.userRepository, this.helpers);
 	}
@@ -133,6 +136,24 @@ export class GuildDataService {
 		auditLogReason?: string | null,
 	): Promise<{code: string}> {
 		return this.vanityService.updateVanityURL(params, auditLogReason);
+	}
+
+	async initiateVanityPurchase(
+		params: Parameters<GuildVanityPurchaseService['initiatePurchase']>[0],
+	): ReturnType<GuildVanityPurchaseService['initiatePurchase']> {
+		return this.vanityPurchaseService.initiatePurchase(params);
+	}
+
+	async getPendingVanityPurchase(
+		params: Parameters<GuildVanityPurchaseService['getPendingPurchase']>[0],
+	): ReturnType<GuildVanityPurchaseService['getPendingPurchase']> {
+		return this.vanityPurchaseService.getPendingPurchase(params);
+	}
+
+	async confirmVanityPurchase(
+		params: Parameters<GuildVanityPurchaseService['confirmPurchase']>[0],
+	): ReturnType<GuildVanityPurchaseService['confirmPurchase']> {
+		return this.vanityPurchaseService.confirmPurchase(params);
 	}
 
 	async deleteGuild(params: {user: User; guildId: GuildID}, auditLogReason?: string | null): Promise<void> {

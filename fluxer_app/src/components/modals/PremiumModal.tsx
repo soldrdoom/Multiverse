@@ -20,21 +20,16 @@
 import {PlutoniumContent} from '@app/components/modals/components/PlutoniumContent';
 import * as Modal from '@app/components/modals/Modal';
 import styles from '@app/components/modals/PremiumModal.module.css';
-import {type PremiumModalProps, usePremiumModalLogic} from '@app/utils/modals/PremiumModalUtils';
 import {Trans} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 
-export const PremiumModal = observer(({defaultGiftMode}: PremiumModalProps) => {
-	const modalLogic = usePremiumModalLogic({
-		defaultGiftMode,
-	});
-
+export const PremiumModal = observer(() => {
 	return (
 		<Modal.Root size="large">
 			<Modal.Header title={<Trans>Multiverse Plutonium</Trans>} />
 			<Modal.Content>
 				<div className={styles.contentContainer}>
-					<PlutoniumContent defaultGiftMode={modalLogic.defaultGiftMode} />
+					<PlutoniumContent />
 				</div>
 			</Modal.Content>
 		</Modal.Root>

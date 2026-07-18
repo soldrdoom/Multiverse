@@ -31,7 +31,6 @@ import {ComponentGalleryInlineTab} from '@app/components/modals/tabs/component_g
 import DevicesTab from '@app/components/modals/tabs/DevicesTab';
 import {DeveloperOptionsInlineContent} from '@app/components/modals/tabs/developer_options_tab/Inline';
 import ExpressionPacksTab from '@app/components/modals/tabs/ExpressionPacksTab';
-import GiftInventoryTab from '@app/components/modals/tabs/GiftInventoryTab';
 import KeybindsTab from '@app/components/modals/tabs/KeybindsTab';
 import LanguageTab from '@app/components/modals/tabs/LanguageTab';
 import LimitsConfigTab from '@app/components/modals/tabs/LimitsConfigTab';
@@ -75,7 +74,6 @@ const INLINE_TAB_COMPONENTS: Partial<Record<UserSettingsTabType, React.Component
 	cosmetics: CosmeticsTab,
 	account_security: AccountSecurityInlineTab,
 	plutonium: PlutoniumTab,
-	gift_inventory: GiftInventoryTab,
 	expression_packs: ExpressionPacksTab,
 	privacy_safety: PrivacySafetyInlineContent,
 	authorized_apps: AuthorizedAppsTab,

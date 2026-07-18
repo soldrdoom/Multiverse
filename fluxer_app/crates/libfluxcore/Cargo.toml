@@ -19,3 +19,6 @@ opt-level = "s"        # optimize for size (WASM binary)
 strip = "symbols"      # drop debug symbols — smaller .wasm, faster link
 codegen-units = 1      # single-threaded codegen — caps peak RAM during wasm-pack
 lto = true             # link-time optimisation (pairs well with codegen-units=1)
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false        # cached wasm-opt binary can't validate bulk-memory ops from current rustc
