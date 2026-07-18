@@ -71,8 +71,7 @@
 			"sqlite3",
 			"ssh2",
 			"uiohook-napi",
-			"utf-8-validate",
-			"wasm-pack"
+			"utf-8-validate"
 		]
 	}
 }

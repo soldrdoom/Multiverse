@@ -40,6 +40,7 @@ services:
     init: true
     user: "1001:1001"
     environment:
+      HOME: /tmp
       FLUXER_CONFIG: /usr/src/app/config/config.json
       NODE_ENV: production
       SOLANA_DAS_URL: https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}

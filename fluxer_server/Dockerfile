@@ -156,8 +156,9 @@ COPY --from=build /usr/src/app/tsconfigs ./tsconfigs
 COPY --from=build /usr/src/app/pnpm-workspace.yaml ./
 COPY --from=build /usr/src/app/package.json ./
 COPY --from=gateway-build /usr/src/app/gateway/fluxer_gateway/_build/prod/rel/fluxer_gateway /opt/fluxer_gateway
+RUN chown -R 1001:1001 /opt/fluxer_gateway
 COPY fluxer_app/dist /usr/src/app/assets
-COPY fluxer_server/static/fonts/ /usr/src/app/assets/fonts/
+COPY fluxer_app/assets/fonts/ /usr/src/app/assets/fonts/
 RUN node -e " \
   const fs = require('fs'); \
   const path = require('path'); \
@@ -176,8 +177,6 @@ RUN node -e " \
     } \
   } \
 "
-COPY patches/index.html /usr/src/app/assets/index.html
-COPY patches/web/ /usr/src/app/assets/web/
 COPY patches/badges/ /usr/src/app/assets/badges/
 COPY patches/emoji/ /usr/src/app/assets/emoji/
 COPY fluxer_static/avatars/ /usr/src/app/assets/avatars/
