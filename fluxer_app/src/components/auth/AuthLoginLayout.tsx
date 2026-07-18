@@ -22,6 +22,7 @@ import {initializeVault, loadPrivateKey} from '@app/services/vault/VaultService'
 import VaultStore from '@app/stores/VaultStore';
 import {AccountSelector} from '@app/components/accounts/AccountSelector';
 import {AuthRouterLink} from '@app/components/auth/AuthRouterLink';
+import {ExternalLink} from '@app/components/common/ExternalLink';
 import AuthLoginEmailPasswordForm from '@app/components/auth/auth_login_core/AuthLoginEmailPasswordForm';
 import AuthLoginPasskeyActions, {AuthLoginDivider} from '@app/components/auth/auth_login_core/AuthLoginPasskeyActions';
 import {useDesktopHandoffFlow} from '@app/components/auth/auth_login_core/useDesktopHandoffFlow';
@@ -484,6 +485,14 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 				</>
 			) : null}
 
+			<div className={styles.footer}>
+				<span className={styles.footerLabel}>
+					<Trans>Need help?</Trans>{' '}
+				</span>
+				<ExternalLink href={Routes.support()} className={styles.footerLink}>
+					<Trans>Visit Support</Trans>
+				</ExternalLink>
+			</div>
 		</>
 	);
 });

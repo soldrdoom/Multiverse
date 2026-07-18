@@ -5960,8 +5960,8 @@ msgstr "ניתן לפתוח תפריטי הקשר עם לחיצה שמאלית (
 msgid "Continue"
 msgstr "המשך"
 
-#: src/components/auth/AuthLoginLayout.tsx:377
-#: src/components/auth/AuthLoginLayout.tsx:431
+#: src/components/auth/AuthLoginLayout.tsx:378
+#: src/components/auth/AuthLoginLayout.tsx:432
 msgid "Continue with SSO"
 msgstr "המשך עם SSO"
 
@@ -9802,7 +9802,7 @@ msgstr "הפעלת תצוגת המצלמה נכשלה. בדוק את הרשאו�
 msgid "Failed to start checkout. Please try again."
 msgstr "הפעלת התשלום נכשלה. נסה שוב."
 
-#: src/components/auth/AuthLoginLayout.tsx:197
+#: src/components/auth/AuthLoginLayout.tsx:198
 msgid "Failed to start SSO"
 msgstr "נכשל בהפעלת SSO"
 
@@ -9810,7 +9810,7 @@ msgstr "נכשל בהפעלת SSO"
 msgid "Failed to submit report. Please try again."
 msgstr "שליחת הדיווח נכשלה. נסה שוב."
 
-#: src/components/auth/AuthLoginLayout.tsx:174
+#: src/components/auth/AuthLoginLayout.tsx:175
 msgid "Failed to switch account"
 msgstr "מעבר חשבון נכשל"
 
@@ -10310,7 +10310,7 @@ msgstr "שכח מנויים"
 msgid "Forgot Password"
 msgstr "שכחת סיסמה"
 
-#: src/components/auth/AuthLoginLayout.tsx:460
+#: src/components/auth/AuthLoginLayout.tsx:461
 #: src/components/pages/ForgotPasswordPage.tsx:83
 msgid "Forgot your password?"
 msgstr "שכחת את הסיסמה שלך?"
@@ -13131,7 +13131,7 @@ msgid "Locally override instance limits"
 msgstr "שנה מגבלות מופע באופן מקומי"
 
 #: src/components/auth/AuthBottomLink.tsx:36
-#: src/components/auth/AuthLoginLayout.tsx:455
+#: src/components/auth/AuthLoginLayout.tsx:456
 #: src/components/auth/MfaScreen.tsx:137
 #: src/components/pages/LoginPage.tsx:129
 msgid "Log in"
@@ -13151,7 +13151,7 @@ msgid "Log in using your browser, then enter the code shown to add the account."
 msgstr "התחבר דרך הדפדפן שלך, ואז הזן את הקוד המוצג כדי להוסיף את החשבון."
 
 #: src/components/auth/auth_login_core/AuthLoginPasskeyActions.tsx:70
-#: src/components/auth/AuthLoginLayout.tsx:482
+#: src/components/auth/AuthLoginLayout.tsx:483
 msgid "Log in via browser"
 msgstr "התחבר דרך הדפדפן"
 
@@ -14792,6 +14792,10 @@ msgstr "ניווט"
 msgid "Need an account?"
 msgstr "צריך חשבון?"
 
+#: src/components/auth/AuthLoginLayout.tsx:490
+msgid "Need help?"
+msgstr ""
+
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
 msgstr "משמר השכונה"
@@ -15316,7 +15320,7 @@ msgstr ""
 msgid "No settings found"
 msgstr "לא נמצאו הגדרות"
 
-#: src/components/auth/AuthLoginLayout.tsx:267
+#: src/components/auth/AuthLoginLayout.tsx:268
 msgid "No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps."
 msgstr ""
 
@@ -16859,7 +16863,7 @@ msgstr ""
 msgid "PowerShell"
 msgstr "PowerShell"
 
-#: src/components/auth/AuthLoginLayout.tsx:437
+#: src/components/auth/AuthLoginLayout.tsx:438
 msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "מעדיף להשתמש ב-SSO? המשך עם {ssoDisplayName}."
 
@@ -19583,7 +19587,7 @@ msgstr "סרגל צד של השרת"
 msgid "Session expired"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:156
+#: src/components/auth/AuthLoginLayout.tsx:157
 msgid "Session expired for {identifier}. Please log in again."
 msgstr "הפעילות עבור {identifier} פגה. התחבר שוב בבקשה."
 
@@ -20260,11 +20264,11 @@ msgstr "תצוגת סרגל צד"
 msgid "Sign in with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:445
+#: src/components/auth/AuthLoginLayout.tsx:446
 msgid "Sign In with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:374
+#: src/components/auth/AuthLoginLayout.tsx:375
 msgid "Sign in with your organization's single sign-on provider."
 msgstr "התחבר עם ספק הכניסה האחת של הארגון שלך."
 
@@ -20519,7 +20523,7 @@ msgstr "ננעל לכפולות של 5."
 msgid "social"
 msgstr "חברתי"
 
-#: src/components/auth/AuthLoginLayout.tsx:354
+#: src/components/auth/AuthLoginLayout.tsx:355
 msgid "Solana login failed"
 msgstr ""
 
@@ -20819,7 +20823,7 @@ msgstr "תיבות סימון מרובעות"
 msgid "Square Icon Buttons"
 msgstr "כפתורי אייקון מרובעים"
 
-#: src/components/auth/AuthLoginLayout.tsx:435
+#: src/components/auth/AuthLoginLayout.tsx:436
 msgid "SSO is required to access this workspace."
 msgstr "SSO נדרש כדי לגשת לחלל עבודה זה."
 
@@ -24599,6 +24603,10 @@ msgstr "מספר זיהוי חזון"
 msgid "Visit Site"
 msgstr "בקר באתר"
 
+#: src/components/auth/AuthLoginLayout.tsx:493
+msgid "Visit Support"
+msgstr ""
+
 #: src/components/modals/tabs/accessibility_tab/Inline.tsx:33
 #: src/components/modals/tabs/AccessibilityTab.tsx:201
 #: src/components/modals/utils/SettingsConstants.tsx:288
@@ -25075,7 +25083,7 @@ msgstr "לוחמי סופ\"ש"
 msgid "Welcome and system messages will appear here."
 msgstr "ברוכים הבאים והודעות מערכת יופיעו כאן."
 
-#: src/components/auth/AuthLoginLayout.tsx:424
+#: src/components/auth/AuthLoginLayout.tsx:425
 msgid "Welcome back"
 msgstr "ברוך שובך"
 

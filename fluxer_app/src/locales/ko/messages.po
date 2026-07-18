@@ -5960,8 +5960,8 @@ msgstr "상황별 메뉴는 버튼은 왼쪽 클릭, 다른 요소는 오른쪽 
 msgid "Continue"
 msgstr "계속"
 
-#: src/components/auth/AuthLoginLayout.tsx:377
-#: src/components/auth/AuthLoginLayout.tsx:431
+#: src/components/auth/AuthLoginLayout.tsx:378
+#: src/components/auth/AuthLoginLayout.tsx:432
 msgid "Continue with SSO"
 msgstr "SSO로 계속하기"
 
@@ -9802,7 +9802,7 @@ msgstr "카메라 미리보기를 시작하지 못했습니다. 카메라 권한
 msgid "Failed to start checkout. Please try again."
 msgstr "결제를 시작하지 못했습니다. 다시 시도해 주세요."
 
-#: src/components/auth/AuthLoginLayout.tsx:197
+#: src/components/auth/AuthLoginLayout.tsx:198
 msgid "Failed to start SSO"
 msgstr "SSO 시작 실패"
 
@@ -9810,7 +9810,7 @@ msgstr "SSO 시작 실패"
 msgid "Failed to submit report. Please try again."
 msgstr "신고를 제출하지 못했습니다. 다시 시도해 주세요."
 
-#: src/components/auth/AuthLoginLayout.tsx:174
+#: src/components/auth/AuthLoginLayout.tsx:175
 msgid "Failed to switch account"
 msgstr "계정을 전환하지 못했습니다"
 
@@ -10310,7 +10310,7 @@ msgstr "구독 잊기"
 msgid "Forgot Password"
 msgstr "비밀번호 찾기"
 
-#: src/components/auth/AuthLoginLayout.tsx:460
+#: src/components/auth/AuthLoginLayout.tsx:461
 #: src/components/pages/ForgotPasswordPage.tsx:83
 msgid "Forgot your password?"
 msgstr "비밀번호를 잊으셨나요?"
@@ -13131,7 +13131,7 @@ msgid "Locally override instance limits"
 msgstr "인스턴스 제한 로컬 오버라이드"
 
 #: src/components/auth/AuthBottomLink.tsx:36
-#: src/components/auth/AuthLoginLayout.tsx:455
+#: src/components/auth/AuthLoginLayout.tsx:456
 #: src/components/auth/MfaScreen.tsx:137
 #: src/components/pages/LoginPage.tsx:129
 msgid "Log in"
@@ -13151,7 +13151,7 @@ msgid "Log in using your browser, then enter the code shown to add the account."
 msgstr "브라우저로 로그인한 다음 표시된 코드를 입력해 계정을 추가하세요."
 
 #: src/components/auth/auth_login_core/AuthLoginPasskeyActions.tsx:70
-#: src/components/auth/AuthLoginLayout.tsx:482
+#: src/components/auth/AuthLoginLayout.tsx:483
 msgid "Log in via browser"
 msgstr "브라우저로 로그인"
 
@@ -14792,6 +14792,10 @@ msgstr "내비게이션"
 msgid "Need an account?"
 msgstr "계정이 필요하신가요?"
 
+#: src/components/auth/AuthLoginLayout.tsx:490
+msgid "Need help?"
+msgstr ""
+
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
 msgstr "이웃 감시"
@@ -15316,7 +15320,7 @@ msgstr ""
 msgid "No settings found"
 msgstr "설정을 찾을 수 없음"
 
-#: src/components/auth/AuthLoginLayout.tsx:267
+#: src/components/auth/AuthLoginLayout.tsx:268
 msgid "No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps."
 msgstr ""
 
@@ -16859,7 +16863,7 @@ msgstr ""
 msgid "PowerShell"
 msgstr "파워셸"
 
-#: src/components/auth/AuthLoginLayout.tsx:437
+#: src/components/auth/AuthLoginLayout.tsx:438
 msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "SSO 사용을 선호하시나요? {ssoDisplayName}으로 계속하기."
 
@@ -19583,7 +19587,7 @@ msgstr "서버 사이드바"
 msgid "Session expired"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:156
+#: src/components/auth/AuthLoginLayout.tsx:157
 msgid "Session expired for {identifier}. Please log in again."
 msgstr "{identifier}의 세션이 만료되었습니다. 다시 로그인하세요."
 
@@ -20260,11 +20264,11 @@ msgstr "사이드바 표시"
 msgid "Sign in with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:445
+#: src/components/auth/AuthLoginLayout.tsx:446
 msgid "Sign In with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:374
+#: src/components/auth/AuthLoginLayout.tsx:375
 msgid "Sign in with your organization's single sign-on provider."
 msgstr "조직의 SSO 제공자로 로그인하세요."
 
@@ -20519,7 +20523,7 @@ msgstr "5 단위로 맞춰집니다."
 msgid "social"
 msgstr "소셜"
 
-#: src/components/auth/AuthLoginLayout.tsx:354
+#: src/components/auth/AuthLoginLayout.tsx:355
 msgid "Solana login failed"
 msgstr ""
 
@@ -20819,7 +20823,7 @@ msgstr "정사각 체크박스"
 msgid "Square Icon Buttons"
 msgstr "정사각 아이콘 버튼"
 
-#: src/components/auth/AuthLoginLayout.tsx:435
+#: src/components/auth/AuthLoginLayout.tsx:436
 msgid "SSO is required to access this workspace."
 msgstr "이 작업 공간에 접근하려면 SSO가 필요합니다."
 
@@ -24599,6 +24603,10 @@ msgstr "비전 ID 번호"
 msgid "Visit Site"
 msgstr "사이트 방문"
 
+#: src/components/auth/AuthLoginLayout.tsx:493
+msgid "Visit Support"
+msgstr ""
+
 #: src/components/modals/tabs/accessibility_tab/Inline.tsx:33
 #: src/components/modals/tabs/AccessibilityTab.tsx:201
 #: src/components/modals/utils/SettingsConstants.tsx:288
@@ -25075,7 +25083,7 @@ msgstr "주말 전사들"
 msgid "Welcome and system messages will appear here."
 msgstr "환영 메시지와 시스템 메시지가 여기 표시됩니다."
 
-#: src/components/auth/AuthLoginLayout.tsx:424
+#: src/components/auth/AuthLoginLayout.tsx:425
 msgid "Welcome back"
 msgstr "다시 오신 것을 환영해요"
 

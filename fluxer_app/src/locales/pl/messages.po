@@ -5960,8 +5960,8 @@ msgstr "Menu kontekstowe można otworzyć lewym przyciskiem myszy (na przyciskac
 msgid "Continue"
 msgstr "Kontynuuj"
 
-#: src/components/auth/AuthLoginLayout.tsx:377
-#: src/components/auth/AuthLoginLayout.tsx:431
+#: src/components/auth/AuthLoginLayout.tsx:378
+#: src/components/auth/AuthLoginLayout.tsx:432
 msgid "Continue with SSO"
 msgstr "Kontynuuj z SSO"
 
@@ -9802,7 +9802,7 @@ msgstr "Nie udało się uruchomić podglądu kamery. Sprawdź uprawnienia kamery
 msgid "Failed to start checkout. Please try again."
 msgstr "Nie udało się rozpocząć finalizacji zakupu. Spróbuj ponownie."
 
-#: src/components/auth/AuthLoginLayout.tsx:197
+#: src/components/auth/AuthLoginLayout.tsx:198
 msgid "Failed to start SSO"
 msgstr "Nie udało się rozpocząć SSO"
 
@@ -9810,7 +9810,7 @@ msgstr "Nie udało się rozpocząć SSO"
 msgid "Failed to submit report. Please try again."
 msgstr "Nie udało się przesłać zgłoszenia. Spróbuj ponownie."
 
-#: src/components/auth/AuthLoginLayout.tsx:174
+#: src/components/auth/AuthLoginLayout.tsx:175
 msgid "Failed to switch account"
 msgstr "Nie udało się przełączyć konta"
 
@@ -10310,7 +10310,7 @@ msgstr "Zapomnij subskrypcje"
 msgid "Forgot Password"
 msgstr "Nie pamiętasz hasła?"
 
-#: src/components/auth/AuthLoginLayout.tsx:460
+#: src/components/auth/AuthLoginLayout.tsx:461
 #: src/components/pages/ForgotPasswordPage.tsx:83
 msgid "Forgot your password?"
 msgstr "Nie pamiętasz hasła?"
@@ -13131,7 +13131,7 @@ msgid "Locally override instance limits"
 msgstr "Lokalnie nadpisz limity instancji"
 
 #: src/components/auth/AuthBottomLink.tsx:36
-#: src/components/auth/AuthLoginLayout.tsx:455
+#: src/components/auth/AuthLoginLayout.tsx:456
 #: src/components/auth/MfaScreen.tsx:137
 #: src/components/pages/LoginPage.tsx:129
 msgid "Log in"
@@ -13151,7 +13151,7 @@ msgid "Log in using your browser, then enter the code shown to add the account."
 msgstr "Zaloguj się przez przeglądarkę, a następnie wpisz wyświetlony kod, aby dodać konto."
 
 #: src/components/auth/auth_login_core/AuthLoginPasskeyActions.tsx:70
-#: src/components/auth/AuthLoginLayout.tsx:482
+#: src/components/auth/AuthLoginLayout.tsx:483
 msgid "Log in via browser"
 msgstr "Zaloguj się przez przeglądarkę"
 
@@ -14792,6 +14792,10 @@ msgstr "Nawigacja"
 msgid "Need an account?"
 msgstr "Potrzebujesz konta?"
 
+#: src/components/auth/AuthLoginLayout.tsx:490
+msgid "Need help?"
+msgstr ""
+
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
 msgstr "Straż sąsiedzka"
@@ -15316,7 +15320,7 @@ msgstr ""
 msgid "No settings found"
 msgstr "Nie znaleziono ustawień"
 
-#: src/components/auth/AuthLoginLayout.tsx:267
+#: src/components/auth/AuthLoginLayout.tsx:268
 msgid "No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps."
 msgstr ""
 
@@ -16859,7 +16863,7 @@ msgstr ""
 msgid "PowerShell"
 msgstr "PowerShell"
 
-#: src/components/auth/AuthLoginLayout.tsx:437
+#: src/components/auth/AuthLoginLayout.tsx:438
 msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "Wolisz używać SSO? Kontynuuj z {ssoDisplayName}."
 
@@ -19583,7 +19587,7 @@ msgstr "pasek boczny serwera"
 msgid "Session expired"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:156
+#: src/components/auth/AuthLoginLayout.tsx:157
 msgid "Session expired for {identifier}. Please log in again."
 msgstr "Sesja dla {identifier} wygasła. Zaloguj się ponownie."
 
@@ -20260,11 +20264,11 @@ msgstr "wyświetlanie paska bocznego"
 msgid "Sign in with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:445
+#: src/components/auth/AuthLoginLayout.tsx:446
 msgid "Sign In with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:374
+#: src/components/auth/AuthLoginLayout.tsx:375
 msgid "Sign in with your organization's single sign-on provider."
 msgstr "Zaloguj się za pomocą dostawcy jednolitych poświadczeń swojej organizacji."
 
@@ -20519,7 +20523,7 @@ msgstr "Przesuwa się co 5."
 msgid "social"
 msgstr "społeczny"
 
-#: src/components/auth/AuthLoginLayout.tsx:354
+#: src/components/auth/AuthLoginLayout.tsx:355
 msgid "Solana login failed"
 msgstr ""
 
@@ -20819,7 +20823,7 @@ msgstr "Kwadratowe pola wyboru"
 msgid "Square Icon Buttons"
 msgstr "Kwadratowe przyciski z ikonami"
 
-#: src/components/auth/AuthLoginLayout.tsx:435
+#: src/components/auth/AuthLoginLayout.tsx:436
 msgid "SSO is required to access this workspace."
 msgstr "SSO jest wymagane do uzyskania dostępu do tej przestrzeni roboczej."
 
@@ -24599,6 +24603,10 @@ msgstr "Numer ID wizjonera"
 msgid "Visit Site"
 msgstr "Odwiedź stronę"
 
+#: src/components/auth/AuthLoginLayout.tsx:493
+msgid "Visit Support"
+msgstr ""
+
 #: src/components/modals/tabs/accessibility_tab/Inline.tsx:33
 #: src/components/modals/tabs/AccessibilityTab.tsx:201
 #: src/components/modals/utils/SettingsConstants.tsx:288
@@ -25075,7 +25083,7 @@ msgstr "Weekendowi wojownicy"
 msgid "Welcome and system messages will appear here."
 msgstr "Wiadomości powitalne i systemowe pojawią się tutaj."
 
-#: src/components/auth/AuthLoginLayout.tsx:424
+#: src/components/auth/AuthLoginLayout.tsx:425
 msgid "Welcome back"
 msgstr "Witamy ponownie"
 

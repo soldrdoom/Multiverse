@@ -5960,8 +5960,8 @@ msgstr "Контекстните менюта могат да се отворя�
 msgid "Continue"
 msgstr "Продължи"
 
-#: src/components/auth/AuthLoginLayout.tsx:377
-#: src/components/auth/AuthLoginLayout.tsx:431
+#: src/components/auth/AuthLoginLayout.tsx:378
+#: src/components/auth/AuthLoginLayout.tsx:432
 msgid "Continue with SSO"
 msgstr "Продължи с SSO"
 
@@ -9802,7 +9802,7 @@ msgstr "Неуспешно стартиране на прегледа на ка�
 msgid "Failed to start checkout. Please try again."
 msgstr "Неуспешно стартиране на плащането. Опитай отново."
 
-#: src/components/auth/AuthLoginLayout.tsx:197
+#: src/components/auth/AuthLoginLayout.tsx:198
 msgid "Failed to start SSO"
 msgstr "Неуспех при стартиране на SSO"
 
@@ -9810,7 +9810,7 @@ msgstr "Неуспех при стартиране на SSO"
 msgid "Failed to submit report. Please try again."
 msgstr "Неуспешно изпращане на доклад. Опитай отново."
 
-#: src/components/auth/AuthLoginLayout.tsx:174
+#: src/components/auth/AuthLoginLayout.tsx:175
 msgid "Failed to switch account"
 msgstr "Неуспешно превключване на акаунт"
 
@@ -10310,7 +10310,7 @@ msgstr "Забрави абонаментите"
 msgid "Forgot Password"
 msgstr "Забравена парола"
 
-#: src/components/auth/AuthLoginLayout.tsx:460
+#: src/components/auth/AuthLoginLayout.tsx:461
 #: src/components/pages/ForgotPasswordPage.tsx:83
 msgid "Forgot your password?"
 msgstr "Забравихте паролата си?"
@@ -13131,7 +13131,7 @@ msgid "Locally override instance limits"
 msgstr "Локално променяй лимитите на инстанцията"
 
 #: src/components/auth/AuthBottomLink.tsx:36
-#: src/components/auth/AuthLoginLayout.tsx:455
+#: src/components/auth/AuthLoginLayout.tsx:456
 #: src/components/auth/MfaScreen.tsx:137
 #: src/components/pages/LoginPage.tsx:129
 msgid "Log in"
@@ -13151,7 +13151,7 @@ msgid "Log in using your browser, then enter the code shown to add the account."
 msgstr "Влез през браузъра си и въведи показания код, за да добавиш акаунта."
 
 #: src/components/auth/auth_login_core/AuthLoginPasskeyActions.tsx:70
-#: src/components/auth/AuthLoginLayout.tsx:482
+#: src/components/auth/AuthLoginLayout.tsx:483
 msgid "Log in via browser"
 msgstr "Влез през браузър"
 
@@ -14792,6 +14792,10 @@ msgstr "Навигация"
 msgid "Need an account?"
 msgstr "Нужен ли е акаунт?"
 
+#: src/components/auth/AuthLoginLayout.tsx:490
+msgid "Need help?"
+msgstr ""
+
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
 msgstr "Наблюдение на квартала"
@@ -15316,7 +15320,7 @@ msgstr ""
 msgid "No settings found"
 msgstr "Не са открити настройки"
 
-#: src/components/auth/AuthLoginLayout.tsx:267
+#: src/components/auth/AuthLoginLayout.tsx:268
 msgid "No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps."
 msgstr ""
 
@@ -16859,7 +16863,7 @@ msgstr ""
 msgid "PowerShell"
 msgstr "PowerShell"
 
-#: src/components/auth/AuthLoginLayout.tsx:437
+#: src/components/auth/AuthLoginLayout.tsx:438
 msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "Предпочиташ ли да използваш SSO? Продължи с {ssoDisplayName}."
 
@@ -19583,7 +19587,7 @@ msgstr "странична лента на сървъра"
 msgid "Session expired"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:156
+#: src/components/auth/AuthLoginLayout.tsx:157
 msgid "Session expired for {identifier}. Please log in again."
 msgstr "Сесията за {identifier} е изтекла. Моля, влез отново."
 
@@ -20260,11 +20264,11 @@ msgstr "изображение на страничната лента"
 msgid "Sign in with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:445
+#: src/components/auth/AuthLoginLayout.tsx:446
 msgid "Sign In with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:374
+#: src/components/auth/AuthLoginLayout.tsx:375
 msgid "Sign in with your organization's single sign-on provider."
 msgstr "Влез с единния доставчик на удостоверяване на твоята организация."
 
@@ -20519,7 +20523,7 @@ msgstr "Стъпва на стъпки от 5."
 msgid "social"
 msgstr "социален"
 
-#: src/components/auth/AuthLoginLayout.tsx:354
+#: src/components/auth/AuthLoginLayout.tsx:355
 msgid "Solana login failed"
 msgstr ""
 
@@ -20819,7 +20823,7 @@ msgstr "Квадратни полета за отметки"
 msgid "Square Icon Buttons"
 msgstr "Квадратни иконни бутони"
 
-#: src/components/auth/AuthLoginLayout.tsx:435
+#: src/components/auth/AuthLoginLayout.tsx:436
 msgid "SSO is required to access this workspace."
 msgstr "SSO е необходимо за достъп до това работно пространство."
 
@@ -24599,6 +24603,10 @@ msgstr "Номер на Visionary ID"
 msgid "Visit Site"
 msgstr "Посети сайта"
 
+#: src/components/auth/AuthLoginLayout.tsx:493
+msgid "Visit Support"
+msgstr ""
+
 #: src/components/modals/tabs/accessibility_tab/Inline.tsx:33
 #: src/components/modals/tabs/AccessibilityTab.tsx:201
 #: src/components/modals/utils/SettingsConstants.tsx:288
@@ -25075,7 +25083,7 @@ msgstr "Уикенд войни"
 msgid "Welcome and system messages will appear here."
 msgstr "Тук ще се появяват съобщения за добре дошли и системни съобщения."
 
-#: src/components/auth/AuthLoginLayout.tsx:424
+#: src/components/auth/AuthLoginLayout.tsx:425
 msgid "Welcome back"
 msgstr "Добре дошли отново"
 

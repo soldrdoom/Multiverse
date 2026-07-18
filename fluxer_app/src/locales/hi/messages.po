@@ -5960,8 +5960,8 @@ msgstr "संदर्भ मेनू बाएं क्लिक (बटन 
 msgid "Continue"
 msgstr "जारी रखें"
 
-#: src/components/auth/AuthLoginLayout.tsx:377
-#: src/components/auth/AuthLoginLayout.tsx:431
+#: src/components/auth/AuthLoginLayout.tsx:378
+#: src/components/auth/AuthLoginLayout.tsx:432
 msgid "Continue with SSO"
 msgstr "SSO के साथ जारी रखें"
 
@@ -9802,7 +9802,7 @@ msgstr "कैमरा प्रीव्यू शुरू करने म�
 msgid "Failed to start checkout. Please try again."
 msgstr "चेकआउट शुरू करने में विफल। कृपया पुनः प्रयास करें।"
 
-#: src/components/auth/AuthLoginLayout.tsx:197
+#: src/components/auth/AuthLoginLayout.tsx:198
 msgid "Failed to start SSO"
 msgstr "SSO शुरू करने में विफल"
 
@@ -9810,7 +9810,7 @@ msgstr "SSO शुरू करने में विफल"
 msgid "Failed to submit report. Please try again."
 msgstr "रिपोर्ट भेजने में विफल। कृपया पुनः प्रयास करें।"
 
-#: src/components/auth/AuthLoginLayout.tsx:174
+#: src/components/auth/AuthLoginLayout.tsx:175
 msgid "Failed to switch account"
 msgstr "खाता बदलने में विफल"
 
@@ -10310,7 +10310,7 @@ msgstr "सब्सक्रिप्शन भूलें"
 msgid "Forgot Password"
 msgstr "पासवर्ड भूल गए"
 
-#: src/components/auth/AuthLoginLayout.tsx:460
+#: src/components/auth/AuthLoginLayout.tsx:461
 #: src/components/pages/ForgotPasswordPage.tsx:83
 msgid "Forgot your password?"
 msgstr "अपना पासवर्ड भूल गए?"
@@ -13131,7 +13131,7 @@ msgid "Locally override instance limits"
 msgstr "स्थानीय रूप से उदाहरण सीमाओं को ओवरराइड करें"
 
 #: src/components/auth/AuthBottomLink.tsx:36
-#: src/components/auth/AuthLoginLayout.tsx:455
+#: src/components/auth/AuthLoginLayout.tsx:456
 #: src/components/auth/MfaScreen.tsx:137
 #: src/components/pages/LoginPage.tsx:129
 msgid "Log in"
@@ -13151,7 +13151,7 @@ msgid "Log in using your browser, then enter the code shown to add the account."
 msgstr "अपने ब्राउज़र का उपयोग करके लॉग इन करें, फिर खाता जोड़ने के लिए दिखाई गई कोड दर्ज करें।"
 
 #: src/components/auth/auth_login_core/AuthLoginPasskeyActions.tsx:70
-#: src/components/auth/AuthLoginLayout.tsx:482
+#: src/components/auth/AuthLoginLayout.tsx:483
 msgid "Log in via browser"
 msgstr "ब्राउज़र के जरिए लॉग इन करें"
 
@@ -14792,6 +14792,10 @@ msgstr "नेविगेशन"
 msgid "Need an account?"
 msgstr "खाता चाहिए?"
 
+#: src/components/auth/AuthLoginLayout.tsx:490
+msgid "Need help?"
+msgstr ""
+
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
 msgstr "पड़ोस निगरानी"
@@ -15316,7 +15320,7 @@ msgstr ""
 msgid "No settings found"
 msgstr "कोई सेटिंग नहीं मिली"
 
-#: src/components/auth/AuthLoginLayout.tsx:267
+#: src/components/auth/AuthLoginLayout.tsx:268
 msgid "No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps."
 msgstr ""
 
@@ -16859,7 +16863,7 @@ msgstr ""
 msgid "PowerShell"
 msgstr "पॉवरशेल"
 
-#: src/components/auth/AuthLoginLayout.tsx:437
+#: src/components/auth/AuthLoginLayout.tsx:438
 msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "क्या आप SSO का उपयोग करना पसंद करते हैं? {ssoDisplayName} के साथ जारी रखें।"
 
@@ -19583,7 +19587,7 @@ msgstr "सर्वर साइडबार"
 msgid "Session expired"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:156
+#: src/components/auth/AuthLoginLayout.tsx:157
 msgid "Session expired for {identifier}. Please log in again."
 msgstr "{identifier} के लिए सत्र समाप्त हो गया है। कृपया फिर से लॉग इन करें।"
 
@@ -20260,11 +20264,11 @@ msgstr "साइडबार प्रदर्शन"
 msgid "Sign in with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:445
+#: src/components/auth/AuthLoginLayout.tsx:446
 msgid "Sign In with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:374
+#: src/components/auth/AuthLoginLayout.tsx:375
 msgid "Sign in with your organization's single sign-on provider."
 msgstr "अपनी संगठन के सिंगल साइन-ऑन प्रदाता के साथ साइन इन करें।"
 
@@ -20519,7 +20523,7 @@ msgstr "5 के अंतराल पर स्नैप करता है�
 msgid "social"
 msgstr "सामाजिक"
 
-#: src/components/auth/AuthLoginLayout.tsx:354
+#: src/components/auth/AuthLoginLayout.tsx:355
 msgid "Solana login failed"
 msgstr ""
 
@@ -20819,7 +20823,7 @@ msgstr "वर्गाकार चेकबॉक्स"
 msgid "Square Icon Buttons"
 msgstr "वर्गाकार आइकन बटन"
 
-#: src/components/auth/AuthLoginLayout.tsx:435
+#: src/components/auth/AuthLoginLayout.tsx:436
 msgid "SSO is required to access this workspace."
 msgstr "इस कार्यक्षेत्र तक पहुंचने के लिए SSO की आवश्यकता है।"
 
@@ -24599,6 +24603,10 @@ msgstr "विजनरी आईडी नंबर"
 msgid "Visit Site"
 msgstr "साइट पर जाएँ"
 
+#: src/components/auth/AuthLoginLayout.tsx:493
+msgid "Visit Support"
+msgstr ""
+
 #: src/components/modals/tabs/accessibility_tab/Inline.tsx:33
 #: src/components/modals/tabs/AccessibilityTab.tsx:201
 #: src/components/modals/utils/SettingsConstants.tsx:288
@@ -25075,7 +25083,7 @@ msgstr "वीकेंड वारियर्स"
 msgid "Welcome and system messages will appear here."
 msgstr "स्वागत और सिस्टम संदेश यहाँ दिखाई देंगे।"
 
-#: src/components/auth/AuthLoginLayout.tsx:424
+#: src/components/auth/AuthLoginLayout.tsx:425
 msgid "Welcome back"
 msgstr "वापस स्वागत है"
 

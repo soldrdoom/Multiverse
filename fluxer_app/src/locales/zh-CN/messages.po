@@ -5960,8 +5960,8 @@ msgstr "上下文菜单可通过左键单击（在按钮上）或右键单击（
 msgid "Continue"
 msgstr "继续"
 
-#: src/components/auth/AuthLoginLayout.tsx:377
-#: src/components/auth/AuthLoginLayout.tsx:431
+#: src/components/auth/AuthLoginLayout.tsx:378
+#: src/components/auth/AuthLoginLayout.tsx:432
 msgid "Continue with SSO"
 msgstr "继续使用SSO"
 
@@ -9802,7 +9802,7 @@ msgstr "启动相机预览失败。请检查相机权限。"
 msgid "Failed to start checkout. Please try again."
 msgstr "启动结账失败。请重试。"
 
-#: src/components/auth/AuthLoginLayout.tsx:197
+#: src/components/auth/AuthLoginLayout.tsx:198
 msgid "Failed to start SSO"
 msgstr "启动SSO失败"
 
@@ -9810,7 +9810,7 @@ msgstr "启动SSO失败"
 msgid "Failed to submit report. Please try again."
 msgstr "提交报告失败。请重试。"
 
-#: src/components/auth/AuthLoginLayout.tsx:174
+#: src/components/auth/AuthLoginLayout.tsx:175
 msgid "Failed to switch account"
 msgstr "切换账户失败"
 
@@ -10310,7 +10310,7 @@ msgstr "忘记订阅"
 msgid "Forgot Password"
 msgstr "忘记密码"
 
-#: src/components/auth/AuthLoginLayout.tsx:460
+#: src/components/auth/AuthLoginLayout.tsx:461
 #: src/components/pages/ForgotPasswordPage.tsx:83
 msgid "Forgot your password?"
 msgstr "忘记密码了？"
@@ -13131,7 +13131,7 @@ msgid "Locally override instance limits"
 msgstr "本地覆盖实例限制"
 
 #: src/components/auth/AuthBottomLink.tsx:36
-#: src/components/auth/AuthLoginLayout.tsx:455
+#: src/components/auth/AuthLoginLayout.tsx:456
 #: src/components/auth/MfaScreen.tsx:137
 #: src/components/pages/LoginPage.tsx:129
 msgid "Log in"
@@ -13151,7 +13151,7 @@ msgid "Log in using your browser, then enter the code shown to add the account."
 msgstr "使用浏览器登录，然后输入显示的代码以添加账户。"
 
 #: src/components/auth/auth_login_core/AuthLoginPasskeyActions.tsx:70
-#: src/components/auth/AuthLoginLayout.tsx:482
+#: src/components/auth/AuthLoginLayout.tsx:483
 msgid "Log in via browser"
 msgstr "通过浏览器登录"
 
@@ -14792,6 +14792,10 @@ msgstr "导航"
 msgid "Need an account?"
 msgstr "需要账户吗？"
 
+#: src/components/auth/AuthLoginLayout.tsx:490
+msgid "Need help?"
+msgstr ""
+
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
 msgstr "邻里守望"
@@ -15316,7 +15320,7 @@ msgstr ""
 msgid "No settings found"
 msgstr "未找到设置"
 
-#: src/components/auth/AuthLoginLayout.tsx:267
+#: src/components/auth/AuthLoginLayout.tsx:268
 msgid "No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps."
 msgstr ""
 
@@ -16859,7 +16863,7 @@ msgstr ""
 msgid "PowerShell"
 msgstr "PowerShell"
 
-#: src/components/auth/AuthLoginLayout.tsx:437
+#: src/components/auth/AuthLoginLayout.tsx:438
 msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "偏好使用SSO吗？继续使用{name}。"
 
@@ -19583,7 +19587,7 @@ msgstr "服务器侧边栏"
 msgid "Session expired"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:156
+#: src/components/auth/AuthLoginLayout.tsx:157
 msgid "Session expired for {identifier}. Please log in again."
 msgstr "{identifier}的会话已过期。请重新登录。"
 
@@ -20260,11 +20264,11 @@ msgstr "侧边栏显示"
 msgid "Sign in with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:445
+#: src/components/auth/AuthLoginLayout.tsx:446
 msgid "Sign In with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:374
+#: src/components/auth/AuthLoginLayout.tsx:375
 msgid "Sign in with your organization's single sign-on provider."
 msgstr "使用您组织的单点登录服务提供商登录。"
 
@@ -20519,7 +20523,7 @@ msgstr "按 5 的增量对齐。"
 msgid "social"
 msgstr "社交"
 
-#: src/components/auth/AuthLoginLayout.tsx:354
+#: src/components/auth/AuthLoginLayout.tsx:355
 msgid "Solana login failed"
 msgstr ""
 
@@ -20819,7 +20823,7 @@ msgstr "方形复选框"
 msgid "Square Icon Buttons"
 msgstr "方形图标按钮"
 
-#: src/components/auth/AuthLoginLayout.tsx:435
+#: src/components/auth/AuthLoginLayout.tsx:436
 msgid "SSO is required to access this workspace."
 msgstr "访问此工作区需要SSO。"
 
@@ -24599,6 +24603,10 @@ msgstr "愿景ID号码"
 msgid "Visit Site"
 msgstr "访问网站"
 
+#: src/components/auth/AuthLoginLayout.tsx:493
+msgid "Visit Support"
+msgstr ""
+
 #: src/components/modals/tabs/accessibility_tab/Inline.tsx:33
 #: src/components/modals/tabs/AccessibilityTab.tsx:201
 #: src/components/modals/utils/SettingsConstants.tsx:288
@@ -25075,7 +25083,7 @@ msgstr "周末战士"
 msgid "Welcome and system messages will appear here."
 msgstr "欢迎和系统消息将显示在这里。"
 
-#: src/components/auth/AuthLoginLayout.tsx:424
+#: src/components/auth/AuthLoginLayout.tsx:425
 msgid "Welcome back"
 msgstr "欢迎回来"
 
