@@ -23,6 +23,7 @@ import {SolanaAuthService} from '@fluxer/api/src/auth/services/SolanaAuthService
 import {DefaultUserOnly} from '@fluxer/api/src/middleware/AuthMiddleware';
 import {createHealthCheckHandler, createLivenessCheckHandler, createReadinessCheckHandler} from '@app/HealthCheck';
 import {createComponentLogger} from '@app/Logger';
+import {createMarketingApp} from '@fluxer/marketing/src/App';
 import {
 	type InitializedServices,
 	initializeAllServices,
@@ -462,6 +463,35 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 				return ctx.json({error: 'RPC unavailable'}, 502);
 			}
 		});
+
+		if (config.services.marketing) {
+			const marketingLogger = logger.child({component: 'marketing'});
+			const marketingResult = createMarketingApp({
+				config: {
+					env: config.env === 'production' ? 'production' : 'development',
+					port: config.services.marketing.port ?? 0,
+					host: config.services.marketing.host ?? '127.0.0.1',
+					secretKeyBase: config.services.marketing.secret_key_base,
+					// Force root-mounted regardless of the service's own base_path default ('/marketing') —
+					// when embedded in fluxer_server, marketing pages live directly at e.g. /help, not /marketing/help.
+					basePath: '',
+					apiEndpoint: config.endpoints.api,
+					appEndpoint: config.endpoints.app,
+					staticCdnEndpoint: config.endpoints.static_cdn,
+					marketingEndpoint: config.endpoints.marketing,
+					geoipDbPath: config.geoip.maxmind_db_path,
+					trustCfConnectingIp: config.proxy.trust_cf_connecting_ip,
+					releaseChannel: BUILD_METADATA.releaseChannel,
+					buildTimestamp: BUILD_METADATA.buildTimestamp,
+					rateLimit: null,
+				},
+				logger: marketingLogger,
+				mountHome: false,
+				mountNotFound: false,
+			});
+			app.route('/', marketingResult.app);
+			logger.info('Marketing pages mounted at / (help, terms, support, etc.)');
+		}
 
 		if (services.appServer !== undefined) {
 			app.route('/', services.appServer.app);

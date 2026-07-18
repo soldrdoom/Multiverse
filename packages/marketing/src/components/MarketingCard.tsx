@@ -30,7 +30,7 @@ interface MarketingCardProps {
 	padding?: MarketingCardPadding;
 	class?: string;
 	style?: string;
-	children: JSX.Element | Array<JSX.Element> | string;
+	children: JSX.Element | Array<JSX.Element | string | false | null | undefined> | string;
 }
 
 const marketingCardPaddingClasses: Record<MarketingCardPadding, string> = {

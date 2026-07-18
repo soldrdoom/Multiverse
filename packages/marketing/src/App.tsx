@@ -44,6 +44,10 @@ export interface CreateMarketingAppOptions {
 	rateLimitService?: IRateLimitService | null;
 	metricsCollector?: MetricsCollector;
 	tracing?: TracingOptions;
+	/** Set to false when mounting into a host app that already owns '/' (e.g. an SPA shell). Defaults to true. */
+	mountHome?: boolean;
+	/** Set to false when mounting into a host app that has its own catch-all/404 handling. Defaults to true. */
+	mountNotFound?: boolean;
 }
 
 export interface MarketingAppResult {
@@ -52,7 +56,15 @@ export interface MarketingAppResult {
 }
 
 export function createMarketingApp(options: CreateMarketingAppOptions): MarketingAppResult {
-	const {logger, publicDir: publicDirOption, rateLimitService = null, metricsCollector, tracing} = options;
+	const {
+		logger,
+		publicDir: publicDirOption,
+		rateLimitService = null,
+		metricsCollector,
+		tracing,
+		mountHome = true,
+		mountNotFound = true,
+	} = options;
 
 	const config = normalizeMarketingSecurityConfig(options.config);
 	const publicDir = resolve(publicDirOption ?? fileURLToPath(new URL('../public', import.meta.url)));
@@ -87,6 +99,8 @@ export function createMarketingApp(options: CreateMarketingAppOptions): Marketin
 		app,
 		config,
 		contextFactory,
+		mountHome,
+		mountNotFound,
 	});
 
 	const shutdown = (): void => {

@@ -101,6 +101,14 @@ company_and_resources.source_and_contribution.translation.localization_label: Lo
 company_and_resources.source_and_contribution.view_repository: View repository
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Want to help build Multiverse?
 company_and_resources.source_and_contribution.ways_to_contribute: Ways to contribute
+company_and_resources.support.documentation: Documentation
+company_and_resources.support.documentation_description: Guides and references for using and self-hosting Multiverse.
+company_and_resources.support.label: Support
+company_and_resources.support.page_description: Docs, roadmap, and what's coming next for Multiverse.
+company_and_resources.support.roadmap: Roadmap
+company_and_resources.support.roadmap_description: See what we're building next.
+company_and_resources.support.whitepaper: Whitepaper
+company_and_resources.support.whitepaper_description: A deeper look at how Multiverse works under the hood.
 donations.business: Business
 donations.donate.action: Donate
 donations.donate.label: Donate to Multiverse

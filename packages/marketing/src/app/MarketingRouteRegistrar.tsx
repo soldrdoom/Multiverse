@@ -41,6 +41,7 @@ import {renderPartnersPage} from '@fluxer/marketing/src/pages/PartnersPage';
 import {renderPlutoniumPage} from '@fluxer/marketing/src/pages/PlutoniumPage';
 import {renderPolicyPage} from '@fluxer/marketing/src/pages/PolicyPage';
 import {renderPressPage} from '@fluxer/marketing/src/pages/PressPage';
+import {renderSupportPage} from '@fluxer/marketing/src/pages/SupportPage';
 import {sanitizeInternalRedirectPath} from '@fluxer/marketing/src/RedirectPathUtils';
 import type {MarketingRouteHandler} from '@fluxer/marketing/src/routes/RouteTypes';
 import {generateSitemap} from '@fluxer/marketing/src/Sitemap';
@@ -53,6 +54,10 @@ export interface RegisterMarketingRoutesOptions {
 	app: Hono;
 	config: MarketingConfig;
 	contextFactory: MarketingContextFactory;
+	/** Set to false when mounting into a host app that already owns '/' (e.g. an SPA shell). Defaults to true. */
+	mountHome?: boolean;
+	/** Set to false when mounting into a host app that has its own catch-all/404 handling. Defaults to true. */
+	mountNotFound?: boolean;
 }
 
 interface LocaleCookieSession {
@@ -82,17 +87,21 @@ const PAGE_ROUTE_DEFINITIONS: ReadonlyArray<{
 	{path: '/plutonium', handler: renderPlutoniumPage},
 	{path: '/partners', handler: renderPartnersPage},
 	{path: '/press', handler: renderPressPage},
+	{path: '/support', handler: renderSupportPage},
 ];
 
 export function registerMarketingRoutes(options: RegisterMarketingRoutesOptions): void {
+	const {mountHome = true, mountNotFound = true} = options;
 	registerLocaleRoute(options.app, options.config);
 	registerExternalRedirects(options.app);
 	registerSystemContentRoutes(options.app, options.contextFactory);
 	registerHelpRoutes(options.app, options.contextFactory);
 	registerPolicyRoutes(options.app, options.contextFactory);
-	registerPageRoutes(options.app, options.contextFactory);
+	registerPageRoutes(options.app, options.contextFactory, {mountHome});
 	registerPressDownloadRoute(options.app);
-	registerNotFoundRoute(options.app, options.contextFactory);
+	if (mountNotFound) {
+		registerNotFoundRoute(options.app, options.contextFactory);
+	}
 }
 
 function registerLocaleRoute(app: Hono, config: MarketingConfig): void {
@@ -168,8 +177,14 @@ function registerPolicyRoutes(app: Hono, contextFactory: MarketingContextFactory
 	}
 }
 
-function registerPageRoutes(app: Hono, contextFactory: MarketingContextFactory): void {
+function registerPageRoutes(
+	app: Hono,
+	contextFactory: MarketingContextFactory,
+	options?: {mountHome?: boolean},
+): void {
+	const mountHome = options?.mountHome ?? true;
 	for (const route of PAGE_ROUTE_DEFINITIONS) {
+		if (route.path === '/' && !mountHome) continue;
 		registerContextRoute(app, route.path, contextFactory, async (c, ctx) => {
 			return await route.handler(c, ctx);
 		});

@@ -20,7 +20,7 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource hono/jsx */
 
-import {MultiverseLogoWordmarkIcon} from '@fluxer/marketing/src/components/icons/MultiverseLogoWordmarkIcon';
+import {MultiverseLogoWordmarkIcon} from '@fluxer/marketing/src/components/icons/FluxerLogoWordmarkIcon';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
 import {renderLayout} from '@fluxer/marketing/src/pages/Layout';
 import {pageMeta} from '@fluxer/marketing/src/pages/layout/Meta';

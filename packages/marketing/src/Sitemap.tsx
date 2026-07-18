@@ -61,6 +61,7 @@ function generateUrls(baseUrl: string): ReadonlyArray<UrlEntry> {
 		{loc: `${baseUrl}/plutonium`, changefreq: 'weekly', priority: '0.8'},
 		{loc: `${baseUrl}/partners`, changefreq: 'monthly', priority: '0.6'},
 		{loc: `${baseUrl}/press`, changefreq: 'monthly', priority: '0.5'},
+		{loc: `${baseUrl}/support`, changefreq: 'monthly', priority: '0.5'},
 	];
 
 	const policyUrls = generatePolicyUrls(baseUrl);
