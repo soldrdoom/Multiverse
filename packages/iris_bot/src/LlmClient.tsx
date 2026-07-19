@@ -17,10 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Anthropic from '@anthropic-ai/sdk';
-
-export const IRIS_SYSTEM_PROMPT = `You are I.R.I.S. (Integrated Robotic Intelligence System), an assistant built into the Multiverse chat platform. You are currently in a limited, under-construction rollout: you only ever talk to your operator, who is messaging you directly. Keep replies concise and conversational, matching the tone of a chat message rather than a long-form document.`;
-
 export interface ConversationTurn {
 	role: 'user' | 'assistant';
 	content: string;
@@ -30,22 +26,12 @@ export interface LlmClient {
 	generateReply(history: ReadonlyArray<ConversationTurn>, newMessage: string): Promise<string>;
 }
 
-export class AnthropicLlmClient implements LlmClient {
-	private readonly client: Anthropic;
+export function buildSystemPrompt(knowledgeBaseText: string): string {
+	return `You are I.R.I.S. (Integrated Robotic Intelligence System), an assistant built into the Multiverse chat platform. You are currently in a limited, under-construction rollout: you only ever talk to your operator, who is messaging you directly. Keep replies concise and conversational, matching the tone of a chat message rather than a long-form document.
 
-	constructor(apiKey: string) {
-		this.client = new Anthropic({apiKey});
-	}
+You can answer general questions as well as questions about the Multiverse platform. Use the reference material below (the platform's whitepaper and roadmap) to answer platform-specific questions accurately — don't invent details about Multiverse that aren't supported by it.
 
-	async generateReply(history: ReadonlyArray<ConversationTurn>, newMessage: string): Promise<string> {
-		const response = await this.client.messages.create({
-			model: 'claude-sonnet-5',
-			max_tokens: 1024,
-			system: IRIS_SYSTEM_PROMPT,
-			messages: [...history, {role: 'user', content: newMessage}],
-		});
-
-		const textBlock = response.content.find((block) => block.type === 'text');
-		return textBlock?.type === 'text' ? textBlock.text : '';
-	}
+--- REFERENCE MATERIAL START ---
+${knowledgeBaseText}
+--- REFERENCE MATERIAL END ---`;
 }

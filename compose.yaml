@@ -88,6 +88,29 @@ services:
       start_period: 15s
     logging: *default-logging
 
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    volumes:
+      - ollama_data:/root/.ollama
+    entrypoint: ['/bin/sh', '-c']
+    command:
+      - |
+        ollama serve &
+        sleep 5
+        ollama pull ${OLLAMA_MODEL:-llama3.2:3b}
+        wait
+    healthcheck:
+      # ollama/ollama's image has neither curl nor wget; the ollama CLI itself
+      # talking to the local server is the only thing available to probe with.
+      test: ['CMD-SHELL', 'ollama list || exit 1']
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    logging: *default-logging
+
   iris_bot:
     image: iris-bot:local
     container_name: iris_bot
@@ -97,9 +120,12 @@ services:
       IRIS_BOT_TOKEN: ${IRIS_BOT_TOKEN:?Set IRIS_BOT_TOKEN in .env or environment}
       IRIS_OWNER_USER_ID: ${IRIS_OWNER_USER_ID:?Set IRIS_OWNER_USER_ID in .env or environment}
       IRIS_INSTANCE_BASE_URL: ${IRIS_INSTANCE_BASE_URL:-https://multiverse.forum}
-      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?Set ANTHROPIC_API_KEY in .env or environment}
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:3b}
     depends_on:
       fluxer_server:
+        condition: service_healthy
+      ollama:
         condition: service_healthy
     healthcheck:
       test: ['CMD-SHELL', 'curl -fsS http://127.0.0.1:8080/_health || exit 1']
@@ -177,3 +203,4 @@ volumes:
   fluxer_data:
   meilisearch_data:
   elasticsearch_data:
+  ollama_data:

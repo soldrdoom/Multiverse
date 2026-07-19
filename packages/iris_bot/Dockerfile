@@ -40,6 +40,11 @@ COPY packages/constants/src ./packages/constants/src
 COPY packages/iris_bot/package.json packages/iris_bot/tsconfig.json ./packages/iris_bot/
 COPY packages/iris_bot/src ./packages/iris_bot/src
 
+# Knowledge base: read directly from the marketing package's own source files, at the
+# same relative path KnowledgeBase.tsx expects in local dev, so there's no duplicate copy.
+COPY packages/marketing/src/content/whitepaper.md ./packages/marketing/src/content/whitepaper.md
+COPY packages/marketing/src/marketing_i18n/locales/messages.yaml ./packages/marketing/src/marketing_i18n/locales/messages.yaml
+
 RUN mkdir -p /app/.cache/corepack && chown -R nobody:nogroup /app
 
 WORKDIR /app/packages/iris_bot

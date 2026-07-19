@@ -29,7 +29,8 @@ export interface IrisConfig {
 	readonly botToken: string;
 	readonly ownerUserId: string;
 	readonly instanceBaseUrl: string;
-	readonly anthropicApiKey: string;
+	readonly ollamaBaseUrl: string;
+	readonly ollamaModel: string;
 	readonly healthPort: number;
 }
 
@@ -38,7 +39,8 @@ export function loadConfig(): IrisConfig {
 		botToken: requireEnv('IRIS_BOT_TOKEN'),
 		ownerUserId: requireEnv('IRIS_OWNER_USER_ID'),
 		instanceBaseUrl: process.env.IRIS_INSTANCE_BASE_URL ?? 'https://multiverse.forum',
-		anthropicApiKey: requireEnv('ANTHROPIC_API_KEY'),
+		ollamaBaseUrl: process.env.OLLAMA_BASE_URL ?? 'http://ollama:11434',
+		ollamaModel: process.env.OLLAMA_MODEL ?? 'llama3.2:3b',
 		healthPort: Number(process.env.PORT ?? 8080),
 	};
 }
