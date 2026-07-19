@@ -2,11 +2,11 @@
 
 Multiverse is an instant messaging and voice/video platform for communities — servers, channels, DMs, calls — built on a conventional, reliable web2 core and layered with optional web3 features: wallet-based sign-in, NFT-gated cosmetics, an end-to-end encrypted Identity Vault, and on-chain payments for specific digital goods. It is developed and operated by Multiverse Platform AB.
 
-Multiverse has no native token. Nothing in this document is an offer to sell securities or any other financial instrument, and nothing here should be read as investment advice. Where this document describes future plans, those are forward-looking statements that may change without notice.
+A utility token for spending on platform cosmetics is planned for a future release; it does not exist today and is not for sale. Nothing in this document is an offer to sell securities, tokens, or any other financial instrument, and nothing here should be read as investment advice. Where this document describes future plans, those are forward-looking statements that may change without notice.
 
 ## Vision
 
-Crypto-native communities have largely had to choose between two unsatisfying options: a polished, reliable chat product with no meaningful concept of wallet-based identity, or a fully decentralized alternative that treats reliability, moderation, and day-to-day usability as secondary concerns. Multiverse starts from the premise that a community's chat platform doesn't have to force that tradeoff. Wallets can be a first-class identity and payment primitive without requiring a token, without requiring full protocol decentralization, and without giving up the uptime and moderation guarantees a real community depends on.
+Crypto-native communities have largely had to choose between two unsatisfying options: a polished, reliable chat product with no meaningful concept of wallet-based identity, or a fully decentralized alternative that treats reliability, moderation, and day-to-day usability as secondary concerns. Multiverse starts from the premise that a community's chat platform doesn't have to force that tradeoff. Wallets can be a first-class identity and payment primitive without requiring full protocol decentralization, and without giving up the uptime and moderation guarantees a real community depends on.
 
 ## The problem
 
@@ -32,11 +32,13 @@ Multiverse's backend is split into small, purpose-built services: a real-time ga
 
 **Identity Vault.** An end-to-end encryption scheme for direct messages in which the encryption key material is derived from a wallet signature rather than issued and held by Multiverse. Because the key is derived from something the user controls, it's portable across sessions and devices in a way a platform-issued credential wouldn't be.
 
-**On-chain payments for digital goods.** Specific paid features — currently, custom vanity URLs for servers — can be purchased with a one-time, on-chain SOL payment, verified by checking the transaction on Solana mainnet. This is a per-item purchase mechanism, not a subscription, not a token, and not an investment product.
+**On-chain payments for digital goods.** Specific paid features — currently, custom vanity URLs for servers — can be purchased with a one-time, on-chain SOL payment, verified by checking the transaction on Solana mainnet. This is a per-item purchase mechanism, not a subscription and not an investment product.
 
-## No token, one network
+## Token plans
 
-Multiverse has no native fungible token and none is planned. Where a payment is denominated in cryptocurrency, it is denominated in SOL — an existing, independent, third-party asset — or in fiat currency. Multiverse Platform AB does not issue, sell, or otherwise offer any token of its own.
+Multiverse Platform AB plans to introduce a utility token, issued as a standard SPL token on Solana, in a future release. Its intended use is narrow: spending it on cosmetic items on the platform. Users would be able to acquire it either by purchasing it directly — in SOL or fiat — or by earning modest amounts through ordinary use of the platform; neither mechanism is live today.
+
+The token does not exist yet. It is not available for purchase or exchange anywhere, there is no sale, distribution event, or timeline to announce, and nothing in this document is an offer to sell or a solicitation to buy the token or any other instrument. If and when it launches, it is intended solely as a means of paying for cosmetics — not as an investment, and not as a promise of profit, dividend, revenue share, or governance rights in Multiverse Platform AB. The design, mechanics, and timing described here may change, or the token may not ship at all.
 
 ## Operating model
 
@@ -54,15 +56,16 @@ Multiverse runs a public responsible-disclosure program for security researchers
 
 ## Roadmap
 
-Near-term priorities include native mobile apps, exploratory work on federation between Multiverse communities, and expanding the range of cosmetic categories that can be gated by NFT ownership. On the payments side, the set of digital goods that can be purchased on-chain may grow over time. These are directional statements about where the product is headed, not commitments to specific dates or features — they may change as the platform develops.
+Near-term priorities include native mobile apps, exploratory work on federation between Multiverse communities, and expanding the range of cosmetic categories that can be gated by NFT ownership. On the payments side, the set of digital goods that can be purchased on-chain may grow over time, and further out we plan to introduce the utility token described above. These are directional statements about where the product is headed, not commitments to specific dates or features — they may change as the platform develops.
 
 ## Legal and risk disclaimers
 
-- Multiverse has no token, and nothing in this document is an offer or solicitation to buy or sell securities or any other financial instrument.
+- Multiverse has no token today. A utility token is planned for a future release, as described above; nothing in this document is an offer or solicitation to buy or sell securities, tokens, or any other financial instrument.
 - Nothing in this document is investment, legal, or financial advice.
-- Statements about future plans, features, or roadmap items are forward-looking and may change without notice.
+- Statements about future plans, features, or roadmap items are forward-looking and may change without notice, including whether, when, and how the planned utility token ships.
 - The Identity Vault, NFT-gating mechanism, and on-chain payment flow described here have not been independently audited as of the publication of this document.
 - Payments made in SOL carry the ordinary risks of cryptocurrency: price volatility and transaction irreversibility. Users are responsible for the security of their own wallets.
+- If and when the planned utility token launches, it will not confer profit-sharing, dividends, revenue share, equity, or governance rights in Multiverse Platform AB, and its price, if any, is not guaranteed or controlled by Multiverse Platform AB.
 - Multiverse Platform AB's registered entity details are available at [/company-information](/company-information). Where anything in this document conflicts with the [Terms of Service](/terms) or [Privacy Policy](/privacy), those documents govern.
 
 ## Learn more
