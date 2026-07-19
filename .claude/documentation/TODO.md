@@ -50,7 +50,7 @@ Also notable: `fluxer_server/src/Routes.tsx` (the real one) is actually slightly
 1. Add a proper `build:` section to `compose.yaml`'s `fluxer_server` service (`context: .`, `dockerfile: fluxer_server/Dockerfile`) so `docker compose build` actually works and matches what everyone's muscle memory expects.
 2. Leave it as-is but document the real command somewhere obvious (e.g. a `deploy` script or a README note), since apparently two sessions in a row have had to rediscover this by hand.
 
-**Status:** not started.
+**Status:** not started. **Update 2026-07-19:** the same pattern was repeated deliberately for the new `iris_bot`/`ollama` services (`image: iris-bot:local` / `image: ollama/ollama:latest`, no `build:` key) — so this no-op affects three services now, not just `fluxer_server`. Same fix options apply to all of them if this ever gets addressed.
 
 ---
 
@@ -138,3 +138,39 @@ Also notable: `fluxer_server/src/Routes.tsx` (the real one) is actually slightly
 **Impact:** lower severity than the corruption bug above (nothing renders *broken*, just occasionally the wrong/generic icon) — only affects users who've set the darkest skin-tone preference.
 
 **Status:** not started — would need either sourcing the missing SVGs from somewhere else, or accepting the gap as a known limitation of whatever twemoji snapshot is hosted at that CDN path.
+
+---
+
+## 2026-07-19 — I.R.I.S. is a plain user account, not a real bot (`isBot: true`)
+
+**Found while:** building the I.R.I.S. assistant service (see `PROJECT_REPORT.md`'s "I.R.I.S." session notes for the full story — including why the original OAuth2-bot-application plan was abandoned).
+
+**What's true today:** I.R.I.S. (`iris@multiverse.forum`, user id `1528293381598957569`) is a normal registered user, created via the public `/auth/register` endpoint — not an OAuth2 application/bot account. It authenticates with a plain session token (`Authorization: <token>`, no `Bot ` prefix), doesn't show a "BOT" badge anywhere in the UI, and counts against nothing bot-specific (rate limits, permission defaults, etc. all apply to it as if it were a human member). This was an explicit, deliberate scope decision by the user ("create it as a regular user account for now, we'll set up bot infrastructure another time"), not an oversight.
+
+**What real bot infrastructure would add, if this gets revisited:** an actual `isBot: true` account via `POST /oauth2/applications` (owned by the platform owner), which would show the BOT badge, use bot-specific rate-limit/permission paths, and be a real step toward the "Public Bot API" roadmap item (see the same session notes) rather than a one-off. The backend primitives for this (bot-token gateway auth, bot display names via the `globalName` feature added this same session, bot-scoped guild-join via `POST /oauth2/authorize/consent`) are all already confirmed working — see `.claude/plans/stateless-percolating-crystal.md` for the original researched plan, which is still valid if/when this gets picked back up. The blocker last time wasn't the bot infrastructure itself, it was needing the owner's own session to create an application owned by them — that'd need to be solved (e.g. the owner runs the creation call themselves, or performs it via the app's own UI once one exists) rather than re-attempted via any kind of auth-bypass endpoint.
+
+**Status:** not started — I.R.I.S. works fine as a regular account for its current single-owner-DM-plus-one-guild scope; only matters if/when it needs to look/behave like a "real" bot, or the Public Bot API roadmap item gets built for real.
+
+---
+
+## 2026-07-19 — leftover `llama3.2:3b` model still cached in the `ollama_data` volume
+
+**Found while:** the same I.R.I.S. session — empirically compared Llama 3.2 3B against Qwen3 0.6B before the user picked 0.6B as the actual default (see `PROJECT_REPORT.md`).
+
+**What's wrong:** the `ollama_data` Docker volume still has the ~2GB `llama3.2:3b` model pulled from that comparison, even though `compose.yaml`'s `ollama` service now only auto-pulls `qwen3:0.6b` on boot. Harmless — just unused disk space (this VPS has 346GB free) — not a correctness issue.
+
+**Fix:** `docker exec ollama ollama rm llama3.2:3b` whenever someone's tidying up, or just leave it in case 3B needs to be A/B-tested against 0.6B again later.
+
+**Status:** not started — pure disk-space cleanup, no urgency.
+
+---
+
+## 2026-07-19 — I.R.I.S.'s platform-question deflection is a coarse keyword match, not real understanding
+
+**Found while:** the same session, after the underlying model was caught confidently inventing a wrong answer about self-hosting (see `PROJECT_REPORT.md`).
+
+**What's true today:** `MessageHandler.tsx`'s `PLATFORM_KEYWORDS`/`mentionsPlatform()` catches an incoming message and deflects with a fixed reply *before* it reaches the model, but only if the message contains one of a fixed list of exact substrings (`multiverse`, `self-host`, `whitepaper`, `roadmap`, `tokenomics`, `plutonium`, `identity vault`, `bot api`, `agplv3`, `agpl`, `csam`, etc.). A platform question phrased without any of those words (e.g. "how do messages get delivered here," "can I run my own copy of this") would sail past the guard and reach the model directly — which, per the same session's testing, is willing to confidently make something up rather than admit it doesn't know.
+
+**Impact:** low today (I.R.I.S. only talks to its one owner, who already knows not to trust it on platform facts) — would matter more if I.R.I.S.'s audience or scope ever expands (see the entry above about it being a plain account, and the "Public Bot API" roadmap item).
+
+**Status:** not started — the keyword list can be extended incrementally as gaps are found; a more robust fix (e.g. a lightweight intent classifier, or just re-enabling the already-built-but-disabled `KnowledgeBase.tsx` whitepaper/roadmap grounding, which tested as accurate in the earlier 3B comparison) is a separate, bigger decision for whoever revisits I.R.I.S.'s scope.
