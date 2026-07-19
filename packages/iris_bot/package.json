@@ -1,0 +1,23 @@
+{
+	"name": "@fluxer/iris_bot",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "tsx watch src/index.tsx",
+		"start": "tsx src/index.tsx",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@anthropic-ai/sdk": "0.112.3",
+		"@fluxer/constants": "workspace:*",
+		"pino": "catalog:",
+		"tsx": "catalog:",
+		"ws": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@types/ws": "catalog:",
+		"@typescript/native-preview": "catalog:"
+	}
+}

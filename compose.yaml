@@ -88,6 +88,27 @@ services:
       start_period: 15s
     logging: *default-logging
 
+  iris_bot:
+    image: iris-bot:local
+    container_name: iris_bot
+    restart: unless-stopped
+    user: "1001:1001"
+    environment:
+      IRIS_BOT_TOKEN: ${IRIS_BOT_TOKEN:?Set IRIS_BOT_TOKEN in .env or environment}
+      IRIS_OWNER_USER_ID: ${IRIS_OWNER_USER_ID:?Set IRIS_OWNER_USER_ID in .env or environment}
+      IRIS_INSTANCE_BASE_URL: ${IRIS_INSTANCE_BASE_URL:-https://multiverse.forum}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?Set ANTHROPIC_API_KEY in .env or environment}
+    depends_on:
+      fluxer_server:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -fsS http://127.0.0.1:8080/_health || exit 1']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    logging: *default-logging
+
   meilisearch:
     image: getmeili/meilisearch:v1.14
     container_name: meilisearch
