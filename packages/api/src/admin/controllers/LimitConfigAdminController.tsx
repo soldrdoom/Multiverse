@@ -17,7 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Config} from '@fluxer/api/src/Config';
 import {createDefaultLimitConfig} from '@fluxer/api/src/constants/LimitConfig';
 import type {LimitConfigService} from '@fluxer/api/src/limits/LimitConfigService';
 import {requireAdminACL} from '@fluxer/api/src/middleware/AdminMiddleware';
@@ -37,7 +36,7 @@ import type {LimitConfigSnapshot, LimitRule} from '@fluxer/limits/src/LimitTypes
 import {LimitConfigGetResponse, LimitConfigUpdateRequest} from '@fluxer/schema/src/domains/admin/AdminSchemas';
 
 function formatConfig(config: LimitConfigSnapshot) {
-	const defaults = createDefaultLimitConfig({selfHosted: Config.instance.selfHosted});
+	const defaults = createDefaultLimitConfig();
 	const defaultLimitsMap: Record<string, Record<LimitKey, number>> = {};
 	for (const rule of defaults.rules) {
 		defaultLimitsMap[rule.id] = rule.limits as Record<LimitKey, number>;
@@ -46,7 +45,6 @@ function formatConfig(config: LimitConfigSnapshot) {
 	return {
 		limit_config: config,
 		limit_config_json: JSON.stringify(config, null, 2),
-		self_hosted: Config.instance.selfHosted,
 		defaults: defaultLimitsMap,
 		metadata: LIMIT_KEY_METADATA,
 		categories: LIMIT_CATEGORY_LABELS,
@@ -55,7 +53,7 @@ function formatConfig(config: LimitConfigSnapshot) {
 }
 
 function trackModifiedFields(config: LimitConfigSnapshot): LimitConfigSnapshot {
-	const defaults = createDefaultLimitConfig({selfHosted: Config.instance.selfHosted});
+	const defaults = createDefaultLimitConfig();
 	const defaultRulesMap = buildRulesMap(defaults.rules);
 
 	const rulesWithTracking = config.rules.map((rule) => trackRuleModifiedFields(rule, defaultRulesMap));

@@ -42,7 +42,6 @@ export const AdminConfigSchema = z.object({
 	basePath: z.string(),
 	buildTimestamp: z.string(),
 	releaseChannel: z.string(),
-	selfHosted: z.boolean(),
 	rateLimit: RateLimitConfigSchema.optional(),
 });
 

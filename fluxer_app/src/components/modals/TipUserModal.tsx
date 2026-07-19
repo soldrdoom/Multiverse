@@ -165,8 +165,7 @@ export const TipUserModal: React.FC<TipUserModalProps> = observer(({userId, disp
 
 								<div className={styles.feeNotice}>
 									<Trans>
-										Multiverse adds a tiny platform fee — ${target.fee_usd.toFixed(2)} (≈ {feeSol.toFixed(6)} SOL) — on
-										top of your tip, similar to network gas fees.
+										A small platform fee of ${target.fee_usd.toFixed(2)} (~{feeSol.toFixed(4)} SOL) is added to your tip.
 									</Trans>
 								</div>
 

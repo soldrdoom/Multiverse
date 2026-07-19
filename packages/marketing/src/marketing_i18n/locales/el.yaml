@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Δωρεάν vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Ό,τι έχει το δωρεάν, συν:'
 pricing_and_tiers.free.full_access_to_all_features: Πλήρης πρόσβαση σε όλες τις λειτουργίες
 pricing_and_tiers.free.label: Δωρεάν
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Σημείωση: τα οφέλη Plutonium και Visionary ισχύουν μόνο στο επίσημο instance Multiverse.app, όχι σε τρίτα ή self-hosted instances.'
 pricing_and_tiers.plutonium.feature_highlights: Uploads 500 MB, μηνύματα 4.000 χαρακτήρων, 300 σελιδοδείκτες, 50 πακέτα emoji και πολλά ακόμη.
 pricing_and_tiers.plutonium.features.bio_character_limit: Όριο χαρακτήρων bio
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Διάλεξε οποιοδήποτε διαθέσιμο 4-digit tag από #0001 έως #9999 για να κάνεις το username σου πραγματικά μοναδικό.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium και Operator Pass για 
 pricing_and_tiers.visionary.communities_with_team_access: Κοινότητες Visionary και Operators με πρόσβαση στην ομάδα
 pricing_and_tiers.visionary.get_visionary: Πάρε Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Απόκτησε Plutonium εφ’ όρου ζωής στο Multiverse.app μαζί με Operator Pass για self-hosting. Πλήρωσε {0} μία φορά. Διαθέσιμο μέχρι την 1η Οκτωβρίου 2026 ή μέχρι να καλυφθούν όλες οι θέσεις.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass για πάντα
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium για πάντα
 pricing_and_tiers.visionary.limited_offer_note: 'Περιορισμένη προσφορά: το Visionary περιλαμβάνει Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Αγόρασε Visionary απευθε
 pricing_and_tiers.visionary.slots_left.generic: Απομένουν {0} από {1} θέσεις
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Μόνο {0} από {1} Visionary θέσεις – Plutonium και Operator Pass για πάντα
 pricing_and_tiers.visionary.slots_left.visionary_only: Απομένουν {0} Visionary θέσεις
-product_positioning.free_and_open_source: Το Multiverse είναι δωρεάν και ανοιχτού κώδικα. Ο καθένας μπορεί να το κάνει self-host χωρίς κόστος.
 product_positioning.intro: Το Multiverse είναι μια δωρεάν πλατφόρμα άμεσων μηνυμάτων και VoIP, ανοιχτού κώδικα, φτιαγμένη για φίλους, ομάδες και κοινότητες.
 product_positioning.open_source.fully_open_source_agplv3: Πλήρως ανοιχτού κώδικα (AGPLv3)
 product_positioning.open_source.label: Ανοιχτός κώδικας
-product_positioning.open_source.license: Ανοιχτός κώδικας (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Σύνδεση από οποιονδήποτε client
-product_positioning.self_hosting.free_self_hosting: Δωρεάν self-hosting
-product_positioning.self_hosting.host_your_own_instance: Φιλοξένησε το δικό σου instance
-product_positioning.self_hosting.label: Self-hosting
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Πρόσβαση στην κοινότητα Multiverse Operators
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Όταν τελειώσει η προσφορά, το Operator Pass θα παραμείνει διαθέσιμο ξεχωριστά.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Το Operator Pass είναι προαιρετικό: πληρώνεις για υποστήριξη και πρόσβαση στην κοινότητα Operators.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Priority υποστήριξη και πρόσβαση στην κοινότητα Operators για self-hosting
-product_positioning.self_hosting.run_backend_on_your_hardware: Τρέξε το Multiverse backend στο δικό σου hardware και συνδέσου με τις εφαρμογές μας.
-product_positioning.self_hosting.switch_between_instances: Εναλλαγή ανάμεσα σε πολλά instances
 security.found_security_issue: Βρήκες θέμα ασφάλειας;
 security.report_vulnerabilities: Ανάφερε ευπάθειες και βοήθησε να κρατήσουμε την πλατφόρμα ασφαλή.
 security.responsible_disclosure_note: Εκτιμάμε το responsible disclosure μέσω της σελίδας bug bounty ασφάλειας. Δίνουμε κωδικούς Plutonium και σήματα Bug Hunter ανάλογα με τη σοβαρότητα.

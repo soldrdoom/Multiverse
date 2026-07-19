@@ -17,7 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Config} from '@fluxer/api/src/Config';
 import {Logger} from '@fluxer/api/src/Logger';
 import type {LimitConfigService} from '@fluxer/api/src/limits/LimitConfigService';
 import {resolveLimitSafe} from '@fluxer/api/src/limits/LimitConfigUtils';
@@ -26,7 +25,7 @@ import type {User} from '@fluxer/api/src/models/User';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
 import type {ICacheService} from '@fluxer/cache/src/ICacheService';
 import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
-import {NON_SELF_HOSTED_RESERVED_DISCRIMINATORS} from '@fluxer/constants/src/DiscriminatorConstants';
+import {RESERVED_DISCRIMINATORS} from '@fluxer/constants/src/DiscriminatorConstants';
 import {BadRequestError} from '@fluxer/errors/src/domains/core/BadRequestError';
 import {ms, seconds} from 'itty-time';
 
@@ -80,10 +79,6 @@ export class DiscriminatorService implements IDiscriminatorService {
 	) {}
 
 	private async canUseCustomDiscriminator(user?: User | null): Promise<boolean> {
-		if (Config.instance.selfHosted) {
-			return true;
-		}
-
 		if (!user) {
 			return false;
 		}
@@ -230,10 +225,8 @@ export class DiscriminatorService implements IDiscriminatorService {
 
 		const cachedDiscriminators = await this.getCachedDiscriminators(username);
 		const allTaken = new Set([...takenDiscriminators, ...cachedDiscriminators]);
-		if (!Config.instance.selfHosted) {
-			for (const reservedDiscriminator of NON_SELF_HOSTED_RESERVED_DISCRIMINATORS) {
-				allTaken.add(reservedDiscriminator);
-			}
+		for (const reservedDiscriminator of RESERVED_DISCRIMINATORS) {
+			allTaken.add(reservedDiscriminator);
 		}
 
 		if (allTaken.size >= 9999) {

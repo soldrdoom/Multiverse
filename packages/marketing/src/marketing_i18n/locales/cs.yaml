@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Zdarma vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Všechno ve verzi Zdarma, a navíc:'
 pricing_and_tiers.free.full_access_to_all_features: Plný přístup ke všem funkcím
 pricing_and_tiers.free.label: Zdarma
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Poznámka: výhody Plutonia a Visionary platí jen pro oficiální instanci Multiverse.app, ne pro third-party nebo self-hostované instance.'
 pricing_and_tiers.plutonium.feature_highlights: Nahrávání do 500 MB, zprávy do 4 000 znaků, 300 záložek, 50 balíčků emoji a mnohem víc.
 pricing_and_tiers.plutonium.features.bio_character_limit: Limit znaků v bio
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Vyber si jakýkoli dostupný 4místný tag od #0001 do #9999, aby tvoje uživatelské jméno bylo opravdu jedinečné.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium a Operator Pass na doživot�
 pricing_and_tiers.visionary.communities_with_team_access: Komunity Visionary a Operators s přístupem k týmu
 pricing_and_tiers.visionary.get_visionary: Získat Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Získej Plutonium na celý život na Multiverse.app plus Operator Pass pro self-hosting. Zaplať {0} jednorázově. Dostupné do 1. října 2026 nebo dokud nebudou obsazena všechna místa.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass na doživotí
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium na doživotí
 pricing_and_tiers.visionary.limited_offer_note: 'Omezená nabídka: Visionary zahrnuje Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Visionary koupíš přímo v aplikaci
 pricing_and_tiers.visionary.slots_left.generic: '{0} z {1} míst zbývá'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Už jen {0} z {1} míst Visionary – Plutonium a Operator Pass na doživotí
 pricing_and_tiers.visionary.slots_left.visionary_only: Zbývá {0} míst Visionary
-product_positioning.free_and_open_source: Multiverse je zdarma a open source. Kdokoliv si ho může zdarma self-hostovat.
 product_positioning.intro: Multiverse je bezplatná a open source platforma pro okamžité zprávy a VoIP, postavená pro kamarády, skupiny a komunity.
 product_positioning.open_source.fully_open_source_agplv3: Zcela open source (AGPLv3)
 product_positioning.open_source.label: Open source
-product_positioning.open_source.license: Open source (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Připoj se z libovolného klienta
-product_positioning.self_hosting.free_self_hosting: Self-hosting zdarma
-product_positioning.self_hosting.host_your_own_instance: Hostuj si vlastní instanci
-product_positioning.self_hosting.label: Self-hosting
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Přístup do Multiverse Operators komunity
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Až nabídka skončí, Operator Pass zůstane k dispozici samostatně.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass je volitelný: platíš za podporu a přístup do Operators komunity.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Prioritní podpora a přístup do Operators komunity pro self-hosting
-product_positioning.self_hosting.run_backend_on_your_hardware: Spusť backend Multiverseu na svém hardwaru a připoj se přes naše aplikace.
-product_positioning.self_hosting.switch_between_instances: Přepínej mezi více instancemi
 security.found_security_issue: Našel jsi bezpečnostní problém?
 security.report_vulnerabilities: Nahlaš zranitelnosti a pomoz nám držet platformu v bezpečí.
 security.responsible_disclosure_note: Vážíme si zodpovědného nahlašování přes náš program security bug bounty. Podle závažnosti rozdáváme kódy na Plutonium a odznaky Bug Hunter.

@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: 무료 vs 플루토늄
 pricing_and_tiers.free.everything_in_free_plus: '무료의 모든 기능에 더해:'
 pricing_and_tiers.free.full_access_to_all_features: 모든 기능에 대한 전체 접근
 pricing_and_tiers.free.label: 무료
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: '참고: 플루토늄과 비저너리 혜택은 공식 Multiverse.app 인스턴스에서만 적용돼요.'
 pricing_and_tiers.plutonium.feature_highlights: 500MB 업로드, 4,000자 메시지, 300개 북마크, 50개 이모지 팩 등 더 많은 기능이 있어요.
 pricing_and_tiers.plutonium.features.bio_character_limit: 소개 글자 수 제한
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: '#0001부터 #9999까지 사용 가능한 4자리 태그를 선택해 사용자 이름을 정말 독특하게 만들어보세요.'
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: 비저너리로 평생 플루토늄과
 pricing_and_tiers.visionary.communities_with_team_access: 팀 접근 권한이 포함된 비저너리 및 Operators 커뮤니티
 pricing_and_tiers.visionary.get_visionary: 비저너리 받기
 pricing_and_tiers.visionary.label: 비저너리
-pricing_and_tiers.visionary.lifetime_offer_copy: Multiverse.app에서 평생 플루토늄과 자체 호스팅용 Operator Pass를 받으세요. {0}을 한 번만 결제하면 돼요. 2026년 10월 1일까지 또는 모든 슬롯이 소진될 때까지 제공돼요.
 pricing_and_tiers.visionary.lifetime_operator_pass: 평생 Operator Pass
 pricing_and_tiers.visionary.lifetime_plutonium: 평생 플루토늄
 pricing_and_tiers.visionary.limited_offer_note: '한정 혜택: 비저너리에 Operator Pass 포함'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: 계정을 만든 뒤 앱에서 바로
 pricing_and_tiers.visionary.slots_left.generic: '{0} / {1} 슬롯 남음'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: 비저너리 평생 슬롯 {0} / {1} 남음
 pricing_and_tiers.visionary.slots_left.visionary_only: 비저너리 슬롯 {0}개 남음
-product_positioning.free_and_open_source: Multiverse는 무료 오픈 소스예요. 누구나 무료로 자체 호스팅할 수 있어요.
 product_positioning.intro: Multiverse는 친구, 그룹, 커뮤니티를 위한 무료 오픈 소스 메신저 및 VoIP 플랫폼이에요.
 product_positioning.open_source.fully_open_source_agplv3: 완전히 오픈 소스 (AGPLv3)
 product_positioning.open_source.label: 오픈 소스
-product_positioning.open_source.license: 오픈 소스 (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: 어떤 클라이언트에서도 연결
-product_positioning.self_hosting.free_self_hosting: 무료 자체 호스팅
-product_positioning.self_hosting.host_your_own_instance: 나만의 인스턴스 운영
-product_positioning.self_hosting.label: 자체 호스팅
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Multiverse Operators 커뮤니티 접근
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: 프로모션 종료 후에도 Operator Pass는 단독으로 이용 가능해요.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: Operator Pass는 선택 사항이에요. 지원과 커뮤니티 접근을 위해 결제할 수 있어요.
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: 자체 호스팅을 위한 우선 지원과 Operators 커뮤니티 접근
-product_positioning.self_hosting.run_backend_on_your_hardware: 자신의 하드웨어에서 Multiverse 백엔드를 실행하고 앱으로 연결하세요.
-product_positioning.self_hosting.switch_between_instances: 여러 인스턴스 간 전환
 security.found_security_issue: 보안 문제를 발견했나요?
 security.report_vulnerabilities: 취약점을 신고해 플랫폼 보안을 함께 지켜주세요.
 security.responsible_disclosure_note: 보안 버그 바운티 페이지를 통한 책임 있는 공개에 감사드려요. 심각도에 따라 플루토늄 코드와 버그 헌터 배지를 제공해요.

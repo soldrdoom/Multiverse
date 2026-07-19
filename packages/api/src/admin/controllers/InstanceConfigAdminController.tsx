@@ -17,7 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Config} from '@fluxer/api/src/Config';
 import {InstanceConfigRepository} from '@fluxer/api/src/instance/InstanceConfigRepository';
 import {requireAdminACL} from '@fluxer/api/src/middleware/AdminMiddleware';
 import {RateLimitMiddleware} from '@fluxer/api/src/middleware/RateLimitMiddleware';
@@ -73,7 +72,6 @@ export function InstanceConfigAdminController(app: HonoApp) {
 					auto_provision: ssoConfig.autoProvision,
 					redirect_uri: ssoConfig.redirectUri,
 				},
-				self_hosted: Config.instance.selfHosted,
 			});
 		},
 	);
@@ -168,7 +166,6 @@ export function InstanceConfigAdminController(app: HonoApp) {
 					auto_provision: updatedSso.autoProvision,
 					redirect_uri: updatedSso.redirectUri,
 				},
-				self_hosted: Config.instance.selfHosted,
 			});
 		},
 	);

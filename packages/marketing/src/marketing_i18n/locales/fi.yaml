@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Ilmainen vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Kaikki Ilmaisessa, ja lisäksi:'
 pricing_and_tiers.free.full_access_to_all_features: Täysi pääsy kaikkiin ominaisuuksiin
 pricing_and_tiers.free.label: Ilmainen
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Huom: Plutonium- ja Visionary-edut koskevat vain virallista Multiverse.app-instanssia, eivät kolmannen osapuolen tai itsehostattuja instansseja.'
 pricing_and_tiers.plutonium.feature_highlights: 500 Mt lataukset, 4 000 merkin viestit, 300 kirjanmerkkiä, 50 emojipakettia ja paljon muuta.
 pricing_and_tiers.plutonium.features.bio_character_limit: Bion merkkiraja
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Valitse mikä tahansa saatavilla oleva 4-numeroinen tunniste väliltä #0001–#9999 ja tee käyttäjänimestä todella ainutlaatuinen.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Elinikäinen Plutonium ja Operator Pas
 pricing_and_tiers.visionary.communities_with_team_access: Visionary- ja Operators-yhteisöt, joissa on tiimipääsy
 pricing_and_tiers.visionary.get_visionary: Hanki Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Hanki elinikäinen Plutonium Multiverse.appissa sekä Operator Pass itsehostaukseen. Maksa {0} kerran. Saatavilla 1. lokakuuta 2026 asti tai kun kaikki paikat on varattu.
 pricing_and_tiers.visionary.lifetime_operator_pass: Elinikäinen Operator Pass
 pricing_and_tiers.visionary.lifetime_plutonium: Elinikäinen Plutonium
 pricing_and_tiers.visionary.limited_offer_note: 'Rajoitettu tarjous: Visionary sisältää Operator Passin'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Osta Visionary suoraan sovelluksessa 
 pricing_and_tiers.visionary.slots_left.generic: '{0} / {1} paikkaa jäljellä'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Vain {0} / {1} Visionary-elinikäistä jäljellä – elinikäinen Plutonium ja Operator Pass
 pricing_and_tiers.visionary.slots_left.visionary_only: '{0} Visionary-paikkaa jäljellä'
-product_positioning.free_and_open_source: Multiverse on ilmainen ja avoimen lähdekoodin. Kuka tahansa voi itsehostata ilmaiseksi.
 product_positioning.intro: Multiverse on ilmainen ja avoimen lähdekoodin pikaviesti- ja VoIP-alusta kavereille, ryhmille ja yhteisöille.
 product_positioning.open_source.fully_open_source_agplv3: Täysin avoimen lähdekoodin (AGPLv3)
 product_positioning.open_source.label: Avoin lähdekoodi
-product_positioning.open_source.license: Avoin lähdekoodi (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Yhdistä millä tahansa asiakasohjelmalla
-product_positioning.self_hosting.free_self_hosting: Ilmainen itsehostaus
-product_positioning.self_hosting.host_your_own_instance: Aja oma instanssisi
-product_positioning.self_hosting.label: Itsehostaus
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Pääsy Multiverse Operators -yhteisöön
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Kun tarjous päättyy, Operator Pass on edelleen saatavilla erikseen.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass on valinnainen: maksat tuesta ja Operators-yhteisön pääsystä.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Prioriteettituki ja pääsy Operators-yhteisöön itsehostaajille
-product_positioning.self_hosting.run_backend_on_your_hardware: Aja Multiversein taustapalvelin omalla raudallasi ja yhdistä sovelluksillamme.
-product_positioning.self_hosting.switch_between_instances: Vaihda instanssien välillä
 security.found_security_issue: Löysitkö tietoturvaongelman?
 security.report_vulnerabilities: Ilmoita haavoittuvuuksista ja auta pitämään alusta turvallisena.
 security.responsible_disclosure_note: Arvostamme vastuullista ilmoittamista tietoturvabounty-sivun kautta. Annamme Plutonium-koodeja ja Bug Hunter -merkkejä vakavuuden mukaan.

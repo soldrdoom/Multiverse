@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Miễn phí vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Tất cả trong gói Miễn phí, cộng thêm:'
 pricing_and_tiers.free.full_access_to_all_features: Dùng đầy đủ mọi tính năng
 pricing_and_tiers.free.label: Miễn phí
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Lưu ý: quyền lợi Plutonium và Visionary chỉ áp dụng cho instance chính thức Multiverse.app, không áp dụng cho instance bên thứ ba hoặc tự host.'
 pricing_and_tiers.plutonium.feature_highlights: Tải lên 500 MB, tin nhắn 4.000 ký tự, 300 bookmark, 50 gói emoji, và còn nhiều nữa.
 pricing_and_tiers.plutonium.features.bio_character_limit: Giới hạn ký tự phần giới thiệu
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Chọn bất kỳ tag 4 chữ số nào còn trống từ #0001 đến #9999 để làm tên người dùng của bạn thực sự độc đáo.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium trọn đời và Operator P
 pricing_and_tiers.visionary.communities_with_team_access: Cộng đồng Visionary và Operators có quyền truy cập team
 pricing_and_tiers.visionary.get_visionary: Lấy Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Nhận Plutonium trọn đời trên Multiverse.app kèm Operator Pass cho tự host. Trả {0} một lần. Có hiệu lực đến ngày 1 tháng 10 năm 2026, hoặc đến khi tất cả các suất được nhận.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass trọn đời
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium trọn đời
 pricing_and_tiers.visionary.limited_offer_note: 'Ưu đãi có hạn: Visionary bao gồm Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Mua Visionary trực tiếp trong app
 pricing_and_tiers.visionary.slots_left.generic: Còn {0}/{1} suất
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Chỉ còn {0}/{1} suất Visionary trọn đời – Plutonium trọn đời kèm Operator Pass
 pricing_and_tiers.visionary.slots_left.visionary_only: Còn {0} suất Visionary
-product_positioning.free_and_open_source: Multiverse miễn phí và mã nguồn mở. Ai cũng có thể tự host miễn phí.
 product_positioning.intro: Multiverse là nền tảng nhắn tin tức thì và VoIP miễn phí, mã nguồn mở, dành cho bạn bè, nhóm và cộng đồng.
 product_positioning.open_source.fully_open_source_agplv3: Mã nguồn mở hoàn toàn (AGPLv3)
 product_positioning.open_source.label: Mã nguồn mở
-product_positioning.open_source.license: Mã nguồn mở (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Kết nối từ bất kỳ client nào
-product_positioning.self_hosting.free_self_hosting: Tự host miễn phí
-product_positioning.self_hosting.host_your_own_instance: Tự host instance của bạn
-product_positioning.self_hosting.label: Tự host
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Quyền vào cộng đồng Multiverse Operators
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Hết ưu đãi thì Operator Pass vẫn có thể mua riêng.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass là tuỳ chọn: trả phí để được hỗ trợ và vào cộng đồng Operators.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Hỗ trợ ưu tiên và quyền vào cộng đồng Operators cho tự host
-product_positioning.self_hosting.run_backend_on_your_hardware: Chạy backend Multiverse trên phần cứng của bạn và kết nối bằng app của bọn mình.
-product_positioning.self_hosting.switch_between_instances: Chuyển qua lại giữa nhiều instance
 security.found_security_issue: Phát hiện vấn đề bảo mật?
 security.report_vulnerabilities: Báo cáo lỗ hổng và giúp bọn mình giữ nền tảng an toàn.
 security.responsible_disclosure_note: Bọn mình trân trọng việc công bố có trách nhiệm qua trang bug bounty. Bọn mình tặng code Plutonium và huy hiệu Bug Hunter theo mức độ nghiêm trọng.

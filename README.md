@@ -18,11 +18,10 @@
 
 # Multiverse
 
-Multiverse is a **free and open source instant messaging and VoIP platform** for friends, groups, and communities. Self-host it and every feature is unlocked.
+Multiverse is a **free and open source instant messaging and VoIP platform** for friends, groups, and communities, developed and operated by Multiverse Platform AB.
 
 ## Quick links
 
-- [Self-hosting guide](https://docs.fluxer.app/self-hosting)
 - [Documentation](https://docs.fluxer.app)
 - [Donate to support development](https://fluxer.app/donate)
 - [Security](https://fluxer.app/security)
@@ -41,21 +40,10 @@ Multiverse is a **free and open source instant messaging and VoIP platform** for
 
 **Custom expressions** – upload custom emojis and stickers for your community.
 
-**Self-hostable** – run your own instance with full control of your data and no vendor lock-in.
+**Wallet-based identity** – sign in with a Solana wallet, unlock NFT-gated cosmetics, and use an end-to-end encrypted Identity Vault derived from your wallet signature.
 
 > [!NOTE]
 > Native mobile apps and federation are top priorities. If you'd like to support this work, [donations](https://fluxer.app/donate) are greatly appreciated. You can also share feedback by emailing developers@fluxer.app.
-
-## Self-hosting
-
-> [!NOTE]
-> New to Multiverse? Follow the [self-hosting guide](https://docs.fluxer.app/self-hosting) for step-by-step setup instructions.
-
-TBD
-
-### Deployment helpers
-
-- [`livekitctl`](./fluxer_devops/livekitctl/README.md) – bootstrap a LiveKit SFU for voice and video
 
 ## Development
 

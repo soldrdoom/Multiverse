@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Index embedu {embedIndex} je mimo rozsah (zpr�
 embeds.embed_splash_requires_feature: Embed splash vyžaduje funkci INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Embeds nesmí dohromady překročit {maxCharacters} {maxCharacters, plural, one {znak} few {znaky} other {znaků}}.
 embeds.too_many_embeds: Příliš mnoho embedů. Povolené maximum je {maxEmbeds} {maxEmbeds, plural, one {embed} few {embedy} other {embedů}}.
-feature_flags.feature_not_available_self_hosted: Tahle funkce není dostupná na samoobslužně hostovaných instancích.
 feature_flags.feature_temporarily_disabled: Tato funkce je dočasně vypnutá.
 friends_and_dms.already_friends: S tímhle uživatelem už jste přátelé.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Pro vytvoření soukromých kanálů je potřeba aspoň jeden příjemce.

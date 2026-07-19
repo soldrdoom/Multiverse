@@ -337,7 +337,6 @@ export function buildAPIConfigFromMaster(master: MasterConfig): APIConfig {
 		},
 
 		instance: {
-			selfHosted: master.instance.self_hosted,
 			autoJoinInviteCode: master.instance.auto_join_invite_code,
 			visionariesGuildId: master.instance.visionaries_guild_id,
 			operatorsGuildId: master.instance.operators_guild_id,

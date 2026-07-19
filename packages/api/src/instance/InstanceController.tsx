@@ -81,7 +81,6 @@ export function InstanceController(app: Hono<HonoEnv>) {
 				features: {
 					sms_mfa_enabled: Config.dev.testModeEnabled || Config.sms.enabled,
 					voice_enabled: Config.voice.enabled,
-					self_hosted: Config.instance.selfHosted,
 					manual_review_enabled: instanceConfig?.manualReviewEnabled ?? false,
 				},
 				gif: {

@@ -4,23 +4,23 @@ Multiverse is licensed under the **GNU Affero General Public License v3.0 (AGPLv
 
 AGPLv3 is a strong copyleft licence designed to keep improvements available to the community, including when the software is used over a network.
 
-## Self-hosting: fully unlocked
+## Why the code is public
 
-If you self-host Multiverse on your own hardware, all features are available by default. We don't charge to unlock functionality, remove limits, or increase instance caps for deployments you run yourself.
+Multiverse Platform AB develops and operates the only instance of Multiverse. Publishing the source under AGPLv3 isn't an invitation to run an independent deployment — Multiverse doesn't offer, document, or support that. It's a transparency and trust choice: anyone can read exactly how Multiverse's wallet authentication, Identity Vault, and moderation systems work, and outside contributors can submit changes under the CLA below.
 
 If Multiverse is useful to you, please consider [donating to support development](https://fluxer.app/donate).
 
 ## Commercial licensing
 
-Some organisations can't use AGPLv3 due to policy or compliance requirements, or because they don't want to take on AGPL obligations for private modifications.
+Some organisations can't use AGPLv3 for internal tooling built on Multiverse's codebase due to policy or compliance requirements, or because they don't want to take on AGPL obligations for private modifications.
 
-In these cases, Multiverse Platform AB can offer Multiverse under a separate commercial licence (sometimes called dual licensing). This is the same software, but the commercial terms remove AGPLv3's copyleft obligations for internal deployments.
+In these cases, Multiverse Platform AB can offer the codebase under a separate commercial licence (sometimes called dual licensing) for that internal use. This is the same software, but the commercial terms remove AGPLv3's copyleft obligations for the licensee's own internal modifications.
 
-Multiverse remains AGPLv3 and publicly available. The only difference is your obligations for private modifications. Under the commercial licence, you may keep internal modifications private rather than being required to publish them solely because you run the modified software.
+Multiverse remains AGPLv3 and publicly available regardless. The only difference is the licensee's obligations for their own private modifications. Under the commercial licence, they may keep internal modifications private rather than being required to publish them solely because they run the modified software.
 
-A core requirement of the commercial licence is internal use only. You may not redistribute a modified version (or your modifications) to third parties under the commercial licence.
+A core requirement of the commercial licence is internal use only. It does not grant permission to redistribute a modified version (or the modifications) to third parties, and it has no bearing on Multiverse Platform AB's own operation of the official Multiverse instance.
 
-If you want to share changes, you can upstream them to this repository under Multiverse's AGPLv3 licence. The commercial licence makes upstreaming optional rather than required, but it doesn't grant permission to distribute modifications under any other licence.
+If a licensee wants to share changes, they can upstream them to this repository under Multiverse's AGPLv3 licence. The commercial licence makes upstreaming optional rather than required.
 
 To request a commercial licence, email [support@fluxer.app](mailto:support@fluxer.app) and include your employee count so we can provide an initial estimate. Commercial licences are offered at a custom price point.
 

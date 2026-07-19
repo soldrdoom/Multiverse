@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: 免费 vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 免费版全部内容，另外还有：
 pricing_and_tiers.free.full_access_to_all_features: 全部功能都能用
 pricing_and_tiers.free.label: 免费
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 注意：Plutonium 和 Visionary 福利仅适用于官方 Multiverse.app 实例，不适用于第三方或自建实例。
 pricing_and_tiers.plutonium.feature_highlights: 500 MB 上传、4,000 字消息、300 条收藏、50 套表情包，还有更多。
 pricing_and_tiers.plutonium.features.bio_character_limit: 簡介字元上限
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: 選擇 #0001 到 #9999 之間任何可用的 4 位數標籤，讓你的使用者名稱真正獨一無二。
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Visionary 终身 Plutonium + Operator 
 pricing_and_tiers.visionary.communities_with_team_access: 可加入 Visionary 和 Operators 社区，并获得团队访问权限
 pricing_and_tiers.visionary.get_visionary: 开通 Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: 在 Multiverse.app 獲得終身 Plutonium，並為自建部署附帶 Operator Pass。一次性支付 {0}。截止到 2026 年 10 月 1 日，或名額全數被領取為止。
 pricing_and_tiers.visionary.lifetime_operator_pass: 终身 Operator Pass
 pricing_and_tiers.visionary.lifetime_plutonium: 终身 Plutonium
 pricing_and_tiers.visionary.limited_offer_note: 限时福利：Visionary 包含 Operator Pass
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: 创建账号后，在应用内直接�
 pricing_and_tiers.visionary.slots_left.generic: 还剩 {0}/{1} 个名额
 pricing_and_tiers.visionary.slots_left.visionary_bundle: 只剩 {0}/{1} 个 Visionary 终身名额，包含终身 Plutonium 和 Operator Pass
 pricing_and_tiers.visionary.slots_left.visionary_only: 还剩 {0} 个 Visionary 名额
-product_positioning.free_and_open_source: Multiverse 免費且開源。任何人都能免費自建部署。
 product_positioning.intro: Multiverse 是一個免費開源的即時通訊和 VoIP 平台，為朋友、群組和社區而生。
 product_positioning.open_source.fully_open_source_agplv3: 完全開源 (AGPLv3)
 product_positioning.open_source.label: 開源
-product_positioning.open_source.license: 开源（AGPL-3.0）
-product_positioning.self_hosting.connect_from_any_client: 任何客户端都能连
-product_positioning.self_hosting.free_self_hosting: 免费自建部署
-product_positioning.self_hosting.host_your_own_instance: 部署你自己的实例
-product_positioning.self_hosting.label: 自建部署
-product_positioning.self_hosting.operator_pass.access_to_operators_community: 进入 Multiverse Operators 社区
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: 优惠结束后，Operator Pass 仍可单独购买。
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: Operator Pass 是可选项：付费获得支持和社区访问权限。
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: 为自建用户提供优先支持，并可进入 Operators 社区
-product_positioning.self_hosting.run_backend_on_your_hardware: 把 Multiverse 后端跑在你自己的硬件上，再用我们的应用连接。
-product_positioning.self_hosting.switch_between_instances: 在多个实例之间切换
 security.found_security_issue: 发现安全问题？
 security.report_vulnerabilities: 报告漏洞，帮我们一起把平台做得更安全。
 security.responsible_disclosure_note: 感谢你通过安全赏金页面进行负责任披露。我们会根据严重程度提供 Plutonium 兑换码和 Bug Hunter 徽章。

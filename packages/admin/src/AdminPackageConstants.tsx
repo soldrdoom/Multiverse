@@ -69,15 +69,6 @@ export const FLAG_DM_HISTORY_BACKFILLED: PatchableUserFlag = {
 	value: UserFlags.DM_HISTORY_BACKFILLED,
 };
 
-export const SELF_HOSTED_PATCHABLE_FLAGS: Array<PatchableUserFlag> = [
-	FLAG_STAFF,
-	FLAG_STAFF_HIDDEN,
-	FLAG_HIGH_GLOBAL_RATE_LIMIT,
-	FLAG_RATE_LIMIT_BYPASS,
-	FLAG_REPORT_BANNED,
-	FLAG_VERIFIED_NOT_UNDERAGE,
-];
-
 export const PATCHABLE_FLAGS: Array<PatchableUserFlag> = [
 	FLAG_STAFF,
 	FLAG_STAFF_HIDDEN,
@@ -184,16 +175,6 @@ export const TEMP_BAN_DURATIONS: Array<{hours: number; label: string}> = [
 export const ALL_ACLS = Object.values(AdminACLs);
 
 export const GUILD_FEATURES = Object.values(GuildFeatures) as ReadonlyArray<string>;
-
-const HOSTED_ONLY_GUILD_FEATURES: ReadonlyArray<string> = [
-	GuildFeatures.VISIONARY,
-	GuildFeatures.VIP_VOICE,
-	GuildFeatures.OPERATOR,
-];
-
-export const SELF_HOSTED_GUILD_FEATURES: ReadonlyArray<string> = GUILD_FEATURES.filter(
-	(f) => !HOSTED_ONLY_GUILD_FEATURES.includes(f),
-);
 
 export const DISABLED_OP_PUSH_NOTIFICATIONS: Flag = {
 	name: 'PUSH_NOTIFICATIONS',

@@ -25,7 +25,6 @@ import {redirectWithFlash} from '@fluxer/admin/src/middleware/Auth';
 import {AdminApiKeysPage} from '@fluxer/admin/src/pages/AdminApiKeysPage';
 import {getRouteContext} from '@fluxer/admin/src/routes/RouteContext';
 import type {RouteFactoryDeps} from '@fluxer/admin/src/routes/RouteTypes';
-import {getPageConfig} from '@fluxer/admin/src/SelfHostedOverride';
 import type {AppVariables} from '@fluxer/admin/src/types/App';
 import {getRequiredString, getStringArray, type ParsedBody} from '@fluxer/admin/src/utils/Forms';
 import {Hono} from 'hono';
@@ -35,10 +34,9 @@ export function createAdminRoutes({config, assetVersion, requireAuth}: RouteFact
 
 	router.get('/admin-api-keys', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		const page = await AdminApiKeysPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,

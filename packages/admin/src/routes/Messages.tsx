@@ -33,7 +33,6 @@ import {handleMessagesGet, MessagesPage} from '@fluxer/admin/src/pages/MessagesP
 import {SystemDmPage} from '@fluxer/admin/src/pages/SystemDmPage';
 import {getRouteContext} from '@fluxer/admin/src/routes/RouteContext';
 import type {RouteFactoryDeps} from '@fluxer/admin/src/routes/RouteTypes';
-import {getPageConfig} from '@fluxer/admin/src/SelfHostedOverride';
 import type {AppVariables} from '@fluxer/admin/src/types/App';
 import {getOptionalString, getRequiredString, getStringArray, type ParsedBody} from '@fluxer/admin/src/utils/Forms';
 import {AdminACLs} from '@fluxer/constants/src/AdminACLs';
@@ -70,7 +69,6 @@ export function createMessagesRoutes({config, assetVersion, requireAuth}: RouteF
 
 	router.get('/messages', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, adminAcls, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		const query: Record<string, string> = {};
 		const channelId = c.req.query('channel_id');
@@ -96,7 +94,7 @@ export function createMessagesRoutes({config, assetVersion, requireAuth}: RouteF
 		);
 
 		const page = await MessagesPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -155,13 +153,12 @@ export function createMessagesRoutes({config, assetVersion, requireAuth}: RouteF
 
 	router.get('/system-dms', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, adminAcls, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		const result = await systemDmApi.listSystemDmJobs(config, session, 20);
 		const jobs = result.ok ? result.data.jobs : [];
 
 		const page = await SystemDmPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -235,7 +232,6 @@ export function createMessagesRoutes({config, assetVersion, requireAuth}: RouteF
 
 	router.get('/archives', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, adminAcls, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const requestedSubjectType = c.req.query('subject_type') ?? undefined;
 		const subjectId = c.req.query('subject_id');
 		const subjectType = subjectId
@@ -264,7 +260,7 @@ export function createMessagesRoutes({config, assetVersion, requireAuth}: RouteF
 		}
 
 		const page = await ArchivesPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -301,11 +297,10 @@ export function createMessagesRoutes({config, assetVersion, requireAuth}: RouteF
 
 	router.get('/bulk-actions', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, adminAcls, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		return c.html(
 			<BulkActionsPage
-				config={pageConfig}
+				config={config}
 				session={session}
 				currentAdmin={currentAdmin}
 				flash={flash}

@@ -20,12 +20,7 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource hono/jsx */
 
-import {
-	ALL_ACLS,
-	PATCHABLE_FLAGS,
-	SELF_HOSTED_PATCHABLE_FLAGS,
-	SUSPICIOUS_ACTIVITY_FLAGS,
-} from '@fluxer/admin/src/AdminPackageConstants';
+import {ALL_ACLS, PATCHABLE_FLAGS, SUSPICIOUS_ACTIVITY_FLAGS} from '@fluxer/admin/src/AdminPackageConstants';
 import {FormFieldGroup} from '@fluxer/admin/src/components/ui/Form/FormFieldGroup';
 import {Grid} from '@fluxer/admin/src/components/ui/Grid';
 import {Stack} from '@fluxer/admin/src/components/ui/Stack';
@@ -43,14 +38,12 @@ import type {FC} from 'hono/jsx';
 export function FlagsForm({
 	currentFlags,
 	csrfToken,
-	selfHosted,
 }: {
 	currentFlags: string;
 	csrfToken: string;
-	selfHosted: boolean;
 }) {
 	const flagsBigInt = BigInt(currentFlags);
-	const flags = selfHosted ? SELF_HOSTED_PATCHABLE_FLAGS : PATCHABLE_FLAGS;
+	const flags = PATCHABLE_FLAGS;
 	return (
 		<CheckboxForm id="flags-form" action="?action=update_flags">
 			<CsrfInput token={csrfToken} />

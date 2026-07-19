@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: 임베드 인덱스 {embedIndex}가 범위를 
 embeds.embed_splash_requires_feature: 임베드 스플래시는 INVITE_SPLASH 기능이 필요해요.
 embeds.embeds_exceed_max_characters: 임베드 전체 길이는 {maxCharacters}{maxCharacters, plural, one {자} other {자}}를 넘을 수 없어요.
 embeds.too_many_embeds: 임베드가 너무 많아요. 최대 {maxEmbeds}{maxEmbeds, plural, one {개} other {개}}까지 가능해요.
-feature_flags.feature_not_available_self_hosted: 이 기능은 자체 호스팅 인스턴스에서는 사용할 수 없어요.
 feature_flags.feature_temporarily_disabled: 이 기능은 일시적으로 비활성화돼 있어요.
 friends_and_dms.already_friends: 이미 친구예요.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: 비공개 채널을 만들려면 최소 한 명의 수신자가 필요해요.

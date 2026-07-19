@@ -110,9 +110,7 @@ function removeVariationSelectors(text: string): string {
 }
 
 function defaultConvertToCodePoints(emoji: string): string {
-	const containsZWJ = emoji.includes('\u200D');
-	const processedEmoji = containsZWJ ? emoji : emoji.replace(/\uFE0F/g, '');
-	return Array.from(processedEmoji)
+	return Array.from(emoji)
 		.map((char) => char.codePointAt(0)?.toString(16).replace(/^0+/, '') || '')
 		.join('-');
 }

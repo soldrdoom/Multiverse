@@ -34,7 +34,6 @@ import {Button} from '@app/components/uikit/button/Button';
 import {Spinner} from '@app/components/uikit/Spinner';
 import {ComponentDispatch} from '@app/lib/ComponentDispatch';
 import PackStore from '@app/stores/PackStore';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import UserStore from '@app/stores/UserStore';
 import {getFormattedShortDate} from '@app/utils/DateUtils';
 import {LimitResolver} from '@app/utils/limits/LimitResolverAdapter';
@@ -120,23 +119,6 @@ const ExpressionPacksTab: React.FC = observer(() => {
 	}, [hasGlobalExpressions, loaded]);
 
 	if (!currentUser) return null;
-
-	if (!hasGlobalExpressions && RuntimeConfigStore.isSelfHosted()) {
-		return (
-			<div className={styles.emptyState}>
-				<StatusSlate
-					Icon={StickerIcon}
-					title={<Trans>Expression Packs</Trans>}
-					description={
-						<Trans>
-							Expression packs are not enabled on this instance. Contact your instance administrator for more
-							information.
-						</Trans>
-					}
-				/>
-			</div>
-		);
-	}
 
 	if (!hasGlobalExpressions) {
 		return (

@@ -98,10 +98,9 @@ const Sidebar: FC<{
 	activePage: string;
 	adminAcls: Array<string>;
 	basePath: string;
-	selfHosted: boolean;
 	inspectedVoiceRegionId?: string;
-}> = ({activePage, adminAcls, basePath, selfHosted, inspectedVoiceRegionId}) => {
-	const sections = getAccessibleSections(adminAcls, {selfHosted, inspectedVoiceRegionId});
+}> = ({activePage, adminAcls, basePath, inspectedVoiceRegionId}) => {
+	const sections = getAccessibleSections(adminAcls, {inspectedVoiceRegionId});
 
 	return (
 		<div
@@ -355,7 +354,6 @@ export function Layout({
 						activePage={activePage}
 						adminAcls={adminAcls}
 						basePath={config.basePath}
-						selfHosted={config.selfHosted}
 						inspectedVoiceRegionId={inspectedVoiceRegionId}
 					/>
 					<div data-sidebar-overlay="" class="fixed inset-0 z-30 hidden bg-black/50 lg:hidden" />

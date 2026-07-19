@@ -185,7 +185,6 @@ export function getSections(): Array<NavSection> {
 }
 
 export function getAccessibleSections(adminAcls: Array<string>, context?: NavigationContext): Array<NavSection> {
-	const selfHosted = context?.selfHosted ?? false;
 	const inspectedVoiceRegionId = context?.inspectedVoiceRegionId;
 	const hasContext = Boolean(context);
 	const hasInspectedVoiceRegion = Boolean(inspectedVoiceRegionId);
@@ -194,7 +193,6 @@ export function getAccessibleSections(adminAcls: Array<string>, context?: Naviga
 		.map((section) => ({
 			...section,
 			items: section.items
-				.filter((item) => !item.hostedOnly || !selfHosted)
 				.filter((item) => hasAnyPermission(adminAcls, item.requiredAcls))
 				.filter((item) => !hasContext || item.activeKey !== 'voice-servers' || hasInspectedVoiceRegion)
 				.map((item) => {

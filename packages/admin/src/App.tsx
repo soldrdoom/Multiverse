@@ -145,25 +145,6 @@ export function createAdminApp(options: CreateAdminAppOptions): AdminAppResult {
 		skipErrorHandler: true,
 	});
 
-	app.use('*', async (c, next) => {
-		if (c.req.query('sh') === '1') {
-			c.set('selfHostedOverride', true);
-		}
-		await next();
-		if (c.get('selfHostedOverride')) {
-			const location = c.res.headers.get('Location');
-			if (location?.startsWith('/') && !location.includes('sh=1')) {
-				const separator = location.includes('?') ? '&' : '?';
-				const newHeaders = new Headers(c.res.headers);
-				newHeaders.set('Location', `${location}${separator}sh=1`);
-				c.res = new Response(c.res.body, {
-					status: c.res.status,
-					headers: newHeaders,
-				});
-			}
-		}
-	});
-
 	app.onError(createAdminErrorHandler(logger, config.env === 'development', config.basePath));
 
 	app.get('/_health', (c) => c.json({status: 'ok'}));

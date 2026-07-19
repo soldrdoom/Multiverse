@@ -27,9 +27,6 @@ Also in scope:
 
 - Infrastructure, systems, and operational services directly managed by Multiverse that impact authentication, authorization, payments, community data, or the processing of security- or privacy-relevant data (including user identifiers, account metadata, logs, analytics, telemetry, and similar signals).
 - Abuse cases that enable unauthorized persistence, privilege escalation, or data disclosure when triggered through officially supported product features.
-- Self-hosted Multiverse instances that declare trust in Multiverse security guidance, provided:
-  - the issue is reproducible on the latest official release as we ship it, and
-  - the issue is not solely caused by third-party modifications or local misconfiguration.
 
 If you are unsure whether a target is in scope, email us and ask.
 
@@ -43,7 +40,6 @@ The following are out of scope (not an exhaustive list):
 - Denial-of-service (DoS) attacks, traffic flooding, rate-limit exhaustion, or resource exhaustion testing.
 - Automated scanning or bulk testing that produces noisy/low-signal findings, especially without a clear security impact and a reliable reproduction path.
 - General UI bugs, feature requests, or non-security support issues (email support@fluxer.app for those).
-- Issues in forked, modified, or outdated self-hosted deployments that are not reproducible on the latest official release.
 
 In addition, we generally do not prioritize low-impact reports (for example missing best-practice headers or minor configuration issues) unless you can demonstrate a concrete security impact.
 

@@ -100,16 +100,16 @@ export function CurrentFeaturesSection(props: CurrentFeaturesSectionProps): JSX.
 				/>
 				<FeatureCard
 					ctx={ctx}
-					icon="server"
-					title={ctx.i18n.getMessage('product_positioning.self_hosting.label', ctx.locale)}
-					description={ctx.i18n.getMessage('product_positioning.self_hosting.run_backend_on_your_hardware', ctx.locale)}
+					icon="devices"
+					title={ctx.i18n.getMessage('platform_support.desktop.label', ctx.locale)}
+					description={ctx.i18n.getMessage('platform_support.desktop.download_desktop_intro', ctx.locale)}
 					features={[
-						ctx.i18n.getMessage('product_positioning.open_source.fully_open_source_agplv3', ctx.locale),
-						ctx.i18n.getMessage('product_positioning.self_hosting.host_your_own_instance', ctx.locale),
+						ctx.i18n.getMessage('platform_support.desktop.available_on_desktop_and_web', ctx.locale),
 						ctx.i18n.getMessage('platform_support.desktop.use_desktop_client_mobile_soon', ctx.locale),
-						ctx.i18n.getMessage('product_positioning.self_hosting.switch_between_instances', ctx.locale),
+						ctx.i18n.getMessage('platform_support.mobile.mobile_apps_underway', ctx.locale),
+						ctx.i18n.getMessage('product_positioning.open_source.fully_open_source_agplv3', ctx.locale),
 					]}
-					learnMoreLink="https://docs.fluxer.app/self-hosting"
+					learnMoreLink="/download"
 				/>
 			</div>
 		</Section>

@@ -23,12 +23,11 @@ import {
 	createUniqueUsername,
 	registerUser,
 } from '@fluxer/api/src/auth/tests/AuthTestUtils';
-import {Config} from '@fluxer/api/src/Config';
 import {type ApiTestHarness, createApiTestHarness} from '@fluxer/api/src/test/ApiTestHarness';
 import {TEST_CREDENTIALS, TEST_USER_DATA} from '@fluxer/api/src/test/TestConstants';
 import {createBuilder} from '@fluxer/api/src/test/TestRequestBuilder';
 import {grantPremium, updateUserProfile} from '@fluxer/api/src/user/tests/UserTestUtils';
-import {NON_SELF_HOSTED_RESERVED_DISCRIMINATORS} from '@fluxer/constants/src/DiscriminatorConstants';
+import {RESERVED_DISCRIMINATORS} from '@fluxer/constants/src/DiscriminatorConstants';
 import {UserPremiumTypes} from '@fluxer/constants/src/UserConstants';
 import {ValidationErrorCodes} from '@fluxer/constants/src/ValidationErrorCodes';
 import type {UserPrivateResponse} from '@fluxer/schema/src/domains/user/UserResponseSchemas';
@@ -51,9 +50,8 @@ describe('User reserved discriminator roll', () => {
 		await harness?.shutdown();
 	});
 
-	it('does not randomly assign reserved discriminators when not self hosted', async () => {
-		expect(Config.instance.selfHosted).toBe(false);
-		expect(NON_SELF_HOSTED_RESERVED_DISCRIMINATORS.has(1)).toBe(true);
+	it('does not randomly assign reserved discriminators', async () => {
+		expect(RESERVED_DISCRIMINATORS.has(1)).toBe(true);
 
 		vi.spyOn(Math, 'random').mockReturnValue(0);
 
@@ -70,12 +68,11 @@ describe('User reserved discriminator roll', () => {
 		const discriminator = Number.parseInt(me.discriminator, 10);
 
 		expect(discriminator).not.toBe(1);
-		expect(NON_SELF_HOSTED_RESERVED_DISCRIMINATORS.has(discriminator)).toBe(false);
+		expect(RESERVED_DISCRIMINATORS.has(discriminator)).toBe(false);
 	});
 
 	it('still allows premium users to set reserved discriminators', async () => {
-		expect(Config.instance.selfHosted).toBe(false);
-		expect(NON_SELF_HOSTED_RESERVED_DISCRIMINATORS.has(67)).toBe(true);
+		expect(RESERVED_DISCRIMINATORS.has(67)).toBe(true);
 
 		const account = await createTestAccount(harness);
 		await grantPremium(harness, account.userId, UserPremiumTypes.SUBSCRIPTION);

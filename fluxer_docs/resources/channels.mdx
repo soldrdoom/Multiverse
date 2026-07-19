@@ -181,6 +181,7 @@ The pinned message
 | content | string | The text content of the message |
 | edited_timestamp? | ?string (date-time) | The ISO 8601 timestamp of when the message was last edited |
 | embeds? | ?[MessageEmbedResponse](#messageembedresponse)[] | The embeds attached to the message |
+| encrypted_content? | ?string | Base64 JSON NaCl box payload (E2EE DMs only) |
 | flags | [MessageFlags](#messageflags) |  |
 | id | [SnowflakeType](#snowflaketype) | The unique identifier (snowflake) for this message |
 | mention_everyone | boolean | Whether the message mentions @everyone |
@@ -188,6 +189,7 @@ The pinned message
 | mentions? | ?[UserPartialResponse](#userpartialresponse)[] | The users mentioned in the message |
 | message_reference? | ?[MessageReferenceResponse](#messagereferenceresponse) | Reference data for replies or forwards |
 | message_snapshots? | ?[MessageSnapshotResponse](#messagesnapshotresponse)[] | Snapshots of forwarded messages |
+| nft_stickers? | ?[MessageNftStickerResponse](#messagenftstickerresponse)[] | The NFT stickers sent with the message |
 | nonce? | ?string | A client-provided value for message deduplication |
 | pinned | boolean | Whether the message is pinned |
 | stickers? | ?[MessageStickerResponse](#messagestickerresponse)[] | The stickers sent with the message |
@@ -545,6 +547,7 @@ The type of author who sent the message
 | content | string | The text content of the message |
 | edited_timestamp? | ?string (date-time) | The ISO 8601 timestamp of when the message was last edited |
 | embeds? | ?[MessageEmbedResponse](#messageembedresponse)[] | The embeds attached to the message |
+| encrypted_content? | ?string | Base64 JSON NaCl box payload (E2EE DMs only) |
 | flags | [MessageFlags](#messageflags) |  |
 | id | [SnowflakeType](#snowflaketype) | The unique identifier (snowflake) for this message |
 | mention_everyone | boolean | Whether the message mentions @everyone |
@@ -552,6 +555,7 @@ The type of author who sent the message
 | mentions? | ?[UserPartialResponse](#userpartialresponse)[] | The users mentioned in the message |
 | message_reference? | ?[MessageReferenceResponse](#messagereferenceresponse) | Reference data for replies or forwards |
 | message_snapshots? | ?[MessageSnapshotResponse](#messagesnapshotresponse)[] | Snapshots of forwarded messages |
+| nft_stickers? | ?[MessageNftStickerResponse](#messagenftstickerresponse)[] | The NFT stickers sent with the message |
 | nonce? | ?string | A client-provided value for message deduplication |
 | pinned | boolean | Whether the message is pinned |
 | reactions? | ?[MessageReactionResponse](#messagereactionresponse)[] | The reactions on the message |
@@ -659,7 +663,21 @@ Type: Bitflags32
 | SUPPRESS_EMBEDS | `4` | Do not include embeds when serialising this message |
 | SUPPRESS_NOTIFICATIONS | `4096` | This message will not trigger push or desktop notifications |
 | VOICE_MESSAGE | `8192` | This message is a voice message |
+| E2EE | `16384` | Message content is end-to-end encrypted (DMs only) |
 | COMPACT_ATTACHMENTS | `131072` | Display attachments in a compact format |
+
+<a id="messagenftstickerresponse"></a>
+
+## MessageNftStickerResponse
+
+| Field | Type | Description |
+|-------|------|-------------|
+| collection? | string | The collection name of the NFT |
+| compressed | boolean | Whether the NFT is a compressed cNFT |
+| image_url | string | The URL of the NFT sticker image or video |
+| media_type | [MessageNftStickerResponseMediaType](#messagenftstickerresponsemediatype) | The media type of the sticker: image (jpg/png/webp/svg), video (mp4), gif, or model (glb) |
+| mint | string | The mint address of the NFT |
+| name | string | The name of the NFT sticker |
 
 <a id="messagereactionresponse"></a>
 
@@ -735,6 +753,7 @@ Category of the message report
 | content | string | The text content of the message |
 | edited_timestamp? | ?string (date-time) | The ISO 8601 timestamp of when the message was last edited |
 | embeds? | ?[MessageEmbedResponse](#messageembedresponse)[] | The embeds attached to the message |
+| encrypted_content? | ?string | Base64 JSON NaCl box payload (E2EE DMs only) |
 | flags | [MessageFlags](#messageflags) |  |
 | id | [SnowflakeType](#snowflaketype) | The unique identifier (snowflake) for this message |
 | mention_everyone | boolean | Whether the message mentions @everyone |
@@ -742,6 +761,7 @@ Category of the message report
 | mentions? | ?[UserPartialResponse](#userpartialresponse)[] | The users mentioned in the message |
 | message_reference? | ?[MessageReferenceResponse](#messagereferenceresponse) | Reference data for replies or forwards |
 | message_snapshots? | ?[MessageSnapshotResponse](#messagesnapshotresponse)[] | Snapshots of forwarded messages |
+| nft_stickers? | ?[MessageNftStickerResponse](#messagenftstickerresponse)[] | The NFT stickers sent with the message |
 | nonce? | ?string | A client-provided value for message deduplication |
 | pinned | boolean | Whether the message is pinned |
 | reactions? | ?[MessageReactionResponse](#messagereactionresponse)[] | The reactions on the message |
@@ -1081,6 +1101,19 @@ The type of message
 | `6` | A system message indicating a message was pinned |
 | `7` | A system message indicating a user joined |
 | `19` | A reply message |
+
+<a id="messagenftstickerresponsemediatype"></a>
+
+## MessageNftStickerResponseMediaType
+
+The media type of the sticker: image (jpg/png/webp/svg), video (mp4), gif, or model (glb)
+
+| Value | Description |
+|-------|-------------|
+| `image` | - |
+| `video` | - |
+| `gif` | - |
+| `model` | - |
 
 <a id="messagereactionresponseemoji"></a>
 

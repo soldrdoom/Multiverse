@@ -201,12 +201,10 @@ async function bootstrap(): Promise<void> {
 		return;
 	}
 
-	if (!RuntimeConfigStore.isSelfHosted()) {
-		try {
-			await GeoIPStore.fetchGeoData();
-		} catch (error) {
-			logger.warn('Failed to fetch GeoIP data (continuing anyway):', error);
-		}
+	try {
+		await GeoIPStore.fetchGeoData();
+	} catch (error) {
+		logger.warn('Failed to fetch GeoIP data (continuing anyway):', error);
 	}
 
 	await AccountManager.bootstrap();

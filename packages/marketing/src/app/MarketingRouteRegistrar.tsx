@@ -39,6 +39,7 @@ import {renderPlutoniumPage} from '@fluxer/marketing/src/pages/PlutoniumPage';
 import {renderPolicyPage} from '@fluxer/marketing/src/pages/PolicyPage';
 import {renderPressPage} from '@fluxer/marketing/src/pages/PressPage';
 import {renderSupportPage} from '@fluxer/marketing/src/pages/SupportPage';
+import {renderWhitepaperPage} from '@fluxer/marketing/src/pages/WhitepaperPage';
 import {sanitizeInternalRedirectPath} from '@fluxer/marketing/src/RedirectPathUtils';
 import type {MarketingRouteHandler} from '@fluxer/marketing/src/routes/RouteTypes';
 import {generateSitemap} from '@fluxer/marketing/src/Sitemap';
@@ -82,6 +83,7 @@ const PAGE_ROUTE_DEFINITIONS: ReadonlyArray<{
 	{path: '/partners', handler: renderPartnersPage},
 	{path: '/press', handler: renderPressPage},
 	{path: '/support', handler: renderSupportPage},
+	{path: '/whitepaper', handler: renderWhitepaperPage},
 ];
 
 export function registerMarketingRoutes(options: RegisterMarketingRoutesOptions): void {
@@ -113,13 +115,6 @@ function registerLocaleRoute(app: Hono, config: MarketingConfig): void {
 }
 
 function registerExternalRedirects(app: Hono): void {
-	app.get('/get/livekitctl', (c) => {
-		return c.redirect(
-			'https://raw.githubusercontent.com/fluxerapp/fluxer/main/fluxer_devops/livekitctl/scripts/install.sh',
-			HttpStatus.FOUND,
-		);
-	});
-
 	app.get('/regional-restrictions', (c) => c.redirect('/help/regional-restrictions', HttpStatus.MOVED_PERMANENTLY));
 	app.get('/blog', (c) => c.redirect('https://blog.fluxer.app', HttpStatus.FOUND));
 	app.get('/blog/*', (c) => c.redirect('https://blog.fluxer.app', HttpStatus.FOUND));

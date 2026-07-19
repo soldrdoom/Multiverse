@@ -26,7 +26,6 @@ import {redirectWithFlash} from '@fluxer/admin/src/middleware/Auth';
 import {BanManagementPage, type BanType, getBanConfig} from '@fluxer/admin/src/pages/BanManagementPage';
 import {getRouteContext} from '@fluxer/admin/src/routes/RouteContext';
 import type {RouteFactoryDeps} from '@fluxer/admin/src/routes/RouteTypes';
-import {getPageConfig} from '@fluxer/admin/src/SelfHostedOverride';
 import type {AppContext, AppVariables, Session} from '@fluxer/admin/src/types/App';
 import type {AdminConfig as Config} from '@fluxer/admin/src/types/Config';
 import {getOptionalString, getRequiredString, type ParsedBody} from '@fluxer/admin/src/utils/Forms';
@@ -121,12 +120,11 @@ export function createBansRoutes({config, assetVersion, requireAuth}: RouteFacto
 
 	router.get('/ip-bans', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const listResult = await bansApi.listIpBans(config, session, 200);
 
 		return c.html(
 			<BanManagementPage
-				config={pageConfig}
+				config={config}
 				session={session}
 				currentAdmin={currentAdmin}
 				flash={flash}
@@ -161,12 +159,11 @@ export function createBansRoutes({config, assetVersion, requireAuth}: RouteFacto
 
 	router.get('/email-bans', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const listResult = await bansApi.listEmailBans(config, session, 200);
 
 		return c.html(
 			<BanManagementPage
-				config={pageConfig}
+				config={config}
 				session={session}
 				currentAdmin={currentAdmin}
 				flash={flash}
@@ -198,12 +195,11 @@ export function createBansRoutes({config, assetVersion, requireAuth}: RouteFacto
 
 	router.get('/phone-bans', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const listResult = await bansApi.listPhoneBans(config, session, 200);
 
 		return c.html(
 			<BanManagementPage
-				config={pageConfig}
+				config={config}
 				session={session}
 				currentAdmin={currentAdmin}
 				flash={flash}

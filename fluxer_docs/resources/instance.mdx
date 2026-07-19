@@ -3,9 +3,9 @@ title: 'Instance'
 description: 'Instance object schemas from the Fluxer API.'
 ---
 
-<a id="wellknownfluxerresponse"></a>
+<a id="wellknownmultiverseresponse"></a>
 
-## WellKnownFluxerResponse
+## WellKnownMultiverseResponse
 
 **Related endpoints**
 
@@ -14,21 +14,21 @@ description: 'Instance object schemas from the Fluxer API.'
 | Field | Type | Description |
 |-------|------|-------------|
 | api_code_version | integer (int53) | Version of the API server code |
-| app_public | [WellKnownFluxerResponseAppPublic](#wellknownfluxerresponseapppublic) | Public application configuration for client-side features |
-| captcha | [WellKnownFluxerResponseCaptcha](#wellknownfluxerresponsecaptcha) | Captcha configuration |
-| endpoints | [WellKnownFluxerResponseEndpoints](#wellknownfluxerresponseendpoints) | Endpoint URLs for various services |
-| features | [WellKnownFluxerResponseFeatures](#wellknownfluxerresponsefeatures) | Feature flags for this instance |
-| federation? | [WellKnownFluxerResponseFederation](#wellknownfluxerresponsefederation) | Federation configuration |
-| gif | [WellKnownFluxerResponseGif](#wellknownfluxerresponsegif) | GIF provider configuration for clients |
-| limits | [WellKnownFluxerResponseLimits](#wellknownfluxerresponselimits) | Limit configuration with rules and trait definitions |
-| oauth2? | [WellKnownFluxerResponseOauth2](#wellknownfluxerresponseoauth2) | OAuth2 endpoints for federation |
-| public_key? | [WellKnownFluxerResponsePublicKey](#wellknownfluxerresponsepublickey) | Public key for E2E encryption |
-| push | [WellKnownFluxerResponsePush](#wellknownfluxerresponsepush) | Push notification configuration |
+| app_public | [WellKnownMultiverseResponseAppPublic](#wellknownmultiverseresponseapppublic) | Public application configuration for client-side features |
+| captcha | [WellKnownMultiverseResponseCaptcha](#wellknownmultiverseresponsecaptcha) | Captcha configuration |
+| endpoints | [WellKnownMultiverseResponseEndpoints](#wellknownmultiverseresponseendpoints) | Endpoint URLs for various services |
+| features | [WellKnownMultiverseResponseFeatures](#wellknownmultiverseresponsefeatures) | Feature flags for this instance |
+| federation? | [WellKnownMultiverseResponseFederation](#wellknownmultiverseresponsefederation) | Federation configuration |
+| gif | [WellKnownMultiverseResponseGif](#wellknownmultiverseresponsegif) | GIF provider configuration for clients |
+| limits | [WellKnownMultiverseResponseLimits](#wellknownmultiverseresponselimits) | Limit configuration with rules and trait definitions |
+| oauth2? | [WellKnownMultiverseResponseOauth2](#wellknownmultiverseresponseoauth2) | OAuth2 endpoints for federation |
+| public_key? | [WellKnownMultiverseResponsePublicKey](#wellknownmultiverseresponsepublickey) | Public key for E2E encryption |
+| push | [WellKnownMultiverseResponsePush](#wellknownmultiverseresponsepush) | Push notification configuration |
 | sso | [SsoStatusResponse](#ssostatusresponse) | Single sign-on configuration |
 
-<a id="wellknownfluxerresponseapppublic"></a>
+<a id="wellknownmultiverseresponseapppublic"></a>
 
-## WellKnownFluxerResponseAppPublic
+## WellKnownMultiverseResponseAppPublic
 
 Public application configuration for client-side features
 
@@ -36,9 +36,9 @@ Public application configuration for client-side features
 |-------|------|-------------|
 | sentry_dsn | string | Sentry DSN for client-side error reporting |
 
-<a id="wellknownfluxerresponsecaptcha"></a>
+<a id="wellknownmultiverseresponsecaptcha"></a>
 
-## WellKnownFluxerResponseCaptcha
+## WellKnownMultiverseResponseCaptcha
 
 Captcha configuration
 
@@ -48,9 +48,9 @@ Captcha configuration
 | provider | string | Captcha provider name (hcaptcha, turnstile, none) |
 | turnstile_site_key | ?string | Cloudflare Turnstile site key if using Turnstile |
 
-<a id="wellknownfluxerresponseendpoints"></a>
+<a id="wellknownmultiverseresponseendpoints"></a>
 
-## WellKnownFluxerResponseEndpoints
+## WellKnownMultiverseResponseEndpoints
 
 Endpoint URLs for various services
 
@@ -68,23 +68,21 @@ Endpoint URLs for various services
 | static_cdn | string | Base URL for static assets (avatars, emojis, etc.) |
 | webapp | string | Base URL for the web application |
 
-<a id="wellknownfluxerresponsefeatures"></a>
+<a id="wellknownmultiverseresponsefeatures"></a>
 
-## WellKnownFluxerResponseFeatures
+## WellKnownMultiverseResponseFeatures
 
 Feature flags for this instance
 
 | Field | Type | Description |
 |-------|------|-------------|
 | manual_review_enabled | boolean | Whether manual review mode is enabled for registrations |
-| self_hosted | boolean | Whether this is a self-hosted instance |
 | sms_mfa_enabled | boolean | Whether SMS-based MFA is available |
-| stripe_enabled | boolean | Whether Stripe payments are enabled |
 | voice_enabled | boolean | Whether voice/video calling is enabled |
 
-<a id="wellknownfluxerresponsefederation"></a>
+<a id="wellknownmultiverseresponsefederation"></a>
 
-## WellKnownFluxerResponseFederation
+## WellKnownMultiverseResponseFederation
 
 Federation configuration
 
@@ -93,19 +91,19 @@ Federation configuration
 | enabled | boolean | Whether federation is enabled on this instance |
 | version | integer (int53) | Federation protocol version |
 
-<a id="wellknownfluxerresponsegif"></a>
+<a id="wellknownmultiverseresponsegif"></a>
 
-## WellKnownFluxerResponseGif
+## WellKnownMultiverseResponseGif
 
 GIF provider configuration for clients
 
 | Field | Type | Description |
 |-------|------|-------------|
-| provider | [WellKnownFluxerResponseGifProvider](#wellknownfluxerresponsegifprovider) | GIF provider used by the instance GIF picker |
+| provider | [WellKnownMultiverseResponseGifProvider](#wellknownmultiverseresponsegifprovider) | GIF provider used by the instance GIF picker |
 
-<a id="wellknownfluxerresponselimits"></a>
+<a id="wellknownmultiverseresponselimits"></a>
 
-## WellKnownFluxerResponseLimits
+## WellKnownMultiverseResponseLimits
 
 Limit configuration with rules and trait definitions
 
@@ -116,9 +114,9 @@ Limit configuration with rules and trait definitions
 | traitDefinitions | string[] | Available trait definitions (e.g., "premium") |
 | version | enum&lt;`2`&gt; | Wire format version |
 
-<a id="wellknownfluxerresponseoauth2"></a>
+<a id="wellknownmultiverseresponseoauth2"></a>
 
-## WellKnownFluxerResponseOauth2
+## WellKnownMultiverseResponseOauth2
 
 OAuth2 endpoints for federation
 
@@ -129,9 +127,9 @@ OAuth2 endpoints for federation
 | token_endpoint | string | OAuth2 token endpoint URL |
 | userinfo_endpoint | string | OAuth2 userinfo endpoint URL |
 
-<a id="wellknownfluxerresponsepublickey"></a>
+<a id="wellknownmultiverseresponsepublickey"></a>
 
-## WellKnownFluxerResponsePublicKey
+## WellKnownMultiverseResponsePublicKey
 
 Public key for E2E encryption
 
@@ -141,9 +139,9 @@ Public key for E2E encryption
 | id | [SnowflakeType](#snowflaketype) | Key identifier |
 | public_key_base64 | string | Base64-encoded public key |
 
-<a id="wellknownfluxerresponsepush"></a>
+<a id="wellknownmultiverseresponsepush"></a>
 
-## WellKnownFluxerResponsePush
+## WellKnownMultiverseResponsePush
 
 Push notification configuration
 

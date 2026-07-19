@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Индексът на вграждането {
 embeds.embed_splash_requires_feature: Embed splash изисква функцията INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Вгражданията не трябва да надвишават общо {maxCharacters} {maxCharacters, plural, one {знак} other {знака}}.
 embeds.too_many_embeds: Твърде много вграждания. Позволени са най-много {maxEmbeds} {maxEmbeds, plural, one {вграждане} other {вграждания}}.
-feature_flags.feature_not_available_self_hosted: Тази функция не е налична на саморазместени инстанции.
 feature_flags.feature_temporarily_disabled: Тази функция е временно изключена.
 friends_and_dms.already_friends: Вече сте приятели с този потребител.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Нужен е поне един получател, за да се създадат лични канали.

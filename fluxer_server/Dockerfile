@@ -130,7 +130,7 @@ ARG BUILD_TIMESTAMP
 ARG RELEASE_CHANNEL
 
 LABEL org.opencontainers.image.title="Fluxer Server"
-LABEL org.opencontainers.image.description="Unified Fluxer server for self-hosting - combines all backend services into a single deployable container"
+LABEL org.opencontainers.image.description="Unified Fluxer server - combines all backend services into a single deployable container"
 LABEL org.opencontainers.image.vendor="Fluxer Contributors"
 LABEL org.opencontainers.image.licenses="AGPL-3.0-or-later"
 LABEL org.opencontainers.image.source="https://github.com/fluxerapp/fluxer"

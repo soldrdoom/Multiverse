@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Безплатно срещу Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Всичко от безплатния план, плюс:'
 pricing_and_tiers.free.full_access_to_all_features: Пълен достъп до всички функции
 pricing_and_tiers.free.label: Безплатно
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Забележка: Plutonium и Visionary важат само за официалната инстанция Multiverse.app, не и за външни или самостоятелно хоствани инстанции.'
 pricing_and_tiers.plutonium.feature_highlights: Качвания до 500 MB, съобщения до 4 000 знака, 300 отметки, 50 пакета с емоджита и още много.
 pricing_and_tiers.plutonium.features.bio_character_limit: Лимит на знаците в биото
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Избери си наличен таг с 4 цифри от #0001 до #9999, за да направиш потребителското си име наистина уникално.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium и Operator Pass за цял
 pricing_and_tiers.visionary.communities_with_team_access: Общности Visionary и Operators с достъп до екипа
 pricing_and_tiers.visionary.get_visionary: Вземи Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Вземи Plutonium за цял живот на Multiverse.app плюс Operator Pass за самостоятелен хостинг. Плащаш {0} еднократно. Налично до 1 октомври 2026 г. или докато се изчерпят всички места.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass за цял живот
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium за цял живот
 pricing_and_tiers.visionary.limited_offer_note: 'Ограничена оферта: Visionary включва Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Купи Visionary директно �
 pricing_and_tiers.visionary.slots_left.generic: Остават {0} от {1} места
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Остават само {0} от {1} Visionary места за цял живот – Plutonium и Operator Pass за цял живот
 pricing_and_tiers.visionary.slots_left.visionary_only: Остават {0} Visionary места
-product_positioning.free_and_open_source: Multiverse е безплатен и с отворен код. Всеки може да си го хоства сам безплатно.
 product_positioning.intro: Multiverse е безплатна платформа с отворен код за мигновени съобщения и VoIP, създадена за приятели, групи и общности.
 product_positioning.open_source.fully_open_source_agplv3: Напълно отворен код (AGPLv3)
 product_positioning.open_source.label: Отворен код
-product_positioning.open_source.license: Отворен код (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Свързвай се от който и да е клиент
-product_positioning.self_hosting.free_self_hosting: Безплатен самостоятелен хостинг
-product_positioning.self_hosting.host_your_own_instance: Хоствай собствена инстанция
-product_positioning.self_hosting.label: Самостоятелен хостинг
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Достъп до общността Multiverse Operators
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: След като офертата свърши, Operator Pass ще си остане наличен самостоятелно.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass е по избор: плащаш за поддръжка и достъп до общността Operators.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Приоритетна поддръжка и достъп до общността Operators за самостоятелен хостинг
-product_positioning.self_hosting.run_backend_on_your_hardware: Пусни сървърната част на Multiverse на твоя хардуер и се свържи през приложенията ни.
-product_positioning.self_hosting.switch_between_instances: Превключвай между няколко инстанции
 security.found_security_issue: Намери проблем със сигурността?
 security.report_vulnerabilities: Докладвай уязвимости и помогни да пазим платформата сигурна.
 security.responsible_disclosure_note: Оценяваме отговорното докладване през страницата ни за bug bounty. Даваме Plutonium кодове и значки Bug Hunter според сериозността.

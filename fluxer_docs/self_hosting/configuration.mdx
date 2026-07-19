@@ -1,6 +1,6 @@
 ---
 title: 'Configuration'
-description: 'config.json reference for self-hosted Fluxer.'
+description: 'config.json reference for Multiverse.'
 ---
 
 ## Table of contents
@@ -63,7 +63,7 @@ These are the top-level configuration options in your `config.json`.
 | domain | [domain](#domain) | Global domain and port configuration used to derive public endpoints for all services. |
 | endpoint_overrides? | [endpoint_overrides](#endpoint-overrides) | Manual overrides for specific public endpoints. If set, these take precedence over automatically derived URLs. |
 | env | enum&lt;`development`, `production`, `test`&gt; | Runtime environment for the application. Controls behavior such as logging verbosity, error details, and optimization levels. |
-| federation? | [federation](#federation) | Federation configuration for connecting with other Fluxer instances. Default: `{}` |
+| federation? | [federation](#federation) | Federation configuration for connecting with other Multiverse instances. Default: `{}` |
 | geoip? | [geoip](#geoip) | GeoIP database configuration. Default: `{}` |
 | inactivity_deletion_threshold_days? | number | Days of inactivity after which data may be subject to deletion. Default: `365` |
 | instance? | [instance](#instance) | Instance-specific settings and policies. Default: `{}` |
@@ -72,7 +72,7 @@ These are the top-level configuration options in your `config.json`.
 | proxy? | [proxy](#proxy) | Reverse proxy and IP resolution settings. Default: `{}` |
 | s3? | [s3](#s3) | S3-compatible object storage configuration. |
 | sentry? | [sentry](#sentry) | Sentry error reporting configuration. Default: `{}` |
-| services | [services](#services) | Configuration for individual Fluxer services. |
+| services | [services](#services) | Configuration for individual Multiverse services. |
 | telemetry? | [telemetry](#telemetry) | OpenTelemetry configuration. Default: `{}` |
 
 <Note>
@@ -141,7 +141,7 @@ Global authentication configuration.
 
 | Property | Type | Description |
 |----------|------|-------------|
-| bluesky? | [bluesky](#bluesky) | Bluesky OAuth client configuration. Default: `{"enabled":true,"client_name":"Fluxer","client_uri":"","logo_uri":"https://multiverse.forum/web/apple-touch-icon.png","tos_uri":"https://fluxer.app/terms","policy_uri":"https://fluxer.app/privacy","keys":[]}` |
+| bluesky? | [bluesky](#bluesky) | Bluesky OAuth client configuration. Default: `{"enabled":true,"client_name":"Multiverse","client_uri":"","logo_uri":"https://multiverse.forum/web/apple-touch-icon.png","tos_uri":"https://fluxer.app/terms","policy_uri":"https://fluxer.app/privacy","keys":[]}` |
 | connection_initiation_secret | string | Secret key for signing connection initiation tokens. |
 | passkeys? | [passkeys](#passkeys) | Passkey configuration. Default: `{}` |
 | sudo_mode_secret | string | Secret key for verifying sudo mode tokens. |
@@ -166,7 +166,7 @@ WebAuthn/Passkeys relying party settings.
 |----------|------|-------------|
 | additional_allowed_origins? | array&lt;string&gt; | List of allowed origins for WebAuthn registration/authentication. Default: `["https://web.fluxer.app","https://web.canary.fluxer.app"]` |
 | rp_id? | string | Relying Party ID (domain) for WebAuthn credentials. Default: `fluxer.app` |
-| rp_name? | string | Relying Party name displayed to users. Default: `Fluxer` |
+| rp_name? | string | Relying Party name displayed to users. Default: `Multiverse` |
 
 <Expandable title="Example JSON">
 ```json
@@ -176,7 +176,7 @@ WebAuthn/Passkeys relying party settings.
     "https://web.canary.fluxer.app"
   ],
   "rp_id": "fluxer.app",
-  "rp_name": "Fluxer"
+  "rp_name": "Multiverse"
 }
 ```
 </Expandable>
@@ -211,7 +211,7 @@ Bluesky OAuth client configuration.
 
 | Property | Type | Description |
 |----------|------|-------------|
-| client_name? | string | Human-readable client name exposed to Bluesky. Default: `Fluxer` |
+| client_name? | string | Human-readable client name exposed to Bluesky. Default: `Multiverse` |
 | client_uri? | string | URI describing the client application. Default: `""` |
 | enabled? | boolean | Whether Bluesky OAuth connections are enabled. Default: `true` |
 | keys? | array&lt;[bluesky_key](#bluesky-key)&gt; | Key definitions used to sign private key JWT assertions. Default: `[]` |
@@ -222,7 +222,7 @@ Bluesky OAuth client configuration.
 <Expandable title="Example JSON">
 ```json
 {
-  "client_name": "Fluxer",
+  "client_name": "Multiverse",
   "client_uri": "",
   "enabled": true,
   "keys": [],
@@ -481,11 +481,11 @@ Explicit overrides for service endpoints. Use these if derived URLs are incorrec
 
 JSON path: `federation`
 
-Federation configuration for connecting with other Fluxer instances.
+Federation configuration for connecting with other Multiverse instances.
 
 | Property | Type | Description |
 |----------|------|-------------|
-| enabled? | boolean | Enable federation with other Fluxer instances. Default: `false` |
+| enabled? | boolean | Enable federation with other Multiverse instances. Default: `false` |
 
 <Expandable title="Example JSON">
 ```json
@@ -525,7 +525,7 @@ GeoIP database settings.
 
 JSON path: `instance`
 
-Specific settings for this Fluxer instance.
+Specific settings for this Multiverse instance.
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -533,7 +533,6 @@ Specific settings for this Fluxer instance.
 | deployment_mode? | enum&lt;`monolith`, `microservices`&gt; | Deployment mode. 'monolith' runs all services in one process (fluxer_server). 'microservices' requires separate processes/ports. Default: `monolith` |
 | operators_guild_id? | string | Guild ID for Operators. Default: `""` |
 | private_key_path? | string | Path to the x25519 private key for E2E encryption (generated on first startup if missing). Default: `""` |
-| self_hosted? | boolean | Indicates if this is a self-hosted instance. Default: `true` |
 | visionaries_guild_id? | string | Guild ID for Visionary members. Default: `""` |
 
 <Expandable title="Example JSON">
@@ -543,7 +542,6 @@ Specific settings for this Fluxer instance.
   "deployment_mode": "monolith",
   "operators_guild_id": "",
   "private_key_path": "",
-  "self_hosted": true,
   "visionaries_guild_id": ""
 }
 ```
@@ -571,7 +569,6 @@ Collection of all external service integrations.
 | photo_dna? | [photo_dna_integration](#photo-dna-integration) | Default: `{}` |
 | search? | [search_integration](#search-integration) | Default: `{}` |
 | sms? | [sms_integration](#sms-integration) | Default: `{}` |
-| stripe? | [stripe_integration](#stripe-integration) | Default: `{}` |
 | tenor? | [tenor](#tenor) | Default: `{}` |
 | voice? | [voice_integration](#voice-integration) | Default: `{}` |
 | youtube? | [youtube](#youtube) | Default: `{}` |
@@ -590,7 +587,7 @@ When `enabled` = `true` and `provider` = `smtp`, the following properties are re
 |----------|------|-------------|
 | enabled? | boolean | Enable email sending. Default: `false` |
 | from_email? | string | Default sender email address. Default: `""` |
-| from_name? | string | Default sender name. Default: `Fluxer` |
+| from_name? | string | Default sender name. Default: `Multiverse` |
 | provider? | enum&lt;`smtp`, `none`&gt; | Email provider selection. Default: `none` |
 | smtp? | [smtp_email](#smtp-email) |  |
 | webhook_secret? | string | Sweego webhook signing secret (base64-encoded). |
@@ -600,7 +597,7 @@ When `enabled` = `true` and `provider` = `smtp`, the following properties are re
 {
   "enabled": false,
   "from_email": "",
-  "from_name": "Fluxer",
+  "from_name": "Multiverse",
   "provider": "none",
   "webhook_secret": ""
 }
@@ -768,73 +765,6 @@ Search engine integration. Supports Meilisearch and Elasticsearch backends.
   "engine": "meilisearch",
   "password": "",
   "username": ""
-}
-```
-</Expandable>
-
-### stripe_integration
-
-JSON path: `integrations.stripe`
-
-Stripe payments integration.
-
-<Note>
-When `enabled` = `true`, the following properties are required: `secret_key`, `webhook_secret`
-</Note>
-
-| Property | Type | Description |
-|----------|------|-------------|
-| enabled? | boolean | Enable Stripe payments. Default: `false` |
-| prices? | [stripe_prices](#stripe-prices) | Stripe Price ID configuration. |
-| secret_key? | string | Stripe Secret Key. |
-| webhook_secret? | string | Stripe Webhook Signing Secret. |
-
-<Expandable title="Example JSON">
-```json
-{
-  "enabled": false,
-  "secret_key": "",
-  "webhook_secret": ""
-}
-```
-</Expandable>
-
-### stripe_prices
-
-JSON path: `integrations.stripe.prices`
-
-Stripe Price IDs for subscription products.
-
-| Property | Type | Description |
-|----------|------|-------------|
-| gift_1_month_eur? | string | Gift 1 Month EUR price ID. Default: `""` |
-| gift_1_month_usd? | string | Gift 1 Month USD price ID. Default: `""` |
-| gift_1_year_eur? | string | Gift 1 Year EUR price ID. Default: `""` |
-| gift_1_year_usd? | string | Gift 1 Year USD price ID. Default: `""` |
-| gift_visionary_eur? | string | Gift Visionary EUR price ID. Default: `""` |
-| gift_visionary_usd? | string | Gift Visionary USD price ID. Default: `""` |
-| monthly_eur? | string | Monthly subscription EUR price ID. Default: `""` |
-| monthly_usd? | string | Monthly subscription USD price ID. Default: `""` |
-| visionary_eur? | string | Visionary tier EUR price ID. Default: `""` |
-| visionary_usd? | string | Visionary tier USD price ID. Default: `""` |
-| yearly_eur? | string | Yearly subscription EUR price ID. Default: `""` |
-| yearly_usd? | string | Yearly subscription USD price ID. Default: `""` |
-
-<Expandable title="Example JSON">
-```json
-{
-  "gift_1_month_eur": "",
-  "gift_1_month_usd": "",
-  "gift_1_year_eur": "",
-  "gift_1_year_usd": "",
-  "gift_visionary_eur": "",
-  "gift_visionary_usd": "",
-  "monthly_eur": "",
-  "monthly_usd": "",
-  "visionary_eur": "",
-  "visionary_usd": "",
-  "yearly_eur": "",
-  "yearly_usd": ""
 }
 ```
 </Expandable>
@@ -1279,7 +1209,7 @@ Configuration for the Media Proxy service.
 | Property | Type | Description |
 |----------|------|-------------|
 | host? | string | Network interface to bind to. Default: `0.0.0.0` |
-| port? | number | Port to listen on. Default: `8080` |
+| port? | number | Port to listen on. Default: `8084` |
 | rate_limit? | [rate_limit](#rate-limit) | Rate limiting configuration for the Media Proxy. |
 | require_cloudflare_edge? | boolean | If true, strictly requires requests to originate from Cloudflare edge IPs. Default: `false` |
 | secret_key | string | Secret key used to sign and verify media URLs. |
@@ -1290,7 +1220,7 @@ Configuration for the Media Proxy service.
 {
   "secret_key": "your_secret_key",
   "host": "0.0.0.0",
-  "port": 8080,
+  "port": 8084,
   "require_cloudflare_edge": false,
   "static_mode": false
 }
@@ -1357,14 +1287,14 @@ Configuration for the main API service.
 | Property | Type | Description |
 |----------|------|-------------|
 | host? | string | Network interface to bind to. Default: `0.0.0.0` |
-| port? | number | Port to listen on. Default: `8080` |
+| port? | number | Port to listen on. Default: `8081` |
 | unfurl_ignored_hosts? | array&lt;string&gt; | List of hostnames or IPs to ignore when unfurling URLs. Default: `["localhost","127.0.0.1"]` |
 
 <Expandable title="Example JSON">
 ```json
 {
   "host": "0.0.0.0",
-  "port": 8080,
+  "port": 8081,
   "unfurl_ignored_hosts": [
     "localhost",
     "127.0.0.1"
@@ -1451,7 +1381,7 @@ Configuration for the Gateway service (WebSocket).
 
 JSON path: `services.server`
 
-Configuration for the main Fluxer Server.
+Configuration for the main Multiverse Server.
 
 | Property | Type | Description |
 |----------|------|-------------|

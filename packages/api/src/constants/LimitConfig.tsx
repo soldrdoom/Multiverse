@@ -32,8 +32,8 @@ export interface CachedLimitConfig {
 	defaultsHash: string;
 }
 
-export function getLimitConfigKvKey(selfHosted: boolean): string {
-	return `limit_config:${selfHosted ? 'self_hosted' : 'saas'}`;
+export function getLimitConfigKvKey(): string {
+	return 'limit_config:saas';
 }
 
 export const LIMIT_CONFIG_REFRESH_CHANNEL = 'limit-config-refresh';
@@ -43,67 +43,34 @@ function cloneLimitConfigSnapshot(config: LimitConfigSnapshot): LimitConfigSnaps
 	return structuredClone(config);
 }
 
-export function sanitizeLimitConfigForInstance(
-	config: LimitConfigSnapshot,
-	options?: {selfHosted?: boolean},
-): LimitConfigSnapshot {
-	const selfHosted = options?.selfHosted ?? false;
-	const normalized: LimitConfigSnapshot = {
+export function sanitizeLimitConfigForInstance(config: LimitConfigSnapshot): LimitConfigSnapshot {
+	return {
 		traitDefinitions: Array.isArray(config.traitDefinitions) ? config.traitDefinitions : [],
 		rules: Array.isArray(config.rules) ? config.rules : [],
 	};
-
-	if (!selfHosted) {
-		return normalized;
-	}
-
-	const traitDefinitions = normalized.traitDefinitions.filter((t) => t !== 'premium');
-
-	const rules = normalized.rules.filter((rule) => {
-		const traits = rule.filters?.traits ?? [];
-		return !traits.includes('premium');
-	});
-
-	return {
-		traitDefinitions,
-		rules,
-	};
 }
 
-export function createDefaultLimitConfig(options?: {selfHosted?: boolean}): LimitConfigSnapshot {
-	const selfHosted = options?.selfHosted ?? false;
-
-	const hostedDefault: LimitConfigSnapshot = {
-		traitDefinitions: selfHosted ? [] : ['premium'],
-		rules: selfHosted
-			? [
-					{
-						id: LIMIT_RULE_IDS.DEFAULT,
-						limits: {...DEFAULT_PREMIUM_LIMITS},
-					},
-				]
-			: [
-					{
-						id: LIMIT_RULE_IDS.PREMIUM,
-						filters: {traits: ['premium']},
-						limits: {...DEFAULT_PREMIUM_LIMITS},
-					},
-					{
-						id: LIMIT_RULE_IDS.DEFAULT,
-						limits: {...DEFAULT_FREE_LIMITS},
-					},
-				],
+export function createDefaultLimitConfig(): LimitConfigSnapshot {
+	const defaultConfig: LimitConfigSnapshot = {
+		traitDefinitions: ['premium'],
+		rules: [
+			{
+				id: LIMIT_RULE_IDS.PREMIUM,
+				filters: {traits: ['premium']},
+				limits: {...DEFAULT_PREMIUM_LIMITS},
+			},
+			{
+				id: LIMIT_RULE_IDS.DEFAULT,
+				limits: {...DEFAULT_FREE_LIMITS},
+			},
+		],
 	};
 
-	return sanitizeLimitConfigForInstance(cloneLimitConfigSnapshot(hostedDefault), {selfHosted});
+	return sanitizeLimitConfigForInstance(cloneLimitConfigSnapshot(defaultConfig));
 }
 
-export function mergeWithCurrentDefaults(
-	stored: LimitConfigSnapshot,
-	options?: {selfHosted?: boolean},
-): LimitConfigSnapshot {
-	const selfHosted = options?.selfHosted ?? false;
-	const newDefaults = createDefaultLimitConfig({selfHosted});
+export function mergeWithCurrentDefaults(stored: LimitConfigSnapshot): LimitConfigSnapshot {
+	const newDefaults = createDefaultLimitConfig();
 	const mergedRules: Array<LimitRule> = [];
 
 	const existingRulesMap = new Map<string, LimitRule>();

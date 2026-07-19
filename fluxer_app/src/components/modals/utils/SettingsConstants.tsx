@@ -24,7 +24,6 @@ import {
 	type SettingsSectionConfig,
 	type UserSettingsTabType,
 } from '@app/components/modals/utils/SettingsSectionRegistry';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import type {I18n, MessageDescriptor} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 import {Trans} from '@lingui/react/macro';
@@ -251,19 +250,10 @@ const ALL_TABS_DESCRIPTORS: Array<SettingsTabDescriptor> = [
 ];
 
 export const getSettingsTabs = (i18n: I18n): Array<SettingsTab> => {
-	const allTabs = ALL_TABS_DESCRIPTORS.map((tab) => ({
+	return ALL_TABS_DESCRIPTORS.map((tab) => ({
 		...tab,
 		label: i18n._(tab.label),
 	}));
-
-	const isSelfHosted = RuntimeConfigStore.isSelfHosted();
-
-	return allTabs.filter((tab) => {
-		if (isSelfHosted && tab.type === 'plutonium') {
-			return false;
-		}
-		return true;
-	});
 };
 
 export interface SettingsSubtab {

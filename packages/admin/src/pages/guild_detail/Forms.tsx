@@ -20,7 +20,7 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource hono/jsx */
 
-import {DISABLED_OPERATIONS, GUILD_FEATURES, SELF_HOSTED_GUILD_FEATURES} from '@fluxer/admin/src/AdminPackageConstants';
+import {DISABLED_OPERATIONS, GUILD_FEATURES} from '@fluxer/admin/src/AdminPackageConstants';
 import {FormFieldGroup} from '@fluxer/admin/src/components/ui/Form/FormFieldGroup';
 import {Input} from '@fluxer/admin/src/components/ui/Input';
 import {VStack} from '@fluxer/admin/src/components/ui/Layout/VStack';
@@ -36,11 +36,10 @@ interface RenderFeaturesFormProps {
 	currentFeatures: Array<string>;
 	guildId: string;
 	csrfToken: string;
-	selfHosted: boolean;
 }
 
-export function RenderFeaturesForm({config, currentFeatures, guildId, csrfToken, selfHosted}: RenderFeaturesFormProps) {
-	const knownFeatureValues = selfHosted ? SELF_HOSTED_GUILD_FEATURES : GUILD_FEATURES;
+export function RenderFeaturesForm({config, currentFeatures, guildId, csrfToken}: RenderFeaturesFormProps) {
+	const knownFeatureValues = GUILD_FEATURES;
 	const customFeatures = currentFeatures.filter(
 		(f) => !knownFeatureValues.includes(f as (typeof GUILD_FEATURES)[number]),
 	);

@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Indeks embedu {embedIndex} jest poza zakresem 
 embeds.embed_splash_requires_feature: Embed splash wymaga funkcji INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Embedy nie mogą łącznie przekraczać {maxCharacters} {maxCharacters, plural, one {znaku} few {znaków} many {znaków} other {znaków}}.
 embeds.too_many_embeds: Za dużo embedów. Maksymalnie {maxEmbeds} {maxEmbeds, plural, one {embed} few {embedy} many {embedów} other {embedów}}.
-feature_flags.feature_not_available_self_hosted: Ta funkcja nie jest dostępna w samodzielnie hostowanych instancjach.
 feature_flags.feature_temporarily_disabled: Ta funkcja jest tymczasowo wyłączona.
 friends_and_dms.already_friends: Macie już siebie w znajomych.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Do utworzenia prywatnych kanałów potrzebujesz co najmniej jednego odbiorcy.

@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Az embed index {embedIndex} kilog (az üzenetb
 embeds.embed_splash_requires_feature: Az embed splash-hoz INVITE_SPLASH feature kell.
 embeds.embeds_exceed_max_characters: Az embedek osszesen legfeljebb {maxCharacters} {maxCharacters, plural, one {karakter} other {karakter}} hosszuak lehetnek.
 embeds.too_many_embeds: Tul sok embed. Maximum {maxEmbeds} {maxEmbeds, plural, one {embed} other {embed}} engedelyezett.
-feature_flags.feature_not_available_self_hosted: Ez a funkció nem érhető el saját tárhelyen futó példányokon.
 feature_flags.feature_temporarily_disabled: Ez a funkcio atmenetileg le van tiltva.
 friends_and_dms.already_friends: Mar ismerosok vagytok.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Privat csatornak letrehozasahez legalabb egy cimzett szukseges.

@@ -112,3 +112,29 @@ Also notable: `fluxer_server/src/Routes.tsx` (the real one) is actually slightly
 **What to verify before calling this done:** owner buys → wallet signs → invoice/verify round-trip → `GuildFeatures.VANITY_URL` actually gets set → the tx-signature anti-replay check actually rejects a reused signature → the receipt/Solscan link renders → visiting the bare vanity URL while logged out actually shows the invite-landing page with the address bar unchanged (this last one in particular has never been visually confirmed, only reasoned through against the router's sort behavior).
 
 **Status:** not started — needs a real small SOL payment on mainnet (or a devnet dry run first) plus a manual click-through, ideally before the Cassandra migration for `guild_vanity_purchases` gets applied to production.
+
+---
+
+## 2026-07-19 — corrected emoji sprite sheets are hot-patched live but not baked into the Docker image
+
+**Found while:** fixing the emoji-picker "cut into 4 pieces" bug (see `PROJECT_REPORT.md`'s 2026-07-19 session notes for full root-cause writeup — the deployed `patches/emoji/spritesheet-emoji@2x.png` had genuine pixel-level corruption, unrelated to caching).
+
+**What's done:** regenerated all 12 `patches/emoji/spritesheet-*.png` files (main + 5 skin tones, 1x/2x each) from the current `GenerateEmojiSprites.tsx` against the live CDN, verified clean, and `docker cp`'d them straight into the running `fluxer_server` container's writable layer. The live site is serving the corrected files right now.
+
+**What's not done:** the Docker image itself (`multiverse-server:local`) was never rebuilt, so this fix only lives in (a) the current container's writable layer and (b) `patches/emoji/*.png` on disk (which is untracked by git, per the existing `patches/` notes elsewhere in this file). If the `fluxer_server` container is ever recreated from the existing image tag without first rebuilding — e.g. a plain `docker compose up -d` / `restart` after a host reboot, or someone reaching for `docker compose build` (which, per the entry above, is a silent no-op here) — the corrupted sprite sheets will reappear, since the image itself was never fixed.
+
+**Fix:** run the real deploy sequence (`docker build -f fluxer_server/Dockerfile -t multiverse-server:local .` from repo root, then `docker compose up -d fluxer_server`) at least once so the corrected `patches/emoji/*.png` files that are already on disk actually get baked into the image, not just hot-patched into the running container.
+
+**Status:** not started — live site is fine for now, but fragile until an actual image rebuild happens.
+
+---
+
+## 2026-07-19 — dark-skin-tone (`1f3ff`) emoji sprite sheet has real content gaps
+
+**Found while:** the same emoji-sprite-sheet investigation above.
+
+**What's wrong:** `multiverse.forum/emoji/` (the CDN `GenerateEmojiSprites.tsx` fetches source SVGs from) doesn't have assets for a fair number of compound ZWJ + gender + dark-skin-tone sequences — e.g. `🧎🏿‍♀️`, `🏃🏿‍♂️`, `🧘🏿‍♂️`. The generation script's placeholder fallback (a plain random-colored circle) fires for each, so `spritesheet-1f3ff.png`/`@2x` has a noticeable number of colored dots standing in for real emoji. Confirmed via the script's own `Missing SVG for ... using placeholder` log output during regeneration — dozens of hits, all dark-skin-tone combos.
+
+**Impact:** lower severity than the corruption bug above (nothing renders *broken*, just occasionally the wrong/generic icon) — only affects users who've set the darkest skin-tone preference.
+
+**Status:** not started — would need either sourcing the missing SVGs from somewhere else, or accepting the gap as a known limitation of whatever twemoji snapshot is hosted at that CDN path.

@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: फ्री बनाम प्लू�
 pricing_and_tiers.free.everything_in_free_plus: 'फ्री में सब कुछ, साथ में:'
 pricing_and_tiers.free.full_access_to_all_features: सभी फीचर्स का पूरा एक्सेस
 pricing_and_tiers.free.label: फ्री
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'नोट: प्लूटोनियम और विजनरी के फायदे सिर्फ आधिकारिक Multiverse.app इंस्टेंस पर लागू होते हैं, थर्ड-पार्टी या सेल्फ-होस्टेड इंस्टेंस पर नहीं.'
 pricing_and_tiers.plutonium.feature_highlights: 500 MB अपलोड्स, 4,000 कैरेक्टर के मैसेज, 300 बुकमार्क्स, 50 इमोजी पैक्स, और बहुत कुछ.
 pricing_and_tiers.plutonium.features.bio_character_limit: बायो कैरेक्टर लिमिट
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: '#0001 से #9999 तक कोई भी उपलब्ध 4-अंकीय टैग चुनें और अपना यूज़रनेम सच में यूनिक बनाएं।'
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Visionary के साथ लाइ�
 pricing_and_tiers.visionary.communities_with_team_access: टीम एक्सेस के साथ विजनरी और Operators कम्युनिटीज़
 pricing_and_tiers.visionary.get_visionary: विजनरी लें
 pricing_and_tiers.visionary.label: विजनरी
-pricing_and_tiers.visionary.lifetime_offer_copy: Multiverse.app पर आजीवन Plutonium के साथ self-hosting के लिए Operator Pass पाएं। {0} एक बार भुगतान करें। 1 अक्टूबर 2026 तक या जब सभी स्लॉट भर जाएं, तब तक उपलब्ध।
 pricing_and_tiers.visionary.lifetime_operator_pass: लाइफटाइम ऑपरेटर पास
 pricing_and_tiers.visionary.lifetime_plutonium: लाइफटाइम प्लूटोनियम
 pricing_and_tiers.visionary.limited_offer_note: 'सीमित ऑफर: विजनरी में ऑपरेटर पास शामिल है'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: अकाउंट बनाने �
 pricing_and_tiers.visionary.slots_left.generic: '{1} में से {0} स्लॉट बचे हैं'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: सिर्फ {1} में से {0} विजनरी लाइफटाइम स्लॉट बचे हैं – लाइफटाइम प्लूटोनियम और ऑपरेटर पास
 pricing_and_tiers.visionary.slots_left.visionary_only: '{0} विजनरी स्लॉट बचे हैं'
-product_positioning.free_and_open_source: Multiverse फ्री और ओपन सोर्स है. कोई भी इसे मुफ्त में सेल्फ-होस्ट कर सकता है.
 product_positioning.intro: Multiverse दोस्तों, ग्रुप्स, और कम्युनिटीज़ के लिए बना एक फ्री और ओपन सोर्स इंस्टेंट मैसेजिंग और VoIP प्लेटफ़ॉर्म है.
 product_positioning.open_source.fully_open_source_agplv3: 'पूरी तरह ओपन सोर्स (AGPLv3)'
 product_positioning.open_source.label: ओपन सोर्स
-product_positioning.open_source.license: ओपन सोर्स (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: किसी भी क्लाइंट से कनेक्ट करें
-product_positioning.self_hosting.free_self_hosting: फ्री सेल्फ-होस्टिंग
-product_positioning.self_hosting.host_your_own_instance: अपना इंस्टेंस होस्ट करें
-product_positioning.self_hosting.label: सेल्फ-होस्टिंग
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Multiverse Operators कम्युनिटी का एक्सेस
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: ऑफर खत्म होने के बाद भी ऑपरेटर पास अलग से उपलब्ध रहेगा.
-product_positioning.self_hosting.operator_pass.label: ऑपरेटर पास
-product_positioning.self_hosting.operator_pass.note_optional: 'ऑपरेटर पास वैकल्पिक है: सपोर्ट और Operators कम्युनिटी एक्सेस के लिए भुगतान करें.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: सेल्फ-होस्टिंग के लिए प्रायोरिटी सपोर्ट और Operators कम्युनिटी एक्सेस
-product_positioning.self_hosting.run_backend_on_your_hardware: Multiverse बैकएंड को अपने हार्डवेयर पर चलाएं और हमारी ऐप्स से कनेक्ट करें.
-product_positioning.self_hosting.switch_between_instances: कई इंस्टेंस के बीच स्विच करें
 security.found_security_issue: कोई सिक्योरिटी इश्यू मिला?
 security.report_vulnerabilities: कमज़ोरियां रिपोर्ट करें और प्लेटफ़ॉर्म को सुरक्षित रखने में मदद करें.
 security.responsible_disclosure_note: हम अपने सिक्योरिटी बग बाउंटी पेज के जरिए जिम्मेदार डिस्क्लोज़र की सराहना करते हैं. हम गंभीरता के आधार पर प्लूटोनियम कोड्स और Bug Hunter बैज देते हैं.

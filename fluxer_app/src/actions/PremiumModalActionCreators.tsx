@@ -20,12 +20,7 @@
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
 import {PremiumModal} from '@app/components/modals/PremiumModal';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 
 export function open(): void {
-	if (RuntimeConfigStore.isSelfHosted()) {
-		return;
-	}
-
 	ModalActionCreators.push(modal(() => <PremiumModal />));
 }

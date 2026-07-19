@@ -112,6 +112,9 @@ export function Footer(props: FooterProps): JSX.Element {
 							{ctx.i18n.getMessage('company_and_resources.support.label', ctx.locale)}
 						</FooterLink>
 						<FooterLink href={link('/press')}>{ctx.i18n.getMessage('footer.press', ctx.locale)}</FooterLink>
+						<FooterLink href={link('/whitepaper')}>
+							{ctx.i18n.getMessage('company_and_resources.support.whitepaper', ctx.locale)}
+						</FooterLink>
 						<FooterLink href="https://docs.fluxer.app">
 							{ctx.i18n.getMessage('company_and_resources.docs', ctx.locale)}
 						</FooterLink>

@@ -1,8 +1,5 @@
 {
 	"env": "test",
-	"instance": {
-		"self_hosted": false
-	},
 	"domain": {
 		"base_domain": "localhost"
 	},

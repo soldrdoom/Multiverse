@@ -22,8 +22,8 @@ import type {LimitConfigSnapshot} from '@fluxer/limits/src/LimitTypes';
 import {describe, expect, test} from 'vitest';
 
 describe('Limit config defaults', () => {
-	test('hosted defaults include only premium and default tier limit rules', () => {
-		const config = createDefaultLimitConfig({selfHosted: false});
+	test('defaults include only premium and default tier limit rules', () => {
+		const config = createDefaultLimitConfig();
 
 		const premiumRule = config.rules.find((rule) => rule.id === 'premium');
 		const defaultRule = config.rules.find((rule) => rule.id === 'default');
@@ -31,12 +31,6 @@ describe('Limit config defaults', () => {
 		expect(premiumRule).toBeDefined();
 		expect(defaultRule).toBeDefined();
 		expect(config.rules.map((rule) => rule.id)).toEqual(['premium', 'default']);
-	});
-
-	test('self-hosted defaults include only default tier limit rule', () => {
-		const config = createDefaultLimitConfig({selfHosted: true});
-
-		expect(config.rules.map((rule) => rule.id)).toEqual(['default']);
 	});
 });
 
@@ -58,7 +52,7 @@ describe('Limit config default merge', () => {
 			],
 		} as unknown as LimitConfigSnapshot;
 
-		const merged = mergeWithCurrentDefaults(legacyConfig, {selfHosted: false});
+		const merged = mergeWithCurrentDefaults(legacyConfig);
 		const premiumRule = merged.rules.find((rule) => rule.id === 'premium') as Record<string, unknown> | undefined;
 
 		expect(premiumRule?.unlockedFeatures).toBeUndefined();

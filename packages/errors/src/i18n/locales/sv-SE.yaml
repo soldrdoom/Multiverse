@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Embed-index {embedIndex} är utanför gränsen
 embeds.embed_splash_requires_feature: Embed splash kräver funktionen INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Embeds får totalt inte vara längre än {maxCharacters} {maxCharacters, plural, one {tecken} other {tecken}}.
 embeds.too_many_embeds: För många embeds. Max {maxEmbeds} {maxEmbeds, plural, one {inbäddning} other {inbäddningar}} tillåts.
-feature_flags.feature_not_available_self_hosted: Den här funktionen är inte tillgänglig för självvärderade instanser.
 feature_flags.feature_temporarily_disabled: Den här funktionen är tillfälligt avstängd.
 friends_and_dms.already_friends: Ni är redan vänner.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Minst en mottagare krävs för att initiera privata kanaler.

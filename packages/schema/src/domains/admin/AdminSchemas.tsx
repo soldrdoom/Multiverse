@@ -323,7 +323,6 @@ export const InstanceConfigResponse = z.object({
 	registration_alerts_webhook_url: z.string().nullable(),
 	system_alerts_webhook_url: z.string().nullable(),
 	sso: SsoConfigResponse,
-	self_hosted: z.boolean(),
 });
 
 export type InstanceConfigResponse = z.infer<typeof InstanceConfigResponse>;
@@ -979,7 +978,6 @@ export const LimitConfigGetResponse = z.object({
 		),
 	}),
 	limit_config_json: z.string(),
-	self_hosted: z.boolean(),
 	defaults: z.record(z.string(), z.record(LimitKeySchema, z.number())),
 	metadata: z.record(LimitKeySchema, LimitKeyMetadataSchema),
 	categories: z.record(z.string(), z.string()),

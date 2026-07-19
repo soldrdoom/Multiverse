@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: 埋め込みインデックス {embedIndex} �
 embeds.embed_splash_requires_feature: 埋め込みスプラッシュにはINVITE_SPLASH機能が必要だよ。
 embeds.embeds_exceed_max_characters: 埋め込みの合計は{maxCharacters}{maxCharacters, plural, one {文字} other {文字}}以内にしてね。
 embeds.too_many_embeds: 埋め込みが多すぎるよ。最大{maxEmbeds}{maxEmbeds, plural, one {件} other {件}}まで。
-feature_flags.feature_not_available_self_hosted: この機能はセルフホスト環境では利用できないよ。
 feature_flags.feature_temporarily_disabled: この機能は一時的に無効になってるよ。
 friends_and_dms.already_friends: このユーザーとはもうフレンドだよ。
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: プライベートチャンネルを作るには宛先が最低1人必要だよ。

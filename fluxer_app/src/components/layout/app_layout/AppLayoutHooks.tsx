@@ -28,7 +28,6 @@ import {
 import AppStorage from '@app/lib/AppStorage';
 import DeveloperOptionsStore from '@app/stores/DeveloperOptionsStore';
 import NagbarStore from '@app/stores/NagbarStore';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import UserStore from '@app/stores/UserStore';
 import {isDesktop} from '@app/utils/NativeUtils';
 import * as NotificationUtils from '@app/utils/NotificationUtils';
@@ -60,7 +59,6 @@ export const useNagbarConditions = (): NagbarConditions => {
 	const nagbarState = NagbarStore;
 	const premiumOverrideType = DeveloperOptionsStore.premiumTypeOverride;
 	const isMockPremium = premiumOverrideType != null && premiumOverrideType > 0;
-	const isSelfHosted = RuntimeConfigStore.isSelfHosted();
 	const previousPendingBulkDeletionKeyRef = useRef<string | null>(null);
 
 	useEffect(() => {
@@ -96,7 +94,6 @@ export const useNagbarConditions = (): NagbarConditions => {
 	})();
 
 	const canShowPremiumOnboarding = (() => {
-		if (isSelfHosted) return false;
 		if (nagbarState.forceHidePremiumOnboarding) return false;
 		if (nagbarState.forcePremiumOnboarding) return true;
 		if (isMockPremium) return false;
@@ -141,7 +138,6 @@ export const useNagbarConditions = (): NagbarConditions => {
 		if (nagbarState.forceHideGuildMembershipCta) return false;
 		if (nagbarState.forceGuildMembershipCta) return true;
 		if (!user) return false;
-		if (isSelfHosted) return false;
 		return !nagbarState.guildMembershipCtaDismissed;
 	})();
 

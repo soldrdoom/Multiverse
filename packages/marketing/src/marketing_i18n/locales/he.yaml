@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: חינם מול Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'כל מה שבחינם, וגם:'
 pricing_and_tiers.free.full_access_to_all_features: גישה מלאה לכל התכונות
 pricing_and_tiers.free.label: חינם
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'שימו לב: ההטבות של Plutonium ושל Visionary חלות רק על המופע הרשמי ב-Fluxer.app, לא על מופעים צד שלישי או כאלה באירוח עצמי.'
 pricing_and_tiers.plutonium.feature_highlights: העלאות של 500 MB, הודעות עד 4,000 תווים, 300 סימניות, 50 חבילות אימוג'י ועוד הרבה.
 pricing_and_tiers.plutonium.features.bio_character_limit: מגבלת תווים לביו
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: בחרו כל תג 4 ספרות זמין מ-#0001 עד #9999 כדי לעשות את שם המשתמש שלכם באמת ייחודי.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium ו-Operator Pass לכל הח
 pricing_and_tiers.visionary.communities_with_team_access: קהילות Visionary ו-Operators עם גישה לצוות
 pricing_and_tiers.visionary.get_visionary: קבלו Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: קבלו Plutonium לכל החיים ב-Fluxer.app וגם Operator Pass לאירוח עצמי. משלמים {0} פעם אחת. זמין עד 1 באוקטובר 2026, או עד שכל המקומות ייתפסו.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass לכל החיים
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium לכל החיים
 pricing_and_tiers.visionary.limited_offer_note: 'הצעה מוגבלת: Visionary כולל Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: קנו Visionary ישירות באפ�
 pricing_and_tiers.visionary.slots_left.generic: '{0} מתוך {1} מקומות נשארו'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: נשארו רק {0} מתוך {1} מקומות Visionary לכל החיים – Plutonium ו-Operator Pass לכל החיים
 pricing_and_tiers.visionary.slots_left.visionary_only: '{0} מקומות Visionary נשארו'
-product_positioning.free_and_open_source: Multiverse חינמית וקוד פתוח. כל אחד יכול לארח בעצמו בחינם.
 product_positioning.intro: Multiverse היא פלטפורמת מסרים מידיים ו-VoIP חינמית וקוד פתוח, שנבנתה לחברים, קבוצות וקהילות.
 product_positioning.open_source.fully_open_source_agplv3: קוד פתוח לחלוטין (AGPLv3)
 product_positioning.open_source.label: קוד פתוח
-product_positioning.open_source.license: קוד פתוח (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: התחברות מכל לקוח
-product_positioning.self_hosting.free_self_hosting: אירוח עצמי בחינם
-product_positioning.self_hosting.host_your_own_instance: אחסנו מופע משלכם
-product_positioning.self_hosting.label: אירוח עצמי
-product_positioning.self_hosting.operator_pass.access_to_operators_community: גישה לקהילת Multiverse Operators
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: אחרי שההצעה נגמרת, Operator Pass נשאר זמין בפני עצמו.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass הוא אופציונלי: משלמים בשביל תמיכה וגישה לקהילת Operators.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: תמיכה בעדיפות וגישה לקהילת Operators באירוח עצמי
-product_positioning.self_hosting.run_backend_on_your_hardware: הריצו את השרת של Multiverse על החומרה שלכם והתחברו עם האפליקציות שלנו.
-product_positioning.self_hosting.switch_between_instances: מעבר בין כמה מופעים
 security.found_security_issue: מצאתם בעיית אבטחה?
 security.report_vulnerabilities: דווחו על חולשות ועזרו לנו לשמור על הפלטפורמה מאובטחת.
 security.responsible_disclosure_note: אנחנו מעריכים דיווח אחראי דרך עמוד תכנית התגמול שלנו. אנחנו נותנים קודי Plutonium ותגי Bug Hunter לפי חומרה.

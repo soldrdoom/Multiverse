@@ -241,7 +241,6 @@ function createAdminInitializer(
 		oauthClientSecret: requireValue(adminConfigSrc.oauth_client_secret, 'services.admin.oauth_client_secret'),
 		oauthRedirectUri: adminOAuthRedirectUri,
 		basePath: adminBasePath,
-		selfHosted: config.instance.self_hosted,
 		buildTimestamp: buildMetadata.buildTimestamp,
 		releaseChannel: buildMetadata.releaseChannel,
 		rateLimit: adminRateLimit,
@@ -286,7 +285,7 @@ function createAppServerInitializer(context: ServiceInitializationContext): Serv
 			metricsCollector: telemetry.metricsCollector,
 			tracing: telemetry.tracing,
 		},
-		// CSP is intentionally restricted to self-hosted origins only.
+		// CSP is intentionally restricted to this instance's own origins only.
 		// External CDN sources (e.g. fluxerstatic.com) have been removed.
 		// All scripts, styles, fonts, and images are served from this instance.
 		// frame-src is empty (resolves to 'self' only) — 'none' alongside other sources is invalid.

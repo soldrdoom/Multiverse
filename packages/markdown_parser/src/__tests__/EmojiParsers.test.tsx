@@ -115,7 +115,7 @@ describe('Multiverse Markdown Parser', () => {
 				kind: {
 					kind: EmojiKind.Standard,
 					raw: '❤️',
-					codepoints: '2764',
+					codepoints: '2764-fe0f',
 					name: 'heart',
 				},
 			},
@@ -448,7 +448,7 @@ describe('Multiverse Markdown Parser', () => {
 				kind: {
 					kind: EmojiKind.Standard,
 					raw: '↩️',
-					codepoints: '21a9',
+					codepoints: '21a9-fe0f',
 					name: 'leftwards_arrow_with_hook',
 				},
 			},
@@ -638,7 +638,7 @@ describe('Special Symbols Plaintext Rendering', () => {
 				kind: {
 					kind: 'Standard',
 					raw: '❤️',
-					codepoints: '2764',
+					codepoints: '2764-fe0f',
 					name: 'heart',
 				},
 			},
@@ -823,7 +823,7 @@ describe('Emoji Shortcode Edge Cases', () => {
 				kind: {
 					kind: EmojiKind.Standard,
 					raw: '❤️',
-					codepoints: '2764',
+					codepoints: '2764-fe0f',
 					name: 'heart',
 				},
 			},

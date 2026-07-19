@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Бесплатно vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Всё из Бесплатно, плюс:'
 pricing_and_tiers.free.full_access_to_all_features: Полный доступ ко всем функциям
 pricing_and_tiers.free.label: Бесплатно
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Важно: преимущества Plutonium и Visionary работают только на официальном инстансе Multiverse.app, а не на сторонних или self-hosted инстансах.'
 pricing_and_tiers.plutonium.feature_highlights: Загрузки до 500 МБ, сообщения до 4 000 символов, 300 закладок, 50 паков эмодзи и многое другое.
 pricing_and_tiers.plutonium.features.bio_character_limit: Лимит символов в био
 pricing_and_tiers.plutonium.features.custom_username_tag: Кастомный тег к нику
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium навсегда и Operator
 pricing_and_tiers.visionary.communities_with_team_access: Сообщества Visionary и Operators с доступом для команды
 pricing_and_tiers.visionary.get_visionary: Получить Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Получи Plutonium навсегда на Multiverse.app плюс Operator Pass для self-hosting. Заплати {0} один раз. Доступно до 1 октября 2026 года или пока не разберут все места.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass навсегда
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium навсегда
 pricing_and_tiers.visionary.limited_offer_note: 'Ограниченное предложение: в Visionary входит Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Купи Visionary прямо в пр
 pricing_and_tiers.visionary.slots_left.generic: Осталось {0} из {1} мест
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Осталось всего {0} из {1} мест Visionary – Plutonium и Operator Pass навсегда
 pricing_and_tiers.visionary.slots_left.visionary_only: Осталось {0} мест Visionary
-product_positioning.free_and_open_source: Multiverse бесплатный и open source. Любой может бесплатно поднять свой инстанс.
 product_positioning.intro: Multiverse – бесплатная и open source платформа для мгновенных сообщений и VoIP, сделанная для друзей, групп и сообществ.
 product_positioning.open_source.label: Open source
-product_positioning.open_source.license: Open source (AGPL-3.0)
 product_positioning.open_source.fully_open_source_agplv3: Полностью open source (AGPLv3)
-product_positioning.self_hosting.connect_from_any_client: Подключайся с любого клиента
-product_positioning.self_hosting.free_self_hosting: Бесплатный self-hosting
-product_positioning.self_hosting.host_your_own_instance: Подними свой инстанс
-product_positioning.self_hosting.label: Self-hosting
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Доступ к сообществу Multiverse Operators
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Когда акция закончится, Operator Pass останется доступен отдельно.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass опционален: платишь за поддержку и доступ к сообществу операторов.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Приоритетная поддержка и доступ к сообществу Operators для self-hosting
-product_positioning.self_hosting.run_backend_on_your_hardware: Запусти бэкенд Multiverse на своём железе и подключайся через наши приложения.
-product_positioning.self_hosting.switch_between_instances: Переключайся между несколькими инстансами
 security.found_security_issue: Нашёл уязвимость?
 security.report_vulnerabilities: Сообщай об уязвимостях и помогай держать платформу в безопасности.
 security.responsible_disclosure_note: Мы ценим ответственное раскрытие через нашу страницу bug bounty. Мы выдаём коды Plutonium и бейджи Bug Hunter в зависимости от серьёзности.

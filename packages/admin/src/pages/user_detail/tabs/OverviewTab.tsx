@@ -247,7 +247,7 @@ export function OverviewTab({
 							<Heading level={3} size="base">
 								User Flags
 							</Heading>
-							<FlagsForm currentFlags={user.flags} csrfToken={csrfToken} selfHosted={config.selfHosted} />
+							<FlagsForm currentFlags={user.flags} csrfToken={csrfToken} />
 						</VStack>
 					</Card>
 

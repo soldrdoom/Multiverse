@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Ingyenes vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Minden, ami az Ingyenesben van, plusz:'
 pricing_and_tiers.free.full_access_to_all_features: Teljes hozzáférés minden funkcióhoz
 pricing_and_tiers.free.label: Ingyenes
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Megjegyzés: a Plutonium és a Visionary előnyök csak a hivatalos Multiverse.app példányra érvényesek, nem harmadik fél vagy saját hosztolt példányokra.'
 pricing_and_tiers.plutonium.feature_highlights: 500 MB feltöltések, 4 000 karakteres üzenetek, 300 könyvjelző, 50 emojicsomag, és még sok más.
 pricing_and_tiers.plutonium.features.bio_character_limit: Bio karakterlimit
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Válasszon bármilyen elérhető 4 jegyű címkét #0001-től #9999-ig, hogy valóban egyedivé tegye felhasználónevét.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Élethosszig Plutonium és Operator Pa
 pricing_and_tiers.visionary.communities_with_team_access: Visionary és Operators közösségek csapat-hozzáféréssel
 pricing_and_tiers.visionary.get_visionary: Szerezd meg a Visionaryt
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Szerezz élethosszig tartó Plutoniumot a Multiverse.appon plusz egy Operator Passt önhostoláshoz. Fizess {0} egyszer. Elérhető 2026. október 1-ig vagy amíg minden hely be nem telik.
 pricing_and_tiers.visionary.lifetime_operator_pass: Élethosszig Operator Pass
 pricing_and_tiers.visionary.lifetime_plutonium: Élethosszig Plutonium
 pricing_and_tiers.visionary.limited_offer_note: 'Korlátozott ajánlat: a Visionary tartalmazza az Operator Passt'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: A Visionaryt közvetlenül az appban 
 pricing_and_tiers.visionary.slots_left.generic: '{0} / {1} hely maradt'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Már csak {0} / {1} Visionary élethosszig csomag maradt – élethosszig Plutonium és Operator Pass
 pricing_and_tiers.visionary.slots_left.visionary_only: '{0} Visionary hely maradt'
-product_positioning.free_and_open_source: A Multiverse ingyenes és nyílt forráskódú. Bárki ingyen üzemeltetheti saját maga.
 product_positioning.intro: A Multiverse egy ingyenes, nyílt forráskódú azonnali üzenetküldő és VoIP platform barátoknak, csoportoknak és közösségeknek.
 product_positioning.open_source.fully_open_source_agplv3: Teljes mértékben nyílt forráskódú (AGPLv3)
 product_positioning.open_source.label: Nyílt forráskód
-product_positioning.open_source.license: Nyílt forráskód (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Csatlakozás bármelyik kliensről
-product_positioning.self_hosting.free_self_hosting: Ingyenes saját hosztolás
-product_positioning.self_hosting.host_your_own_instance: Üzemeltesd a saját példányod
-product_positioning.self_hosting.label: Saját hosztolás
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Hozzáférés a Multiverse Operators közösséghez
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Az ajánlat vége után az Operator Pass önállóan is elérhető marad.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Az Operator Pass opcionális: fizess a támogatásért és a közösségi hozzáférésért.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Elsőbbségi támogatás és hozzáférés az Operators közösséghez saját hosztoláshoz
-product_positioning.self_hosting.run_backend_on_your_hardware: Futtasd a Multiverse backendet a saját hardvereden, és csatlakozz az appjainkkal.
-product_positioning.self_hosting.switch_between_instances: Váltás több példány között
 security.found_security_issue: Találtál egy biztonsági hibát?
 security.report_vulnerabilities: Jelents sérülékenységeket, és segíts, hogy a platform biztonságos maradjon.
 security.responsible_disclosure_note: Köszönjük a felelős bejelentést a bug bounty oldalunkon. A súlyosságtól függően Plutonium kódokat és Bug Hunter jelvényeket adunk.

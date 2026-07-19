@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Free vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Everything in Free, plus:'
 pricing_and_tiers.free.full_access_to_all_features: Full access to all features
 pricing_and_tiers.free.label: Free
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Note: Plutonium and Visionary benefits only apply to the official Multiverse.app instance, not third-party or self-hosted instances.'
 pricing_and_tiers.plutonium.feature_highlights: 500 MB uploads, 4,000-character messages, 300 bookmarks, 50 emoji packs, and much more.
 pricing_and_tiers.plutonium.features.bio_character_limit: Bio character limit
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Choose any available 4-digit tag from #0001 to #9999 to make your username truly unique.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Lifetime Plutonium and Operator Pass w
 pricing_and_tiers.visionary.communities_with_team_access: Visionary and Operators communities with team access
 pricing_and_tiers.visionary.get_visionary: Get Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Get lifetime Plutonium on Multiverse.app plus an Operator Pass for self-hosting. Pay {0} one time. Available until October 1, 2026, or when all slots are claimed.
 pricing_and_tiers.visionary.lifetime_operator_pass: Lifetime Operator Pass
 pricing_and_tiers.visionary.lifetime_plutonium: Lifetime Plutonium
 pricing_and_tiers.visionary.limited_offer_note: 'Limited offer: Visionary includes Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Purchase Visionary directly in the ap
 pricing_and_tiers.visionary.slots_left.generic: '{0} of {1} slots left'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Only {0} of {1} Visionary lifetime slots left – lifetime Plutonium and Operator Pass
 pricing_and_tiers.visionary.slots_left.visionary_only: '{0} Visionary slots left'
-product_positioning.free_and_open_source: Multiverse is free and open source. Anyone can self-host for free.
 product_positioning.intro: Multiverse is a free and open source instant messaging and VoIP platform built for friends, groups, and communities.
 product_positioning.open_source.fully_open_source_agplv3: Fully open source (AGPLv3)
 product_positioning.open_source.label: Open source
-product_positioning.open_source.license: Open source (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Connect from any client
-product_positioning.self_hosting.free_self_hosting: Free self-hosting
-product_positioning.self_hosting.host_your_own_instance: Host your own instance
-product_positioning.self_hosting.label: Self-hosting
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Access to Multiverse Operators community
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: After the offer ends, Operator Pass stays available on its own.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'The Operator Pass is optional: pay for support and community access.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Priority support and Operators community access for self-hosting
-product_positioning.self_hosting.run_backend_on_your_hardware: Run the Multiverse backend on your own hardware and connect with our apps.
-product_positioning.self_hosting.switch_between_instances: Switch between multiple instances
 security.found_security_issue: Found a security issue?
 security.report_vulnerabilities: Report vulnerabilities and help us keep the platform secure.
 security.responsible_disclosure_note: We appreciate responsible disclosure via our security bug bounty page. We offer Plutonium codes and Bug Hunter badges based on severity.

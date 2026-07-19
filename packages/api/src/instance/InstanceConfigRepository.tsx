@@ -17,7 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Config} from '@fluxer/api/src/Config';
 import {sanitizeLimitConfigForInstance} from '@fluxer/api/src/constants/LimitConfig';
 import {fetchMany, fetchOne, upsertOne} from '@fluxer/api/src/database/Cassandra';
 import type {InstanceConfigurationRow} from '@fluxer/api/src/database/types/InstanceConfigTypes';
@@ -161,7 +160,7 @@ export class InstanceConfigRepository {
 
 		try {
 			const parsed: LimitConfigSnapshot = JSON.parse(raw);
-			return sanitizeLimitConfigForInstance(parsed, {selfHosted: Config.instance.selfHosted});
+			return sanitizeLimitConfigForInstance(parsed);
 		} catch (error) {
 			Logger.warn({error}, 'Invalid limit config JSON, returning null');
 			return null;

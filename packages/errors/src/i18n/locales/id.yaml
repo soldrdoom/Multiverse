@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Indeks embed {embedIndex} di luar batas (pesan
 embeds.embed_splash_requires_feature: Embed splash butuh fitur INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Total embed tidak boleh melebihi {maxCharacters} {maxCharacters, plural, one {karakter} other {karakter}}.
 embeds.too_many_embeds: Terlalu banyak embed. Maksimal {maxEmbeds} {maxEmbeds, plural, one {embed} other {embed}} diizinkan.
-feature_flags.feature_not_available_self_hosted: Fitur ini tidak tersedia di instance yang di-host sendiri.
 feature_flags.feature_temporarily_disabled: Fitur ini sementara dinonaktifkan.
 friends_and_dms.already_friends: Kamu sudah berteman dengan pengguna ini.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Minimal satu penerima diperlukan untuk menyiapkan channel privat.

@@ -237,23 +237,6 @@ Type: Bitflags32
 | MUTUAL_GUILDS | `2` | Allow friend requests from users in mutual guilds |
 | NO_RELATION | `4` | Allow friend requests from users with no existing relation |
 
-<a id="giftcodemetadataresponse"></a>
-
-## GiftCodeMetadataResponse
-
-**Related endpoints**
-
-- [`GET /users/@me/gifts`](/api-reference/users/list-user-gifts)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| code | string | The unique gift code string |
-| created_at | string (date-time) | Timestamp when the gift code was created |
-| created_by | [UserPartialResponse](#userpartialresponse) |  |
-| duration_months | integer (int53) | Duration of the subscription gift in months |
-| redeemed_at? | ?string (date-time) | Timestamp when the gift code was redeemed |
-| redeemed_by? | ?[UserPartialResponse](#userpartialresponse) | The user who redeemed the gift code |
-
 <a id="harvestcreationresponseschema"></a>
 
 ## HarvestCreationResponseSchema
@@ -537,6 +520,18 @@ A map of channel IDs to the latest message in each channel
 - [`POST /users/@me/preload-messages`](/api-reference/users/preload-messages-for-channels)
 
 Type: map&lt;string, [MessageResponseSchema](#messageresponseschema)&gt;
+
+<a id="profilecosmeticslotschema"></a>
+
+## ProfileCosmeticSlotSchema
+
+| Value | Description |
+|-------|-------------|
+| `avatar_frame` | - |
+| `profile_banner` | - |
+| `profile_effect` | - |
+| `badge` | - |
+| `name_effect` | - |
 
 <a id="publicuserflags"></a>
 
@@ -827,6 +822,30 @@ Authenticator type
 | new_value | ?string |  |
 | old_value | ?string |  |
 | reason | ?string |  |
+
+<a id="usercosmeticspublicresponse"></a>
+
+## UserCosmeticsPublicResponse
+
+**Related endpoints**
+
+- [`GET /users/{userId}/cosmetics`](/api-reference/cosmetics/get-applied-profile-cosmetics-for-a-user)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| applied | [AppliedCosmeticEntry](#appliedcosmeticentry)[] |  |
+
+<a id="usercosmeticsresponse"></a>
+
+## UserCosmeticsResponse
+
+**Related endpoints**
+
+- [`GET /users/@me/cosmetics`](/api-reference/cosmetics/get-applied-profile-cosmetics)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| applied | [AppliedCosmeticEntry](#appliedcosmeticentry)[] |  |
 
 <a id="userflags"></a>
 
@@ -1424,6 +1443,7 @@ The user profile data
 | banner | ?string | Hash of the profile banner image |
 | banner_color? | ?[Int32Type](#int32type) | Default banner color if no custom banner |
 | bio | ?string | User biography text |
+| has_solana_wallet? | boolean | Whether this user has a Solana wallet linked (can receive tips) |
 | pronouns | ?string | User pronouns |
 
 <a id="usersettingsresponseguildfoldersitem"></a>

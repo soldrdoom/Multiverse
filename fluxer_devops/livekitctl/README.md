@@ -1,11 +1,13 @@
 # livekitctl
 
-A CLI tool for bootstrapping self-hosted LiveKit SFU infrastructure for Multiverse voice and video.
+A CLI tool for bootstrapping this instance's own LiveKit SFU infrastructure for Multiverse voice and video.
 
 ## Installation
 
+Build from source with Go, or run the install script directly from this repository:
+
 ```bash
-curl -fsSL https://fluxer.app/get/livekitctl | sudo bash
+./scripts/install.sh
 ```
 
 ## Overview

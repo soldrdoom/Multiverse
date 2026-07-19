@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Indlejring {embedIndex} er uden for grænsen (
 embeds.embed_splash_requires_feature: Embed splash kræver INVITE_SPLASH-funktionen.
 embeds.embeds_exceed_max_characters: Indlejringer må samlet set ikke overstige {maxCharacters} {maxCharacters, plural, one {tegn} other {tegn}}.
 embeds.too_many_embeds: For mange embeds. Maks {maxEmbeds} {maxEmbeds, plural, one {indlejring} other {indlejringer}} tilladt.
-feature_flags.feature_not_available_self_hosted: Denne funktion er ikke tilgængelig på selv-hostede instanser.
 feature_flags.feature_temporarily_disabled: Denne funktion er midlertidigt slået fra.
 friends_and_dms.already_friends: Du er allerede venner med den her bruger.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Der skal mindst være én modtager for at oprette private kanaler.

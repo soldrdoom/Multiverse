@@ -22,7 +22,6 @@ import type {HttpRequestConfig} from '@app/lib/HttpClient';
 import HttpClient from '@app/lib/HttpClient';
 import {makePersistent} from '@app/lib/MobXPersistence';
 import relayClient from '@app/lib/RelayClient';
-import DeveloperOptionsStore from '@app/stores/DeveloperOptionsStore';
 import {API_CODE_VERSION} from '@fluxer/constants/src/AppConstants';
 import {expandWireFormat} from '@fluxer/limits/src/LimitDiffer';
 import type {LimitConfigSnapshot, LimitConfigWireFormat} from '@fluxer/limits/src/LimitTypes';
@@ -31,7 +30,6 @@ import {makeAutoObservable, reaction, runInAction} from 'mobx';
 export interface InstanceFeatures {
 	sms_mfa_enabled: boolean;
 	voice_enabled: boolean;
-	self_hosted: boolean;
 	manual_review_enabled: boolean;
 }
 
@@ -141,7 +139,6 @@ class RuntimeConfigStore {
 	features: InstanceFeatures = {
 		sms_mfa_enabled: false,
 		voice_enabled: false,
-		self_hosted: false,
 		manual_review_enabled: false,
 	};
 	sso: InstanceSsoConfig | null = null;
@@ -471,10 +468,6 @@ class RuntimeConfigStore {
 		} catch {
 			return this.apiEndpoint.replace(/\/api$/, '');
 		}
-	}
-
-	isSelfHosted(): boolean {
-		return DeveloperOptionsStore.selfHostedModeOverride || this.features.self_hosted;
 	}
 
 	get marketingHost(): string {

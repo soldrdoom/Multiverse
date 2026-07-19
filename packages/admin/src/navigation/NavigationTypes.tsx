@@ -18,7 +18,6 @@
  */
 
 export interface NavigationContext {
-	selfHosted?: boolean;
 	inspectedVoiceRegionId?: string;
 }
 
@@ -27,7 +26,6 @@ export interface NavItem {
 	path: string;
 	activeKey: string;
 	requiredAcls: Array<string>;
-	hostedOnly?: boolean;
 }
 
 export interface NavSection {

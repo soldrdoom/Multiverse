@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: El indice de incrustacion {embedIndex} está f
 embeds.embed_splash_requires_feature: El splash de incrustacion requiere la funcion INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Las incrustaciones no deben superar {maxCharacters} {maxCharacters, plural, one {caracter} other {caracteres}} en total.
 embeds.too_many_embeds: Demasiadas incrustaciones. Se permiten como maximo {maxEmbeds} {maxEmbeds, plural, one {incrustacion} other {incrustaciones}}.
-feature_flags.feature_not_available_self_hosted: Esta funcion no está disponible en instancias auto-alojadas.
 feature_flags.feature_temporarily_disabled: Esta funcion está deshabilitada temporalmente.
 friends_and_dms.already_friends: Ya eres amigo de este usuario.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Se requiere al menos un destinatario para inicializar canales privados.

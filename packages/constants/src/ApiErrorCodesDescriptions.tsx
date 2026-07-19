@@ -102,7 +102,6 @@ export const APIErrorCodesDescriptions: Record<keyof typeof APIErrorCodes, strin
 	EMAIL_SERVICE_NOT_TESTABLE: 'Email service is not in testable mode',
 	EMAIL_VERIFICATION_REQUIRED: 'Email verification is required',
 	EXPLICIT_CONTENT_CANNOT_BE_SENT: 'Explicit content cannot be sent in this channel',
-	FEATURE_NOT_AVAILABLE_SELF_HOSTED: 'This feature is not available on self-hosted instances',
 	FEATURE_TEMPORARILY_DISABLED: 'This feature is temporarily disabled',
 	FILE_SIZE_TOO_LARGE: 'File size exceeds the maximum allowed',
 	FORBIDDEN: 'Access forbidden',

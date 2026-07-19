@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: אינדקס ה-embed {embedIndex} מחוץ ל
 embeds.embed_splash_requires_feature: Embed splash דורש את הפיצ'ר INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: סך ה-embeds לא יכול לחרוג מ-{maxCharacters} {maxCharacters, plural, one {תו} other {תווים}}.
 embeds.too_many_embeds: יותר מדי embeds. מותר עד {maxEmbeds} {maxEmbeds, plural, one {embed} other {embeds}}.
-feature_flags.feature_not_available_self_hosted: הפיצ'ר הזה לא זמין במופעים בעצמית.
 feature_flags.feature_temporarily_disabled: הפיצ'ר הזה מושבת זמנית.
 friends_and_dms.already_friends: אתם כבר חברים עם המשתמש הזה.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: צריך לפחות נמען אחד כדי ליצור ערוצים פרטיים.

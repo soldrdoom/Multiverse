@@ -43,7 +43,6 @@ export type DeveloperOptionsState = Readonly<{
 	debugLogging: boolean;
 	forceGifPickerLoading: boolean;
 	forceUnknownMessageType: boolean;
-	selfHostedModeOverride: boolean;
 	forceShowVanityURLDisclaimer: boolean;
 	forceShowVoiceConnection: boolean;
 	premiumTypeOverride: number | null;
@@ -119,7 +118,6 @@ class DeveloperOptionsStore implements DeveloperOptionsState {
 	debugLogging = false;
 	forceGifPickerLoading = false;
 	forceUnknownMessageType = false;
-	selfHostedModeOverride = false;
 	forceShowVanityURLDisclaimer = false;
 	forceShowVoiceConnection = false;
 	premiumTypeOverride: number | null = null;
@@ -198,7 +196,6 @@ class DeveloperOptionsStore implements DeveloperOptionsState {
 			'debugLogging',
 			'forceGifPickerLoading',
 			'forceUnknownMessageType',
-			'selfHostedModeOverride',
 			'forceShowVanityURLDisclaimer',
 			'forceShowVoiceConnection',
 			'premiumTypeOverride',

@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: مجاني مقابل Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'كل ما في الخطة المجانية، بالإضافة إلى:'
 pricing_and_tiers.free.full_access_to_all_features: وصول كامل لكل الميزات
 pricing_and_tiers.free.label: مجاني
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'ملاحظة: مزايا Plutonium وVisionary تنطبق فقط على نسخة Multiverse.app الرسمية، وليس على النسخ الخارجية أو المستضافة ذاتياً.'
 pricing_and_tiers.plutonium.feature_highlights: رفع 500 MB، رسائل حتى 4,000 حرف، 300 علامة مرجعية، 50 حزمة إيموجي، وأكثر بكثير.
 pricing_and_tiers.plutonium.features.bio_character_limit: حد أحرف النبذة
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: اختر أي وسم 4 أرقام متاح من #0001 إلى #9999 لاسم مستخدم فريد حقاً.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium وOperator Pass مدى ال�
 pricing_and_tiers.visionary.communities_with_team_access: مجتمعات Visionary وOperators مع وصول للفريق
 pricing_and_tiers.visionary.get_visionary: احصل على Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: احصل على Plutonium مدى الحياة على Multiverse.app بالإضافة إلى Operator Pass للاستضافة الذاتية. ادفع {0} مرة واحدة. متاح حتى 1 أكتوبر 2026 أو حتى يتم حجز جميع المقاعد.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass مدى الحياة
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium مدى الحياة
 pricing_and_tiers.visionary.limited_offer_note: 'عرض محدود: Visionary يتضمن Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: اشترِ Visionary مباشرة د�
 pricing_and_tiers.visionary.slots_left.generic: متبقي {0} من {1} مقعد
 pricing_and_tiers.visionary.slots_left.visionary_bundle: متبقي فقط {0} من {1} مقعد Visionary – Plutonium وOperator Pass مدى الحياة
 pricing_and_tiers.visionary.slots_left.visionary_only: متبقي {0} مقعد Visionary
-product_positioning.free_and_open_source: Multiverse مجاني ومفتوح المصدر. أي شخص يمكنه الاستضافة الذاتية مجاناً.
 product_positioning.intro: Multiverse منصة مراسلة فورية وVoIP مجانية ومفتوحة المصدر، مصممة للأصدقاء والمجموعات والمجتمعات.
 product_positioning.open_source.fully_open_source_agplv3: مفتوح المصدر بالكامل (AGPLv3)
 product_positioning.open_source.label: مفتوح المصدر
-product_positioning.open_source.license: مفتوح المصدر (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: اتصل من أي عميل
-product_positioning.self_hosting.free_self_hosting: استضافة ذاتية مجانية
-product_positioning.self_hosting.host_your_own_instance: استضف نسختك الخاصة
-product_positioning.self_hosting.label: الاستضافة الذاتية
-product_positioning.self_hosting.operator_pass.access_to_operators_community: الوصول لمجتمع Multiverse Operators
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: بعد انتهاء العرض، يبقى Operator Pass متاحاً بشكل مستقل.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass اختياري: ادفع مقابل الدعم والوصول لمجتمع Operators.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: دعم أولوية ووصول لمجتمع Operators للاستضافة الذاتية
-product_positioning.self_hosting.run_backend_on_your_hardware: شغّل خادم Multiverse على عتادك وتواصل عبر تطبيقاتنا.
-product_positioning.self_hosting.switch_between_instances: بدّل بين عدة نسخ
 security.found_security_issue: وجدت مشكلة أمنية؟
 security.report_vulnerabilities: بلّغ عن الثغرات وساعدنا نحافظ على أمان المنصة.
 security.responsible_disclosure_note: نقدر الإفصاح المسؤول عبر صفحة مكافآت الثغرات. نقدم رموز Plutonium وشارات Bug Hunter حسب شدة المشكلة.

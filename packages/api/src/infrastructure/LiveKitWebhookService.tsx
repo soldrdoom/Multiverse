@@ -18,7 +18,6 @@
  */
 
 import type {ChannelID, GuildID} from '@fluxer/api/src/BrandedTypes';
-import {Config} from '@fluxer/api/src/Config';
 import type {IGatewayService} from '@fluxer/api/src/infrastructure/IGatewayService';
 import type {ILiveKitService} from '@fluxer/api/src/infrastructure/ILiveKitService';
 import type {IVoiceRoomStore} from '@fluxer/api/src/infrastructure/IVoiceRoomStore';
@@ -579,10 +578,6 @@ export class LiveKitWebhookService {
 			const user = await this.userRepository.findUnique(userId);
 			if (!user) {
 				Logger.warn({userId: userId.toString()}, 'User not found for track_published event');
-				return;
-			}
-
-			if (Config.instance.selfHosted) {
 				return;
 			}
 

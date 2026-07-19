@@ -19,7 +19,7 @@
 
 import styles from '@app/components/auth/AuthLoginHero.module.css';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {HardDrivesIcon, type Icon, VideoCameraIcon, WalletIcon} from '@phosphor-icons/react';
+import {type Icon, VaultIcon, VideoCameraIcon, WalletIcon} from '@phosphor-icons/react';
 
 interface FeatureItem {
 	icon: Icon;
@@ -32,9 +32,9 @@ export function AuthLoginHero() {
 
 	const features: FeatureItem[] = [
 		{
-			icon: HardDrivesIcon,
-			label: t`Self-hosted, your rules`,
-			description: t`Run the Multiverse backend on your own hardware and connect with our apps.`,
+			icon: VaultIcon,
+			label: t`Your keys, your messages`,
+			description: t`The Identity Vault encrypts your DMs end-to-end with keys derived from your wallet.`,
 		},
 		{
 			icon: VideoCameraIcon,
@@ -54,7 +54,7 @@ export function AuthLoginHero() {
 				<Trans>A chat app that puts you first</Trans>
 			</h1>
 			<p className={styles.subhead}>
-				<Trans>Free, open source, and yours to run. Message, call, and connect — on our servers or your own.</Trans>
+				<Trans>Free, open source, and built to last. Message, call, and connect.</Trans>
 			</p>
 			<div className={styles.featureList}>
 				{features.map(({icon: FeatureIcon, label, description}) => (

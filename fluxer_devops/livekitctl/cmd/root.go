@@ -31,7 +31,7 @@ var statePath string
 var rootCmd = &cobra.Command{
 	Use:   "livekitctl",
 	Short: "LiveKit bootstrap and operations CLI",
-	Long:  "Self-hosted LiveKit bootstrap and operations CLI for installing and managing LiveKit servers.",
+	Long:  "LiveKit bootstrap and operations CLI for installing and managing this instance's LiveKit servers.",
 }
 
 func Execute() error {

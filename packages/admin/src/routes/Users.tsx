@@ -28,7 +28,6 @@ import {UserDetailPage} from '@fluxer/admin/src/pages/UserDetailPage';
 import {UsersPage} from '@fluxer/admin/src/pages/UsersPage';
 import {getRouteContext} from '@fluxer/admin/src/routes/RouteContext';
 import type {RouteFactoryDeps} from '@fluxer/admin/src/routes/RouteTypes';
-import {getPageConfig} from '@fluxer/admin/src/SelfHostedOverride';
 import type {AppVariables} from '@fluxer/admin/src/types/App';
 import {hasBigIntFlag, tryParseBigInt} from '@fluxer/admin/src/utils/Bigint';
 import {getOptionalString, getRequiredString, getStringArray, type ParsedBody} from '@fluxer/admin/src/utils/Forms';
@@ -85,13 +84,12 @@ export function createUsersRoutes({config, assetVersion, requireAuth}: RouteFact
 
 	router.get('/users', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const searchQuery = c.req.query('q');
 		const page = parseInt(c.req.query('page') ?? '0', 10);
 
 		return c.html(
 			<UsersPage
-				config={pageConfig}
+				config={config}
 				session={session}
 				currentAdmin={currentAdmin}
 				flash={flash}
@@ -105,7 +103,6 @@ export function createUsersRoutes({config, assetVersion, requireAuth}: RouteFact
 
 	router.get('/users/:userId', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const userId = c.req.param('userId');
 		const tab = c.req.query('tab');
 
@@ -124,7 +121,7 @@ export function createUsersRoutes({config, assetVersion, requireAuth}: RouteFact
 
 		return c.html(
 			<UserDetailPage
-				config={pageConfig}
+				config={config}
 				session={session}
 				currentAdmin={currentAdmin}
 				flash={flash}

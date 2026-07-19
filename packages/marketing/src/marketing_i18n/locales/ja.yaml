@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: 無料とPlutoniumの比較
 pricing_and_tiers.free.everything_in_free_plus: '無料プランの全部に加えて:'
 pricing_and_tiers.free.full_access_to_all_features: すべての機能にフルアクセス
 pricing_and_tiers.free.label: 無料
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: '注: PlutoniumとVisionaryの特典は公式のMultiverse.appインスタンスのみ対象です。第三者やセルフホストのインスタンスには適用されません。'
 pricing_and_tiers.plutonium.feature_highlights: 500MBアップロード、4,000文字メッセージ、ブックマーク300件、絵文字パック50個など、まだまだ。
 pricing_and_tiers.plutonium.features.bio_character_limit: 自己紹介の文字数上限
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: '#0001から#9999の間で好きな4桁タグを選んで、ユーザー名をもっとユニークに。'
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Visionaryで一生PlutoniumとOperator
 pricing_and_tiers.visionary.communities_with_team_access: VisionaryとOperatorsコミュニティ（チームも参加可）
 pricing_and_tiers.visionary.get_visionary: Visionaryを入手
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Multiverse.appで一生Plutoniumに加えて、セルフホスト用のOperator Passも。{0}を一度払うだけ。2026年10月1日まで、またはすべての枠が埋まるまで。
 pricing_and_tiers.visionary.lifetime_operator_pass: 一生Operator Pass
 pricing_and_tiers.visionary.lifetime_plutonium: 一生Plutonium
 pricing_and_tiers.visionary.limited_offer_note: '限定オファー: VisionaryにOperator Passが含まれます'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: アカウント作成後、アプリ�
 pricing_and_tiers.visionary.slots_left.generic: '{1}枠中{0}枠が残り'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Visionaryの残りは{1}枠中{0}枠（ 一生PlutoniumとOperator Pass ）
 pricing_and_tiers.visionary.slots_left.visionary_only: 'Visionaryの残り枠: {0}'
-product_positioning.free_and_open_source: Multiverseは無料でオープンソース。誰でも無料でセルフホストできます。
 product_positioning.intro: Multiverseは、友だち、グループ、コミュニティのための、無料でオープンソースのインスタントメッセージング＆VoIPプラットフォームです。
 product_positioning.open_source.fully_open_source_agplv3: 完全オープンソース（AGPLv3）
 product_positioning.open_source.label: オープンソース
-product_positioning.open_source.license: オープンソース（AGPL-3.0）
-product_positioning.self_hosting.connect_from_any_client: どのクライアントからでも接続
-product_positioning.self_hosting.free_self_hosting: 無料でセルフホスト
-product_positioning.self_hosting.host_your_own_instance: 自分のインスタンスを立てる
-product_positioning.self_hosting.label: セルフホスト
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Multiverse Operatorsコミュニティに参加
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: オファー終了後も、Operator Pass単体で購入できます。
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: Operator Passは任意です。サポートとOperatorsコミュニティアクセスに支払います。
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: セルフホスト向けに、優先サポートとOperatorsコミュニティへのアクセス
-product_positioning.self_hosting.run_backend_on_your_hardware: 自分のハードウェアでMultiverseバックエンドを動かして、アプリから接続できます。
-product_positioning.self_hosting.switch_between_instances: 複数のインスタンスを切り替え
 security.found_security_issue: セキュリティ問題を見つけた？
 security.report_vulnerabilities: 脆弱性を報告して、プラットフォームの安全性を一緒に守りましょう。
 security.responsible_disclosure_note: セキュリティバグ報奨金ページからの責任ある開示に感謝します。深刻度に応じてPlutoniumコードとBug Hunterバッジを提供します。

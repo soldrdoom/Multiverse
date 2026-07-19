@@ -37,7 +37,7 @@ interface SpriteSheetVariant {
 }
 
 const SPRITE_BASE = '/emoji';
-const SPRITE_VERSION = '2';
+const SPRITE_VERSION = '3';
 
 const buildVersionedSpriteUrl = (fileName: string): string => {
 	return `${SPRITE_BASE}/${fileName}?v=${SPRITE_VERSION}`;

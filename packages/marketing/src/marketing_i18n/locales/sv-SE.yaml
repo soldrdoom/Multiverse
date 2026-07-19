@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Gratis vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Allt i Gratis, plus:'
 pricing_and_tiers.free.full_access_to_all_features: Full tillgång till alla funktioner
 pricing_and_tiers.free.label: Gratis
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Obs: Plutonium- och Visionary-förmåner gäller bara på den officiella Multiverse.app-instansen, inte på tredjeparts- eller självhostade instanser.'
 pricing_and_tiers.plutonium.feature_highlights: 500 MB uppladdningar, 4 000 tecken per meddelande, 300 bokmärken, 50 emojipaket och mycket mer.
 pricing_and_tiers.plutonium.features.bio_character_limit: Teckengräns för bio
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Välj en tillgänglig 4-siffrig tagg från #0001 till #9999 för att göra ditt användarnamn helt unikt.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium och Operator Pass för livet
 pricing_and_tiers.visionary.communities_with_team_access: Visionary- och Operators-communities med teamåtkomst
 pricing_and_tiers.visionary.get_visionary: Skaffa Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Få Plutonium på livstid på Multiverse.app plus ett Operator Pass för self-hosting. Betala {0} en gång. Tillgängligt till 1 oktober 2026 eller tills alla platser är tagna.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass för livet
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium för livet
 pricing_and_tiers.visionary.limited_offer_note: 'Begränsat erbjudande: Visionary inkluderar Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Köp Visionary direkt i appen efter a
 pricing_and_tiers.visionary.slots_left.generic: '{0} av {1} platser kvar'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Bara {0} av {1} Visionary-platser kvar – Plutonium och Operator Pass för livet
 pricing_and_tiers.visionary.slots_left.visionary_only: '{0} Visionary-platser kvar'
-product_positioning.free_and_open_source: Multiverse är gratis och open source. Vem som helst kan självhosta gratis.
 product_positioning.intro: Multiverse är en gratis och öppen källkodsplattform för snabbmeddelanden och VoIP, byggd för vänner, grupper och communities.
 product_positioning.open_source.fully_open_source_agplv3: Helt open source (AGPLv3)
 product_positioning.open_source.label: Open source
-product_positioning.open_source.license: Open source (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Anslut från valfri klient
-product_positioning.self_hosting.free_self_hosting: Gratis självhosting
-product_positioning.self_hosting.host_your_own_instance: Hosta din egen instans
-product_positioning.self_hosting.label: Självhosting
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Åtkomst till Multiverse Operators-communityn
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: När erbjudandet tar slut finns Operator Pass kvar att köpa separat.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: Operator Pass är valfritt – betala för support och åtkomst till Operators-communityn.
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Prioriterad support och åtkomst till Operators-communityn för självhosting
-product_positioning.self_hosting.run_backend_on_your_hardware: Kör Multiverse-backenden på din egen hårdvara och anslut med våra appar.
-product_positioning.self_hosting.switch_between_instances: Växla mellan flera instanser
 security.found_security_issue: Hittat en säkerhetsbrist?
 security.report_vulnerabilities: Rapportera sårbarheter och hjälp oss hålla plattformen säker.
 security.responsible_disclosure_note: Vi uppskattar ansvarsfull rapportering via vår bug bounty-sida. Vi delar ut Plutonium-koder och Bug Hunter-märken beroende på allvarlighetsgrad.

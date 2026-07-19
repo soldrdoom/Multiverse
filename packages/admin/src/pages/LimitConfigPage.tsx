@@ -116,7 +116,7 @@ export async function LimitConfigPage({
 			assetVersion={assetVersion}
 		>
 			<VStack gap={6}>
-				<RenderHeader response={response} />
+				<RenderHeader />
 				<RenderRuleTabs config={config} rules={sortedRules} activeRuleId={activeRuleId} />
 				<RenderRuleEditor
 					config={config}
@@ -131,10 +131,9 @@ export async function LimitConfigPage({
 	);
 }
 
-const RenderHeader: FC<{response: LimitConfigResponse}> = ({response}) => {
-	const description = response.self_hosted
-		? 'Self-hosted instance with all premium features enabled by default. Configure limits to customize user and guild restrictions.'
-		: 'Configure limit rules that control user and guild restrictions. Different rules apply based on user traits (like premium) or guild features.';
+const RenderHeader: FC = () => {
+	const description =
+		'Configure limit rules that control user and guild restrictions. Different rules apply based on user traits (like premium) or guild features.';
 
 	return (
 		<Card padding="md">

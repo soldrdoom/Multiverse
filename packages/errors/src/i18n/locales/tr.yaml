@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Embed indeksi {embedIndex} sınır dışında 
 embeds.embed_splash_requires_feature: Embed splash için INVITE_SPLASH özelliği gerekiyor.
 embeds.embeds_exceed_max_characters: Embedler toplamda {maxCharacters} {maxCharacters, plural, one {character} other {characters}} sınırını aşamaz.
 embeds.too_many_embeds: Çok fazla embed. En fazla {maxEmbeds} {maxEmbeds, plural, one {embed} other {embeds}} olabilir.
-feature_flags.feature_not_available_self_hosted: Bu özellik kendi barındırılan sistemlerde mevcut değildir.
 feature_flags.feature_temporarily_disabled: Bu özellik geçici olarak devre dışı.
 friends_and_dms.already_friends: Bu kullanıcıyla zaten arkadaşsın.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Özel kanalları başlatmak için en az bir alıcı gerekli.

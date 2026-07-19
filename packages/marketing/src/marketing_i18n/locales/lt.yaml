@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Nemokama vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Viskas, kas yra Nemokamoje, ir dar:'
 pricing_and_tiers.free.full_access_to_all_features: Pilna prieiga prie visų funkcijų
 pricing_and_tiers.free.label: Nemokama
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Pastaba: Plutonium ir Visionary naudos galioja tik oficialioje Multiverse.app instancijoje, o ne trečiųjų šalių ar savihostinamose instancijose.'
 pricing_and_tiers.plutonium.feature_highlights: 500 MB įkėlimai, 4 000 simbolių žinutės, 300 žymių, 50 emoji paketų ir dar daug daugiau.
 pricing_and_tiers.plutonium.features.bio_character_limit: Aprašymo simbolių limitas
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: 'Pasirink bet kurią laisvą 4 skaitmenų žymę nuo #0001 iki #9999, kad tavo naudotojo vardas būtų iš tiesų unikalus.'
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium ir Operator Pass visam gyven
 pricing_and_tiers.visionary.communities_with_team_access: Visionary ir Operators bendruomenės su komandos prieiga
 pricing_and_tiers.visionary.get_visionary: Įsigyti Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Gauk Plutonium visam gyvenimui Multiverse.app ir Operator Pass savihostinimui. Sumokėk {0} vieną kartą. Galioja iki 2026 m. spalio 1 d. arba kol bus paimtos visos vietos.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass visam gyvenimui
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium visam gyvenimui
 pricing_and_tiers.visionary.limited_offer_note: 'Ribotas pasiūlymas: Visionary įtraukia Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Visionary nusipirksi tiesiog program�
 pricing_and_tiers.visionary.slots_left.generic: Liko {0} iš {1} vietų
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Liko tik {0} iš {1} Visionary visam gyvenimui – Plutonium ir Operator Pass
 pricing_and_tiers.visionary.slots_left.visionary_only: Liko {0} Visionary vietų
-product_positioning.free_and_open_source: Multiverse yra nemokama ir atvirojo kodo. Kiekvienas gali nemokamai pasileisti savo instanciją.
 product_positioning.intro: Multiverse yra nemokama ir atvirojo kodo momentinių žinučių ir VoIP platforma draugams, grupėms ir bendruomenėms.
 product_positioning.open_source.fully_open_source_agplv3: Visiškai atviras šaltinis (AGPLv3)
 product_positioning.open_source.label: Atvirasis kodas
-product_positioning.open_source.license: Atvirasis kodas (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Junkis iš bet kurio kliento
-product_positioning.self_hosting.free_self_hosting: Nemokamas savihostinimas
-product_positioning.self_hosting.host_your_own_instance: Pasileisk savo instanciją
-product_positioning.self_hosting.label: Savihostinimas
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Prieiga prie Multiverse Operators bendruomenės
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Pasibaigus pasiūlymui, Operator Pass bus galima įsigyti ir atskirai.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: Operator Pass yra neprivalomas – sumoki už palaikymą ir prieigą prie bendruomenės.
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Prioritetinis palaikymas ir prieiga prie Operators bendruomenės savihostinimui
-product_positioning.self_hosting.run_backend_on_your_hardware: Paleisk Multiverse backendą savo geležyje ir junkis per mūsų programėles.
-product_positioning.self_hosting.switch_between_instances: Persijunk tarp kelių instancijų
 security.found_security_issue: Radai saugumo spragą?
 security.report_vulnerabilities: Pranešk apie pažeidžiamumus ir padėk mums išlaikyti platformą saugią.
 security.responsible_disclosure_note: Vertiname atsakingą atskleidimą per mūsų saugumo klaidų programą. Pagal rimtumą skiriame Plutonium kodus ir Bug Hunter ženklelius.

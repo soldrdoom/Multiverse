@@ -60,17 +60,14 @@ function renderSupportBody(ctx: MarketingContext): JSX.Element {
 						{ctx.i18n.getMessage('company_and_resources.support.documentation_description', ctx.locale)}
 					</p>
 				</a>
-				<div class={`${darkCardClass} relative`}>
-					<div class="caption absolute -top-2 -right-2 rounded-full bg-[#00C864] px-3 py-1 text-[#0B0E14]">
-						{ctx.i18n.getMessage('general.coming_soon.label', ctx.locale)}
-					</div>
+				<a href="/whitepaper" class={darkCardClass}>
 					<h2 class="mb-1 font-semibold text-white">
 						{ctx.i18n.getMessage('company_and_resources.support.whitepaper', ctx.locale)}
 					</h2>
 					<p class="text-sm text-white/60">
 						{ctx.i18n.getMessage('company_and_resources.support.whitepaper_description', ctx.locale)}
 					</p>
-				</div>
+				</a>
 				<a href="https://blog.fluxer.app/roadmap-2026" class={darkCardClass}>
 					<h2 class="mb-1 font-semibold text-white">
 						{ctx.i18n.getMessage('company_and_resources.support.roadmap', ctx.locale)}

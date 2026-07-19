@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Indexul embed-ului {embedIndex} e în afara li
 embeds.embed_splash_requires_feature: Embed splash necesită feature-ul INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Embed-urile nu trebuie să depășească în total {maxCharacters} {maxCharacters, plural, one {caracter} other {caractere}}.
 embeds.too_many_embeds: Prea multe embed-uri. Sunt permise maximum {maxEmbeds} {maxEmbeds, plural, one {embed} other {embed-uri}}.
-feature_flags.feature_not_available_self_hosted: Această funcție nu este disponibilă pe instanțele care se auto-găzduiesc.
 feature_flags.feature_temporarily_disabled: Această funcție este dezactivată temporar.
 friends_and_dms.already_friends: Ești deja prieten cu acest utilizator.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: E necesar cel puțin un destinatar ca să inițializezi canale private.

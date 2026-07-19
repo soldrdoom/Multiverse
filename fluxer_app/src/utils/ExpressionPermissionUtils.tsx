@@ -20,7 +20,6 @@
 import type {ChannelRecord} from '@app/records/ChannelRecord';
 import type {GuildStickerRecord} from '@app/records/GuildStickerRecord';
 import PermissionStore from '@app/stores/PermissionStore';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import type {FlatEmoji} from '@app/types/EmojiTypes';
 import {LimitResolver} from '@app/utils/limits/LimitResolverAdapter';
 import {isLimitToggleEnabled} from '@app/utils/limits/LimitUtils';
@@ -67,18 +66,11 @@ export function checkEmojiAvailabilityWithGuildFallback(
 
 	if (!channelGuildId) {
 		if (!hasGlobalExpressions) {
-			if (!RuntimeConfigStore.isSelfHosted()) {
-				return {
-					canUse: false,
-					isLockedByPremium: true,
-					isLockedByPermission: false,
-					lockReason: i18n._(msg`Unlock custom emojis in DMs with Plutonium`),
-				};
-			}
 			return {
 				canUse: false,
-				isLockedByPremium: false,
+				isLockedByPremium: true,
 				isLockedByPermission: false,
+				lockReason: i18n._(msg`Unlock custom emojis in DMs with Plutonium`),
 			};
 		}
 		return {
@@ -113,19 +105,11 @@ export function checkEmojiAvailabilityWithGuildFallback(
 	}
 
 	if (!hasGlobalExpressions) {
-		if (!RuntimeConfigStore.isSelfHosted()) {
-			return {
-				canUse: false,
-				isLockedByPremium: true,
-				isLockedByPermission: false,
-				lockReason: i18n._(msg`Unlock external custom emojis with Plutonium`),
-			};
-		}
-
 		return {
 			canUse: false,
-			isLockedByPremium: false,
+			isLockedByPremium: true,
 			isLockedByPermission: false,
+			lockReason: i18n._(msg`Unlock external custom emojis with Plutonium`),
 		};
 	}
 
@@ -158,18 +142,11 @@ export function checkStickerAvailability(
 
 	if (!channel?.guildId) {
 		if (!hasGlobalExpressions) {
-			if (!RuntimeConfigStore.isSelfHosted()) {
-				return {
-					canUse: false,
-					isLockedByPremium: true,
-					isLockedByPermission: false,
-					lockReason: i18n._(msg`Unlock stickers in DMs with Plutonium`),
-				};
-			}
 			return {
 				canUse: false,
-				isLockedByPremium: false,
+				isLockedByPremium: true,
 				isLockedByPermission: false,
+				lockReason: i18n._(msg`Unlock stickers in DMs with Plutonium`),
 			};
 		}
 		return {
@@ -212,18 +189,11 @@ export function checkStickerAvailability(
 	}
 
 	if (!hasGlobalExpressions) {
-		if (!RuntimeConfigStore.isSelfHosted()) {
-			return {
-				canUse: false,
-				isLockedByPremium: true,
-				isLockedByPermission: false,
-				lockReason: i18n._(msg`Unlock external stickers with Plutonium`),
-			};
-		}
 		return {
 			canUse: false,
-			isLockedByPremium: false,
+			isLockedByPremium: true,
 			isLockedByPermission: false,
+			lockReason: i18n._(msg`Unlock external stickers with Plutonium`),
 		};
 	}
 
@@ -257,10 +227,6 @@ export function filterStickersForAutocomplete(
 }
 
 export function shouldShowEmojiPremiumUpsell(channel: ChannelRecord | null): boolean {
-	if (RuntimeConfigStore.isSelfHosted()) {
-		return false;
-	}
-
 	const hasGlobalExpressions = hasGlobalExpressionsEnabled();
 
 	if (hasGlobalExpressions) {
@@ -280,10 +246,6 @@ export function shouldShowEmojiPremiumUpsell(channel: ChannelRecord | null): boo
 }
 
 export function shouldShowStickerPremiumUpsell(channel: ChannelRecord | null): boolean {
-	if (RuntimeConfigStore.isSelfHosted()) {
-		return false;
-	}
-
 	const hasGlobalExpressions = isLimitToggleEnabled(
 		{
 			feature_global_expressions: LimitResolver.resolve({key: 'feature_global_expressions', fallback: 0}),

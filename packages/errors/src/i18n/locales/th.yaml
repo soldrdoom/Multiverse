@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: embed index {embedIndex} อยู่นอก
 embeds.embed_splash_requires_feature: embed splash ต้องมีฟีเจอร์ INVITE_SPLASH
 embeds.embeds_exceed_max_characters: embed ทั้งหมดต้องมีความยาวรวมไม่เกิน {maxCharacters} {maxCharacters, plural, one {ตัวอักษร} other {ตัวอักษร}}
 embeds.too_many_embeds: มี embed มากเกินไป อนุญาตสูงสุด {maxEmbeds} {maxEmbeds, plural, one {embed} other {embed}}
-feature_flags.feature_not_available_self_hosted: ฟีเจอร์นี้ไม่พร้อมใช้งานบนอินสแตนซ์ที่จัดการเอง
 feature_flags.feature_temporarily_disabled: ฟีเจอร์นี้ถูกปิดใช้งานชั่วคราว
 friends_and_dms.already_friends: คุณเป็นเพื่อนกับผู้ใช้นี้อยู่แล้ว
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: ต้องมีผู้รับอย่างน้อย 1 คนเพื่อสร้างช่องส่วนตัว

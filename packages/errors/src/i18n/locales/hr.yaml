@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Indeks embeda {embedIndex} je izvan raspona (p
 embeds.embed_splash_requires_feature: Embed splash traži značajku INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Embedovi ukupno ne smiju prelaziti {maxCharacters} {maxCharacters, plural, one {znak} few {znaka} other {znakova}}.
 embeds.too_many_embeds: Previše embedova. Dopušteno je najviše {maxEmbeds} {maxEmbeds, plural, one {embed} few {embeda} other {embeda}}.
-feature_flags.feature_not_available_self_hosted: Ova značajka nije dostupna na lokalnim instancama.
 feature_flags.feature_temporarily_disabled: Ova značajka je privremeno isključena.
 friends_and_dms.already_friends: Već si prijatelj s ovim korisnikom.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Trebaš barem jednog primatelja za pokretanje privatnih kanala.

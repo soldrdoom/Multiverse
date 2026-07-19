@@ -40,7 +40,6 @@ import {SearchIndexPage} from '@fluxer/admin/src/pages/SearchIndexPage';
 import {StrangePlacePage} from '@fluxer/admin/src/pages/StrangePlacePage';
 import {getRouteContext} from '@fluxer/admin/src/routes/RouteContext';
 import type {RouteFactoryDeps} from '@fluxer/admin/src/routes/RouteTypes';
-import {getPageConfig, isSelfHostedOverride} from '@fluxer/admin/src/SelfHostedOverride';
 import type {AppContext, AppVariables} from '@fluxer/admin/src/types/App';
 import {getOptionalString, type ParsedBody, parseDelimitedStringList} from '@fluxer/admin/src/utils/Forms';
 import {
@@ -95,8 +94,7 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	function getLandingPath(c: AppContext): string {
 		const {adminAcls} = getRouteContext(c);
-		const selfHosted = isSelfHostedOverride(c, config);
-		const firstPath = getFirstAccessiblePath(adminAcls, {selfHosted});
+		const firstPath = getFirstAccessiblePath(adminAcls);
 		return `${config.basePath}${firstPath ?? '/strange-place'}`;
 	}
 
@@ -110,11 +108,10 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	router.get('/strange-place', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		return c.html(
 			<StrangePlacePage
-				config={pageConfig}
+				config={config}
 				session={session}
 				currentAdmin={currentAdmin}
 				flash={flash}
@@ -126,10 +123,9 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	router.get('/gateway', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, adminAcls, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		const page = await GatewayPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -170,14 +166,13 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	router.get('/audit-logs', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const query = c.req.query('q');
 		const adminUserIdFilter = c.req.query('admin_user_id');
 		const targetId = c.req.query('target_id');
 		const currentPage = Math.max(0, parseInt(c.req.query('page') ?? '0', 10));
 
 		const page = await AuditLogsPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -193,11 +188,10 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	router.get('/search-index', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const jobId = c.req.query('job_id');
 
 		const page = await SearchIndexPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -251,10 +245,9 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	router.get('/instance-config', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		const page = await InstanceConfigPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -336,13 +329,6 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 			}
 
 			if (action === 'add_reservation') {
-				if (isSelfHostedOverride(c, config)) {
-					return redirectWithFlash(c, redirectUrl, {
-						message: 'Snowflake reservations are not available on self-hosted instances',
-						type: 'error',
-					});
-				}
-
 				const email = trimToUndefined(getOptionalString(formData, 'reservation_email'));
 				const snowflake = trimToUndefined(getOptionalString(formData, 'reservation_snowflake'));
 				const validation = AddSnowflakeReservationRequest.safeParse({email, snowflake});
@@ -362,13 +348,6 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 			}
 
 			if (action === 'delete_reservation') {
-				if (isSelfHostedOverride(c, config)) {
-					return redirectWithFlash(c, redirectUrl, {
-						message: 'Snowflake reservations are not available on self-hosted instances',
-						type: 'error',
-					});
-				}
-
 				const email = trimToUndefined(getOptionalString(formData, 'reservation_email'));
 				const validation = DeleteSnowflakeReservationRequest.safeParse({email});
 
@@ -394,11 +373,10 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	router.get('/limit-config', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const selectedRule = c.req.query('rule')?.trim() || undefined;
 
 		const page = await LimitConfigPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -566,10 +544,9 @@ export function createSystemRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	router.get('/asset-purge', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		const page = await AssetPurgePage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,

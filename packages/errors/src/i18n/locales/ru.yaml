@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Индекс embed {embedIndex} вне диа�
 embeds.embed_splash_requires_feature: Embed splash требует функцию INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Общий размер embeds не должен превышать {maxCharacters} {maxCharacters, plural, one {символ} few {символа} many {символов} other {символа}}.
 embeds.too_many_embeds: Слишком много embeds. Максимум {maxEmbeds} {maxEmbeds, plural, one {embed} other {embeds}}.
-feature_flags.feature_not_available_self_hosted: Эта функция не доступна в самостоятельно размещенных экземплярах.
 feature_flags.feature_temporarily_disabled: Эта функция временно отключена.
 friends_and_dms.already_friends: Вы уже в друзьях.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Нужен хотя бы один получатель, чтобы создать приватные каналы.

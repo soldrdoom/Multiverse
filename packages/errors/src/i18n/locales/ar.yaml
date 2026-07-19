@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: فهرس embed {embedIndex} خارج النط�
 embeds.embed_splash_requires_feature: صورة embed تحتاج ميزة INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: embeds لازم ما تتجاوز إجمالاً {maxCharacters} {maxCharacters, plural, one {حرف} other {حروف}}.
 embeds.too_many_embeds: embeds كثيرة. الحد الأقصى {maxEmbeds} {maxEmbeds, plural, one {embed} other {embeds}}}.
-feature_flags.feature_not_available_self_hosted: هذه الميزة ما تتوفر على خوادم مستضافة بشكل مستقل.
 feature_flags.feature_temporarily_disabled: هذه الميزة معطّلة مؤقتاً.
 friends_and_dms.already_friends: أنت أصلاً صديق لهذا المستخدم.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: لازم على الأقل مستلم واحد لتهيئة القنوات الخاصة.

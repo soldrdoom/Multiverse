@@ -40,7 +40,7 @@ description: 'Reports object schemas from the Fluxer API.'
 | invite_code? | string | Invite code used to access the guild |
 | report_type | enum&lt;`guild`&gt; | Type of report |
 | reporter_country_of_residence | enum&lt;`AT`, `BE`, `BG`, `HR`, `CY`, `CZ`, `DK`, `EE`, `FI`, `FR`, `DE`, `GR`, `HU`, `IE`, `IT`, `LV`, `LT`, `LU`, `MT`, `NL`, `PL`, `PT`, `RO`, `SK`, `SI`, `ES`, `SE`&gt; | EU country code of the reporter residence |
-| reporter_fluxer_tag? | string | Fluxer tag of the reporter if they have an account |
+| reporter_fluxer_tag? | string | Multiverse tag of the reporter if they have an account |
 | reporter_full_legal_name | string | Full legal name of the person filing the report |
 | ticket | string | Verification ticket obtained from email verification |
 
@@ -54,9 +54,9 @@ description: 'Reports object schemas from the Fluxer API.'
 | category | [MessageReportCategoryEnum](#messagereportcategoryenum) |  |
 | message_link | string | Link to the message being reported |
 | report_type | enum&lt;`message`&gt; | Type of report |
-| reported_user_tag? | string | Fluxer tag of the user who sent the message |
+| reported_user_tag? | string | Multiverse tag of the user who sent the message |
 | reporter_country_of_residence | enum&lt;`AT`, `BE`, `BG`, `HR`, `CY`, `CZ`, `DK`, `EE`, `FI`, `FR`, `DE`, `GR`, `HU`, `IE`, `IT`, `LV`, `LT`, `LU`, `MT`, `NL`, `PL`, `PT`, `RO`, `SK`, `SI`, `ES`, `SE`&gt; | EU country code of the reporter residence |
-| reporter_fluxer_tag? | string | Fluxer tag of the reporter if they have an account |
+| reporter_fluxer_tag? | string | Multiverse tag of the reporter if they have an account |
 | reporter_full_legal_name | string | Full legal name of the person filing the report |
 | ticket | string | Verification ticket obtained from email verification |
 
@@ -80,11 +80,11 @@ Type: [DsaReportMessageRequest](#dsareportmessagerequest) \| [DsaReportUserReque
 | category | [UserReportCategoryEnum](#userreportcategoryenum) |  |
 | report_type | enum&lt;`user`&gt; | Type of report |
 | reporter_country_of_residence | enum&lt;`AT`, `BE`, `BG`, `HR`, `CY`, `CZ`, `DK`, `EE`, `FI`, `FR`, `DE`, `GR`, `HU`, `IE`, `IT`, `LV`, `LT`, `LU`, `MT`, `NL`, `PL`, `PT`, `RO`, `SK`, `SI`, `ES`, `SE`&gt; | EU country code of the reporter residence |
-| reporter_fluxer_tag? | string | Fluxer tag of the reporter if they have an account |
+| reporter_fluxer_tag? | string | Multiverse tag of the reporter if they have an account |
 | reporter_full_legal_name | string | Full legal name of the person filing the report |
 | ticket | string | Verification ticket obtained from email verification |
 | user_id? | [SnowflakeType](#snowflaketype) |  |
-| user_tag? | string | Fluxer tag of the user being reported |
+| user_tag? | string | Multiverse tag of the user being reported |
 
 <a id="okresponse"></a>
 

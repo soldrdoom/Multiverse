@@ -39,11 +39,6 @@ export const getToggleGroups = (): Array<ToggleGroup> => [
 			{key: 'bypassSplashScreen', label: msg`Bypass Splash Screen`},
 			{key: 'forceUpdateReady', label: msg`Force Update Ready`},
 			{key: 'showMyselfTyping', label: msg`Show Myself Typing`},
-			{
-				key: 'selfHostedModeOverride',
-				label: msg`Self-Hosted Mode Override`,
-				description: msg`Enable self-hosted mode client-side (hides all premium/billing UI)`,
-			},
 		],
 	},
 	{

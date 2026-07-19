@@ -17,7 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Config} from '@fluxer/api/src/Config';
 import type {CachedLimitConfig} from '@fluxer/api/src/constants/LimitConfig';
 import {
 	createDefaultLimitConfig,
@@ -38,7 +37,7 @@ import type {LimitConfigSnapshot, LimitConfigWireFormat} from '@fluxer/limits/sr
 let globalLimitConfigService: LimitConfigService | null = null;
 
 export class LimitConfigService {
-	private config: LimitConfigSnapshot = createDefaultLimitConfig({selfHosted: Config.instance.selfHosted});
+	private config: LimitConfigSnapshot = createDefaultLimitConfig();
 	private repository: InstanceConfigRepository;
 	private cacheService: ICacheService;
 	private kvClient: IKVProvider | null;
@@ -50,7 +49,7 @@ export class LimitConfigService {
 		this.repository = repository;
 		this.cacheService = cacheService;
 		this.kvClient = kvClient;
-		this.cacheKey = getLimitConfigKvKey(Config.instance.selfHosted);
+		this.cacheKey = getLimitConfigKvKey();
 	}
 
 	setAsGlobalInstance(): void {
@@ -81,11 +80,11 @@ export class LimitConfigService {
 
 			const cached = await this.cacheService.get<CachedLimitConfig>(this.cacheKey);
 			if (cached && cached.defaultsHash === currentHash) {
-				this.config = sanitizeLimitConfigForInstance(cached.config, {selfHosted: Config.instance.selfHosted});
+				this.config = sanitizeLimitConfigForInstance(cached.config);
 				return;
 			}
 
-			this.config = createDefaultLimitConfig({selfHosted: Config.instance.selfHosted});
+			this.config = createDefaultLimitConfig();
 			return;
 		}
 
@@ -93,14 +92,14 @@ export class LimitConfigService {
 			const cached = await this.cacheService.get<CachedLimitConfig>(this.cacheKey);
 
 			if (cached && cached.defaultsHash === currentHash) {
-				this.config = sanitizeLimitConfigForInstance(cached.config, {selfHosted: Config.instance.selfHosted});
+				this.config = sanitizeLimitConfigForInstance(cached.config);
 				return;
 			}
 
 			const dbConfig = await this.repository.getLimitConfig();
 
 			if (dbConfig === null) {
-				this.config = createDefaultLimitConfig({selfHosted: Config.instance.selfHosted});
+				this.config = createDefaultLimitConfig();
 				await this.cacheService.delete(this.cacheKey);
 				Logger.debug('No database limit config, using fresh defaults');
 				return;
@@ -111,13 +110,13 @@ export class LimitConfigService {
 				'Merging database config with current defaults',
 			);
 
-			const merged = mergeWithCurrentDefaults(dbConfig, {selfHosted: Config.instance.selfHosted});
+			const merged = mergeWithCurrentDefaults(dbConfig);
 			await this.repository.setLimitConfig(merged);
 			await this.cacheService.set(this.cacheKey, {
 				config: merged,
 				defaultsHash: currentHash,
 			});
-			this.config = sanitizeLimitConfigForInstance(merged, {selfHosted: Config.instance.selfHosted});
+			this.config = sanitizeLimitConfigForInstance(merged);
 		} finally {
 			await this.cacheService.releaseLock(LIMIT_CONFIG_REFRESH_LOCK_KEY, lockToken);
 		}
@@ -128,7 +127,7 @@ export class LimitConfigService {
 	}
 
 	async updateConfig(config: LimitConfigSnapshot): Promise<void> {
-		const normalized = sanitizeLimitConfigForInstance(config, {selfHosted: Config.instance.selfHosted});
+		const normalized = sanitizeLimitConfigForInstance(config);
 		await this.repository.setLimitConfig(normalized);
 		await this.cacheService.delete(this.cacheKey);
 		await this.refreshCache();

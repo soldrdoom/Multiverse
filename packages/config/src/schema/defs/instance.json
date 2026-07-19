@@ -10,11 +10,6 @@
 				"enum": ["monolith", "microservices"],
 				"default": "monolith"
 			},
-			"self_hosted": {
-				"type": "boolean",
-				"default": true,
-				"description": "Indicates if this is a self-hosted instance."
-			},
 			"auto_join_invite_code": {
 				"type": "string",
 				"default": "",

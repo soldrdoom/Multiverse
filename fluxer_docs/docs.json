@@ -67,17 +67,6 @@
 							"resources/media_proxy",
 							"resources/common"
 						]
-					},
-					{
-						"group": "Self-hosting",
-						"pages": [
-							"self_hosting/overview",
-							"self_hosting/quickstart",
-							"self_hosting/configuration",
-							"self_hosting/architecture",
-							"self_hosting/voice",
-							"self_hosting/upgrading"
-						]
 					}
 				]
 			},

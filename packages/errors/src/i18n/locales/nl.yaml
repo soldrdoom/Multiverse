@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Embed-index {embedIndex} valt buiten de grenze
 embeds.embed_splash_requires_feature: Embed splash vereist de INVITE_SPLASH-feature.
 embeds.embeds_exceed_max_characters: Embeds mogen in totaal niet meer dan {maxCharacters} {maxCharacters, plural, one {teken} other {tekens}} bevatten.
 embeds.too_many_embeds: Te veel embeds. Maximaal {maxEmbeds} {maxEmbeds, plural, one {embed} other {embeds}} toegestaan.
-feature_flags.feature_not_available_self_hosted: Deze feature is niet beschikbaar op zelf-gehoste instanties.
 feature_flags.feature_temporarily_disabled: Deze feature is tijdelijk uitgeschakeld.
 friends_and_dms.already_friends: Je bent al bevriend met deze gebruiker.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Je hebt minstens 1 ontvanger nodig om privekanalen te seeden.

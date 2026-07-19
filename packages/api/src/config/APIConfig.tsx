@@ -219,7 +219,6 @@ export interface APIConfig {
 	};
 
 	instance: {
-		selfHosted: boolean;
 		autoJoinInviteCode?: string;
 		visionariesGuildId?: string;
 		operatorsGuildId?: string;

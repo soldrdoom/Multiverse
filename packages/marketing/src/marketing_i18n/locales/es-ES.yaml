@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Gratis vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Todo lo de Gratis, y además:'
 pricing_and_tiers.free.full_access_to_all_features: Acceso completo a todas las funciones
 pricing_and_tiers.free.label: Gratis
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Nota: los beneficios de Plutonium y Visionary solo se aplican a la instancia oficial de Multiverse.app, no a instancias de terceros ni autoalojadas.'
 pricing_and_tiers.plutonium.feature_highlights: Subidas de 500 MB, mensajes de 4.000 caracteres, 300 marcadores, 50 packs de emojis y mucho más.
 pricing_and_tiers.plutonium.features.bio_character_limit: Límite de caracteres en la bio
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Elige cualquier etiqueta de 4 dígitos disponible del #0001 al #9999 para que tu nombre de usuario sea verdaderamente único.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium y Operator Pass de por vida 
 pricing_and_tiers.visionary.communities_with_team_access: Comunidades de Visionary y Operators con acceso al equipo
 pricing_and_tiers.visionary.get_visionary: Consigue Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Consigue Plutonium de por vida en Multiverse.app más un Operator Pass para autoalojamiento. Paga {0} una sola vez. Disponible hasta el 1 de octubre de 2026 o hasta que se agoten todas las plazas.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass de por vida
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium de por vida
 pricing_and_tiers.visionary.limited_offer_note: 'Oferta limitada: Visionary incluye Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Compra Visionary directamente en la a
 pricing_and_tiers.visionary.slots_left.generic: Quedan {0} de {1} plazas
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Solo quedan {0} de {1} plazas de Visionary – Plutonium y Operator Pass de por vida
 pricing_and_tiers.visionary.slots_left.visionary_only: Quedan {0} plazas de Visionary
-product_positioning.free_and_open_source: Multiverse es gratis y de código abierto. Cualquiera puede autoalojarlo gratis.
 product_positioning.intro: Multiverse es una plataforma gratis y de código abierto de mensajería instantánea y VoIP, pensada para amigos, grupos y comunidades.
 product_positioning.open_source.fully_open_source_agplv3: Completamente de código abierto (AGPLv3)
 product_positioning.open_source.label: Código abierto
-product_positioning.open_source.license: Código abierto (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Conecta desde cualquier cliente
-product_positioning.self_hosting.free_self_hosting: Autoalojamiento gratis
-product_positioning.self_hosting.host_your_own_instance: Aloja tu propia instancia
-product_positioning.self_hosting.label: Autoalojamiento
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Acceso a la comunidad Multiverse Operators
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Cuando termine la oferta, el Operator Pass seguirá disponible por separado.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'El Operator Pass es opcional: pagas por soporte y acceso a la comunidad.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Soporte prioritario y acceso a la comunidad Operators para autoalojamiento
-product_positioning.self_hosting.run_backend_on_your_hardware: Ejecuta el backend de Multiverse en tu propio hardware y conecta con nuestras apps.
-product_positioning.self_hosting.switch_between_instances: Cambia entre varias instancias
 security.found_security_issue: ¿Has encontrado un problema de seguridad?
 security.report_vulnerabilities: Reporta vulnerabilidades y ayuda a mantener la plataforma segura.
 security.responsible_disclosure_note: Agradecemos la divulgación responsable a través de nuestra página del programa de recompensas. Ofrecemos códigos de Plutonium e insignias de Bug Hunter según la gravedad.

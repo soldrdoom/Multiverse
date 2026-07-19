@@ -1,11 +1,11 @@
 {
 	"openapi": "3.1.0",
 	"info": {
-		"title": "Multiverse Media Proxy API",
+		"title": "Fluxer Media Proxy API",
 		"version": "1.0.0",
-		"description": "Media proxy API for Multiverse. Serves avatars, icons, banners, attachments, emojis, stickers, and proxied external media.",
+		"description": "Media proxy API for Fluxer. Serves avatars, icons, banners, attachments, emojis, stickers, and proxied external media.",
 		"contact": {
-			"name": "Multiverse Developers",
+			"name": "Fluxer Developers",
 			"email": "developers@fluxer.app"
 		},
 		"license": {
@@ -47,7 +47,9 @@
 				"operationId": "getAvatar",
 				"summary": "Get user or guild avatar",
 				"description": "Retrieve a user or guild avatar image. Supports animated avatars (GIF) when the filename starts with `a_`.",
-				"tags": ["Images"],
+				"tags": [
+					"Images"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -124,7 +126,9 @@
 				"operationId": "getIcon",
 				"summary": "Get guild icon",
 				"description": "Retrieve a guild icon image.",
-				"tags": ["Images"],
+				"tags": [
+					"Images"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -201,7 +205,9 @@
 				"operationId": "getBanner",
 				"summary": "Get user or guild banner",
 				"description": "Retrieve a user or guild banner image.",
-				"tags": ["Images"],
+				"tags": [
+					"Images"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -278,7 +284,9 @@
 				"operationId": "getSplash",
 				"summary": "Get guild invite splash",
 				"description": "Retrieve a guild invite splash image.",
-				"tags": ["Images"],
+				"tags": [
+					"Images"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -355,7 +363,9 @@
 				"operationId": "getEmbedSplash",
 				"summary": "Get guild embed splash",
 				"description": "Retrieve a guild embed splash image (used for server previews).",
-				"tags": ["Images"],
+				"tags": [
+					"Images"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -432,7 +442,9 @@
 				"operationId": "getEmoji",
 				"summary": "Get custom emoji",
 				"description": "Retrieve a custom emoji image. May be PNG, GIF, or WebP.",
-				"tags": ["Content"],
+				"tags": [
+					"Content"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -500,7 +512,9 @@
 				"operationId": "getSticker",
 				"summary": "Get sticker",
 				"description": "Retrieve a sticker image or Lottie animation. May return PNG, APNG, GIF, or Lottie JSON.",
-				"tags": ["Content"],
+				"tags": [
+					"Content"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -565,7 +579,9 @@
 				"operationId": "getGuildMemberAvatar",
 				"summary": "Get guild member avatar",
 				"description": "Retrieve a guild-specific member avatar.",
-				"tags": ["Images"],
+				"tags": [
+					"Images"
+				],
 				"parameters": [
 					{
 						"name": "guild_id",
@@ -651,7 +667,9 @@
 				"operationId": "getGuildMemberBanner",
 				"summary": "Get guild member banner",
 				"description": "Retrieve a guild-specific member banner.",
-				"tags": ["Images"],
+				"tags": [
+					"Images"
+				],
 				"parameters": [
 					{
 						"name": "guild_id",
@@ -737,7 +755,9 @@
 				"operationId": "getAttachment",
 				"summary": "Get message attachment",
 				"description": "Retrieve a message attachment. Supports images, videos, and other files. Image query parameters only apply to image attachments.",
-				"tags": ["Content"],
+				"tags": [
+					"Content"
+				],
 				"parameters": [
 					{
 						"name": "channel_id",
@@ -802,7 +822,9 @@
 				"operationId": "getTheme",
 				"summary": "Get theme CSS",
 				"description": "Retrieve a theme CSS file.",
-				"tags": ["Themes"],
+				"tags": [
+					"Themes"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -835,8 +857,10 @@
 			"get": {
 				"operationId": "getExternalMedia",
 				"summary": "Proxy external media",
-				"description": "Proxy external media through the Multiverse media proxy. External URLs are signed with HMAC-SHA256 to prevent abuse. The signature and timestamp parameters ensure URLs cannot be forged and expire after a configured period.",
-				"tags": ["External"],
+				"description": "Proxy external media through the Fluxer media proxy. External URLs are signed with HMAC-SHA256 to prevent abuse. The signature and timestamp parameters ensure URLs cannot be forged and expire after a configured period.",
+				"tags": [
+					"External"
+				],
 				"parameters": [
 					{
 						"name": "signature",
@@ -931,7 +955,9 @@
 				"operationId": "extractMetadata",
 				"summary": "Extract media metadata",
 				"description": "Extract metadata from media files including dimensions, format, duration, NSFW detection, and optional base64 encoding.",
-				"tags": ["Internal"],
+				"tags": [
+					"Internal"
+				],
 				"security": [
 					{
 						"internalKey": []
@@ -972,7 +998,9 @@
 				"operationId": "generateThumbnail",
 				"summary": "Generate video thumbnail",
 				"description": "Generate a thumbnail from a video file.",
-				"tags": ["Internal"],
+				"tags": [
+					"Internal"
+				],
 				"security": [
 					{
 						"internalKey": []
@@ -1013,7 +1041,9 @@
 				"operationId": "extractFrames",
 				"summary": "Extract video frames",
 				"description": "Extract multiple frames from a video file at evenly distributed timestamps.",
-				"tags": ["Internal"],
+				"tags": [
+					"Internal"
+				],
 				"security": [
 					{
 						"internalKey": []
@@ -1092,13 +1122,23 @@
 			},
 			"ImageFormatEnum": {
 				"type": "string",
-				"enum": ["png", "jpg", "jpeg", "webp", "gif"],
+				"enum": [
+					"png",
+					"jpg",
+					"jpeg",
+					"webp",
+					"gif"
+				],
 				"description": "Allowed image output formats",
 				"example": "webp"
 			},
 			"ImageQualityEnum": {
 				"type": "string",
-				"enum": ["high", "low", "lossless"],
+				"enum": [
+					"high",
+					"low",
+					"lossless"
+				],
 				"description": "Image quality levels: high (default), low (smaller files), lossless (no compression)",
 				"example": "high"
 			},
@@ -1124,7 +1164,11 @@
 						"description": "Whether NSFW content is permitted"
 					}
 				},
-				"required": ["type", "url", "isNSFWAllowed"]
+				"required": [
+					"type",
+					"url",
+					"isNSFWAllowed"
+				]
 			},
 			"MetadataRequestUpload": {
 				"type": "object",
@@ -1143,7 +1187,11 @@
 						"description": "Whether NSFW content is permitted"
 					}
 				},
-				"required": ["type", "upload_filename", "isNSFWAllowed"]
+				"required": [
+					"type",
+					"upload_filename",
+					"isNSFWAllowed"
+				]
 			},
 			"MetadataRequestBase64": {
 				"type": "object",
@@ -1162,7 +1210,11 @@
 						"description": "Whether NSFW content is permitted"
 					}
 				},
-				"required": ["type", "base64", "isNSFWAllowed"]
+				"required": [
+					"type",
+					"base64",
+					"isNSFWAllowed"
+				]
 			},
 			"MetadataRequestS3": {
 				"type": "object",
@@ -1189,7 +1241,12 @@
 						"description": "Whether NSFW content is permitted"
 					}
 				},
-				"required": ["type", "bucket", "key", "isNSFWAllowed"]
+				"required": [
+					"type",
+					"bucket",
+					"key",
+					"isNSFWAllowed"
+				]
 			},
 			"MetadataRequest": {
 				"oneOf": [
@@ -1276,7 +1333,13 @@
 						"description": "Per-category NSFW predictions"
 					}
 				},
-				"required": ["format", "content_type", "content_hash", "size", "nsfw"]
+				"required": [
+					"format",
+					"content_type",
+					"content_hash",
+					"size",
+					"nsfw"
+				]
 			},
 			"ThumbnailRequestBody": {
 				"type": "object",
@@ -1287,7 +1350,9 @@
 						"description": "Filename of the uploaded video"
 					}
 				},
-				"required": ["upload_filename"]
+				"required": [
+					"upload_filename"
+				]
 			},
 			"ThumbnailResponse": {
 				"type": "object",
@@ -1302,7 +1367,10 @@
 						"description": "MIME type of thumbnail"
 					}
 				},
-				"required": ["thumbnail", "mime_type"]
+				"required": [
+					"thumbnail",
+					"mime_type"
+				]
 			},
 			"FrameRequestUpload": {
 				"type": "object",
@@ -1317,7 +1385,10 @@
 						"description": "Filename in the uploads bucket"
 					}
 				},
-				"required": ["type", "upload_filename"]
+				"required": [
+					"type",
+					"upload_filename"
+				]
 			},
 			"FrameRequestS3": {
 				"type": "object",
@@ -1336,7 +1407,11 @@
 						"description": "S3 object key"
 					}
 				},
-				"required": ["type", "bucket", "key"]
+				"required": [
+					"type",
+					"bucket",
+					"key"
+				]
 			},
 			"FrameRequest": {
 				"oneOf": [
@@ -1372,7 +1447,11 @@
 						"description": "Base64-encoded frame image"
 					}
 				},
-				"required": ["timestamp", "mime_type", "base64"]
+				"required": [
+					"timestamp",
+					"mime_type",
+					"base64"
+				]
 			},
 			"FrameResponse": {
 				"type": "object",
@@ -1386,7 +1465,9 @@
 						"description": "Extracted video frames"
 					}
 				},
-				"required": ["frames"]
+				"required": [
+					"frames"
+				]
 			},
 			"Error": {
 				"type": "object",
@@ -1433,7 +1514,10 @@
 				"required": false,
 				"schema": {
 					"type": "string",
-					"enum": ["true", "false"]
+					"enum": [
+						"true",
+						"false"
+					]
 				},
 				"description": "Whether to return animated images (GIF, APNG). Default: false"
 			},

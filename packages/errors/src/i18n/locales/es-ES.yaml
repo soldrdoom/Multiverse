@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: El índice de embed {embedIndex} está fuera d
 embeds.embed_splash_requires_feature: El splash del embed requiere la funcion INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Los embeds no pueden superar {maxCharacters} {maxCharacters, plural, one {carácter} other {caracteres}} en total.
 embeds.too_many_embeds: Demasiados embeds. Se permiten como máximo {maxEmbeds} {maxEmbeds, plural, one {embed} other {embeds}}.
-feature_flags.feature_not_available_self_hosted: Esta función no está disponible en instancias autohospedadas.
 feature_flags.feature_temporarily_disabled: Esta función está desactivada temporalmente.
 friends_and_dms.already_friends: Ya eres amigo de este usuario.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Se requiere al menos un destinatario para crear canales privados.

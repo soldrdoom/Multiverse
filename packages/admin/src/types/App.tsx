@@ -37,7 +37,6 @@ export interface AppVariables {
 	currentAdmin?: UserAdminResponse;
 	flash?: Flash;
 	assetVersion: string;
-	selfHostedOverride?: boolean;
 }
 
 export type AppContext = HonoContext<{Variables: AppVariables}>;

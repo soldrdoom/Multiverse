@@ -64,7 +64,7 @@ function createMockMessage(options?: {authorId?: bigint; channelId?: bigint; id?
 
 const TEST_LIMIT_CONFIG_SERVICE = {
 	getConfigSnapshot() {
-		return createDefaultLimitConfig({selfHosted: false});
+		return createDefaultLimitConfig();
 	},
 };
 

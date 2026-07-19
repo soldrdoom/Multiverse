@@ -19,7 +19,6 @@
 
 import * as PremiumModalActionCreators from '@app/actions/PremiumModalActionCreators';
 import {MenuBottomSheet, type MenuGroupType} from '@app/components/uikit/menu_bottom_sheet/MenuBottomSheet';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import {useLingui} from '@lingui/react/macro';
 import {GiftIcon, PaperclipIcon, UploadSimpleIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
@@ -36,7 +35,6 @@ interface MobileTextareaPlusBottomSheetProps {
 export const MobileTextareaPlusBottomSheet = observer(
 	({isOpen, onClose, onUploadFile, textareaValue, onUploadAsFile}: MobileTextareaPlusBottomSheetProps) => {
 		const {t} = useLingui();
-		const isSelfHosted = RuntimeConfigStore.isSelfHosted();
 
 		const groups: Array<MenuGroupType> = useMemo(() => {
 			const items = [
@@ -62,19 +60,17 @@ export const MobileTextareaPlusBottomSheet = observer(
 				});
 			}
 
-			if (!isSelfHosted) {
-				items.push({
-					icon: <GiftIcon />,
-					label: t`Send Gift`,
-					onClick: () => {
-						PremiumModalActionCreators.open(true);
-						onClose();
-					},
-				});
-			}
+			items.push({
+				icon: <GiftIcon />,
+				label: t`Send Gift`,
+				onClick: () => {
+					PremiumModalActionCreators.open(true);
+					onClose();
+				},
+			});
 
 			return [{items}];
-		}, [isSelfHosted, onClose, onUploadFile, textareaValue, onUploadAsFile, t]);
+		}, [onClose, onUploadFile, textareaValue, onUploadAsFile, t]);
 
 		return <MenuBottomSheet isOpen={isOpen} onClose={onClose} groups={groups} />;
 	},

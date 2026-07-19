@@ -58,7 +58,6 @@ export function FeaturesTab({config, guild, guildId, adminAcls, csrfToken}: Feat
 							currentFeatures={guild.features}
 							guildId={guildId}
 							csrfToken={csrfToken}
-							selfHosted={config.selfHosted}
 						/>
 					</Stack>
 				</Card>

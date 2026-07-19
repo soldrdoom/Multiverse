@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Το embed index {embedIndex} είναι εκ�
 embeds.embed_splash_requires_feature: Το embed splash απαιτεί τη δυνατότητα INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Τα embeds δεν πρέπει να ξεπερνούν συνολικά τους {maxCharacters} {maxCharacters, plural, one {χαρακτήρα} other {χαρακτήρες}}.
 embeds.too_many_embeds: Πάρα πολλά embeds. Επιτρέπονται το πολύ {maxEmbeds} {maxEmbeds, plural, one {ενσωμάτωση} other {ενσωματώσεις}}.
-feature_flags.feature_not_available_self_hosted: Αυτή η δυνατότητα δεν είναι διαθέσιμη στις self-hosted instances.
 feature_flags.feature_temporarily_disabled: Αυτή η λειτουργία είναι προσωρινά απενεργοποιημένη.
 friends_and_dms.already_friends: Είστε ήδη φίλοι με αυτόν τον χρήστη.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Απαιτείται τουλάχιστον ένας παραλήπτης για να γίνει seed τα private κανάλια.

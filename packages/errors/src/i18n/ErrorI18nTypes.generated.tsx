@@ -277,7 +277,6 @@ export type ErrorI18nKey =
 	| 'embeds.embed_splash_requires_feature'
 	| 'embeds.embeds_exceed_max_characters'
 	| 'embeds.too_many_embeds'
-	| 'feature_flags.feature_not_available_self_hosted'
 	| 'feature_flags.feature_temporarily_disabled'
 	| 'friends_and_dms.already_friends'
 	| 'friends_and_dms.at_least_one_recipient_required'

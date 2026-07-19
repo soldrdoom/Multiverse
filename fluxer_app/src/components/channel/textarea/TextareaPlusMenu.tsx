@@ -24,7 +24,6 @@ import {MenuGroup} from '@app/components/uikit/context_menu/MenuGroup';
 import {MenuItem} from '@app/components/uikit/context_menu/MenuItem';
 import {MenuItemSubmenu} from '@app/components/uikit/context_menu/MenuItemSubmenu';
 import AccessibilityStore from '@app/stores/AccessibilityStore';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import {useLingui} from '@lingui/react/macro';
 import {GiftIcon, PaperclipIcon, SlidersIcon, UploadSimpleIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
@@ -47,7 +46,6 @@ export const TextareaPlusMenu = observer(
 		const showStickersButton = AccessibilityStore.showStickersButton;
 		const showEmojiButton = AccessibilityStore.showEmojiButton;
 		const showMessageSendButton = AccessibilityStore.showMessageSendButton;
-		const isSelfHosted = RuntimeConfigStore.isSelfHosted();
 		const hasTextContent = textareaValue && textareaValue.trim().length > 0;
 		const cannotSendMessagesHint = t`You do not have permission to send messages in this channel.`;
 		const cannotUploadFilesHint = t`You do not have permission to upload files in this channel.`;
@@ -81,16 +79,14 @@ export const TextareaPlusMenu = observer(
 						{t`Upload your message as a file`}
 					</MenuItem>
 				)}
-				{!isSelfHosted && (
-					<MenuItem
-						icon={<GiftIcon />}
-						onClick={() => PremiumModalActionCreators.open(true)}
-						disabled={sendGiftHint != null}
-						hint={sendGiftHint}
-					>
-						{t`Send Gift`}
-					</MenuItem>
-				)}
+				<MenuItem
+					icon={<GiftIcon />}
+					onClick={() => PremiumModalActionCreators.open(true)}
+					disabled={sendGiftHint != null}
+					hint={sendGiftHint}
+				>
+					{t`Send Gift`}
+				</MenuItem>
 				<MenuItemSubmenu
 					label={t`Customize`}
 					icon={<SlidersIcon />}

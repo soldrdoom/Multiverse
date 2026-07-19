@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Embedo indeksas {embedIndex} uz ribu (zinuteje
 embeds.embed_splash_requires_feature: Embed splash reikalauja INVITE_SPLASH funkcijos.
 embeds.embeds_exceed_max_characters: Embedai is viso negali virsyti {maxCharacters} {maxCharacters, plural, one {simboli} few {simbolius} many {simboliu} other {simboliu}}.
 embeds.too_many_embeds: Per daug embedu. Daugiausia galima {maxEmbeds} {maxEmbeds, plural, one {embeda} few {embedus} many {embedu} other {embedu}}.
-feature_flags.feature_not_available_self_hosted: Ši funkcija nėra pasiekiama savamdiegėse instancijose.
 feature_flags.feature_temporarily_disabled: Si funkcija laikinai isjungta.
 friends_and_dms.already_friends: Tu jau draugauji su siuo naudotoju.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Privatiems kanalams sukurti reikia bent vieno gavejo.

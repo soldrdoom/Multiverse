@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Embed index {embedIndex} nằm ngoài phạm v
 embeds.embed_splash_requires_feature: Embed splash yêu cầu tính năng INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Tổng nội dung embed không được vượt quá {maxCharacters} {maxCharacters, plural, one {ký tự} other {ký tự}}.
 embeds.too_many_embeds: Quá nhiều embed. Tối đa {maxEmbeds} {maxEmbeds, plural, one {embed} other {embeds}}.
-feature_flags.feature_not_available_self_hosted: Tính năng này không khả dụng trên các phiên bản tự lưu trữ.
 feature_flags.feature_temporarily_disabled: Tính năng này tạm thời bị tắt.
 friends_and_dms.already_friends: Bạn đã là bạn với người này rồi.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Cần ít nhất một người nhận để tạo kênh riêng.

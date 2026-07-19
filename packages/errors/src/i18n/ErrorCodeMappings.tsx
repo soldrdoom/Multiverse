@@ -109,7 +109,6 @@ export const ErrorCodeToI18nKey = {
 	[APIErrorCodes.EMPTY_ENCRYPTED_BODY]: 'admin_and_system.empty_encrypted_body',
 	[APIErrorCodes.ENCRYPTION_FAILED]: 'admin_and_system.encryption_failed',
 	[APIErrorCodes.EXPLICIT_CONTENT_CANNOT_BE_SENT]: 'content_and_safety.explicit_content_cannot_be_sent',
-	[APIErrorCodes.FEATURE_NOT_AVAILABLE_SELF_HOSTED]: 'feature_flags.feature_not_available_self_hosted',
 	[APIErrorCodes.FEATURE_TEMPORARILY_DISABLED]: 'feature_flags.feature_temporarily_disabled',
 	[APIErrorCodes.FILE_SIZE_TOO_LARGE]: 'attachments_and_uploads.file_size_too_large',
 	[APIErrorCodes.MESSAGE_TOTAL_ATTACHMENT_SIZE_TOO_LARGE]: 'attachments_and_uploads.file_size_too_large',

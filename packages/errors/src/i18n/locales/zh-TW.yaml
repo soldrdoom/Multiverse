@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: 嵌入索引 {embedIndex} 超出範圍 (這則
 embeds.embed_splash_requires_feature: 嵌入封面需要 INVITE_SPLASH 功能。
 embeds.embeds_exceed_max_characters: 所有嵌入加總不得超過 {maxCharacters} 個字元。
 embeds.too_many_embeds: 嵌入太多了。最多只能有 {maxEmbeds} 個嵌入。
-feature_flags.feature_not_available_self_hosted: 自託管實例不支援此功能。
 feature_flags.feature_temporarily_disabled: 這個功能暫時停用。
 friends_and_dms.already_friends: 你已經跟這個使用者是好友了。
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: 建立私密頻道至少需要一個收件者。

@@ -2,7 +2,7 @@
 	"name": "fluxer_server",
 	"version": "0.0.0",
 	"private": true,
-	"description": "Combined umbrella service for self-hosters bringing together all TypeScript backend services",
+	"description": "Combined umbrella service bringing together all TypeScript backend services for the official Multiverse deployment",
 	"license": "AGPL-3.0-or-later",
 	"type": "module",
 	"scripts": {

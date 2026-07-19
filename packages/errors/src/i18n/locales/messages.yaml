@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Embed index {embedIndex} is out of bounds (mes
 embeds.embed_splash_requires_feature: Embed splash requires INVITE_SPLASH feature.
 embeds.embeds_exceed_max_characters: Embeds must not exceed {maxCharacters} {maxCharacters, plural, one {character} other {characters}} characters in total.
 embeds.too_many_embeds: Too many embeds. Maximum {maxEmbeds} {maxEmbeds, plural, one {embed} other {embeds}} allowed.
-feature_flags.feature_not_available_self_hosted: This feature isn't available on self-hosted instances.
 feature_flags.feature_temporarily_disabled: This feature is temporarily disabled.
 friends_and_dms.already_friends: You're already friends with this user.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: At least one recipient is required to seed private channels.

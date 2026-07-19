@@ -43,7 +43,6 @@ import {GuildDetailPage} from '@fluxer/admin/src/pages/GuildDetailPage';
 import {GuildsPage} from '@fluxer/admin/src/pages/GuildsPage';
 import {getRouteContext} from '@fluxer/admin/src/routes/RouteContext';
 import type {RouteFactoryDeps} from '@fluxer/admin/src/routes/RouteTypes';
-import {getPageConfig} from '@fluxer/admin/src/SelfHostedOverride';
 import type {AppVariables} from '@fluxer/admin/src/types/App';
 import {getOptionalString, getStringArray, type ParsedBody} from '@fluxer/admin/src/utils/Forms';
 import {Hono} from 'hono';
@@ -53,12 +52,11 @@ export function createGuildsRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	router.get('/guilds', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const searchQuery = c.req.query('q');
 		const page = parseInt(c.req.query('page') ?? '0', 10);
 
 		const pageResult = await GuildsPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -72,13 +70,12 @@ export function createGuildsRoutes({config, assetVersion, requireAuth}: RouteFac
 
 	router.get('/guilds/:guildId', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const guildId = c.req.param('guildId');
 		const tab = c.req.query('tab');
 		const page = c.req.query('page');
 
 		const pageResult = await GuildDetailPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,

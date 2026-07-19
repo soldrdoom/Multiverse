@@ -352,7 +352,7 @@ function renderMdx(schema) {
 
 	out += '---\n';
 	out += "title: 'Configuration'\n";
-	out += "description: 'config.json reference for self-hosted Fluxer.'\n";
+	out += "description: 'config.json reference for Multiverse.'\n";
 	out += '---\n\n';
 
 	out += renderTableOfContents(schema, defs);

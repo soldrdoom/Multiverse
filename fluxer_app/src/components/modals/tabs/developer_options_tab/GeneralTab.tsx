@@ -47,9 +47,6 @@ export const GeneralTabContent: React.FC = observer(() => {
 								value={Boolean(DeveloperOptionsStore[key])}
 								onChange={(value) => {
 									DeveloperOptionsActionCreators.updateOption(key, value);
-									if (key === 'selfHostedModeOverride') {
-										window.location.reload();
-									}
 								}}
 							/>
 						))}

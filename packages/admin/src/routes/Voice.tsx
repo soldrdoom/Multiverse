@@ -37,7 +37,6 @@ import {VoiceRegionsPage} from '@fluxer/admin/src/pages/VoiceRegionsPage';
 import {VoiceServersPage} from '@fluxer/admin/src/pages/VoiceServersPage';
 import {getRouteContext} from '@fluxer/admin/src/routes/RouteContext';
 import type {RouteFactoryDeps} from '@fluxer/admin/src/routes/RouteTypes';
-import {getPageConfig} from '@fluxer/admin/src/SelfHostedOverride';
 import type {AppVariables} from '@fluxer/admin/src/types/App';
 import {getOptionalString, getRequiredString, type ParsedBody} from '@fluxer/admin/src/utils/Forms';
 import {Hono} from 'hono';
@@ -47,10 +46,9 @@ export function createVoiceRoutes({config, assetVersion, requireAuth}: RouteFact
 
 	router.get('/voice-regions', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		const page = await VoiceRegionsPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -160,11 +158,10 @@ export function createVoiceRoutes({config, assetVersion, requireAuth}: RouteFact
 
 	router.get('/voice-servers', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const regionId = c.req.query('region_id');
 
 		const page = await VoiceServersPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,

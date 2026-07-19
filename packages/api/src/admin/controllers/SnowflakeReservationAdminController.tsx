@@ -17,7 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Config} from '@fluxer/api/src/Config';
 import {requireAdminACL} from '@fluxer/api/src/middleware/AdminMiddleware';
 import {RateLimitMiddleware} from '@fluxer/api/src/middleware/RateLimitMiddleware';
 import {OpenAPI} from '@fluxer/api/src/middleware/ResponseTypeMiddleware';
@@ -25,7 +24,6 @@ import {RateLimitConfigs} from '@fluxer/api/src/RateLimitConfig';
 import type {HonoApp} from '@fluxer/api/src/types/HonoEnv';
 import {Validator} from '@fluxer/api/src/Validator';
 import {AdminACLs} from '@fluxer/constants/src/AdminACLs';
-import {FeatureNotAvailableSelfHostedError} from '@fluxer/errors/src/domains/core/FeatureNotAvailableSelfHostedError';
 import {
 	AddSnowflakeReservationRequest,
 	DeleteSnowflakeReservationRequest,
@@ -49,10 +47,6 @@ export function SnowflakeReservationAdminController(app: HonoApp) {
 				'Lists all reserved snowflake ID ranges. Shows ranges reserved for future entities and their allocation status. Requires INSTANCE_SNOWFLAKE_RESERVATION_VIEW permission.',
 		}),
 		async (ctx) => {
-			if (Config.instance.selfHosted) {
-				throw new FeatureNotAvailableSelfHostedError();
-			}
-
 			const adminService = ctx.get('adminService');
 			const reservations = await adminService.listSnowflakeReservations();
 
@@ -78,10 +72,6 @@ export function SnowflakeReservationAdminController(app: HonoApp) {
 				'Reserves a snowflake ID range for future allocation. Creates audit log entry. Requires INSTANCE_SNOWFLAKE_RESERVATION_MANAGE permission.',
 		}),
 		async (ctx) => {
-			if (Config.instance.selfHosted) {
-				throw new FeatureNotAvailableSelfHostedError();
-			}
-
 			const adminService = ctx.get('adminService');
 			const adminUserId = ctx.get('adminUserId');
 			const auditLogReason = ctx.get('auditLogReason');
@@ -108,10 +98,6 @@ export function SnowflakeReservationAdminController(app: HonoApp) {
 				'Removes a snowflake ID reservation range. Creates audit log entry. Requires INSTANCE_SNOWFLAKE_RESERVATION_MANAGE permission.',
 		}),
 		async (ctx) => {
-			if (Config.instance.selfHosted) {
-				throw new FeatureNotAvailableSelfHostedError();
-			}
-
 			const adminService = ctx.get('adminService');
 			const adminUserId = ctx.get('adminUserId');
 			const auditLogReason = ctx.get('auditLogReason');

@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Za darmo vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Wszystko w planie Za darmo, a do tego:'
 pricing_and_tiers.free.full_access_to_all_features: Pełny dostęp do wszystkich funkcji
 pricing_and_tiers.free.label: Za darmo
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Uwaga: benefity Plutonium i Visionary działają tylko na oficjalnej instancji Multiverse.app, nie na instancjach zewnętrznych ani self-hostowanych.'
 pricing_and_tiers.plutonium.feature_highlights: Uploady 500 MB, wiadomości do 4 000 znaków, 300 zakładek, 50 paczek emoji i dużo więcej.
 pricing_and_tiers.plutonium.features.bio_character_limit: Limit znaków w bio
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Wybierz dowolny dostępny tag czterocyfrowy od #0001 do #9999, aby unikatowość twojej nazwy użytkownika była niezaprzeczalna.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Plutonium i Operator Pass na zawsze z 
 pricing_and_tiers.visionary.communities_with_team_access: Społeczności Visionary i Operators z dostępem dla zespołu
 pricing_and_tiers.visionary.get_visionary: Zgarnij Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Zgarnij Plutonium na zawsze na Multiverse.app plus Operator Pass do self-hostingu. Zapłać {0} jednorazowo. Dostępne do 1 października 2026 albo do wyczerpania wszystkich miejsc.
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass na zawsze
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium na zawsze
 pricing_and_tiers.visionary.limited_offer_note: 'Oferta limitowana: Visionary zawiera Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Kup Visionary bezpośrednio w aplikac
 pricing_and_tiers.visionary.slots_left.generic: Zostało {0} z {1} miejsc
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Zostało tylko {0} z {1} miejsc Visionary – Plutonium i Operator Pass na zawsze
 pricing_and_tiers.visionary.slots_left.visionary_only: Zostało {0} miejsc Visionary
-product_positioning.free_and_open_source: Multiverse jest darmowy i otwartoźródłowy. Każdy może hostować własną instancję za darmo.
 product_positioning.intro: Multiverse to darmowa, otwartoźródłowa platforma komunikacji i VoIP stworzona dla znajomych, grup i społeczności.
 product_positioning.open_source.fully_open_source_agplv3: W pełni otwartoźródłowy (AGPLv3)
 product_positioning.open_source.label: Open source
-product_positioning.open_source.license: Open source (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Łącz się z dowolnego klienta
-product_positioning.self_hosting.free_self_hosting: Darmowy self-hosting
-product_positioning.self_hosting.host_your_own_instance: Hostuj własną instancję
-product_positioning.self_hosting.label: Self-hosting
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Dostęp do społeczności Multiverse Operators
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Gdy oferta się skończy, Operator Pass zostaje dostępny osobno.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass jest opcjonalny: płacisz za wsparcie i dostęp do społeczności Operatorów.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Priorytetowe wsparcie i dostęp do społeczności Operatorów dla self-hostingu
-product_positioning.self_hosting.run_backend_on_your_hardware: Uruchom backend Multiverse na swoim sprzęcie i łącz się przez nasze aplikacje.
-product_positioning.self_hosting.switch_between_instances: Przełączaj się między wieloma instancjami
 security.found_security_issue: Znalazłeś problem z bezpieczeństwem?
 security.report_vulnerabilities: Zgłaszaj luki i pomóż nam utrzymać platformę bezpieczną.
 security.responsible_disclosure_note: Doceniamy odpowiedzialne zgłaszanie przez naszą stronę bug bounty. Oferujemy kody Plutonium i odznaki Bug Hunter w zależności od wagi.

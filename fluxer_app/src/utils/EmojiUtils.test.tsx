@@ -33,10 +33,10 @@ describe('EmojiUtils', () => {
 			expect(result).toBe('1f1fa-1f1f8');
 		});
 
-		test('removes variation selector from non-ZWJ emoji', () => {
+		test('preserves variation selector for non-ZWJ emoji that require it', () => {
 			const emoji = '\u2764\uFE0F';
 			const result = convertToCodePoints(emoji);
-			expect(result).not.toContain('fe0f');
+			expect(result).toBe('2764-fe0f');
 		});
 
 		test('preserves variation selector in ZWJ sequences', () => {

@@ -44,7 +44,6 @@ export const Config = {
 	oauthRedirectUri: adminOAuthRedirectUri,
 	port: master.services.admin.port,
 	basePath: master.services.admin.base_path,
-	selfHosted: master.instance.self_hosted,
 	rateLimit: extractRateLimit(master.services.admin.rate_limit),
 };
 

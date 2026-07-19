@@ -3,6 +3,69 @@ title: 'Common'
 description: 'Common object schemas from the Fluxer API.'
 ---
 
+<a id="appliedcosmeticentry"></a>
+
+## AppliedCosmeticEntry
+
+| Field | Type | Description |
+|-------|------|-------------|
+| applied_at | string (date-time) |  |
+| image_url? | ?string (uri) |  |
+| mint_address | string |  |
+| slot | string |  |
+
+<a id="applyprofilecosmeticrequest"></a>
+
+## ApplyProfileCosmeticRequest
+
+**Related endpoints**
+
+- [`PUT /users/@me/cosmetics`](/api-reference/cosmetics/apply-or-clear-a-profile-cosmetic-slot)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| mint_address | ?string |  |
+| slot | [ProfileCosmeticSlotSchema](#profilecosmeticslotschema) |  |
+
+<a id="applyprofilecosmeticresponse"></a>
+
+## ApplyProfileCosmeticResponse
+
+**Related endpoints**
+
+- [`PUT /users/@me/cosmetics`](/api-reference/cosmetics/apply-or-clear-a-profile-cosmetic-slot)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| applied | [AppliedCosmeticEntry](#appliedcosmeticentry)[] |  |
+| ok | boolean |  |
+
+<a id="applyservercosmeticrequest"></a>
+
+## ApplyServerCosmeticRequest
+
+**Related endpoints**
+
+- [`PUT /guilds/{guildId}/cosmetics`](/api-reference/cosmetics/apply-or-clear-a-server-cosmetic-slot)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| mint_address | ?string |  |
+| slot | [ServerCosmeticSlotSchema](#servercosmeticslotschema) |  |
+
+<a id="applyservercosmeticresponse"></a>
+
+## ApplyServerCosmeticResponse
+
+**Related endpoints**
+
+- [`PUT /guilds/{guildId}/cosmetics`](/api-reference/cosmetics/apply-or-clear-a-server-cosmetic-slot)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| applied | [ApplyServerCosmeticResponseAppliedItem](#applyservercosmeticresponseapplieditem)[] |  |
+| ok | boolean |  |
+
 <a id="base64imagetype"></a>
 
 ## Base64ImageType
@@ -79,6 +142,30 @@ Type: [ConnectionResponse](#connectionresponse)[]
 | token | string | The verification token to place in DNS or profile |
 | type | enum&lt;`bsky`, `domain`&gt; | The type of connection being verified |
 
+<a id="cosmeticlistingstatus"></a>
+
+## CosmeticListingStatus
+
+| Value | Description |
+|-------|-------------|
+| `draft` | - |
+| `pending_review` | - |
+| `live` | - |
+| `rejected` | - |
+| `delisted` | - |
+
+<a id="cosmeticsstoreresponse"></a>
+
+## CosmeticsStoreResponse
+
+**Related endpoints**
+
+- [`GET /cosmetics/store`](/api-reference/cosmetics/get-the-cosmetics-shop-catalog)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| items | [StoreListingNft](#storelistingnft)[] |  |
+
 <a id="createconnectionrequest"></a>
 
 ## CreateConnectionRequest
@@ -92,6 +179,81 @@ Type: [ConnectionResponse](#connectionresponse)[]
 | identifier | [SnowflakeType](#snowflaketype) | The connection identifier (handle or domain) |
 | type | enum&lt;`bsky`, `domain`&gt; | The type of connection to create |
 | visibility_flags? | [Int32Type](#int32type) |  |
+
+<a id="createlistingrequest"></a>
+
+## CreateListingRequest
+
+**Related endpoints**
+
+- [`POST /creators/@me/listings`](/api-reference/creators/create-a-new-cosmetic-listing)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| cosmetic_type | [CreateListingRequestCosmeticType](#createlistingrequestcosmetictype) |  |
+| description? | ?string |  |
+| image_url? | ?string (uri) |  |
+| name | string |  |
+| price_lamports | integer (int64) |  |
+| rarity | [CreatorListingEntryRarity](#creatorlistingentryrarity) |  |
+
+<a id="creatorapplicationstatus"></a>
+
+## CreatorApplicationStatus
+
+| Value | Description |
+|-------|-------------|
+| `pending` | - |
+| `approved` | - |
+| `rejected` | - |
+
+<a id="creatorapplyresponse"></a>
+
+## CreatorApplyResponse
+
+**Related endpoints**
+
+- [`POST /creators/apply`](/api-reference/creators/apply-to-become-a-cosmetics-creator)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| applied_at | string (date-time) |  |
+| status | [CreatorApplicationStatus](#creatorapplicationstatus) |  |
+
+<a id="creatorlistingentry"></a>
+
+## CreatorListingEntry
+
+| Field | Type | Description |
+|-------|------|-------------|
+| collection_address | ?string |  |
+| cosmetic_type | string |  |
+| created_at | string (date-time) |  |
+| creator_id | integer (int53) |  |
+| description | ?string |  |
+| id | [SnowflakeType](#snowflaketype) |  |
+| image_url | ?string (uri) |  |
+| name | string |  |
+| price_lamports | integer (int64) |  |
+| rarity | [CreatorListingEntryRarity](#creatorlistingentryrarity) |  |
+| status | [CosmeticListingStatus](#cosmeticlistingstatus) |  |
+| updated_at | string (date-time) |  |
+
+<a id="creatorstatusresponse"></a>
+
+## CreatorStatusResponse
+
+**Related endpoints**
+
+- [`GET /creators/@me`](/api-reference/creators/get-current-creator-status-and-listings)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| application | ?[CreatorApplyResponse](#creatorapplyresponse) |  |
+| creator | ?[AdminCreatorEntry](#admincreatorentry) |  |
+| is_creator | boolean |  |
+| listings | [CreatorListingEntry](#creatorlistingentry)[] |  |
+| wallet_linked | boolean |  |
 
 <a id="discoveryapplicationpatchrequest"></a>
 
@@ -181,45 +343,6 @@ Type: [DiscoveryCategoryResponse](#discoverycategoryresponse)[]
 | eligible | boolean | Whether the guild meets the requirements to apply for discovery |
 | min_member_count | number | Minimum member count required for discovery eligibility |
 
-<a id="donationcheckoutrequest"></a>
-
-## DonationCheckoutRequest
-
-**Related endpoints**
-
-- [`POST /donations/checkout`](/api-reference/donations/create-donation-checkout-session)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| amount_cents | integer (int32) | Donation amount in cents (500-100000) |
-| currency | [DonationCheckoutRequestCurrency](#donationcheckoutrequestcurrency) | Currency for the donation |
-| email | string (email) | Donor email address |
-| interval | ?[DonationCheckoutRequestInterval](#donationcheckoutrequestinterval) | Billing interval (null for one-time donation) |
-
-<a id="donationcheckoutresponse"></a>
-
-## DonationCheckoutResponse
-
-**Related endpoints**
-
-- [`POST /donations/checkout`](/api-reference/donations/create-donation-checkout-session)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| url | string (uri) | Stripe checkout URL to redirect the user to |
-
-<a id="donationrequestlinkrequest"></a>
-
-## DonationRequestLinkRequest
-
-**Related endpoints**
-
-- [`POST /donations/request-link`](/api-reference/donations/request-donation-management-link)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| email | string (email) | Email address to send the magic link to |
-
 <a id="emailtype"></a>
 
 ## EmailType
@@ -247,6 +370,44 @@ Type: string (int64)
 | ip | string | Banned IPv4/IPv6 address or CIDR range |
 | reverse_dns | ?string | Reverse DNS hostname for the IP, if available |
 
+<a id="listingresponse"></a>
+
+## ListingResponse
+
+**Related endpoints**
+
+- [`POST /creators/@me/listings`](/api-reference/creators/create-a-new-cosmetic-listing)
+- [`POST /creators/@me/listings/{id}/submit`](/api-reference/creators/submit-a-listing-for-review)
+- [`PUT /creators/@me/listings/{id}`](/api-reference/creators/update-a-draft-cosmetic-listing)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| listing | [CreatorListingEntry](#creatorlistingentry) |  |
+
+<a id="nftsresponse"></a>
+
+## NftsResponse
+
+**Related endpoints**
+
+- [`GET /nfts`](/api-reference/cosmetics/list-cosmetic-nfts-in-the-current-users-wallet)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| nfts | [OwnedCosmeticNft](#ownedcosmeticnft)[] |  |
+
+<a id="ownedcosmeticnft"></a>
+
+## OwnedCosmeticNft
+
+| Field | Type | Description |
+|-------|------|-------------|
+| cosmetic_type | string |  |
+| image | ?string |  |
+| mint | string |  |
+| name | string |  |
+| rarity | [CreatorListingEntryRarity](#creatorlistingentryrarity) |  |
+
 <a id="passwordtype"></a>
 
 ## PasswordType
@@ -258,6 +419,33 @@ Type: string
 ## PhoneNumberType
 
 Type: string
+
+<a id="purchasecosmeticrequest"></a>
+
+## PurchaseCosmeticRequest
+
+**Related endpoints**
+
+- [`POST /cosmetics/purchase`](/api-reference/cosmetics/purchase-a-cosmetic-nft)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| buyer_address | string |  |
+| item_id | [SnowflakeType](#snowflaketype) |  |
+| tx_signature | string |  |
+
+<a id="purchasecosmeticresponse"></a>
+
+## PurchaseCosmeticResponse
+
+**Related endpoints**
+
+- [`POST /cosmetics/purchase`](/api-reference/cosmetics/purchase-a-cosmetic-nft)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| nft | [OwnedCosmeticNft](#ownedcosmeticnft) |  |
+| ok | boolean |  |
 
 <a id="renderspoilers"></a>
 
@@ -282,6 +470,31 @@ Spoiler rendering preference
 | Field | Type | Description |
 |-------|------|-------------|
 | connection_ids | [SnowflakeType](#snowflaketype)[] | Ordered list of connection IDs defining the new display order |
+
+<a id="servercosmeticslotschema"></a>
+
+## ServerCosmeticSlotSchema
+
+| Value | Description |
+|-------|-------------|
+| `chat_background` | - |
+| `channel_list_background` | - |
+| `server_banner` | - |
+
+<a id="storelistingnft"></a>
+
+## StoreListingNft
+
+| Field | Type | Description |
+|-------|------|-------------|
+| collection_address | ?string |  |
+| cosmetic_type | string |  |
+| description | ?string |  |
+| id | [SnowflakeType](#snowflaketype) |  |
+| image | ?string |  |
+| name | string |  |
+| price_lamports | integer (int53) |  |
+| rarity | [CreatorListingEntryRarity](#creatorlistingentryrarity) |  |
 
 <a id="tenorcategorytagresponse"></a>
 
@@ -369,6 +582,23 @@ Type: string (int64)
 |-------|------|-------------|
 | sort_order? | [Int32Type](#int32type) |  |
 | visibility_flags? | [Int32Type](#int32type) |  |
+
+<a id="updatelistingrequest"></a>
+
+## UpdateListingRequest
+
+**Related endpoints**
+
+- [`PUT /creators/@me/listings/{id}`](/api-reference/creators/update-a-draft-cosmetic-listing)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| cosmetic_type? | [CreateListingRequestCosmeticType](#createlistingrequestcosmetictype) |  |
+| description? | ?string |  |
+| image_url? | ?string (uri) |  |
+| name? | string |  |
+| price_lamports? | integer (int64) |  |
+| rarity? | [CreatorListingEntryRarity](#creatorlistingentryrarity) |  |
 
 <a id="validationerrorcodeschema"></a>
 
@@ -473,6 +703,8 @@ Error codes for field validation issues
 | `GLOBAL_NAME_RESERVED_VALUE` | Display name is a reserved value |
 | `GUILD_BANNER_REQUIRES_FEATURE` | Guild banner requires the feature to be enabled |
 | `GUILD_ID_MUST_MATCH_REFERENCED_MESSAGE` | Guild ID must match referenced message |
+| `GUILD_VANITY_ALREADY_PURCHASED` | This guild already has a permanent vanity link |
+| `GUILD_VANITY_TX_ALREADY_USED` | This transaction has already been used for a purchase |
 | `IMAGE_SIZE_EXCEEDS_LIMIT` | Image size exceeds limit |
 | `INTEGER_OUT_OF_INT64_RANGE` | Integer is out of 64-bit range |
 | `SNOWFLAKE_OUT_OF_RANGE` | Snowflake is out of valid range |
@@ -578,6 +810,9 @@ Error codes for field validation issues
 | `THIS_VANITY_URL_IS_ALREADY_TAKEN` | This vanity URL is already taken |
 | `TICKET_ALREADY_COMPLETED` | Ticket has already been completed |
 | `TIMEOUT_CANNOT_EXCEED_365_DAYS` | Timeout cannot exceed 365 days |
+| `TIP_RECIPIENT_HAS_NO_WALLET` | Recipient hasn't linked a Solana wallet |
+| `TIP_SELF_NOT_ALLOWED` | You can't tip yourself |
+| `TIP_TX_ALREADY_USED` | Transaction has already been recorded as a tip |
 | `TOO_MANY_EMBEDS` | Too many embeds |
 | `TOO_MANY_FILES` | Too many files |
 | `TOO_MANY_USERS_WITH_THIS_USERNAME` | Too many users with this username |
@@ -621,6 +856,47 @@ Error codes for field validation issues
 | message | string | A human-readable description of the validation issue |
 | path | string | The field path where the validation error occurred |
 
+<a id="vaultkeyresponse"></a>
+
+## VaultKeyResponse
+
+**Related endpoints**
+
+- [`GET /vault/keys/{userId}`](/api-reference/vault/fetch-a-users-x25519-public-key)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| public_key | string | Base64-encoded X25519 public key |
+| updated_at | string (date-time) | ISO-8601 timestamp of last update |
+| user_id | [SnowflakeType](#snowflaketype) | Snowflake user ID |
+
+<a id="vaultregisterkeyrequest"></a>
+
+## VaultRegisterKeyRequest
+
+**Related endpoints**
+
+- [`POST /vault/keys`](/api-reference/vault/register-or-update-the-callers-x25519-public-key)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| encrypted_data? | string | Base64-encoded AES-256-GCM ciphertext of the X25519 private key |
+| nonce? | string | Base64-encoded 12-byte AES-GCM IV for the encrypted private key |
+| public_key | string | Base64-encoded X25519 public key derived from wallet signature |
+
+<a id="vaultregisterkeyresponse"></a>
+
+## VaultRegisterKeyResponse
+
+**Related endpoints**
+
+- [`POST /vault/keys`](/api-reference/vault/register-or-update-the-callers-x25519-public-key)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| ok | boolean |  |
+| updated_at | string (date-time) | ISO-8601 timestamp of the upsert |
+
 <a id="verifyandcreateconnectionrequest"></a>
 
 ## VerifyAndCreateConnectionRequest
@@ -634,25 +910,42 @@ Error codes for field validation issues
 | initiation_token | string | The signed initiation token returned from the create endpoint |
 | visibility_flags? | [Int32Type](#int32type) |  |
 
-<a id="donationcheckoutrequestcurrency"></a>
+<a id="creatorlistingentryrarity"></a>
 
-## DonationCheckoutRequestCurrency
-
-Currency for the donation
+## CreatorListingEntryRarity
 
 | Value | Description |
 |-------|-------------|
-| `usd` | - |
-| `eur` | - |
+| `common` | - |
+| `uncommon` | - |
+| `rare` | - |
+| `epic` | - |
+| `legendary` | - |
 
-<a id="donationcheckoutrequestinterval"></a>
+<a id="createlistingrequestcosmetictype"></a>
 
-## DonationCheckoutRequestInterval
-
-Billing interval (null for one-time donation)
+## CreateListingRequestCosmeticType
 
 | Value | Description |
 |-------|-------------|
-| `month` | - |
-| `year` | - |
+| `avatar_frame` | - |
+| `profile_banner` | - |
+| `profile_effect` | - |
+| `badge` | - |
+| `name_effect` | - |
+| `chat_background` | - |
+| `channel_list_background` | - |
+| `server_banner` | - |
+
+<a id="applyservercosmeticresponseapplieditem"></a>
+
+## ApplyServerCosmeticResponseAppliedItem
+
+| Field | Type | Description |
+|-------|------|-------------|
+| applied_at | string (date-time) |  |
+| applied_by | string |  |
+| image_url? | ?string (uri) |  |
+| mint_address | string |  |
+| slot | string |  |
 

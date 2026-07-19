@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: ฟรี vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'ทุกอย่างในแพ็กฟรี และยังได้เพิ่มอีก:'
 pricing_and_tiers.free.full_access_to_all_features: เข้าถึงทุกฟีเจอร์ได้เต็มรูปแบบ
 pricing_and_tiers.free.label: ฟรี
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'หมายเหตุ: สิทธิประโยชน์ Plutonium และ Visionary ใช้ได้เฉพาะบนอินสแตนซ์ทางการ Multiverse.app เท่านั้น ไม่รวมอินสแตนซ์ของบุคคลที่สามหรือแบบโฮสต์เอง'
 pricing_and_tiers.plutonium.feature_highlights: อัปโหลด 500 MB ข้อความยาว 4,000 ตัวอักษร บุ๊กมาร์ก 300 รายการ แพ็กอีโมจิ 50 แพ็ก และอีกมากมาย
 pricing_and_tiers.plutonium.features.bio_character_limit: ลิมิตตัวอักษรใน bio
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: เลือกแท็ก 4 หลักที่ว่างอยู่ตั้งแต่ #0001 ถึง #9999 เพื่อให้ชื่อผู้ใช้ของคุณไม่ซ้ำใคร
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Visionary – ได้ Plutonium แ�
 pricing_and_tiers.visionary.communities_with_team_access: คอมมูนิตี้ Visionary และ Operators พร้อมสิทธิ์เข้าถึงทีม
 pricing_and_tiers.visionary.get_visionary: รับ Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: รับ Plutonium ตลอดชีพบน Multiverse.app พร้อม Operator Pass สำหรับโฮสต์เอง จ่ายครั้งเดียว {0} ใช้ได้จนถึงวันที่ 1 ตุลาคม 2026 หรือจนกว่าที่นั่งทั้งหมดจะถูกจอง
 pricing_and_tiers.visionary.lifetime_operator_pass: Operator Pass ตลอดชีพ
 pricing_and_tiers.visionary.lifetime_plutonium: Plutonium ตลอดชีพ
 pricing_and_tiers.visionary.limited_offer_note: 'ข้อเสนอจำกัด: Visionary รวม Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: ซื้อ Visionary ได้ใ�
 pricing_and_tiers.visionary.slots_left.generic: เหลือ {0} จาก {1} ช่อง
 pricing_and_tiers.visionary.slots_left.visionary_bundle: เหลือ Visionary ตลอดชีพแค่ {0} จาก {1} ช่อง – ได้ Plutonium และ Operator Pass ตลอดชีพ
 pricing_and_tiers.visionary.slots_left.visionary_only: เหลือโควตา Visionary {0} ช่อง
-product_positioning.free_and_open_source: Multiverse ฟรีและโอเพนซอร์ส ทุกคนโฮสต์เองได้ฟรี
 product_positioning.intro: Multiverse คือแพลตฟอร์มแชตทันทีและ VoIP แบบฟรีและโอเพนซอร์ส สร้างมาเพื่อเพื่อน กลุ่ม และคอมมูนิตี้
 product_positioning.open_source.fully_open_source_agplv3: โอเพนซอร์สเต็มรูปแบบ (AGPLv3)
 product_positioning.open_source.label: โอเพนซอร์ส
-product_positioning.open_source.license: โอเพนซอร์ส (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: เชื่อมต่อได้จากทุกไคลเอนต์
-product_positioning.self_hosting.free_self_hosting: โฮสต์เองได้ฟรี
-product_positioning.self_hosting.host_your_own_instance: โฮสต์อินสแตนซ์ของคุณเอง
-product_positioning.self_hosting.label: โฮสต์เอง
-product_positioning.self_hosting.operator_pass.access_to_operators_community: เข้าถึงคอมมูนิตี้ Multiverse Operators
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: หลังโปรโมชันจบ Operator Pass ยังซื้อแยกได้ตามปกติ
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass เป็นตัวเลือกเสริม: จ่ายเพื่อรับการซัพพอร์ตและเข้าถึงคอมมูนิตี้ Operators'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: การซัพพอร์ตแบบลำดับความสำคัญและสิทธิ์เข้าถึงคอมมูนิตี้ Operators สำหรับสายโฮสต์เอง
-product_positioning.self_hosting.run_backend_on_your_hardware: รันแบ็กเอนด์ของ Multiverse บนฮาร์ดแวร์ของคุณเอง แล้วเชื่อมต่อด้วยแอปของเรา
-product_positioning.self_hosting.switch_between_instances: สลับไปมาระหว่างหลายอินสแตนซ์ได้
 security.found_security_issue: เจอปัญหาด้านความปลอดภัยใช่ไหม
 security.report_vulnerabilities: รายงานช่องโหว่และช่วยให้แพลตฟอร์มปลอดภัย
 security.responsible_disclosure_note: ขอบคุณสำหรับการเปิดเผยอย่างรับผิดชอบผ่านหน้าโปรแกรมรางวัลบั๊กของเรา เรามอบโค้ด Plutonium และแบดจ์ Bug Hunter ตามความรุนแรง

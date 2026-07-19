@@ -27,7 +27,6 @@ import {ReportDetailFragment, ReportDetailPage} from '@fluxer/admin/src/pages/Re
 import {ReportsPage} from '@fluxer/admin/src/pages/ReportsPage';
 import {getRouteContext} from '@fluxer/admin/src/routes/RouteContext';
 import type {RouteFactoryDeps} from '@fluxer/admin/src/routes/RouteTypes';
-import {getPageConfig} from '@fluxer/admin/src/SelfHostedOverride';
 import type {AppVariables} from '@fluxer/admin/src/types/App';
 import {getOptionalString, type ParsedBody} from '@fluxer/admin/src/utils/Forms';
 import {Hono} from 'hono';
@@ -37,7 +36,6 @@ export function createReportsRoutes({config, assetVersion, requireAuth}: RouteFa
 
 	router.get('/reports', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 
 		const query = c.req.query('q');
 		const page = parseInt(c.req.query('page') ?? '0', 10);
@@ -51,7 +49,7 @@ export function createReportsRoutes({config, assetVersion, requireAuth}: RouteFa
 		const typeFilter = typeParam ? parseInt(typeParam, 10) : undefined;
 
 		const pageResult = await ReportsPage({
-			config: pageConfig,
+			config,
 			session,
 			currentAdmin,
 			flash,
@@ -70,7 +68,6 @@ export function createReportsRoutes({config, assetVersion, requireAuth}: RouteFa
 
 	router.get('/reports/:reportId', requireAuth, async (c) => {
 		const {session, currentAdmin, flash, csrfToken} = getRouteContext(c);
-		const pageConfig = getPageConfig(c, config);
 		const reportId = c.req.param('reportId');
 
 		const reportResult = await getReportDetail(config, session, reportId);
@@ -83,7 +80,7 @@ export function createReportsRoutes({config, assetVersion, requireAuth}: RouteFa
 
 		return c.html(
 			<ReportDetailPage
-				config={pageConfig}
+				config={config}
 				session={session}
 				currentAdmin={currentAdmin}
 				flash={flash}
@@ -96,7 +93,6 @@ export function createReportsRoutes({config, assetVersion, requireAuth}: RouteFa
 
 	router.get('/reports/:reportId/fragment', requireAuth, async (c) => {
 		const session = c.get('session')!;
-		const pageConfig = getPageConfig(c, config);
 		const reportId = c.req.param('reportId');
 
 		const reportResult = await getReportDetail(config, session, reportId);
@@ -108,7 +104,7 @@ export function createReportsRoutes({config, assetVersion, requireAuth}: RouteFa
 			);
 		}
 
-		return c.html(<ReportDetailFragment config={pageConfig} report={reportResult.data} />);
+		return c.html(<ReportDetailFragment config={config} report={reportResult.data} />);
 	});
 
 	router.post('/reports/:reportId/resolve', requireAuth, async (c) => {

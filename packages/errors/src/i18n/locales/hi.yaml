@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Embed index {embedIndex} out of bounds है 
 embeds.embed_splash_requires_feature: Embed splash के लिए INVITE_SPLASH feature चाहिए।
 embeds.embeds_exceed_max_characters: Embeds कुल मिलाकर {maxCharacters} {maxCharacters, plural, one {अक्षर} other {अक्षर}} से ज्यादा नहीं हो सकते।
 embeds.too_many_embeds: बहुत ज्यादा embeds। Maximum {maxEmbeds} {maxEmbeds, plural, one {एंबेड} other {एंबेड्स}} allowed हैं।
-feature_flags.feature_not_available_self_hosted: यह feature self-hosted instances पर उपलब्ध नहीं है।
 feature_flags.feature_temporarily_disabled: यह feature अभी अस्थायी तौर पर disabled है।
 friends_and_dms.already_friends: तुम इस यूजर के साथ पहले से friends हो।
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Private channels seed करने के लिए कम से कम एक recipient जरूरी है।

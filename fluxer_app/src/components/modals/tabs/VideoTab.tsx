@@ -32,7 +32,6 @@ import {RadioGroup} from '@app/components/uikit/radio_group/RadioGroup';
 import {Slider} from '@app/components/uikit/Slider';
 import PiPStore from '@app/stores/PiPStore';
 import PrivacyPreferencesStore from '@app/stores/PrivacyPreferencesStore';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import type VoiceSettingsStore from '@app/stores/VoiceSettingsStore';
 import {LimitResolver} from '@app/utils/limits/LimitResolverAdapter';
 import {isLimitToggleEnabled} from '@app/utils/limits/LimitUtils';
@@ -114,32 +113,20 @@ export const VideoTab: React.FC<VideoTabProps> = observer(
 			{
 				value: 'high',
 				name: t`High (1080p)`,
-				desc: hasHigherQuality
-					? t`Best quality for most users`
-					: !RuntimeConfigStore.isSelfHosted()
-						? t`Requires Plutonium`
-						: t`Not available`,
-				disabled: !hasHigherQuality && !RuntimeConfigStore.isSelfHosted(),
+				desc: hasHigherQuality ? t`Best quality for most users` : t`Requires Plutonium`,
+				disabled: !hasHigherQuality,
 			},
 			{
 				value: 'ultra',
 				name: t`Ultra (1440p)`,
-				desc: hasHigherQuality
-					? t`High quality, requires fast connection`
-					: !RuntimeConfigStore.isSelfHosted()
-						? t`Requires Plutonium`
-						: t`Not available`,
-				disabled: !hasHigherQuality && !RuntimeConfigStore.isSelfHosted(),
+				desc: hasHigherQuality ? t`High quality, requires fast connection` : t`Requires Plutonium`,
+				disabled: !hasHigherQuality,
 			},
 			{
 				value: '4k',
 				name: t`4K (2160p)`,
-				desc: hasHigherQuality
-					? t`Maximum quality, requires very fast connection`
-					: !RuntimeConfigStore.isSelfHosted()
-						? t`Requires Plutonium`
-						: t`Not available`,
-				disabled: !hasHigherQuality && !RuntimeConfigStore.isSelfHosted(),
+				desc: hasHigherQuality ? t`Maximum quality, requires very fast connection` : t`Requires Plutonium`,
+				disabled: !hasHigherQuality,
 			},
 		];
 
@@ -263,7 +250,7 @@ export const VideoTab: React.FC<VideoTabProps> = observer(
 					onChange={handleDisableStreamPreviewToggle}
 				/>
 
-				{!hasHigherQuality && !RuntimeConfigStore.isSelfHosted() && (
+				{!hasHigherQuality && (
 					<div className={styles.premiumCard}>
 						<div className={styles.premiumHeader}>
 							<CrownIcon weight="fill" size={18} className={styles.premiumIcon} />
@@ -300,7 +287,7 @@ export const VideoTab: React.FC<VideoTabProps> = observer(
 						onMarkerRender={(value) => `${Math.round(value)}FPS`}
 						onValueChange={(value) => VoiceSettingsActionCreators.update({videoFrameRate: value})}
 					/>
-					{!hasHigherQuality && !RuntimeConfigStore.isSelfHosted() && (
+					{!hasHigherQuality && (
 						<div className={styles.frameRateNote}>
 							<CrownIcon weight="fill" size={14} className={styles.frameRateIcon} />
 							<Trans>Frame rates above 30 FPS require Plutonium</Trans>

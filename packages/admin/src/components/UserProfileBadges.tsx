@@ -44,7 +44,6 @@ export interface UserProfileBadgesProps {
 export function UserProfileBadges({config, user, size = 'sm', class: className}: UserProfileBadgesProps) {
 	const flags = parseBigIntOrZero(user.flags);
 	const badges: Array<BadgeDefinition> = [];
-	const isSelfHosted = config.selfHosted;
 	const staticCdnEndpoint = normalizeEndpoint(config.staticCdnEndpoint);
 
 	if (hasBigIntFlag(flags, UserFlags.STAFF)) {
@@ -55,7 +54,7 @@ export function UserProfileBadges({config, user, size = 'sm', class: className}:
 		});
 	}
 
-	if (!isSelfHosted && hasBigIntFlag(flags, UserFlags.CTP_MEMBER)) {
+	if (hasBigIntFlag(flags, UserFlags.CTP_MEMBER)) {
 		badges.push({
 			key: 'ctp',
 			iconUrl: `${staticCdnEndpoint}/badges/ctp.svg`,
@@ -63,7 +62,7 @@ export function UserProfileBadges({config, user, size = 'sm', class: className}:
 		});
 	}
 
-	if (!isSelfHosted && hasBigIntFlag(flags, UserFlags.PARTNER)) {
+	if (hasBigIntFlag(flags, UserFlags.PARTNER)) {
 		badges.push({
 			key: 'partner',
 			iconUrl: `${staticCdnEndpoint}/badges/partner.svg`,
@@ -71,7 +70,7 @@ export function UserProfileBadges({config, user, size = 'sm', class: className}:
 		});
 	}
 
-	if (!isSelfHosted && hasBigIntFlag(flags, UserFlags.BUG_HUNTER)) {
+	if (hasBigIntFlag(flags, UserFlags.BUG_HUNTER)) {
 		badges.push({
 			key: 'bug_hunter',
 			iconUrl: `${staticCdnEndpoint}/badges/bug-hunter.svg`,
@@ -79,7 +78,7 @@ export function UserProfileBadges({config, user, size = 'sm', class: className}:
 		});
 	}
 
-	if (!isSelfHosted && user.premium_type && user.premium_type !== UserPremiumTypes.NONE) {
+	if (user.premium_type && user.premium_type !== UserPremiumTypes.NONE) {
 		let tooltip = 'Multiverse Plutonium';
 
 		if (user.premium_type === UserPremiumTypes.LIFETIME) {

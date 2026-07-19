@@ -36,7 +36,6 @@ import {AdminACLs} from '@fluxer/constants/src/AdminACLs';
 import type {Flash} from '@fluxer/hono/src/Flash';
 import type {
 	InstanceConfigResponse,
-	LimitConfigGetResponse,
 	SnowflakeReservationEntry,
 	SsoConfigResponse,
 } from '@fluxer/schema/src/domains/admin/AdminSchemas';
@@ -56,9 +55,6 @@ import {
 	TableRow,
 } from '@fluxer/ui/src/components/Table';
 import type {FC} from 'hono/jsx';
-import type {z} from 'zod';
-
-type LimitConfigResponse = z.infer<typeof LimitConfigGetResponse>;
 
 export interface InstanceConfigPageProps {
 	config: Config;
@@ -85,7 +81,7 @@ export async function InstanceConfigPage({
 	const reservationManageAcl = hasPermission(adminAcls, AdminACLs.INSTANCE_SNOWFLAKE_RESERVATION_MANAGE);
 
 	let reservations: Array<SnowflakeReservationEntry> = [];
-	if (reservationViewAcl && !config.selfHosted) {
+	if (reservationViewAcl) {
 		const reservationResult = await listSnowflakeReservations(config, session);
 		if (reservationResult.ok) {
 			reservations = reservationResult.data.sort((a, b) => a.email.localeCompare(b.email));
@@ -127,7 +123,6 @@ export async function InstanceConfigPage({
 	}
 
 	const instanceConfig = configResult.data;
-	const limitInfo = limitResult.data;
 
 	return (
 		<Layout
@@ -144,8 +139,8 @@ export async function InstanceConfigPage({
 				<Heading level={1}>Instance Configuration</Heading>
 				<ConfigForm config={config} instanceConfig={instanceConfig} csrfToken={csrfToken} />
 				<SsoConfigForm config={config} sso={instanceConfig.sso} csrfToken={csrfToken} />
-				<LimitConfigSection config={config} limitInfo={limitInfo} />
-				{reservationViewAcl && !config.selfHosted && (
+				<LimitConfigSection config={config} />
+				{reservationViewAcl && (
 					<SnowflakeReservationSection
 						config={config}
 						reservations={reservations}
@@ -383,10 +378,8 @@ const SsoConfigForm: FC<{config: Config; sso: SsoConfigResponse; csrfToken: stri
 	);
 };
 
-const LimitConfigSection: FC<{config: Config; limitInfo: LimitConfigResponse}> = ({config, limitInfo}) => {
-	const description = limitInfo.self_hosted
-		? 'Self-hosted instance with all premium features enabled. Configure user and guild limits.'
-		: 'Configure limit rules that control user and guild restrictions based on traits and features.';
+const LimitConfigSection: FC<{config: Config}> = ({config}) => {
+	const description = 'Configure limit rules that control user and guild restrictions based on traits and features.';
 
 	return (
 		<Card padding="md">

@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Besplatno vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Sve iz besplatnog, plus:'
 pricing_and_tiers.free.full_access_to_all_features: Puni pristup svim značajkama
 pricing_and_tiers.free.label: Besplatno
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Napomena: Plutonium i Visionary pogodnosti vrijede samo na službenoj instanci Multiverse.app, ne na trećim stranama ili self-hostanim instancama.'
 pricing_and_tiers.plutonium.feature_highlights: Uploadovi do 500 MB, poruke do 4,000 znakova, 300 oznaka, 50 paketa emojija i još puno toga.
 pricing_and_tiers.plutonium.features.bio_character_limit: Limit znakova u biografiji
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Odaberi bilo koju dostupnu 4-znamenkastu oznaku od #0001 do #9999 kako bi svoje korisničko ime učinio doista jedinstvenim.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Doživotni Plutonium i Operator Pass u
 pricing_and_tiers.visionary.communities_with_team_access: Visionary i Operators zajednice s pristupom timu
 pricing_and_tiers.visionary.get_visionary: Uzmi Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Osiguraj Plutonium doživotno na Multiverse.app plus Operator Pass za samostalni hosting. Plati {0} jednokratno. Dostupno do 1. listopada 2026. ili dok se ne popune sva mjesta.
 pricing_and_tiers.visionary.lifetime_operator_pass: Doživotni Operator Pass
 pricing_and_tiers.visionary.lifetime_plutonium: Doživotni Plutonium
 pricing_and_tiers.visionary.limited_offer_note: 'Ograničena ponuda: Visionary uključuje Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Kupi Visionary izravno u aplikaciji n
 pricing_and_tiers.visionary.slots_left.generic: '{0} od {1} mjesta preostalo'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Samo {0} od {1} Visionary doživotnih mjesta preostalo – doživotni Plutonium i Operator Pass
 pricing_and_tiers.visionary.slots_left.visionary_only: '{0} Visionary mjesta preostalo'
-product_positioning.free_and_open_source: Multiverse je besplatan i open source. Svatko može besplatno self-hostati.
 product_positioning.intro: Multiverse je besplatna i open source platforma za instant poruke i VoIP, napravljena za prijatelje, grupe i zajednice.
 product_positioning.open_source.fully_open_source_agplv3: Potpuno open source (AGPLv3)
 product_positioning.open_source.label: Open source
-product_positioning.open_source.license: Open source (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Poveži se s bilo kojeg klijenta
-product_positioning.self_hosting.free_self_hosting: Besplatan samostalni hosting
-product_positioning.self_hosting.host_your_own_instance: Hostaj vlastitu instancu
-product_positioning.self_hosting.label: Samostalni hosting
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Pristup Multiverse Operators zajednici
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Kad ponuda završi, Operator Pass ostaje dostupan i zasebno.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass je opcionalan: plati za podršku i pristup Operators zajednici.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Prioritetna podrška i pristup Operators zajednici za self-hostanje
-product_positioning.self_hosting.run_backend_on_your_hardware: Pokreni Multiverse backend na svom hardveru i poveži se kroz naše aplikacije.
-product_positioning.self_hosting.switch_between_instances: Prebacuj se između više instanci
 security.found_security_issue: Imaš sigurnosni propust za prijaviti?
 security.report_vulnerabilities: Prijavi ranjivosti i pomozi nam da platforma bude sigurna.
 security.responsible_disclosure_note: Cijenimo odgovorno prijavljivanje kroz našu stranicu za nagrade za sigurnosne bugove. Dijelimo Plutonium kodove i Bug Hunter značke ovisno o ozbiljnosti.

@@ -45,7 +45,6 @@ export async function renderPlutoniumPage(c: Context, ctx: MarketingContext): Pr
 		renderHeroSection(ctx),
 		renderComparisonSection(ctx),
 		renderFeaturesSection(ctx),
-		renderSelfHostingSection(ctx),
 		renderCtaSection(ctx),
 	];
 	const meta = pageMeta(
@@ -456,104 +455,6 @@ function renderFeatureCard(
 
 function getFeatureIcon(iconName: FeatureIconName): JSX.Element {
 	return <Icon name={iconName} class="h-8 w-8 text-[#4641D9] md:h-10 md:w-10" />;
-}
-
-function renderSelfHostingSection(ctx: MarketingContext): JSX.Element {
-	const currency = getCurrency(ctx.countryCode);
-	const freePrice = currency === Currency.EUR ? '€0' : '$0';
-	const operatorPrice = currency === Currency.EUR ? '€199' : '$199';
-
-	return (
-		<section
-			id="self-hosting"
-			class="bg-gradient-to-b from-gray-50 to-white px-6 py-24 sm:px-8 md:px-12 md:py-40 lg:px-16 xl:px-20"
-			style="scroll-margin-top: 8rem"
-		>
-			<div class="mx-auto max-w-7xl">
-				<div class="mb-16 text-center md:mb-20">
-					<h2 class="display mb-6 text-4xl text-black md:mb-8 md:text-5xl lg:text-6xl">
-						{ctx.i18n.getMessage('product_positioning.self_hosting.label', ctx.locale)}
-					</h2>
-					<p class="lead mx-auto mb-3 max-w-3xl text-gray-700 text-xl md:text-2xl">
-						{ctx.i18n.getMessage('product_positioning.free_and_open_source', ctx.locale)}
-					</p>
-					<p class="body-lg mx-auto max-w-3xl text-gray-600">
-						{ctx.i18n.getMessage('product_positioning.self_hosting.operator_pass.note_optional', ctx.locale)}
-					</p>
-				</div>
-				<div class="mx-auto mb-16 grid max-w-5xl grid-cols-1 gap-10 md:mb-20 md:grid-cols-2 md:gap-12">
-					<div class="rounded-3xl border-2 border-gray-200 bg-white p-10 shadow-lg md:p-12">
-						<div class="mb-4 flex justify-center">
-							<Icon name="globe" class="h-16 w-16 text-gray-400" />
-						</div>
-						<h3 class="title mb-2 text-center text-black text-xl md:text-2xl">
-							{ctx.i18n.getMessage('product_positioning.self_hosting.free_self_hosting', ctx.locale)}{' '}
-						</h3>
-						<div class="mb-6 text-center">
-							<span class="display text-4xl text-black md:text-5xl">{freePrice}</span>
-							<span class="body-lg text-gray-600">
-								{ctx.i18n.getMessage('pricing_and_tiers.billing.per_forever', ctx.locale)}
-							</span>
-						</div>
-						<div class="mb-6 space-y-3">
-							{renderBenefitItem(ctx, ctx.i18n.getMessage('misc_labels.unlimited_users', ctx.locale))}
-							{renderBenefitItem(
-								ctx,
-								ctx.i18n.getMessage('pricing_and_tiers.free.full_access_to_all_features', ctx.locale),
-							)}
-							{renderBenefitItem(
-								ctx,
-								ctx.i18n.getMessage('product_positioning.self_hosting.connect_from_any_client', ctx.locale),
-							)}
-							{renderBenefitItem(ctx, ctx.i18n.getMessage('product_positioning.open_source.license', ctx.locale))}
-							{renderBenefitItem(ctx, ctx.i18n.getMessage('app.communities.community_support', ctx.locale))}
-						</div>
-					</div>
-					<div class="relative rounded-3xl border-2 border-[#4641D9] bg-white p-10 shadow-xl md:p-12">
-						<div class="label absolute -top-4 left-1/2 -translate-x-1/2 rounded-xl bg-[#4641D9] px-4 py-2 text-white shadow-md">
-							{ctx.i18n.getMessage('general.coming_soon.label', ctx.locale)}
-						</div>
-						<div class="mb-4 flex justify-center">
-							<Icon name="globe" class="h-16 w-16 text-[#4641D9]" />
-						</div>
-						<h3 class="title mb-2 text-center text-black text-xl md:text-2xl">
-							{ctx.i18n.getMessage('product_positioning.self_hosting.operator_pass.label', ctx.locale)}{' '}
-						</h3>
-						<div class="mb-6 text-center">
-							<span class="display text-4xl text-black md:text-5xl">{operatorPrice}</span>
-							<span class="body-lg block text-gray-600">
-								{ctx.i18n.getMessage('pricing_and_tiers.visionary.one_time_purchase.label', ctx.locale)}
-							</span>
-						</div>
-						<div class="mb-6 space-y-3">
-							{renderBenefitItem(
-								ctx,
-								ctx.i18n.getMessage('pricing_and_tiers.free.everything_in_free_plus', ctx.locale),
-							)}
-							{renderBenefitItem(
-								ctx,
-								ctx.i18n.getMessage(
-									'product_positioning.self_hosting.operator_pass.access_to_operators_community',
-									ctx.locale,
-								),
-							)}
-							{renderBenefitItem(ctx, ctx.i18n.getMessage('misc_labels.direct_team_support', ctx.locale))}
-							{renderBenefitItem(ctx, ctx.i18n.getMessage('donations.support_future_development', ctx.locale))}
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function renderBenefitItem(_ctx: MarketingContext, text: string): JSX.Element {
-	return (
-		<div class="flex items-start gap-3">
-			<CheckIcon class="mt-0.5 h-5 w-5 shrink-0 text-[#4641D9]" />
-			<span class="body text-gray-700">{text}</span>
-		</div>
-	);
 }
 
 function renderCtaSection(ctx: MarketingContext): JSX.Element {

@@ -57,6 +57,80 @@ description: 'Admin object schemas from the Fluxer API.'
 | target_id | string | The ID of the affected entity (user, channel, role, invite code, etc.) |
 | target_type | string |  |
 
+<a id="admincreatorapplicationentry"></a>
+
+## AdminCreatorApplicationEntry
+
+| Field | Type | Description |
+|-------|------|-------------|
+| applied_at | string (date-time) |  |
+| reviewed_at | ?string (date-time) |  |
+| solana_address | string |  |
+| status | [CreatorApplicationStatus](#creatorapplicationstatus) |  |
+| username | ?string |  |
+
+<a id="admincreatorapplicationsresponse"></a>
+
+## AdminCreatorApplicationsResponse
+
+**Related endpoints**
+
+- [`GET /admin/creator-applications`](/api-reference/admin/list-creator-applications)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| applications | [AdminCreatorApplicationEntry](#admincreatorapplicationentry)[] |  |
+
+<a id="admincreatorentry"></a>
+
+## AdminCreatorEntry
+
+| Field | Type | Description |
+|-------|------|-------------|
+| approved_at | string (date-time) |  |
+| commission_rate | integer (int53) |  |
+| creator_id | integer (int53) |  |
+| payout_suspended | boolean |  |
+| solana_address | string |  |
+
+<a id="admincreatorsresponse"></a>
+
+## AdminCreatorsResponse
+
+**Related endpoints**
+
+- [`GET /admin/creators`](/api-reference/admin/list-approved-creators)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| creators | [AdminCreatorEntry](#admincreatorentry)[] |  |
+
+<a id="adminlistingsresponse"></a>
+
+## AdminListingsResponse
+
+**Related endpoints**
+
+- [`GET /admin/creator-listings`](/api-reference/admin/list-all-creator-listings)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| listings | [CreatorListingEntry](#creatorlistingentry)[] |  |
+
+<a id="adminupdatecreatorrequest"></a>
+
+## AdminUpdateCreatorRequest
+
+**Related endpoints**
+
+- [`PATCH /admin/creators/{id}`](/api-reference/admin/update-a-creator-record)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| commission_rate? | integer (int32) |  |
+| payout_suspended? | boolean |  |
+| solana_address? | string |  |
+
 <a id="adminuserdmchannelschema"></a>
 
 ## AdminUserDmChannelSchema
@@ -325,18 +399,6 @@ description: 'Admin object schemas from the Fluxer API.'
 |-------|------|-------------|
 | fields | [ClearUserFieldsRequestFields](#clearuserfieldsrequestfields)[] | List of profile fields to clear |
 | user_id | [SnowflakeType](#snowflaketype) |  |
-
-<a id="codesresponse"></a>
-
-## CodesResponse
-
-**Related endpoints**
-
-- [`POST /admin/codes/gift`](/api-reference/admin/generate-gift-subscription-codes)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| codes | string[] |  |
 
 <a id="createadminapikeyrequest"></a>
 
@@ -700,6 +762,9 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`GET /admin/api-keys`](/api-reference/admin/list-admin-api-keys)
 - [`GET /admin/archives/{subjectType}/{subjectId}/{archiveId}`](/api-reference/admin/get-archive-details)
 - [`GET /admin/archives/{subjectType}/{subjectId}/{archiveId}/download`](/api-reference/admin/get-archive-download-url)
+- [`GET /admin/creator-applications`](/api-reference/admin/list-creator-applications)
+- [`GET /admin/creator-listings`](/api-reference/admin/list-all-creator-listings)
+- [`GET /admin/creators`](/api-reference/admin/list-approved-creators)
 - [`GET /admin/discovery/applications`](/api-reference/admin/list-discovery-applications)
 - [`GET /admin/gateway/stats`](/api-reference/admin/get-gateway-node-statistics)
 - [`GET /admin/guilds/{guild_id}/emojis`](/api-reference/admin/list-guild-emojis)
@@ -709,7 +774,6 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`GET /admin/reports/{report_id}/ncmec-status`](/api-reference/admin/get-ncmec-submission-status)
 - [`GET /admin/system-dm-jobs`](/api-reference/admin/list-system-dm-jobs)
 - [`GET /admin/users/me`](/api-reference/admin/get-authenticated-admin-user)
-- [`GET /admin/visionary-slots`](/api-reference/admin/list-all-visionary-slots)
 - [`GET /applications/@me`](/api-reference/oauth2/list-current-user-applications)
 - [`GET /auth/handoff/{code}/status`](/api-reference/auth/get-handoff-status)
 - [`GET /auth/ip-authorization/poll`](/api-reference/auth/poll-ip-authorization)
@@ -724,11 +788,11 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`GET /channels/{channel_id}/messages/pins`](/api-reference/channels/list-pinned-messages)
 - [`GET /channels/{channel_id}/rtc-regions`](/api-reference/channels/list-rtc-regions)
 - [`GET /channels/{channel_id}/webhooks`](/api-reference/webhooks/list-channel-webhooks)
+- [`GET /cosmetics/store`](/api-reference/cosmetics/get-the-cosmetics-shop-catalog)
+- [`GET /creators/@me`](/api-reference/creators/get-current-creator-status-and-listings)
 - [`GET /discovery/categories`](/api-reference/discovery/list-discovery-categories)
 - [`GET /discovery/guilds`](/api-reference/discovery/search-discoverable-guilds)
-- [`GET /donations/manage`](/api-reference/donations/manage-donation-subscription)
 - [`GET /gateway/bot`](/api-reference/gateway/get-gateway-information)
-- [`GET /gifts/{code}`](/api-reference/gifts/get-gift-code)
 - [`GET /guilds/{guild_id}`](/api-reference/guilds/get-guild-information)
 - [`GET /guilds/{guild_id}/audit-logs`](/api-reference/guilds/list-guild-audit-logs)
 - [`GET /guilds/{guild_id}/bans`](/api-reference/guilds/list-guild-bans)
@@ -743,11 +807,13 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`GET /guilds/{guild_id}/stickers`](/api-reference/guilds/list-guild-stickers)
 - [`GET /guilds/{guild_id}/vanity-url`](/api-reference/guilds/get-guild-vanity-url)
 - [`GET /guilds/{guild_id}/webhooks`](/api-reference/webhooks/list-guild-webhooks)
+- [`GET /guilds/{guildId}/cosmetics`](/api-reference/cosmetics/get-applied-server-cosmetics)
 - [`GET /invites/{invite_code}`](/api-reference/invites/get-invite-information)
 - [`GET /klipy/featured`](/api-reference/klipy/get-featured-klipy-gifs)
 - [`GET /klipy/search`](/api-reference/klipy/search-klipy-gifs)
 - [`GET /klipy/suggest`](/api-reference/klipy/get-klipy-search-suggestions)
 - [`GET /klipy/trending-gifs`](/api-reference/klipy/get-trending-klipy-gifs)
+- [`GET /nfts`](/api-reference/cosmetics/list-cosmetic-nfts-in-the-current-users-wallet)
 - [`GET /oauth2/@me`](/api-reference/oauth2/get-current-oauth2-user)
 - [`GET /oauth2/@me/authorizations`](/api-reference/oauth2/list-user-oauth2-authorizations)
 - [`GET /oauth2/applications/{id}`](/api-reference/oauth2/get-application)
@@ -758,7 +824,6 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`GET /packs/{pack_id}/invites`](/api-reference/invites/list-pack-invites)
 - [`GET /packs/emojis/{pack_id}`](/api-reference/packs/list-pack-emojis)
 - [`GET /packs/stickers/{pack_id}`](/api-reference/packs/list-pack-stickers)
-- [`GET /premium/price-ids`](/api-reference/premium/get-stripe-price-ids)
 - [`GET /streams/{stream_key}/preview`](/api-reference/channels/get-stream-preview-image)
 - [`GET /tenor/featured`](/api-reference/tenor/get-featured-tenor-gifs)
 - [`GET /tenor/search`](/api-reference/tenor/search-tenor-gifs)
@@ -766,11 +831,12 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`GET /tenor/trending-gifs`](/api-reference/tenor/get-trending-tenor-gifs)
 - [`GET /users/{target_id}/profile`](/api-reference/users/get-user-profile)
 - [`GET /users/{user_id}`](/api-reference/users/get-user-by-id)
+- [`GET /users/{userId}/cosmetics`](/api-reference/cosmetics/get-applied-profile-cosmetics-for-a-user)
 - [`GET /users/@me`](/api-reference/users/get-current-user-profile)
 - [`GET /users/@me/applications`](/api-reference/oauth2/list-user-applications)
 - [`GET /users/@me/channels`](/api-reference/users/list-private-channels)
 - [`GET /users/@me/connections`](/api-reference/connections/list-user-connections)
-- [`GET /users/@me/gifts`](/api-reference/users/list-user-gifts)
+- [`GET /users/@me/cosmetics`](/api-reference/cosmetics/get-applied-profile-cosmetics)
 - [`GET /users/@me/guilds`](/api-reference/guilds/list-current-user-guilds)
 - [`GET /users/@me/harvest/{harvestId}`](/api-reference/users/get-data-harvest-status)
 - [`GET /users/@me/harvest/{harvestId}/download`](/api-reference/users/get-data-harvest-download-url)
@@ -789,6 +855,7 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`GET /users/@me/settings`](/api-reference/users/get-current-user-settings)
 - [`GET /users/@me/sudo/mfa-methods`](/api-reference/users/list-sudo-multi-factor-authentication-methods)
 - [`GET /users/check-tag`](/api-reference/users/check-username-tag-availability)
+- [`GET /vault/keys/{userId}`](/api-reference/vault/fetch-a-users-x25519-public-key)
 - [`GET /webhooks/{webhook_id}`](/api-reference/webhooks/get-webhook)
 - [`GET /webhooks/{webhook_id}/{token}`](/api-reference/webhooks/get-webhook-with-token)
 - [`POST /admin/api-keys`](/api-reference/admin/create-admin-api-key)
@@ -814,7 +881,10 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`POST /admin/bulk/schedule-user-deletion`](/api-reference/admin/schedule-bulk-user-deletion)
 - [`POST /admin/bulk/update-guild-features`](/api-reference/admin/bulk-update-guild-features)
 - [`POST /admin/bulk/update-user-flags`](/api-reference/admin/bulk-update-user-flags)
-- [`POST /admin/codes/gift`](/api-reference/admin/generate-gift-subscription-codes)
+- [`POST /admin/creator-applications/{address}/approve`](/api-reference/admin/approve-a-creator-application)
+- [`POST /admin/creator-applications/{address}/reject`](/api-reference/admin/reject-a-creator-application)
+- [`POST /admin/creator-listings/{id}/approve`](/api-reference/admin/approve-a-creator-listing)
+- [`POST /admin/creator-listings/{id}/reject`](/api-reference/admin/reject-a-creator-listing)
 - [`POST /admin/discovery/applications/{guild_id}/approve`](/api-reference/admin/approve-discovery-application)
 - [`POST /admin/discovery/applications/{guild_id}/reject`](/api-reference/admin/reject-discovery-application)
 - [`POST /admin/discovery/guilds/{guild_id}/remove`](/api-reference/admin/remove-guild-from-discovery)
@@ -887,10 +957,6 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`POST /admin/users/update-flags`](/api-reference/admin/update-user-flags)
 - [`POST /admin/users/update-suspicious-activity-flags`](/api-reference/admin/update-suspicious-activity-flags)
 - [`POST /admin/users/verify-email`](/api-reference/admin/verify-user-email)
-- [`POST /admin/visionary-slots/expand`](/api-reference/admin/expand-visionary-slots)
-- [`POST /admin/visionary-slots/reserve`](/api-reference/admin/reserve-or-unreserve-a-visionary-slot)
-- [`POST /admin/visionary-slots/shrink`](/api-reference/admin/shrink-visionary-slots)
-- [`POST /admin/visionary-slots/swap`](/api-reference/admin/swap-visionary-slot-reservations)
 - [`POST /admin/voice/regions/create`](/api-reference/admin/create-voice-region)
 - [`POST /admin/voice/regions/delete`](/api-reference/admin/delete-voice-region)
 - [`POST /admin/voice/regions/get`](/api-reference/admin/get-voice-region)
@@ -936,10 +1002,11 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`POST /channels/{channel_id}/pins/ack`](/api-reference/channels/acknowledge-new-pin-notifications)
 - [`POST /channels/{channel_id}/typing`](/api-reference/channels/indicate-typing-activity)
 - [`POST /channels/{channel_id}/webhooks`](/api-reference/webhooks/create-webhook)
+- [`POST /cosmetics/purchase`](/api-reference/cosmetics/purchase-a-cosmetic-nft)
+- [`POST /creators/@me/listings`](/api-reference/creators/create-a-new-cosmetic-listing)
+- [`POST /creators/@me/listings/{id}/submit`](/api-reference/creators/submit-a-listing-for-review)
+- [`POST /creators/apply`](/api-reference/creators/apply-to-become-a-cosmetics-creator)
 - [`POST /discovery/guilds/{guild_id}/join`](/api-reference/discovery/join-a-discoverable-guild)
-- [`POST /donations/checkout`](/api-reference/donations/create-donation-checkout-session)
-- [`POST /donations/request-link`](/api-reference/donations/request-donation-management-link)
-- [`POST /gifts/{code}/redeem`](/api-reference/gifts/redeem-gift-code)
 - [`POST /guilds`](/api-reference/guilds/create-guild)
 - [`POST /guilds/{guild_id}/channels`](/api-reference/guilds/create-guild-channel)
 - [`POST /guilds/{guild_id}/delete`](/api-reference/guilds/delete-guild)
@@ -967,11 +1034,6 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`POST /packs/emojis/{pack_id}/bulk`](/api-reference/packs/bulk-create-pack-emojis)
 - [`POST /packs/stickers/{pack_id}`](/api-reference/packs/create-pack-sticker)
 - [`POST /packs/stickers/{pack_id}/bulk`](/api-reference/packs/bulk-create-pack-stickers)
-- [`POST /premium/cancel-subscription`](/api-reference/premium/cancel-subscription)
-- [`POST /premium/customer-portal`](/api-reference/premium/create-customer-portal)
-- [`POST /premium/operator/rejoin`](/api-reference/premium/rejoin-operator-guild)
-- [`POST /premium/reactivate-subscription`](/api-reference/premium/reactivate-subscription)
-- [`POST /premium/visionary/rejoin`](/api-reference/premium/rejoin-visionary-guild)
 - [`POST /read-states/ack-bulk`](/api-reference/read-states/mark-channels-as-read)
 - [`POST /reports/dsa`](/api-reference/reports/create-dsa-report)
 - [`POST /reports/dsa/email/send`](/api-reference/reports/send-dsa-report-email)
@@ -981,9 +1043,6 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`POST /reports/user`](/api-reference/reports/report-user)
 - [`POST /search/messages`](/api-reference/search/search-messages)
 - [`POST /streams/{stream_key}/preview`](/api-reference/channels/upload-stream-preview-image)
-- [`POST /stripe/checkout/gift`](/api-reference/billing/create-gift-checkout-session)
-- [`POST /stripe/checkout/subscription`](/api-reference/billing/create-checkout-session)
-- [`POST /stripe/webhook`](/api-reference/billing/process-stripe-webhook)
 - [`POST /tenor/register-share`](/api-reference/tenor/register-tenor-gif-share)
 - [`POST /users/@me/channels`](/api-reference/users/create-private-channel)
 - [`POST /users/@me/channels/messages/preload`](/api-reference/users/preload-messages-for-channels-alternative)
@@ -1029,6 +1088,7 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`POST /users/@me/sudo/mfa/sms/send`](/api-reference/users/send-sudo-sms-code)
 - [`POST /users/@me/sudo/webauthn/authentication-options`](/api-reference/users/get-sudo-webauthn-authentication-options)
 - [`POST /users/@me/themes`](/api-reference/themes/create-theme)
+- [`POST /vault/keys`](/api-reference/vault/register-or-update-the-callers-x25519-public-key)
 - [`POST /webhooks/{webhook_id}/{token}`](/api-reference/webhooks/execute-webhook)
 - [`POST /webhooks/{webhook_id}/{token}/github`](/api-reference/webhooks/execute-github-webhook)
 - [`POST /webhooks/{webhook_id}/{token}/sentry`](/api-reference/webhooks/execute-sentry-webhook)
@@ -1037,11 +1097,15 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`PUT /channels/{channel_id}/permissions/{overwrite_id}`](/api-reference/channels/set-permission-overwrite-for-channel)
 - [`PUT /channels/{channel_id}/pins/{message_id}`](/api-reference/channels/pin-a-message)
 - [`PUT /channels/{channel_id}/recipients/{user_id}`](/api-reference/channels/add-recipient-to-group-dm)
+- [`PUT /creators/@me/listings/{id}`](/api-reference/creators/update-a-draft-cosmetic-listing)
 - [`PUT /guilds/{guild_id}/bans/{user_id}`](/api-reference/guilds/ban-guild-member)
 - [`PUT /guilds/{guild_id}/members/{user_id}/roles/{role_id}`](/api-reference/guilds/add-role-to-guild-member)
+- [`PUT /guilds/{guildId}/cosmetics`](/api-reference/cosmetics/apply-or-clear-a-server-cosmetic-slot)
 - [`PUT /users/@me/channels/{channel_id}/pin`](/api-reference/users/pin-direct-message-channel)
+- [`PUT /users/@me/cosmetics`](/api-reference/cosmetics/apply-or-clear-a-profile-cosmetic-slot)
 - [`PUT /users/@me/notes/{target_id}`](/api-reference/users/set-note-on-user)
 - [`PUT /users/@me/relationships/{user_id}`](/api-reference/users/accept-or-update-friend-request)
+- [`PATCH /admin/creators/{id}`](/api-reference/admin/update-a-creator-record)
 - [`PATCH /channels/{channel_id}`](/api-reference/channels/update-channel-settings)
 - [`PATCH /channels/{channel_id}/call`](/api-reference/channels/update-call-region)
 - [`PATCH /channels/{channel_id}/messages/{message_id}`](/api-reference/channels/edit-a-message)
@@ -1090,6 +1154,7 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`DELETE /channels/{channel_id}/permissions/{overwrite_id}`](/api-reference/channels/delete-permission-overwrite)
 - [`DELETE /channels/{channel_id}/pins/{message_id}`](/api-reference/channels/unpin-a-message)
 - [`DELETE /channels/{channel_id}/recipients/{user_id}`](/api-reference/channels/remove-recipient-from-group-dm)
+- [`DELETE /creators/@me/listings/{id}`](/api-reference/creators/delete-a-draft-cosmetic-listing)
 - [`DELETE /guilds/{guild_id}/bans/{user_id}`](/api-reference/guilds/unban-guild-member)
 - [`DELETE /guilds/{guild_id}/discovery`](/api-reference/discovery/withdraw-discovery-application)
 - [`DELETE /guilds/{guild_id}/emojis/{emoji_id}`](/api-reference/guilds/delete-guild-emoji)
@@ -1127,18 +1192,6 @@ description: 'Admin object schemas from the Fluxer API.'
 | errors? | [ValidationErrorItem](#validationerroritem)[] | Field-specific validation errors |
 | message | string | Human-readable error message |
 
-<a id="expandvisionaryslotsrequest"></a>
-
-## ExpandVisionarySlotsRequest
-
-**Related endpoints**
-
-- [`POST /admin/visionary-slots/expand`](/api-reference/admin/expand-visionary-slots)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| count | integer (int32) | Number of new slots to create |
-
 <a id="forceaddusertoguildrequest"></a>
 
 ## ForceAddUserToGuildRequest
@@ -1151,19 +1204,6 @@ description: 'Admin object schemas from the Fluxer API.'
 |-------|------|-------------|
 | guild_id | [SnowflakeType](#snowflaketype) |  |
 | user_id | [SnowflakeType](#snowflaketype) |  |
-
-<a id="generategiftcodesrequest"></a>
-
-## GenerateGiftCodesRequest
-
-**Related endpoints**
-
-- [`POST /admin/codes/gift`](/api-reference/admin/generate-gift-subscription-codes)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| count | integer (int32) | Number of gift codes to generate |
-| product_type | enum&lt;`gift_1_month`, `gift_1_year`&gt; | Type of gift subscription |
 
 <a id="getarchiveresponseschema"></a>
 
@@ -1306,7 +1346,6 @@ Type: [MessageShredStatusNotFoundResponse](#messageshredstatusnotfoundresponse) 
 | manual_review_schedule_end_hour_utc | [Int32Type](#int32type) |  |
 | manual_review_schedule_start_hour_utc | [Int32Type](#int32type) |  |
 | registration_alerts_webhook_url | ?string |  |
-| self_hosted | boolean |  |
 | sso | [SsoConfigResponse](#ssoconfigresponse) |  |
 | system_alerts_webhook_url | ?string |  |
 
@@ -1385,7 +1424,6 @@ Type: [MessageShredStatusNotFoundResponse](#messageshredstatusnotfoundresponse) 
 | limit_config_json | string |  |
 | limit_keys | string[] |  |
 | metadata | map&lt;string, [LimitConfigGetResponseMetadataAdditionalProperties](#limitconfiggetresponsemetadataadditionalproperties)&gt; |  |
-| self_hosted | boolean |  |
 
 <a id="limitconfigupdaterequest"></a>
 
@@ -1741,20 +1779,6 @@ Type: [MessageShredStatusNotFoundResponse](#messageshredstatusnotfoundresponse) 
 | Field | Type | Description |
 |-------|------|-------------|
 | sessions | [UserSessionResponse](#usersessionresponse)[] |  |
-
-<a id="listvisionaryslotsresponse"></a>
-
-## ListVisionarySlotsResponse
-
-**Related endpoints**
-
-- [`GET /admin/visionary-slots`](/api-reference/admin/list-all-visionary-slots)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| reserved_count | integer (int32) | Number of reserved slots |
-| slots | [VisionarySlotSchema](#visionaryslotschema)[] | List of all visionary slots |
-| total_count | integer (int32) | Total number of slots |
 
 <a id="listvoiceregionsrequest"></a>
 
@@ -2180,19 +2204,6 @@ Type: [MessageShredStatusNotFoundResponse](#messageshredstatusnotfoundresponse) 
 |-------|------|-------------|
 | user_id | [SnowflakeType](#snowflaketype) |  |
 
-<a id="reservevisionaryslotrequest"></a>
-
-## ReserveVisionarySlotRequest
-
-**Related endpoints**
-
-- [`POST /admin/visionary-slots/reserve`](/api-reference/admin/reserve-or-unreserve-a-visionary-slot)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| slot_index | integer (int32) | Slot index to reserve (must be &gt;= 1) |
-| user_id | ?[Int64StringType](#int64stringtype) | User ID to reserve the slot for, or null to unreserve (special value -1 is also valid) |
-
 <a id="resolvereportrequest"></a>
 
 ## ResolveReportRequest
@@ -2412,18 +2423,6 @@ Type: [MessageShredStatusNotFoundResponse](#messageshredstatusnotfoundresponse) 
 | traits | string[] | List of traits to assign to the user |
 | user_id | [SnowflakeType](#snowflaketype) |  |
 
-<a id="shrinkvisionaryslotsrequest"></a>
-
-## ShrinkVisionarySlotsRequest
-
-**Related endpoints**
-
-- [`POST /admin/visionary-slots/shrink`](/api-reference/admin/shrink-visionary-slots)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| target_count | integer (int32) | Target total number of slots (removes from highest indices, minimum 0 slots) |
-
 <a id="shutdownguildrequest"></a>
 
 ## ShutdownGuildRequest
@@ -2483,19 +2482,6 @@ Type: Bitflags32
 | REQUIRE_REVERIFIED_EMAIL_OR_VERIFIED_PHONE | `32` | Requires re-verified email or re-verified phone |
 | REQUIRE_VERIFIED_EMAIL_OR_REVERIFIED_PHONE | `64` | Requires verified email or re-verified phone |
 | REQUIRE_REVERIFIED_EMAIL_OR_REVERIFIED_PHONE | `128` | Requires re-verified email or re-verified phone |
-
-<a id="swapvisionaryslotsrequest"></a>
-
-## SwapVisionarySlotsRequest
-
-**Related endpoints**
-
-- [`POST /admin/visionary-slots/swap`](/api-reference/admin/swap-visionary-slot-reservations)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| slot_index_a | integer (int32) | First slot index to swap (must be &gt;= 1) |
-| slot_index_b | integer (int32) | Second slot index to swap (must be &gt;= 1) |
 
 <a id="systemdmjobresponse"></a>
 
@@ -2799,21 +2785,6 @@ Type: Bitflags32
 | Field | Type | Description |
 |-------|------|-------------|
 | user_id | [SnowflakeType](#snowflaketype) |  |
-
-<a id="visionaryslotoperationresponse"></a>
-
-## VisionarySlotOperationResponse
-
-**Related endpoints**
-
-- [`POST /admin/visionary-slots/expand`](/api-reference/admin/expand-visionary-slots)
-- [`POST /admin/visionary-slots/reserve`](/api-reference/admin/reserve-or-unreserve-a-visionary-slot)
-- [`POST /admin/visionary-slots/shrink`](/api-reference/admin/shrink-visionary-slots)
-- [`POST /admin/visionary-slots/swap`](/api-reference/admin/swap-visionary-slot-reservations)
-
-| Field | Type | Description |
-|-------|------|-------------|
-| success | enum&lt;`true`&gt; |  |
 
 <a id="webauthncredentiallistresponse"></a>
 

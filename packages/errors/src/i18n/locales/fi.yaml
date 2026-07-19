@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: Upotuksen indeksi {embedIndex} on rajojen ulko
 embeds.embed_splash_requires_feature: Upotuksen splash vaatii INVITE_SPLASH-ominaisuuden.
 embeds.embeds_exceed_max_characters: Upotukset eivät saa ylittää yhteensä {maxCharacters} {maxCharacters, plural, one {merkkiä} other {merkkiä}}.
 embeds.too_many_embeds: Liikaa upotuksia. Enintään {maxEmbeds} {maxEmbeds, plural, one {upotus} other {upotusta}} sallitaan.
-feature_flags.feature_not_available_self_hosted: Tämä ominaisuus ei ole saatavilla itsepalveluissa.
 feature_flags.feature_temporarily_disabled: Tämä ominaisuus on väliaikaisesti poistettu käytöstä.
 friends_and_dms.already_friends: Olette jo kavereita tämän käyttäjän kanssa.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Vähintään yksi vastaanottaja vaaditaan yksityisten kanavien alustamiseen.

@@ -368,7 +368,6 @@ pricing_and_tiers.free.comparison_label: Gratis vs Plutonium
 pricing_and_tiers.free.everything_in_free_plus: 'Alles in Gratis, plus:'
 pricing_and_tiers.free.full_access_to_all_features: Volledige toegang tot alle functies
 pricing_and_tiers.free.label: Gratis
-pricing_and_tiers.plutonium.benefits_note_official_instance_only: 'Let op: Plutonium- en Visionary-voordelen gelden alleen op de officiële Multiverse.app-instance, niet op instances van derden of zelf gehoste instances.'
 pricing_and_tiers.plutonium.feature_highlights: Uploads tot 500 MB, berichten tot 4.000 tekens, 300 bladwijzers, 50 emojipakketten en nog veel meer.
 pricing_and_tiers.plutonium.features.bio_character_limit: Bio-limiet (tekens)
 pricing_and_tiers.plutonium.features.choose_custom_4_digit_tag: Kies een beschikbare 4-cijferige tag van #0001 tot #9999 om je gebruikersnaam echt uniek te maken.
@@ -396,7 +395,6 @@ pricing_and_tiers.visionary.bundle_label: Levenslang Plutonium en Operator Pass 
 pricing_and_tiers.visionary.communities_with_team_access: Visionary- en Operators-communities met teamtoegang
 pricing_and_tiers.visionary.get_visionary: Neem Visionary
 pricing_and_tiers.visionary.label: Visionary
-pricing_and_tiers.visionary.lifetime_offer_copy: Krijg levenslang Plutonium op Multiverse.app plus een Operator Pass voor zelf hosten. Betaal {0} eenmalig. Beschikbaar tot 1 oktober 2026, of totdat alle plekken zijn geclaimd.
 pricing_and_tiers.visionary.lifetime_operator_pass: Levenslang Operator Pass
 pricing_and_tiers.visionary.lifetime_plutonium: Levenslang Plutonium
 pricing_and_tiers.visionary.limited_offer_note: 'Tijdelijke actie: Visionary is inclusief Operator Pass'
@@ -407,22 +405,9 @@ pricing_and_tiers.visionary.purchase_flow: Koop Visionary direct in de app nadat
 pricing_and_tiers.visionary.slots_left.generic: '{0} van {1} plekken over'
 pricing_and_tiers.visionary.slots_left.visionary_bundle: Nog maar {0} van {1} Visionary-plekken over – levenslang Plutonium en Operator Pass
 pricing_and_tiers.visionary.slots_left.visionary_only: '{0} Visionary-plekken over'
-product_positioning.free_and_open_source: Multiverse is gratis en open source. Iedereen kan gratis zelf hosten.
 product_positioning.intro: Multiverse is een gratis, open source platform voor instant messaging en VoIP, gebouwd voor vrienden, groepen en communities.
 product_positioning.open_source.fully_open_source_agplv3: Volledig open source (AGPLv3)
 product_positioning.open_source.label: Open source
-product_positioning.open_source.license: Open source (AGPL-3.0)
-product_positioning.self_hosting.connect_from_any_client: Verbind vanaf elke client
-product_positioning.self_hosting.free_self_hosting: Gratis zelf hosten
-product_positioning.self_hosting.host_your_own_instance: Host je eigen instance
-product_positioning.self_hosting.label: Zelf hosten
-product_positioning.self_hosting.operator_pass.access_to_operators_community: Toegang tot de Multiverse Operators-community
-product_positioning.self_hosting.operator_pass.after_offer_ends_stays_available: Na afloop van de aanbieding blijft Operator Pass ook los verkrijgbaar.
-product_positioning.self_hosting.operator_pass.label: Operator Pass
-product_positioning.self_hosting.operator_pass.note_optional: 'Operator Pass is optioneel: je betaalt voor ondersteuning en toegang tot de community.'
-product_positioning.self_hosting.operator_pass.priority_support_and_operators_access: Ondersteuning met voorrang en toegang tot de Operators-community voor zelf hosten
-product_positioning.self_hosting.run_backend_on_your_hardware: Draai de Multiverse-backend op je eigen hardware en verbind met onze apps.
-product_positioning.self_hosting.switch_between_instances: Wissel tussen meerdere instances
 security.found_security_issue: Een beveiligingsprobleem gevonden?
 security.report_vulnerabilities: Meld kwetsbaarheden en help ons het platform veilig te houden.
 security.responsible_disclosure_note: We waarderen responsible disclosure via onze beveiligings-bug bounty-pagina. We geven Plutonium-codes en Bug Hunter-badges op basis van de ernst.

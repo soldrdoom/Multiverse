@@ -22,7 +22,6 @@ import {NagbarButton} from '@app/components/layout/NagbarButton';
 import {NagbarContent} from '@app/components/layout/NagbarContent';
 import AuthenticationStore from '@app/stores/AuthenticationStore';
 import NagbarStore from '@app/stores/NagbarStore';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import {Trans} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 import {useEffect} from 'react';
@@ -30,16 +29,11 @@ import {useEffect} from 'react';
 const MULTIVERSE_INVITE_URL = 'https://multiverse.forum/invite/884IWviB';
 
 export const GuildMembershipCtaNagbar = observer(({isMobile}: {isMobile: boolean}) => {
-	const isSelfHosted = RuntimeConfigStore.isSelfHosted();
 	const currentUserId = AuthenticationStore.currentUserId;
 
 	useEffect(() => {
 		NagbarStore.guildMembershipCtaDismissed = false;
 	}, [currentUserId]);
-
-	if (isSelfHosted) {
-		return null;
-	}
 
 	if (!currentUserId) {
 		return null;

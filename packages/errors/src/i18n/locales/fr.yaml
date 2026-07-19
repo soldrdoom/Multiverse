@@ -257,7 +257,6 @@ embeds.embed_index_out_of_bounds: L'index d'embed {embedIndex} est hors limites 
 embeds.embed_splash_requires_feature: L'image d'embed nécessite la fonctionnalité INVITE_SPLASH.
 embeds.embeds_exceed_max_characters: Les embeds ne doivent pas dépasser {maxCharacters} {maxCharacters, plural, one {caractère} other {caractères}} au total.
 embeds.too_many_embeds: Trop d'embeds. Maximum {maxEmbeds} {maxEmbeds, plural, one {embed} other {embeds}} autorisé(s).
-feature_flags.feature_not_available_self_hosted: Cette fonctionnalité n'est pas disponible sur les instances auto-hébergées.
 feature_flags.feature_temporarily_disabled: Cette fonctionnalité est temporairement désactivée.
 friends_and_dms.already_friends: Tu es déjà ami avec cet utilisateur.
 friends_and_dms.at_least_one_recipient_required_to_seed_private_channels: Au moins un destinataire est requis pour initialiser des salons privés.

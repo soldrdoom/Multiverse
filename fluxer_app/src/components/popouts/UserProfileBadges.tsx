@@ -18,13 +18,12 @@
  */
 
 import styles from '@app/components/popouts/UserProfileBadges.module.css';
-import CosmeticsStore from '@app/stores/CosmeticsStore';
 import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {Routes} from '@app/Routes';
 import type {ProfileRecord} from '@app/records/ProfileRecord';
 import type {UserRecord} from '@app/records/UserRecord';
-import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
+import CosmeticsStore from '@app/stores/CosmeticsStore';
 import * as DateUtils from '@app/utils/DateUtils';
 import {cdnUrl} from '@app/utils/UrlUtils';
 import {PublicUserFlags, UserPremiumTypes} from '@fluxer/constants/src/UserConstants';
@@ -59,7 +58,6 @@ interface UserProfileBadgesProps {
 export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 	({user, profile, isModal = false, isMobile = false}) => {
 		const {t} = useLingui();
-		const selfHosted = RuntimeConfigStore.isSelfHosted();
 
 		const badges = useMemo(() => {
 			const result: Array<Badge> = [];
@@ -74,7 +72,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 				});
 			}
 
-			if (!selfHosted && user.flags & PublicUserFlags.CTP_MEMBER) {
+			if (user.flags & PublicUserFlags.CTP_MEMBER) {
 				result.push({
 					type: 'icon',
 					key: 'ctp',
@@ -84,7 +82,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 				});
 			}
 
-			if (!selfHosted && user.flags & PublicUserFlags.PARTNER) {
+			if (user.flags & PublicUserFlags.PARTNER) {
 				result.push({
 					type: 'icon',
 					key: 'partner',
@@ -94,7 +92,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 				});
 			}
 
-			if (!selfHosted && user.flags & PublicUserFlags.BUG_HUNTER) {
+			if (user.flags & PublicUserFlags.BUG_HUNTER) {
 				result.push({
 					type: 'icon',
 					key: 'bug_hunter',
@@ -104,7 +102,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 				});
 			}
 
-			if (!selfHosted && profile?.premiumType && profile.premiumType !== UserPremiumTypes.NONE) {
+			if (profile?.premiumType && profile.premiumType !== UserPremiumTypes.NONE) {
 				let tooltipText = t`Multiverse Plutonium`;
 				let badgeUrl = Routes.plutonium();
 
@@ -141,7 +139,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 			}
 
 			return result;
-		}, [selfHosted, user.flags, profile?.premiumType, profile?.premiumSince, profile?.premiumLifetimeSequence]);
+		}, [user.flags, profile?.premiumType, profile?.premiumSince, profile?.premiumLifetimeSequence]);
 
 		// Cosmetic badge NFT — read outside useMemo so MobX observer tracks it reactively.
 		const cosmeticBadgeUrl = CosmeticsStore.getProfileCosmeticImageUrl(user.id, 'badge');
@@ -155,7 +153,7 @@ export const UserProfileBadges: React.FC<UserProfileBadgesProps> = observer(
 						tooltip: 'Cosmetic Badge',
 						url: '',
 					},
-			  ]
+				]
 			: badges;
 
 		if (allBadges.length === 0) {
