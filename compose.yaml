@@ -99,7 +99,7 @@ services:
       - |
         ollama serve &
         sleep 5
-        ollama pull ${OLLAMA_MODEL:-llama3.2:3b}
+        ollama pull ${OLLAMA_MODEL:-qwen3:0.6b}
         wait
     healthcheck:
       # ollama/ollama's image has neither curl nor wget; the ollama CLI itself
@@ -121,7 +121,7 @@ services:
       IRIS_OWNER_USER_ID: ${IRIS_OWNER_USER_ID:?Set IRIS_OWNER_USER_ID in .env or environment}
       IRIS_INSTANCE_BASE_URL: ${IRIS_INSTANCE_BASE_URL:-https://multiverse.forum}
       OLLAMA_BASE_URL: http://ollama:11434
-      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:3b}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:0.6b}
     depends_on:
       fluxer_server:
         condition: service_healthy

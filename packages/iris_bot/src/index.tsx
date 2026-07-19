@@ -21,8 +21,7 @@ import {createServer} from 'node:http';
 import pino from 'pino';
 import {loadConfig} from './Config';
 import {GatewayClient} from './GatewayClient';
-import {loadKnowledgeBase} from './KnowledgeBase';
-import {buildSystemPrompt} from './LlmClient';
+import {IRIS_SYSTEM_PROMPT} from './LlmClient';
 import {MessageHandler} from './MessageHandler';
 import {OllamaLlmClient} from './OllamaLlmClient';
 import {RestClient} from './RestClient';
@@ -35,9 +34,7 @@ async function main(): Promise<void> {
 	const wellKnown = await restClient.fetchWellKnown();
 	log.info({endpoints: wellKnown.endpoints}, 'Resolved instance endpoints');
 
-	const knowledgeBase = loadKnowledgeBase();
-	const systemPrompt = buildSystemPrompt(knowledgeBase);
-	const llmClient = new OllamaLlmClient(config.ollamaBaseUrl, config.ollamaModel, systemPrompt);
+	const llmClient = new OllamaLlmClient(config.ollamaBaseUrl, config.ollamaModel, IRIS_SYSTEM_PROMPT);
 
 	let botUserId: string | null = null;
 	let handler: MessageHandler | null = null;

@@ -30,8 +30,43 @@ interface MessageCreatePayload {
 	encrypted_content?: string | null;
 }
 
+const BOT_TEASE_INTERVAL = 5;
+const BOT_TEASE_LINES = [
+	'(psst — bots are coming soon to Multiverse 🤖)',
+	'(small teaser: a public bot API is on the way for Multiverse)',
+	'(bot support is coming soon, by the way)',
+];
+
+// I.R.I.S. doesn't discuss the platform at all right now — the model can't reliably
+// self-censor this (it confidently invented wrong platform details in testing), so
+// obvious platform questions are deflected in code before ever reaching the model.
+const PLATFORM_KEYWORDS = [
+	'multiverse',
+	'self-host',
+	'self host',
+	'selfhost',
+	'whitepaper',
+	'white paper',
+	'roadmap',
+	'tokenomics',
+	'plutonium',
+	'identity vault',
+	'bot api',
+	'agplv3',
+	'agpl',
+	'csam',
+];
+const PLATFORM_DEFLECTION =
+	"I can't get into that right now — ask my creator directly! Happy to chat about anything else though.";
+
+function mentionsPlatform(content: string): boolean {
+	const lower = content.toLowerCase();
+	return PLATFORM_KEYWORDS.some((keyword) => lower.includes(keyword));
+}
+
 export class MessageHandler {
 	private readonly conversations = new ConversationStore();
+	private readonly replyCounts = new Map<string, number>();
 
 	constructor(
 		private readonly ownerUserId: string,
@@ -63,12 +98,27 @@ export class MessageHandler {
 		this.log.info({channelId: message.channel_id, guildId: message.guild_id}, 'Replying to owner message');
 
 		const history = this.conversations.getHistory(message.channel_id);
-		const reply = await this.llmClient.generateReply(history, message.content);
+		let reply = mentionsPlatform(message.content)
+			? PLATFORM_DEFLECTION
+			: await this.llmClient.generateReply(history, message.content);
 		if (!reply) return;
+
+		reply = this.maybeAppendBotTease(message.channel_id, reply);
 
 		this.conversations.append(message.channel_id, {role: 'user', content: message.content});
 		this.conversations.append(message.channel_id, {role: 'assistant', content: reply});
 
 		await this.restClient.sendMessage(this.apiBaseUrl, message.channel_id, reply);
+	}
+
+	private maybeAppendBotTease(channelId: string, reply: string): string {
+		const count = (this.replyCounts.get(channelId) ?? 0) + 1;
+		this.replyCounts.set(channelId, count);
+
+		if (count % BOT_TEASE_INTERVAL !== 0) return reply;
+		if (reply.toLowerCase().includes('bot')) return reply;
+
+		const tease = BOT_TEASE_LINES[Math.floor(Math.random() * BOT_TEASE_LINES.length)];
+		return `${reply}\n\n${tease}`;
 	}
 }
