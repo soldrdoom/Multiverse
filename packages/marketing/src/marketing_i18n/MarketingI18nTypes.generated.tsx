@@ -436,6 +436,8 @@ export type MarketingI18nKey =
 	| 'product_positioning.intro'
 	| 'product_positioning.open_source.fully_open_source_agplv3'
 	| 'product_positioning.open_source.label'
+	| 'roadmap_page.bot_api.description'
+	| 'roadmap_page.bot_api.title'
 	| 'roadmap_page.cosmetics.description'
 	| 'roadmap_page.cosmetics.title'
 	| 'roadmap_page.digital_goods.description'

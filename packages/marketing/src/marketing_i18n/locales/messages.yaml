@@ -114,6 +114,8 @@ roadmap_page.digital_goods.title: More On-Chain Digital Goods
 roadmap_page.digital_goods.description: Growing the set of paid features, like vanity server URLs, that can be purchased with a one-time SOL payment.
 roadmap_page.utility_token.title: A Utility Token for Cosmetics
 roadmap_page.utility_token.description: A planned Solana token you'll be able to buy or earn through platform use, spendable on cosmetics.
+roadmap_page.bot_api.title: Public Bot API
+roadmap_page.bot_api.description: A developer platform for building and running bots on Multiverse, similar to how Discord supports third-party bots.
 roadmap_page.read_the_whitepaper: Read more in the whitepaper.
 roadmap_page.disclaimer: These are directional statements about where Multiverse is headed, not commitments to specific dates or features. Plans may change as the platform develops.
 company_and_resources.support.whitepaper: Whitepaper

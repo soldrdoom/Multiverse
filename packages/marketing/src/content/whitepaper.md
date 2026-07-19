@@ -34,6 +34,12 @@ Multiverse's backend is split into small, purpose-built services: a real-time ga
 
 **On-chain payments for digital goods.** Specific paid features — currently, custom vanity URLs for servers — can be purchased with a one-time, on-chain SOL payment, verified by checking the transaction on Solana mainnet. This is a per-item purchase mechanism, not a subscription and not an investment product.
 
+## Bot platform
+
+Multiverse plans to open a public bot API, letting outside developers build and run bots on the platform in the same spirit as Discord's bot ecosystem: dedicated bot accounts, a permissions model scoped to what a bot is allowed to see and do, and a straightforward way for a community to add a bot to their server. This is a deliberate part of competing with existing chat platforms — a mainstream chat product without a real developer ecosystem around it is missing something communities already expect.
+
+The first bot built on this platform is I.R.I.S. (Integrated Robotic Intelligence System), an assistant used internally during Multiverse's early development. The public bot API, and the broader developer platform around it, is still in planning; nothing about its permissions model, rate limits, or availability is final.
+
 ## Token plans
 
 Multiverse plans to introduce a utility token, issued as a standard SPL token on Solana, in a future release. Its intended use is narrow: spending it on cosmetic items on the platform. Users would be able to acquire it either by purchasing it directly — in SOL or fiat — or by earning modest amounts through ordinary use of the platform; neither mechanism is live today.
@@ -56,7 +62,7 @@ Multiverse runs a public responsible-disclosure program for security researchers
 
 ## Roadmap
 
-Near-term priorities include native mobile apps, exploratory work on federation between Multiverse communities, and expanding the range of cosmetic categories that can be gated by NFT ownership. On the payments side, the set of digital goods that can be purchased on-chain may grow over time, and further out we plan to introduce the utility token described above. These are directional statements about where the product is headed, not commitments to specific dates or features — they may change as the platform develops.
+Near-term priorities include native mobile apps, exploratory work on federation between Multiverse communities, and expanding the range of cosmetic categories that can be gated by NFT ownership. On the payments side, the set of digital goods that can be purchased on-chain may grow over time, and further out we plan to introduce the utility token described above and open the public bot API described above. These are directional statements about where the product is headed, not commitments to specific dates or features — they may change as the platform develops.
 
 ## Legal and risk disclaimers
 

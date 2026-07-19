@@ -89,6 +89,10 @@ function renderRoadmapBody(ctx: MarketingContext): JSX.Element {
 						</a>
 					</p>
 				</div>
+				<div class={darkCardClass}>
+					<h2 class="mb-1 font-semibold text-white">{ctx.i18n.getMessage('roadmap_page.bot_api.title', ctx.locale)}</h2>
+					<p class="text-sm text-white/60">{ctx.i18n.getMessage('roadmap_page.bot_api.description', ctx.locale)}</p>
+				</div>
 			</div>
 			<p class="mt-10 text-sm text-white/50">{ctx.i18n.getMessage('roadmap_page.disclaimer', ctx.locale)}</p>
 		</section>
