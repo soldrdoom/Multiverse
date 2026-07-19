@@ -12,7 +12,7 @@ Security researchers, community members, and anyone who discovers a potential se
 
 ### In scope
 
-Multiverse websites, applications, and services operated by Multiverse Platform AB, including the following domains and any subdomain of these domains:
+Multiverse websites, applications, and services, including the following domains and any subdomain of these domains:
 
 - `fluxer.gg`
 - `fluxer.gift`

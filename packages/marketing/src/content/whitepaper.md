@@ -1,6 +1,6 @@
 ## Abstract
 
-Multiverse is an instant messaging and voice/video platform for communities — servers, channels, DMs, calls — built on a conventional, reliable web2 core and layered with optional web3 features: wallet-based sign-in, NFT-gated cosmetics, an end-to-end encrypted Identity Vault, and on-chain payments for specific digital goods. It is developed and operated by Multiverse Platform AB.
+Multiverse is an instant messaging and voice/video platform for communities — servers, channels, DMs, calls — built on a conventional, reliable web2 core and layered with optional web3 features: wallet-based sign-in, NFT-gated cosmetics, an end-to-end encrypted Identity Vault, and on-chain payments for specific digital goods. It is developed and operated as a single, official platform.
 
 A utility token for spending on platform cosmetics is planned for a future release; it does not exist today and is not for sale. Nothing in this document is an offer to sell securities, tokens, or any other financial instrument, and nothing here should be read as investment advice. Where this document describes future plans, those are forward-looking statements that may change without notice.
 
@@ -28,7 +28,7 @@ Multiverse's backend is split into small, purpose-built services: a real-time ga
 
 **Sign-In With Solana (SIWS).** Users can authenticate by signing a one-time challenge with a Solana wallet (Phantom, Solflare, Backpack, Coinbase Wallet, and others) instead of using an email and password. The signature is verified server-side against the wallet's public key. A user's private key and seed phrase never leave their wallet and are never transmitted to or stored by Multiverse.
 
-**NFT-gated cosmetics.** Holding a qualifying NFT can unlock cosmetic profile features — this is a cosmetic-only mechanism. It does not grant governance rights, revenue share, or any claim on Multiverse Platform AB, and it is not a security.
+**NFT-gated cosmetics.** Holding a qualifying NFT can unlock cosmetic profile features — this is a cosmetic-only mechanism. It does not grant governance rights, revenue share, or any claim on Multiverse, and it is not a security.
 
 **Identity Vault.** An end-to-end encryption scheme for direct messages in which the encryption key material is derived from a wallet signature rather than issued and held by Multiverse. Because the key is derived from something the user controls, it's portable across sessions and devices in a way a platform-issued credential wouldn't be.
 
@@ -36,13 +36,13 @@ Multiverse's backend is split into small, purpose-built services: a real-time ga
 
 ## Token plans
 
-Multiverse Platform AB plans to introduce a utility token, issued as a standard SPL token on Solana, in a future release. Its intended use is narrow: spending it on cosmetic items on the platform. Users would be able to acquire it either by purchasing it directly — in SOL or fiat — or by earning modest amounts through ordinary use of the platform; neither mechanism is live today.
+Multiverse plans to introduce a utility token, issued as a standard SPL token on Solana, in a future release. Its intended use is narrow: spending it on cosmetic items on the platform. Users would be able to acquire it either by purchasing it directly — in SOL or fiat — or by earning modest amounts through ordinary use of the platform; neither mechanism is live today.
 
-The token does not exist yet. It is not available for purchase or exchange anywhere, there is no sale, distribution event, or timeline to announce, and nothing in this document is an offer to sell or a solicitation to buy the token or any other instrument. If and when it launches, it is intended solely as a means of paying for cosmetics — not as an investment, and not as a promise of profit, dividend, revenue share, or governance rights in Multiverse Platform AB. The design, mechanics, and timing described here may change, or the token may not ship at all.
+The token does not exist yet. It is not available for purchase or exchange anywhere, there is no sale, distribution event, or timeline to announce, and nothing in this document is an offer to sell or a solicitation to buy the token or any other instrument. If and when it launches, it is intended solely as a means of paying for cosmetics — not as an investment, and not as a promise of profit, dividend, revenue share, or governance rights in Multiverse. The design, mechanics, and timing described here may change, or the token may not ship at all.
 
 ## Operating model
 
-Multiverse Platform AB develops and operates the only instance of Multiverse. This is closer to how Solana Labs stewards the Solana network, or how Google operates YouTube, than to a protocol anyone can independently stand up: there is one canonical, centrally operated service, run by the company that builds it. Multiverse does not offer, document, or support running an independent deployment of the platform.
+There is only one instance of Multiverse, developed and operated as a single, canonical service. This is closer to how Solana Labs stewards the Solana network, or how Google operates YouTube, than to a protocol anyone can independently stand up. Multiverse does not offer, document, or support running an independent deployment of the platform.
 
 ## Why the code is public
 
@@ -65,8 +65,8 @@ Near-term priorities include native mobile apps, exploratory work on federation 
 - Statements about future plans, features, or roadmap items are forward-looking and may change without notice, including whether, when, and how the planned utility token ships.
 - The Identity Vault, NFT-gating mechanism, and on-chain payment flow described here have not been independently audited as of the publication of this document.
 - Payments made in SOL carry the ordinary risks of cryptocurrency: price volatility and transaction irreversibility. Users are responsible for the security of their own wallets.
-- If and when the planned utility token launches, it will not confer profit-sharing, dividends, revenue share, equity, or governance rights in Multiverse Platform AB, and its price, if any, is not guaranteed or controlled by Multiverse Platform AB.
-- Multiverse Platform AB's registered entity details are available at [/company-information](/company-information). Where anything in this document conflicts with the [Terms of Service](/terms) or [Privacy Policy](/privacy), those documents govern.
+- If and when the planned utility token launches, it will not confer profit-sharing, dividends, revenue share, equity, or governance rights in Multiverse, and its price, if any, is not guaranteed or controlled by Multiverse.
+- Company information is available at [/company-information](/company-information). Where anything in this document conflicts with the [Terms of Service](/terms) or [Privacy Policy](/privacy), those documents govern.
 
 ## Learn more
 

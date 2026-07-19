@@ -17,11 +17,11 @@ This summary is provided for convenience. You should read the full policy below 
 
 ## 1. Who We Are
 
-We are **Multiverse Platform AB**, a Swedish limited liability company (Swedish organization number: 559537-3993). We operate the Multiverse chat platform and related services.
+We are **Multiverse**. We operate the Multiverse chat platform and related services.
 
-Multiverse Platform AB is the "data controller" for your personal data when you use Multiverse, meaning we determine how and why your personal data is processed.
+Multiverse is the "data controller" for your personal data when you use Multiverse, meaning we determine how and why your personal data is processed.
 
-As a company based in Sweden, we are subject to and comply with European Union data protection laws, including the General Data Protection Regulation (GDPR).
+We comply with applicable data protection laws based on where you are located, including the General Data Protection Regulation (GDPR) for users in the EEA/UK and the CCPA/CPRA for users in California.
 
 You can find our contact details and our privacy contact's details in [Section 16](#16-contact-us).
 
@@ -425,8 +425,6 @@ You may also authorize an agent to submit requests on your behalf where permitte
 
 If you are in the EEA, UK, or another jurisdiction with a data protection authority, you have the right to lodge a complaint with your local supervisory authority if you believe your privacy rights have been violated.
 
-If you are in Sweden, the relevant authority is the Swedish Authority for Privacy Protection (Integritetsskyddsmyndigheten). You can also contact your local authority in your country of residence.
-
 We encourage you to contact us first so we can try to resolve your concerns directly.
 
 ### 10.3 Automated Decision-Making
@@ -522,7 +520,6 @@ For account-related and privacy-related requests, you should contact us from the
 ### Privacy and Data Protection Contact
 
 - Email: privacy@fluxer.app
-- Contact person: Hampus Kraft, founder and CEO
 - This is our primary contact point for privacy and data protection questions. We have not formally appointed a Data Protection Officer under GDPR.
 
 You can use this address to exercise your privacy rights, ask questions about this policy, or raise concerns about how your data is handled.
@@ -531,11 +528,3 @@ You can use this address to exercise your privacy rights, ask questions about th
 
 - Email: support@fluxer.app
 - Website: [https://fluxer.app](https://fluxer.app)
-
-### Postal Address
-
-Multiverse Platform AB
-Norra Kronans Gata 430
-136 76 Brandbergen
-Stockholm County, Sweden
-Organization number: 559537-3993

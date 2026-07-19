@@ -151,7 +151,7 @@ export function Footer(props: FooterProps): JSX.Element {
 
 				<div class="mt-12 pt-8">
 					<p class="body-sm text-white/80">
-						{ctx.i18n.getMessage('footer.fluxer_platform_ab_swedish_limited', ctx.locale)}
+						{ctx.i18n.getMessage('footer.copyright', ctx.locale)}
 					</p>
 				</div>
 			</div>

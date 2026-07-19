@@ -63,7 +63,7 @@ export const POLICY_METADATA: ReadonlyArray<PolicyMetadata> = [
 	{
 		slug: 'company-information',
 		title: 'Company Information',
-		description: 'Legal information about Multiverse Platform AB, including our registered address and contact details.',
+		description: 'Legal and contact information for Multiverse.',
 		category: 'Legal',
 		lastUpdated: '2026-02-13',
 	},

@@ -1,25 +1,9 @@
-Multiverse Platform AB is a Swedish limited liability company registered with the Swedish Companies Registration Office (Bolagsverket) under the laws of Sweden.
-
-### Company Registration
-
-**Organization Number:** 559537-3993
-**VAT ID:** SE559537399301
-
-### Registered Address
-
-Multiverse Platform AB
-Norra Kronans Gata 430
-136 76 Brandbergen
-Stockholm County, Sweden
+Multiverse is currently developed and operated as an independent project. No company has been formally registered yet; this page will be updated with registration details if and when that changes.
 
 ### Contact Information
 
 **Email:** support@fluxer.app (for account-related matters, please contact us from the email address associated with your Multiverse account where possible)
 **Website:** [https://fluxer.app](https://fluxer.app)
-
-### Authorized Representative
-
-Hampus Kraft, Founder & CEO
 
 ### Specialized Contact Information
 

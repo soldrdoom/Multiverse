@@ -1,6 +1,6 @@
 ## Welcome to Multiverse
 
-These terms of service ("Terms") constitute a legally binding contract between you and Multiverse Platform AB (Swedish organization number: 559537-3993). We are based in Stockholm County, Sweden, and we operate the Multiverse chat platform and related services. Throughout these Terms, references to "Multiverse", "we", "us" or "our" refer to Multiverse Platform AB and our Services.
+These terms of service ("Terms") constitute a legally binding contract between you and Multiverse. Throughout these Terms, references to "Multiverse", "we", "us" or "our" refer to Multiverse and our Services.
 
 By creating an account or using Multiverse in any way, you agree to be bound by these Terms, our [Privacy Policy](/privacy), and our [Community Guidelines](/guidelines). If you do not agree to these Terms, you must not use Multiverse.
 
@@ -402,13 +402,11 @@ To the extent permitted by applicable law, you agree to defend, indemnify, and h
 
 This indemnity obligation does not apply to the extent that a claim arises due to our own breach of these Terms or our negligence, willful misconduct, or other liability that cannot be excluded under applicable law.
 
-## 10. Dispute Resolution and Governing Law
+## 10. Dispute Resolution
 
 We want to resolve disputes fairly and efficiently.
 
 - **Informal resolution first:** If you have a concern or dispute with us, please contact support@fluxer.app first. We will try to work with you in good faith to resolve the issue informally.
-- **Governing law and courts:** Unless otherwise required by mandatory local law, these Terms and any disputes arising out of or relating to them or the Services are governed by Swedish law, without regard to its conflict-of-law rules. Any dispute, controversy, or claim arising out of or in connection with these Terms or the Services will be submitted to the courts of Stockholm, Sweden, which will have exclusive jurisdiction, subject to the small-claims provision below.
-- **Small claims:** Either party may bring an individual claim in a competent small-claims court in a jurisdiction where venue is proper, instead of in the courts of Stockholm, Sweden.
 - **Consumers in the EU/EEA and other regions:** If you are a consumer residing in the EU, EEA, or another jurisdiction that grants you mandatory rights to bring claims in the courts of your country of residence, nothing in these Terms limits those rights.
 - **Class and representative actions:** To the maximum extent permitted by applicable law, any claims must be brought on an individual basis, and not as a plaintiff or class member in any class, collective, or representative action. If a waiver of class or representative actions is not enforceable for a particular claim, that claim may proceed as required by law in a court with proper jurisdiction, and the class or representative aspects of that claim will be handled as that court determines.
 
@@ -445,15 +443,7 @@ If you have questions, concerns, or need assistance with the Services or these T
 - **Privacy email:** privacy@fluxer.app (for privacy and data protection requests)
 - **Website:** [https://fluxer.app](https://fluxer.app)
 
-### Postal Address
-
-Multiverse Platform AB
-Norra Kronans Gata 430
-136 76 Brandbergen
-Stockholm County, Sweden
-Organization number: 559537-3993
-
-For additional contact details (including press, security, and legal requests), see our company information page or the [Privacy Policy](/privacy).
+For additional contact details (including press, security, and legal requests), see our [company information page](/company-information) or the [Privacy Policy](/privacy).
 
 ## 14. Export Controls and Sanctions
 

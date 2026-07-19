@@ -18,7 +18,7 @@
 
 # Multiverse
 
-Multiverse is a **free and open source instant messaging and VoIP platform** for friends, groups, and communities, developed and operated by Multiverse Platform AB.
+Multiverse is a **free and open source instant messaging and VoIP platform** for friends, groups, and communities, developed and operated as a single official platform.
 
 ## Quick links
 
