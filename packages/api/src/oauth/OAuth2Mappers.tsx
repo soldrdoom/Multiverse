@@ -87,6 +87,7 @@ export function mapBotProfileToResponse(user: User) {
 		id: user.id.toString(),
 		username: user.username,
 		discriminator: user.discriminator.toString().padStart(4, '0'),
+		global_name: user.globalName,
 		avatar: user.avatarHash,
 		banner: user.bannerHash,
 		bio: user.bio,

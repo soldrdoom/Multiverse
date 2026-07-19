@@ -447,6 +447,7 @@ export class ApplicationService {
 		applicationId: ApplicationID,
 		args: {
 			username?: string;
+			globalName?: string | null;
 			discriminator?: number;
 			avatar?: string | null;
 			banner?: string | null;
@@ -493,7 +494,7 @@ export class ApplicationService {
 			}
 		}
 
-		updates.global_name = null;
+		updates.global_name = args.globalName ?? null;
 
 		const assetPrep = await this.prepareBotAssets({
 			botUser,
