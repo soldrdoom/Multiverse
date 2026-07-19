@@ -104,6 +104,18 @@ company_and_resources.support.label: Support
 company_and_resources.support.page_description: Docs, roadmap, and what's coming next for Multiverse.
 company_and_resources.support.roadmap: Roadmap
 company_and_resources.support.roadmap_description: See what we're building next.
+roadmap_page.mobile_apps.title: Native Mobile Apps
+roadmap_page.mobile_apps.description: iOS and Android apps so you can take Multiverse with you, not just in a browser tab.
+roadmap_page.federation.title: Federation
+roadmap_page.federation.description: Early exploration into connecting Multiverse communities together.
+roadmap_page.cosmetics.title: More NFT-Gated Cosmetics
+roadmap_page.cosmetics.description: Expanding the range of cosmetic profile features unlockable by holding qualifying NFTs.
+roadmap_page.digital_goods.title: More On-Chain Digital Goods
+roadmap_page.digital_goods.description: Growing the set of paid features, like vanity server URLs, that can be purchased with a one-time SOL payment.
+roadmap_page.utility_token.title: A Utility Token for Cosmetics
+roadmap_page.utility_token.description: A planned Solana token you'll be able to buy or earn through platform use, spendable on cosmetics.
+roadmap_page.read_the_whitepaper: Read more in the whitepaper.
+roadmap_page.disclaimer: These are directional statements about where Multiverse is headed, not commitments to specific dates or features. Plans may change as the platform develops.
 company_and_resources.support.whitepaper: Whitepaper
 company_and_resources.support.whitepaper_description: A deeper look at how Multiverse works under the hood.
 donations.business: Business

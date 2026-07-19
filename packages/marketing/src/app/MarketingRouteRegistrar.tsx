@@ -37,6 +37,7 @@ import {renderPartnersPage} from '@fluxer/marketing/src/pages/PartnersPage';
 import {renderPlutoniumPage} from '@fluxer/marketing/src/pages/PlutoniumPage';
 import {renderPolicyPage} from '@fluxer/marketing/src/pages/PolicyPage';
 import {renderPressPage} from '@fluxer/marketing/src/pages/PressPage';
+import {renderRoadmapPage} from '@fluxer/marketing/src/pages/RoadmapPage';
 import {renderSupportPage} from '@fluxer/marketing/src/pages/SupportPage';
 import {renderWhitepaperPage} from '@fluxer/marketing/src/pages/WhitepaperPage';
 import {sanitizeInternalRedirectPath} from '@fluxer/marketing/src/RedirectPathUtils';
@@ -80,6 +81,7 @@ const PAGE_ROUTE_DEFINITIONS: ReadonlyArray<{
 	{path: '/plutonium', handler: renderPlutoniumPage},
 	{path: '/partners', handler: renderPartnersPage},
 	{path: '/press', handler: renderPressPage},
+	{path: '/roadmap', handler: renderRoadmapPage},
 	{path: '/support', handler: renderSupportPage},
 	{path: '/whitepaper', handler: renderWhitepaperPage},
 ];

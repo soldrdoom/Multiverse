@@ -101,6 +101,9 @@ export function Navigation(props: NavigationProps): JSX.Element {
 								<a href={href(ctx, '/help')} class={linkClass}>
 									{ctx.i18n.getMessage('company_and_resources.help.label', ctx.locale)}
 								</a>
+								<a href={href(ctx, '/roadmap')} class={linkClass}>
+									{ctx.i18n.getMessage('company_and_resources.support.roadmap', ctx.locale)}
+								</a>
 								<a href="https://docs.fluxer.app" class={linkClass}>
 									{ctx.i18n.getMessage('company_and_resources.docs', ctx.locale)}
 								</a>
@@ -210,6 +213,9 @@ export function Navigation(props: NavigationProps): JSX.Element {
 								<div class="flex flex-col gap-1">
 									<a href={href(ctx, '/help')} class={drawerLinkClass}>
 										{ctx.i18n.getMessage('company_and_resources.help.help_center', ctx.locale)}
+									</a>
+									<a href={href(ctx, '/roadmap')} class={drawerLinkClass}>
+										{ctx.i18n.getMessage('company_and_resources.support.roadmap', ctx.locale)}
 									</a>
 									<a href="https://docs.fluxer.app" class={drawerLinkClass}>
 										{ctx.i18n.getMessage('company_and_resources.docs', ctx.locale)}

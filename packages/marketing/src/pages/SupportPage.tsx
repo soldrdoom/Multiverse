@@ -68,7 +68,7 @@ function renderSupportBody(ctx: MarketingContext): JSX.Element {
 						{ctx.i18n.getMessage('company_and_resources.support.whitepaper_description', ctx.locale)}
 					</p>
 				</a>
-				<a href="https://blog.fluxer.app/roadmap-2026" class={darkCardClass}>
+				<a href="/roadmap" class={darkCardClass}>
 					<h2 class="mb-1 font-semibold text-white">
 						{ctx.i18n.getMessage('company_and_resources.support.roadmap', ctx.locale)}
 					</h2>
