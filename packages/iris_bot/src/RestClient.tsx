@@ -29,7 +29,7 @@ export interface WellKnownResponse {
 export class RestClient {
 	constructor(
 		private readonly instanceBaseUrl: string,
-		private readonly botToken: string,
+		private readonly authToken: string,
 		private readonly log: Logger,
 	) {}
 
@@ -42,10 +42,12 @@ export class RestClient {
 	}
 
 	async sendMessage(apiBaseUrl: string, channelId: string, content: string): Promise<void> {
+		// I.R.I.S. is a regular user account (not an OAuth2 bot application), so its
+		// token is a plain session token — no "Bot " scheme prefix on Authorization.
 		const res = await fetch(`${apiBaseUrl}/channels/${channelId}/messages`, {
 			method: 'POST',
 			headers: {
-				Authorization: `Bot ${this.botToken}`,
+				Authorization: this.authToken,
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({content}),

@@ -117,7 +117,7 @@ services:
     restart: unless-stopped
     user: "1001:1001"
     environment:
-      IRIS_BOT_TOKEN: ${IRIS_BOT_TOKEN:?Set IRIS_BOT_TOKEN in .env or environment}
+      IRIS_AUTH_TOKEN: ${IRIS_AUTH_TOKEN:?Set IRIS_AUTH_TOKEN in .env or environment}
       IRIS_OWNER_USER_ID: ${IRIS_OWNER_USER_ID:?Set IRIS_OWNER_USER_ID in .env or environment}
       IRIS_INSTANCE_BASE_URL: ${IRIS_INSTANCE_BASE_URL:-https://multiverse.forum}
       OLLAMA_BASE_URL: http://ollama:11434

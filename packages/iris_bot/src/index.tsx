@@ -30,7 +30,7 @@ async function main(): Promise<void> {
 	const log = pino({level: process.env.LOG_LEVEL ?? 'info'});
 	const config = loadConfig();
 
-	const restClient = new RestClient(config.instanceBaseUrl, config.botToken, log);
+	const restClient = new RestClient(config.instanceBaseUrl, config.authToken, log);
 	const wellKnown = await restClient.fetchWellKnown();
 	log.info({endpoints: wellKnown.endpoints}, 'Resolved instance endpoints');
 
@@ -41,7 +41,7 @@ async function main(): Promise<void> {
 
 	const gateway = new GatewayClient(
 		wellKnown.endpoints.gateway,
-		config.botToken,
+		config.authToken,
 		(eventType, data) => {
 			if (eventType === 'READY') {
 				const ready = data as {user: {id: string}};
