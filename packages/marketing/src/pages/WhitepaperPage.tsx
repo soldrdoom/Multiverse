@@ -173,7 +173,7 @@ export async function renderWhitepaperPage(c: Context, ctx: MarketingContext): P
 
 	const meta = articlePageMeta(title, description);
 
-	return c.html(renderContentLayout(c, ctx, meta, content, {footerClassName: 'rounded-t-3xl'}));
+	return c.html(renderContentLayout(c, ctx, meta, content, {footerClassName: 'rounded-t-3xl', theme: 'dark'}));
 }
 
 function renderWhitepaperBody(
@@ -186,11 +186,11 @@ function renderWhitepaperBody(
 	return (
 		<section class="mx-auto max-w-5xl">
 			<header class="mb-10 space-y-3">
-				<h1 class="font-bold text-4xl text-foreground">{title}</h1>
-				<p class="text-lg text-muted-foreground">{description}</p>
+				<h1 class="font-bold text-4xl text-white">{title}</h1>
+				<p class="text-lg text-white/70">{description}</p>
 			</header>
 			<div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_220px]">
-				<div id="policy-content" class="policy-prose" dangerouslySetInnerHTML={{__html: renderedContent}} />
+				<div id="policy-content" class="policy-prose-dark" dangerouslySetInnerHTML={{__html: renderedContent}} />
 				<aside id="policy-toc" class="hidden lg:block">
 					{renderToc(ctx.i18n.getMessage('navigation.on_this_page', ctx.locale), tocHeadings)}
 				</aside>
@@ -210,11 +210,11 @@ function renderToc(title: string, headings: ReadonlyArray<HeadingEntry>): JSX.El
 
 	return (
 		<nav class="space-y-2">
-			<h2 class="font-semibold text-foreground text-sm">{title}</h2>
-			<ul class="space-y-1 text-muted-foreground text-sm">
+			<h2 class="font-semibold text-sm text-white">{title}</h2>
+			<ul class="space-y-1 text-sm text-white/60">
 				{filtered.map((heading) => (
 					<li style={`margin-left: ${(heading.level - minLevel) * 12}px`}>
-						<a href={`#${heading.id}`} data-toc-link={heading.id} class="block py-1 hover:text-foreground">
+						<a href={`#${heading.id}`} data-toc-link={heading.id} class="block py-1 hover:text-white">
 							{heading.title}
 						</a>
 					</li>
