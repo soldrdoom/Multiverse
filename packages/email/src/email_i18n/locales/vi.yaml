@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Quy định cộng đồng: {guidelinesUrl}
 
     Khiếu nại:
-    Nếu bạn cho rằng quyết định này là sai hoặc không chính đáng, bạn có 60 ngày để gửi khiếu nại tới appeals@fluxer.app, và cần gửi từ chính địa chỉ e-mail này.
+    Nếu bạn cho rằng quyết định này là sai hoặc không chính đáng, bạn có 60 ngày để gửi khiếu nại tới doommedia@proton.me, và cần gửi từ chính địa chỉ e-mail này.
 
     Trong đơn khiếu nại, vui lòng:
     - Giải thích rõ vì sao bạn cho rằng quyết định là sai hoặc không chính đáng
@@ -73,7 +73,7 @@ account_temp_banned:
     - Điều khoản dịch vụ: {termsUrl}
     - Quy định cộng đồng: {guidelinesUrl}
 
-    Nếu bạn cho rằng quyết định này là sai hoặc không chính đáng, bạn có thể gửi khiếu nại tới appeals@fluxer.app, và cần gửi từ chính địa chỉ e-mail này. Vui lòng giải thích rõ vì sao bạn cho rằng quyết định là sai. Chúng tôi sẽ xem xét và phản hồi kết quả.
+    Nếu bạn cho rằng quyết định này là sai hoặc không chính đáng, bạn có thể gửi khiếu nại tới doommedia@proton.me, và cần gửi từ chính địa chỉ e-mail này. Vui lòng giải thích rõ vì sao bạn cho rằng quyết định là sai. Chúng tôi sẽ xem xét và phản hồi kết quả.
 
     – Đội an toàn Multiverse
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Cảm ơn bạn đã giúp Multiverse an toàn hơn cho mọi người. Chúng tôi xem xét nghiêm túc mọi báo cáo và đánh giá cao đóng góp của bạn cho cộng đồng.
 
-    Nếu bạn có bất kỳ câu hỏi hoặc lo ngại nào về kết quả này, vui lòng liên hệ safety@fluxer.app.
+    Nếu bạn có bất kỳ câu hỏi hoặc lo ngại nào về kết quả này, vui lòng liên hệ doommedia@proton.me.
 
     – Đội an toàn Multiverse
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Đây là biện pháp xử lý nghiêm túc. Dữ liệu tài khoản của bạn sẽ bị xóa vĩnh viễn vào thời điểm đã lên lịch.
 
-    Nếu bạn cho rằng quyết định này là sai, bạn có thể gửi khiếu nại tới appeals@fluxer.app, và cần gửi từ chính địa chỉ e-mail này.
+    Nếu bạn cho rằng quyết định này là sai, bạn có thể gửi khiếu nại tới doommedia@proton.me, và cần gửi từ chính địa chỉ e-mail này.
 
     – Đội an toàn Multiverse
 self_deletion_scheduled:

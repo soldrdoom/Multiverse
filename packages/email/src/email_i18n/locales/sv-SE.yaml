@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Communityregler: {guidelinesUrl}
 
     Överklaga:
-    Om du anser att beslutet är felaktigt eller obefogat kan du överklaga inom 60 dagar. Skicka ett mejl till appeals@fluxer.app från den här e-postadressen.
+    Om du anser att beslutet är felaktigt eller obefogat kan du överklaga inom 60 dagar. Skicka ett mejl till doommedia@proton.me från den här e-postadressen.
 
     I ditt överklagande:
     - Förklara tydligt varför du anser att beslutet är felaktigt eller obefogat
@@ -73,7 +73,7 @@ account_temp_banned:
     - Användarvillkor: {termsUrl}
     - Communityregler: {guidelinesUrl}
 
-    Om du anser att beslutet är felaktigt eller obefogat kan du överklaga. Skicka ett mejl till appeals@fluxer.app från den här e-postadressen och förklara tydligt varför du anser att beslutet är fel. Vi granskar överklagandet och återkommer med vårt beslut.
+    Om du anser att beslutet är felaktigt eller obefogat kan du överklaga. Skicka ett mejl till doommedia@proton.me från den här e-postadressen och förklara tydligt varför du anser att beslutet är fel. Vi granskar överklagandet och återkommer med vårt beslut.
 
     – Multiverses säkerhetsteam
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Tack för att du hjälper till att göra Multiverse tryggt för alla. Vi tar alla anmälningar på allvar och uppskattar ditt bidrag till communityt.
 
-    Om du har frågor eller funderingar kring beslutet, kontakta safety@fluxer.app.
+    Om du har frågor eller funderingar kring beslutet, kontakta doommedia@proton.me.
 
     – Multiverses säkerhetsteam
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Det här är en allvarlig åtgärd. Dina kontodata kommer att raderas permanent vid den planerade tidpunkten.
 
-    Om du anser att beslutet är felaktigt kan du överklaga. Skicka ett mejl till appeals@fluxer.app från den här e-postadressen.
+    Om du anser att beslutet är felaktigt kan du överklaga. Skicka ett mejl till doommedia@proton.me från den här e-postadressen.
 
     – Multiverses säkerhetsteam
 self_deletion_scheduled:

@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Multiverseのビジネスを
 community_funding_and_roles.non_paid_recurring_role: コアチームと一緒にMultiverseを形作る、継続的な貢献者向けの無償ロールです。
 community_funding_and_roles.sustainability_note: 支援が増えれば、この独立したコミュニケーションプラットフォームを持続可能にして、将来的に有償ロールも用意できるようにしたいです。
 company_and_resources.blog: ブログ
-company_and_resources.careers.careers_at_fluxer: Multiverseの採用
-company_and_resources.careers.label: 採用
-company_and_resources.careers.share_a_bit_about_yourself: 自己紹介と、どんな形で関わりたいかを careers@fluxer.app にメールして。
 company_and_resources.community_team.fluxer_community_team: Multiverseコミュニティチーム
 company_and_resources.community_team.share_feedback_report_bugs: フィードバックを送ったり、バグを報告したり、みんなが居心地よくいられるMultiverseにするのを手伝ってくれると助かります。
 company_and_resources.company: 会社
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: 参加する
 company_and_resources.source_and_contribution.source_code: ソースコード
 company_and_resources.source_and_contribution.translation.help_translate: Multiverseとドキュメントを翻訳して、どこでも自然に使えるように。
 company_and_resources.source_and_contribution.translation.label: 翻訳とローカライズ
-company_and_resources.source_and_contribution.translation.llm_translation_note: 今の翻訳はすべてLLM生成で、人の見直しは最小限です。あなたの言語にしっかりローカライズしたいので、協力してくれる人を募集しています。i18n@fluxer.app にメールしてくれれば、喜んで受け付けます。
+company_and_resources.source_and_contribution.translation.llm_translation_note: 今の翻訳はすべてLLM生成で、人の見直しは最小限です。あなたの言語にしっかりローカライズしたいので、協力してくれる人を募集しています。doommedia@proton.me にメールしてくれれば、喜んで受け付けます。
 company_and_resources.source_and_contribution.translation.localization_label: ローカライズ
 company_and_resources.source_and_contribution.view_repository: リポジトリを見る
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Multiverse作りを手伝いたい？
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: 参加して広めよう
 misc_labels.join_fluxer_community_contribute: Multiverseコミュニティに参加して、オープンソースとコミュニティ貢献で次世代のコミュニケーションを一緒に作ろう。
 misc_labels.join_fluxer_hq: Multiverse HQに参加
 misc_labels.join_multiple_devices: 複数端末から同時に参加
-misc_labels.join_team_behind_fluxer: Multiverseを作るチームに参加
 misc_labels.learn_more: 詳しく見る
 misc_labels.product_hunt_badge_title: Multiverse - オープンソースのDiscord風インスタントメッセージング＆VoIPプラットフォーム | Product Huntのトップ投稿
 misc_labels.profile_badge: プロフィールバッジ
@@ -254,7 +250,6 @@ navigation.page_not_found.title: ページが見つかりません
 navigation.press.download_assets_intro: ロゴをダウンロードして、ブランドカラーを確認して、プレスチームに連絡できます。
 navigation.press.download_fluxer_assets: Multiverseのロゴやブランド素材をダウンロードして、プレスチームに連絡できます
 navigation.press.press_and_brand_assets: プレスとブランド素材
-partner_program.become_partner.apply_email: '応募先: partners@fluxer.app'
 partner_program.become_partner.call_to_action: パートナーになる
 partner_program.become_partner.heading: Multiverseパートナーになる
 partner_program.become_partner.if_youre_a_creator_or: クリエイターの方や大きなコミュニティを運営している方、ぜひ連絡して。

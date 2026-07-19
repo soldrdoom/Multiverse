@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Fællesskabsregler: {guidelinesUrl}
 
     Indsend en klage:
-    Hvis du mener, at beslutningen er forkert eller uberettiget, kan du inden for 60 dage indsende en klage til appeals@fluxer.app, og det skal ske fra denne e-mailadresse.
+    Hvis du mener, at beslutningen er forkert eller uberettiget, kan du inden for 60 dage indsende en klage til doommedia@proton.me, og det skal ske fra denne e-mailadresse.
 
     I din klage skal du:
     - Forklare tydeligt, hvorfor du mener, at beslutningen er forkert eller uberettiget
@@ -73,7 +73,7 @@ account_temp_banned:
     - Vilkår for brug: {termsUrl}
     - Fællesskabsregler: {guidelinesUrl}
 
-    Hvis du mener, at beslutningen er forkert eller uberettiget, kan du indsende en klage til appeals@fluxer.app, og det skal ske fra denne e-mailadresse. Forklar tydeligt, hvorfor du mener, at beslutningen er forkert. Vi gennemgår klagen og vender tilbage med vores afgørelse.
+    Hvis du mener, at beslutningen er forkert eller uberettiget, kan du indsende en klage til doommedia@proton.me, og det skal ske fra denne e-mailadresse. Forklar tydeligt, hvorfor du mener, at beslutningen er forkert. Vi gennemgår klagen og vender tilbage med vores afgørelse.
 
     – Multiverse Safety-team
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Tak fordi du hjælper med at holde Multiverse trygt for alle. Vi tager alle meldinger seriøst og sætter pris på dit bidrag til fællesskabet.
 
-    Hvis du har spørgsmål eller bekymringer om resultatet, så skriv til safety@fluxer.app.
+    Hvis du har spørgsmål eller bekymringer om resultatet, så skriv til doommedia@proton.me.
 
     – Multiverse Safety-team
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Det er en alvorlig foranstaltning. Dine kontodata bliver slettet permanent på den planlagte dato.
 
-    Hvis du mener, at beslutningen er forkert, kan du indsende en klage til appeals@fluxer.app, og det skal ske fra denne e-mailadresse.
+    Hvis du mener, at beslutningen er forkert, kan du indsende en klage til doommedia@proton.me, og det skal ske fra denne e-mailadresse.
 
     – Multiverse Safety-team
 self_deletion_scheduled:

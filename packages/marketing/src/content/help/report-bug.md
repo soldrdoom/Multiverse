@@ -21,7 +21,7 @@ Include anything that shows the issue – screenshots, short videos, logs, or sa
 
 ## Submit your report
 
-Email support@fluxer.app with the filled template. A concise yet descriptive subject helps us triage faster. If you prefer GitHub, feel free to file issues in the [Multiverse GitHub repository](https://github.com/fluxerapp/fluxer).
+Email doommedia@proton.me with the filled template. A concise yet descriptive subject helps us triage faster. If you prefer GitHub, feel free to file issues in the [Multiverse GitHub repository](https://github.com/fluxerapp/fluxer).
 
 ## Security issues
 

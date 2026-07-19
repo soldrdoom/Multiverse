@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Wir bauen das Business rund 
 community_funding_and_roles.non_paid_recurring_role: Eine unbezahlte Rolle für regelmäßige Contributor, die Multiverse zusammen mit dem Core-Team mitgestalten.
 community_funding_and_roles.sustainability_note: Mit deiner Unterstützung wollen wir diese unabhängige Kommunikationsplattform nachhaltig machen und in Zukunft bezahlte Rollen anbieten.
 company_and_resources.blog: Blog
-company_and_resources.careers.careers_at_fluxer: Karriere bei Multiverse
-company_and_resources.careers.label: Karriere
-company_and_resources.careers.share_a_bit_about_yourself: 'Erzähl uns kurz was über dich und wie du mithelfen willst: Schreib an careers@fluxer.app'
 company_and_resources.community_team.fluxer_community_team: Multiverse-Community-Team
 company_and_resources.community_team.share_feedback_report_bugs: Gib Feedback, melde Bugs und hilf mit, Multiverse für alle einladend zu machen.
 company_and_resources.company: Unternehmen
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Mitmachen
 company_and_resources.source_and_contribution.source_code: Quellcode
 company_and_resources.source_and_contribution.translation.help_translate: Hilf mit, Multiverse und die Docs zu übersetzen, damit es sich überall wie zuhause anfühlt.
 company_and_resources.source_and_contribution.translation.label: Übersetzung und Lokalisierung
-company_and_resources.source_and_contribution.translation.llm_translation_note: Alle Übersetzungen sind aktuell LLM-generiert und nur minimal von Menschen überarbeitet. Wir würden uns freuen, wenn echte Leute helfen, Multiverse in deine Sprache zu lokalisieren. Schreib dafür an i18n@fluxer.app – wir nehmen deine Beiträge gerne an.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Alle Übersetzungen sind aktuell LLM-generiert und nur minimal von Menschen überarbeitet. Wir würden uns freuen, wenn echte Leute helfen, Multiverse in deine Sprache zu lokalisieren. Schreib dafür an doommedia@proton.me – wir nehmen deine Beiträge gerne an.
 company_and_resources.source_and_contribution.translation.localization_label: Lokalisierung
 company_and_resources.source_and_contribution.view_repository: Repo ansehen
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Willst du beim Aufbau von Multiverse helfen?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Mach mit und erzähl's weiter
 misc_labels.join_fluxer_community_contribute: Tritt der Multiverse-Community bei und hilf mit, die Zukunft der Kommunikation durch Open Source und Community-Beiträge zu bauen.
 misc_labels.join_fluxer_hq: Multiverse HQ beitreten
 misc_labels.join_multiple_devices: Gleichzeitig von mehreren Geräten aus beitreten
-misc_labels.join_team_behind_fluxer: Werde Teil des Teams hinter Multiverse
 misc_labels.learn_more: Mehr erfahren
 misc_labels.product_hunt_badge_title: Multiverse – Open-Source, Discord-ähnliche Instant-Messaging- und VoIP-Plattform | Product Hunt Top-Post
 misc_labels.profile_badge: Profilabzeichen
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Seite nicht gefunden
 navigation.press.download_assets_intro: Unsere Logos herunterladen, unsere Markenfarben kennenlernen und unser Presseteam kontaktieren.
 navigation.press.download_fluxer_assets: Multiverse-Logos und Markenmaterial herunterladen und unser Presseteam kontaktieren
 navigation.press.press_and_brand_assets: Presse und Markenmaterial
-partner_program.become_partner.apply_email: Bewerb dich unter partners@fluxer.app
 partner_program.become_partner.call_to_action: Partner werden
 partner_program.become_partner.heading: Werde Multiverse Partner
 partner_program.become_partner.if_youre_a_creator_or: Wenn du Creator bist oder eine große Community leitest, würden wir gern von dir hören.

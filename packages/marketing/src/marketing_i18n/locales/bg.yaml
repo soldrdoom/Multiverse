@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Още изграждаме 
 community_funding_and_roles.non_paid_recurring_role: Неплатена роля за редовни участници, които помагат да оформяме Multiverse заедно с основния екип.
 community_funding_and_roles.sustainability_note: С твоята подкрепа се надяваме да направим тази независима комуникационна платформа устойчива и да започнем да предлагаме платени роли в бъдеще.
 company_and_resources.blog: Блог
-company_and_resources.careers.careers_at_fluxer: Кариери във Multiverse
-company_and_resources.careers.label: Кариери
-company_and_resources.careers.share_a_bit_about_yourself: Разкажи ни накратко за себе си и как искаш да допринесеш, като пишеш на careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: Екипът на Multiverse за общността
 company_and_resources.community_team.share_feedback_report_bugs: Сподели обратна връзка, докладвай бъгове и помогни Multiverse да е приветлив за всички.
 company_and_resources.company: Компания
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Включи се
 company_and_resources.source_and_contribution.source_code: Изходен код
 company_and_resources.source_and_contribution.translation.help_translate: Помогни да преведем Multiverse и документацията му, за да звучи естествено навсякъде.
 company_and_resources.source_and_contribution.translation.label: Превод и локализация
-company_and_resources.source_and_contribution.translation.llm_translation_note: В момента всички преводи са генерирани от LLM с минимална човешка редакция. Ще ни е супер да се включат реални хора, за да локализираме Multiverse на твоя език. Пиши на i18n@fluxer.app и с радост ще приемем приноса ти.
+company_and_resources.source_and_contribution.translation.llm_translation_note: В момента всички преводи са генерирани от LLM с минимална човешка редакция. Ще ни е супер да се включат реални хора, за да локализираме Multiverse на твоя език. Пиши на doommedia@proton.me и с радост ще приемем приноса ти.
 company_and_resources.source_and_contribution.translation.localization_label: Локализация
 company_and_resources.source_and_contribution.view_repository: Виж хранилището
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Искаш да помогнеш да изградим Multiverse?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Присъедини се и разкажи н
 misc_labels.join_fluxer_community_contribute: Присъедини се към общността на Multiverse и помогни да изградим бъдещето на комуникацията чрез отворен код и приноси от общността.
 misc_labels.join_fluxer_hq: Влез във Multiverse HQ
 misc_labels.join_multiple_devices: Влез от няколко устройства едновременно
-misc_labels.join_team_behind_fluxer: Присъедини се към екипа зад Multiverse
 misc_labels.learn_more: Виж повече
 misc_labels.product_hunt_badge_title: Multiverse - Платформа с отворен код за чат и VoIP като Discord | Топ пост в Product Hunt
 misc_labels.profile_badge: Значка на профила
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Страницата не е намерена
 navigation.press.download_assets_intro: Свали логата ни, виж бранд цветовете и се свържи с екипа ни за медии.
 navigation.press.download_fluxer_assets: Свали логата на Multiverse, бранд материали и се свържи с екипа ни за медии
 navigation.press.press_and_brand_assets: Медии и бранд материали
-partner_program.become_partner.apply_email: Кандидатствай на partners@fluxer.app
 partner_program.become_partner.call_to_action: Стани партньор
 partner_program.become_partner.heading: Стани Multiverse партньор
 partner_program.become_partner.if_youre_a_creator_or: Ако си създател на съдържание или управляваш голяма общност, пиши ни.

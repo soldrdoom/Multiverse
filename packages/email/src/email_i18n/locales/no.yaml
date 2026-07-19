@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Fellesskapsregler: {guidelinesUrl}
 
     Slik klager du:
-    Hvis du mener at denne avgjørelsen er feil eller urimelig, kan du klage innen 60 dager. Send en e-post til appeals@fluxer.app, og den må sendes fra denne e-postadressen.
+    Hvis du mener at denne avgjørelsen er feil eller urimelig, kan du klage innen 60 dager. Send en e-post til doommedia@proton.me, og den må sendes fra denne e-postadressen.
 
     I klagen din bør du:
     - Forklare tydelig hvorfor du mener at avgjørelsen er feil eller urimelig.
@@ -73,7 +73,7 @@ account_temp_banned:
     - Vilkår for bruk: {termsUrl}
     - Fellesskapsregler: {guidelinesUrl}
 
-    Hvis du mener at denne avgjørelsen er feil eller urimelig, kan du sende inn en klage til appeals@fluxer.app. Klagen må sendes fra denne e-postadressen. Forklar tydelig hvorfor du mener at avgjørelsen er feil. Vi går gjennom klagen og svarer med avgjørelsen vår.
+    Hvis du mener at denne avgjørelsen er feil eller urimelig, kan du sende inn en klage til doommedia@proton.me. Klagen må sendes fra denne e-postadressen. Forklar tydelig hvorfor du mener at avgjørelsen er feil. Vi går gjennom klagen og svarer med avgjørelsen vår.
 
     – Multiverse-sikkerhetsteamet
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Takk for at du bidrar til å holde Multiverse trygt for alle. Vi tar alle rapporter på alvor og setter pris på at du sier ifra.
 
-    Hvis du har spørsmål eller innvendinger til utfallet, kan du kontakte safety@fluxer.app.
+    Hvis du har spørsmål eller innvendinger til utfallet, kan du kontakte doommedia@proton.me.
 
     – Multiverse-sikkerhetsteamet
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Dette er et alvorlig tiltak. Kontodataene dine blir slettet permanent på den planlagte datoen.
 
-    Hvis du mener at denne avgjørelsen er feil, kan du sende inn en klage til appeals@fluxer.app. Klagen må sendes fra denne e-postadressen.
+    Hvis du mener at denne avgjørelsen er feil, kan du sende inn en klage til doommedia@proton.me. Klagen må sendes fra denne e-postadressen.
 
     – Multiverse-sikkerhetsteamet
 self_deletion_scheduled:

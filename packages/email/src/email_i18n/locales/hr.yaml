@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Smjernice zajednice: {guidelinesUrl}
 
     Žalba:
-    Ako smatraš da je ova odluka pogrešna ili neopravdana, možeš u roku od 60 dana podnijeti žalbu. Pošalji je na appeals@fluxer.app, i to s ove e-adrese.
+    Ako smatraš da je ova odluka pogrešna ili neopravdana, možeš u roku od 60 dana podnijeti žalbu. Pošalji je na doommedia@proton.me, i to s ove e-adrese.
 
     U žalbi:
     - Jasno objasni zašto smatraš da je odluka pogrešna ili neopravdana
@@ -74,7 +74,7 @@ account_temp_banned:
     - Uvjeti korištenja: {termsUrl}
     - Smjernice zajednice: {guidelinesUrl}
 
-    Ako smatraš da je ova odluka pogrešna ili neopravdana, možeš poslati žalbu na appeals@fluxer.app, i to s ove e-adrese. Jasno objasni zašto smatraš da je odluka pogrešna. Pregledat ćemo žalbu i javiti ti našu odluku.
+    Ako smatraš da je ova odluka pogrešna ili neopravdana, možeš poslati žalbu na doommedia@proton.me, i to s ove e-adrese. Jasno objasni zašto smatraš da je odluka pogrešna. Pregledat ćemo žalbu i javiti ti našu odluku.
 
     – Multiverseov tim za sigurnost
 donation_confirmation:
@@ -319,7 +319,7 @@ report_resolved:
 
     Hvala što pomažeš da Multiverse bude sigurniji za sve. Sve prijave shvaćamo ozbiljno i cijenimo tvoj doprinos zajednici.
 
-    Ako imaš pitanja ili nedoumice oko ishoda, javi se na safety@fluxer.app.
+    Ako imaš pitanja ili nedoumice oko ishoda, javi se na doommedia@proton.me.
 
     – Multiverseov tim za sigurnost
 scheduled_deletion_notification:
@@ -338,7 +338,7 @@ scheduled_deletion_notification:
 
     Ovo je ozbiljna mjera. Podaci tvog računa bit će trajno obrisani na navedeni datum.
 
-    Ako smatraš da je ova odluka pogrešna, možeš poslati žalbu na appeals@fluxer.app, i to s ove e-adrese.
+    Ako smatraš da je ova odluka pogrešna, možeš poslati žalbu na doommedia@proton.me, i to s ove e-adrese.
 
     – Multiverseov tim za sigurnost
 self_deletion_scheduled:

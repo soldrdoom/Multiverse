@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Vis dar kuriame verslo dalį
 community_funding_and_roles.non_paid_recurring_role: Nemokama rolė nuolatiniams prisidėjusiems, kurie padeda formuoti Multiverse kartu su pagrindine komanda.
 community_funding_and_roles.sustainability_note: Su tavo palaikymu tikimės, kad ši nepriklausoma komunikacijos platforma taps tvari, ir ateityje galėsime pasiūlyti mokamas roles.
 company_and_resources.blog: Tinklaraštis
-company_and_resources.careers.careers_at_fluxer: Karjera Multiverse
-company_and_resources.careers.label: Karjera
-company_and_resources.careers.share_a_bit_about_yourself: Parašyk truputį apie save ir kaip norėtum prisidėti, parašydamas į careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: Multiverse bendruomenės komanda
 company_and_resources.community_team.share_feedback_report_bugs: Dalinkis atsiliepimais, pranešk apie klaidas ir padėk padaryti Multiverse jaukų visiems.
 company_and_resources.company: Įmonė
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Prisidėk
 company_and_resources.source_and_contribution.source_code: Šaltinio kodas
 company_and_resources.source_and_contribution.translation.help_translate: Padėk išversti Multiverse ir jo dokumentaciją, kad visur jaustųsi kaip vietinė.
 company_and_resources.source_and_contribution.translation.label: Vertimas ir lokalizacija
-company_and_resources.source_and_contribution.translation.llm_translation_note: Šiuo metu visi vertimai sugeneruoti LLM ir beveik neperžiūrėti žmogaus. Norėtume, kad tikri žmonės padėtų lokalizuoti Multiverse į tavo kalbą. Parašyk i18n@fluxer.app ir mielai priimsime tavo indėlį.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Šiuo metu visi vertimai sugeneruoti LLM ir beveik neperžiūrėti žmogaus. Norėtume, kad tikri žmonės padėtų lokalizuoti Multiverse į tavo kalbą. Parašyk doommedia@proton.me ir mielai priimsime tavo indėlį.
 company_and_resources.source_and_contribution.translation.localization_label: Lokalizacija
 company_and_resources.source_and_contribution.view_repository: Peržiūrėti repozitoriją
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Nori padėti kurti Multiverse?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Prisijunk ir paskleisk žinią
 misc_labels.join_fluxer_community_contribute: Prisijunk prie Multiverse bendruomenės ir padėk kurti komunikacijos ateitį per atvirą kodą ir bendruomenės indėlį.
 misc_labels.join_fluxer_hq: Prisijunk prie Multiverse HQ
 misc_labels.join_multiple_devices: Prisijunk iš kelių įrenginių vienu metu
-misc_labels.join_team_behind_fluxer: Prisijunk prie Multiverse komandos
 misc_labels.learn_more: Sužinoti daugiau
 misc_labels.product_hunt_badge_title: Multiverse – atvirojo kodo Discord tipo momentinių žinučių ir VoIP platforma | Product Hunt top post
 misc_labels.profile_badge: Profilio ženklelis
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Puslapis nerastas
 navigation.press.download_assets_intro: Atsisiųsk mūsų logotipus, sužinok apie prekės ženklo spalvas ir susisiek su mūsų spaudos komanda.
 navigation.press.download_fluxer_assets: Atsisiųsk Multiverse logotipus ir prekės ženklo medžiagą, arba susisiek su mūsų spaudos komanda
 navigation.press.press_and_brand_assets: Spauda ir prekės ženklo medžiaga
-partner_program.become_partner.apply_email: 'Kreipkis: partners@fluxer.app'
 partner_program.become_partner.call_to_action: Tapk partneriu
 partner_program.become_partner.heading: Tapk Multiverse partneriu
 partner_program.become_partner.if_youre_a_creator_or: Jei kuri turinį arba valdai didelę bendruomenę, norėtume su tavimi susipažinti.

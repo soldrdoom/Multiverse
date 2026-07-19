@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Community-Richtlinien: {guidelinesUrl}
 
     Einspruch einlegen:
-    Wenn du glaubst, dass diese Entscheidung falsch oder nicht gerechtfertigt ist, kannst du innerhalb von 60 Tagen Einspruch einlegen. Schicke dazu eine E-Mail an appeals@fluxer.app, und zwar von dieser E-Mail-Adresse aus.
+    Wenn du glaubst, dass diese Entscheidung falsch oder nicht gerechtfertigt ist, kannst du innerhalb von 60 Tagen Einspruch einlegen. Schicke dazu eine E-Mail an doommedia@proton.me, und zwar von dieser E-Mail-Adresse aus.
 
     In deinem Einspruch:
     - Erkläre bitte klar, warum du die Entscheidung für falsch oder ungerechtfertigt hältst.
@@ -73,7 +73,7 @@ account_temp_banned:
     - Nutzungsbedingungen: {termsUrl}
     - Community-Richtlinien: {guidelinesUrl}
 
-    Wenn du glaubst, dass diese Entscheidung falsch oder nicht gerechtfertigt ist, kannst du Einspruch einlegen: Schicke eine E-Mail an appeals@fluxer.app, und zwar von dieser E-Mail-Adresse aus. Erkläre bitte klar, warum du die Entscheidung für falsch hältst. Wir prüfen das und melden uns mit unserer Entscheidung.
+    Wenn du glaubst, dass diese Entscheidung falsch oder nicht gerechtfertigt ist, kannst du Einspruch einlegen: Schicke eine E-Mail an doommedia@proton.me, und zwar von dieser E-Mail-Adresse aus. Erkläre bitte klar, warum du die Entscheidung für falsch hältst. Wir prüfen das und melden uns mit unserer Entscheidung.
 
     – Dein Multiverse-Safety-Team
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Danke, dass du dabei hilfst, Multiverse für alle sicher zu halten. Wir nehmen alle Meldungen ernst und schätzen deinen Beitrag zur Community.
 
-    Wenn du Fragen oder Bedenken zu diesem Ergebnis hast, schreib bitte an safety@fluxer.app.
+    Wenn du Fragen oder Bedenken zu diesem Ergebnis hast, schreib bitte an doommedia@proton.me.
 
     – Dein Multiverse-Safety-Team
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Das ist eine ernsthafte Maßnahme. Deine Kontodaten werden am geplanten Datum dauerhaft gelöscht.
 
-    Wenn du glaubst, dass diese Entscheidung falsch ist, kannst du Einspruch einlegen: Schicke eine E-Mail an appeals@fluxer.app, und zwar von dieser E-Mail-Adresse aus.
+    Wenn du glaubst, dass diese Entscheidung falsch ist, kannst du Einspruch einlegen: Schicke eine E-Mail an doommedia@proton.me, und zwar von dieser E-Mail-Adresse aus.
 
     – Dein Multiverse-Safety-Team
 self_deletion_scheduled:

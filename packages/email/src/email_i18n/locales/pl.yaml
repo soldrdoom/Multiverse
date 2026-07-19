@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Wytycznymi społeczności: {guidelinesUrl}
 
     Odwołanie:
-    Jeśli uważasz, że ta decyzja jest błędna lub nieuzasadniona, możesz w ciągu 60 dni złożyć odwołanie. Wyślij je na appeals@fluxer.app z tego adresu e-mail.
+    Jeśli uważasz, że ta decyzja jest błędna lub nieuzasadniona, możesz w ciągu 60 dni złożyć odwołanie. Wyślij je na doommedia@proton.me z tego adresu e-mail.
 
     W odwołaniu:
     - Napisz jasno, dlaczego uważasz, że decyzja jest błędna lub nieuzasadniona
@@ -75,7 +75,7 @@ account_temp_banned:
     - Regulaminem: {termsUrl}
     - Wytycznymi społeczności: {guidelinesUrl}
 
-    Jeśli uważasz, że ta decyzja jest błędna lub nieuzasadniona, możesz złożyć odwołanie: wyślij e-mail na appeals@fluxer.app z tego adresu. Napisz proszę jasno, dlaczego uważasz, że decyzja jest błędna. Rozpatrzymy odwołanie i odpowiemy z naszą decyzją.
+    Jeśli uważasz, że ta decyzja jest błędna lub nieuzasadniona, możesz złożyć odwołanie: wyślij e-mail na doommedia@proton.me z tego adresu. Napisz proszę jasno, dlaczego uważasz, że decyzja jest błędna. Rozpatrzymy odwołanie i odpowiemy z naszą decyzją.
 
     – Zespół bezpieczeństwa Multiverse
 donation_confirmation:
@@ -320,7 +320,7 @@ report_resolved:
 
     Dziękujemy, że pomagasz dbać o bezpieczeństwo Multiverse. Traktujemy wszystkie zgłoszenia poważnie i doceniamy Twój wkład w społeczność.
 
-    Jeśli masz pytania lub wątpliwości dotyczące tego wyniku, napisz na safety@fluxer.app.
+    Jeśli masz pytania lub wątpliwości dotyczące tego wyniku, napisz na doommedia@proton.me.
 
     – Zespół bezpieczeństwa Multiverse
 scheduled_deletion_notification:
@@ -339,7 +339,7 @@ scheduled_deletion_notification:
 
     To poważna decyzja. Dane Twojego konta zostaną trwale usunięte w zaplanowanym terminie.
 
-    Jeśli uważasz, że ta decyzja jest błędna, możesz złożyć odwołanie: wyślij e-mail na appeals@fluxer.app z tego adresu.
+    Jeśli uważasz, że ta decyzja jest błędna, możesz złożyć odwołanie: wyślij e-mail na doommedia@proton.me z tego adresu.
 
     – Zespół bezpieczeństwa Multiverse
 self_deletion_scheduled:

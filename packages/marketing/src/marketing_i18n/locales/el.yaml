@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Ακόμη χτίζουμε 
 community_funding_and_roles.non_paid_recurring_role: Ένας μη πληρωμένος ρόλος για τακτικούς συνεισφέροντες που βοηθούν να διαμορφώσουν το Multiverse μαζί με την core ομάδα.
 community_funding_and_roles.sustainability_note: Με τη στήριξή σου, ελπίζουμε να κάνουμε αυτή την ανεξάρτητη πλατφόρμα επικοινωνίας βιώσιμη και να αρχίσουμε να προσφέρουμε πληρωμένους ρόλους στο μέλλον.
 company_and_resources.blog: Blog
-company_and_resources.careers.careers_at_fluxer: Καριέρα στο Multiverse
-company_and_resources.careers.label: Καριέρα
-company_and_resources.careers.share_a_bit_about_yourself: Πες μας λίγα για σένα και πώς θα ήθελες να βοηθήσεις, στέλνοντας email στο careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: Ομάδα κοινότητας Multiverse
 company_and_resources.community_team.share_feedback_report_bugs: Στείλε feedback, ανάφερε bugs και βοήθησε να κρατήσουμε το Multiverse φιλόξενο για όλους.
 company_and_resources.company: Εταιρεία
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Συμμετοχή
 company_and_resources.source_and_contribution.source_code: Πηγαίος κώδικας
 company_and_resources.source_and_contribution.translation.help_translate: Βοήθησε να μεταφραστεί το Multiverse και η τεκμηρίωσή του, για να νιώθει native παντού.
 company_and_resources.source_and_contribution.translation.label: Μετάφραση και τοπικοποίηση
-company_and_resources.source_and_contribution.translation.llm_translation_note: Όλες οι μεταφράσεις είναι προς το παρόν LLM-generated με ελάχιστη ανθρώπινη επιμέλεια. Θα θέλαμε πολύ να μας βοηθήσουν πραγματικοί άνθρωποι να τοπικοποιήσουμε το Multiverse στη γλώσσα σου. Στείλε email στο i18n@fluxer.app και θα χαρούμε να δεχτούμε τη συνεισφορά σου.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Όλες οι μεταφράσεις είναι προς το παρόν LLM-generated με ελάχιστη ανθρώπινη επιμέλεια. Θα θέλαμε πολύ να μας βοηθήσουν πραγματικοί άνθρωποι να τοπικοποιήσουμε το Multiverse στη γλώσσα σου. Στείλε email στο doommedia@proton.me και θα χαρούμε να δεχτούμε τη συνεισφορά σου.
 company_and_resources.source_and_contribution.translation.localization_label: Τοπικοποίηση
 company_and_resources.source_and_contribution.view_repository: Δες το repository
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Θες να βοηθήσεις να χτίσουμε το Multiverse;
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Μπες και πες το παντού
 misc_labels.join_fluxer_community_contribute: Μπες στην κοινότητα Multiverse και βοήθησε να χτίσουμε το μέλλον της επικοινωνίας, με ανοιχτό κώδικα και συνεισφορές από την κοινότητα.
 misc_labels.join_fluxer_hq: Μπες στο Multiverse HQ
 misc_labels.join_multiple_devices: Σύνδεση από πολλές συσκευές ταυτόχρονα
-misc_labels.join_team_behind_fluxer: Μπες στην ομάδα πίσω από το Multiverse
 misc_labels.learn_more: Μάθε περισσότερα
 misc_labels.product_hunt_badge_title: Multiverse - open-source Discord-like instant messaging και VoIP πλατφόρμα | κορυφαία ανάρτηση στο Product Hunt
 misc_labels.profile_badge: Σήμα προφίλ
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Η σελίδα δεν βρέθηκε
 navigation.press.download_assets_intro: Κατέβασε τα λογότυπά μας, μάθε τα χρώματα του brand και έλα σε επαφή με την ομάδα τύπου.
 navigation.press.download_fluxer_assets: Κατέβασε τα λογότυπα και το υλικό branding του Multiverse και έλα σε επαφή με την ομάδα τύπου
 navigation.press.press_and_brand_assets: Τύπος και υλικό branding
-partner_program.become_partner.apply_email: Κάνε αίτηση στο partners@fluxer.app
 partner_program.become_partner.call_to_action: Γίνε συνεργάτης
 partner_program.become_partner.heading: Γίνε Multiverse Partner
 partner_program.become_partner.if_youre_a_creator_or: Αν είσαι creator ή τρέχεις μια μεγάλη κοινότητα, θα χαρούμε να σε ακούσουμε.

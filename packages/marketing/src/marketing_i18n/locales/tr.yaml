@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Multiverse etrafındaki işi
 community_funding_and_roles.non_paid_recurring_role: Çekirdek ekiple birlikte Multiverse'i şekillendiren, düzenli katkı verenler için ücretsiz bir rol.
 community_funding_and_roles.sustainability_note: Desteğinle bu bağımsız iletişim platformunu sürdürülebilir kılıp gelecekte ücretli roller sunmayı umuyoruz.
 company_and_resources.blog: Blog
-company_and_resources.careers.careers_at_fluxer: Multiverse'de kariyer
-company_and_resources.careers.label: Kariyer
-company_and_resources.careers.share_a_bit_about_yourself: Kendinden biraz bahset ve nasıl katkı vermek istediğini careers@fluxer.app adresine mail atarak paylaş
 company_and_resources.community_team.fluxer_community_team: Multiverse topluluk ekibi
 company_and_resources.community_team.share_feedback_report_bugs: Geri bildirim paylaş, bug bildir ve Multiverse'i herkes için daha sıcak bir yer yapmamıza yardım et.
 company_and_resources.company: Şirket
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Katıl
 company_and_resources.source_and_contribution.source_code: Kaynak kod
 company_and_resources.source_and_contribution.translation.help_translate: Multiverse'i ve dokümanlarını çevir, her yerde doğal hissettirsin.
 company_and_resources.source_and_contribution.translation.label: Çeviri ve yerelleştirme
-company_and_resources.source_and_contribution.translation.llm_translation_note: Şu an tüm çeviriler LLM ile üretiliyor ve çok az insan düzenlemesi var. Multiverse'i kendi diline gerçekten yerelleştirmek için gerçek insanlara ihtiyacımız var. Katkı vermek için i18n@fluxer.app adresine mail at, seve seve kabul ederiz.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Şu an tüm çeviriler LLM ile üretiliyor ve çok az insan düzenlemesi var. Multiverse'i kendi diline gerçekten yerelleştirmek için gerçek insanlara ihtiyacımız var. Katkı vermek için doommedia@proton.me adresine mail at, seve seve kabul ederiz.
 company_and_resources.source_and_contribution.translation.localization_label: Yerelleştirme
 company_and_resources.source_and_contribution.view_repository: Depoyu görüntüle
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Multiverse'i geliştirmeye yardım etmek ister misin?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Katıl ve haberi yay
 misc_labels.join_fluxer_community_contribute: Multiverse topluluğuna katıl ve açık kaynak ile topluluk katkılarıyla iletişimin geleceğini inşa etmeye yardım et.
 misc_labels.join_fluxer_hq: Multiverse HQ'ya katıl
 misc_labels.join_multiple_devices: Aynı anda birden fazla cihazdan katıl
-misc_labels.join_team_behind_fluxer: Multiverse'in arkasındaki ekibe katıl
 misc_labels.learn_more: Daha fazla bilgi
 misc_labels.product_hunt_badge_title: Multiverse - Açık kaynaklı Discord benzeri anlık mesajlaşma ve VoIP platformu | Product Hunt en iyi gönderi
 misc_labels.profile_badge: Profil rozeti
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Sayfa bulunamadı
 navigation.press.download_assets_intro: Logolarımızı indir, marka renklerimizi öğren ve basın ekibimizle iletişime geç.
 navigation.press.download_fluxer_assets: Multiverse logolarını ve marka varlıklarını indir, basın ekibimizle iletişime geç
 navigation.press.press_and_brand_assets: Basın ve marka varlıkları
-partner_program.become_partner.apply_email: 'Başvuru: partners@fluxer.app'
 partner_program.become_partner.call_to_action: Partner ol
 partner_program.become_partner.heading: Multiverse Partneri ol
 partner_program.become_partner.if_youre_a_creator_or: İçerik üreticisiysen ya da büyük bir topluluk yönetiyorsan, senden haber almayı isteriz.

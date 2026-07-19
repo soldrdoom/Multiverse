@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Community Guidelines: {guidelinesUrl}
 
     Appeals process:
-    If you believe this enforcement decision was incorrect or unjustified, you have 60 days to submit an appeal. Email appeals@multiverse.forum from this email address.
+    If you believe this enforcement decision was incorrect or unjustified, you have 60 days to submit an appeal. Email doommedia@proton.me from this email address.
 
     In your appeal:
     - Clearly explain why you believe the enforcement decision was incorrect or unjustified
@@ -73,7 +73,7 @@ account_temp_banned:
     - Terms of Service: {termsUrl}
     - Community Guidelines: {guidelinesUrl}
 
-    If you believe this enforcement decision was incorrect or unjustified, you can submit an appeal. Email appeals@multiverse.forum from this email address and clearly explain why you believe the decision was incorrect. We'll review your appeal and respond with our decision.
+    If you believe this enforcement decision was incorrect or unjustified, you can submit an appeal. Email doommedia@proton.me from this email address and clearly explain why you believe the decision was incorrect. We'll review your appeal and respond with our decision.
 
     – Multiverse Safety Team
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Thanks for helping keep Multiverse safe for everyone. We take all reports seriously and appreciate your contribution to the community.
 
-    If you have any questions or concerns about this outcome, please contact safety@multiverse.forum.
+    If you have any questions or concerns about this outcome, please contact doommedia@proton.me.
 
     – Multiverse Safety Team
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     This is a serious enforcement action. Your account data will be permanently deleted on the scheduled date.
 
-    If you believe this enforcement decision was incorrect, you can submit an appeal. Email appeals@multiverse.forum from this email address.
+    If you believe this enforcement decision was incorrect, you can submit an appeal. Email doommedia@proton.me from this email address.
 
     – Multiverse Safety Team
 self_deletion_scheduled:

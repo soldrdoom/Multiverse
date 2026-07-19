@@ -22,7 +22,7 @@ A core requirement of the commercial licence is internal use only. It does not g
 
 If a licensee wants to share changes, they can upstream them to this repository under Multiverse's AGPLv3 licence. The commercial licence makes upstreaming optional rather than required.
 
-To request a commercial licence, email [support@fluxer.app](mailto:support@fluxer.app) and include your employee count so we can provide an initial estimate. Commercial licences are offered at a custom price point.
+To request a commercial licence, email [doommedia@proton.me](mailto:doommedia@proton.me) and include your employee count so we can provide an initial estimate. Commercial licences are offered at a custom price point.
 
 ## Contributor License Agreement
 

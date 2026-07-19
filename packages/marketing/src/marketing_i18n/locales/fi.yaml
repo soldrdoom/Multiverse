@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Rakennamme yhä liiketoimint
 community_funding_and_roles.non_paid_recurring_role: Ei-maksullinen rooli toistuville avustajille, jotka auttavat muovaamaan Multiverseia ydintiimin kanssa.
 community_funding_and_roles.sustainability_note: Tuellasi toivomme tekevämme tästä itsenäisestä viestintäalustasta kestävän ja voivamme alkaa tarjoamaan maksullisia rooleja tulevaisuudessa.
 company_and_resources.blog: Blogi
-company_and_resources.careers.careers_at_fluxer: Urat Multiverseilla
-company_and_resources.careers.label: Urat
-company_and_resources.careers.share_a_bit_about_yourself: Kerro vähän itsestäsi ja siitä, miten haluaisit osallistua – laita viesti osoitteeseen careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: Multiversein yhteisötiimi
 company_and_resources.community_team.share_feedback_report_bugs: Jaa palautetta, ilmoita bugeista ja auta tekemään Multiverseista kaikille tervetullut.
 company_and_resources.company: Yritys
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Osallistu
 company_and_resources.source_and_contribution.source_code: Lähdekoodi
 company_and_resources.source_and_contribution.translation.help_translate: Auta kääntämään Multiverse ja sen dokumentaatio, jotta se tuntuu aidosti omalta kaikkialla.
 company_and_resources.source_and_contribution.translation.label: Käännökset ja lokalisointi
-company_and_resources.source_and_contribution.translation.llm_translation_note: Kaikki käännökset ovat tällä hetkellä LLM:n tekemiä ja niitä on tarkistettu vain kevyesti. Olisi hienoa saada oikeita ihmisiä auttamaan Multiversein lokalisoinnissa kielellesi. Lähetä viesti osoitteeseen i18n@fluxer.app, niin otamme mielellämme vastaan panoksesi.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Kaikki käännökset ovat tällä hetkellä LLM:n tekemiä ja niitä on tarkistettu vain kevyesti. Olisi hienoa saada oikeita ihmisiä auttamaan Multiversein lokalisoinnissa kielellesi. Lähetä viesti osoitteeseen doommedia@proton.me, niin otamme mielellämme vastaan panoksesi.
 company_and_resources.source_and_contribution.translation.localization_label: Lokalisointi
 company_and_resources.source_and_contribution.view_repository: Näytä repositorio
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Haluatko auttaa rakentamaan Multiverseia?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Liity ja levitä sanaa
 misc_labels.join_fluxer_community_contribute: Liity Multiverse-yhteisöön ja auta rakentamaan viestinnän tulevaisuutta avoimen lähdekoodin ja yhteisön panoksen kautta.
 misc_labels.join_fluxer_hq: Liity Multiverse HQ:hun
 misc_labels.join_multiple_devices: Liity usealta laitteelta samaan aikaan
-misc_labels.join_team_behind_fluxer: Liity Multiversein tekijöiden tiimiin
 misc_labels.learn_more: Lue lisää
 misc_labels.product_hunt_badge_title: Multiverse – avoimen lähdekoodin Discord-tyylinen pikaviesti- ja VoIP-alusta | Product Huntin top postaus
 misc_labels.profile_badge: Profiilimerkki
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Sivua ei löytynyt
 navigation.press.download_assets_intro: Lataa logot, tutustu brändiväreihin ja ota yhteyttä lehdistötiimiimme.
 navigation.press.download_fluxer_assets: Lataa Multiversein logot ja brändimateriaalit ja ota yhteyttä lehdistötiimiimme
 navigation.press.press_and_brand_assets: Lehdistö ja brändimateriaalit
-partner_program.become_partner.apply_email: Hae osoitteessa partners@fluxer.app
 partner_program.become_partner.call_to_action: Hae partneriksi
 partner_program.become_partner.heading: Ryhdy Multiverse-partneriksi
 partner_program.become_partner.if_youre_a_creator_or: Jos olet sisällöntuottaja tai pyörität isoa yhteisöä, kuulisimme mielellämme sinusta.

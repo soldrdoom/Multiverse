@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Încă construim modelul de 
 community_funding_and_roles.non_paid_recurring_role: Un rol neplătit pentru contribuitori recurenți care ajută la modelarea Multiverse alături de echipa de bază.
 community_funding_and_roles.sustainability_note: Cu sprijinul tău, sperăm să facem această platformă independentă sustenabilă și să oferim roluri plătite în viitor.
 company_and_resources.blog: Blog
-company_and_resources.careers.careers_at_fluxer: Cariere la Multiverse
-company_and_resources.careers.label: Cariere
-company_and_resources.careers.share_a_bit_about_yourself: Spune-ne câte ceva despre tine și cum ai vrea să contribui trimițând un email la careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: Echipa comunității Multiverse
 company_and_resources.community_team.share_feedback_report_bugs: Oferă feedback, raportează bug-uri și ajută-ne să facem Multiverse primitor pentru toată lumea.
 company_and_resources.company: Companie
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Implică-te
 company_and_resources.source_and_contribution.source_code: Cod sursă
 company_and_resources.source_and_contribution.translation.help_translate: Ajută la traducerea Multiverse și a documentației ca să se simtă nativ peste tot.
 company_and_resources.source_and_contribution.translation.label: Traducere și localizare
-company_and_resources.source_and_contribution.translation.llm_translation_note: Toate traducerile sunt momentan generate cu LLM, cu minimă revizie umană. Ne-ar plăcea să avem oameni reali care să ne ajute să localizăm Multiverse în limba ta. Pentru asta, scrie-ne la i18n@fluxer.app.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Toate traducerile sunt momentan generate cu LLM, cu minimă revizie umană. Ne-ar plăcea să avem oameni reali care să ne ajute să localizăm Multiverse în limba ta. Pentru asta, scrie-ne la doommedia@proton.me.
 company_and_resources.source_and_contribution.translation.localization_label: Localizare
 company_and_resources.source_and_contribution.view_repository: Vezi repository-ul
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Vrei să ajuți la construirea Multiverse?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Alătură-te și dă vestea mai departe
 misc_labels.join_fluxer_community_contribute: Alătură-te comunității Multiverse și ajută la construirea viitorului comunicării prin open source.
 misc_labels.join_fluxer_hq: Alătură-te Multiverse HQ
 misc_labels.join_multiple_devices: Conectează-te de pe mai multe dispozitive
-misc_labels.join_team_behind_fluxer: Alătură-te echipei din spatele Multiverse
 misc_labels.learn_more: Află mai multe
 misc_labels.product_hunt_badge_title: Multiverse – platformă open source de mesagerie instant și VoIP, tip Discord | Top post Product Hunt
 misc_labels.profile_badge: Insignă de profil
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Pagina nu a fost găsită
 navigation.press.download_assets_intro: Descarcă logo-urile noastre, află despre culorile de brand și ia legătura cu echipa de presă.
 navigation.press.download_fluxer_assets: Descarcă logo-urile Multiverse, materialele de brand și ia legătura cu echipa noastră de presă
 navigation.press.press_and_brand_assets: Presă și materiale de brand
-partner_program.become_partner.apply_email: Aplică la partners@fluxer.app
 partner_program.become_partner.call_to_action: Devino partener
 partner_program.become_partner.heading: Devino partener Multiverse
 partner_program.become_partner.if_youre_a_creator_or: Dacă ești creator sau conduci o comunitate mare, ne-ar plăcea să auzim de la tine.

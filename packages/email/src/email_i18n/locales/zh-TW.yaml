@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - 社群守則：{guidelinesUrl}
 
     提出申訴：
-    如果你認為這項處置不正確或缺乏依據，你可以在 60 天內提出申訴。請使用這個電子郵件地址寄信至 appeals@fluxer.app。
+    如果你認為這項處置不正確或缺乏依據，你可以在 60 天內提出申訴。請使用這個電子郵件地址寄信至 doommedia@proton.me。
 
     申訴內容請包含：
     - 清楚說明你為什麼認為這項處置不正確或缺乏依據
@@ -73,7 +73,7 @@ account_temp_banned:
     - 服務條款：{termsUrl}
     - 社群守則：{guidelinesUrl}
 
-    如果你認為這項處置不正確或缺乏依據，你可以使用這個電子郵件地址寄信至 appeals@fluxer.app 提出申訴。請清楚說明你認為判定有誤的原因，我們會審查並回覆處理結果。
+    如果你認為這項處置不正確或缺乏依據，你可以使用這個電子郵件地址寄信至 doommedia@proton.me 提出申訴。請清楚說明你認為判定有誤的原因，我們會審查並回覆處理結果。
 
     – Multiverse 安全團隊
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     感謝你一起讓 Multiverse 對所有人更安全。我們會認真看待每一則檢舉，也很感謝你為社群付出的心力。
 
-    如果你對此結果有任何問題或疑慮，請聯絡 safety@fluxer.app。
+    如果你對此結果有任何問題或疑慮，請聯絡 doommedia@proton.me。
 
     – Multiverse 安全團隊
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     這是嚴重的處置措施。你的帳號資料會在預定時間永久刪除。
 
-    如果你認為這項處置不正確，你可以使用這個電子郵件地址寄信至 appeals@fluxer.app 提出申訴。
+    如果你認為這項處置不正確，你可以使用這個電子郵件地址寄信至 doommedia@proton.me 提出申訴。
 
     – Multiverse 安全團隊
 self_deletion_scheduled:

@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: เรายังอยู�
 community_funding_and_roles.non_paid_recurring_role: บทบาทแบบไม่จ่าย ที่มอบให้กับผู้ร่วมพัฒนาที่ช่วยอย่างต่อเนื่อง และช่วยกำหนดทิศทาง Multiverse ไปกับทีมหลัก
 community_funding_and_roles.sustainability_note: ด้วยการสนับสนุนจากคุณ เราหวังว่าจะทำให้แพลตฟอร์มสื่อสารอิสระนี้ยั่งยืน และเริ่มเปิดบทบาทแบบมีค่าตอบแทนได้ในอนาคต
 company_and_resources.blog: บล็อก
-company_and_resources.careers.careers_at_fluxer: ร่วมงานกับ Multiverse
-company_and_resources.careers.label: ร่วมงานกับเรา
-company_and_resources.careers.share_a_bit_about_yourself: เล่าเกี่ยวกับตัวคุณสักหน่อย และอยากช่วยแบบไหนได้บ้าง โดยอีเมลไปที่ careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: ทีมคอมมูนิตี้ Multiverse
 company_and_resources.community_team.share_feedback_report_bugs: ส่งฟีดแบ็ก รายงานบั๊ก และช่วยให้ Multiverse เป็นที่ต้อนรับสำหรับทุกคน
 company_and_resources.company: บริษัท
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: มีส่วน�
 company_and_resources.source_and_contribution.source_code: ซอร์สโค้ด
 company_and_resources.source_and_contribution.translation.help_translate: ช่วยแปล Multiverse และเอกสารให้รู้สึกเป็นภาษาท้องถิ่นจริงๆ ในทุกที่
 company_and_resources.source_and_contribution.translation.label: แปลและทำโลคัลไลซ์
-company_and_resources.source_and_contribution.translation.llm_translation_note: ตอนนี้คำแปลทั้งหมดสร้างด้วย LLM และแทบไม่ได้ผ่านการตรวจทานโดยคนจริง เราอยากได้คนมาช่วยโลคัลไลซ์ Multiverse เป็นภาษาของคุณ ถ้าสนใจอีเมลมาที่ i18n@fluxer.app แล้วเรายินดีรับผลงานจากคุณ
+company_and_resources.source_and_contribution.translation.llm_translation_note: ตอนนี้คำแปลทั้งหมดสร้างด้วย LLM และแทบไม่ได้ผ่านการตรวจทานโดยคนจริง เราอยากได้คนมาช่วยโลคัลไลซ์ Multiverse เป็นภาษาของคุณ ถ้าสนใจอีเมลมาที่ doommedia@proton.me แล้วเรายินดีรับผลงานจากคุณ
 company_and_resources.source_and_contribution.translation.localization_label: โลคัลไลซ์
 company_and_resources.source_and_contribution.view_repository: ดูรีโพซิทอรี
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: อยากช่วยสร้าง Multiverse ไหม
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: เข้าร่วมแล้วช่ว�
 misc_labels.join_fluxer_community_contribute: เข้าร่วมคอมมูนิตี้ Multiverse และช่วยสร้างอนาคตของการสื่อสารผ่านโอเพนซอร์สและการมีส่วนร่วมจากชุมชน
 misc_labels.join_fluxer_hq: เข้าร่วม Multiverse HQ
 misc_labels.join_multiple_devices: เข้าร่วมได้พร้อมกันหลายอุปกรณ์
-misc_labels.join_team_behind_fluxer: เข้าร่วมทีมเบื้องหลัง Multiverse
 misc_labels.learn_more: ดูรายละเอียด
 misc_labels.product_hunt_badge_title: Multiverse - แพลตฟอร์มแชตทันทีและ VoIP แบบโอเพนซอร์สคล้าย Discord | โพสต์อันดับต้นๆ ใน Product Hunt
 misc_labels.profile_badge: แบดจ์โปรไฟล์
@@ -254,7 +250,6 @@ navigation.page_not_found.title: ไม่พบหน้านี้
 navigation.press.download_assets_intro: ดาวน์โหลดโลโก้ ดูสีแบรนด์ของเรา และติดต่อทีมสื่อของเรา
 navigation.press.download_fluxer_assets: ดาวน์โหลดโลโก้ Multiverse ไฟล์แบรนด์ และติดต่อทีมสื่อของเรา
 navigation.press.press_and_brand_assets: สื่อและไฟล์แบรนด์
-partner_program.become_partner.apply_email: สมัครที่ partners@fluxer.app
 partner_program.become_partner.call_to_action: เป็นพาร์ทเนอร์
 partner_program.become_partner.heading: เป็น Multiverse Partner
 partner_program.become_partner.if_youre_a_creator_or: ถ้าคุณเป็นครีเอเตอร์หรือดูแลคอมมูนิตี้ใหญ่ๆ เราอยากคุยด้วย

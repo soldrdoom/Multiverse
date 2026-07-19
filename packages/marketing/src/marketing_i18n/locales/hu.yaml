@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Még építjük a Multiverse
 community_funding_and_roles.non_paid_recurring_role: Egy nem fizetett szerepkör rendszeres közreműködőknek, akik a core csapattal együtt formálják a Multiverset.
 community_funding_and_roles.sustainability_note: A támogatásoddal reméljük, hogy fenntarthatóvá tesszük ezt a független kommunikációs platformot, és később fizetett szerepköröket is tudunk majd kínálni.
 company_and_resources.blog: Blog
-company_and_resources.careers.careers_at_fluxer: Karrier a Multiversenél
-company_and_resources.careers.label: Karrier
-company_and_resources.careers.share_a_bit_about_yourself: 'Írj pár szót magadról és arról, hogyan szeretnél hozzájárulni – email: careers@fluxer.app'
 company_and_resources.community_team.fluxer_community_team: Multiverse közösségi csapat
 company_and_resources.community_team.share_feedback_report_bugs: Oszd meg a visszajelzésed, jelents hibákat, és segíts, hogy a Multiverse mindenki számára barátságos legyen.
 company_and_resources.company: Cég
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Kapcsolódj be
 company_and_resources.source_and_contribution.source_code: Forráskód
 company_and_resources.source_and_contribution.translation.help_translate: Segíts lefordítani a Multiverset és a dokumentációt, hogy mindenhol igazán natívnak hasson.
 company_and_resources.source_and_contribution.translation.label: Fordítás és lokalizáció
-company_and_resources.source_and_contribution.translation.llm_translation_note: Minden fordítás jelenleg LLM-mel készült, minimális emberi átnézéssel. Szeretnénk, ha valódi emberek segítenének a Multiverse lokalizálásában a nyelvedre. Írj az i18n@fluxer.app címre, és örömmel fogadjuk a hozzájárulásod.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Minden fordítás jelenleg LLM-mel készült, minimális emberi átnézéssel. Szeretnénk, ha valódi emberek segítenének a Multiverse lokalizálásában a nyelvedre. Írj az doommedia@proton.me címre, és örömmel fogadjuk a hozzájárulásod.
 company_and_resources.source_and_contribution.translation.localization_label: Lokalizáció
 company_and_resources.source_and_contribution.view_repository: Repo megtekintése
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Beszállnál a Multiverse építésébe?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Csatlakozz, és add tovább
 misc_labels.join_fluxer_community_contribute: Csatlakozz a Multiverse közösséghez, és segíts felépíteni a kommunikáció jövőjét nyílt forráskóddal és közösségi hozzájárulásokkal.
 misc_labels.join_fluxer_hq: Csatlakozz a Multiverse HQ-hoz
 misc_labels.join_multiple_devices: Csatlakozz egyszerre több eszközről
-misc_labels.join_team_behind_fluxer: Csatlakozz a Multiverse mögötti csapathoz
 misc_labels.learn_more: Tudj meg többet
 misc_labels.product_hunt_badge_title: Multiverse - nyílt forráskódú, Discord-szerű azonnali üzenetküldő és VoIP platform | Product Hunt top poszt
 misc_labels.profile_badge: Profiljelvény
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Az oldal nem található
 navigation.press.download_assets_intro: Töltsd le a logóinkat, ismerd meg a márkaszíneinket, és vedd fel a kapcsolatot a sajtócsapatunkkal.
 navigation.press.download_fluxer_assets: Töltsd le a Multiverse logókat és márkaanyagokat, és vedd fel a kapcsolatot a sajtócsapatunkkal
 navigation.press.press_and_brand_assets: Sajtó és márkaanyagok
-partner_program.become_partner.apply_email: 'Jelentkezés: partners@fluxer.app'
 partner_program.become_partner.call_to_action: Legyél partner
 partner_program.become_partner.heading: Legyél Multiverse partner
 partner_program.become_partner.if_youre_a_creator_or: Ha tartalomkészítő vagy, vagy nagy közösséget vezetsz, szívesen hallunk rólad.

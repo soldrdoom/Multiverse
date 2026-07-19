@@ -118,9 +118,6 @@ export function Footer(props: FooterProps): JSX.Element {
 						<FooterLink href="https://docs.fluxer.app">
 							{ctx.i18n.getMessage('company_and_resources.docs', ctx.locale)}
 						</FooterLink>
-						<FooterLink href={link('/careers')}>
-							{ctx.i18n.getMessage('company_and_resources.careers.label', ctx.locale)}
-						</FooterLink>
 					</FooterSection>
 
 					<FooterSection title={ctx.i18n.getMessage('footer.policies', ctx.locale)}>
@@ -141,8 +138,7 @@ export function Footer(props: FooterProps): JSX.Element {
 						title={ctx.i18n.getMessage('footer.connect', ctx.locale)}
 						class="sm:col-span-1 min-[480px]:col-span-2"
 					>
-						<FooterLink href="mailto:press@fluxer.app">press@fluxer.app</FooterLink>
-						<FooterLink href="mailto:support@fluxer.app">support@fluxer.app</FooterLink>
+						<FooterLink href="mailto:doommedia@proton.me">doommedia@proton.me</FooterLink>
 						<FooterLink href={link('/help/report-bug')}>
 							{ctx.i18n.getMessage('footer.report_a_bug', ctx.locale)}
 						</FooterLink>

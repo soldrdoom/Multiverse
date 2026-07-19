@@ -58,10 +58,10 @@ We monitor legislative developments and court decisions, and we update this page
 
 ## What to do if you think a restriction is wrong
 
-If you believe your access has been restricted incorrectly – for example, because you are travelling or using a VPN – contact us at privacy@fluxer.app with your username and a description of the issue.
+If you believe your access has been restricted incorrectly – for example, because you are travelling or using a VPN – contact us at doommedia@proton.me with your username and a description of the issue.
 
 Under applicable data protection laws (such as GDPR), you may have the right to obtain human review of automated decisions that significantly affect you. We honour those rights as described in [Section 10 of our Privacy Policy](/privacy#10-your-privacy-rights).
 
 ## Contact
 
-For questions about regional restrictions, contact privacy@fluxer.app. For general information about how we handle your data, see our [Privacy Policy](/privacy).
+For questions about regional restrictions, contact doommedia@proton.me. For general information about how we handle your data, see our [Privacy Policy](/privacy).

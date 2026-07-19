@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Reglas de la comunidad: {guidelinesUrl}
 
     Apelación:
-    Si creés que esta decisión es incorrecta o injustificada, tenés 60 días para presentar una apelación. Enviá un correo a appeals@fluxer.app desde esta misma dirección de correo electrónico.
+    Si creés que esta decisión es incorrecta o injustificada, tenés 60 días para presentar una apelación. Enviá un correo a doommedia@proton.me desde esta misma dirección de correo electrónico.
 
     En tu apelación:
     - Explicá claramente por qué creés que la decisión es incorrecta o injustificada
@@ -73,7 +73,7 @@ account_temp_banned:
     - Términos del servicio: {termsUrl}
     - Reglas de la comunidad: {guidelinesUrl}
 
-    Si creés que esta decisión es incorrecta o injustificada, podés presentar una apelación: enviá un correo a appeals@fluxer.app desde esta misma dirección de correo electrónico. Explicá claramente por qué creés que la decisión es incorrecta. Revisaremos tu apelación y te responderemos con nuestra decisión.
+    Si creés que esta decisión es incorrecta o injustificada, podés presentar una apelación: enviá un correo a doommedia@proton.me desde esta misma dirección de correo electrónico. Explicá claramente por qué creés que la decisión es incorrecta. Revisaremos tu apelación y te responderemos con nuestra decisión.
 
     – Equipo de seguridad de Multiverse
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Gracias por ayudar a que Multiverse sea un lugar más seguro para todos. Nos tomamos todas las notificaciones en serio y agradecemos tu aporte a la comunidad.
 
-    Si tenés preguntas o dudas sobre este resultado, escribí a safety@fluxer.app.
+    Si tenés preguntas o dudas sobre este resultado, escribí a doommedia@proton.me.
 
     – Equipo de seguridad de Multiverse
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Esta es una medida seria. Los datos de tu cuenta se eliminarán de forma permanente en la fecha indicada.
 
-    Si creés que esta decisión es incorrecta, podés presentar una apelación: enviá un correo a appeals@fluxer.app desde esta misma dirección de correo electrónico.
+    Si creés que esta decisión es incorrecta, podés presentar una apelación: enviá un correo a doommedia@proton.me desde esta misma dirección de correo electrónico.
 
     – Equipo de seguridad de Multiverse
 self_deletion_scheduled:

@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: 我们还在搭建 Multivers
 community_funding_and_roles.non_paid_recurring_role: 面向长期贡献者的非付费角色，你将和核心团队一起塑造 Multiverse。
 community_funding_and_roles.sustainability_note: 有了你的支持，我们希望让这个独立通讯平台可持续发展，并在未来开始提供付费角色。
 company_and_resources.blog: 部落格
-company_and_resources.careers.careers_at_fluxer: 加入 Multiverse
-company_and_resources.careers.label: 招聘
-company_and_resources.careers.share_a_bit_about_yourself: 发邮件到 careers@fluxer.app，说说你是谁，以及你想怎么参与。
 company_and_resources.community_team.fluxer_community_team: Multiverse 社区团队
 company_and_resources.community_team.share_feedback_report_bugs: 提建议、报 bug，一起把 Multiverse 做得更友好。
 company_and_resources.company: 公司
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: 参与进来
 company_and_resources.source_and_contribution.source_code: 源代码
 company_and_resources.source_and_contribution.translation.help_translate: 帮忙翻译 Multiverse 及其文档，让它在各地都更像母语。
 company_and_resources.source_and_contribution.translation.label: 翻译与本地化
-company_and_resources.source_and_contribution.translation.llm_translation_note: 当前翻译基本由 LLM 生成，人工校对很少。我们很希望有真人帮我们把 Multiverse 本地化到你的语言。想参与的话，发邮件到 i18n@fluxer.app，我们很乐意接收你的贡献。
+company_and_resources.source_and_contribution.translation.llm_translation_note: 当前翻译基本由 LLM 生成，人工校对很少。我们很希望有真人帮我们把 Multiverse 本地化到你的语言。想参与的话，发邮件到 doommedia@proton.me，我们很乐意接收你的贡献。
 company_and_resources.source_and_contribution.translation.localization_label: 本地化
 company_and_resources.source_and_contribution.view_repository: 查看仓库
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: 想一起打造 Multiverse？
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: 加入并帮忙传播
 misc_labels.join_fluxer_community_contribute: 加入 Multiverse 社区，通过开源和社区贡献一起打造通讯的未来。
 misc_labels.join_fluxer_hq: 加入 Multiverse HQ
 misc_labels.join_multiple_devices: 多设备同时登录
-misc_labels.join_team_behind_fluxer: 加入 Multiverse 背后的团队
 misc_labels.learn_more: 了解更多
 misc_labels.product_hunt_badge_title: Multiverse - 开源的 Discord 风格即时通讯和 VoIP 平台 | Product Hunt 热门帖子
 misc_labels.profile_badge: 资料徽章
@@ -254,7 +250,6 @@ navigation.page_not_found.title: 页面找不到了
 navigation.press.download_assets_intro: 下载我们的标志，了解品牌颜色，并联系媒体团队。
 navigation.press.download_fluxer_assets: 下载 Multiverse 标志和品牌素材，并联系媒体团队
 navigation.press.press_and_brand_assets: 媒体与品牌素材
-partner_program.become_partner.apply_email: 申请请发邮件到 partners@fluxer.app
 partner_program.become_partner.call_to_action: 成为合作伙伴
 partner_program.become_partner.heading: 成为 Multiverse 合作伙伴
 partner_program.become_partner.if_youre_a_creator_or: 如果你是内容创作者或运营大型社区，我们很想认识你。

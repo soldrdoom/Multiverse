@@ -190,8 +190,8 @@ const LanguageTab = observer(() => {
 					<Trans>
 						All translations are currently LLM-generated with minimal human revision. We'd love to get real people to
 						help us localize Multiverse into your language! To do so, send an email to{' '}
-						<a href="mailto:i18n@fluxer.app" className={styles.link}>
-							i18n@fluxer.app
+						<a href="mailto:doommedia@proton.me" className={styles.link}>
+							doommedia@proton.me
 						</a>{' '}
 						and we'll be happy to accept your contributions.
 					</Trans>

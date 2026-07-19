@@ -3,10 +3,10 @@
 	"info": {
 		"title": "Multiverse Relay Directory API",
 		"version": "1.0.0",
-		"description": "API for discovering and managing Multiverse relay servers for federation. The relay directory service maintains a registry of available relay servers that clients can use to connect to Multiverse instances through encrypted tunnels.",
+		"description": "API for discovering and managing Multiverse relay servers. The relay directory service maintains a registry of available relay servers that clients can use to connect to Multiverse instances through encrypted tunnels.",
 		"contact": {
 			"name": "Multiverse Developers",
-			"email": "developers@fluxer.app"
+			"email": "doommedia@proton.me"
 		},
 		"license": {
 			"name": "AGPL-3.0",
@@ -25,7 +25,9 @@
 				"operationId": "getHealth",
 				"summary": "Health check",
 				"description": "Returns the health status of the relay directory service.",
-				"tags": ["Health"],
+				"tags": [
+					"Health"
+				],
 				"responses": {
 					"200": {
 						"description": "Service is healthy",
@@ -45,7 +47,9 @@
 				"operationId": "listRelays",
 				"summary": "List available relays",
 				"description": "Returns a list of available relay servers. Optionally, provide client coordinates to sort relays by proximity.",
-				"tags": ["Relays"],
+				"tags": [
+					"Relays"
+				],
 				"parameters": [
 					{
 						"name": "lat",
@@ -94,7 +98,9 @@
 				"operationId": "registerRelay",
 				"summary": "Register a new relay",
 				"description": "Registers a new relay server with the directory. The relay must provide its public key for E2E encryption.",
-				"tags": ["Relays"],
+				"tags": [
+					"Relays"
+				],
 				"requestBody": {
 					"required": true,
 					"content": {
@@ -124,7 +130,9 @@
 				"operationId": "getRelayStatus",
 				"summary": "Get relay status",
 				"description": "Returns the current status of a specific relay server.",
-				"tags": ["Relays"],
+				"tags": [
+					"Relays"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -166,7 +174,9 @@
 				"operationId": "sendHeartbeat",
 				"summary": "Send relay heartbeat",
 				"description": "Sends a heartbeat to indicate the relay is still alive. Relays should send heartbeats periodically to maintain their healthy status.",
-				"tags": ["Relays"],
+				"tags": [
+					"Relays"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -208,7 +218,9 @@
 				"operationId": "deleteRelay",
 				"summary": "Unregister a relay",
 				"description": "Removes a relay server from the directory.",
-				"tags": ["Relays"],
+				"tags": [
+					"Relays"
+				],
 				"parameters": [
 					{
 						"name": "id",
@@ -253,7 +265,9 @@
 				"properties": {
 					"status": {
 						"type": "string",
-						"enum": ["ok"],
+						"enum": [
+							"ok"
+						],
 						"description": "Health status"
 					},
 					"timestamp": {
@@ -262,7 +276,10 @@
 						"description": "Current server timestamp"
 					}
 				},
-				"required": ["status", "timestamp"]
+				"required": [
+					"status",
+					"timestamp"
+				]
 			},
 			"RelayInfoResponse": {
 				"type": "object",
@@ -599,7 +616,10 @@
 						"description": "Total number of relays returned"
 					}
 				},
-				"required": ["relays", "count"]
+				"required": [
+					"relays",
+					"count"
+				]
 			},
 			"RelayStatusResponse": {
 				"type": "object",
@@ -645,29 +665,46 @@
 						"description": "ISO 8601 timestamp of the last health check or heartbeat"
 					}
 				},
-				"required": ["id", "name", "url", "region", "healthy", "current_connections", "capacity", "last_seen_at"]
+				"required": [
+					"id",
+					"name",
+					"url",
+					"region",
+					"healthy",
+					"current_connections",
+					"capacity",
+					"last_seen_at"
+				]
 			},
 			"RelayHeartbeatResponse": {
 				"type": "object",
 				"properties": {
 					"status": {
 						"type": "string",
-						"enum": ["ok"],
+						"enum": [
+							"ok"
+						],
 						"description": "Confirmation that heartbeat was received"
 					}
 				},
-				"required": ["status"]
+				"required": [
+					"status"
+				]
 			},
 			"RelayDeletedResponse": {
 				"type": "object",
 				"properties": {
 					"status": {
 						"type": "string",
-						"enum": ["deleted"],
+						"enum": [
+							"deleted"
+						],
 						"description": "Confirmation that relay was deleted"
 					}
 				},
-				"required": ["status"]
+				"required": [
+					"status"
+				]
 			},
 			"RegisterRelayRequest": {
 				"type": "object",
@@ -714,7 +751,13 @@
 						"description": "Base64-encoded X25519 public key for E2E encryption"
 					}
 				},
-				"required": ["name", "url", "latitude", "longitude", "public_key"]
+				"required": [
+					"name",
+					"url",
+					"latitude",
+					"longitude",
+					"public_key"
+				]
 			},
 			"RelayIdParam": {
 				"type": "object",
@@ -725,7 +768,9 @@
 						"description": "Relay UUID"
 					}
 				},
-				"required": ["id"]
+				"required": [
+					"id"
+				]
 			},
 			"RelayListQuery": {
 				"type": "object",
@@ -753,11 +798,16 @@
 					},
 					"code": {
 						"type": "string",
-						"enum": ["RELAY_NOT_FOUND"],
+						"enum": [
+							"RELAY_NOT_FOUND"
+						],
 						"description": "Error code"
 					}
 				},
-				"required": ["error", "code"]
+				"required": [
+					"error",
+					"code"
+				]
 			}
 		}
 	}

@@ -178,7 +178,7 @@ If you are unsure whether something violates someone's privacy, err on the side 
 If you observe conduct or content that appears to violate these guidelines or our Terms of Service, please report it. You can:
 
 - use the in-app reporting features available throughout the platform; and/or
-- email our safety team at safety@fluxer.app.
+- email our safety team at doommedia@proton.me.
 
 When possible, please include:
 
@@ -236,7 +236,7 @@ If you believe we made an error in enforcing these guidelines against your accou
 
 To appeal:
 
-1. Send an email to appeals@fluxer.app from the email address associated with your Multiverse account.
+1. Send an email to doommedia@proton.me from the email address associated with your Multiverse account.
 2. Clearly state:
    - the enforcement action you are appealing (for example, "7-day suspension on [date]" or "Community deletion"); and
    - why you believe the decision was incorrect, incomplete, or disproportionate.
@@ -287,7 +287,7 @@ If you own, create, or administer a Community:
   - removal of your Community; and/or
   - enforcement action against your account.
 
-If you are unsure how to handle a safety issue that affects your Community, you can always report it to us or contact safety@fluxer.app for guidance.
+If you are unsure how to handle a safety issue that affects your Community, you can always report it to us or contact doommedia@proton.me for guidance.
 
 ### For Parents and Guardians
 
@@ -307,7 +307,7 @@ If you believe a child is in immediate danger, please contact local emergency se
   - encourage or pressure anyone to harm themselves; or
   - shame, harass, or attack people who are struggling.
 - If you see content that suggests someone may be at imminent risk of self-harm or harm to others:
-  - report it via in-app tools or email safety@fluxer.app; and
+  - report it via in-app tools or email doommedia@proton.me; and
   - if you know the person and can safely do so, encourage them to seek professional support or contact local emergency services.
 
 Multiverse is not a substitute for professional mental health care or emergency services.
@@ -343,15 +343,9 @@ Thank you for helping us keep Multiverse a safe, welcoming, and enjoyable place 
 
 ## Need Help?
 
-### General Questions
+- **Contact:** doommedia@proton.me — for general questions and safety concerns alike.
 
-- **Email:** support@fluxer.app
-
-### Safety Concerns
-
-- **Email:** safety@fluxer.app
-
-If you are unsure whether something violates these guidelines, you can ask our support or safety teams for clarification.
+If you are unsure whether something violates these guidelines, reach out for clarification.
 
 ## Law Enforcement Requests
 
@@ -359,7 +353,7 @@ We recognize that law enforcement and other authorities may, in some circumstanc
 
 For more detailed information about how we handle such requests, please see the "Law Enforcement and Legal Requests" section of our [Privacy Policy](/privacy).
 
-- Direct lawful process and urgent preservation requests to legal@fluxer.app.
+- Direct lawful process and urgent preservation requests to doommedia@proton.me.
 - Requests must clearly identify the requesting authority, the legal basis, and the specific data requested.
 - We may notify affected users of requests when permitted by law and where doing so would not pose a risk to safety, security, or legal obligations.
 - We may reject or narrow overbroad, unsupported, or non-compliant requests.
@@ -370,6 +364,6 @@ For more detailed information about how we handle such requests, please see the 
 - If you or someone else is in **immediate danger**, contact your local emergency services first.
 - For other urgent safety concerns on Multiverse (for example, threats, self-harm indications, or serious harassment), please:
   - use in-app reporting tools; and/or
-  - email safety@fluxer.app with as much detail as possible so we can review quickly.
+  - email doommedia@proton.me with as much detail as possible so we can review quickly.
 
 Multiverse cannot provide medical, psychological, or legal advice. However, we will do our best to respond to safety-related reports promptly and, where appropriate, may work with relevant services or authorities consistent with applicable law.

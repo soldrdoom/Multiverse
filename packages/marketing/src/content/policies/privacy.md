@@ -133,7 +133,7 @@ Some regions have enacted laws that require online platforms to verify users' ag
 
 For full details on how these restrictions work, which regions are currently affected, and what each restriction means in practice, see our [Regional Restrictions](/regional-restrictions) page.
 
-We generally do not manually override these automated determinations, but you may contact us at privacy@fluxer.app if you believe your access has been restricted in error (for example, if you are travelling or using a VPN and your IP address does not reflect your actual location). Where applicable data protection laws grant you rights in relation to automated decision-making (for example, under GDPR), we will honor those rights as described in [Section 10](#10-your-privacy-rights).
+We generally do not manually override these automated determinations, but you may contact us at doommedia@proton.me if you believe your access has been restricted in error (for example, if you are travelling or using a VPN and your IP address does not reflect your actual location). Where applicable data protection laws grant you rights in relation to automated decision-making (for example, under GDPR), we will honor those rights as described in [Section 10](#10-your-privacy-rights).
 
 ## 4. Who We Share Information With
 
@@ -344,7 +344,7 @@ Attachments have expiry windows; if you want to keep specific files, download or
 
 If you need specific data removed or modified without deleting everything:
 
-- Email privacy@fluxer.app from the email address associated with your Multiverse account.
+- Email doommedia@proton.me from the email address associated with your Multiverse account.
 - Clearly describe what you want us to do (for example, delete specific content, correct account information, or provide a data copy).
 - We may ask for additional information to verify your identity and confirm that you control the account.
 
@@ -413,7 +413,7 @@ Depending on where you live, you may have certain rights regarding your personal
 
 You can exercise many of your rights directly through your Privacy Dashboard and account settings (for example, export, deletion, and correction of certain information).
 
-You can also contact us at privacy@fluxer.app to exercise your rights. When you do so:
+You can also contact us at doommedia@proton.me to exercise your rights. When you do so:
 
 - we may need to verify your identity (for example, by asking you to reply from your registered email or provide additional details);
 - we will respond as required by applicable law (typically within 30 days, or up to 45 days where permitted and necessary); and
@@ -436,7 +436,7 @@ We use automated systems in certain limited ways that may affect your use of Mul
 
 These systems can influence, for example, whether you can access Multiverse from a given region or whether certain actions are temporarily blocked while we investigate potential abuse.
 
-Where applicable law (such as GDPR) grants you rights related to automated decision-making – such as the right to obtain human review, to express your point of view, or to contest certain decisions – you can contact us at privacy@fluxer.app. We will handle such requests in line with those laws and our legal obligations.
+Where applicable law (such as GDPR) grants you rights related to automated decision-making – such as the right to obtain human review, to express your point of view, or to contest certain decisions – you can contact us at doommedia@proton.me. We will handle such requests in line with those laws and our legal obligations.
 
 ## 11. Children's Privacy
 
@@ -451,11 +451,11 @@ We use IP geolocation and similar signals to determine whether access is allowed
 
 Some jurisdictions require age verification methods that we are not able or willing to implement (for example, requiring government ID uploads or biometric scanning). Where such requirements apply, we restrict access as described in [Section 3.2](#32-ip-address-geolocation) and on our [Regional Restrictions](/regional-restrictions) page. Depending on the scope of the law, this may mean full platform inaccessibility or restriction of age-restricted content only.
 
-We generally do not manually override these automated regional determinations, but you may contact us at privacy@fluxer.app if you believe your access has been restricted in error (for example, due to inaccurate geolocation). Where applicable law grants minors or their guardians specific rights regarding automated decisions, we will comply with those obligations.
+We generally do not manually override these automated regional determinations, but you may contact us at doommedia@proton.me if you believe your access has been restricted in error (for example, due to inaccurate geolocation). Where applicable law grants minors or their guardians specific rights regarding automated decisions, we will comply with those obligations.
 
 We do not knowingly collect personal information from children under the Minimum Age in their region. If we become aware that we have inadvertently collected personal information from a child who does not meet the Minimum Age requirement, we will take steps to delete that information and, where appropriate, delete the account.
 
-If you are a parent or legal guardian and believe that your child has used Multiverse without your consent or does not meet the Minimum Age requirement, you may contact privacy@fluxer.app from the child's registered email address (or with sufficient proof of guardianship) to request deletion of their account and associated data.
+If you are a parent or legal guardian and believe that your child has used Multiverse without your consent or does not meet the Minimum Age requirement, you may contact doommedia@proton.me from the child's registered email address (or with sufficient proof of guardianship) to request deletion of their account and associated data.
 
 ## 12. Cookies and Similar Technologies
 
@@ -492,7 +492,7 @@ Third-party services may have their own privacy policies and data practices that
 We take the privacy and security of our users seriously and carefully consider all legal requests for data.
 
 - We respond to valid legal processes and requests that comply with applicable law, which may include court orders, warrants, or other legally binding requests.
-- Requests should be directed to legal@fluxer.app and should clearly identify the requesting authority, legal basis, and scope of data requested.
+- Requests should be directed to doommedia@proton.me and should clearly identify the requesting authority, legal basis, and scope of data requested.
 - We may refuse or narrow requests that are overly broad, not legally valid, or inconsistent with applicable law.
 - Where legally permitted and where it would not create a risk to safety, security, or legal obligations, we will attempt to notify affected users before disclosing their data so they have an opportunity to object.
 
@@ -517,14 +517,10 @@ Your continued use of Multiverse after the updated policy takes effect constitut
 
 For account-related and privacy-related requests, you should contact us from the email address associated with your Multiverse account wherever possible. This helps us verify your identity and protect your account.
 
-### Privacy and Data Protection Contact
+### Contact
 
-- Email: privacy@fluxer.app
-- This is our primary contact point for privacy and data protection questions. We have not formally appointed a Data Protection Officer under GDPR.
+- Email: doommedia@proton.me
+- This is our primary contact point for privacy and data protection questions, as well as general support. We have not formally appointed a Data Protection Officer under GDPR.
+- Website: [https://fluxer.app](https://fluxer.app)
 
 You can use this address to exercise your privacy rights, ask questions about this policy, or raise concerns about how your data is handled.
-
-### General Support
-
-- Email: support@fluxer.app
-- Website: [https://fluxer.app](https://fluxer.app)

@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - コミュニティガイドライン: {guidelinesUrl}
 
     異議申し立て:
-    この対応が誤り、または正当ではないと思われる場合は、60日以内にこのメールアドレスから appeals@fluxer.app へ異議申し立てを送信してください。
+    この対応が誤り、または正当ではないと思われる場合は、60日以内にこのメールアドレスから doommedia@proton.me へ異議申し立てを送信してください。
 
     異議申し立てには、以下を含めてください:
     - なぜ誤り、または正当ではないと思うのかを具体的に説明してください
@@ -73,7 +73,7 @@ account_temp_banned:
     - 利用規約: {termsUrl}
     - コミュニティガイドライン: {guidelinesUrl}
 
-    この対応が誤り、または正当ではないと思われる場合は、このメールアドレスから appeals@fluxer.app へ異議申し立てを送信してください。なぜ誤りだと思うのかを具体的に記載してください。内容を確認のうえ、結果を返信します。
+    この対応が誤り、または正当ではないと思われる場合は、このメールアドレスから doommedia@proton.me へ異議申し立てを送信してください。なぜ誤りだと思うのかを具体的に記載してください。内容を確認のうえ、結果を返信します。
 
     – Multiverse安全チーム
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Multiverseをみんなにとって安全な場所にするためのご協力ありがとうございます。私たちはすべての通報を真剣に確認しており、コミュニティへの貢献に感謝しています。
 
-    この結果について質問や不安がある場合は、safety@fluxer.app までご連絡ください。
+    この結果について質問や不安がある場合は、doommedia@proton.me までご連絡ください。
 
     – Multiverse安全チーム
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     これは重大な対応です。予定日時になると、アカウントデータは完全に削除されます。
 
-    この対応が誤りだと思われる場合は、60日以内にこのメールアドレスから appeals@fluxer.app へ異議申し立てを送信できます。
+    この対応が誤りだと思われる場合は、60日以内にこのメールアドレスから doommedia@proton.me へ異議申し立てを送信できます。
 
     – Multiverse安全チーム
 self_deletion_scheduled:

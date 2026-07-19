@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Topluluk kuralları: {guidelinesUrl}
 
     İtiraz süreci:
-    Bu yaptırım kararının hatalı veya haksız olduğunu düşünüyorsan, bu e-posta adresinden appeals@fluxer.app adresine 60 gün içinde itiraz edebilirsin.
+    Bu yaptırım kararının hatalı veya haksız olduğunu düşünüyorsan, bu e-posta adresinden doommedia@proton.me adresine 60 gün içinde itiraz edebilirsin.
 
     İtirazında lütfen:
     - Kararın neden hatalı veya haksız olduğunu net bir şekilde açıkla
@@ -73,7 +73,7 @@ account_temp_banned:
     - Hizmet şartları: {termsUrl}
     - Topluluk kuralları: {guidelinesUrl}
 
-    Bu yaptırım kararının hatalı veya haksız olduğunu düşünüyorsan, bu e-posta adresinden appeals@fluxer.app adresine itiraz edebilirsin. Lütfen kararın neden hatalı olduğunu açıkça yaz. İtirazını inceleyip kararımızı sana bildireceğiz.
+    Bu yaptırım kararının hatalı veya haksız olduğunu düşünüyorsan, bu e-posta adresinden doommedia@proton.me adresine itiraz edebilirsin. Lütfen kararın neden hatalı olduğunu açıkça yaz. İtirazını inceleyip kararımızı sana bildireceğiz.
 
     – Multiverse Güvenlik Ekibi
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Multiverse'i herkes için güvenli tutmamıza yardımcı olduğun için teşekkürler. Tüm bildirimleri ciddiye alıyoruz ve topluluğa yaptığın katkıyı takdir ediyoruz.
 
-    Bu sonuç hakkında soruların ya da endişelerin varsa safety@fluxer.app adresinden bize ulaş.
+    Bu sonuç hakkında soruların ya da endişelerin varsa doommedia@proton.me adresinden bize ulaş.
 
     – Multiverse Güvenlik Ekibi
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Bu ciddi bir yaptırımdır. Hesap verilerin, planlanan tarihte kalıcı olarak silinecek.
 
-    Bu yaptırım kararının hatalı olduğunu düşünüyorsan, bu e-posta adresinden appeals@fluxer.app adresine itiraz edebilirsin.
+    Bu yaptırım kararının hatalı olduğunu düşünüyorsan, bu e-posta adresinden doommedia@proton.me adresine itiraz edebilirsin.
 
     – Multiverse Güvenlik Ekibi
 self_deletion_scheduled:

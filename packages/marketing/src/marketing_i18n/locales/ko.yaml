@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: 아직은 유급 역할을 �
 community_funding_and_roles.non_paid_recurring_role: 핵심 팀과 함께 Multiverse의 방향을 만들어가는 반복 기여자를 위한 무급 역할이에요.
 community_funding_and_roles.sustainability_note: 여러분의 지원으로 이 독립적인 플랫폼을 지속 가능하게 만들고, 앞으로 유급 역할도 제공하고 싶어요.
 company_and_resources.blog: 블로그
-company_and_resources.careers.careers_at_fluxer: Multiverse 채용
-company_and_resources.careers.label: 채용
-company_and_resources.careers.share_a_bit_about_yourself: 자기소개와 기여하고 싶은 내용을 careers@fluxer.app 으로 보내주세요
 company_and_resources.community_team.fluxer_community_team: Multiverse 커뮤니티 팀
 company_and_resources.community_team.share_feedback_report_bugs: 피드백을 공유하고 버그를 신고해 모두에게 환영받는 Multiverse를 만들어주세요.
 company_and_resources.company: 회사
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: 참여하기
 company_and_resources.source_and_contribution.source_code: 소스 코드
 company_and_resources.source_and_contribution.translation.help_translate: Multiverse와 문서를 번역해 어디서나 자연스럽게 사용할 수 있게 도와주세요.
 company_and_resources.source_and_contribution.translation.label: 번역 및 현지화
-company_and_resources.source_and_contribution.translation.llm_translation_note: 현재 모든 번역은 LLM으로 생성되었고 최소한의 검수만 거쳤어요. 실제 사용자분들의 참여를 환영해요. i18n@fluxer.app 으로 메일 주세요.
+company_and_resources.source_and_contribution.translation.llm_translation_note: 현재 모든 번역은 LLM으로 생성되었고 최소한의 검수만 거쳤어요. 실제 사용자분들의 참여를 환영해요. doommedia@proton.me 으로 메일 주세요.
 company_and_resources.source_and_contribution.translation.localization_label: 현지화
 company_and_resources.source_and_contribution.view_repository: 저장소 보기
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Multiverse를 함께 만들고 싶나요?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: 참여하고 알려주세요
 misc_labels.join_fluxer_community_contribute: Multiverse 커뮤니티에 참여해 오픈 소스와 커뮤니티 기여로 커뮤니케이션의 미래를 함께 만들어주세요.
 misc_labels.join_fluxer_hq: Multiverse HQ 참여
 misc_labels.join_multiple_devices: 여러 기기에서 동시에 참여
-misc_labels.join_team_behind_fluxer: Multiverse를 만드는 팀에 합류하세요
 misc_labels.learn_more: 자세히 알아보기
 misc_labels.product_hunt_badge_title: Multiverse - 오픈 소스 Discord 스타일 메신저 및 VoIP 플랫폼 | Product Hunt 최고 게시물
 misc_labels.profile_badge: 프로필 배지
@@ -254,7 +250,6 @@ navigation.page_not_found.title: 페이지를 찾을 수 없음
 navigation.press.download_assets_intro: 로고를 다운로드하고 브랜드 컬러를 확인한 뒤 프레스 팀에 문의할 수 있어요.
 navigation.press.download_fluxer_assets: Multiverse 로고와 브랜드 자료를 다운로드하고 프레스 팀에 문의하세요
 navigation.press.press_and_brand_assets: 프레스 및 브랜드 자료
-partner_program.become_partner.apply_email: partners@fluxer.app 으로 신청하세요
 partner_program.become_partner.call_to_action: 파트너 신청
 partner_program.become_partner.heading: Multiverse 파트너가 되어보세요
 partner_program.become_partner.if_youre_a_creator_or: 크리에이터이거나 큰 커뮤니티를 운영 중이라면 연락 주세요.

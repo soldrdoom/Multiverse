@@ -39,13 +39,13 @@ The following are out of scope (not an exhaustive list):
 - Social engineering, phishing, bribery, coercion, or attempts to manipulate Multiverse staff or users.
 - Denial-of-service (DoS) attacks, traffic flooding, rate-limit exhaustion, or resource exhaustion testing.
 - Automated scanning or bulk testing that produces noisy/low-signal findings, especially without a clear security impact and a reliable reproduction path.
-- General UI bugs, feature requests, or non-security support issues (email support@fluxer.app for those).
+- General UI bugs, feature requests, or non-security support issues (email doommedia@proton.me for those).
 
 In addition, we generally do not prioritize low-impact reports (for example missing best-practice headers or minor configuration issues) unless you can demonstrate a concrete security impact.
 
 ## How to report
 
-Email your report to security@fluxer.app.
+Email your report to doommedia@proton.me.
 
 Please include:
 
@@ -76,7 +76,7 @@ Higher-severity findings receive more recognition. We intend to add cash payouts
 
 ### Credit and eligibility
 
-- Please report findings privately to security@fluxer.app.
+- Please report findings privately to doommedia@proton.me.
 - Public disclosure before we acknowledge and address the issue may make the report ineligible for rewards or recognition.
 - If multiple reports describe the same underlying issue, we typically credit the first report that clearly explains the vulnerability and enables reliable reproduction.
 

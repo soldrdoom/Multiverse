@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Yhteisön säännöt: {guidelinesUrl}
 
     Valitus:
-    Jos uskot, että päätös on väärä tai perusteeton, voit tehdä valituksen 60 päivän kuluessa. Lähetä valitus osoitteeseen appeals@fluxer.app tästä sähköpostiosoitteesta.
+    Jos uskot, että päätös on väärä tai perusteeton, voit tehdä valituksen 60 päivän kuluessa. Lähetä valitus osoitteeseen doommedia@proton.me tästä sähköpostiosoitteesta.
 
     Valituksessa:
     - Kerro selkeästi, miksi uskot päätöksen olevan väärä tai perusteeton
@@ -73,7 +73,7 @@ account_temp_banned:
     - Käyttöehdot: {termsUrl}
     - Yhteisön säännöt: {guidelinesUrl}
 
-    Jos uskot, että päätös on väärä tai perusteeton, voit tehdä valituksen osoitteeseen appeals@fluxer.app tästä sähköpostiosoitteesta. Kerro selkeästi, miksi uskot päätöksen olevan väärä. Käsittelemme valituksesi ja vastaamme lopullisella päätöksellämme.
+    Jos uskot, että päätös on väärä tai perusteeton, voit tehdä valituksen osoitteeseen doommedia@proton.me tästä sähköpostiosoitteesta. Kerro selkeästi, miksi uskot päätöksen olevan väärä. Käsittelemme valituksesi ja vastaamme lopullisella päätöksellämme.
 
     – Multiversein turvallisuustiimi
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Kiitos, että autat pitämään Multiversein turvallisena kaikille. Suhtaudumme kaikkiin ilmoituksiin vakavasti ja arvostamme panostasi yhteisöön.
 
-    Jos sinulla on kysyttävää tai huolia tästä lopputuloksesta, ota yhteyttä osoitteeseen safety@fluxer.app.
+    Jos sinulla on kysyttävää tai huolia tästä lopputuloksesta, ota yhteyttä osoitteeseen doommedia@proton.me.
 
     – Multiversein turvallisuustiimi
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Tämä on vakava toimenpide. Tilisi tiedot poistetaan pysyvästi ilmoitettuna ajankohtana.
 
-    Jos uskot, että päätös on väärä, voit tehdä valituksen osoitteeseen appeals@fluxer.app tästä sähköpostiosoitteesta.
+    Jos uskot, että päätös on väärä, voit tehdä valituksen osoitteeseen doommedia@proton.me tästä sähköpostiosoitteesta.
 
     – Multiversein turvallisuustiimi
 self_deletion_scheduled:

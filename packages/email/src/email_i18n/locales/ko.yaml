@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - 커뮤니티 가이드라인: {guidelinesUrl}
 
     이의 제기 안내:
-    이 제재 결정이 잘못됐거나 정당하지 않다고 생각되면, 이 이메일 주소에서 appeals@fluxer.app으로 60일 이내에 이의 제기를 제출할 수 있어요.
+    이 제재 결정이 잘못됐거나 정당하지 않다고 생각되면, 이 이메일 주소에서 doommedia@proton.me으로 60일 이내에 이의 제기를 제출할 수 있어요.
 
     이의 제기에는 아래 내용을 포함해 주세요:
     - 왜 이 결정이 잘못됐거나 정당하지 않다고 생각하는지 명확히 설명해 주세요.
@@ -73,7 +73,7 @@ account_temp_banned:
     - 서비스 이용약관: {termsUrl}
     - 커뮤니티 가이드라인: {guidelinesUrl}
 
-    이 제재 결정이 잘못됐거나 정당하지 않다고 생각되면, 이 이메일 주소에서 appeals@fluxer.app으로 이의 제기를 제출할 수 있어요. 왜 결정이 잘못됐다고 생각하는지 명확히 적어 주세요. 검토 후 결과를 안내해 드릴게요.
+    이 제재 결정이 잘못됐거나 정당하지 않다고 생각되면, 이 이메일 주소에서 doommedia@proton.me으로 이의 제기를 제출할 수 있어요. 왜 결정이 잘못됐다고 생각하는지 명확히 적어 주세요. 검토 후 결과를 안내해 드릴게요.
 
     – Multiverse 안전팀
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Multiverse를 더 안전하게 만드는 데 도움을 주셔서 고마워요. 모든 신고를 신중하게 검토하고 있으며, 커뮤니티에 기여해 주신 점에 감사드려요.
 
-    이번 결과에 대해 질문이나 우려가 있으면 safety@fluxer.app으로 문의해 주세요.
+    이번 결과에 대해 질문이나 우려가 있으면 doommedia@proton.me으로 문의해 주세요.
 
     – Multiverse 안전팀
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     이는 중요한 제재 조치예요. 예약된 날짜에 계정 데이터가 영구적으로 삭제돼요.
 
-    이 제재 결정이 잘못됐다고 생각되면, 이 이메일 주소에서 appeals@fluxer.app으로 이의 제기를 제출할 수 있어요.
+    이 제재 결정이 잘못됐다고 생각되면, 이 이메일 주소에서 doommedia@proton.me으로 이의 제기를 제출할 수 있어요.
 
     – Multiverse 안전팀
 self_deletion_scheduled:

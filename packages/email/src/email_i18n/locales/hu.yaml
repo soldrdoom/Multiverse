@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Közösségi irányelvek: {guidelinesUrl}
 
     Fellebbezés:
-    Ha szerinted a döntés téves vagy nem megalapozott, 60 napod van fellebbezést benyújtani. Írj az appeals@fluxer.app címre, és ezt erről az e-mail-címről tedd meg.
+    Ha szerinted a döntés téves vagy nem megalapozott, 60 napod van fellebbezést benyújtani. Írj az doommedia@proton.me címre, és ezt erről az e-mail-címről tedd meg.
 
     A fellebbezésben:
     - Írd le egyértelműen, miért gondolod, hogy a döntés téves vagy nem megalapozott.
@@ -73,7 +73,7 @@ account_temp_banned:
     - Felhasználási feltételek: {termsUrl}
     - Közösségi irányelvek: {guidelinesUrl}
 
-    Ha szerinted a döntés téves vagy nem megalapozott, fellebbezhetsz az appeals@fluxer.app címen, és ezt erről az e-mail-címről tedd meg. Kérjük, írd le egyértelműen, miért gondolod, hogy a döntés téves. Átnézzük a fellebbezést, és visszajelzünk a döntésünkről.
+    Ha szerinted a döntés téves vagy nem megalapozott, fellebbezhetsz az doommedia@proton.me címen, és ezt erről az e-mail-címről tedd meg. Kérjük, írd le egyértelműen, miért gondolod, hogy a döntés téves. Átnézzük a fellebbezést, és visszajelzünk a döntésünkről.
 
     – A Multiverse biztonsági csapata
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Köszönjük, hogy segítesz biztonságossá tenni a Multiverset mindenkinek. Minden bejelentést komolyan veszünk, és értékeljük a közösségért tett hozzájárulásod.
 
-    Ha kérdésed vagy észrevételed van a döntéssel kapcsolatban, írj a safety@fluxer.app címre.
+    Ha kérdésed vagy észrevételed van a döntéssel kapcsolatban, írj a doommedia@proton.me címre.
 
     – A Multiverse biztonsági csapata
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Ez egy komoly intézkedés. A fiókod adatait a megadott időpontban véglegesen töröljük.
 
-    Ha szerinted a döntés téves, fellebbezhetsz az appeals@fluxer.app címen, és ezt erről az e-mail-címről tedd meg.
+    Ha szerinted a döntés téves, fellebbezhetsz az doommedia@proton.me címen, és ezt erről az e-mail-címről tedd meg.
 
     – A Multiverse biztonsági csapata
 self_deletion_scheduled:

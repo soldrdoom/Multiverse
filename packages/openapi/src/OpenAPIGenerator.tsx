@@ -100,7 +100,7 @@ export class OpenAPIGenerator {
 				description: this.settings.description,
 				contact: {
 					name: 'Multiverse Developers',
-					email: 'developers@fluxer.app',
+					email: 'doommedia@proton.me',
 				},
 				license: {
 					name: 'AGPL-3.0',

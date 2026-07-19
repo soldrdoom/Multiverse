@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Kami masih membangun bisnis 
 community_funding_and_roles.non_paid_recurring_role: Peran tidak berbayar untuk kontributor rutin yang membantu membentuk Multiverse bareng tim inti.
 community_funding_and_roles.sustainability_note: Dengan dukungan kamu, kami berharap bisa membuat platform komunikasi independen ini berkelanjutan dan mulai menawarkan peran berbayar di masa depan.
 company_and_resources.blog: Blog
-company_and_resources.careers.careers_at_fluxer: Karier di Multiverse
-company_and_resources.careers.label: Karier
-company_and_resources.careers.share_a_bit_about_yourself: Ceritakan sedikit tentang dirimu dan bagaimana kamu ingin berkontribusi dengan mengirim email ke careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: Tim komunitas Multiverse
 company_and_resources.community_team.share_feedback_report_bugs: Bagikan masukan, laporkan bug, dan bantu bikin Multiverse jadi tempat yang ramah untuk semua orang.
 company_and_resources.company: Perusahaan
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Ikut berkontribusi
 company_and_resources.source_and_contribution.source_code: Kode sumber
 company_and_resources.source_and_contribution.translation.help_translate: Bantu terjemahkan Multiverse dan dokumentasinya supaya terasa native di mana-mana.
 company_and_resources.source_and_contribution.translation.label: Terjemahan dan lokalisasi
-company_and_resources.source_and_contribution.translation.llm_translation_note: Semua terjemahan saat ini dibuat oleh LLM dengan revisi manusia yang minim. Kami ingin orang sungguhan membantu kami melokalkan Multiverse ke bahasa kamu. Untuk itu, email i18n@fluxer.app dan kami dengan senang hati menerima kontribusimu.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Semua terjemahan saat ini dibuat oleh LLM dengan revisi manusia yang minim. Kami ingin orang sungguhan membantu kami melokalkan Multiverse ke bahasa kamu. Untuk itu, email doommedia@proton.me dan kami dengan senang hati menerima kontribusimu.
 company_and_resources.source_and_contribution.translation.localization_label: Lokalisasi
 company_and_resources.source_and_contribution.view_repository: Lihat repositori
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Mau bantu bangun Multiverse?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Gabung dan sebarkan kabar
 misc_labels.join_fluxer_community_contribute: Gabung komunitas Multiverse dan bantu bangun masa depan komunikasi lewat open source dan kontribusi komunitas.
 misc_labels.join_fluxer_hq: Gabung Multiverse HQ
 misc_labels.join_multiple_devices: Gabung dari beberapa perangkat sekaligus
-misc_labels.join_team_behind_fluxer: Gabung tim di balik Multiverse
 misc_labels.learn_more: Pelajari lebih lanjut
 misc_labels.product_hunt_badge_title: Multiverse - Platform pesan instan dan VoIP open source mirip Discord | postingan teratas Product Hunt
 misc_labels.profile_badge: Lencana profil
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Halaman tidak ditemukan
 navigation.press.download_assets_intro: Unduh logo kami, lihat warna brand kami, dan hubungi tim pers kami.
 navigation.press.download_fluxer_assets: Unduh logo Multiverse, aset brand, dan hubungi tim pers kami
 navigation.press.press_and_brand_assets: Pers dan aset brand
-partner_program.become_partner.apply_email: Daftar di partners@fluxer.app
 partner_program.become_partner.call_to_action: Jadi Mitra
 partner_program.become_partner.heading: Jadi Mitra Multiverse
 partner_program.become_partner.if_youre_a_creator_or: Kalau kamu kreator atau menjalankan komunitas besar, kami pengin dengar dari kamu.

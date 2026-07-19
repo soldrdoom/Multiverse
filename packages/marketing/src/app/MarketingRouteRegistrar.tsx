@@ -28,7 +28,6 @@ import {createSession} from '@fluxer/hono/src/Session';
 import {getLocaleFromCode} from '@fluxer/locale/src/LocaleService';
 import type {MarketingConfig} from '@fluxer/marketing/src/MarketingConfig';
 import {sendMarketingRequest} from '@fluxer/marketing/src/MarketingHttpClient';
-import {renderCareersPage} from '@fluxer/marketing/src/pages/CareersPage';
 import {renderDownloadPage} from '@fluxer/marketing/src/pages/DownloadPage';
 import {renderHelpArticlePage} from '@fluxer/marketing/src/pages/HelpArticlePage';
 import {renderHelpIndexPage} from '@fluxer/marketing/src/pages/HelpIndexPage';
@@ -77,7 +76,6 @@ const PAGE_ROUTE_DEFINITIONS: ReadonlyArray<{
 	handler: MarketingRouteHandler;
 }> = [
 	{path: '/', handler: renderHomePage},
-	{path: '/careers', handler: renderCareersPage},
 	{path: '/download', handler: renderDownloadPage},
 	{path: '/plutonium', handler: renderPlutoniumPage},
 	{path: '/partners', handler: renderPartnersPage},
@@ -132,7 +130,7 @@ function registerSystemContentRoutes(app: Hono, contextFactory: MarketingContext
 		const expires = `${new Date().getUTCFullYear() + 1}-01-05T13:37:00.000Z`;
 		const body = [
 			`Contact: ${securityUrl}`,
-			'Contact: mailto:security@fluxer.app',
+			'Contact: mailto:doommedia@proton.me',
 			`Expires: ${expires}`,
 			'Preferred-Languages: en',
 			`Policy: ${securityUrl}`,

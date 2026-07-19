@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Communityrichtlijnen: {guidelinesUrl}
 
     Bezwaar maken:
-    Als je denkt dat deze beslissing onjuist of onterecht is, kun je binnen 60 dagen bezwaar indienen. Stuur je bezwaar naar appeals@fluxer.app, en gebruik daarbij dit e-mailadres.
+    Als je denkt dat deze beslissing onjuist of onterecht is, kun je binnen 60 dagen bezwaar indienen. Stuur je bezwaar naar doommedia@proton.me, en gebruik daarbij dit e-mailadres.
 
     Vermeld in je bezwaar:
     - Waarom je vindt dat de beslissing onjuist of onterecht is
@@ -73,7 +73,7 @@ account_temp_banned:
     - Gebruiksvoorwaarden: {termsUrl}
     - Communityrichtlijnen: {guidelinesUrl}
 
-    Denk je dat deze beslissing onjuist of onterecht is? Dan kun je bezwaar indienen via appeals@fluxer.app, en gebruik daarbij dit e-mailadres. Leg duidelijk uit waarom je vindt dat de beslissing niet klopt. We bekijken je bezwaar en laten je weten wat we besluiten.
+    Denk je dat deze beslissing onjuist of onterecht is? Dan kun je bezwaar indienen via doommedia@proton.me, en gebruik daarbij dit e-mailadres. Leg duidelijk uit waarom je vindt dat de beslissing niet klopt. We bekijken je bezwaar en laten je weten wat we besluiten.
 
     – Multiverse Safety-team
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Bedankt dat je helpt om Multiverse veilig te houden voor iedereen. We nemen alle meldingen serieus en waarderen je bijdrage aan de community.
 
-    Heb je vragen of zorgen over deze uitkomst? Neem dan contact op via safety@fluxer.app.
+    Heb je vragen of zorgen over deze uitkomst? Neem dan contact op via doommedia@proton.me.
 
     – Multiverse Safety-team
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Dit is een ernstige maatregel. Je accountgegevens worden op de geplande datum definitief verwijderd.
 
-    Denk je dat deze beslissing onjuist is? Dan kun je bezwaar indienen via appeals@fluxer.app, en gebruik daarbij dit e-mailadres.
+    Denk je dat deze beslissing onjuist is? Dan kun je bezwaar indienen via doommedia@proton.me, en gebruik daarbij dit e-mailadres.
 
     – Multiverse Safety-team
 self_deletion_scheduled:

@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Bendruomenės gaires: {guidelinesUrl}
 
     Apeliacija:
-    Jei manai, kad šis sprendimas neteisingas arba nepagrįstas, per 60 dienų gali pateikti apeliaciją el. paštu appeals@fluxer.app, ir tai turi būti padaryta iš šio el. pašto adreso.
+    Jei manai, kad šis sprendimas neteisingas arba nepagrįstas, per 60 dienų gali pateikti apeliaciją el. paštu doommedia@proton.me, ir tai turi būti padaryta iš šio el. pašto adreso.
 
     Apeliacijoje:
     - Aiškiai paaiškink, kodėl manai, kad sprendimas neteisingas arba nepagrįstas
@@ -73,7 +73,7 @@ account_temp_banned:
     - Paslaugų teikimo sąlygas: {termsUrl}
     - Bendruomenės gaires: {guidelinesUrl}
 
-    Jei manai, kad šis sprendimas neteisingas arba nepagrįstas, gali pateikti apeliaciją el. paštu appeals@fluxer.app, ir tai turi būti padaryta iš šio el. pašto adreso. Aiškiai paaiškink, kodėl manai, kad sprendimas klaidingas. Apeliaciją peržiūrėsime ir informuosime apie galutinį sprendimą.
+    Jei manai, kad šis sprendimas neteisingas arba nepagrįstas, gali pateikti apeliaciją el. paštu doommedia@proton.me, ir tai turi būti padaryta iš šio el. pašto adreso. Aiškiai paaiškink, kodėl manai, kad sprendimas klaidingas. Apeliaciją peržiūrėsime ir informuosime apie galutinį sprendimą.
 
     – Multiverse saugumo komanda
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Ačiū, kad padedi Multiverse išlikti saugiam visiems. Į visus pranešimus žiūrime rimtai ir vertiname tavo indėlį į bendruomenę.
 
-    Jei turi klausimų ar abejonių dėl šio sprendimo, parašyk safety@fluxer.app.
+    Jei turi klausimų ar abejonių dėl šio sprendimo, parašyk doommedia@proton.me.
 
     – Multiverse saugumo komanda
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Tai rimta priemonė. Tavo paskyros duomenys bus negrįžtamai ištrinti nurodytą dieną.
 
-    Jei manai, kad šis sprendimas neteisingas, gali pateikti apeliaciją el. paštu appeals@fluxer.app, ir tai turi būti padaryta iš šio el. pašto adreso.
+    Jei manai, kad šis sprendimas neteisingas, gali pateikti apeliaciją el. paštu doommedia@proton.me, ir tai turi būti padaryta iš šio el. pašto adreso.
 
     – Multiverse saugumo komanda
 self_deletion_scheduled:

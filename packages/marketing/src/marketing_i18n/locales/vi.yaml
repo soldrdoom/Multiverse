@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Bọn mình vẫn đang xây
 community_funding_and_roles.non_paid_recurring_role: Một vai trò không trả phí cho những người đóng góp thường xuyên, cùng định hình Multiverse với team cốt lõi.
 community_funding_and_roles.sustainability_note: Với sự ủng hộ của bạn, bọn mình hy vọng làm nền tảng liên lạc độc lập này bền vững và bắt đầu mở các vai trò trả phí trong tương lai.
 company_and_resources.blog: Blog
-company_and_resources.careers.careers_at_fluxer: Tuyển dụng tại Multiverse
-company_and_resources.careers.label: Tuyển dụng
-company_and_resources.careers.share_a_bit_about_yourself: Chia sẻ vài điều về bạn và cách bạn muốn đóng góp bằng cách email tới careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: Đội cộng đồng Multiverse
 company_and_resources.community_team.share_feedback_report_bugs: Gửi góp ý, báo lỗi và giúp Multiverse trở thành nơi chào đón mọi người.
 company_and_resources.company: Công ty
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Tham gia
 company_and_resources.source_and_contribution.source_code: Mã nguồn
 company_and_resources.source_and_contribution.translation.help_translate: Giúp dịch Multiverse và tài liệu để nó thật sự tự nhiên ở mọi nơi.
 company_and_resources.source_and_contribution.translation.label: Dịch thuật và bản địa hoá
-company_and_resources.source_and_contribution.translation.llm_translation_note: Hiện tại mọi bản dịch đều do LLM tạo ra và chỉ được chỉnh rất ít. Bọn mình rất muốn có người thật giúp bản địa hoá Multiverse sang ngôn ngữ của bạn. Nếu muốn góp sức, hãy email tới i18n@fluxer.app – bọn mình rất vui khi nhận đóng góp.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Hiện tại mọi bản dịch đều do LLM tạo ra và chỉ được chỉnh rất ít. Bọn mình rất muốn có người thật giúp bản địa hoá Multiverse sang ngôn ngữ của bạn. Nếu muốn góp sức, hãy email tới doommedia@proton.me – bọn mình rất vui khi nhận đóng góp.
 company_and_resources.source_and_contribution.translation.localization_label: Bản địa hoá
 company_and_resources.source_and_contribution.view_repository: Xem kho mã
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Muốn giúp xây Multiverse?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Tham gia và lan toả
 misc_labels.join_fluxer_community_contribute: Tham gia cộng đồng Multiverse và cùng xây tương lai liên lạc qua mã nguồn mở và đóng góp của cộng đồng.
 misc_labels.join_fluxer_hq: Tham gia Multiverse HQ
 misc_labels.join_multiple_devices: Đăng nhập trên nhiều thiết bị cùng lúc
-misc_labels.join_team_behind_fluxer: Tham gia đội ngũ phía sau Multiverse
 misc_labels.learn_more: Tìm hiểu thêm
 misc_labels.product_hunt_badge_title: Multiverse - Nền tảng nhắn tin và VoIP kiểu Discord, mã nguồn mở | bài viết nổi bật trên Product Hunt
 misc_labels.profile_badge: Huy hiệu hồ sơ
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Không tìm thấy trang
 navigation.press.download_assets_intro: Tải logo, xem màu thương hiệu và liên hệ đội báo chí của bọn mình.
 navigation.press.download_fluxer_assets: Tải logo Multiverse, tài sản thương hiệu và liên hệ đội báo chí
 navigation.press.press_and_brand_assets: Báo chí và tài sản thương hiệu
-partner_program.become_partner.apply_email: Đăng ký tại partners@fluxer.app
 partner_program.become_partner.call_to_action: Trở thành đối tác
 partner_program.become_partner.heading: Trở thành Multiverse Partner
 partner_program.become_partner.if_youre_a_creator_or: Nếu bạn là creator hoặc đang vận hành một cộng đồng lớn, bọn mình muốn nghe từ bạn.

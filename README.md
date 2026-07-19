@@ -43,7 +43,7 @@ Multiverse is a **free and open source instant messaging and VoIP platform** for
 **Wallet-based identity** – sign in with a Solana wallet, unlock NFT-gated cosmetics, and use an end-to-end encrypted Identity Vault derived from your wallet signature.
 
 > [!NOTE]
-> Native mobile apps and federation are top priorities. If you'd like to support this work, [donations](https://fluxer.app/donate) are greatly appreciated. You can also share feedback by emailing developers@fluxer.app.
+> Native mobile apps and federation are top priorities. If you'd like to support this work, [donations](https://fluxer.app/donate) are greatly appreciated. You can also share feedback by emailing doommedia@proton.me.
 
 ## Development
 

@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Pedoman komunitas: {guidelinesUrl}
 
     Ajukan banding:
-    Kalau kamu merasa keputusan ini keliru atau tidak beralasan, kamu bisa mengajukan banding dalam 60 hari. Kirim email ke appeals@fluxer.app, dan pastikan mengirimnya dari alamat email ini.
+    Kalau kamu merasa keputusan ini keliru atau tidak beralasan, kamu bisa mengajukan banding dalam 60 hari. Kirim email ke doommedia@proton.me, dan pastikan mengirimnya dari alamat email ini.
 
     Dalam banding kamu:
     - Jelaskan dengan jelas mengapa kamu menilai keputusan ini keliru atau tidak beralasan
@@ -73,7 +73,7 @@ account_temp_banned:
     - Ketentuan layanan: {termsUrl}
     - Pedoman komunitas: {guidelinesUrl}
 
-    Kalau kamu merasa keputusan ini keliru atau tidak beralasan, kamu bisa mengajukan banding ke appeals@fluxer.app, dan pastikan mengirimnya dari alamat email ini. Jelaskan dengan jelas mengapa kamu menilai keputusan ini keliru. Kami akan meninjau banding kamu dan membalas dengan keputusan kami.
+    Kalau kamu merasa keputusan ini keliru atau tidak beralasan, kamu bisa mengajukan banding ke doommedia@proton.me, dan pastikan mengirimnya dari alamat email ini. Jelaskan dengan jelas mengapa kamu menilai keputusan ini keliru. Kami akan meninjau banding kamu dan membalas dengan keputusan kami.
 
     – Tim keamanan Multiverse
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Terima kasih sudah membantu menjaga Multiverse tetap aman untuk semua orang. Kami menanggapi semua laporan dengan serius dan menghargai kontribusi kamu untuk komunitas.
 
-    Kalau kamu punya pertanyaan atau keberatan tentang hasil ini, silakan hubungi safety@fluxer.app.
+    Kalau kamu punya pertanyaan atau keberatan tentang hasil ini, silakan hubungi doommedia@proton.me.
 
     – Tim keamanan Multiverse
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Ini adalah tindakan penegakan yang serius. Data akun kamu akan dihapus secara permanen pada waktu yang dijadwalkan.
 
-    Kalau kamu merasa keputusan ini keliru, kamu bisa mengajukan banding ke appeals@fluxer.app, dan pastikan mengirimnya dari alamat email ini.
+    Kalau kamu merasa keputusan ini keliru, kamu bisa mengajukan banding ke doommedia@proton.me, dan pastikan mengirimnya dari alamat email ini.
 
     – Tim keamanan Multiverse
 self_deletion_scheduled:

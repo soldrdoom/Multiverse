@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Pravidla komunity: {guidelinesUrl}
 
     Odvolání:
-    Pokud se domníváš, že je toto rozhodnutí chybné nebo neopodstatněné, můžeš do 60 dnů podat odvolání na appeals@fluxer.app, a to z této e-mailové adresy.
+    Pokud se domníváš, že je toto rozhodnutí chybné nebo neopodstatněné, můžeš do 60 dnů podat odvolání na doommedia@proton.me, a to z této e-mailové adresy.
 
     V odvolání prosím:
     - Jasně popiš, proč si myslíš, že je rozhodnutí chybné nebo neopodstatněné
@@ -74,7 +74,7 @@ account_temp_banned:
     - Podmínky používání: {termsUrl}
     - Pravidla komunity: {guidelinesUrl}
 
-    Pokud se domníváš, že je toto rozhodnutí chybné nebo neopodstatněné, můžeš podat odvolání na appeals@fluxer.app, a to z této e-mailové adresy. Jasně popiš, proč si myslíš, že je rozhodnutí chybné. Odvolání prověříme a ozveme se s výsledkem.
+    Pokud se domníváš, že je toto rozhodnutí chybné nebo neopodstatněné, můžeš podat odvolání na doommedia@proton.me, a to z této e-mailové adresy. Jasně popiš, proč si myslíš, že je rozhodnutí chybné. Odvolání prověříme a ozveme se s výsledkem.
 
     – Bezpečnostní tým Multiverseu
 donation_confirmation:
@@ -319,7 +319,7 @@ report_resolved:
 
     Díky, že pomáháš udržet Multiverse bezpečný pro všechny. Všechna hlášení bereme vážně a vážíme si tvého příspěvku komunitě.
 
-    Pokud máš k výsledku dotazy nebo připomínky, napiš na safety@fluxer.app.
+    Pokud máš k výsledku dotazy nebo připomínky, napiš na doommedia@proton.me.
 
     – Bezpečnostní tým Multiverseu
 scheduled_deletion_notification:
@@ -338,7 +338,7 @@ scheduled_deletion_notification:
 
     Jde o závažné opatření. Data k účtu budou v uvedeném termínu nenávratně smazána.
 
-    Pokud se domníváš, že je toto rozhodnutí chybné, můžeš podat odvolání na appeals@fluxer.app, a to z této e-mailové adresy.
+    Pokud se domníváš, že je toto rozhodnutí chybné, můžeš podat odvolání na doommedia@proton.me, a to z této e-mailové adresy.
 
     – Bezpečnostní tým Multiverseu
 self_deletion_scheduled:

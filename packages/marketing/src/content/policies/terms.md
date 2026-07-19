@@ -55,7 +55,7 @@ To use most features of Multiverse, you must create an Account. You are solely r
 - providing accurate, current, and complete information during registration; and
 - keeping your Account information up to date when it changes.
 
-You must promptly notify us at support@fluxer.app if you become aware of any unauthorized access to or use of your Account.
+You must promptly notify us at doommedia@proton.me if you become aware of any unauthorized access to or use of your Account.
 
 We strongly recommend that you:
 
@@ -164,7 +164,7 @@ Our safety and moderation systems are designed to protect both users and the int
 
 ### 3.5 Copyright and Intellectual Property
 
-If you believe that content on Multiverse infringes your copyrights, please notify us at dmca@fluxer.app with the following information:
+If you believe that content on Multiverse infringes your copyrights, please notify us at doommedia@proton.me with the following information:
 
 - your full name and contact details;
 - a description of the copyrighted work you claim has been infringed;
@@ -264,7 +264,7 @@ Nothing in this section limits any mandatory rights you may have under applicabl
 
 #### 6.3.1 Plutonium Subscription Refunds
 
-You may request a refund within 14 days of purchasing a Plutonium subscription by emailing support@fluxer.app from your registered Account email address, unless applicable law grants you a longer or different cooling-off period.
+You may request a refund within 14 days of purchasing a Plutonium subscription by emailing doommedia@proton.me from your registered Account email address, unless applicable law grants you a longer or different cooling-off period.
 
 After receiving a refund:
 
@@ -295,7 +295,7 @@ We are not responsible for any fees, charges, penalties, or interest imposed by 
 
 ### 6.5 Chargebacks and Payment Disputes
 
-If you believe there is an error or unauthorized charge on your Account, we encourage you to contact us first at support@fluxer.app so we can investigate and attempt to resolve the issue quickly.
+If you believe there is an error or unauthorized charge on your Account, we encourage you to contact us first at doommedia@proton.me so we can investigate and attempt to resolve the issue quickly.
 
 If you initiate a chargeback or payment dispute with your bank or payment provider for a payment made to Multiverse, we may:
 
@@ -340,7 +340,7 @@ We will typically provide advance warning before suspending or terminating an Ac
 
 If we terminate your Account for cause, you may lose access to your User Content and any associated data, subject to applicable law and our data retention practices.
 
-If you believe we have made a mistake in suspending or terminating your Account, you may appeal in accordance with our [Community Guidelines](/guidelines), for example by emailing appeals@fluxer.app from the email address associated with your Account.
+If you believe we have made a mistake in suspending or terminating your Account, you may appeal in accordance with our [Community Guidelines](/guidelines), for example by emailing doommedia@proton.me from the email address associated with your Account.
 
 ### 8.3 Account Inactivity and Deletion
 
@@ -355,7 +355,7 @@ When an Account is deleted:
 - messages and content you posted in Communities or direct messages may remain visible to other users, unless you delete them first (for example, via your Privacy Dashboard or other tools we provide); and
 - you may no longer be able to access your User Content, unless you exported or downloaded it beforehand.
 
-You can remove messages and other content through your Privacy Dashboard or by contacting privacy@fluxer.app before deletion, subject to technical and legal limitations.
+You can remove messages and other content through your Privacy Dashboard or by contacting doommedia@proton.me before deletion, subject to technical and legal limitations.
 
 ## 9. Disclaimers, Limitation of Liability, and Indemnification
 
@@ -406,7 +406,7 @@ This indemnity obligation does not apply to the extent that a claim arises due t
 
 We want to resolve disputes fairly and efficiently.
 
-- **Informal resolution first:** If you have a concern or dispute with us, please contact support@fluxer.app first. We will try to work with you in good faith to resolve the issue informally.
+- **Informal resolution first:** If you have a concern or dispute with us, please contact doommedia@proton.me first. We will try to work with you in good faith to resolve the issue informally.
 - **Consumers in the EU/EEA and other regions:** If you are a consumer residing in the EU, EEA, or another jurisdiction that grants you mandatory rights to bring claims in the courts of your country of residence, nothing in these Terms limits those rights.
 - **Class and representative actions:** To the maximum extent permitted by applicable law, any claims must be brought on an individual basis, and not as a plaintiff or class member in any class, collective, or representative action. If a waiver of class or representative actions is not enforceable for a particular claim, that claim may proceed as required by law in a court with proper jurisdiction, and the class or representative aspects of that claim will be handled as that court determines.
 
@@ -431,16 +431,15 @@ All account-related communications with Multiverse should be sent from the email
 
 For security reasons, we normally only provide account support, share sensitive information, or make changes to your Account when you contact us from that email address. If you lose access to your registered email address, we may need additional information to verify your identity and might not always be able to recover or modify your Account.
 
-Multiverse will never ask you to provide your password, full payment card number, or other highly sensitive security information via email. All official Multiverse emails and communications originate from email addresses ending in `@fluxer.app` or `@m.fluxer.app`. Be cautious of phishing attempts using similar-looking domain names or requesting sensitive information.
+Multiverse will never ask you to provide your password, full payment card number, or other highly sensitive security information via email. Official Multiverse communications only ever come from doommedia@proton.me. Be cautious of phishing attempts using similar-looking addresses or requesting sensitive information.
 
-If you receive a suspicious message claiming to be from Multiverse, please do not click any links or provide any information. Instead, contact us directly at support@fluxer.app.
+If you receive a suspicious message claiming to be from Multiverse, please do not click any links or provide any information. Instead, contact us directly at doommedia@proton.me.
 
 ## 13. Contact Information
 
 If you have questions, concerns, or need assistance with the Services or these Terms, you can contact us at:
 
-- **Support email:** support@fluxer.app (for account-related matters, please contact us from the email address associated with your Account where possible)
-- **Privacy email:** privacy@fluxer.app (for privacy and data protection requests)
+- **Contact:** doommedia@proton.me (for account-related matters, please contact us from the email address associated with your Account where possible)
 - **Website:** [https://fluxer.app](https://fluxer.app)
 
 For additional contact details (including press, security, and legal requests), see our [company information page](/company-information) or the [Privacy Policy](/privacy).

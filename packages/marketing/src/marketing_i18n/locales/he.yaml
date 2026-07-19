@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: אנחנו עדיין בונ
 community_funding_and_roles.non_paid_recurring_role: תפקיד ללא תשלום לתורמים קבועים שעוזרים לעצב את Multiverse יחד עם צוות הליבה.
 community_funding_and_roles.sustainability_note: בעזרת התמיכה שלכם, אנחנו מקווים להפוך את פלטפורמת התקשורת העצמאית הזו לבר-קיימא ולהתחיל להציע תפקידים בתשלום בעתיד.
 company_and_resources.blog: בלוג
-company_and_resources.careers.careers_at_fluxer: קריירה ב-Fluxer
-company_and_resources.careers.label: קריירה
-company_and_resources.careers.share_a_bit_about_yourself: ספרו קצת על עצמכם ואיך תרצו לתרום, ושלחו מייל ל-careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: צוות הקהילה של Multiverse
 company_and_resources.community_team.share_feedback_report_bugs: שתפו פידבק, דווחו על באגים, ועזרו להפוך את Multiverse למקום נעים לכולם.
 company_and_resources.company: חברה
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: הצטרפו לעש�
 company_and_resources.source_and_contribution.source_code: קוד מקור
 company_and_resources.source_and_contribution.translation.help_translate: עזרו לתרגם את Multiverse ואת התיעוד שלו כדי שזה ירגיש טבעי בכל מקום.
 company_and_resources.source_and_contribution.translation.label: תרגום ולוקליזציה
-company_and_resources.source_and_contribution.translation.llm_translation_note: כל התרגומים כרגע נוצרים על ידי מודל שפה, עם מינימום עריכה אנושית. נשמח שאנשים אמיתיים יעזרו לנו לעשות לוקליזציה ל-Fluxer לשפה שלכם. בשביל זה, שלחו מייל ל-i18n@fluxer.app ונשמח לקבל את התרומות שלכם.
+company_and_resources.source_and_contribution.translation.llm_translation_note: כל התרגומים כרגע נוצרים על ידי מודל שפה, עם מינימום עריכה אנושית. נשמח שאנשים אמיתיים יעזרו לנו לעשות לוקליזציה ל-Fluxer לשפה שלכם. בשביל זה, שלחו מייל ל-doommedia@proton.me ונשמח לקבל את התרומות שלכם.
 company_and_resources.source_and_contribution.translation.localization_label: לוקליזציה
 company_and_resources.source_and_contribution.view_repository: צפו במאגר
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: רוצים לעזור לבנות את Multiverse?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: הצטרפו והפיצו את הבשורה
 misc_labels.join_fluxer_community_contribute: הצטרפו לקהילת Multiverse ועזרו לבנות את עתיד התקשורת דרך קוד פתוח ותרומות מהקהילה.
 misc_labels.join_fluxer_hq: הצטרפו ל-Fluxer HQ
 misc_labels.join_multiple_devices: הצטרפו מכמה מכשירים בו-זמנית
-misc_labels.join_team_behind_fluxer: הצטרפו לצוות שמאחורי Multiverse
 misc_labels.learn_more: למדו עוד
 misc_labels.product_hunt_badge_title: Multiverse - פלטפורמת מסרים מידיים ו-VoIP בקוד פתוח בסגנון Discord | פוסט מוביל ב-Product Hunt
 misc_labels.profile_badge: תג פרופיל
@@ -254,7 +250,6 @@ navigation.page_not_found.title: הדף לא נמצא
 navigation.press.download_assets_intro: הורידו את הלוגואים שלנו, הכירו את צבעי המותג, וצרו קשר עם צוות העיתונות שלנו.
 navigation.press.download_fluxer_assets: הורידו לוגואים ונכסי מותג של Multiverse, וצרו קשר עם צוות העיתונות שלנו
 navigation.press.press_and_brand_assets: עיתונות ונכסי מותג
-partner_program.become_partner.apply_email: הגישו בקשה ב-partners@fluxer.app
 partner_program.become_partner.call_to_action: הצטרפו כשותפים
 partner_program.become_partner.heading: להיות שותף Multiverse
 partner_program.become_partner.if_youre_a_creator_or: אם אתם יוצרי תוכן או מנהלים קהילה גדולה, נשמח לשמוע מכם.

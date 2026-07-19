@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Linee guida della community: {guidelinesUrl}
 
     Presentare ricorso:
-    Se ritieni che questo provvedimento sia sbagliato o ingiustificato, puoi presentare ricorso entro 60 giorni scrivendo a appeals@fluxer.app da questo indirizzo e-mail.
+    Se ritieni che questo provvedimento sia sbagliato o ingiustificato, puoi presentare ricorso entro 60 giorni scrivendo a doommedia@proton.me da questo indirizzo e-mail.
 
     Nel ricorso:
     - Spiega chiaramente perche' ritieni che il provvedimento sia sbagliato o ingiustificato
@@ -73,7 +73,7 @@ account_temp_banned:
     - Termini di servizio: {termsUrl}
     - Linee guida della community: {guidelinesUrl}
 
-    Se ritieni che questo provvedimento sia sbagliato o ingiustificato, puoi presentare ricorso scrivendo a appeals@fluxer.app da questo indirizzo e-mail. Spiega chiaramente perche' ritieni che la decisione sia errata. Esamineremo il ricorso e ti comunicheremo l'esito.
+    Se ritieni che questo provvedimento sia sbagliato o ingiustificato, puoi presentare ricorso scrivendo a doommedia@proton.me da questo indirizzo e-mail. Spiega chiaramente perche' ritieni che la decisione sia errata. Esamineremo il ricorso e ti comunicheremo l'esito.
 
     – Team sicurezza Multiverse
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Grazie per aiutarci a rendere Multiverse piu' sicuro per tutti. Prendiamo tutte le segnalazioni sul serio e apprezziamo il tuo contributo alla community.
 
-    Se hai domande o dubbi su questo esito, scrivi a safety@fluxer.app.
+    Se hai domande o dubbi su questo esito, scrivi a doommedia@proton.me.
 
     – Team sicurezza Multiverse
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Si tratta di un provvedimento serio. I dati del tuo account verranno eliminati definitivamente alla data indicata.
 
-    Se ritieni che questo provvedimento sia sbagliato, puoi presentare ricorso scrivendo a appeals@fluxer.app da questo indirizzo e-mail.
+    Se ritieni che questo provvedimento sia sbagliato, puoi presentare ricorso scrivendo a doommedia@proton.me da questo indirizzo e-mail.
 
     – Team sicurezza Multiverse
 self_deletion_scheduled:

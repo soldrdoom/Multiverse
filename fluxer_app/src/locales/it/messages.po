@@ -2232,8 +2232,8 @@ msgid "All Status Types"
 msgstr "Tutti i tipi di stato"
 
 #: src/components/modals/tabs/LanguageTab.tsx:190
-msgid "All translations are currently LLM-generated with minimal human revision. We'd love to get real people to help us localize Multiverse into your language! To do so, send an email to <0>i18n@fluxer.app</0> and we'll be happy to accept your contributions."
-msgstr "Tutte le traduzioni sono attualmente generate da LLM con minima revisione umana. Ci piacerebbe avere persone reali che ci aiutino a localizzare Multiverse nella tua lingua! Per farlo, invia un'email a <0>i18n@fluxer.app</0> e saremo felici di accettare i tuoi contributi."
+msgid "All translations are currently LLM-generated with minimal human revision. We'd love to get real people to help us localize Multiverse into your language! To do so, send an email to <0>doommedia@proton.me</0> and we'll be happy to accept your contributions."
+msgstr ""
 
 #: src/components/modals/guild_tabs/GuildAuditLogTab.tsx:232
 #: src/components/modals/guild_tabs/GuildAuditLogTab.tsx:394

@@ -251,9 +251,6 @@ export function Navigation(props: NavigationProps): JSX.Element {
 									{ctx.i18n.getMessage('company_and_resources.company', ctx.locale)}
 								</p>
 								<div class="flex flex-col gap-1">
-									<a href={href(ctx, '/careers')} class={drawerLinkClass}>
-										{ctx.i18n.getMessage('company_and_resources.careers.label', ctx.locale)}
-									</a>
 									<a href={href(ctx, '/company-information')} class={drawerLinkClass}>
 										{ctx.i18n.getMessage('company_and_resources.company_info', ctx.locale)}
 									</a>

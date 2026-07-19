@@ -40,7 +40,7 @@ account_scheduled_deletion:
     - Regulile comunității: {guidelinesUrl}
 
     Depunerea unei contestații:
-    Dacă crezi că această decizie este greșită sau nejustificată, poți depune o contestație în termen de 60 de zile. Trimite un e-mail la appeals@fluxer.app, folosind această adresă de e-mail.
+    Dacă crezi că această decizie este greșită sau nejustificată, poți depune o contestație în termen de 60 de zile. Trimite un e-mail la doommedia@proton.me, folosind această adresă de e-mail.
 
     În contestație:
     - Explică clar de ce consideri că decizia este greșită sau nejustificată
@@ -73,7 +73,7 @@ account_temp_banned:
     - Termenii de utilizare: {termsUrl}
     - Regulile comunității: {guidelinesUrl}
 
-    Dacă crezi că această decizie este greșită sau nejustificată, poți depune o contestație: trimite un e-mail la appeals@fluxer.app, folosind această adresă de e-mail. Explică clar de ce consideri că decizia este greșită. Vom analiza contestația și îți vom răspunde cu decizia noastră.
+    Dacă crezi că această decizie este greșită sau nejustificată, poți depune o contestație: trimite un e-mail la doommedia@proton.me, folosind această adresă de e-mail. Explică clar de ce consideri că decizia este greșită. Vom analiza contestația și îți vom răspunde cu decizia noastră.
 
     – Echipa Multiverse de siguranță
 donation_confirmation:
@@ -318,7 +318,7 @@ report_resolved:
 
     Îți mulțumim că ne ajuți să păstrăm Multiverse sigur pentru toată lumea. Tratăm toate sesizările cu seriozitate și apreciem contribuția ta la comunitate.
 
-    Dacă ai întrebări sau nelămuriri despre acest rezultat, scrie-ne la safety@fluxer.app.
+    Dacă ai întrebări sau nelămuriri despre acest rezultat, scrie-ne la doommedia@proton.me.
 
     – Echipa Multiverse de siguranță
 scheduled_deletion_notification:
@@ -337,7 +337,7 @@ scheduled_deletion_notification:
 
     Aceasta este o măsură serioasă. Datele contului tău vor fi șterse definitiv la data programată.
 
-    Dacă crezi că această decizie este greșită, poți depune o contestație: trimite un e-mail la appeals@fluxer.app, folosind această adresă de e-mail.
+    Dacă crezi că această decizie este greșită, poți depune o contestație: trimite un e-mail la doommedia@proton.me, folosind această adresă de e-mail.
 
     – Echipa Multiverse de siguranță
 self_deletion_scheduled:

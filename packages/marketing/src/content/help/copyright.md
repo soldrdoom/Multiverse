@@ -2,7 +2,7 @@ Multiverse respects the intellectual property of every creator and expects the s
 
 ## Filing a copyright complaint
 
-Use our report form at <% app report %> and choose the copyright or intellectual property option, or email **dmca@fluxer.app** with the subject line "DMCA Takedown Request." Your notice should include:
+Use our report form at <% app report %> and choose the copyright or intellectual property option, or email **doommedia@proton.me** with the subject line "DMCA Takedown Request." Your notice should include:
 
 - A description of the copyrighted work you believe has been infringed.
 - The precise location of the infringing material on Multiverse (message links, channel IDs, etc.).
@@ -15,7 +15,7 @@ Do not file false or malicious reports, submit duplicates, or ask others to repo
 
 ## Counter-notices
 
-If you believe content was removed by mistake, send a counter-notice to **dmca@fluxer.app** containing:
+If you believe content was removed by mistake, send a counter-notice to **doommedia@proton.me** containing:
 
 - Identification of the removed content and its location before removal (message links, channel IDs, etc.).
 - A good faith statement that it was removed because of a mistake or misidentification.

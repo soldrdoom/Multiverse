@@ -69,9 +69,6 @@ community_funding_and_roles.future_paid_roles_note: Vi bygger fortsatt forretnin
 community_funding_and_roles.non_paid_recurring_role: En ikke-betalt rolle for faste bidragsytere som er med på å forme Multiverse sammen med kjerneteamet.
 community_funding_and_roles.sustainability_note: Med støtten din håper vi å gjøre denne uavhengige kommunikasjonsplattformen bærekraftig og begynne å tilby betalte roller i framtida.
 company_and_resources.blog: Blogg
-company_and_resources.careers.careers_at_fluxer: Jobb i Multiverse
-company_and_resources.careers.label: Karriere
-company_and_resources.careers.share_a_bit_about_yourself: Fortell litt om deg selv og hvordan du vil bidra ved å sende en e-post til careers@fluxer.app
 company_and_resources.community_team.fluxer_community_team: Multiverse fellesskapsteam
 company_and_resources.community_team.share_feedback_report_bugs: Del tilbakemeldinger, rapporter feil og hjelp oss å gjøre Multiverse trivelig for alle.
 company_and_resources.company: Selskap
@@ -94,7 +91,7 @@ company_and_resources.source_and_contribution.get_involved: Engasjer deg
 company_and_resources.source_and_contribution.source_code: Kildekode
 company_and_resources.source_and_contribution.translation.help_translate: Hjelp oss å oversette Multiverse og dokumentasjonen så det føles naturlig overalt.
 company_and_resources.source_and_contribution.translation.label: Oversettelse og lokalisering
-company_and_resources.source_and_contribution.translation.llm_translation_note: Alle oversettelser er foreløpig LLM-generert med minimal menneskelig gjennomgang. Vi vil gjerne ha ekte folk til å hjelpe oss å lokalisere Multiverse til språket ditt. Send en e-post til i18n@fluxer.app, så tar vi gjerne imot bidragene dine.
+company_and_resources.source_and_contribution.translation.llm_translation_note: Alle oversettelser er foreløpig LLM-generert med minimal menneskelig gjennomgang. Vi vil gjerne ha ekte folk til å hjelpe oss å lokalisere Multiverse til språket ditt. Send en e-post til doommedia@proton.me, så tar vi gjerne imot bidragene dine.
 company_and_resources.source_and_contribution.translation.localization_label: Lokalisering
 company_and_resources.source_and_contribution.view_repository: Se repoet
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: Vil du være med å bygge Multiverse?
@@ -231,7 +228,6 @@ misc_labels.join_and_spread_word: Bli med og spre ordet
 misc_labels.join_fluxer_community_contribute: Bli med i Multiverse-fellesskapet og hjelp oss å bygge framtidas kommunikasjon gjennom åpen kildekode og bidrag fra fellesskapet.
 misc_labels.join_fluxer_hq: Bli med i Multiverse HQ
 misc_labels.join_multiple_devices: Bli med fra flere enheter samtidig
-misc_labels.join_team_behind_fluxer: Bli med på teamet bak Multiverse
 misc_labels.learn_more: Les mer
 misc_labels.product_hunt_badge_title: Multiverse - Åpen kildekode Discord-lignende direktemeldinger og VoIP-plattform | Product Hunt toppinnlegg
 misc_labels.profile_badge: Profilmerke
@@ -254,7 +250,6 @@ navigation.page_not_found.title: Siden finnes ikke
 navigation.press.download_assets_intro: Last ned logoene våre, se merkevarefargene våre og ta kontakt med presseteamet vårt.
 navigation.press.download_fluxer_assets: Last ned Multiverse-logoer og merkevarefiler, og ta kontakt med presseteamet vårt
 navigation.press.press_and_brand_assets: Presse og merkevarefiler
-partner_program.become_partner.apply_email: Søk på partners@fluxer.app
 partner_program.become_partner.call_to_action: Bli partner
 partner_program.become_partner.heading: Bli Multiverse-partner
 partner_program.become_partner.if_youre_a_creator_or: Hvis du er en innholdsskaper eller driver et stort fellesskap, vil vi gjerne høre fra deg.
