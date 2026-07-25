@@ -36,9 +36,9 @@
 	--system-message-icon-opacity: 0.6;
 
 	--message-highlight-bar-width: 2px;
-	--message-mention-color: #00C864;
-	--message-mention-bg: rgba(0, 200, 100, 0.08);
-	--message-mention-bg-hover: rgba(0, 200, 100, 0.13);
+	--message-mention-color: var(--brand-primary);
+	--message-mention-bg: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+	--message-mention-bg-hover: color-mix(in srgb, var(--brand-primary) 13%, transparent);
 	--message-reply-color: rgb(59 130 246);
 	--message-reply-bg: rgb(59 130 246 / 0.1);
 
@@ -135,7 +135,6 @@
 .messageCompact:hover {
 	background-color: var(--background-modifier-hover);
 }
-
 
 .message.messagePreview:hover {
 	background-color: transparent;
