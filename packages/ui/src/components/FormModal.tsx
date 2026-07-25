@@ -57,14 +57,16 @@ export function FormModal({
 	return (
 		<div id={id} class="fixed inset-0 z-50 hidden overflow-y-auto">
 			<div class="flex min-h-screen items-center justify-center p-4">
-				<div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" onclick={closeScript} aria-hidden="true" />
+				<div class="fixed inset-0 bg-black/60 transition-opacity" onclick={closeScript} aria-hidden="true" />
 
-				<div class={`relative rounded-lg bg-white shadow-xl ${modalClass} w-full`}>
+				<div
+					class={`relative rounded-lg border border-[var(--vanguard-glass-border)] bg-[var(--background-secondary)] shadow-2xl ${modalClass} w-full`}
+				>
 					<div class="flex items-center justify-between border-neutral-200 border-b p-4">
 						<h2 class="font-semibold text-lg text-neutral-900">{title}</h2>
 						<button
 							type="button"
-							class="p-1 text-neutral-400 transition-colors hover:text-neutral-600"
+							class="p-1 text-neutral-400 transition-colors hover:text-neutral-100"
 							onclick={closeScript}
 							aria-label="Close"
 						>
@@ -82,14 +84,14 @@ export function FormModal({
 								<>
 									<button
 										type="button"
-										class="rounded border border-neutral-300 bg-white px-4 py-2 font-medium text-neutral-700 text-sm transition-colors hover:bg-neutral-50"
+										class="rounded border border-neutral-300 bg-transparent px-4 py-2 font-medium text-neutral-300 text-sm transition-colors hover:border-neutral-400 hover:text-neutral-100"
 										onclick={closeScript}
 									>
 										{cancelText}
 									</button>
 									<button
 										type="submit"
-										class="rounded bg-neutral-900 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-neutral-800"
+										class="rounded bg-[image:var(--gradient-brand)] px-4 py-2 font-semibold text-[var(--button-primary-text)] text-sm transition-[filter] hover:brightness-110"
 									>
 										{submitText}
 									</button>

@@ -29,14 +29,15 @@ export type ButtonIconPosition = 'left' | 'right';
 
 const {getVariant: getVariantClasses, getSize: getSizeClasses} = createCompoundVariantClasses(
 	{
-		primary: 'bg-neutral-900 text-white hover:bg-neutral-800',
+		primary:
+			'bg-[image:var(--gradient-brand)] text-[var(--button-primary-text)] font-semibold hover:brightness-110 active:brightness-95',
 		secondary:
-			'bg-neutral-50 text-neutral-700 hover:text-neutral-900 border border-neutral-300 hover:border-neutral-400',
-		danger: 'bg-red-600 text-white hover:bg-red-700',
-		success: 'bg-blue-600 text-white hover:bg-blue-700',
-		info: 'bg-blue-50 text-blue-700 hover:bg-blue-100',
-		ghost: 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100',
-		brand: 'bg-brand-primary text-white shadow-sm hover:bg-[color-mix(in_srgb,var(--brand-primary)_80%,black)]',
+			'bg-neutral-100 text-neutral-300 hover:text-neutral-50 border border-neutral-200 hover:border-neutral-300',
+		danger: 'bg-red-500 text-white hover:bg-red-600',
+		success: 'bg-emerald-500 text-[#06281c] font-semibold hover:bg-emerald-400',
+		info: 'bg-blue-500/15 text-blue-300 hover:bg-blue-500/25',
+		ghost: 'text-neutral-400 hover:text-neutral-50 hover:bg-neutral-100',
+		brand: 'bg-brand-primary text-[var(--button-primary-text)] shadow-sm hover:bg-[var(--button-primary-active-fill)]',
 	},
 	{
 		small: 'px-3 py-1.5 text-sm',
@@ -94,9 +95,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
 		fullWidth ? 'w-full sm:w-fit' : 'w-fit',
 		disabled || loading ? 'opacity-50 cursor-not-allowed' : '',
 		loading ? 'pointer-events-none' : '',
-		variant === 'primary' || variant === 'danger' || variant === 'success' || variant === 'brand'
-			? 'focus:ring-offset-white'
-			: '',
+		'focus:ring-[var(--focus-primary)]/50 focus:ring-offset-[var(--background-primary)]',
 	].filter(Boolean);
 
 	const classes = [baseClasses, sizeClasses, ...stateClasses, extraClass || ''].filter(Boolean).join(' ');

@@ -23,7 +23,7 @@
 import {cn} from '@fluxer/ui/src/utils/ClassNames';
 
 const FORM_CONTROL_BASE_CLASS =
-	'w-full rounded-lg border border-neutral-300 bg-white text-neutral-900 text-sm transition-all placeholder:text-neutral-400 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:opacity-50';
+	'w-full rounded-lg border border-neutral-300 bg-[var(--background-secondary)] text-neutral-900 text-sm transition-all placeholder:text-neutral-400 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:opacity-50';
 
 export const FORM_FIELD_CLASS = 'flex flex-col gap-2';
 export const FORM_LABEL_CLASS = 'font-semibold text-neutral-500 text-xs uppercase tracking-wide';

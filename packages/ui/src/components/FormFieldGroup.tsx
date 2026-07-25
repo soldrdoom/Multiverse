@@ -43,15 +43,15 @@ export function FormFieldGroup({
 	const helperId = `${fieldId}-helper`;
 	const errorId = `${fieldId}-error`;
 
-	const labelClass = error ? 'text-red-700 font-medium' : 'text-neutral-700 font-medium';
+	const labelClass = error ? 'text-red-400 font-medium' : 'text-neutral-700 font-medium';
 
-	const helperClass = error ? 'text-red-600' : 'text-neutral-500';
+	const helperClass = error ? 'text-red-400' : 'text-neutral-500';
 
 	return (
 		<div class="space-y-1.5">
 			<label for={fieldId} class={`block text-sm ${labelClass}`}>
 				{label}
-				{required && <span class="ml-1 text-red-600">*</span>}
+				{required && <span class="ml-1 text-red-400">*</span>}
 			</label>
 
 			{children}
@@ -63,7 +63,7 @@ export function FormFieldGroup({
 			)}
 
 			{error && (
-				<p id={errorId} class="font-medium text-red-600 text-xs">
+				<p id={errorId} class="font-medium text-red-400 text-xs">
 					{error}
 				</p>
 			)}

@@ -32,7 +32,7 @@ export function FlashMessage({flash}: FlashMessageProps) {
 		<div class={`rounded-lg border px-4 py-3 text-sm ${getAlertClasses(flash.type)}`}>
 			<div>{flash.message}</div>
 			{flash.detail && (
-				<div class="mt-2 break-all rounded border border-current/20 bg-white/60 px-3 py-2 font-mono text-xs">
+				<div class="mt-2 break-all rounded border border-current/20 bg-black/20 px-3 py-2 font-mono text-xs">
 					{flash.detail}
 				</div>
 			)}

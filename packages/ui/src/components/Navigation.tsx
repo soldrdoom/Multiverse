@@ -32,7 +32,7 @@ export function BackButton({href, label}: BackButtonProps) {
 	return (
 		<a
 			href={href}
-			class="inline-flex items-center gap-2 text-neutral-900 text-sm underline decoration-neutral-300 hover:text-neutral-600 hover:decoration-neutral-500"
+			class="inline-flex items-center gap-2 text-brand-primary text-sm underline decoration-brand-primary/30 hover:text-brand-primary-light hover:decoration-brand-primary-light/50"
 		>
 			&larr; {label}
 		</a>

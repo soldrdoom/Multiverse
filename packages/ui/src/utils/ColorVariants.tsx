@@ -31,44 +31,44 @@ export interface ColorVariant {
 
 export const colorVariants: Record<ColorTone, Record<ColorIntensity, ColorVariant>> = {
 	neutral: {
-		subtle: {bg: 'bg-neutral-50', text: 'text-neutral-700', border: 'border-neutral-200'},
-		normal: {bg: 'bg-neutral-100', text: 'text-neutral-700', border: 'border-neutral-200'},
-		strong: {bg: 'bg-neutral-900', text: 'text-white'},
+		subtle: {bg: 'bg-neutral-50', text: 'text-neutral-400', border: 'border-neutral-200'},
+		normal: {bg: 'bg-neutral-100', text: 'text-neutral-300', border: 'border-neutral-200'},
+		strong: {bg: 'bg-neutral-800', text: 'text-neutral-900'},
 	},
 	info: {
-		subtle: {bg: 'bg-blue-50', text: 'text-blue-800', border: 'border-blue-200'},
-		normal: {bg: 'bg-blue-100', text: 'text-blue-700', border: 'border-blue-200'},
-		strong: {bg: 'bg-blue-600', text: 'text-white'},
+		subtle: {bg: 'bg-blue-500/10', text: 'text-blue-300', border: 'border-blue-500/25'},
+		normal: {bg: 'bg-blue-500/15', text: 'text-blue-300', border: 'border-blue-500/30'},
+		strong: {bg: 'bg-blue-500', text: 'text-white'},
 	},
 	success: {
-		subtle: {bg: 'bg-green-50', text: 'text-green-800', border: 'border-green-200'},
-		normal: {bg: 'bg-green-100', text: 'text-green-700', border: 'border-green-200'},
-		strong: {bg: 'bg-green-600', text: 'text-white'},
+		subtle: {bg: 'bg-emerald-500/10', text: 'text-emerald-300', border: 'border-emerald-500/25'},
+		normal: {bg: 'bg-emerald-500/15', text: 'text-emerald-300', border: 'border-emerald-500/30'},
+		strong: {bg: 'bg-emerald-500', text: 'text-[#06281c]'},
 	},
 	warning: {
-		subtle: {bg: 'bg-yellow-50', text: 'text-yellow-800', border: 'border-yellow-200'},
-		normal: {bg: 'bg-yellow-100', text: 'text-yellow-700', border: 'border-yellow-200'},
-		strong: {bg: 'bg-yellow-600', text: 'text-white'},
+		subtle: {bg: 'bg-amber-500/10', text: 'text-amber-300', border: 'border-amber-500/25'},
+		normal: {bg: 'bg-amber-500/15', text: 'text-amber-300', border: 'border-amber-500/30'},
+		strong: {bg: 'bg-amber-500', text: 'text-[#2b1c02]'},
 	},
 	danger: {
-		subtle: {bg: 'bg-red-50', text: 'text-red-800', border: 'border-red-200'},
-		normal: {bg: 'bg-red-100', text: 'text-red-700', border: 'border-red-200'},
-		strong: {bg: 'bg-red-600', text: 'text-white'},
+		subtle: {bg: 'bg-red-500/10', text: 'text-red-300', border: 'border-red-500/25'},
+		normal: {bg: 'bg-red-500/15', text: 'text-red-300', border: 'border-red-500/30'},
+		strong: {bg: 'bg-red-500', text: 'text-white'},
 	},
 	primary: {
-		subtle: {bg: 'bg-neutral-100', text: 'text-neutral-700'},
-		normal: {bg: 'bg-neutral-900', text: 'text-white'},
-		strong: {bg: 'bg-neutral-900', text: 'text-white'},
+		subtle: {bg: 'bg-[var(--brand-primary-fill)]', text: 'text-[var(--brand-primary)]'},
+		normal: {bg: 'bg-[image:var(--gradient-brand)]', text: 'text-[var(--button-primary-text)]'},
+		strong: {bg: 'bg-[image:var(--gradient-brand)]', text: 'text-[var(--button-primary-text)]'},
 	},
 	purple: {
-		subtle: {bg: 'bg-purple-50', text: 'text-purple-800', border: 'border-purple-200'},
-		normal: {bg: 'bg-purple-100', text: 'text-purple-700', border: 'border-purple-200'},
-		strong: {bg: 'bg-purple-600', text: 'text-white'},
+		subtle: {bg: 'bg-purple-500/10', text: 'text-purple-300', border: 'border-purple-500/25'},
+		normal: {bg: 'bg-purple-500/15', text: 'text-purple-300', border: 'border-purple-500/30'},
+		strong: {bg: 'bg-purple-500', text: 'text-white'},
 	},
 	orange: {
-		subtle: {bg: 'bg-orange-50', text: 'text-orange-800', border: 'border-orange-200'},
-		normal: {bg: 'bg-orange-100', text: 'text-orange-700', border: 'border-orange-200'},
-		strong: {bg: 'bg-orange-600', text: 'text-white'},
+		subtle: {bg: 'bg-orange-500/10', text: 'text-orange-300', border: 'border-orange-500/25'},
+		normal: {bg: 'bg-orange-500/15', text: 'text-orange-300', border: 'border-orange-500/30'},
+		strong: {bg: 'bg-orange-500', text: 'text-white'},
 	},
 };
 

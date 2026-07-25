@@ -54,7 +54,7 @@ export function Pagination({
 	const previousButton = hasPrevious ? (
 		<a
 			href={getPageUrl(currentPage - 1)}
-			class="rounded-lg border border-neutral-300 bg-white px-6 py-2 font-medium text-neutral-900 text-sm no-underline transition-colors hover:bg-neutral-50"
+			class="rounded-lg border border-neutral-300 bg-[var(--background-secondary)] px-6 py-2 font-medium text-neutral-900 text-sm no-underline transition-colors hover:border-neutral-400"
 		>
 			{previousLabel}
 		</a>
@@ -67,7 +67,7 @@ export function Pagination({
 	const nextButton = hasNext ? (
 		<a
 			href={getPageUrl(currentPage + 1)}
-			class="rounded-lg bg-neutral-900 px-6 py-2 font-medium text-sm text-white no-underline transition-colors hover:bg-neutral-800"
+			class="rounded-lg bg-[image:var(--gradient-brand)] px-6 py-2 font-semibold text-[var(--button-primary-text)] text-sm no-underline transition-[filter] hover:brightness-110"
 		>
 			{nextLabel}
 		</a>

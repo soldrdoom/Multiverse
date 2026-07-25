@@ -47,7 +47,7 @@ export function FormSection({
 	class: className,
 }: PropsWithChildren<FormSectionProps>) {
 	const containerClass = bordered
-		? `border border-neutral-200 rounded-lg bg-white ${paddingClasses[padding]}`
+		? `border border-neutral-200 rounded-lg bg-[var(--background-secondary)] ${paddingClasses[padding]}`
 		: paddingClasses[padding];
 
 	const content = <div class={`space-y-4 ${containerClass} ${className ?? ''}`}>{children}</div>;

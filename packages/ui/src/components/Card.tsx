@@ -69,12 +69,12 @@ export function Card({
 	id,
 	children,
 }: PropsWithChildren<CardProps>) {
-	const baseClasses = ['rounded-lg', 'bg-white', 'transition-all'];
+	const baseClasses = ['rounded-lg', 'bg-[var(--background-secondary)]', 'transition-all'];
 
 	const variantClasses: Record<CardVariant, string> = {
-		default: border ? 'border border-neutral-200' : '',
-		elevated: border ? 'border border-neutral-200' : '',
-		empty: border ? 'border border-neutral-200' : '',
+		default: border ? 'border border-[var(--vanguard-glass-border)]' : '',
+		elevated: border ? 'border border-[var(--vanguard-glass-border)]' : '',
+		empty: border ? 'border border-[var(--vanguard-glass-border)]' : '',
 		marketing: 'border-2 border-white/20 bg-white/5 backdrop-blur-sm',
 	};
 

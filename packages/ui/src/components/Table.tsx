@@ -30,7 +30,11 @@ export interface TableCellProps extends MutedProps {
 }
 
 export function TableContainer({children}: ChildrenProps) {
-	return <div class="overflow-hidden overflow-x-auto rounded-lg border border-neutral-200 bg-white">{children}</div>;
+	return (
+		<div class="overflow-hidden overflow-x-auto rounded-lg border border-neutral-200 bg-[var(--background-secondary)]">
+			{children}
+		</div>
+	);
 }
 
 export function Table({children}: ChildrenProps) {
@@ -42,7 +46,7 @@ export function TableHead({children}: ChildrenProps) {
 }
 
 export function TableBody({children}: ChildrenProps) {
-	return <tbody class="divide-y divide-neutral-200 bg-white">{children}</tbody>;
+	return <tbody class="divide-y divide-neutral-200 bg-[var(--background-secondary)]">{children}</tbody>;
 }
 
 export function TableRow({children}: ChildrenProps) {
