@@ -91,15 +91,15 @@ company_and_resources.source_and_contribution.get_involved: הצטרפו לעש�
 company_and_resources.source_and_contribution.source_code: קוד מקור
 company_and_resources.source_and_contribution.translation.help_translate: עזרו לתרגם את Multiverse ואת התיעוד שלו כדי שזה ירגיש טבעי בכל מקום.
 company_and_resources.source_and_contribution.translation.label: תרגום ולוקליזציה
-company_and_resources.source_and_contribution.translation.llm_translation_note: כל התרגומים כרגע נוצרים על ידי מודל שפה, עם מינימום עריכה אנושית. נשמח שאנשים אמיתיים יעזרו לנו לעשות לוקליזציה ל-Fluxer לשפה שלכם. בשביל זה, שלחו מייל ל-doommedia@proton.me ונשמח לקבל את התרומות שלכם.
+company_and_resources.source_and_contribution.translation.llm_translation_note: כל התרגומים כרגע נוצרים על ידי מודל שפה, עם מינימום עריכה אנושית. נשמח שאנשים אמיתיים יעזרו לנו לעשות לוקליזציה ל-Multiverse לשפה שלכם. בשביל זה, שלחו מייל ל-doommedia@proton.me ונשמח לקבל את התרומות שלכם.
 company_and_resources.source_and_contribution.translation.localization_label: לוקליזציה
 company_and_resources.source_and_contribution.view_repository: צפו במאגר
 company_and_resources.source_and_contribution.want_to_help_build_fluxer: רוצים לעזור לבנות את Multiverse?
 company_and_resources.source_and_contribution.ways_to_contribute: דרכים לתרום
 donations.business: עסקי
 donations.donate.action: תרומה
-donations.donate.label: תרמו ל-Fluxer
-donations.donate.description: תמוך ב-Fluxer בתרומה חד-פעמית או חוזרת
+donations.donate.label: תרמו ל-Multiverse
+donations.donate.description: תמוך ב-Multiverse בתרומה חד-פעמית או חוזרת
 donations.donation_disclaimer: תרומות הן מתנות מרצון ולא מקנות לכם מוצר, שירות, בעלות או זכויות מיוחדות. אם אתם מחפשים תכונות פרימיום, בדקו את {0}.
 donations.individual: פרטי
 donations.individual_vs_business.answer: שני סוגי התרומות תומכים באותה מטרה באותה מידה. ההבדל היחיד הוא שתרומה עסקית מאפשרת לכם לציין מספר עוסק (אם רלוונטי) ולקבל חשבונית PDF בסיום, מה שיכול לעזור להנהלת החשבונות של החברה.
@@ -110,7 +110,7 @@ donations.mobile_roadmap_sponsorship: תמכו במפת הדרכים למובי�
 donations.send_one_time_gift: שלחו תרומה חד-פעמית
 donations.support_future_development: תמכו בפיתוח עתידי
 donations.support_message: עזרו לנו לבנות פלטפורמת תקשורת עצמאית. התרומה שלכם מממנת את התשתית והפיתוח של הפלטפורמה.
-donations.tax_deductible.answer: התרומות ל-Fluxer אינן מוכרות כרגע לצרכי מס, אך הן מממנות ישירות את התשתית שלנו ואת הפיתוח המתמשך.
+donations.tax_deductible.answer: התרומות ל-Multiverse אינן מוכרות כרגע לצרכי מס, אך הן מממנות ישירות את התשתית שלנו ואת הפיתוח המתמשך.
 donations.tax_deductible.question: האם התרומה שלי מוכרת לצרכי מס?
 donations.what_it_supports: מה התרומה שלי מממנת?
 donations.why_support: עזרו לנו לבנות פלטפורמת תקשורת מסוג אחר – קוד פתוח, ממומנת קהילה, ונבנית באכפתיות.
@@ -226,7 +226,7 @@ misc_labels.feature: תכונה
 misc_labels.get_updates: קבלו עדכונים, ראו תכונות שמגיעות בקרוב, דברו על רעיונות, ושוחחו עם הצוות.
 misc_labels.join_and_spread_word: הצטרפו והפיצו את הבשורה
 misc_labels.join_fluxer_community_contribute: הצטרפו לקהילת Multiverse ועזרו לבנות את עתיד התקשורת דרך קוד פתוח ותרומות מהקהילה.
-misc_labels.join_fluxer_hq: הצטרפו ל-Fluxer HQ
+misc_labels.join_fluxer_hq: הצטרפו ל-Multiverse HQ
 misc_labels.join_multiple_devices: הצטרפו מכמה מכשירים בו-זמנית
 misc_labels.learn_more: למדו עוד
 misc_labels.product_hunt_badge_title: Multiverse - פלטפורמת מסרים מידיים ו-VoIP בקוד פתוח בסגנון Discord | פוסט מוביל ב-Product Hunt
@@ -278,7 +278,7 @@ partner_program.perks.vip_voice_servers.label: ערוצי קול VIP
 partner_program.requirements.audience_description: תיאור קצר של הקהל שלכם ומה אתם עושים
 partner_program.requirements.links_to_content: קישורים לתוכן או לקהילה שלכם (YouTube, Twitch, Discord וכו')
 partner_program.requirements.name_and_username: השם שלכם ושם המשתמש בפלטפורמה
-partner_program.requirements.usage_plan: איך אתם מתכננים להשתמש ב-Fluxer עם הקהילה שלכם
+partner_program.requirements.usage_plan: איך אתם מתכננים להשתמש ב-Multiverse עם הקהילה שלכם
 partner_program.who_its_for: 'יוצרי תוכן ובעלי קהילות: פתחו לעצמכם הטבות בלעדיות כולל Plutonium בחינם, תג שותף, כתובות vanity מותאמות ועוד.'
 partner_program.perks.heading: הטבות שותפים
 partner_program.perks.see_perks: צפו בהטבות
@@ -407,7 +407,7 @@ security.report_vulnerabilities: דווחו על חולשות ועזרו לנו 
 security.responsible_disclosure_note: אנחנו מעריכים דיווח אחראי דרך עמוד תכנית התגמול שלנו. אנחנו נותנים קודי Plutonium ותגי Bug Hunter לפי חומרה.
 security.security_bug_bounty: תכנית תגמול על באגים באבטחה
 security.security_reports: דוחות אבטחה
-security.testers_access_from_reports: דוחות שאושרו נותנים גישה ל-Fluxer Testers, שם אפשר לצבור נקודות לקודי Plutonium ולקבל את תג Bug Hunter.
+security.testers_access_from_reports: דוחות שאושרו נותנים גישה ל-Multiverse Testers, שם אפשר לצבור נקודות לקודי Plutonium ולקבל את תג Bug Hunter.
 social_and_feeds.bluesky.follow_us: עקבו אחרינו ב-Bluesky
 social_and_feeds.bluesky.label: Bluesky
 social_and_feeds.bluesky.rss_feed: פיד RSS של Bluesky

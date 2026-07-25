@@ -32,6 +32,7 @@ import {MarketingButton} from '@fluxer/marketing/src/components/MarketingButton'
 import {getPlatformDownloadInfo} from '@fluxer/marketing/src/components/PlatformDownloadButton';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
 import {href} from '@fluxer/marketing/src/UrlUtils';
+import {GRADIENTS} from '@fluxer/ui/src/styles/Gradients';
 import type {Context} from 'hono';
 
 interface NavigationProps {
@@ -45,14 +46,12 @@ export function Navigation(props: NavigationProps): JSX.Element {
 	const drawer = getPlatformDownloadInfo(ctx);
 	const isDark = theme === 'dark';
 
-	const pillClass = isDark
-		? 'border-white/10 bg-[#151921]/95'
-		: 'border-gray-200/60 bg-white/95';
+	const pillClass = isDark ? 'border-white/10 bg-[#151921]/95' : 'border-gray-200/60 bg-white/95';
 	const linkClass = isDark
 		? 'body-lg font-semibold text-white/80 transition-colors hover:text-white'
 		: 'body-lg font-semibold text-gray-900/90 transition-colors hover:text-gray-900';
 	const iconButtonClass = isDark
-		? 'hidden items-center rounded-lg p-2 text-[#00C864] transition-colors hover:bg-white/10 hover:text-[#33E87A] lg:flex'
+		? 'hidden items-center rounded-lg p-2 text-[#14F195] transition-colors hover:bg-white/10 hover:text-[#6FFFC2] lg:flex'
 		: 'hidden items-center rounded-lg p-2 text-[#4641D9] transition-colors hover:bg-gray-100 hover:text-[#3d38c7] lg:flex';
 	const menuIconClass = isDark ? 'h-6 w-6 text-white peer-checked:hidden' : 'h-6 w-6 text-gray-900 peer-checked:hidden';
 	const drawerBgClass = isDark ? 'bg-[#0B0E14]' : 'bg-white';
@@ -71,12 +70,18 @@ export function Navigation(props: NavigationProps): JSX.Element {
 		: 'flex items-center gap-2 rounded-xl px-2 py-1 transition-colors hover:bg-gray-50';
 	const drawerBorderClass = isDark ? 'border-white/10' : 'border-gray-200';
 	const drawerRssIconClass = isDark ? 'h-4 w-4 text-white/60' : 'h-4 w-4 text-gray-500';
+	const logoTextColorClass = isDark ? 'text-[#14F195]' : 'text-[#4641D9]';
+	const betaBadgeClass = isDark
+		? 'absolute right-0 -bottom-1.5 whitespace-nowrap rounded-full border border-white bg-[#14F195] px-1.5 py-0.5 font-bold text-[#0B0E14] text-[8px] leading-none'
+		: 'absolute right-0 -bottom-1.5 whitespace-nowrap rounded-full border border-white bg-[#4641D9] px-1.5 py-0.5 font-bold text-white text-[8px] leading-none';
 
 	return (
 		<nav id="navbar" class="fixed top-0 right-0 left-0 z-40">
 			<input type="checkbox" id="nav-toggle" class="peer hidden" />
 			<div class="px-6 py-4 sm:px-8 md:px-12 md:py-5 lg:px-8 xl:px-16">
-				<div class={`mx-auto max-w-7xl rounded-2xl border px-3 py-2 shadow-lg backdrop-blur-lg md:px-5 md:py-2.5 ${pillClass}`}>
+				<div
+					class={`mx-auto max-w-7xl rounded-2xl border px-3 py-2 shadow-lg backdrop-blur-lg md:px-5 md:py-2.5 ${pillClass}`}
+				>
 					<div class="flex items-center justify-between">
 						<div class="flex items-center gap-4 xl:gap-6">
 							<a
@@ -89,10 +94,8 @@ export function Navigation(props: NavigationProps): JSX.Element {
 									alt=""
 									class="h-8 w-8 shrink-0 object-contain md:h-9 md:w-9"
 								/>
-								<span class="font-display font-bold text-[#00C864] text-lg md:text-xl">Multiverse</span>
-								<span class="absolute right-0 -bottom-1.5 whitespace-nowrap rounded-full border border-white bg-[#00C864] px-1.5 py-0.5 font-bold text-[#0B0E14] text-[8px] leading-none">
-									{ctx.i18n.getMessage('beta_and_access.public_beta', ctx.locale)}
-								</span>
+								<span class={`font-bold font-display text-lg md:text-xl ${logoTextColorClass}`}>Multiverse</span>
+								<span class={betaBadgeClass}>{ctx.i18n.getMessage('beta_and_access.public_beta', ctx.locale)}</span>
 							</a>
 							<div class="marketing-nav-links hidden items-center gap-4 lg:flex xl:gap-6">
 								<a href={href(ctx, '/download')} class={linkClass}>
@@ -103,6 +106,9 @@ export function Navigation(props: NavigationProps): JSX.Element {
 								</a>
 								<a href={href(ctx, '/roadmap')} class={linkClass}>
 									{ctx.i18n.getMessage('company_and_resources.support.roadmap', ctx.locale)}
+								</a>
+								<a href={href(ctx, '/whitepaper')} class={linkClass}>
+									{ctx.i18n.getMessage('company_and_resources.support.whitepaper', ctx.locale)}
 								</a>
 								<a href="https://docs.fluxer.app" class={linkClass}>
 									{ctx.i18n.getMessage('company_and_resources.docs', ctx.locale)}
@@ -142,13 +148,13 @@ export function Navigation(props: NavigationProps): JSX.Element {
 							</a>
 							<LocaleSelectorTrigger
 								ctx={ctx}
-								className={`hidden lg:flex ${isDark ? 'text-[#00C864] hover:text-[#33E87A]' : 'text-[#4641D9] hover:text-[#3d38c7]'}`}
+								className={`hidden lg:flex ${isDark ? 'text-[#14F195] hover:text-[#6FFFC2]' : 'text-[#4641D9] hover:text-[#3d38c7]'}`}
 								dark={isDark}
 							/>
 							<MarketingButton
 								href={`${ctx.appEndpoint}/channels/@me`}
 								size="medium"
-								class="ml-2 hidden whitespace-nowrap lg:inline-flex lg:px-4 lg:py-2 lg:text-sm xl:px-6 xl:py-3 xl:text-base"
+								class={`${GRADIENTS.purple} ml-2 hidden whitespace-nowrap lg:inline-flex lg:px-4 lg:py-2 lg:text-sm xl:px-6 xl:py-3 xl:text-base`}
 							>
 								{ctx.i18n.getMessage('app.open.open_fluxer', ctx.locale)}
 							</MarketingButton>
@@ -185,7 +191,7 @@ export function Navigation(props: NavigationProps): JSX.Element {
 								alt=""
 								class="h-7 w-7 shrink-0 object-contain"
 							/>
-							<span class="font-display font-bold text-[#00C864] text-lg">Multiverse</span>
+							<span class={`font-bold font-display text-lg ${logoTextColorClass}`}>Multiverse</span>
 						</a>
 						<label for="nav-toggle" class={drawerCloseButtonClass}>
 							<XIcon class={drawerCloseIconClass} />
@@ -216,6 +222,9 @@ export function Navigation(props: NavigationProps): JSX.Element {
 									</a>
 									<a href={href(ctx, '/roadmap')} class={drawerLinkClass}>
 										{ctx.i18n.getMessage('company_and_resources.support.roadmap', ctx.locale)}
+									</a>
+									<a href={href(ctx, '/whitepaper')} class={drawerLinkClass}>
+										{ctx.i18n.getMessage('company_and_resources.support.whitepaper', ctx.locale)}
 									</a>
 									<a href="https://docs.fluxer.app" class={drawerLinkClass}>
 										{ctx.i18n.getMessage('company_and_resources.docs', ctx.locale)}
@@ -285,7 +294,7 @@ export function Navigation(props: NavigationProps): JSX.Element {
 						<MarketingButton
 							href={`${ctx.appEndpoint}/channels/@me`}
 							size="medium"
-							class="flex w-full items-center justify-center px-5 py-3"
+							class={`${GRADIENTS.purple} flex w-full items-center justify-center px-5 py-3`}
 						>
 							{ctx.i18n.getMessage('app.open.open_fluxer', ctx.locale)}
 						</MarketingButton>

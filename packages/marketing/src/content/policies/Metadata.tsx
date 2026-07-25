@@ -26,6 +26,7 @@ export interface PolicyMetadata {
 	description: string;
 	category: string | null;
 	lastUpdated: string;
+	theme?: 'light' | 'dark';
 }
 
 export const POLICY_METADATA: ReadonlyArray<PolicyMetadata> = [
@@ -66,6 +67,7 @@ export const POLICY_METADATA: ReadonlyArray<PolicyMetadata> = [
 		description: 'Legal and contact information for Multiverse.',
 		category: 'Legal',
 		lastUpdated: '2026-02-13',
+		theme: 'dark',
 	},
 ];
 

@@ -37,6 +37,7 @@ export interface Policy {
 	category: string | null;
 	lastUpdated: string;
 	content: string;
+	theme: 'light' | 'dark';
 }
 
 export function getPolicy(slug: string): Policy | null {
@@ -55,6 +56,7 @@ export function getPolicy(slug: string): Policy | null {
 			category: metadata.category,
 			lastUpdated: metadata.lastUpdated,
 			content,
+			theme: metadata.theme ?? 'light',
 		};
 	} catch {
 		return null;

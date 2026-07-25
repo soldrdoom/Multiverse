@@ -72,8 +72,12 @@ export function Footer(props: FooterProps): JSX.Element {
 		>
 			<div class="mx-auto max-w-7xl">
 				<div class="mb-10 flex items-center gap-2">
-					<img src={`${ctx.staticCdnEndpoint}/images/multiverse-mark.png`} alt="" class="h-8 w-8 shrink-0 object-contain" />
-					<span class="font-display font-bold text-[#00C864] text-xl">Multiverse</span>
+					<img
+						src={`${ctx.staticCdnEndpoint}/images/multiverse-mark.png`}
+						alt=""
+						class="h-8 w-8 shrink-0 object-contain"
+					/>
+					<span class="font-bold font-display text-white text-xl">Multiverse</span>
 				</div>
 
 				<div class="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10 md:gap-x-12 md:gap-y-10 min-[480px]:grid-cols-2 min-[480px]:gap-x-6 min-[480px]:gap-y-8">
@@ -146,9 +150,7 @@ export function Footer(props: FooterProps): JSX.Element {
 				</div>
 
 				<div class="mt-12 pt-8">
-					<p class="body-sm text-white/80">
-						{ctx.i18n.getMessage('footer.copyright', ctx.locale)}
-					</p>
+					<p class="body-sm text-white/80">{ctx.i18n.getMessage('footer.copyright', ctx.locale)}</p>
 				</div>
 			</div>
 		</footer>

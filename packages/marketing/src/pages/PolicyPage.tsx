@@ -172,7 +172,7 @@ export async function renderPolicyPage(c: Context, ctx: MarketingContext, slug: 
 		meta = withModifiedTime(meta, policy.lastUpdated);
 	}
 
-	return c.html(renderContentLayout(c, ctx, meta, content, {footerClassName: 'rounded-t-3xl'}));
+	return c.html(renderContentLayout(c, ctx, meta, content, {footerClassName: 'rounded-t-3xl', theme: policy.theme}));
 }
 
 interface HeadingEntry {
@@ -230,35 +230,43 @@ function renderPolicyBody(
 	_readingTime: number,
 	related: ReadonlyArray<Policy>,
 ): JSX.Element {
+	const dark = policy.theme === 'dark';
+
 	return (
 		<section class="mx-auto max-w-5xl">
 			<header class="mb-10 space-y-3">
-				<h1 class="font-bold text-4xl text-foreground">{policy.title}</h1>
-				{policy.description ? <p class="text-lg text-muted-foreground">{policy.description}</p> : null}
-				<p class="text-muted-foreground text-sm">
+				<h1 class={`font-bold text-4xl ${dark ? 'text-white' : 'text-foreground'}`}>{policy.title}</h1>
+				{policy.description ? (
+					<p class={`text-lg ${dark ? 'text-white/70' : 'text-muted-foreground'}`}>{policy.description}</p>
+				) : null}
+				<p class={`text-sm ${dark ? 'text-white/60' : 'text-muted-foreground'}`}>
 					{ctx.i18n.getMessage('general.last_updated', ctx.locale)} {formatDate(policy.lastUpdated, ctx.locale)}
 				</p>
 			</header>
 			<div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_220px]">
-				<div id="policy-content" class="policy-prose" dangerouslySetInnerHTML={{__html: renderedContent}} />
+				<div
+					id="policy-content"
+					class={dark ? 'policy-prose-dark' : 'policy-prose'}
+					dangerouslySetInnerHTML={{__html: renderedContent}}
+				/>
 				<aside id="policy-toc" class="hidden lg:block">
-					{renderToc(ctx.i18n.getMessage('navigation.on_this_page', ctx.locale), tocHeadings)}
+					{renderToc(ctx.i18n.getMessage('navigation.on_this_page', ctx.locale), tocHeadings, dark)}
 				</aside>
 			</div>
 			<script dangerouslySetInnerHTML={{__html: POLICY_TOC_SCRIPT}} />
 			{related.length > 0 ? (
-				<div class="mt-12 border-gray-200/60 border-t pt-8">
-					<h2 class="mb-4 font-semibold text-foreground text-lg">
+				<div class={`mt-12 border-t pt-8 ${dark ? 'border-white/10' : 'border-gray-200/60'}`}>
+					<h2 class={`mb-4 font-semibold text-lg ${dark ? 'text-white' : 'text-foreground'}`}>
 						{ctx.i18n.getMessage('misc_labels.related_policies', ctx.locale)}
 					</h2>
-					<div class="grid gap-3 md:grid-cols-2">{related.map((entry) => renderRelatedPolicy(ctx, entry))}</div>
+					<div class="grid gap-3 md:grid-cols-2">{related.map((entry) => renderRelatedPolicy(ctx, entry, dark))}</div>
 				</div>
 			) : null}
 		</section>
 	);
 }
 
-function renderToc(title: string, headings: ReadonlyArray<HeadingEntry>): JSX.Element | null {
+function renderToc(title: string, headings: ReadonlyArray<HeadingEntry>, dark: boolean): JSX.Element | null {
 	const filtered = headings.filter((h) => h.level <= 3);
 	if (filtered.length === 0) {
 		return null;
@@ -268,11 +276,15 @@ function renderToc(title: string, headings: ReadonlyArray<HeadingEntry>): JSX.El
 
 	return (
 		<nav class="space-y-2">
-			<h2 class="font-semibold text-foreground text-sm">{title}</h2>
-			<ul class="space-y-1 text-muted-foreground text-sm">
+			<h2 class={`font-semibold text-sm ${dark ? 'text-white' : 'text-foreground'}`}>{title}</h2>
+			<ul class={`space-y-1 text-sm ${dark ? 'text-white/60' : 'text-muted-foreground'}`}>
 				{filtered.map((heading) => (
 					<li style={`margin-left: ${(heading.level - minLevel) * 12}px`}>
-						<a href={`#${heading.id}`} data-toc-link={heading.id} class="block py-1 hover:text-foreground">
+						<a
+							href={`#${heading.id}`}
+							data-toc-link={heading.id}
+							class={`block py-1 ${dark ? 'hover:text-white' : 'hover:text-foreground'}`}
+						>
 							{heading.title}
 						</a>
 					</li>
@@ -282,12 +294,19 @@ function renderToc(title: string, headings: ReadonlyArray<HeadingEntry>): JSX.El
 	);
 }
 
-function renderRelatedPolicy(ctx: MarketingContext, policy: Policy): JSX.Element {
+function renderRelatedPolicy(ctx: MarketingContext, policy: Policy, dark: boolean): JSX.Element {
 	const url = href(ctx, `/${policy.slug}`);
 	return (
-		<a href={url} class="group block py-2 text-muted-foreground text-sm hover:text-foreground">
-			<div class="font-medium text-foreground group-hover:text-primary">{policy.title}</div>
-			{policy.description ? <div class="mt-0.5 text-muted-foreground text-sm">{policy.description}</div> : null}
+		<a
+			href={url}
+			class={`group block py-2 text-sm ${dark ? 'text-white/60 hover:text-white' : 'text-muted-foreground hover:text-foreground'}`}
+		>
+			<div class={`font-medium group-hover:text-primary ${dark ? 'text-white' : 'text-foreground'}`}>
+				{policy.title}
+			</div>
+			{policy.description ? (
+				<div class={`mt-0.5 text-sm ${dark ? 'text-white/60' : 'text-muted-foreground'}`}>{policy.description}</div>
+			) : null}
 		</a>
 	);
 }
