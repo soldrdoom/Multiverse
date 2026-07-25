@@ -159,6 +159,7 @@ export const ValidationErrorCodesDescriptions: Record<keyof typeof ValidationErr
 	INVALID_RTC_REGION: 'Invalid RTC region',
 	INVALID_SCHEDULED_MESSAGE_PAYLOAD: 'Invalid scheduled message payload',
 	INVALID_SNOWFLAKE: 'Invalid snowflake',
+	INVALID_SOLANA_ADDRESS: 'Invalid Solana address',
 	INVALID_TIMEOUT_VALUE: 'Invalid timeout value',
 	INVALID_TIMEZONE_IDENTIFIER: 'Invalid timezone identifier',
 	INVALID_URL_FORMAT: 'Invalid URL format',

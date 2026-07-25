@@ -40,32 +40,32 @@ export const PressAssets: Record<PressAssetId, PressAssetDefinition> = {
 	[PressAssetIds.LOGO_WHITE]: {
 		id: PressAssetIds.LOGO_WHITE,
 		path: '/marketing/branding/logo-white.svg',
-		filename: 'fluxer-logo-white.svg',
+		filename: 'multiverse-logo-white.svg',
 	},
 	[PressAssetIds.LOGO_BLACK]: {
 		id: PressAssetIds.LOGO_BLACK,
 		path: '/marketing/branding/logo-black.svg',
-		filename: 'fluxer-logo-black.svg',
+		filename: 'multiverse-logo-black.svg',
 	},
 	[PressAssetIds.LOGO_COLOR]: {
 		id: PressAssetIds.LOGO_COLOR,
 		path: '/marketing/branding/logo-color.svg',
-		filename: 'fluxer-logo-color.svg',
+		filename: 'multiverse-logo-color.svg',
 	},
 	[PressAssetIds.SYMBOL_WHITE]: {
 		id: PressAssetIds.SYMBOL_WHITE,
 		path: '/marketing/branding/symbol-white.svg',
-		filename: 'fluxer-symbol-white.svg',
+		filename: 'multiverse-symbol-white.svg',
 	},
 	[PressAssetIds.SYMBOL_BLACK]: {
 		id: PressAssetIds.SYMBOL_BLACK,
 		path: '/marketing/branding/symbol-black.svg',
-		filename: 'fluxer-symbol-black.svg',
+		filename: 'multiverse-symbol-black.svg',
 	},
 	[PressAssetIds.SYMBOL_COLOR]: {
 		id: PressAssetIds.SYMBOL_COLOR,
 		path: '/marketing/branding/symbol-color.svg',
-		filename: 'fluxer-symbol-color.svg',
+		filename: 'multiverse-symbol-color.svg',
 	},
 };
 

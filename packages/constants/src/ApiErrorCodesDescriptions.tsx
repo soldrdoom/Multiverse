@@ -252,6 +252,8 @@ export const APIErrorCodesDescriptions: Record<keyof typeof APIErrorCodes, strin
 	STRIPE_WEBHOOK_NOT_AVAILABLE: 'Stripe webhook not available',
 	STRIPE_WEBHOOK_SIGNATURE_INVALID: 'Invalid Stripe webhook signature',
 	STRIPE_WEBHOOK_SIGNATURE_MISSING: 'Missing Stripe webhook signature',
+	TOKEN_GATE_REQUIREMENT_NOT_MET: "You don't hold the NFT required to access this channel",
+	TOKEN_GATE_UNAVAILABLE: "This channel's token gate can't be verified right now",
 	SUDO_MODE_REQUIRED: 'Sudo mode is required for this action',
 	TAG_ALREADY_TAKEN: 'This tag is already taken',
 	TEMPORARY_INVITE_REQUIRES_PRESENCE: 'Temporary invite requires presence tracking',

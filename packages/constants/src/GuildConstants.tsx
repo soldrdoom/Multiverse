@@ -98,6 +98,32 @@ export const GuildNSFWLevelDescriptions: Record<keyof typeof GuildNSFWLevel, str
 	AGE_RESTRICTED: 'Guild is age-restricted',
 };
 
+/** How token-gated channels/categories appear to members who don't satisfy the gate. */
+export const TokenGateVisibility = {
+	/** Visible in the channel list with a lock icon, but not enterable. */
+	LOCKED: 0,
+	/** Not shown in the channel list at all. */
+	HIDDEN: 1,
+} as const;
+
+export const TokenGateVisibilityDescriptions: Record<keyof typeof TokenGateVisibility, string> = {
+	LOCKED: 'Gated channels are visible with a lock icon to members who do not qualify',
+	HIDDEN: 'Gated channels are hidden entirely from members who do not qualify',
+};
+
+/** How a channel/category's tokengate address is matched against a wallet's held assets. */
+export const TokenGateMatchMode = {
+	/** Only a wallet holding this exact mint satisfies the gate. */
+	EXACT_ASSET: 0,
+	/** Any wallet holding any asset belonging to the collection at this address satisfies the gate. */
+	COLLECTION: 1,
+} as const;
+
+export const TokenGateMatchModeDescriptions: Record<keyof typeof TokenGateMatchMode, string> = {
+	EXACT_ASSET: 'Only the wallet holding this exact NFT satisfies the gate',
+	COLLECTION: 'Any wallet holding any asset from this collection satisfies the gate',
+};
+
 export const GuildFeatures = {
 	ANIMATED_ICON: 'ANIMATED_ICON',
 	ANIMATED_BANNER: 'ANIMATED_BANNER',

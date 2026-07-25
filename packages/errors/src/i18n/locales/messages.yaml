@@ -201,6 +201,9 @@ channels_and_guilds.preceding_channel_not_in_guild: Preceding channel isn't pres
 channels_and_guilds.system_channel_must_be_in_guild: System channel must be in this guild.
 channels_and_guilds.system_channel_must_be_text: System channel must be a text channel.
 channels_and_guilds.temporary_invite_requires_presence: Temporary invite requires presence.
+channels_and_guilds.invalid_solana_address: That doesn't look like a valid Solana mint or collection address.
+channels_and_guilds.token_gate_requirement_not_met: You don't hold the NFT required to access this channel.
+channels_and_guilds.token_gate_unavailable: This channel's token gate can't be verified right now. Please try again later.
 channels_and_guilds.vanity_url_requires_feature: Vanity URL requires VANITY_URL feature.
 channels_and_guilds.voice_channel_full: Voice channel is full.
 channels_and_guilds.voice_channels_cannot_be_above_text_channels: Voice channels can't be positioned above text channels within the same category.
