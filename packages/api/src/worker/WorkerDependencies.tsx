@@ -23,6 +23,8 @@ import {SystemDmJobRepository} from '@fluxer/api/src/admin/repositories/SystemDm
 import {Config} from '@fluxer/api/src/Config';
 import {ChannelRepository} from '@fluxer/api/src/channel/ChannelRepository';
 import {ChannelService} from '@fluxer/api/src/channel/services/ChannelService';
+import {TokenGateCacheService} from '@fluxer/api/src/channel/services/TokenGateCacheService';
+import {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import {ConnectionRepository} from '@fluxer/api/src/connection/ConnectionRepository';
 import {ConnectionService} from '@fluxer/api/src/connection/ConnectionService';
 import {CsamEvidenceRetentionService} from '@fluxer/api/src/csam/CsamEvidenceRetentionService';
@@ -92,6 +94,7 @@ import type {IEmailService} from '@fluxer/email/src/IEmailService';
 import {TestEmailService} from '@fluxer/email/src/TestEmailService';
 import type {IKVProvider} from '@fluxer/kv_client/src/IKVProvider';
 import {RateLimitService} from '@fluxer/rate_limit/src/RateLimitService';
+import {SOLANA_DAS_URL} from '@fluxer/solana_das/src/SolanaNetwork';
 import type {IWorkerService} from '@fluxer/worker/src/contracts/IWorkerService';
 
 let _workerTestEmailService: TestEmailService | null = null;
@@ -271,6 +274,14 @@ export async function initializeWorkerDependencies(snowflakeService: SnowflakeSe
 	const inviteRepository = new InviteRepository();
 	const webhookRepository = new WebhookRepository();
 
+	const tokenGateCacheService = new TokenGateCacheService(cacheService, SOLANA_DAS_URL);
+	const tokenGateService = new TokenGateService(
+		channelRepository,
+		userRepository,
+		tokenGateCacheService,
+		guildRepository,
+	);
+
 	const channelService = new ChannelService(
 		channelRepository,
 		userRepository,
@@ -296,6 +307,7 @@ export async function initializeWorkerDependencies(snowflakeService: SnowflakeSe
 		inviteRepository,
 		webhookRepository,
 		limitConfigService,
+		tokenGateService,
 		undefined,
 	);
 	const guildService = new GuildService(
@@ -317,6 +329,7 @@ export async function initializeWorkerDependencies(snowflakeService: SnowflakeSe
 		webhookRepository,
 		guildAuditLogService,
 		limitConfigService,
+		tokenGateService,
 	);
 	const inviteService = new InviteService(
 		inviteRepository,

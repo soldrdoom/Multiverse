@@ -65,6 +65,7 @@ import type {LimitConfigService} from '@fluxer/api/src/limits/LimitConfigService
 import type {RequestCache} from '@fluxer/api/src/middleware/RequestCacheMiddleware';
 import type {AuthSession} from '@fluxer/api/src/models/AuthSession';
 import type {User} from '@fluxer/api/src/models/User';
+import type {NewsService} from '@fluxer/api/src/news/NewsService';
 import type {ApplicationService} from '@fluxer/api/src/oauth/ApplicationService';
 import type {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
 import type {OAuth2ApplicationsRequestService} from '@fluxer/api/src/oauth/OAuth2ApplicationsRequestService';
@@ -163,6 +164,7 @@ export interface HonoEnv {
 		kvActivityTracker: KVActivityTracker;
 		reportService: ReportService;
 		reportRequestService: ReportRequestService;
+		newsService: NewsService;
 		csamEvidenceRetentionService: CsamEvidenceRetentionService;
 		contactChangeLogService: UserContactChangeLogService;
 		csamLegalHoldService: CsamLegalHoldService;

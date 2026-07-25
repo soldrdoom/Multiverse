@@ -176,6 +176,12 @@ import {
 	type OAuth2RefreshTokenRow,
 } from '@fluxer/api/src/database/types/OAuth2Types';
 import {
+	NEWS_STORY_BY_STATUS_COLUMNS,
+	NEWS_STORY_COLUMNS,
+	type NewsStoryByStatusRow,
+	type NewsStoryRow,
+} from '@fluxer/api/src/database/types/NewsTypes';
+import {
 	DSA_REPORT_EMAIL_VERIFICATION_COLUMNS,
 	DSA_REPORT_TICKET_COLUMNS,
 	type DSAReportEmailVerificationRow,
@@ -671,6 +677,19 @@ export const IARSubmissions = defineTable<IARSubmissionRow, 'report_id'>({
 	name: 'iar_submissions',
 	columns: IAR_SUBMISSION_COLUMNS,
 	primaryKey: ['report_id'],
+});
+
+export const NewsStories = defineTable<NewsStoryRow, 'story_id'>({
+	name: 'news_stories',
+	columns: NEWS_STORY_COLUMNS,
+	primaryKey: ['story_id'],
+});
+
+export const NewsStoriesByStatus = defineTable<NewsStoryByStatusRow, 'status' | 'created_at' | 'story_id', 'status'>({
+	name: 'news_stories_by_status',
+	columns: NEWS_STORY_BY_STATUS_COLUMNS,
+	primaryKey: ['status', 'created_at', 'story_id'],
+	partitionKey: ['status'],
 });
 
 export const DSAReportEmailVerifications = defineTable<DSAReportEmailVerificationRow, 'email_lower'>({

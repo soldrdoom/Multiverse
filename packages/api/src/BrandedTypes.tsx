@@ -41,6 +41,7 @@ export type WebhookID = Brand<bigint, 'WebhookID'>;
 export type AttachmentID = Brand<bigint, 'AttachmentID'>;
 export type StickerID = Brand<bigint, 'StickerID'>;
 export type ReportID = Brand<bigint, 'ReportID'>;
+export type NewsStoryID = Brand<bigint, 'NewsStoryID'>;
 export type MemeID = Brand<bigint, 'MemeID'>;
 export type ApplicationID = Brand<bigint, 'ApplicationID'>;
 
@@ -85,6 +86,9 @@ export function createStickerID<T extends bigint>(id: T extends BrandedValue ? n
 }
 export function createReportID<T extends bigint>(id: T extends BrandedValue ? never : T): ReportID {
 	return brand<T, 'ReportID'>(id);
+}
+export function createNewsStoryID<T extends bigint>(id: T extends BrandedValue ? never : T): NewsStoryID {
+	return brand<T, 'NewsStoryID'>(id);
 }
 export function createMemeID<T extends bigint>(id: T extends BrandedValue ? never : T): MemeID {
 	return brand<T, 'MemeID'>(id);

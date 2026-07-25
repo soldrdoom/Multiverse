@@ -35,6 +35,9 @@ import {Config} from '@fluxer/api/src/Config';
 import {ChannelRepository} from '@fluxer/api/src/channel/ChannelRepository';
 import {ChannelRequestService} from '@fluxer/api/src/channel/services/ChannelRequestService';
 import {ChannelService} from '@fluxer/api/src/channel/services/ChannelService';
+import {TokenGateCacheService} from '@fluxer/api/src/channel/services/TokenGateCacheService';
+import {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
+import {SOLANA_DAS_URL} from '@fluxer/solana_das/src/SolanaNetwork';
 import {MessageRequestService} from '@fluxer/api/src/channel/services/message/MessageRequestService';
 import {ScheduledMessageService} from '@fluxer/api/src/channel/services/ScheduledMessageService';
 import {StreamPreviewService} from '@fluxer/api/src/channel/services/StreamPreviewService';
@@ -108,6 +111,8 @@ import {
 	getVoiceTopology,
 	getWorkerService,
 } from '@fluxer/api/src/middleware/ServiceRegistry';
+import {NewsRepository} from '@fluxer/api/src/news/NewsRepository';
+import {NewsService} from '@fluxer/api/src/news/NewsService';
 import {ApplicationService} from '@fluxer/api/src/oauth/ApplicationService';
 import {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
 import {BotMfaMirrorService} from '@fluxer/api/src/oauth/BotMfaMirrorService';
@@ -354,6 +359,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	const favoriteMemeRepository = new FavoriteMemeRepository();
 	const connectionRepository = new ConnectionRepository();
 	const reportRepository = new ReportRepository();
+	const newsRepository = new NewsRepository();
 	const adminRepository = new AdminRepository();
 	const adminArchiveRepository = new AdminArchiveRepository();
 	const voiceRepository = new VoiceRepository();
@@ -443,6 +449,14 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		limitConfigService,
 	);
 
+	const tokenGateCacheService = new TokenGateCacheService(cacheService, SOLANA_DAS_URL);
+	const tokenGateService = new TokenGateService(
+		channelRepository,
+		userRepository,
+		tokenGateCacheService,
+		guildRepository,
+	);
+
 	const channelService = new ChannelService(
 		channelRepository,
 		userRepository,
@@ -468,6 +482,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		inviteRepository,
 		webhookRepository,
 		limitConfigService,
+		tokenGateService,
 		getVoiceAvailabilityService() ?? undefined,
 	);
 	const channelRequestService = new ChannelRequestService(channelService, userCacheService);
@@ -508,6 +523,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		webhookRepository,
 		guildAuditLogService,
 		limitConfigService,
+		tokenGateService,
 	);
 
 	const discoveryRepository = new GuildDiscoveryRepository();
@@ -635,6 +651,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		reportSearchService,
 	);
 	const reportRequestService = new ReportRequestService(reportService);
+	const newsService = new NewsService(newsRepository);
 
 	const adminService = new AdminService(
 		userRepository,
@@ -698,6 +715,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		rateLimitService,
 		mediaService,
 		limitConfigService,
+		tokenGateCacheService,
 		voiceService,
 		voiceAvailabilityService ?? undefined,
 	);
@@ -898,6 +916,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	ctx.set('kvActivityTracker', kvActivityTracker);
 	ctx.set('reportService', reportService);
 	ctx.set('reportRequestService', reportRequestService);
+	ctx.set('newsService', newsService);
 	ctx.set('rpcService', rpcService);
 	ctx.set('searchService', searchService);
 	ctx.set('sweegoWebhookService', sweegoWebhookService);

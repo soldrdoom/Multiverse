@@ -63,6 +63,7 @@ function createDummyGuildResponse(params: {guildId: GuildID; userId: UserID}): G
 		verification_level: 0,
 		mfa_level: 0,
 		nsfw_level: 0,
+		token_gate_visibility: 0,
 		explicit_content_filter: 0,
 		default_message_notifications: 0,
 		disabled_operations: 0,
