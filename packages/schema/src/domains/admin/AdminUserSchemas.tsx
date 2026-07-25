@@ -68,7 +68,7 @@ export const UserAdminResponseSchema = z.object({
 	pending_bulk_message_deletion_at: z.string().nullable(),
 	deletion_reason_code: Int32Type.nullable(),
 	deletion_public_reason: z.string().nullable(),
-	acls: z.array(z.string()).max(100),
+	acls: z.array(z.string()).max(150),
 	traits: z.array(z.string()).max(100),
 	has_totp: z.boolean(),
 	authenticator_types: z.array(Int32Type).max(10),
@@ -342,7 +342,7 @@ export type ScheduleAccountDeletionRequest = z.infer<typeof ScheduleAccountDelet
 
 export const SetUserAclsRequest = z.object({
 	user_id: SnowflakeType.describe('ID of the user to set ACLs for'),
-	acls: z.array(createStringType(1, 64)).max(100).describe('List of access control permissions to assign'),
+	acls: z.array(createStringType(1, 64)).max(150).describe('List of access control permissions to assign'),
 });
 
 export type SetUserAclsRequest = z.infer<typeof SetUserAclsRequest>;
