@@ -19,8 +19,8 @@
 
 import styles from '@app/components/layout/NativeTitlebar.module.css';
 import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
-import MultiverseWordmark from '@app/images/fluxer-wordmark.svg?react';
 import {getElectronAPI, type NativePlatform} from '@app/utils/NativeUtils';
+import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 import {useLingui} from '@lingui/react/macro';
 import {CopySimpleIcon, MinusIcon, SquareIcon, XIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
@@ -73,7 +73,8 @@ export const NativeTitlebar: React.FC<NativeTitlebarProps> = ({platform}) => {
 		// biome-ignore lint/a11y/noStaticElementInteractions: Titlebar needs to capture double clicks
 		<div className={styles.titlebar} onDoubleClick={handleDoubleClick} data-platform={platform}>
 			<div className={styles.left}>
-				<MultiverseWordmark className={styles.wordmark} />
+				<img src={multiverseOfficialLogo} alt="" className={styles.wordmarkIcon} />
+				<span className={styles.wordmarkText}>Multiverse</span>
 			</div>
 			<div className={styles.spacer} />
 			<div className={styles.controls}>

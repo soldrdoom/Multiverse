@@ -40,9 +40,16 @@
 	opacity: 0.8;
 }
 
-.wordmark {
+.wordmarkIcon {
 	height: 14px;
-	width: auto;
+	width: 14px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.wordmarkText {
+	font-size: 12px;
+	font-weight: 600;
 	color: var(--text-muted);
 }
 

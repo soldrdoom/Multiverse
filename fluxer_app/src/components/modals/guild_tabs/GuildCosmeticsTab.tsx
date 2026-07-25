@@ -111,12 +111,12 @@ const SlotRow: React.FC<SlotRowProps> = ({
 
 			<div className={styles.slotActions}>
 				{currentMint && (
-					<Button variant="secondary" size="small" onClick={() => onClear(slot)} disabled={isSaving}>
+					<Button variant="secondary" small onClick={() => onClear(slot)} disabled={isSaving}>
 						<Trans>Remove</Trans>
 					</Button>
 				)}
 				{ownedForSlot.length > 0 && (
-					<Button variant="primary" size="small" onClick={() => setPickerOpen((o) => !o)} disabled={isSaving}>
+					<Button variant="primary" small onClick={() => setPickerOpen((o) => !o)} disabled={isSaving}>
 						{currentMint ? <Trans>Change</Trans> : <Trans>Apply</Trans>}
 					</Button>
 				)}

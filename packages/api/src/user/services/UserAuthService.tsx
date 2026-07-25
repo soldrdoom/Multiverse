@@ -54,7 +54,8 @@ export class UserAuthService {
 		sudoContext: SudoVerificationResult;
 	}): Promise<Array<MfaBackupCode>> {
 		const {user, secret, code, sudoContext} = params;
-		const identityVerifiedViaSudo = sudoContext.method === 'mfa' || sudoContext.method === 'sudo_token';
+		const identityVerifiedViaSudo =
+			sudoContext.method === 'mfa' || sudoContext.method === 'sudo_token' || sudoContext.method === 'solana';
 		const identityVerifiedViaPassword = sudoContext.method === 'password';
 		const hasMfa = userHasMfa(user);
 		if (!identityVerifiedViaSudo && !identityVerifiedViaPassword) {
@@ -90,7 +91,8 @@ export class UserAuthService {
 		const {user, code, sudoContext} = params;
 		if (!user.totpSecret) throw new MfaNotEnabledError();
 
-		const identityVerifiedViaSudo = sudoContext.method === 'mfa' || sudoContext.method === 'sudo_token';
+		const identityVerifiedViaSudo =
+			sudoContext.method === 'mfa' || sudoContext.method === 'sudo_token' || sudoContext.method === 'solana';
 		const identityVerifiedViaPassword = sudoContext.method === 'password';
 		const hasMfa = userHasMfa(user);
 		if (!identityVerifiedViaSudo && !identityVerifiedViaPassword) {
@@ -136,7 +138,8 @@ export class UserAuthService {
 		sudoContext: SudoVerificationResult;
 	}): Promise<Array<MfaBackupCode>> {
 		const {user, regenerate, sudoContext} = params;
-		const identityVerifiedViaSudo = sudoContext.method === 'mfa' || sudoContext.method === 'sudo_token';
+		const identityVerifiedViaSudo =
+			sudoContext.method === 'mfa' || sudoContext.method === 'sudo_token' || sudoContext.method === 'solana';
 		const identityVerifiedViaPassword = sudoContext.method === 'password';
 		const hasMfa = userHasMfa(user);
 		if (!identityVerifiedViaSudo && !identityVerifiedViaPassword) {

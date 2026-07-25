@@ -45,7 +45,6 @@ import {
 	CosmeticsStoreResponse,
 	GuildCosmeticsResponse,
 	ListingResponse,
-	NftsResponse,
 	PurchaseCosmeticRequest,
 	PurchaseCosmeticResponse,
 	type StoreListingNft,
@@ -248,36 +247,11 @@ const SEED_CATALOG: StoreListingNft[] = [
 ];
 
 export function CosmeticsController(app: HonoApp): void {
-	// ─── NFT listing ─────────────────────────────────────────────────────────
-
-	/**
-	 * GET /nfts
-	 * Returns all cosmetic NFTs held in the authenticated user's Solana wallet.
-	 * Ownership is verified server-side against the configured Metaplex collection.
-	 * Returns an empty array when no collection is configured (development / pre-launch).
-	 */
-	app.get(
-		'/nfts',
-		LoginRequired,
-		DefaultUserOnly,
-		RateLimitMiddleware(CosmeticsRateLimitConfigs.GET_NFTS),
-		OpenAPI({
-			operationId: 'list_owned_nfts',
-			summary: 'List cosmetic NFTs in the current user\'s wallet',
-			responseSchema: NftsResponse,
-			statusCode: 200,
-			tags: ['Cosmetics'],
-			description:
-				'Returns all Multiverse cosmetic NFTs held in the authenticated user\'s linked Solana wallet. ' +
-				'Returns an empty array before the cosmetics collection is launched.',
-		}),
-		async (_ctx) => {
-			// TODO: Look up user's Solana address, query Metaplex DAS API, filter by
-			// COSMETICS_COLLECTION_ADDRESS env var, return matching NFTs.
-			// For now, returns empty until collection is deployed.
-			return _ctx.json<NftsResponse>({nfts: []});
-		},
-	);
+	// Note: NFT listing (`GET /nfts`) lives in fluxer_server/src/Routes.tsx (`GET /v1/nfts`),
+	// not here — a stub route used to be registered at this same path (`/nfts`, which is also
+	// reachable as `/v1/nfts` since App.tsx mounts these controller routes at both `/` and `/v1`)
+	// and silently shadowed the real implementation for every request. See PROJECT_REPORT.md's
+	// 2026-07-20 session for the full story.
 
 	// ─── Shop catalog ─────────────────────────────────────────────────────────
 
@@ -315,79 +289,12 @@ export function CosmeticsController(app: HonoApp): void {
 		},
 	);
 
-	// ─── Public user cosmetics ───────────────────────────────────────────────
-
-	/**
-	 * GET /users/:userId/cosmetics
-	 * Returns all applied profile cosmetics for any user (public read).
-	 * Used by the client to render other users' cosmetics throughout the app.
-	 */
-	app.get(
-		'/users/:userId/cosmetics',
-		LoginRequired,
-		RateLimitMiddleware(CosmeticsRateLimitConfigs.GET_USER_COSMETICS_PUBLIC),
-		OpenAPI({
-			operationId: 'get_user_cosmetics_public',
-			summary: 'Get applied profile cosmetics for a user',
-			responseSchema: UserCosmeticsPublicResponse,
-			statusCode: 200,
-			tags: ['Cosmetics'],
-			description:
-				'Returns all applied profile cosmetics for the specified user. ' +
-				'Accessible to any authenticated user for rendering purposes.',
-		}),
-		Validator('param', z.object({userId: z.string().min(1)})),
-		async (ctx) => {
-			const targetUserId = createUserID(BigInt(ctx.req.valid('param').userId));
-			const rows = await cosmeticsRepo.getProfileCosmetics(targetUserId);
-			return ctx.json<UserCosmeticsPublicResponse>({
-				applied: rows.map((r) => ({
-					slot: r.slot,
-					mint_address: r.mint_address,
-					applied_at: r.applied_at.toISOString(),
-					// TODO: populate image_url from Metaplex DAS API when collection is deployed.
-					image_url: null,
-				})),
-			});
-		},
-	);
-
-	// ─── Purchase ─────────────────────────────────────────────────────────────
-
-	/**
-	 * POST /cosmetics/purchase
-	 * Verify a SOL payment transaction and mint the purchased NFT to the buyer's wallet.
-	 * Requires the Metaplex collection to be deployed; returns 503 until then.
-	 */
-	app.post(
-		'/cosmetics/purchase',
-		LoginRequired,
-		DefaultUserOnly,
-		RateLimitMiddleware(CosmeticsRateLimitConfigs.PURCHASE),
-		OpenAPI({
-			operationId: 'purchase_cosmetic',
-			summary: 'Purchase a cosmetic NFT',
-			requestSchema: PurchaseCosmeticRequest,
-			responseSchema: PurchaseCosmeticResponse,
-			statusCode: 200,
-			tags: ['Cosmetics'],
-			description:
-				'Verifies the provided Solana transaction signature as payment for the specified catalog item, ' +
-				'then mints the cosmetic NFT to the buyer\'s wallet. ' +
-				'Returns 503 before the Multiverse cosmetics collection is launched.',
-		}),
-		Validator('json', PurchaseCosmeticRequest),
-		async (ctx) => {
-			// TODO: Implement when Metaplex collection is deployed:
-			//   1. Look up item_id in the cosmetics catalog.
-			//   2. Verify tx_signature on-chain (correct amount, correct recipient treasury address).
-			//   3. Mint NFT via Candy Machine / Metaplex to buyer_address.
-			//   4. Return the minted NFT details.
-			return ctx.json({error: 'Cosmetics shop not yet launched'}, 503);
-		},
-	);
-
 	// ─── Profile cosmetics ────────────────────────────────────────────────────
+	// Note: these `@me` routes must be registered before `/users/:userId/cosmetics`
+	// below — Hono resolves routes in registration order, and `:userId` matches
+	// the literal segment `@me` too, so registering the param route first would
+	// silently shadow these for every request. See the `/nfts` note above for
+	// the prior incident of this same class of bug.
 
 	/**
 	 * GET /users/@me/cosmetics
@@ -463,6 +370,78 @@ export function CosmeticsController(app: HonoApp): void {
 					image_url: null,
 				})),
 			});
+		},
+	);
+
+	// ─── Public user cosmetics ───────────────────────────────────────────────
+
+	/**
+	 * GET /users/:userId/cosmetics
+	 * Returns all applied profile cosmetics for any user (public read).
+	 * Used by the client to render other users' cosmetics throughout the app.
+	 */
+	app.get(
+		'/users/:userId/cosmetics',
+		LoginRequired,
+		RateLimitMiddleware(CosmeticsRateLimitConfigs.GET_USER_COSMETICS_PUBLIC),
+		OpenAPI({
+			operationId: 'get_user_cosmetics_public',
+			summary: 'Get applied profile cosmetics for a user',
+			responseSchema: UserCosmeticsPublicResponse,
+			statusCode: 200,
+			tags: ['Cosmetics'],
+			description:
+				'Returns all applied profile cosmetics for the specified user. ' +
+				'Accessible to any authenticated user for rendering purposes.',
+		}),
+		Validator('param', z.object({userId: z.string().min(1)})),
+		async (ctx) => {
+			const targetUserId = createUserID(BigInt(ctx.req.valid('param').userId));
+			const rows = await cosmeticsRepo.getProfileCosmetics(targetUserId);
+			return ctx.json<UserCosmeticsPublicResponse>({
+				applied: rows.map((r) => ({
+					slot: r.slot,
+					mint_address: r.mint_address,
+					applied_at: r.applied_at.toISOString(),
+					// TODO: populate image_url from Metaplex DAS API when collection is deployed.
+					image_url: null,
+				})),
+			});
+		},
+	);
+
+	// ─── Purchase ─────────────────────────────────────────────────────────────
+
+	/**
+	 * POST /cosmetics/purchase
+	 * Verify a SOL payment transaction and mint the purchased NFT to the buyer's wallet.
+	 * Requires the Metaplex collection to be deployed; returns 503 until then.
+	 */
+	app.post(
+		'/cosmetics/purchase',
+		LoginRequired,
+		DefaultUserOnly,
+		RateLimitMiddleware(CosmeticsRateLimitConfigs.PURCHASE),
+		OpenAPI({
+			operationId: 'purchase_cosmetic',
+			summary: 'Purchase a cosmetic NFT',
+			requestSchema: PurchaseCosmeticRequest,
+			responseSchema: PurchaseCosmeticResponse,
+			statusCode: 200,
+			tags: ['Cosmetics'],
+			description:
+				'Verifies the provided Solana transaction signature as payment for the specified catalog item, ' +
+				'then mints the cosmetic NFT to the buyer\'s wallet. ' +
+				'Returns 503 before the Multiverse cosmetics collection is launched.',
+		}),
+		Validator('json', PurchaseCosmeticRequest),
+		async (ctx) => {
+			// TODO: Implement when Metaplex collection is deployed:
+			//   1. Look up item_id in the cosmetics catalog.
+			//   2. Verify tx_signature on-chain (correct amount, correct recipient treasury address).
+			//   3. Mint NFT via Candy Machine / Metaplex to buyer_address.
+			//   4. Return the minted NFT details.
+			return ctx.json({error: 'Cosmetics shop not yet launched'}, 503);
 		},
 	);
 

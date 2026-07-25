@@ -73,7 +73,8 @@ export class UserAccountSecurityService {
 		};
 
 		const isUnclaimedAccount = user.isUnclaimedAccount();
-		const identityVerifiedViaSudo = sudoContext?.method === 'mfa' || sudoContext?.method === 'sudo_token';
+		const identityVerifiedViaSudo =
+			sudoContext?.method === 'mfa' || sudoContext?.method === 'sudo_token' || sudoContext?.method === 'solana';
 		const identityVerifiedViaPassword = sudoContext?.method === 'password';
 		const hasMfa = userHasMfa(user);
 

@@ -24,7 +24,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: #0B0E14;
+	background-color: #0b0e14;
 	padding-left: var(--spacing-6);
 	padding-right: var(--spacing-6);
 }
@@ -89,37 +89,41 @@
 	}
 }
 
+/* Square wrapper — the product mark (assets/brand/new-logo.png) is a 1:1 sphere,
+   unlike the previous wide lockup, so the wrapper is square rather than 280x160. */
 .iconWrapper {
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 280px;
-	height: 160px;
+	width: 200px;
+	height: 200px;
 }
 
 @media (min-width: 640px) {
 	.iconWrapper {
-		width: 340px;
-		height: 190px;
+		width: 240px;
+		height: 240px;
 	}
 }
 
 @media (min-width: 768px) {
 	.iconWrapper {
-		width: 400px;
-		height: 220px;
+		width: 280px;
+		height: 280px;
 	}
 }
 
-/* Bottom layer: pulsing gold aura rings */
+/* Bottom layer: pulsing purple→green glow ring (CSS radial-gradient bloom —
+   no SVG trace, keeps the "glow ring" mood-board treatment without touching
+   the inspiration image's literal center mark). */
 .iconAura {
 	position: absolute;
-	inset: -30%;
+	inset: -25%;
 	z-index: 1;
-	width: 160%;
-	height: 160%;
-	color: #00C864;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(153, 69, 255, 0.55) 0%, rgba(20, 241, 149, 0.35) 45%, transparent 72%);
+	filter: blur(30px);
 	animation: multiverse-pulse 1.6s ease-in-out infinite;
 	transform-origin: center;
 }
@@ -134,19 +138,17 @@
 }
 
 @keyframes multiverse-pulse {
-	0%, 100% {
+	0%,
+	100% {
 		opacity: 0.55;
 		transform: scale(1);
-		filter: drop-shadow(0 0 8px rgba(0, 200, 100, 0.5));
 	}
 	30% {
 		opacity: 0.9;
 		transform: scale(1.08);
-		filter: drop-shadow(0 0 24px rgba(0, 200, 100, 1));
 	}
 	60% {
 		opacity: 0.7;
 		transform: scale(1.03);
-		filter: drop-shadow(0 0 14px rgba(0, 200, 100, 0.75));
 	}
 }

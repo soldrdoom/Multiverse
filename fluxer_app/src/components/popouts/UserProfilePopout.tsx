@@ -274,6 +274,8 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 							isClickable={!isWebhook}
 							onAvatarClick={!isWebhook ? () => openFullProfile() : undefined}
 							userId={!isWebhook ? user.id : undefined}
+							showTipButton={!isWebhook && !isCurrentUser && Boolean(profile?.userProfile.has_solana_wallet)}
+							onTipClick={handleTipClick}
 						/>
 
 						{!isWebhook && <UserProfileBadges user={user} profile={profile} />}
@@ -299,8 +301,6 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 											userId={user.id}
 											isHovering={isHovering}
 											onNoteClick={() => openFullProfile(true)}
-											showTipButton={!isCurrentUser && Boolean(profile?.userProfile.has_solana_wallet)}
-											onTipClick={handleTipClick}
 										/>
 									)
 								}

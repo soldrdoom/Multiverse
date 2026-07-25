@@ -18,10 +18,13 @@
  */
 
 import styles from '@app/components/profile/profile_card/ProfileCardBanner.module.css';
+import {Button} from '@app/components/uikit/button/Button';
 import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
 import {StatusAwareAvatar} from '@app/components/uikit/StatusAwareAvatar';
 import type {UserRecord} from '@app/records/UserRecord';
 import CosmeticsStore from '@app/stores/CosmeticsStore';
+import {useLingui} from '@lingui/react/macro';
+import {CoinIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useId} from 'react';
@@ -38,6 +41,8 @@ interface ProfileCardBannerProps {
 	headerHeight?: number;
 	/** When provided, cosmetic banner/effect for this user will be rendered. */
 	userId?: string;
+	showTipButton?: boolean;
+	onTipClick?: () => void;
 }
 
 export const ProfileCardBanner: React.FC<ProfileCardBannerProps> = observer(
@@ -52,7 +57,10 @@ export const ProfileCardBanner: React.FC<ProfileCardBannerProps> = observer(
 		onAvatarClick,
 		headerHeight = 140,
 		userId,
+		showTipButton = false,
+		onTipClick,
 	}) => {
+		const {t} = useLingui();
 		const bannerHeight = headerHeight === 140 ? 105 : 105;
 
 		const reactId = useId();
@@ -100,6 +108,18 @@ export const ProfileCardBanner: React.FC<ProfileCardBannerProps> = observer(
 						/>
 					)}
 				</div>
+
+				{showTipButton && (
+					<Button
+						small
+						variant="primary"
+						className={styles.tipButton}
+						leftIcon={<CoinIcon weight="fill" className={styles.tipIcon} />}
+						onClick={onTipClick}
+					>
+						{t`Send tip`}
+					</Button>
+				)}
 
 				<FocusRing offset={-2}>
 					<button type="button" onClick={onAvatarClick} className={styles.avatarButton}>

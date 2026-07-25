@@ -64,3 +64,15 @@
 	pointer-events: none;
 	z-index: 1;
 }
+
+.tipButton {
+	position: absolute;
+	top: 153px;
+	right: 10px;
+	z-index: 2;
+}
+
+.tipIcon {
+	height: 16px;
+	width: 16px;
+}

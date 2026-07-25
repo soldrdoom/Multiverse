@@ -398,6 +398,30 @@
 	}
 }
 
+.identityVaultButton {
+	composes: guildListItem;
+}
+
+.identityVaultButtonIcon {
+	composes: guildIcon;
+	background-color: var(--guilds-layout-item-bg, var(--guild-list-foreground));
+	color: var(--text-primary);
+	transition-property: background-color, color, border-radius;
+	transition-duration: 70ms;
+	transition-timing-function: ease-out;
+	padding: 0;
+	overflow: clip;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.identityVaultButton:hover .identityVaultButtonIcon,
+	.identityVaultButtonIcon:hover,
+	.identityVaultButton.contextMenuHover .identityVaultButtonIcon {
+		background-color: var(--brand-primary);
+		color: white;
+	}
+}
+
 .addGuildButton {
 	composes: guildListItem;
 }
@@ -414,9 +438,9 @@
 	cursor: pointer;
 	border-radius: var(--radius-full);
 	border: none;
-	background-color: #00C864;
-	color: #0B0E14;
-	transition-property: border-radius, background-color;
+	background: var(--gradient-brand);
+	color: var(--button-primary-text);
+	transition-property: border-radius, filter;
 	transition-duration: 70ms;
 	transition-timing-function: ease-out;
 }
@@ -425,7 +449,7 @@
 	.addGuildButton:hover .addGuildButtonIcon,
 	.addGuildButtonIcon:hover,
 	.addGuildButton.contextMenuHover .addGuildButtonIcon {
-		background-color: #33E87A;
+		filter: brightness(1.12);
 	}
 }
 

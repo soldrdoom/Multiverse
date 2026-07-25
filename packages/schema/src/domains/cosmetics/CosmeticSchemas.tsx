@@ -178,9 +178,13 @@ export const OwnedCosmeticNft = z.object({
 	name: z.string(),
 	/** Off-chain metadata URI (image/preview URL). */
 	image: z.string().nullable(),
-	/** Cosmetic type — matches a slot name. */
-	cosmetic_type: z.string(),
-	/** Rarity tier. */
+	/**
+	 * Cosmetic type — matches a slot name (e.g. "avatar_frame"), derived from a
+	 * "Cosmetic Type" trait in the NFT's metadata attributes. null for NFTs that
+	 * aren't tagged as a Multiverse cosmetic (i.e. most of a wallet's regular NFTs).
+	 */
+	cosmetic_type: z.string().nullable(),
+	/** Rarity tier. Defaults to "common" when the NFT has no Rarity trait. */
 	rarity: z.enum(['common', 'uncommon', 'rare', 'epic', 'legendary']),
 });
 export type OwnedCosmeticNft = z.infer<typeof OwnedCosmeticNft>;

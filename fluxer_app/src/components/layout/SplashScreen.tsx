@@ -18,8 +18,6 @@
  */
 
 import {NativeDragRegion} from '@app/components/layout/NativeDragRegion';
-import MultiverseLogo from '@app/images/multiverse-logo.svg?react';
-import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 import styles from '@app/components/layout/SplashScreen.module.css';
 import AccessibilityStore from '@app/stores/AccessibilityStore';
 import DeveloperOptionsStore from '@app/stores/DeveloperOptionsStore';
@@ -29,6 +27,7 @@ import {getReducedMotionProps} from '@app/utils/ReducedMotionAnimation';
 import {AnimatePresence, motion} from 'framer-motion';
 import {observer} from 'mobx-react-lite';
 import {useEffect, useState} from 'react';
+import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 
 const SPLASH_SCREEN_DELAY = 10000;
 
@@ -66,12 +65,8 @@ const SplashScreenContent = observer(() => {
 			<NativeDragRegion className={styles.topDragRegion} />
 			<div className={styles.splashContent}>
 				<div className={styles.iconWrapper}>
-					<MultiverseLogo className={styles.iconAura} />
-					<img
-						src={multiverseOfficialLogo}
-						alt="Multiverse"
-						className={styles.iconLogo}
-					/>
+					<div className={styles.iconAura} aria-hidden="true" />
+					<img src={multiverseOfficialLogo} alt="Multiverse" className={styles.iconLogo} />
 				</div>
 			</div>
 		</motion.div>

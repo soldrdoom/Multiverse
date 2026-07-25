@@ -147,7 +147,7 @@
 }
 
 .defaultValue .markValue {
-	color: var(--text-feedback-positive, #3ba55d);
+	color: var(--accent-success, #16a34a);
 }
 
 .markDash {

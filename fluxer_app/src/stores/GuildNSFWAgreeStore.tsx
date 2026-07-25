@@ -20,9 +20,7 @@
 import {makePersistent} from '@app/lib/MobXPersistence';
 import ChannelStore from '@app/stores/ChannelStore';
 import DeveloperOptionsStore from '@app/stores/DeveloperOptionsStore';
-import GeoIPStore from '@app/stores/GeoIPStore';
 import GuildStore from '@app/stores/GuildStore';
-import UserStore from '@app/stores/UserStore';
 import {GuildNSFWLevel} from '@fluxer/constants/src/GuildConstants';
 import {makeAutoObservable} from 'mobx';
 
@@ -116,27 +114,6 @@ class GuildNSFWAgreeStore {
 		const resolved = this.resolveContext(context);
 		if (!resolved.channelIsNsfw && !resolved.guildIsAgeRestricted) {
 			return NSFWGateReason.NONE;
-		}
-
-		const countryCode = GeoIPStore.countryCode;
-		const regionCode = GeoIPStore.regionCode;
-		const ageRestrictedGeos = GeoIPStore.ageRestrictedGeos;
-
-		if (countryCode) {
-			const isAgeRestricted = ageRestrictedGeos.some((geo) => {
-				if (geo.countryCode !== countryCode) return false;
-				if (geo.regionCode === null) return true;
-				return geo.regionCode === regionCode;
-			});
-
-			if (isAgeRestricted) {
-				return NSFWGateReason.GEO_RESTRICTED;
-			}
-		}
-
-		const currentUser = UserStore.getCurrentUser();
-		if (currentUser && !currentUser.nsfwAllowed) {
-			return NSFWGateReason.AGE_RESTRICTED;
 		}
 
 		if (resolved.guildIsAgeRestricted) {

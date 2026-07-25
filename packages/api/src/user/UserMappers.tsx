@@ -28,7 +28,6 @@ import type {Relationship} from '@fluxer/api/src/models/Relationship';
 import type {User} from '@fluxer/api/src/models/User';
 import type {UserGuildSettings} from '@fluxer/api/src/models/UserGuildSettings';
 import type {UserSettings} from '@fluxer/api/src/models/UserSettings';
-import {isUserAdult} from '@fluxer/api/src/utils/AgeUtils';
 import {
 	DEFAULT_GUILD_FOLDER_ICON,
 	DELETED_USER_DISCRIMINATOR,
@@ -184,7 +183,7 @@ export function mapUserToPrivateResponse(user: User): UserPrivateResponse {
 		premium_enabled_override: !!(user.flags & UserFlags.PREMIUM_ENABLED_OVERRIDE),
 		password_last_changed_at: user.passwordLastChangedAt?.toISOString() ?? null,
 		required_actions: requiredActions ?? null,
-		nsfw_allowed: isUserAdult(user.dateOfBirth),
+		nsfw_allowed: true,
 		has_dismissed_premium_onboarding:
 			user.premiumSince != null &&
 			user.premiumOnboardingDismissedAt != null &&
