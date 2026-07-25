@@ -24,6 +24,13 @@ export class Application {
 	readonly applicationId: ApplicationID;
 	readonly ownerUserId: UserID;
 	readonly name: string;
+	readonly description: string | null;
+	readonly iconHash: string | null;
+	readonly tags: Set<string>;
+	readonly privacyPolicyUrl: string | null;
+	readonly termsOfServiceUrl: string | null;
+	/** Set once an application is transferred to a developer team. */
+	readonly teamId: bigint | null;
 	readonly botUserId: UserID | null;
 	readonly botIsPublic: boolean;
 	readonly botRequireCodeGrant: boolean;
@@ -39,6 +46,12 @@ export class Application {
 		this.applicationId = row.application_id;
 		this.ownerUserId = row.owner_user_id;
 		this.name = row.name;
+		this.description = row.description ?? null;
+		this.iconHash = row.icon_hash ?? null;
+		this.tags = row.tags ?? new Set<string>();
+		this.privacyPolicyUrl = row.privacy_policy_url ?? null;
+		this.termsOfServiceUrl = row.terms_of_service_url ?? null;
+		this.teamId = row.team_id ?? null;
 		this.botUserId = row.bot_user_id;
 		this.botIsPublic = row.bot_is_public ?? row.bot_user_id !== null;
 		this.botRequireCodeGrant = row.bot_require_code_grant ?? false;
@@ -56,6 +69,12 @@ export class Application {
 			application_id: this.applicationId,
 			owner_user_id: this.ownerUserId,
 			name: this.name,
+			description: this.description,
+			icon_hash: this.iconHash,
+			tags: this.tags,
+			privacy_policy_url: this.privacyPolicyUrl,
+			terms_of_service_url: this.termsOfServiceUrl,
+			team_id: this.teamId,
 			bot_user_id: this.botUserId,
 			bot_is_public: this.botIsPublic,
 			bot_require_code_grant: this.botRequireCodeGrant,

@@ -123,6 +123,10 @@ export class ApplicationService {
 	async createApplication(args: {
 		ownerUserId: UserID;
 		name: string;
+		description?: string | null;
+		tags?: Array<string>;
+		privacyPolicyUrl?: string | null;
+		termsOfServiceUrl?: string | null;
 		redirectUris?: Array<string>;
 		botPublic?: boolean;
 		botRequireCodeGrant?: boolean;
@@ -229,6 +233,12 @@ export class ApplicationService {
 			application_id: applicationId,
 			owner_user_id: args.ownerUserId,
 			name: args.name,
+			description: args.description ?? null,
+			icon_hash: null,
+			tags: new Set<string>(args.tags ?? []),
+			privacy_policy_url: args.privacyPolicyUrl ?? null,
+			terms_of_service_url: args.termsOfServiceUrl ?? null,
+			team_id: null,
 			bot_user_id: botUserId,
 			bot_is_public: botIsPublic,
 			bot_require_code_grant: botRequireCodeGrant,
@@ -275,21 +285,62 @@ export class ApplicationService {
 		userId: UserID;
 		applicationId: ApplicationID;
 		name?: string;
+		description?: string | null;
+		icon?: string | null;
+		tags?: Array<string>;
+		privacyPolicyUrl?: string | null;
+		termsOfServiceUrl?: string | null;
 		redirectUris?: Array<string>;
 		botPublic?: boolean;
 		botRequireCodeGrant?: boolean;
 	}): Promise<Application> {
 		const application = await this.verifyOwnership(args.userId, args.applicationId);
 
+		// The application's icon is stored against its own ID rather than its bot
+		// user's. Those IDs are equal today (applicationIdToUserId is an identity
+		// rebrand), so this produces the same object path either way — but keying
+		// on the application means an application without a bot user still works,
+		// and it needs no new EntityType.
+		const iconUpload =
+			args.icon === undefined
+				? null
+				: await this.deps.entityAssetService.prepareAssetUpload({
+						assetType: 'icon',
+						entityType: 'user',
+						entityId: application.applicationId,
+						previousHash: application.iconHash,
+						base64Image: args.icon,
+						errorPath: 'icon',
+					});
+
 		const updatedRow: ApplicationRow = {
 			...application.toRow(),
 			name: args.name ?? application.name,
+			// Nullish, not ??: an explicit null clears the field, while an absent
+			// key leaves it untouched.
+			description: args.description !== undefined ? args.description : application.description,
+			icon_hash: iconUpload ? iconUpload.newHash : application.iconHash,
+			tags: args.tags ? new Set(args.tags) : application.tags,
+			privacy_policy_url: args.privacyPolicyUrl !== undefined ? args.privacyPolicyUrl : application.privacyPolicyUrl,
+			terms_of_service_url:
+				args.termsOfServiceUrl !== undefined ? args.termsOfServiceUrl : application.termsOfServiceUrl,
 			oauth2_redirect_uris: args.redirectUris ? new Set(args.redirectUris) : application.oauth2RedirectUris,
 			bot_is_public: args.botPublic ?? application.botIsPublic,
 			bot_require_code_grant: args.botRequireCodeGrant ?? application.botRequireCodeGrant,
 		};
 
-		return this.deps.applicationRepository.upsertApplication(updatedRow);
+		try {
+			const updated = await this.deps.applicationRepository.upsertApplication(updatedRow);
+			if (iconUpload) {
+				await this.deps.entityAssetService.commitAssetChange({prepared: iconUpload, deferDeletion: true});
+			}
+			return updated;
+		} catch (error) {
+			if (iconUpload) {
+				await this.deps.entityAssetService.rollbackAssetUpload(iconUpload);
+			}
+			throw error;
+		}
 	}
 
 	async deleteApplication(userId: UserID, applicationId: ApplicationID): Promise<void> {

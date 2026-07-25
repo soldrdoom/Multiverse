@@ -34,8 +34,12 @@ Detailed bot user metadata
 |-------|------|-------------|
 | bot_public? | boolean | Whether the bot can be invited by anyone |
 | bot_require_code_grant? | boolean | Whether the bot requires OAuth2 code grant |
+| description? | ?string |  |
 | name | string | The name of the application |
+| privacy_policy_url? | ?string |  |
 | redirect_uris? | ?[OAuth2RedirectURICreateType](#oauth2redirecturicreatetype)[] | The redirect URIs for OAuth2 flows |
+| tags? | [ApplicationCreateRequestTags](#applicationcreaterequesttags)[] | Tags categorising the application, from a controlled vocabulary |
+| terms_of_service_url? | ?string |  |
 
 <a id="applicationflags"></a>
 
@@ -92,9 +96,14 @@ Type: [ApplicationResponse](#applicationresponse)[]
 | bot_public | boolean | Whether the bot can be invited by anyone |
 | bot_require_code_grant | boolean | Whether the bot requires OAuth2 code grant |
 | client_secret? | string | The client secret for OAuth2 authentication |
+| description | ?string | A short description of what the application does |
+| icon | ?string | The application's own icon hash, independent of its bot's avatar |
 | id | [SnowflakeType](#snowflaketype) | The unique identifier of the application |
 | name | string | The name of the application |
+| privacy_policy_url | ?string | URL of the application's privacy policy |
 | redirect_uris | string[] | The registered redirect URIs for OAuth2 |
+| tags | string[] | Tags categorising the application |
+| terms_of_service_url | ?string | URL of the application's terms of service |
 
 <a id="applicationsmeresponse"></a>
 
@@ -127,8 +136,13 @@ Type: [ApplicationResponse](#applicationresponse)[]
 |-------|------|-------------|
 | bot_public? | boolean | Whether the bot can be invited by anyone |
 | bot_require_code_grant? | boolean | Whether the bot requires OAuth2 code grant |
+| description? | ?string |  |
+| icon? | ?[Base64ImageType](#base64imagetype) | The application's icon, as a base64-encoded image. Null clears it. |
 | name? | string | The name of the application |
+| privacy_policy_url? | ?string |  |
 | redirect_uris? | ?[OAuth2RedirectURIUpdateType](#oauth2redirecturiupdatetype)[] | The redirect URIs for OAuth2 flows |
+| tags? | [ApplicationCreateRequestTags](#applicationcreaterequesttags)[] | Tags categorising the application, from a controlled vocabulary |
+| terms_of_service_url? | ?string |  |
 
 <a id="authorizeconsentrequest"></a>
 
@@ -395,6 +409,25 @@ A hint about the type of token being revoked
 |-------|-------------|
 | `access_token` | An OAuth2 access token |
 | `refresh_token` | An OAuth2 refresh token |
+
+<a id="applicationcreaterequesttags"></a>
+
+## ApplicationCreateRequestTags
+
+A controlled-vocabulary tag categorising the application.
+
+| Value | Description |
+|-------|-------------|
+| `ai` | Assistants, language models, and generative tooling |
+| `economy` | Currencies, trading, and reward systems |
+| `fun` | Entertainment and novelty commands |
+| `games` | Games and game-adjacent integrations |
+| `moderation` | Moderation, anti-spam, and safety tooling |
+| `music` | Music playback and audio |
+| `productivity` | Scheduling, reminders, and workflow tooling |
+| `social` | Profiles, levelling, and community engagement |
+| `utility` | General-purpose helpers and information lookup |
+| `web3` | Wallets, tokens, NFTs, and on-chain integrations |
 
 <a id="oauth2authorizationresponseapplication"></a>
 

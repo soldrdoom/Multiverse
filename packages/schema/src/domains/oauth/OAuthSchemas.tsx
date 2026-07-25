@@ -17,7 +17,15 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {ApplicationFlags, BotFlags, BotFlagsDescriptions} from '@fluxer/constants/src/BotConstants';
+import {
+	APPLICATION_DESCRIPTION_MAX_LENGTH,
+	APPLICATION_MAX_TAGS,
+	ApplicationFlags,
+	ApplicationTagDescriptions,
+	ApplicationTags,
+	BotFlags,
+	BotFlagsDescriptions,
+} from '@fluxer/constants/src/BotConstants';
 import {AVATAR_MAX_SIZE} from '@fluxer/constants/src/LimitConstants';
 import {type OAuth2Scope, OAuth2Scopes} from '@fluxer/constants/src/OAuth2Constants';
 import {
@@ -52,6 +60,22 @@ const RedirectURIString = createStringType(1).refine((value) => {
 export const OAuthScopes = OAuth2Scopes;
 
 export type OAuthScope = OAuth2Scope;
+
+const ApplicationTagType = createNamedStringLiteralUnion(
+	ApplicationTags.map((tag) => [tag, tag.toUpperCase(), ApplicationTagDescriptions[tag]] as const),
+	'A controlled-vocabulary tag categorising the application.',
+);
+
+const ApplicationTagsType = z
+	.array(ApplicationTagType)
+	.max(APPLICATION_MAX_TAGS, `Maximum of ${APPLICATION_MAX_TAGS} tags allowed`)
+	.describe('Tags categorising the application, from a controlled vocabulary');
+
+const ApplicationDescriptionType = createStringType(1, APPLICATION_DESCRIPTION_MAX_LENGTH).describe(
+	'A short description of what the application does',
+);
+
+const ApplicationPolicyURIType = RedirectURIString.describe('An absolute https URL');
 
 const AuthenticatorTypeEnum = withOpenApiType(
 	createInt32EnumType(
@@ -184,6 +208,11 @@ export type ApplicationBotResponse = z.infer<typeof ApplicationBotResponse>;
 export const ApplicationResponse = z.object({
 	id: SnowflakeStringType.describe('The unique identifier of the application'),
 	name: z.string().describe('The name of the application'),
+	description: z.string().nullable().describe('A short description of what the application does'),
+	icon: z.string().nullable().describe("The application's own icon hash, independent of its bot's avatar"),
+	tags: z.array(z.string()).max(APPLICATION_MAX_TAGS).describe('Tags categorising the application'),
+	privacy_policy_url: z.string().nullable().describe("URL of the application's privacy policy"),
+	terms_of_service_url: z.string().nullable().describe("URL of the application's terms of service"),
 	redirect_uris: z.array(z.string()).max(20).describe('The registered redirect URIs for OAuth2'),
 	bot_public: z.boolean().describe('Whether the bot can be invited by anyone'),
 	bot_require_code_grant: z.boolean().describe('Whether the bot requires OAuth2 code grant'),
@@ -382,6 +411,10 @@ export const OAuth2RedirectURIUpdateType = createRedirectURIType(true, 'Redirect
 
 export const ApplicationCreateRequest = z.object({
 	name: createStringType(1, 100).describe('The name of the application'),
+	description: ApplicationDescriptionType.nullish(),
+	tags: ApplicationTagsType.optional(),
+	privacy_policy_url: ApplicationPolicyURIType.nullish(),
+	terms_of_service_url: ApplicationPolicyURIType.nullish(),
 	redirect_uris: z
 		.array(OAuth2RedirectURICreateType)
 		.max(10, 'Maximum of 10 redirect URIs allowed')
@@ -397,6 +430,13 @@ export type ApplicationCreateRequest = z.infer<typeof ApplicationCreateRequest>;
 
 export const ApplicationUpdateRequest = z.object({
 	name: createStringType(1, 100).optional().describe('The name of the application'),
+	description: ApplicationDescriptionType.nullish(),
+	icon: createBase64StringType(1, Math.ceil(AVATAR_MAX_SIZE * (4 / 3)))
+		.nullish()
+		.describe("The application's icon, as a base64-encoded image. Null clears it."),
+	tags: ApplicationTagsType.optional(),
+	privacy_policy_url: ApplicationPolicyURIType.nullish(),
+	terms_of_service_url: ApplicationPolicyURIType.nullish(),
 	redirect_uris: z
 		.array(OAuth2RedirectURIUpdateType)
 		.max(10, 'Maximum of 10 redirect URIs allowed')

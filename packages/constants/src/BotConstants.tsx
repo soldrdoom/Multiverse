@@ -21,6 +21,53 @@ import {PublicUserFlags} from '@fluxer/constants/src/UserConstants';
 
 export const ApplicationFlags = {} as const;
 
+export const APPLICATION_MAX_TAGS = 5;
+
+export const APPLICATION_DESCRIPTION_MAX_LENGTH = 400;
+
+/**
+ * Tags are a controlled vocabulary rather than free text because they are the
+ * index a future bot directory will be browsed by. Free-text tags cannot be
+ * grouped, filtered, or moderated at scale. Adding a tag here is deliberate.
+ */
+export type ApplicationTag =
+	| 'ai'
+	| 'economy'
+	| 'fun'
+	| 'games'
+	| 'moderation'
+	| 'music'
+	| 'productivity'
+	| 'social'
+	| 'utility'
+	| 'web3';
+
+export const ApplicationTags: ReadonlyArray<ApplicationTag> = [
+	'ai',
+	'economy',
+	'fun',
+	'games',
+	'moderation',
+	'music',
+	'productivity',
+	'social',
+	'utility',
+	'web3',
+] as const;
+
+export const ApplicationTagDescriptions: Record<ApplicationTag, string> = {
+	ai: 'Assistants, language models, and generative tooling',
+	economy: 'Currencies, trading, and reward systems',
+	fun: 'Entertainment and novelty commands',
+	games: 'Games and game-adjacent integrations',
+	moderation: 'Moderation, anti-spam, and safety tooling',
+	music: 'Music playback and audio',
+	productivity: 'Scheduling, reminders, and workflow tooling',
+	social: 'Profiles, levelling, and community engagement',
+	utility: 'General-purpose helpers and information lookup',
+	web3: 'Wallets, tokens, NFTs, and on-chain integrations',
+};
+
 export const BotFlags = {
 	FRIENDLY_BOT: PublicUserFlags.FRIENDLY_BOT,
 	FRIENDLY_BOT_MANUAL_APPROVAL: PublicUserFlags.FRIENDLY_BOT_MANUAL_APPROVAL,

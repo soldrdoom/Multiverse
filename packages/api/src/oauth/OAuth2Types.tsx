@@ -33,6 +33,11 @@ export interface ApplicationBotResponse {
 export interface ApplicationResponse {
 	id: string;
 	name: string;
+	description: string | null;
+	icon: string | null;
+	tags: Array<string>;
+	privacy_policy_url: string | null;
+	terms_of_service_url: string | null;
 	redirect_uris: Array<string>;
 	bot_public: boolean;
 	bot_require_code_grant: boolean;

@@ -406,8 +406,10 @@ export class OAuth2RequestService {
 		return {
 			id: application.applicationId.toString(),
 			name: application.name,
-			icon: botUser?.avatarHash ?? null,
-			description: null,
+			// Prefer the application's own icon, falling back to the bot's avatar
+			// so applications that never set one look the same as they did before.
+			icon: application.iconHash ?? botUser?.avatarHash ?? null,
+			description: application.description,
 			redirect_uris: Array.from(application.oauth2RedirectUris),
 			scopes,
 			bot_public: application.botIsPublic,
@@ -418,8 +420,8 @@ export class OAuth2RequestService {
 	async getApplicationsMe(authorizationHeader: string | undefined): Promise<{
 		id: string;
 		name: string;
-		icon: null;
-		description: null;
+		icon: string | null;
+		description: string | null;
 		bot_public: boolean;
 		bot_require_code_grant: boolean;
 		flags: number;
@@ -448,8 +450,8 @@ export class OAuth2RequestService {
 		const response: {
 			id: string;
 			name: string;
-			icon: null;
-			description: null;
+			icon: string | null;
+			description: string | null;
 			bot_public: boolean;
 			bot_require_code_grant: boolean;
 			flags: number;
@@ -457,8 +459,8 @@ export class OAuth2RequestService {
 		} = {
 			id: application.applicationId.toString(),
 			name: application.name,
-			icon: null,
-			description: null,
+			icon: application.iconHash,
+			description: application.description,
 			bot_public: application.botIsPublic,
 			bot_require_code_grant: application.botRequireCodeGrant,
 			flags: 0,

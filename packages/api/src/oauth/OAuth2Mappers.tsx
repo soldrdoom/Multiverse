@@ -56,6 +56,11 @@ export function mapApplicationToResponse(
 	const baseResponse: ApplicationResponse = {
 		id: application.applicationId.toString(),
 		name: application.name,
+		description: application.description,
+		icon: application.iconHash,
+		tags: Array.from(application.tags),
+		privacy_policy_url: application.privacyPolicyUrl,
+		terms_of_service_url: application.termsOfServiceUrl,
 		redirect_uris: Array.from(application.oauth2RedirectUris),
 		bot_public: application.botIsPublic,
 		bot_require_code_grant: application.botRequireCodeGrant,

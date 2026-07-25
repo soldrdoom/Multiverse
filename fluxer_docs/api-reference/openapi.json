@@ -80937,6 +80937,58 @@
             "type": "string",
             "description": "The name of the application"
           },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "A short description of what the application does"
+          },
+          "icon": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The application's own icon hash, independent of its bot's avatar"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 5,
+            "description": "Tags categorising the application"
+          },
+          "privacy_policy_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URL of the application's privacy policy"
+          },
+          "terms_of_service_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URL of the application's terms of service"
+          },
           "redirect_uris": {
             "type": "array",
             "items": {
@@ -80964,6 +81016,11 @@
         "required": [
           "id",
           "name",
+          "description",
+          "icon",
+          "tags",
+          "privacy_policy_url",
+          "terms_of_service_url",
           "redirect_uris",
           "bot_public",
           "bot_require_code_grant"
@@ -80975,6 +81032,84 @@
           "name": {
             "type": "string",
             "description": "The name of the application"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "A short description of what the application does"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "ai",
+                "economy",
+                "fun",
+                "games",
+                "moderation",
+                "music",
+                "productivity",
+                "social",
+                "utility",
+                "web3"
+              ],
+              "x-enumNames": [
+                "AI",
+                "ECONOMY",
+                "FUN",
+                "GAMES",
+                "MODERATION",
+                "MUSIC",
+                "PRODUCTIVITY",
+                "SOCIAL",
+                "UTILITY",
+                "WEB3"
+              ],
+              "x-enumDescriptions": [
+                "Assistants, language models, and generative tooling",
+                "Currencies, trading, and reward systems",
+                "Entertainment and novelty commands",
+                "Games and game-adjacent integrations",
+                "Moderation, anti-spam, and safety tooling",
+                "Music playback and audio",
+                "Scheduling, reminders, and workflow tooling",
+                "Profiles, levelling, and community engagement",
+                "General-purpose helpers and information lookup",
+                "Wallets, tokens, NFTs, and on-chain integrations"
+              ],
+              "description": "A controlled-vocabulary tag categorising the application."
+            },
+            "maxItems": 5,
+            "description": "Tags categorising the application, from a controlled vocabulary"
+          },
+          "privacy_policy_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "An absolute https URL"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "terms_of_service_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "An absolute https URL"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "redirect_uris": {
             "anyOf": [
@@ -81019,6 +81154,95 @@
           "name": {
             "type": "string",
             "description": "The name of the application"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "A short description of what the application does"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "icon": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Base64ImageType"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The application's icon, as a base64-encoded image. Null clears it."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "ai",
+                "economy",
+                "fun",
+                "games",
+                "moderation",
+                "music",
+                "productivity",
+                "social",
+                "utility",
+                "web3"
+              ],
+              "x-enumNames": [
+                "AI",
+                "ECONOMY",
+                "FUN",
+                "GAMES",
+                "MODERATION",
+                "MUSIC",
+                "PRODUCTIVITY",
+                "SOCIAL",
+                "UTILITY",
+                "WEB3"
+              ],
+              "x-enumDescriptions": [
+                "Assistants, language models, and generative tooling",
+                "Currencies, trading, and reward systems",
+                "Entertainment and novelty commands",
+                "Games and game-adjacent integrations",
+                "Moderation, anti-spam, and safety tooling",
+                "Music playback and audio",
+                "Scheduling, reminders, and workflow tooling",
+                "Profiles, levelling, and community engagement",
+                "General-purpose helpers and information lookup",
+                "Wallets, tokens, NFTs, and on-chain integrations"
+              ],
+              "description": "A controlled-vocabulary tag categorising the application."
+            },
+            "maxItems": 5,
+            "description": "Tags categorising the application, from a controlled vocabulary"
+          },
+          "privacy_policy_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "An absolute https URL"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "terms_of_service_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "An absolute https URL"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "redirect_uris": {
             "anyOf": [

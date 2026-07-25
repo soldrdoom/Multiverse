@@ -34,6 +34,10 @@ export async function createOAuth2Application(
 	token: string,
 	params: {
 		name: string;
+		description?: string | null;
+		tags?: Array<string>;
+		privacy_policy_url?: string | null;
+		terms_of_service_url?: string | null;
 		redirect_uris?: Array<string> | null;
 		bot_public?: boolean;
 		bot_require_code_grant?: boolean;
@@ -42,6 +46,10 @@ export async function createOAuth2Application(
 	const body = {
 		name: params.name,
 		redirect_uris: params.redirect_uris ?? [],
+		...(params.description !== undefined && {description: params.description}),
+		...(params.tags !== undefined && {tags: params.tags}),
+		...(params.privacy_policy_url !== undefined && {privacy_policy_url: params.privacy_policy_url}),
+		...(params.terms_of_service_url !== undefined && {terms_of_service_url: params.terms_of_service_url}),
 		...(params.bot_public !== undefined && {bot_public: params.bot_public}),
 		...(params.bot_require_code_grant !== undefined && {bot_require_code_grant: params.bot_require_code_grant}),
 	};
@@ -112,6 +120,11 @@ export async function updateOAuth2Application(
 	applicationId: string,
 	params: {
 		name?: string;
+		description?: string | null;
+		icon?: string | null;
+		tags?: Array<string>;
+		privacy_policy_url?: string | null;
+		terms_of_service_url?: string | null;
 		redirect_uris?: Array<string> | null;
 		bot_public?: boolean;
 		bot_require_code_grant?: boolean;

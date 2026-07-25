@@ -23,6 +23,12 @@ export interface ApplicationRow {
 	application_id: ApplicationID;
 	owner_user_id: UserID;
 	name: string;
+	description: string | null;
+	icon_hash: string | null;
+	tags: Set<string> | null;
+	privacy_policy_url: string | null;
+	terms_of_service_url: string | null;
+	team_id: bigint | null;
 	bot_user_id: UserID | null;
 	bot_is_public: boolean | null;
 	bot_require_code_grant?: boolean | null;
@@ -80,6 +86,12 @@ export const APPLICATION_COLUMNS = [
 	'application_id',
 	'owner_user_id',
 	'name',
+	'description',
+	'icon_hash',
+	'tags',
+	'privacy_policy_url',
+	'terms_of_service_url',
+	'team_id',
 	'bot_user_id',
 	'bot_is_public',
 	'bot_require_code_grant',

@@ -31,6 +31,11 @@ export interface DeveloperApplicationBot {
 export interface DeveloperApplication {
 	id: string;
 	name: string;
+	description: string | null;
+	icon: string | null;
+	tags: Array<string>;
+	privacy_policy_url: string | null;
+	terms_of_service_url: string | null;
 	redirect_uris: Array<string>;
 	bot_public: boolean;
 	bot_require_code_grant: boolean;
@@ -41,6 +46,11 @@ export interface DeveloperApplication {
 export class DeveloperApplicationRecord implements DeveloperApplication {
 	readonly id: string;
 	readonly name: string;
+	readonly description: string | null;
+	readonly icon: string | null;
+	readonly tags: Array<string>;
+	readonly privacy_policy_url: string | null;
+	readonly terms_of_service_url: string | null;
 	readonly redirect_uris: Array<string>;
 	readonly bot_public: boolean;
 	readonly bot_require_code_grant: boolean;
@@ -50,6 +60,11 @@ export class DeveloperApplicationRecord implements DeveloperApplication {
 	constructor(application: DeveloperApplication) {
 		this.id = application.id;
 		this.name = application.name;
+		this.description = application.description ?? null;
+		this.icon = application.icon ?? null;
+		this.tags = application.tags ? [...application.tags] : [];
+		this.privacy_policy_url = application.privacy_policy_url ?? null;
+		this.terms_of_service_url = application.terms_of_service_url ?? null;
 		this.redirect_uris = application.redirect_uris ? [...application.redirect_uris] : [];
 		this.bot_public = application.bot_public;
 		this.bot_require_code_grant = application.bot_require_code_grant;
@@ -87,6 +102,11 @@ export class DeveloperApplicationRecord implements DeveloperApplication {
 		return {
 			id: this.id,
 			name: this.name,
+			description: this.description,
+			icon: this.icon,
+			tags: [...this.tags],
+			privacy_policy_url: this.privacy_policy_url,
+			terms_of_service_url: this.terms_of_service_url,
 			redirect_uris: [...this.redirect_uris],
 			bot_public: this.bot_public,
 			bot_require_code_grant: this.bot_require_code_grant,
