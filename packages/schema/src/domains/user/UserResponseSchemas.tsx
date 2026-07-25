@@ -78,7 +78,7 @@ export type UserPartialResponse = z.infer<typeof UserPartialResponse>;
 
 export const UserPrivateResponse = UserPartialResponse.extend({
 	is_staff: z.boolean().describe('Whether the user has staff permissions'),
-	acls: z.array(z.string()).max(100).describe('Access control list entries for the user'),
+	acls: z.array(z.string()).max(150).describe('Access control list entries for the user'),
 	traits: z.array(z.string()).max(100).describe('Special traits assigned to the user account'),
 	email: z.string().nullable().describe('The email address associated with the account'),
 	email_bounced: z
