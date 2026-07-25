@@ -159,6 +159,7 @@ export interface TokenGateRecheckResult {
 export async function recheckTokenGateAccess(channelId: string): Promise<TokenGateRecheckResult> {
 	try {
 		const response = await http.post<TokenGateRecheckResult>({url: Endpoints.CHANNEL_TOKEN_GATE_RECHECK(channelId)});
+		ChannelStore.applyTokenGateRecheckResult(channelId, response.body.satisfied, response.body.gate_address);
 		return response.body;
 	} catch (error) {
 		logger.error(`Failed to recheck token gate access for channel ${channelId}:`, error);

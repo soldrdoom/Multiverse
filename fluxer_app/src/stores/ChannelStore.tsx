@@ -117,6 +117,22 @@ class ChannelStore {
 		this.optimisticChannelBackups.delete(channelId);
 	}
 
+	/** Patches local token gate state after a client-initiated recheck; there is no gateway push for per-user gate results. */
+	@action
+	applyTokenGateRecheckResult(channelId: string, satisfied: boolean, gateAddress: string | null): void {
+		const channel = this.channelsById.get(channelId);
+		if (!channel) {
+			return;
+		}
+
+		this.setChannel(
+			channel.withUpdates({
+				token_gate_satisfied: satisfied,
+				token_gate_address: gateAddress,
+			}),
+		);
+	}
+
 	@action
 	private setChannel(channel: ChannelRecord | Channel): void {
 		const record = channel instanceof ChannelRecord ? channel : new ChannelRecord(channel);

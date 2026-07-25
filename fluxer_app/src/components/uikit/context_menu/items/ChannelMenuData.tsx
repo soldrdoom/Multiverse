@@ -48,6 +48,7 @@ import {
 	NotificationSettingsIcon,
 	OpenLinkIcon,
 	PinIcon,
+	RetryIcon,
 	SendInvitesIcon,
 	SettingsIcon,
 } from '@app/components/uikit/context_menu/ContextMenuIcons';
@@ -104,6 +105,7 @@ export interface ChannelMenuHandlers {
 	handleLeaveGroup: () => void;
 	handleCloseDM: () => void;
 	handleDebugChannel: () => void;
+	handleRecheckAccess: () => Promise<void>;
 }
 
 export interface ChannelMenuState {
@@ -120,6 +122,7 @@ export interface ChannelMenuState {
 	canInvite: boolean;
 	developerMode: boolean;
 	isPinned: boolean;
+	isLockedForMe: boolean;
 	mutedText: string | undefined;
 }
 
@@ -146,6 +149,7 @@ function getChannelMenuState(channel: ChannelRecord, guild: GuildRecord | undefi
 	const canInvite = InviteUtils.canInviteToChannel(channel.id, channel.guildId);
 	const developerMode = UserSettingsStore.developerMode;
 	const isPinned = channel.isPinned;
+	const isLockedForMe = channel.isLockedForMe;
 
 	return {
 		isGroupDM,
@@ -161,6 +165,7 @@ function getChannelMenuState(channel: ChannelRecord, guild: GuildRecord | undefi
 		canInvite,
 		developerMode,
 		isPinned,
+		isLockedForMe,
 		mutedText,
 	};
 }
@@ -327,6 +332,24 @@ export function useChannelMenuData(
 				onClose();
 				ModalActionCreators.push(modal(() => <ChannelDebugModal title={t`Channel Debug`} channel={channel} />));
 			},
+			handleRecheckAccess: async () => {
+				onClose();
+				try {
+					const {satisfied} = await ChannelActionCreators.recheckTokenGateAccess(channel.id);
+					ToastActionCreators.createToast({
+						type: satisfied ? 'success' : 'error',
+						children: satisfied
+							? t`Access granted — you can now view #${channel.name ?? channel.id}`
+							: t`You still don't hold the required token for this channel`,
+					});
+				} catch (error) {
+					logger.error(`Failed to recheck token gate access for channel ${channel.id}:`, error);
+					ToastActionCreators.createToast({
+						type: 'error',
+						children: t`Failed to recheck access`,
+					});
+				}
+			},
 		}),
 		[channel, guild, i18n, leaveGroup, onClose, onOpenMuteSheet, t],
 	);
@@ -433,6 +456,18 @@ export function useChannelMenuData(
 		}
 
 		if (guild && (state.isTextChannel || state.isVoiceChannel || state.isLinkChannel)) {
+			if (state.isLockedForMe) {
+				menuGroups.push({
+					items: [
+						{
+							icon: <RetryIcon size={20} />,
+							label: t`Recheck Access`,
+							onClick: handlers.handleRecheckAccess,
+						},
+					],
+				});
+			}
+
 			if (state.hasUnread) {
 				menuGroups.push({
 					items: [
