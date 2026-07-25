@@ -74,7 +74,7 @@ export function InviteController(app: HonoApp) {
 				'Accepts an invite using its code, adding the authenticated user to the corresponding guild, pack, or other entity. The invite usage count is incremented, and if it reaches its maximum usage limit or expiration, the invite is automatically revoked. Returns the accepted invite details.',
 			responseSchema: InviteResponseSchema,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Invites'],
 		}),
 		async (ctx) => {
@@ -207,7 +207,7 @@ export function InviteController(app: HonoApp) {
 				'Retrieves all currently active invites for the specified pack, including invite codes, creators, expiration times, and usage statistics. The authenticated user must have permission to manage invites for the pack and must be a default (non-bot) user. Returns an array of invite metadata objects.',
 			responseSchema: z.array(InviteMetadataResponseSchema),
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Invites'],
 		}),
 		async (ctx) => {
@@ -233,7 +233,7 @@ export function InviteController(app: HonoApp) {
 				'Creates a new invite for the specified pack with optional parameters such as maximum age and maximum uses. The authenticated user must have permission to create invites for the pack and must be a default (non-bot) user. Returns the created invite with full metadata including usage statistics.',
 			responseSchema: InviteMetadataResponseSchema,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Invites'],
 		}),
 		async (ctx) => {

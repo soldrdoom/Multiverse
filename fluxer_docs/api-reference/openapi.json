@@ -9960,6 +9960,991 @@
         }
       }
     },
+    "/admin/news/create": {
+      "post": {
+        "operationId": "create_news_story",
+        "summary": "Create a news story",
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStoryAdminResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Create a news story"
+          }
+        },
+        "description": "Creates a new news story as a draft. Requires NEWS_MANAGE permission.",
+        "security": [
+          {
+            "adminApiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNewsStoryRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/news/delete": {
+      "post": {
+        "operationId": "delete_news_story",
+        "summary": "Delete a news story",
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteNewsStoryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Delete a news story"
+          }
+        },
+        "description": "Permanently deletes a news story. Requires NEWS_MANAGE permission.",
+        "security": [
+          {
+            "adminApiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewsStoryIdRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/news/list": {
+      "post": {
+        "operationId": "list_news_stories",
+        "summary": "List news stories",
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListNewsStoriesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "List news stories"
+          }
+        },
+        "description": "Lists all news stories regardless of status. Requires NEWS_VIEW permission.",
+        "security": [
+          {
+            "adminApiKey": []
+          }
+        ]
+      }
+    },
+    "/admin/news/publish": {
+      "post": {
+        "operationId": "publish_news_story",
+        "summary": "Publish a news story",
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStoryAdminResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Publish a news story"
+          }
+        },
+        "description": "Publishes a draft news story, making it visible on public surfaces. Requires NEWS_MANAGE permission.",
+        "security": [
+          {
+            "adminApiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewsStoryIdRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/news/unpublish": {
+      "post": {
+        "operationId": "unpublish_news_story",
+        "summary": "Unpublish a news story",
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStoryAdminResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Unpublish a news story"
+          }
+        },
+        "description": "Reverts a published news story back to draft. Requires NEWS_MANAGE permission.",
+        "security": [
+          {
+            "adminApiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewsStoryIdRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/news/update": {
+      "post": {
+        "operationId": "update_news_story",
+        "summary": "Update a news story",
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStoryAdminResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Update a news story"
+          }
+        },
+        "description": "Updates the title and body of an existing news story. Requires NEWS_MANAGE permission.",
+        "security": [
+          {
+            "adminApiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNewsStoryRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/news/{story_id}": {
+      "get": {
+        "operationId": "get_news_story",
+        "summary": "Get a news story",
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStoryAdminResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Get a news story"
+          }
+        },
+        "description": "Retrieves a single news story by ID. Requires NEWS_VIEW permission.",
+        "security": [
+          {
+            "adminApiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "story_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The story id"
+          }
+        ]
+      }
+    },
     "/admin/reports/list": {
       "post": {
         "operationId": "list_reports",
@@ -16600,6 +17585,148 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSuspiciousActivityFlagsRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/update-visionary": {
+      "post": {
+        "operationId": "update_user_visionary",
+        "summary": "Grant or revoke Visionary status",
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserMutationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Grant or revoke Visionary status"
+          }
+        },
+        "description": "Grant or revoke the lifetime \"Visionary\" premium badge for a user. Creates audit log entry. Requires USER_UPDATE_PREMIUM permission.",
+        "security": [
+          {
+            "adminApiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserVisionaryRequest"
               }
             }
           }
@@ -23442,9 +24569,6 @@
         "description": "Clears all read state and acknowledgement records for a channel, marking all messages as unread. Only available for regular user accounts. Returns 204 No Content on success.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -24500,9 +25624,6 @@
         "description": "Marks a message as read and records acknowledgement state. Only available for regular user accounts. Updates mention count if provided. Returns 204 No Content on success.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -24822,9 +25943,6 @@
         },
         "description": "Saves a message attachment as a favorite meme.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -27037,6 +28155,587 @@
             "description": "The ID of the channel"
           }
         ]
+      }
+    },
+    "/channels/{channel_id}/token-gate": {
+      "put": {
+        "operationId": "set_channel_token_gate",
+        "summary": "Set the tokengate for a channel or category",
+        "tags": [
+          "Channels"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Set the tokengate for a channel or category"
+          }
+        },
+        "description": "Requires members to hold an NFT satisfying the given address to view this channel/category, per match_mode (exact mint by default, or any asset in the collection). Categories with a gate are inherited by child channels that have no gate of their own. Requires Manage Channels.",
+        "security": [
+          {
+            "botToken": []
+          },
+          {
+            "sessionToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SnowflakeType"
+            },
+            "description": "The ID of the channel"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenGateSetRequest"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "delete_channel_token_gate",
+        "summary": "Clear the tokengate for a channel or category",
+        "tags": [
+          "Channels"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Clear the tokengate for a channel or category"
+          }
+        },
+        "description": "Removes this channel/category's own tokengate. A channel with no gate of its own falls back to its parent category's gate, if any. Requires Manage Channels.",
+        "security": [
+          {
+            "botToken": []
+          },
+          {
+            "sessionToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SnowflakeType"
+            },
+            "description": "The ID of the channel"
+          }
+        ]
+      }
+    },
+    "/channels/{channel_id}/token-gate/recheck": {
+      "post": {
+        "operationId": "recheck_channel_token_gate",
+        "summary": "Recheck the current user’s access to a gated channel",
+        "tags": [
+          "Channels"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenGateRecheckResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Recheck the current user’s access to a gated channel"
+          }
+        },
+        "description": "Forces a fresh on-chain lookup for the requesting user's linked wallet against this channel's effective tokengate, bypassing the cached result. Intended for a user who just acquired the required NFT and wants immediate access without waiting for the cache to expire.",
+        "security": [
+          {
+            "botToken": []
+          },
+          {
+            "sessionToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SnowflakeType"
+            },
+            "description": "The ID of the channel"
+          }
+        ]
+      }
+    },
+    "/channels/{channel_id}/token-gate/visibility": {
+      "put": {
+        "operationId": "set_channel_token_gate_visibility",
+        "summary": "Set how a channel/category appears to members who fail its tokengate",
+        "tags": [
+          "Channels"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Set how a channel/category appears to members who fail its tokengate"
+          }
+        },
+        "description": "Sets this channel/category's own choice for whether members who don't satisfy its effective tokengate see it locked (visible, not enterable) or hidden entirely. A channel with no explicit choice of its own falls back to its parent category's choice, then to LOCKED. Requires Manage Channels.",
+        "security": [
+          {
+            "botToken": []
+          },
+          {
+            "sessionToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SnowflakeType"
+            },
+            "description": "The ID of the channel"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenGateVisibilitySetRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/channels/{channel_id}/typing": {
@@ -30043,9 +31742,6 @@
         },
         "description": "List guild audit logs. Only default users can access. Requires view_audit_logs permission. Returns guild activity history with pagination and action filtering.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -36634,9 +38330,6 @@
         "description": "Only default users can set vanity URLs. Requires manage_guild permission. Sets or removes a custom invite code.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -37055,9 +38748,6 @@
         "description": "Accepts an invite using its code, adding the authenticated user to the corresponding guild, pack, or other entity. The invite usage count is incremented, and if it reaches its maximum usage limit or expiration, the invite is automatically revoked. Returns the accepted invite details.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -37338,9 +39028,6 @@
         "description": "Retrieves currently featured GIFs from KLIPY based on user locale.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -37475,9 +39162,6 @@
         },
         "description": "Registers a shared GIF with KLIPY to track usage and analytics.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -37623,9 +39307,6 @@
         },
         "description": "Searches KLIPY for GIFs matching the given query string and locale.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -37781,9 +39462,6 @@
         "description": "Returns search term suggestions from KLIPY based on the partial query provided.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -37938,9 +39616,6 @@
         "description": "Retrieves trending GIFs from KLIPY based on user locale and popularity.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -37956,12 +39631,12 @@
         ]
       }
     },
-    "/nfts": {
+    "/news": {
       "get": {
-        "operationId": "list_owned_nfts",
-        "summary": "List cosmetic NFTs in the current user's wallet",
+        "operationId": "list_published_news",
+        "summary": "List published news stories",
         "tags": [
-          "Cosmetics"
+          "News"
         ],
         "responses": {
           "200": {
@@ -37969,33 +39644,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NftsResponse"
+                  "$ref": "#/components/schemas/ListPublishedNewsResponse"
                 }
               }
             }
           },
           "400": {
             "description": "Bad Request - The request was malformed or contained invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized - Authentication is required or the token is invalid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden - You do not have permission to perform this action",
             "content": {
               "application/json": {
                 "schema": {
@@ -38077,14 +39732,10 @@
         },
         "x-mint": {
           "metadata": {
-            "title": "List cosmetic NFTs in the current user's wallet"
+            "title": "List published news stories"
           }
         },
-        "security": [
-          {
-            "sessionToken": []
-          }
-        ]
+        "description": "Returns published news stories for display on public surfaces such as the login page. No authentication required."
       }
     },
     "/oauth2/@me": {
@@ -38346,9 +39997,6 @@
         "description": "Lists all third-party applications the user has authorized. Shows granted scopes and authorization metadata. Allows user to review and manage delegated access.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -38473,9 +40121,6 @@
         },
         "description": "Revokes user authorization for a third-party application. Immediately invalidates all tokens issued to that application. User regains control of delegated access.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -38620,9 +40265,6 @@
         "description": "Creates a new OAuth2 application (client). Returns client credentials including ID and secret. Application can be used for authorization flows and API access.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -38765,9 +40407,6 @@
         "description": "Lists all OAuth2 applications owned by the authenticated user. Includes application credentials, metadata, and configuration.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -38899,9 +40538,6 @@
         },
         "description": "Retrieves details of a specific OAuth2 application owned by the user. Returns full application configuration and credentials.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -39043,9 +40679,6 @@
         },
         "description": "Modifies OAuth2 application configuration such as name, description, and redirect URIs. Does not rotate credentials.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -39190,9 +40823,6 @@
         },
         "description": "Permanently deletes an OAuth2 application. Requires sudo mode authentication. Invalidates all issued tokens and revokes all user authorizations.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -39347,9 +40977,6 @@
         "description": "Modifies bot profile information such as name, avatar, and status. Changes apply to the bot account associated with this OAuth2 application.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -39503,9 +41130,6 @@
         "description": "Rotates the bot token for an OAuth2 application. Requires sudo mode authentication. Invalidates all previously issued bot tokens. Used for security rotation and compromise mitigation.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -39658,9 +41282,6 @@
         },
         "description": "Rotates the client secret for an OAuth2 application. Requires sudo mode authentication. Essential security operation for protecting client credentials. Existing access tokens remain valid.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -39932,9 +41553,6 @@
         },
         "description": "User grants permission for an OAuth2 application to access authorized scopes. Used in authorization code flow to complete the authorization process after user review.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -40535,9 +42153,6 @@
         },
         "description": "Returns a dashboard view containing all emoji and sticker packs created by or owned by the authenticated user. This includes pack metadata such as name, description, type, and cover image.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -42223,9 +43838,6 @@
         "description": "Updates the metadata for an existing pack owned by the authenticated user. Allowed modifications include name, description, and cover image. Returns the updated pack with all current metadata.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -42370,9 +43982,6 @@
         "description": "Permanently deletes a pack owned by the authenticated user along with all emojis or stickers contained within it. This action cannot be undone and will remove all associated assets.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -42509,9 +44118,6 @@
         "description": "Installs a pack to the authenticated user's collection, making its emojis or stickers available for use. The pack must be publicly accessible or owned by the user.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -42645,9 +44251,6 @@
         },
         "description": "Uninstalls a pack from the authenticated user's collection, removing access to its emojis or stickers. This does not delete the pack itself, only removes it from the user's installed list.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -42795,9 +44398,6 @@
         "description": "Retrieves all currently active invites for the specified pack, including invite codes, creators, expiration times, and usage statistics. The authenticated user must have permission to manage invites for the pack and must be a default (non-bot) user. Returns an array of invite metadata objects.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -42938,9 +44538,6 @@
         },
         "description": "Creates a new invite for the specified pack with optional parameters such as maximum age and maximum uses. The authenticated user must have permission to create invites for the pack and must be a default (non-bot) user. Returns the created invite with full metadata including usage statistics.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -43095,9 +44692,6 @@
         "description": "Creates a new emoji or sticker pack owned by the authenticated user. The pack type is specified in the path parameter and can be either \"emoji\" or \"sticker\". Returns the newly created pack with its metadata.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -43243,9 +44837,6 @@
         },
         "description": "Marks multiple channels as read for the authenticated user in bulk.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -43740,9 +45331,6 @@
         "description": "Submits a report about a guild to moderators for policy violation review.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -43884,9 +45472,6 @@
         },
         "description": "Submits a report about a message to moderators for content violation review.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -44030,9 +45615,6 @@
         "description": "Submits a report about a user to moderators for content violation or behaviour review.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -44174,9 +45756,6 @@
         },
         "description": "Searches for messages across guilds and channels accessible to the authenticated user.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -44746,9 +46325,6 @@
         "description": "Retrieves currently featured GIFs from Tenor based on user locale.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -44883,9 +46459,6 @@
         },
         "description": "Registers a shared GIF with Tenor to help tune search results.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -45031,9 +46604,6 @@
         },
         "description": "Searches Tenor for GIFs matching the given query string and locale.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -45189,9 +46759,6 @@
         "description": "Returns search term suggestions from Tenor based on the partial query provided.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -45345,9 +46912,6 @@
         },
         "description": "Retrieves trending/featured GIFs from Tenor based on user locale and popularity.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -45629,9 +47193,6 @@
         "description": "Updates the authenticated user's profile information such as username, avatar, and bio. Requires sudo mode verification for security-sensitive changes. Only default users can modify their own profile.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -45774,9 +47335,6 @@
         "description": "Lists all OAuth2 applications owned by the authenticated user. Includes application credentials, metadata, and configuration.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -45901,9 +47459,6 @@
         },
         "description": "Clears all authorized IP addresses for the current user. After calling this endpoint, the user will be required to re-authorize any new IP addresses they log in from. Requires sudo mode verification.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -46049,9 +47604,6 @@
         },
         "description": "Retrieves all private channels (direct messages) accessible to the current user. Returns list of channel objects with metadata including recipient information.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -46466,9 +48018,6 @@
         "description": "Pins a private message channel for the current user. Pinned channels appear at the top of the channel list for easy access.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -46602,9 +48151,6 @@
         },
         "description": "Unpins a private message channel for the current user. The channel will return to its normal position in the channel list based on activity.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -46749,9 +48295,6 @@
         "description": "Retrieves all external service connections for the authenticated user.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "oauth2Token": [
               "connections"
             ]
@@ -46886,9 +48429,6 @@
         },
         "description": "Initiates a new external service connection and returns verification instructions. No database record is created until verification succeeds.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -47167,9 +48707,6 @@
         "description": "Updates the display order of multiple connections in a single operation.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -47312,9 +48849,6 @@
         "description": "Verifies the external service connection using the initiation token and creates the connection record on success.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -47449,9 +48983,6 @@
         },
         "description": "Updates visibility and sort order settings for an external service connection.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -47606,9 +49137,6 @@
         "description": "Removes an external service connection from the authenticated user's profile.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -47760,9 +49288,6 @@
         },
         "description": "Triggers verification for an external service connection.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -48179,9 +49704,6 @@
         "description": "Permanently deletes the current user's account and all associated data. Requires sudo mode verification. This action is irreversible and will remove all user data, messages, and connections.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -48316,9 +49838,6 @@
         },
         "description": "Temporarily disables the current user's account. Requires sudo mode verification. The account can be re-enabled by logging in again. User data is preserved but the account will be inaccessible during the disabled period.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -48462,9 +49981,6 @@
         "description": "Starts a dedicated bounced-email recovery flow. Sends a verification code to the replacement email without requiring verification of the old bounced email address.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -48599,9 +50115,6 @@
         },
         "description": "Resends the verification code for the bounced-email recovery flow to the replacement email address.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -48745,9 +50258,6 @@
         "description": "Completes bounced-email recovery by verifying the replacement email code, updating the account email, and clearing email-related suspicious-activity requirements.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -48890,9 +50400,6 @@
         "description": "Requests to change email to a new address. Requires proof of original email verification. Sends confirmation code to new email address for verification.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -49028,9 +50535,6 @@
         "description": "Resends a confirmation code to the new email address during the email change process. Use this if the new email confirmation was not received. Requires valid email change ticket.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -49165,9 +50669,6 @@
         },
         "description": "Resends a confirmation code to the user's original email address during the email change process. Use this if the original confirmation email was not received. Requires valid email change ticket.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -49311,9 +50812,6 @@
         "description": "Initiates an email change process. Generates a ticket for verifying the original email address before requesting a new email. Returns ticket for use in subsequent email change steps.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -49456,9 +50954,6 @@
         "description": "Completes the email change process by verifying the new email address with a confirmation code. Returns an email token that confirms the email change. After this step, the user may need to re-authenticate.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -49600,9 +51095,6 @@
         },
         "description": "Verifies ownership of the original email address by validating a confirmation code sent to that address. Must be completed before requesting a new email address. Returns proof token for use in new email request.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -49928,9 +51420,6 @@
         "description": "Updates the user's notification settings for direct messages and group DMs. Controls how DM notifications are handled.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -50212,9 +51701,6 @@
         "description": "Updates the user's settings for a specific guild, such as notification preferences and visibility settings. Guild-specific settings override default settings.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -50368,9 +51854,6 @@
         "description": "Requests a data harvest of all user data and content. Initiates an asynchronous process to compile and prepare all data for download in a portable format. Returns harvest ID and status.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -50503,9 +51986,6 @@
         "description": "Retrieves the status of the most recent data harvest request. Returns null if no harvest has been requested yet. Shows progress and estimated completion time.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -50637,9 +52117,6 @@
         },
         "description": "Retrieves detailed status information for a specific data harvest. Shows progress, completion status, and other metadata about the harvest request.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -50784,9 +52261,6 @@
         "description": "Retrieves the download URL for a completed data harvest. The URL is temporary and expires after a set time. Can only be accessed for completed harvests.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -50930,9 +52404,6 @@
         "description": "Retrieves all memes saved as favorites by the authenticated user.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -51062,9 +52533,6 @@
         },
         "description": "Saves a new meme to favorites from a provided URL.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -51208,9 +52676,6 @@
         "description": "Retrieves a specific favorite meme by ID.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -51351,9 +52816,6 @@
         },
         "description": "Updates details of a favorite meme.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -51499,9 +52961,6 @@
         "description": "Removes a favorite meme from the authenticated user's collection.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -51644,9 +53103,6 @@
         },
         "description": "Retrieves messages where the current user was mentioned. Supports filtering by role mentions, everyone mentions, and specific guilds. Returns paginated list of messages.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -51819,9 +53275,6 @@
         "description": "Removes a mention from the current user's mention history. Does not delete the original message, only removes it from the user's personal mention list.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -51957,9 +53410,6 @@
         },
         "description": "Initiates bulk deletion of all messages sent by the current user. Requires sudo mode verification. The deletion process is asynchronous and may take time to complete. User data remains intact.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -52101,9 +53551,6 @@
         "description": "Cancels an in-progress bulk message deletion request. Can only be used if the deletion has not yet completed. Returns success status.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -52228,9 +53675,6 @@
         },
         "description": "Staff-only endpoint for testing bulk message deletion functionality. Creates a test deletion request with a 1-minute delay. Only accessible to users with staff privileges.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -52363,9 +53807,6 @@
         },
         "description": "Generate and retrieve new backup codes for account recovery. Requires sudo mode verification. Old codes are invalidated.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -52502,9 +53943,6 @@
         "description": "Disable SMS-based multi-factor authentication on the current account. Requires sudo mode verification for security.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -52640,9 +54078,6 @@
         "description": "Enable SMS-based multi-factor authentication on the current account. Requires sudo mode verification and a verified phone number.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -52777,9 +54212,6 @@
         },
         "description": "Disable TOTP multi-factor authentication on the current account. Requires sudo mode verification for security.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -52923,9 +54355,6 @@
         "description": "Enable time-based one-time password (TOTP) MFA on the current account. Returns backup codes for account recovery. Requires sudo mode verification.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -53068,9 +54497,6 @@
         "description": "Retrieve all registered WebAuthn credentials (security keys, biometric devices) for the current user. Requires authentication.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -53193,9 +54619,6 @@
         },
         "description": "Complete registration of a new WebAuthn credential (security key or biometric device). Requires sudo mode verification.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -53339,9 +54762,6 @@
         "description": "Generate challenge and options to register a new WebAuthn credential. Requires sudo mode verification.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -53476,9 +54896,6 @@
         },
         "description": "Update the name or settings of a registered WebAuthn credential. Requires sudo mode verification.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -53623,9 +55040,6 @@
         },
         "description": "Remove a registered WebAuthn credential from the current account. Requires sudo mode verification for security.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -53780,9 +55194,6 @@
         "description": "Retrieves all notes the current user has written about other users. Returns a record of user IDs to notes. These are private notes visible only to the authenticated user.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -53914,9 +55325,6 @@
         },
         "description": "Retrieves a specific note the current user has written about another user. Returns the note text and metadata. These are private notes visible only to the authenticated user.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -54051,9 +55459,6 @@
         },
         "description": "Creates or updates a private note on another user. The note is visible only to the authenticated user. Send null or empty string to delete an existing note.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -54201,9 +55606,6 @@
         "description": "Completes the password change after email verification. Requires the verification proof and new password. Invalidates all existing sessions.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -54338,9 +55740,6 @@
         },
         "description": "Resends the verification code for a password change. Use if the original code was not received. Requires a valid password change ticket.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -54484,9 +55883,6 @@
         "description": "Initiates a password change process. Sends a verification code to the user's email address. Returns a ticket for use in subsequent password change steps.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -54629,9 +56025,6 @@
         "description": "Verifies the email code sent during password change. Returns a proof token needed to complete the password change.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -54767,9 +56160,6 @@
         "description": "Add or update the phone number associated with the current account. Requires sudo mode verification. Phone must be verified before use.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -54902,9 +56292,6 @@
         },
         "description": "Remove the phone number from the current account. Requires sudo mode verification. SMS MFA will be disabled if enabled.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -55040,9 +56427,6 @@
         },
         "description": "Request a verification code to be sent via SMS to the provided phone number. Requires authentication.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -55185,9 +56569,6 @@
         },
         "description": "Verify a phone number by confirming the SMS verification code. Returns phone verification status.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -55469,9 +56850,6 @@
         "description": "Staff-only endpoint that clears premium status and related premium metadata for the current user account.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -55603,9 +56981,6 @@
         },
         "description": "Registers a new push notification subscription for the current user. Takes push endpoint and encryption keys from a Web Push API subscription. Returns subscription ID for future reference.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -55749,9 +57124,6 @@
         "description": "Retrieves all push notification subscriptions for the current user, including subscription IDs and user agent information for each subscription.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -55883,9 +57255,6 @@
         },
         "description": "Unregisters a push notification subscription for the current user. Push notifications will no longer be sent to this subscription endpoint.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -56033,9 +57402,6 @@
         "description": "Retrieves all relationships for the current user, including friends, friend requests (incoming and outgoing), and blocked users. Returns list of relationship objects with type and metadata.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -56165,9 +57531,6 @@
         },
         "description": "Sends a friend request to a user identified by username tag (username#discriminator). Returns the new relationship object. Can fail if user not found or request already sent.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -56311,9 +57674,6 @@
         "description": "Sends a friend request to a user identified by user ID. Returns the new relationship object. Can fail if user not found or request already sent.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -56454,9 +57814,6 @@
         },
         "description": "Accepts a pending incoming friend request from a user or updates the relationship type. Can also be used to change friend relationship to blocked status. Returns updated relationship object.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -56602,9 +57959,6 @@
         "description": "Removes a relationship with another user by ID. Removes friends, cancels friend requests (incoming or outgoing), or unblocks a blocked user depending on current relationship type.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -56745,9 +58099,6 @@
         },
         "description": "Updates the nickname associated with a relationship (friend or blocked user). Nicknames are personal labels that override the user's display name in the current user's view. Returns updated relationship object.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -56902,9 +58253,6 @@
         "description": "Retrieves all messages saved by the current user. Messages are saved privately for easy reference. Returns paginated list of saved messages with metadata.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ],
@@ -57038,9 +58386,6 @@
         },
         "description": "Saves a message for the current user. Saved messages can be accessed later from the saved messages list. Messages are saved privately.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -57176,9 +58521,6 @@
         },
         "description": "Removes a message from the current user's saved messages. Does not delete the original message, only removes it from the user's saved collection.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -57326,9 +58668,6 @@
         "description": "Retrieves all scheduled messages for the current user. Returns list of messages that are scheduled to be sent at a future date and time.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -57460,9 +58799,6 @@
         },
         "description": "Retrieves details of a specific scheduled message by ID. Returns the message content, scheduled send time, and status.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -57597,9 +58933,6 @@
         },
         "description": "Cancels and deletes a scheduled message before it is sent. The message will not be delivered if cancelled.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -57741,9 +59074,6 @@
         },
         "description": "Updates an existing scheduled message before it is sent. Can modify message content, scheduled time, and timezone. Returns updated scheduled message details.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -57888,9 +59218,6 @@
         "description": "Retrieves the current user's settings and preferences, including notification settings, privacy options, and display preferences. Only accessible to the authenticated user.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -58020,9 +59347,6 @@
         },
         "description": "Updates the current user's settings and preferences. Allows modification of notification settings, privacy options, display preferences, and other user-configurable options. Returns updated settings.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -58166,9 +59490,6 @@
         "description": "Retrieve all available MFA methods for sudo mode verification (TOTP, SMS, WebAuthn). Requires authentication.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -58293,9 +59614,6 @@
         },
         "description": "Request an SMS code to be sent for sudo mode verification. Used before entering sensitive account settings.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -58429,9 +59747,6 @@
         "description": "Generate WebAuthn challenge for sudo mode verification using a registered security key or biometric device.",
         "security": [
           {
-            "botToken": []
-          },
-          {
             "sessionToken": []
           }
         ]
@@ -58563,9 +59878,6 @@
         },
         "description": "Creates a new custom theme with CSS styling that can be shared with other users.",
         "security": [
-          {
-            "botToken": []
-          },
           {
             "sessionToken": []
           }
@@ -61479,6 +62791,8 @@
           "STRIPE_WEBHOOK_NOT_AVAILABLE",
           "STRIPE_WEBHOOK_SIGNATURE_INVALID",
           "STRIPE_WEBHOOK_SIGNATURE_MISSING",
+          "TOKEN_GATE_REQUIREMENT_NOT_MET",
+          "TOKEN_GATE_UNAVAILABLE",
           "DONATION_AMOUNT_INVALID",
           "DONATION_MAGIC_LINK_EXPIRED",
           "DONATION_MAGIC_LINK_INVALID",
@@ -61762,6 +63076,8 @@
           "Stripe webhook not available",
           "Invalid Stripe webhook signature",
           "Missing Stripe webhook signature",
+          "You don't hold the NFT required to access this channel",
+          "This channel's token gate can't be verified right now",
           "Invalid donation amount",
           "Donation magic link has expired",
           "Invalid donation magic link",
@@ -61980,6 +63296,7 @@
           "INVALID_RTC_REGION",
           "INVALID_SCHEDULED_MESSAGE_PAYLOAD",
           "INVALID_SNOWFLAKE",
+          "INVALID_SOLANA_ADDRESS",
           "INVALID_TIMEOUT_VALUE",
           "INVALID_TIMEZONE_IDENTIFIER",
           "INVALID_URL_FORMAT",
@@ -62219,6 +63536,7 @@
           "Invalid RTC region",
           "Invalid scheduled message payload",
           "Invalid snowflake",
+          "Invalid Solana address",
           "Invalid timeout value",
           "Invalid timezone identifier",
           "Invalid URL format",
@@ -62319,7 +63637,7 @@
           "Voice channels cannot be positioned above text channels",
           "Webhook name length is invalid"
         ],
-        "description": "Error codes for field validation issues Known values: ACCENT_COLOR_CHANGED_TOO_MANY_TIMES, ACCOUNT_ALREADY_VERIFIED, AFK_CHANNEL_MUST_BE_IN_GUILD, AFK_CHANNEL_MUST_BE_VOICE, ALL_CHANNELS_MUST_BELONG_TO_GUILD, ANIMATED_AVATARS_REQUIRE_PREMIUM, ANIMATED_GUILD_BANNER_REQUIRES_FEATURE, AT_LEAST_ONE_ENTRY_IS_REQUIRED, AT_LEAST_ONE_RECIPIENT_REQUIRED, ATTACHMENT_FIELDS_REQUIRED, ATTACHMENT_ID_NOT_FOUND_IN_MESSAGE, ATTACHMENT_IDS_MUST_BE_VALID_INTEGERS, ATTACHMENT_METADATA_WITHOUT_FILES, ATTACHMENT_MUST_BE_IMAGE, ATTACHMENTS_METADATA_REQUIRED_WHEN_UPLOADING, ATTACHMENTS_NOT_ALLOWED_FOR_MESSAGE, AVATAR_CHANGED_TOO_MANY_TIMES, BANNER_CHANGED_TOO_MANY_TIMES, BANNERS_REQUIRE_PREMIUM, BASE64_LENGTH_INVALID, BIO_CHANGED_TOO_MANY_TIMES, BUCKET_IS_REQUIRED, CANNOT_ADD_YOURSELF_TO_GROUP_DM, CANNOT_DELETE_MORE_THAN_100_MESSAGES, CANNOT_DM_YOURSELF, CANNOT_EDIT_ATTACHMENT_METADATA, CANNOT_LEAVE_GUILD_AS_OWNER, CANNOT_POSITION_CHANNEL_RELATIVE_TO_ITSELF, CANNOT_PRELOAD_MORE_THAN_100_CHANNELS, CANNOT_REFERENCE_ATTACHMENTS_WITHOUT_ATTACHMENTS, CANNOT_REORDER_EVERYONE_ROLE, CANNOT_REPLY_TO_SYSTEM_MESSAGE, CANNOT_SET_HOIST_FOR_EVERYONE_ROLE, CANNOT_SPECIFY_BOTH_BEFORE_AND_AFTER, CANNOT_USE_SAME_ROLE_AS_PRECEDING, CATEGORIES_CANNOT_HAVE_PARENT_CHANNEL, CATEGORIES_CANNOT_HAVE_PARENTS, CHANGING_DISCRIMINATOR_REQUIRES_PREMIUM, CHANNEL_DOES_NOT_EXIST, CHANNEL_ID_IS_REQUIRED, CHANNEL_MUST_BE_DM_OR_GROUP_DM, CHANNEL_MUST_BE_VOICE, CHANNEL_NAME_EMPTY_AFTER_NORMALIZATION, CHANNEL_NOT_FOUND, COLOR_VALUE_TOO_HIGH, COLOR_VALUE_TOO_LOW, CONTENT_EXCEEDS_MAX_LENGTH, CONTEXT_CHANNEL_OR_GUILD_ID_REQUIRED, CUSTOM_EMOJI_NOT_FOUND, CUSTOM_EMOJIS_REQUIRE_PREMIUM_OUTSIDE_SOURCE, CUSTOM_STICKER_NOT_FOUND, CUSTOM_STICKERS_IN_DMS_REQUIRE_PREMIUM, CUSTOM_STICKERS_REQUIRE_PREMIUM_OUTSIDE_SOURCE, DISCRIMINATOR_INVALID_FORMAT, DISCRIMINATOR_OUT_OF_RANGE, DUPLICATE_ATTACHMENT_IDS_NOT_ALLOWED, DUPLICATE_FILE_INDEX, DUPLICATE_RECIPIENTS_NOT_ALLOWED, VOICE_MESSAGES_ATTACHMENT_MUST_BE_AUDIO, VOICE_MESSAGES_ATTACHMENT_WAVEFORM_REQUIRED, VOICE_MESSAGES_ATTACHMENT_DURATION_REQUIRED, VOICE_MESSAGES_CANNOT_HAVE_CONTENT, VOICE_MESSAGES_CANNOT_HAVE_EMBEDS, VOICE_MESSAGES_CANNOT_HAVE_FAVORITE_MEMES, VOICE_MESSAGES_CANNOT_HAVE_STICKERS, VOICE_MESSAGES_DURATION_EXCEEDS_LIMIT, VOICE_MESSAGES_REQUIRE_SINGLE_ATTACHMENT, EMAIL_ALREADY_IN_USE, EMAIL_IS_REQUIRED, EMAIL_LENGTH_INVALID, EMAIL_MUST_BE_CHANGED_VIA_TOKEN, EMAIL_TOKEN_EXPIRED, EMBED_INDEX_OUT_OF_BOUNDS, EMBED_SPLASH_REQUIRES_FEATURE, EMBEDS_EXCEED_MAX_CHARACTERS, EMOJI_REQUIRES_GUILD_OR_PACK_ACCESS, FAILED_TO_PARSE_MULTIPART_FORM_DATA, FAILED_TO_PARSE_MULTIPART_PAYLOAD, FAILED_TO_UPLOAD_IMAGE, FAVORITE_MEME_NAME_REQUIRED, FAVORITE_MEME_NOT_FOUND, FILE_INDEX_EXCEEDS_MAXIMUM, FILE_NOT_FOUND_FOR_SCANNING, FILE_NOT_FOUND, FILENAME_EMPTY_AFTER_NORMALIZATION, FILENAME_INVALID_CHARACTERS, FILENAME_LENGTH_INVALID, FILENAME_MISMATCH_FOR_ATTACHMENT, FORWARD_MESSAGES_CANNOT_CONTAIN_CONTENT, FORWARD_REFERENCE_REQUIRES_CHANNEL_AND_MESSAGE, GLOBAL_NAME_CANNOT_CONTAIN_RESERVED_TERMS, GLOBAL_NAME_LENGTH_INVALID, GLOBAL_NAME_RESERVED_VALUE, GUILD_BANNER_REQUIRES_FEATURE, GUILD_ID_MUST_MATCH_REFERENCED_MESSAGE, GUILD_VANITY_ALREADY_PURCHASED, GUILD_VANITY_TX_ALREADY_USED, IMAGE_SIZE_EXCEEDS_LIMIT, INTEGER_OUT_OF_INT64_RANGE, SNOWFLAKE_OUT_OF_RANGE, INVALID_AUDIT_LOG_REASON, INVALID_BASE64_FORMAT, INVALID_CHANNEL_ID, INVALID_CHANNEL, INVALID_CODE, INVALID_CURRENT_PASSWORD, INVALID_DATE_OF_BIRTH_FORMAT, INVALID_DATETIME_FOR_SCHEDULED_SEND, INVALID_EMAIL_ADDRESS, INVALID_EMAIL_FORMAT, INVALID_EMAIL_LOCAL_PART, INVALID_EMAIL_OR_PASSWORD, INVALID_EMAIL_TOKEN, INVALID_FILE_FIELD_NAME, INVALID_FORMAT, INVALID_IMAGE_DATA, INVALID_IMAGE_FORMAT, INVALID_INTEGER_FORMAT, INVALID_SNOWFLAKE_FORMAT, INVALID_ISO_TIMESTAMP, INVALID_JOB_ID, INVALID_JSON_IN_PAYLOAD_JSON, INVALID_MESSAGE_DATA, INVALID_MFA_CODE, INVALID_OR_EXPIRED_AUTHORIZATION_TICKET, INVALID_OR_EXPIRED_AUTHORIZATION_TOKEN, INVALID_OR_EXPIRED_RESET_TOKEN, INVALID_OR_EXPIRED_REVERT_TOKEN, INVALID_OR_EXPIRED_TICKET, INVALID_OR_EXPIRED_VERIFICATION_TOKEN, INVALID_OR_RESTRICTED_RTC_REGION, INVALID_PARENT_CHANNEL, INVALID_PASSWORD, INVALID_PROOF_TOKEN, INVALID_ROLE_ID, INVALID_RTC_REGION, INVALID_SCHEDULED_MESSAGE_PAYLOAD, INVALID_SNOWFLAKE, INVALID_TIMEOUT_VALUE, INVALID_TIMEZONE_IDENTIFIER, INVALID_URL_FORMAT, INVALID_URL_OR_ATTACHMENT_FORMAT, INVALID_VERIFICATION_CODE, INVITE_SPLASH_REQUIRES_FEATURE, JOB_ID_IS_REQUIRED, JOB_IS_ALREADY_PROCESSED, JOB_NOT_FOUND, MEDIA_ALREADY_IN_FAVORITE_MEMES, MESSAGE_HISTORY_CUTOFF_BEFORE_GUILD_CREATION, MESSAGE_HISTORY_CUTOFF_IN_FUTURE, MESSAGE_IDS_CANNOT_BE_EMPTY, MESSAGES_ARRAY_REQUIRED_AND_NOT_EMPTY, MESSAGES_WITH_SNAPSHOTS_CANNOT_BE_EDITED, MESSAGE_TOTAL_ATTACHMENT_SIZE_TOO_LARGE, MULTIPLE_FILES_FOR_INDEX_NOT_ALLOWED, MUST_AGREE_TO_TOS_AND_PRIVACY_POLICY, MUST_BE_MINIMUM_AGE, MUST_ENABLE_2FA_BEFORE_REQUIRING_FOR_MODS, MUST_HAVE_EMAIL_TO_CHANGE_IT, MUST_START_SESSION_BEFORE_SENDING, NAME_EMPTY_AFTER_NORMALIZATION, NEW_EMAIL_MUST_BE_DIFFERENT, NO_FILE_FOR_ATTACHMENT_METADATA, NO_FILE_FOR_ATTACHMENT, NO_METADATA_FOR_FILE, NO_NEW_EMAIL_REQUESTED, NO_ORIGINAL_EMAIL_ON_RECORD, NO_VALID_MEDIA_IN_MESSAGE, NOT_A_VALID_UNICODE_EMOJI, ORIGINAL_EMAIL_ALREADY_VERIFIED, ORIGINAL_EMAIL_MUST_BE_VERIFIED_FIRST, ORIGINAL_VERIFICATION_NOT_REQUIRED, PARENT_CHANNEL_NOT_IN_GUILD, PARENT_MUST_BE_CATEGORY, PARSE_AND_USERS_OR_ROLES_CANNOT_BE_USED_TOGETHER, PASSWORD_IS_TOO_COMMON, PASSWORD_LENGTH_INVALID, PASSWORD_NOT_SET, PAYLOAD_JSON_REQUIRED_FOR_MULTIPART, PHONE_NUMBER_INVALID_FORMAT, PRECEDING_CHANNEL_MUST_SHARE_PARENT, PRECEDING_CHANNEL_NOT_IN_GUILD, PRECEDING_ROLE_NOT_IN_GUILD, PREMIUM_REQUIRED_FOR_CUSTOM_EMOJI, PRONOUNS_CHANGED_TOO_MANY_TIMES, RECIPIENT_IDS_CANNOT_BE_EMPTY, RECIPIENT_IDS_MUST_BE_STRINGS, RECIPIENT_IDS_MUST_BE_VALID_SNOWFLAKES, REFERENCED_ATTACHMENT_NOT_FOUND, ROWS_IS_REQUIRED, SCHEDULED_MESSAGES_MAX_30_DAYS, SCHEDULED_TIME_MUST_BE_FUTURE, SESSION_TIMEOUT, SIZE_BYTES_MUST_BE_VALID_INTEGER, STRING_LENGTH_EXACT, STRING_LENGTH_INVALID, SYSTEM_CHANNEL_MUST_BE_IN_GUILD, SYSTEM_CHANNEL_MUST_BE_TEXT, TAG_ALREADY_TAKEN, THIS_VANITY_URL_IS_ALREADY_TAKEN, TICKET_ALREADY_COMPLETED, TIMEOUT_CANNOT_EXCEED_365_DAYS, TIP_RECIPIENT_HAS_NO_WALLET, TIP_SELF_NOT_ALLOWED, TIP_TX_ALREADY_USED, TOO_MANY_EMBEDS, TOO_MANY_FILES, TOO_MANY_USERS_WITH_THIS_USERNAME, TOO_MANY_USERS_WITH_USERNAME_TRY_DIFFERENT, UNCLAIMED_ACCOUNTS_CAN_ONLY_SET_EMAIL_VIA_TOKEN, UNKNOWN_IMAGE_FORMAT, UNRESOLVED_ATTACHMENT_URL, UPLOADED_ATTACHMENT_NOT_FOUND, URL_LENGTH_INVALID, USER_DOES_NOT_HAVE_AN_EMAIL_ADDRESS, USER_IS_NOT_BANNED, USER_MUST_BE_A_BOT_TO_BE_MARKED_AS_A_SYSTEM_USER, USER_NOT_IN_CHANNEL, USERNAME_CANNOT_CONTAIN_RESERVED_TERMS, USERNAME_CHANGED_TOO_MANY_TIMES, USERNAME_INVALID_CHARACTERS, USERNAME_LENGTH_INVALID, USERNAME_RESERVED_VALUE, VALUE_MUST_BE_INTEGER_IN_RANGE, VALUE_TOO_SMALL, VANITY_URL_CODE_ALREADY_TAKEN, VANITY_URL_CODE_CANNOT_CONTAIN_FLUXER, VANITY_URL_CODE_LENGTH_INVALID, VANITY_URL_INVALID_CHARACTERS, VANITY_URL_REQUIRES_FEATURE, VERIFICATION_CODE_EXPIRED, VERIFICATION_CODE_NOT_ISSUED, VISIONARY_REQUIRED_FOR_BOT_DISCRIMINATOR, VISIONARY_REQUIRED_FOR_DISCRIMINATOR, BOT_DISCRIMINATOR_CANNOT_BE_CHANGED, VOICE_CHANNELS_CANNOT_BE_ABOVE_TEXT_CHANNELS, WEBHOOK_NAME_LENGTH_INVALID (other values allowed)"
+        "description": "Error codes for field validation issues Known values: ACCENT_COLOR_CHANGED_TOO_MANY_TIMES, ACCOUNT_ALREADY_VERIFIED, AFK_CHANNEL_MUST_BE_IN_GUILD, AFK_CHANNEL_MUST_BE_VOICE, ALL_CHANNELS_MUST_BELONG_TO_GUILD, ANIMATED_AVATARS_REQUIRE_PREMIUM, ANIMATED_GUILD_BANNER_REQUIRES_FEATURE, AT_LEAST_ONE_ENTRY_IS_REQUIRED, AT_LEAST_ONE_RECIPIENT_REQUIRED, ATTACHMENT_FIELDS_REQUIRED, ATTACHMENT_ID_NOT_FOUND_IN_MESSAGE, ATTACHMENT_IDS_MUST_BE_VALID_INTEGERS, ATTACHMENT_METADATA_WITHOUT_FILES, ATTACHMENT_MUST_BE_IMAGE, ATTACHMENTS_METADATA_REQUIRED_WHEN_UPLOADING, ATTACHMENTS_NOT_ALLOWED_FOR_MESSAGE, AVATAR_CHANGED_TOO_MANY_TIMES, BANNER_CHANGED_TOO_MANY_TIMES, BANNERS_REQUIRE_PREMIUM, BASE64_LENGTH_INVALID, BIO_CHANGED_TOO_MANY_TIMES, BUCKET_IS_REQUIRED, CANNOT_ADD_YOURSELF_TO_GROUP_DM, CANNOT_DELETE_MORE_THAN_100_MESSAGES, CANNOT_DM_YOURSELF, CANNOT_EDIT_ATTACHMENT_METADATA, CANNOT_LEAVE_GUILD_AS_OWNER, CANNOT_POSITION_CHANNEL_RELATIVE_TO_ITSELF, CANNOT_PRELOAD_MORE_THAN_100_CHANNELS, CANNOT_REFERENCE_ATTACHMENTS_WITHOUT_ATTACHMENTS, CANNOT_REORDER_EVERYONE_ROLE, CANNOT_REPLY_TO_SYSTEM_MESSAGE, CANNOT_SET_HOIST_FOR_EVERYONE_ROLE, CANNOT_SPECIFY_BOTH_BEFORE_AND_AFTER, CANNOT_USE_SAME_ROLE_AS_PRECEDING, CATEGORIES_CANNOT_HAVE_PARENT_CHANNEL, CATEGORIES_CANNOT_HAVE_PARENTS, CHANGING_DISCRIMINATOR_REQUIRES_PREMIUM, CHANNEL_DOES_NOT_EXIST, CHANNEL_ID_IS_REQUIRED, CHANNEL_MUST_BE_DM_OR_GROUP_DM, CHANNEL_MUST_BE_VOICE, CHANNEL_NAME_EMPTY_AFTER_NORMALIZATION, CHANNEL_NOT_FOUND, COLOR_VALUE_TOO_HIGH, COLOR_VALUE_TOO_LOW, CONTENT_EXCEEDS_MAX_LENGTH, CONTEXT_CHANNEL_OR_GUILD_ID_REQUIRED, CUSTOM_EMOJI_NOT_FOUND, CUSTOM_EMOJIS_REQUIRE_PREMIUM_OUTSIDE_SOURCE, CUSTOM_STICKER_NOT_FOUND, CUSTOM_STICKERS_IN_DMS_REQUIRE_PREMIUM, CUSTOM_STICKERS_REQUIRE_PREMIUM_OUTSIDE_SOURCE, DISCRIMINATOR_INVALID_FORMAT, DISCRIMINATOR_OUT_OF_RANGE, DUPLICATE_ATTACHMENT_IDS_NOT_ALLOWED, DUPLICATE_FILE_INDEX, DUPLICATE_RECIPIENTS_NOT_ALLOWED, VOICE_MESSAGES_ATTACHMENT_MUST_BE_AUDIO, VOICE_MESSAGES_ATTACHMENT_WAVEFORM_REQUIRED, VOICE_MESSAGES_ATTACHMENT_DURATION_REQUIRED, VOICE_MESSAGES_CANNOT_HAVE_CONTENT, VOICE_MESSAGES_CANNOT_HAVE_EMBEDS, VOICE_MESSAGES_CANNOT_HAVE_FAVORITE_MEMES, VOICE_MESSAGES_CANNOT_HAVE_STICKERS, VOICE_MESSAGES_DURATION_EXCEEDS_LIMIT, VOICE_MESSAGES_REQUIRE_SINGLE_ATTACHMENT, EMAIL_ALREADY_IN_USE, EMAIL_IS_REQUIRED, EMAIL_LENGTH_INVALID, EMAIL_MUST_BE_CHANGED_VIA_TOKEN, EMAIL_TOKEN_EXPIRED, EMBED_INDEX_OUT_OF_BOUNDS, EMBED_SPLASH_REQUIRES_FEATURE, EMBEDS_EXCEED_MAX_CHARACTERS, EMOJI_REQUIRES_GUILD_OR_PACK_ACCESS, FAILED_TO_PARSE_MULTIPART_FORM_DATA, FAILED_TO_PARSE_MULTIPART_PAYLOAD, FAILED_TO_UPLOAD_IMAGE, FAVORITE_MEME_NAME_REQUIRED, FAVORITE_MEME_NOT_FOUND, FILE_INDEX_EXCEEDS_MAXIMUM, FILE_NOT_FOUND_FOR_SCANNING, FILE_NOT_FOUND, FILENAME_EMPTY_AFTER_NORMALIZATION, FILENAME_INVALID_CHARACTERS, FILENAME_LENGTH_INVALID, FILENAME_MISMATCH_FOR_ATTACHMENT, FORWARD_MESSAGES_CANNOT_CONTAIN_CONTENT, FORWARD_REFERENCE_REQUIRES_CHANNEL_AND_MESSAGE, GLOBAL_NAME_CANNOT_CONTAIN_RESERVED_TERMS, GLOBAL_NAME_LENGTH_INVALID, GLOBAL_NAME_RESERVED_VALUE, GUILD_BANNER_REQUIRES_FEATURE, GUILD_ID_MUST_MATCH_REFERENCED_MESSAGE, GUILD_VANITY_ALREADY_PURCHASED, GUILD_VANITY_TX_ALREADY_USED, IMAGE_SIZE_EXCEEDS_LIMIT, INTEGER_OUT_OF_INT64_RANGE, SNOWFLAKE_OUT_OF_RANGE, INVALID_AUDIT_LOG_REASON, INVALID_BASE64_FORMAT, INVALID_CHANNEL_ID, INVALID_CHANNEL, INVALID_CODE, INVALID_CURRENT_PASSWORD, INVALID_DATE_OF_BIRTH_FORMAT, INVALID_DATETIME_FOR_SCHEDULED_SEND, INVALID_EMAIL_ADDRESS, INVALID_EMAIL_FORMAT, INVALID_EMAIL_LOCAL_PART, INVALID_EMAIL_OR_PASSWORD, INVALID_EMAIL_TOKEN, INVALID_FILE_FIELD_NAME, INVALID_FORMAT, INVALID_IMAGE_DATA, INVALID_IMAGE_FORMAT, INVALID_INTEGER_FORMAT, INVALID_SNOWFLAKE_FORMAT, INVALID_ISO_TIMESTAMP, INVALID_JOB_ID, INVALID_JSON_IN_PAYLOAD_JSON, INVALID_MESSAGE_DATA, INVALID_MFA_CODE, INVALID_OR_EXPIRED_AUTHORIZATION_TICKET, INVALID_OR_EXPIRED_AUTHORIZATION_TOKEN, INVALID_OR_EXPIRED_RESET_TOKEN, INVALID_OR_EXPIRED_REVERT_TOKEN, INVALID_OR_EXPIRED_TICKET, INVALID_OR_EXPIRED_VERIFICATION_TOKEN, INVALID_OR_RESTRICTED_RTC_REGION, INVALID_PARENT_CHANNEL, INVALID_PASSWORD, INVALID_PROOF_TOKEN, INVALID_ROLE_ID, INVALID_RTC_REGION, INVALID_SCHEDULED_MESSAGE_PAYLOAD, INVALID_SNOWFLAKE, INVALID_SOLANA_ADDRESS, INVALID_TIMEOUT_VALUE, INVALID_TIMEZONE_IDENTIFIER, INVALID_URL_FORMAT, INVALID_URL_OR_ATTACHMENT_FORMAT, INVALID_VERIFICATION_CODE, INVITE_SPLASH_REQUIRES_FEATURE, JOB_ID_IS_REQUIRED, JOB_IS_ALREADY_PROCESSED, JOB_NOT_FOUND, MEDIA_ALREADY_IN_FAVORITE_MEMES, MESSAGE_HISTORY_CUTOFF_BEFORE_GUILD_CREATION, MESSAGE_HISTORY_CUTOFF_IN_FUTURE, MESSAGE_IDS_CANNOT_BE_EMPTY, MESSAGES_ARRAY_REQUIRED_AND_NOT_EMPTY, MESSAGES_WITH_SNAPSHOTS_CANNOT_BE_EDITED, MESSAGE_TOTAL_ATTACHMENT_SIZE_TOO_LARGE, MULTIPLE_FILES_FOR_INDEX_NOT_ALLOWED, MUST_AGREE_TO_TOS_AND_PRIVACY_POLICY, MUST_BE_MINIMUM_AGE, MUST_ENABLE_2FA_BEFORE_REQUIRING_FOR_MODS, MUST_HAVE_EMAIL_TO_CHANGE_IT, MUST_START_SESSION_BEFORE_SENDING, NAME_EMPTY_AFTER_NORMALIZATION, NEW_EMAIL_MUST_BE_DIFFERENT, NO_FILE_FOR_ATTACHMENT_METADATA, NO_FILE_FOR_ATTACHMENT, NO_METADATA_FOR_FILE, NO_NEW_EMAIL_REQUESTED, NO_ORIGINAL_EMAIL_ON_RECORD, NO_VALID_MEDIA_IN_MESSAGE, NOT_A_VALID_UNICODE_EMOJI, ORIGINAL_EMAIL_ALREADY_VERIFIED, ORIGINAL_EMAIL_MUST_BE_VERIFIED_FIRST, ORIGINAL_VERIFICATION_NOT_REQUIRED, PARENT_CHANNEL_NOT_IN_GUILD, PARENT_MUST_BE_CATEGORY, PARSE_AND_USERS_OR_ROLES_CANNOT_BE_USED_TOGETHER, PASSWORD_IS_TOO_COMMON, PASSWORD_LENGTH_INVALID, PASSWORD_NOT_SET, PAYLOAD_JSON_REQUIRED_FOR_MULTIPART, PHONE_NUMBER_INVALID_FORMAT, PRECEDING_CHANNEL_MUST_SHARE_PARENT, PRECEDING_CHANNEL_NOT_IN_GUILD, PRECEDING_ROLE_NOT_IN_GUILD, PREMIUM_REQUIRED_FOR_CUSTOM_EMOJI, PRONOUNS_CHANGED_TOO_MANY_TIMES, RECIPIENT_IDS_CANNOT_BE_EMPTY, RECIPIENT_IDS_MUST_BE_STRINGS, RECIPIENT_IDS_MUST_BE_VALID_SNOWFLAKES, REFERENCED_ATTACHMENT_NOT_FOUND, ROWS_IS_REQUIRED, SCHEDULED_MESSAGES_MAX_30_DAYS, SCHEDULED_TIME_MUST_BE_FUTURE, SESSION_TIMEOUT, SIZE_BYTES_MUST_BE_VALID_INTEGER, STRING_LENGTH_EXACT, STRING_LENGTH_INVALID, SYSTEM_CHANNEL_MUST_BE_IN_GUILD, SYSTEM_CHANNEL_MUST_BE_TEXT, TAG_ALREADY_TAKEN, THIS_VANITY_URL_IS_ALREADY_TAKEN, TICKET_ALREADY_COMPLETED, TIMEOUT_CANNOT_EXCEED_365_DAYS, TIP_RECIPIENT_HAS_NO_WALLET, TIP_SELF_NOT_ALLOWED, TIP_TX_ALREADY_USED, TOO_MANY_EMBEDS, TOO_MANY_FILES, TOO_MANY_USERS_WITH_THIS_USERNAME, TOO_MANY_USERS_WITH_USERNAME_TRY_DIFFERENT, UNCLAIMED_ACCOUNTS_CAN_ONLY_SET_EMAIL_VIA_TOKEN, UNKNOWN_IMAGE_FORMAT, UNRESOLVED_ATTACHMENT_URL, UPLOADED_ATTACHMENT_NOT_FOUND, URL_LENGTH_INVALID, USER_DOES_NOT_HAVE_AN_EMAIL_ADDRESS, USER_IS_NOT_BANNED, USER_MUST_BE_A_BOT_TO_BE_MARKED_AS_A_SYSTEM_USER, USER_NOT_IN_CHANNEL, USERNAME_CANNOT_CONTAIN_RESERVED_TERMS, USERNAME_CHANGED_TOO_MANY_TIMES, USERNAME_INVALID_CHARACTERS, USERNAME_LENGTH_INVALID, USERNAME_RESERVED_VALUE, VALUE_MUST_BE_INTEGER_IN_RANGE, VALUE_TOO_SMALL, VANITY_URL_CODE_ALREADY_TAKEN, VANITY_URL_CODE_CANNOT_CONTAIN_FLUXER, VANITY_URL_CODE_LENGTH_INVALID, VANITY_URL_INVALID_CHARACTERS, VANITY_URL_REQUIRES_FEATURE, VERIFICATION_CODE_EXPIRED, VERIFICATION_CODE_NOT_ISSUED, VISIONARY_REQUIRED_FOR_BOT_DISCRIMINATOR, VISIONARY_REQUIRED_FOR_DISCRIMINATOR, BOT_DISCRIMINATOR_CANNOT_BE_CHANGED, VOICE_CHANNELS_CANNOT_BE_ABOVE_TEXT_CHANNELS, WEBHOOK_NAME_LENGTH_INVALID (other values allowed)"
       },
       "CreateAdminApiKeyResponse": {
         "type": "object",
@@ -62356,7 +63674,7 @@
             "items": {
               "type": "string"
             },
-            "maxItems": 100,
+            "maxItems": 150,
             "description": "List of access control permissions for the key"
           }
         },
@@ -62390,7 +63708,7 @@
             "items": {
               "type": "string"
             },
-            "maxItems": 100,
+            "maxItems": 150,
             "description": "List of access control permissions for the key"
           }
         },
@@ -62446,7 +63764,7 @@
             "items": {
               "type": "string"
             },
-            "maxItems": 100,
+            "maxItems": 150,
             "description": "List of access control permissions for the key"
           }
         },
@@ -66172,6 +67490,193 @@
           "job_id"
         ]
       },
+      "NewsStoryAdminResponse": {
+        "type": "object",
+        "properties": {
+          "story_id": {
+            "$ref": "#/components/schemas/SnowflakeType"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "$ref": "#/components/schemas/NewsStoryStatusSchema"
+          },
+          "created_by_user_id": {
+            "$ref": "#/components/schemas/SnowflakeType"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "story_id",
+          "title",
+          "body",
+          "image_url",
+          "status",
+          "created_by_user_id",
+          "created_at",
+          "updated_at",
+          "published_at"
+        ]
+      },
+      "NewsStoryStatusSchema": {
+        "enum": [
+          "draft",
+          "published"
+        ],
+        "type": "string",
+        "x-enumNames": [
+          "draft",
+          "published"
+        ]
+      },
+      "CreateNewsStoryRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the news story"
+          },
+          "body": {
+            "type": "string",
+            "description": "Body content of the news story"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URL of the image shown at the top of the news card"
+          },
+          "image_data": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Base64 data URL of an uploaded image; takes precedence over image_url when present"
+          }
+        },
+        "required": [
+          "title",
+          "body"
+        ]
+      },
+      "DeleteNewsStoryResponse": {
+        "type": "object",
+        "properties": {
+          "story_id": {
+            "$ref": "#/components/schemas/SnowflakeType"
+          }
+        },
+        "required": [
+          "story_id"
+        ]
+      },
+      "NewsStoryIdRequest": {
+        "type": "object",
+        "properties": {
+          "story_id": {
+            "$ref": "#/components/schemas/SnowflakeType"
+          }
+        },
+        "required": [
+          "story_id"
+        ]
+      },
+      "ListNewsStoriesResponse": {
+        "type": "object",
+        "properties": {
+          "stories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewsStoryAdminResponse"
+            },
+            "maxItems": 500
+          }
+        },
+        "required": [
+          "stories"
+        ]
+      },
+      "UpdateNewsStoryRequest": {
+        "type": "object",
+        "properties": {
+          "story_id": {
+            "$ref": "#/components/schemas/SnowflakeType"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the news story"
+          },
+          "body": {
+            "type": "string",
+            "description": "Body content of the news story"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URL of the image shown at the top of the news card"
+          },
+          "image_data": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Base64 data URL of an uploaded image; takes precedence over image_url when present"
+          }
+        },
+        "required": [
+          "story_id",
+          "title",
+          "body"
+        ]
+      },
       "ListReportsResponse": {
         "type": "object",
         "properties": {
@@ -67537,7 +69042,7 @@
             "items": {
               "type": "string"
             },
-            "maxItems": 100
+            "maxItems": 150
           },
           "traits": {
             "type": "array",
@@ -68384,7 +69889,7 @@
             "items": {
               "type": "string"
             },
-            "maxItems": 100,
+            "maxItems": 150,
             "description": "List of access control permissions to assign"
           }
         },
@@ -68541,6 +70046,22 @@
         "required": [
           "user_id",
           "flags"
+        ]
+      },
+      "UpdateUserVisionaryRequest": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "$ref": "#/components/schemas/SnowflakeType"
+          },
+          "granted": {
+            "type": "boolean",
+            "description": "Whether to grant (true) or revoke (false) the Visionary lifetime badge"
+          }
+        },
+        "required": [
+          "user_id",
+          "granted"
         ]
       },
       "VerifyUserEmailRequest": {
@@ -70179,10 +71700,6 @@
           "password": {
             "$ref": "#/components/schemas/PasswordType"
           },
-          "date_of_birth": {
-            "type": "string",
-            "description": "Date of birth in YYYY-MM-DD format"
-          },
           "consent": {
             "type": "boolean",
             "description": "Whether user consents to terms of service"
@@ -70200,7 +71717,6 @@
           }
         },
         "required": [
-          "date_of_birth",
           "consent"
         ]
       },
@@ -70698,6 +72214,50 @@
             "type": "boolean",
             "description": "Whether the channel is marked as NSFW"
           },
+          "token_gate_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The mint or collection address gating this channel, if configured on this channel or inherited from its parent category. Null/absent if this channel has no gate of its own — check the parent category's value to know whether it's inheriting one."
+          },
+          "token_gate_satisfied": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Whether the requesting user currently satisfies this channel's effective tokengate. Only present on responses computed for a specific requesting user (not broadcast dispatch payloads); null/absent means no gate applies."
+          },
+          "token_gate_visibility": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TokenGateVisibility"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "How this channel/category appears to members who don't satisfy its effective tokengate, if configured on this channel or inherited from its parent category. Null/absent if this channel has no explicit choice of its own — check the parent category's value, defaulting to LOCKED if neither is set."
+          },
+          "token_gate_match_mode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TokenGateMatchMode"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "How this channel/category's tokengate address is matched against a wallet's held assets, if configured on this channel or inherited from its parent category. Null/absent if this channel has no explicit choice of its own — check the parent category's value, defaulting to EXACT_ASSET if neither is set."
+          },
           "rate_limit_per_user": {
             "$ref": "#/components/schemas/Int32Type"
           },
@@ -70749,6 +72309,40 @@
           "allow",
           "deny"
         ]
+      },
+      "TokenGateVisibility": {
+        "type": "integer",
+        "format": "int32",
+        "enum": [
+          0,
+          1
+        ],
+        "x-enumNames": [
+          "LOCKED",
+          "HIDDEN"
+        ],
+        "x-enumDescriptions": [
+          "Gated channels are visible with a lock icon to non-qualifying members",
+          "Gated channels are hidden entirely from non-qualifying members"
+        ],
+        "description": "How token-gated channels/categories appear to members who do not satisfy the gate"
+      },
+      "TokenGateMatchMode": {
+        "type": "integer",
+        "format": "int32",
+        "enum": [
+          0,
+          1
+        ],
+        "x-enumNames": [
+          "EXACT_ASSET",
+          "COLLECTION"
+        ],
+        "x-enumDescriptions": [
+          "Only the wallet holding this exact NFT satisfies the gate",
+          "Any wallet holding any asset from the collection at this address satisfies the gate"
+        ],
+        "description": "How a channel/category's tokengate address is matched against a wallet's held assets"
       },
       "ChannelUpdateRequest": {
         "oneOf": [
@@ -74722,6 +76316,67 @@
           "emoji"
         ]
       },
+      "TokenGateSetRequest": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "The base58-encoded Solana mint or collection address gating this channel/category. What satisfies the gate depends on match_mode."
+          },
+          "match_mode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TokenGateMatchMode"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Whether `address` must match a held asset exactly, or any asset belonging to the collection at that address. Defaults to EXACT_ASSET if omitted."
+          }
+        },
+        "required": [
+          "address"
+        ]
+      },
+      "TokenGateRecheckResponse": {
+        "type": "object",
+        "properties": {
+          "satisfied": {
+            "type": "boolean",
+            "description": "Whether the requesting user now satisfies the channel/category tokengate"
+          },
+          "gate_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The effective mint/collection address that was checked, if any"
+          }
+        },
+        "required": [
+          "satisfied"
+        ]
+      },
+      "TokenGateVisibilitySetRequest": {
+        "type": "object",
+        "properties": {
+          "visibility": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647,
+            "format": "int32",
+            "description": "How this channel/category should appear to members who don't satisfy its effective tokengate."
+          }
+        },
+        "required": [
+          "visibility"
+        ]
+      },
       "WebhookResponse": {
         "type": "object",
         "properties": {
@@ -75612,6 +77267,32 @@
             "$ref": "#/components/schemas/NSFWLevel",
             "description": "The NSFW level of the guild"
           },
+          "token_gate_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The mint or collection address gating the entire guild, if configured. Channels/categories with no gate of their own (and whose parent category, if any, also has none) fall back to this."
+          },
+          "token_gate_match_mode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TokenGateMatchMode"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "How the guild-wide gate's address is matched against a wallet's held assets. Only meaningful when token_gate_address is set."
+          },
+          "token_gate_visibility": {
+            "$ref": "#/components/schemas/TokenGateVisibility",
+            "description": "How the guild-wide gate appears to members who don't satisfy it, and the default for any channel/category with no explicit visibility choice of its own"
+          },
           "explicit_content_filter": {
             "$ref": "#/components/schemas/GuildExplicitContentFilter",
             "description": "Level of content filtering for explicit media"
@@ -75660,6 +77341,7 @@
           "verification_level",
           "mfa_level",
           "nsfw_level",
+          "token_gate_visibility",
           "explicit_content_filter",
           "default_message_notifications",
           "disabled_operations"
@@ -75891,6 +77573,32 @@
             "$ref": "#/components/schemas/NSFWLevel",
             "description": "The NSFW level of the guild"
           },
+          "token_gate_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The base58-encoded Solana mint or collection address gating the entire guild. Set to null to remove the guild-wide gate."
+          },
+          "token_gate_match_mode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TokenGateMatchMode"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Whether token_gate_address must match a held asset exactly, or any asset belonging to the collection at that address. Defaults to EXACT_ASSET if omitted while setting an address."
+          },
+          "token_gate_visibility": {
+            "$ref": "#/components/schemas/TokenGateVisibility",
+            "description": "How the guild-wide gate appears to members who don't satisfy it, and the default for any channel/category with no explicit visibility choice of its own"
+          },
           "explicit_content_filter": {
             "$ref": "#/components/schemas/GuildExplicitContentFilter",
             "description": "Level of content filtering for explicit media"
@@ -75999,6 +77707,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         }
       },
@@ -77009,6 +78733,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         }
       },
@@ -78881,30 +80621,38 @@
           "id"
         ]
       },
-      "NftsResponse": {
+      "ListPublishedNewsResponse": {
         "type": "object",
         "properties": {
-          "nfts": {
+          "stories": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/OwnedCosmeticNft"
-            }
+              "$ref": "#/components/schemas/NewsStoryResponse"
+            },
+            "maxItems": 50
           }
         },
         "required": [
-          "nfts"
+          "stories"
         ]
       },
-      "OwnedCosmeticNft": {
+      "NewsStoryResponse": {
         "type": "object",
         "properties": {
-          "mint": {
-            "type": "string"
+          "story_id": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)$",
+            "description": "Unique identifier for this news story"
           },
-          "name": {
-            "type": "string"
+          "title": {
+            "type": "string",
+            "description": "Title of the news story"
           },
-          "image": {
+          "body": {
+            "type": "string",
+            "description": "Body content of the news story"
+          },
+          "image_url": {
             "anyOf": [
               {
                 "type": "string"
@@ -78912,35 +80660,20 @@
               {
                 "type": "null"
               }
-            ]
-          },
-          "cosmetic_type": {
-            "type": "string"
-          },
-          "rarity": {
-            "enum": [
-              "common",
-              "uncommon",
-              "rare",
-              "epic",
-              "legendary"
             ],
+            "description": "URL of the story image shown at the top of the news card, if any"
+          },
+          "published_at": {
             "type": "string",
-            "x-enumNames": [
-              "common",
-              "uncommon",
-              "rare",
-              "epic",
-              "legendary"
-            ]
+            "description": "When this story was published, ISO 8601"
           }
         },
         "required": [
-          "mint",
-          "name",
-          "image",
-          "cosmetic_type",
-          "rarity"
+          "story_id",
+          "title",
+          "body",
+          "image_url",
+          "published_at"
         ]
       },
       "OAuth2MeResponse": {
@@ -79351,6 +81084,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         }
       },
@@ -79369,6 +81118,17 @@
           "discriminator": {
             "type": "string",
             "description": "The discriminator of the bot"
+          },
+          "global_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The display name of the bot, if set"
           },
           "avatar": {
             "anyOf": [
@@ -79408,6 +81168,7 @@
           "id",
           "username",
           "discriminator",
+          "global_name",
           "avatar",
           "banner",
           "bio"
@@ -79418,6 +81179,17 @@
         "properties": {
           "username": {
             "$ref": "#/components/schemas/UsernameType"
+          },
+          "global_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The display name of the bot"
           },
           "discriminator": {
             "type": "string",
@@ -81570,7 +83342,7 @@
             "items": {
               "type": "string"
             },
-            "maxItems": 100,
+            "maxItems": 150,
             "description": "Access control list entries for the user"
           },
           "traits": {
@@ -82089,6 +83861,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         }
       },
@@ -83500,6 +85288,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         },
         "required": [
@@ -83546,6 +85350,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         },
         "required": [
@@ -83596,6 +85416,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         },
         "required": [
@@ -83651,6 +85487,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         },
         "required": [
@@ -83711,6 +85563,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         },
         "required": [
@@ -83889,6 +85757,22 @@
           "webauthn_challenge": {
             "type": "string",
             "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         },
         "required": [
@@ -86855,6 +88739,9 @@
     },
     {
       "name": "Discovery"
+    },
+    {
+      "name": "News"
     },
     {
       "name": "Tenor"

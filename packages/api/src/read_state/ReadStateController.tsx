@@ -38,7 +38,7 @@ export function ReadStateController(app: Hono<HonoEnv>): void {
 			description: 'Marks multiple channels as read for the authenticated user in bulk.',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Read States'],
 		}),
 		Validator('json', ReadStateAckBulkRequest),

@@ -56,7 +56,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Enable TOTP multi-factor authentication',
 			responseSchema: MfaBackupCodesResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Enable time-based one-time password (TOTP) MFA on the current account. Returns backup codes for account recovery. Requires sudo mode verification.',
@@ -87,7 +87,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Disable TOTP multi-factor authentication',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Disable TOTP multi-factor authentication on the current account. Requires sudo mode verification for security.',
@@ -113,7 +113,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Get backup codes for multi-factor authentication',
 			responseSchema: MfaBackupCodesResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Generate and retrieve new backup codes for account recovery. Requires sudo mode verification. Old codes are invalidated.',
@@ -139,7 +139,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Send phone verification code',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Request a verification code to be sent via SMS to the provided phone number. Requires authentication.',
@@ -164,7 +164,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Verify phone code',
 			responseSchema: PhoneVerifyResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description: 'Verify a phone number by confirming the SMS verification code. Returns phone verification status.',
 		}),
@@ -187,7 +187,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Add phone number to account',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Add or update the phone number associated with the current account. Requires sudo mode verification. Phone must be verified before use.',
@@ -217,7 +217,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Remove phone number from account',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Remove the phone number from the current account. Requires sudo mode verification. SMS MFA will be disabled if enabled.',
@@ -243,7 +243,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Enable SMS multi-factor authentication',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Enable SMS-based multi-factor authentication on the current account. Requires sudo mode verification and a verified phone number.',
@@ -271,7 +271,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Disable SMS multi-factor authentication',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Disable SMS-based multi-factor authentication on the current account. Requires sudo mode verification for security.',
@@ -297,7 +297,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Forget authorized IPs for current user',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Clears all authorized IP addresses for the current user. After calling this endpoint, the user will be required to re-authorize any new IP addresses they log in from. Requires sudo mode verification.',
@@ -321,7 +321,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'List WebAuthn credentials',
 			responseSchema: WebAuthnCredentialListResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieve all registered WebAuthn credentials (security keys, biometric devices) for the current user. Requires authentication.',
@@ -343,7 +343,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Get WebAuthn registration options',
 			responseSchema: WebAuthnChallengeResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Generate challenge and options to register a new WebAuthn credential. Requires sudo mode verification.',
@@ -370,7 +370,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Register WebAuthn credential',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Complete registration of a new WebAuthn credential (security key or biometric device). Requires sudo mode verification.',
@@ -402,7 +402,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Update WebAuthn credential',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description: 'Update the name or settings of a registered WebAuthn credential. Requires sudo mode verification.',
 		}),
@@ -433,7 +433,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Delete WebAuthn credential',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Remove a registered WebAuthn credential from the current account. Requires sudo mode verification for security.',
@@ -458,7 +458,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'List sudo multi-factor authentication methods',
 			responseSchema: SudoMfaMethodsResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieve all available MFA methods for sudo mode verification (TOTP, SMS, WebAuthn). Requires authentication.',
@@ -478,7 +478,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Send sudo SMS code',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Request an SMS code to be sent for sudo mode verification. Used before entering sensitive account settings.',
@@ -499,7 +499,7 @@ export function UserAuthController(app: HonoApp) {
 			summary: 'Get sudo WebAuthn authentication options',
 			responseSchema: WebAuthnChallengeResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Generate WebAuthn challenge for sudo mode verification using a registered security key or biometric device.',

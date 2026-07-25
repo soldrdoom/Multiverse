@@ -38,7 +38,7 @@ export function SearchController(app: HonoApp) {
 			description: 'Searches for messages across guilds and channels accessible to the authenticated user.',
 			responseSchema: MessageSearchResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: 'Search',
 		}),
 		Validator('json', GlobalSearchMessagesRequest),

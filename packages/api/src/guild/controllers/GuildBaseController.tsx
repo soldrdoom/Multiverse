@@ -229,7 +229,7 @@ export function GuildBaseController(app: HonoApp) {
 				'Only default users can set vanity URLs. Requires manage_guild permission. Sets or removes a custom invite code.',
 			responseSchema: GuildVanityURLUpdateResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Guilds'],
 		}),
 		async (ctx) => {

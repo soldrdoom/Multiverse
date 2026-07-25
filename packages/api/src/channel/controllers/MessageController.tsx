@@ -231,7 +231,7 @@ export function MessageController(app: HonoApp) {
 			summary: 'Clear channel read state',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Channels', 'Messages'],
 			description:
 				'Clears all read state and acknowledgement records for a channel, marking all messages as unread. Only available for regular user accounts. Returns 204 No Content on success.',
@@ -363,7 +363,7 @@ export function MessageController(app: HonoApp) {
 			summary: 'Acknowledge a message',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Channels', 'Messages'],
 			description:
 				'Marks a message as read and records acknowledgement state. Only available for regular user accounts. Updates mention count if provided. Returns 204 No Content on success.',

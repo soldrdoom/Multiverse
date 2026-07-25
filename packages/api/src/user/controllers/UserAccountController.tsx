@@ -127,7 +127,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Update current user profile',
 			responseSchema: UserPrivateResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Updates the authenticated user's profile information such as username, avatar, and bio. Requires sudo mode verification for security-sensitive changes. Only default users can modify their own profile.",
@@ -158,7 +158,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Start email change',
 			responseSchema: EmailChangeStartResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Initiates an email change process. Generates a ticket for verifying the original email address before requesting a new email. Returns ticket for use in subsequent email change steps.',
@@ -181,7 +181,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Resend original email confirmation',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Resends a confirmation code to the user's original email address during the email change process. Use this if the original confirmation email was not received. Requires valid email change ticket.",
@@ -205,7 +205,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Verify original email address',
 			responseSchema: EmailChangeVerifyOriginalResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Verifies ownership of the original email address by validating a confirmation code sent to that address. Must be completed before requesting a new email address. Returns proof token for use in new email request.',
@@ -229,7 +229,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Request new email address',
 			responseSchema: EmailChangeRequestNewResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Requests to change email to a new address. Requires proof of original email verification. Sends confirmation code to new email address for verification.',
@@ -255,7 +255,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Resend new email confirmation',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Resends a confirmation code to the new email address during the email change process. Use this if the new email confirmation was not received. Requires valid email change ticket.',
@@ -279,7 +279,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Verify new email address',
 			responseSchema: EmailTokenResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Completes the email change process by verifying the new email address with a confirmation code. Returns an email token that confirms the email change. After this step, the user may need to re-authenticate.',
@@ -305,7 +305,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Request replacement email for bounced address',
 			responseSchema: EmailChangeRequestNewResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Starts a dedicated bounced-email recovery flow. Sends a verification code to the replacement email without requiring verification of the old bounced email address.',
@@ -329,7 +329,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Resend replacement email code',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Resends the verification code for the bounced-email recovery flow to the replacement email address.',
@@ -353,7 +353,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Verify replacement email for bounced address',
 			responseSchema: UserPrivateResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Completes bounced-email recovery by verifying the replacement email code, updating the account email, and clearing email-related suspicious-activity requirements.',
@@ -384,7 +384,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Start password change',
 			responseSchema: PasswordChangeStartResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Initiates a password change process. Sends a verification code to the user's email address. Returns a ticket for use in subsequent password change steps.",
@@ -407,7 +407,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Resend password change verification code',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Resends the verification code for a password change. Use if the original code was not received. Requires a valid password change ticket.',
@@ -431,7 +431,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Verify password change code',
 			responseSchema: PasswordChangeVerifyResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Verifies the email code sent during password change. Returns a proof token needed to complete the password change.',
@@ -455,7 +455,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Complete password change',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Completes the password change after email verification. Requires the verification proof and new password. Invalidates all existing sessions.',
@@ -575,7 +575,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Get current user settings',
 			responseSchema: UserSettingsResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Retrieves the current user's settings and preferences, including notification settings, privacy options, and display preferences. Only accessible to the authenticated user.",
@@ -601,7 +601,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Update current user settings',
 			responseSchema: UserSettingsResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Updates the current user's settings and preferences. Allows modification of notification settings, privacy options, display preferences, and other user-configurable options. Returns updated settings.",
@@ -634,7 +634,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'List current user notes',
 			responseSchema: UserNotesRecordResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves all notes the current user has written about other users. Returns a record of user IDs to notes. These are private notes visible only to the authenticated user.',
@@ -656,7 +656,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Get note on user',
 			responseSchema: UserNoteResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves a specific note the current user has written about another user. Returns the note text and metadata. These are private notes visible only to the authenticated user.',
@@ -685,7 +685,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Set note on user',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Creates or updates a private note on another user. The note is visible only to the authenticated user. Send null or empty string to delete an existing note.',
@@ -713,7 +713,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Update DM notification settings',
 			responseSchema: UserGuildSettingsResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Updates the user's notification settings for direct messages and group DMs. Controls how DM notifications are handled.",
@@ -740,7 +740,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Update guild settings for user',
 			responseSchema: UserGuildSettingsResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Updates the user's settings for a specific guild, such as notification preferences and visibility settings. Guild-specific settings override default settings.",
@@ -768,7 +768,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Disable current user account',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Temporarily disables the current user's account. Requires sudo mode verification. The account can be re-enabled by logging in again. User data is preserved but the account will be inaccessible during the disabled period.",
@@ -798,7 +798,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Delete current user account',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Permanently deletes the current user's account and all associated data. Requires sudo mode verification. This action is irreversible and will remove all user data, messages, and connections.",
@@ -825,7 +825,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Subscribe to push notifications',
 			responseSchema: PushSubscribeResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Registers a new push notification subscription for the current user. Takes push endpoint and encryption keys from a Web Push API subscription. Returns subscription ID for future reference.',
@@ -852,7 +852,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'List push subscriptions',
 			responseSchema: PushSubscriptionsListResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves all push notification subscriptions for the current user, including subscription IDs and user agent information for each subscription.',
@@ -879,7 +879,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Unsubscribe from push notifications',
 			responseSchema: SuccessResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Unregisters a push notification subscription for the current user. Push notifications will no longer be sent to this subscription endpoint.',
@@ -957,7 +957,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Request bulk message deletion',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Initiates bulk deletion of all messages sent by the current user. Requires sudo mode verification. The deletion process is asynchronous and may take time to complete. User data remains intact.',
@@ -982,7 +982,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Cancel bulk message deletion',
 			responseSchema: SuccessResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Cancels an in-progress bulk message deletion request. Can only be used if the deletion has not yet completed. Returns success status.',
@@ -1004,7 +1004,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Test bulk message deletion',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Staff-only endpoint for testing bulk message deletion functionality. Creates a test deletion request with a 1-minute delay. Only accessible to users with staff privileges.',
@@ -1034,7 +1034,7 @@ export function UserAccountController(app: HonoApp) {
 			summary: 'Reset current user premium state',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Staff-only endpoint that clears premium status and related premium metadata for the current user account.',

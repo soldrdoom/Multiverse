@@ -40,7 +40,7 @@ export function GuildAuditLogController(app: HonoApp) {
 			summary: 'List guild audit logs',
 			responseSchema: GuildAuditLogListResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Guilds'],
 			description:
 				'List guild audit logs. Only default users can access. Requires view_audit_logs permission. Returns guild activity history with pagination and action filtering.',

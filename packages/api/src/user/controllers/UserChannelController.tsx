@@ -40,7 +40,7 @@ export function UserChannelController(app: HonoApp) {
 			summary: 'List private channels',
 			responseSchema: z.array(ChannelResponse),
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves all private channels (direct messages) accessible to the current user. Returns list of channel objects with metadata including recipient information.',
@@ -90,7 +90,7 @@ export function UserChannelController(app: HonoApp) {
 			summary: 'Pin direct message channel',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Pins a private message channel for the current user. Pinned channels appear at the top of the channel list for easy access.',
@@ -115,7 +115,7 @@ export function UserChannelController(app: HonoApp) {
 			summary: 'Unpin direct message channel',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Unpins a private message channel for the current user. The channel will return to its normal position in the channel list based on activity.',

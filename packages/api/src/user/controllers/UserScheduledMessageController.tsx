@@ -42,7 +42,7 @@ export function UserScheduledMessageController(app: HonoApp) {
 			summary: 'List scheduled messages',
 			responseSchema: z.array(ScheduledMessageResponseSchema),
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves all scheduled messages for the current user. Returns list of messages that are scheduled to be sent at a future date and time.',
@@ -70,7 +70,7 @@ export function UserScheduledMessageController(app: HonoApp) {
 			summary: 'Get scheduled message',
 			responseSchema: ScheduledMessageResponseSchema,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves details of a specific scheduled message by ID. Returns the message content, scheduled send time, and status.',
@@ -100,7 +100,7 @@ export function UserScheduledMessageController(app: HonoApp) {
 			summary: 'Cancel scheduled message',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Cancels and deletes a scheduled message before it is sent. The message will not be delivered if cancelled.',
@@ -125,7 +125,7 @@ export function UserScheduledMessageController(app: HonoApp) {
 			summary: 'Update scheduled message',
 			responseSchema: ScheduledMessageResponseSchema,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Updates an existing scheduled message before it is sent. Can modify message content, scheduled time, and timezone. Returns updated scheduled message details.',

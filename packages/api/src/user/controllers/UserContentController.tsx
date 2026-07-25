@@ -51,7 +51,7 @@ export function UserContentController(app: HonoApp) {
 			summary: 'List mentions for current user',
 			responseSchema: MessageListResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves messages where the current user was mentioned. Supports filtering by role mentions, everyone mentions, and specific guilds. Returns paginated list of messages.',
@@ -82,7 +82,7 @@ export function UserContentController(app: HonoApp) {
 			summary: 'Delete mention',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Removes a mention from the current user's mention history. Does not delete the original message, only removes it from the user's personal mention list.",
@@ -107,7 +107,7 @@ export function UserContentController(app: HonoApp) {
 			summary: 'List saved messages',
 			responseSchema: SavedMessageEntryListResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves all messages saved by the current user. Messages are saved privately for easy reference. Returns paginated list of saved messages with metadata.',
@@ -133,7 +133,7 @@ export function UserContentController(app: HonoApp) {
 			summary: 'Save message',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Saves a message for the current user. Saved messages can be accessed later from the saved messages list. Messages are saved privately.',
@@ -161,7 +161,7 @@ export function UserContentController(app: HonoApp) {
 			summary: 'Unsave message',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Removes a message from the current user's saved messages. Does not delete the original message, only removes it from the user's saved collection.",
@@ -185,7 +185,7 @@ export function UserContentController(app: HonoApp) {
 			summary: 'Request data harvest',
 			responseSchema: HarvestCreationResponseSchema,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Requests a data harvest of all user data and content. Initiates an asynchronous process to compile and prepare all data for download in a portable format. Returns harvest ID and status.',
@@ -206,7 +206,7 @@ export function UserContentController(app: HonoApp) {
 			summary: 'Get latest data harvest',
 			responseSchema: HarvestStatusResponseSchemaNullable,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves the status of the most recent data harvest request. Returns null if no harvest has been requested yet. Shows progress and estimated completion time.',
@@ -228,7 +228,7 @@ export function UserContentController(app: HonoApp) {
 			summary: 'Get data harvest status',
 			responseSchema: HarvestStatusResponseSchema,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves detailed status information for a specific data harvest. Shows progress, completion status, and other metadata about the harvest request.',
@@ -254,7 +254,7 @@ export function UserContentController(app: HonoApp) {
 			summary: 'Get data harvest download URL',
 			responseSchema: HarvestDownloadUrlResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves the download URL for a completed data harvest. The URL is temporary and expires after a set time. Can only be accessed for completed harvests.',

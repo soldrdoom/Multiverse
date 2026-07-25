@@ -36,7 +36,7 @@ export function ThemeController(app: HonoApp) {
 			summary: 'Create theme',
 			responseSchema: ThemeCreateResponse,
 			statusCode: 201,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Themes'],
 			description: 'Creates a new custom theme with CSS styling that can be shared with other users.',
 		}),

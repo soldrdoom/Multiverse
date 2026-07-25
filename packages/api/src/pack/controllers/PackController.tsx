@@ -46,7 +46,7 @@ export function PackController(app: HonoApp) {
 				'Returns a dashboard view containing all emoji and sticker packs created by or owned by the authenticated user. This includes pack metadata such as name, description, type, and cover image.',
 			responseSchema: PackDashboardResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Packs'],
 		}),
 		async (ctx) => {
@@ -71,7 +71,7 @@ export function PackController(app: HonoApp) {
 				'Creates a new emoji or sticker pack owned by the authenticated user. The pack type is specified in the path parameter and can be either "emoji" or "sticker". Returns the newly created pack with its metadata.',
 			responseSchema: PackSummaryResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Packs'],
 		}),
 		async (ctx) => {
@@ -98,7 +98,7 @@ export function PackController(app: HonoApp) {
 				'Updates the metadata for an existing pack owned by the authenticated user. Allowed modifications include name, description, and cover image. Returns the updated pack with all current metadata.',
 			responseSchema: PackSummaryResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Packs'],
 		}),
 		async (ctx) => {
@@ -124,7 +124,7 @@ export function PackController(app: HonoApp) {
 				'Permanently deletes a pack owned by the authenticated user along with all emojis or stickers contained within it. This action cannot be undone and will remove all associated assets.',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Packs'],
 		}),
 		async (ctx) => {
@@ -149,7 +149,7 @@ export function PackController(app: HonoApp) {
 				"Installs a pack to the authenticated user's collection, making its emojis or stickers available for use. The pack must be publicly accessible or owned by the user.",
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Packs'],
 		}),
 		async (ctx) => {
@@ -174,7 +174,7 @@ export function PackController(app: HonoApp) {
 				"Uninstalls a pack from the authenticated user's collection, removing access to its emojis or stickers. This does not delete the pack itself, only removes it from the user's installed list.",
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Packs'],
 		}),
 		async (ctx) => {

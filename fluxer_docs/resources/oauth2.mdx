@@ -175,6 +175,7 @@ Type: Bitflags32
 | banner | ?string | The banner hash of the bot |
 | bio | ?string | The bio or description of the bot |
 | discriminator | string | The discriminator of the bot |
+| global_name | ?string | The display name of the bot, if set |
 | id | [SnowflakeType](#snowflaketype) | The unique identifier of the bot user |
 | username | string | The username of the bot |
 
@@ -193,6 +194,7 @@ Type: Bitflags32
 | bio? | ?string | The bio or description of the bot |
 | bot_flags? | [BotFlags](#botflags) |  |
 | discriminator? | string | The discriminator of the bot |
+| global_name? | ?string | The display name of the bot |
 | username? | [UsernameType](#usernametype) |  |
 
 <a id="bottokenresetresponse"></a>
@@ -350,6 +352,28 @@ Type: string
 | client_secret? | string | The application client secret |
 | token | string | The token to revoke |
 | token_type_hint? | [RevokeRequestFormTokenTypeHint](#revokerequestformtokentypehint) | A hint about the type of token being revoked |
+
+<a id="tokengatematchmode"></a>
+
+## TokenGateMatchMode
+
+How a channel/category's tokengate address is matched against a wallet's held assets
+
+| Value | Description |
+|-------|-------------|
+| `0` | Only the wallet holding this exact NFT satisfies the gate |
+| `1` | Any wallet holding any asset from the collection at this address satisfies the gate |
+
+<a id="tokengatevisibility"></a>
+
+## TokenGateVisibility
+
+How token-gated channels/categories appear to members who do not satisfy the gate
+
+| Value | Description |
+|-------|-------------|
+| `0` | Gated channels are visible with a lock icon to non-qualifying members |
+| `1` | Gated channels are hidden entirely from non-qualifying members |
 
 <a id="tokenrequest"></a>
 

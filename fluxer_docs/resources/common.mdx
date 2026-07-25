@@ -384,29 +384,38 @@ Type: string (int64)
 |-------|------|-------------|
 | listing | [CreatorListingEntry](#creatorlistingentry) |  |
 
-<a id="nftsresponse"></a>
+<a id="listpublishednewsresponse"></a>
 
-## NftsResponse
+## ListPublishedNewsResponse
 
 **Related endpoints**
 
-- [`GET /nfts`](/api-reference/cosmetics/list-cosmetic-nfts-in-the-current-users-wallet)
+- [`GET /news`](/api-reference/news/list-published-news-stories)
 
 | Field | Type | Description |
 |-------|------|-------------|
-| nfts | [OwnedCosmeticNft](#ownedcosmeticnft)[] |  |
+| stories | [NewsStoryResponse](#newsstoryresponse)[] |  |
 
-<a id="ownedcosmeticnft"></a>
+<a id="newsstoryresponse"></a>
 
-## OwnedCosmeticNft
+## NewsStoryResponse
 
 | Field | Type | Description |
 |-------|------|-------------|
-| cosmetic_type | string |  |
-| image | ?string |  |
-| mint | string |  |
-| name | string |  |
-| rarity | [CreatorListingEntryRarity](#creatorlistingentryrarity) |  |
+| body | string | Body content of the news story |
+| image_url | ?string | URL of the story image shown at the top of the news card, if any |
+| published_at | string | When this story was published, ISO 8601 |
+| story_id | [SnowflakeType](#snowflaketype) | Unique identifier for this news story |
+| title | string | Title of the news story |
+
+<a id="newsstorystatusschema"></a>
+
+## NewsStoryStatusSchema
+
+| Value | Description |
+|-------|-------------|
+| `draft` | - |
+| `published` | - |
 
 <a id="passwordtype"></a>
 
@@ -444,7 +453,7 @@ Type: string
 
 | Field | Type | Description |
 |-------|------|-------------|
-| nft | [OwnedCosmeticNft](#ownedcosmeticnft) |  |
+| nft | [PurchaseCosmeticResponseNft](#purchasecosmeticresponsenft) |  |
 | ok | boolean |  |
 
 <a id="renderspoilers"></a>
@@ -746,6 +755,7 @@ Error codes for field validation issues
 | `INVALID_RTC_REGION` | Invalid RTC region |
 | `INVALID_SCHEDULED_MESSAGE_PAYLOAD` | Invalid scheduled message payload |
 | `INVALID_SNOWFLAKE` | Invalid snowflake |
+| `INVALID_SOLANA_ADDRESS` | Invalid Solana address |
 | `INVALID_TIMEOUT_VALUE` | Invalid timeout value |
 | `INVALID_TIMEZONE_IDENTIFIER` | Invalid timezone identifier |
 | `INVALID_URL_FORMAT` | Invalid URL format |
@@ -948,4 +958,16 @@ Error codes for field validation issues
 | image_url? | ?string (uri) |  |
 | mint_address | string |  |
 | slot | string |  |
+
+<a id="purchasecosmeticresponsenft"></a>
+
+## PurchaseCosmeticResponseNft
+
+| Field | Type | Description |
+|-------|------|-------------|
+| cosmetic_type | string |  |
+| image | ?string |  |
+| mint | string |  |
+| name | string |  |
+| rarity | [CreatorListingEntryRarity](#creatorlistingentryrarity) |  |
 

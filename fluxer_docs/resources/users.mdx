@@ -41,6 +41,10 @@ description: 'Users object schemas from the Fluxer API.'
 | mfa_code? | string | MFA verification code from authenticator app or SMS |
 | mfa_method? | [GuildUpdateRequestMfaMethod](#guildupdaterequestmfamethod) | MFA method to use for verification |
 | password? | [PasswordType](#passwordtype) |  |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | webauthn_challenge? | string | WebAuthn challenge string |
 | webauthn_response? | JSON value | WebAuthn authentication response |
 
@@ -207,6 +211,10 @@ Type: object
 | mfa_method? | [GuildUpdateRequestMfaMethod](#guildupdaterequestmfamethod) | MFA method to use for verification |
 | password? | [PasswordType](#passwordtype) |  |
 | secret | string | The TOTP secret key |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | webauthn_challenge? | string | WebAuthn challenge string |
 | webauthn_response? | JSON value | WebAuthn authentication response |
 
@@ -351,6 +359,10 @@ Type: [MessageResponseSchema](#messageresponseschema)[]
 | mfa_method? | [GuildUpdateRequestMfaMethod](#guildupdaterequestmfamethod) | MFA method to use for verification |
 | password? | [PasswordType](#passwordtype) |  |
 | regenerate | boolean | Whether to regenerate backup codes |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | webauthn_challenge? | string | WebAuthn challenge string |
 | webauthn_response? | JSON value | WebAuthn authentication response |
 
@@ -455,6 +467,10 @@ Type: [MessageResponseSchema](#messageresponseschema)[]
 | mfa_method? | [GuildUpdateRequestMfaMethod](#guildupdaterequestmfamethod) | MFA method to use for verification |
 | password? | [PasswordType](#passwordtype) |  |
 | phone_token | string | Token from phone verification |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | webauthn_challenge? | string | WebAuthn challenge string |
 | webauthn_response? | JSON value | WebAuthn authentication response |
 
@@ -752,6 +768,10 @@ Type: [SavedMessageEntryResponse](#savedmessageentryresponse)[]
 | mfa_code? | string | MFA verification code from authenticator app or SMS |
 | mfa_method? | [GuildUpdateRequestMfaMethod](#guildupdaterequestmfamethod) | MFA method to use for verification |
 | password? | [PasswordType](#passwordtype) |  |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | webauthn_challenge? | string | WebAuthn challenge string |
 | webauthn_response? | JSON value | WebAuthn authentication response |
 
@@ -1279,6 +1299,10 @@ UI theme preference
 | premium_badge_timestamp_hidden? | boolean | Whether to hide premium badge timestamp |
 | premium_enabled_override? | boolean | Override premium enabled state |
 | pronouns? | ?string | User pronouns (max 40 characters) |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | used_mobile_client? | boolean | Whether user has used mobile client |
 | username? | [UsernameType](#usernametype) |  |
 | webauthn_challenge? | string | WebAuthn challenge string |
@@ -1311,6 +1335,10 @@ UI theme preference
 | mfa_method? | [GuildUpdateRequestMfaMethod](#guildupdaterequestmfamethod) | MFA method to use for verification |
 | name | string | New name for the credential |
 | password? | [PasswordType](#passwordtype) |  |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | webauthn_challenge? | string | WebAuthn challenge string |
 | webauthn_response? | JSON value | WebAuthn authentication response |
 
@@ -1330,6 +1358,10 @@ UI theme preference
 | name | string | User-assigned name for the credential |
 | password? | [PasswordType](#passwordtype) |  |
 | response | JSON value | WebAuthn registration response |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | webauthn_challenge? | string | WebAuthn challenge string |
 | webauthn_response? | JSON value | WebAuthn authentication response |
 

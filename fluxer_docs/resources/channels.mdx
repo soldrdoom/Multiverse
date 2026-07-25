@@ -251,6 +251,10 @@ The pinned message
 | rate_limit_per_user? | [Int32Type](#int32type) |  |
 | recipients? | [UserPartialResponse](#userpartialresponse)[] | The recipients of the DM channel |
 | rtc_region? | ?[SnowflakeType](#snowflaketype) | The voice region ID for the voice channel |
+| token_gate_address? | ?string | The mint or collection address gating this channel, if configured on this channel or inherited from its parent category. Null/absent if this channel has no gate of its own — check the parent category's value to know whether it's inheriting one. |
+| token_gate_match_mode? | ?[TokenGateMatchMode](#tokengatematchmode) | How this channel/category's tokengate address is matched against a wallet's held assets, if configured on this channel or inherited from its parent category. Null/absent if this channel has no explicit choice of its own — check the parent category's value, defaulting to EXACT_ASSET if neither is set. |
+| token_gate_satisfied? | ?boolean | Whether the requesting user currently satisfies this channel's effective tokengate. Only present on responses computed for a specific requesting user (not broadcast dispatch payloads); null/absent means no gate applies. |
+| token_gate_visibility? | ?[TokenGateVisibility](#tokengatevisibility) | How this channel/category appears to members who don't satisfy its effective tokengate, if configured on this channel or inherited from its parent category. Null/absent if this channel has no explicit choice of its own — check the parent category's value, defaulting to LOCKED if neither is set. |
 | topic? | ?string | The topic of the channel |
 | type | integer (int32) | The type of the channel |
 | url? | ?string (uri) | The URL associated with the channel |
@@ -964,6 +968,44 @@ Type: [UserPartialResponse](#userpartialresponse)[]
 | Field | Type | Description |
 |-------|------|-------------|
 | region? | string | The preferred voice region for the stream (1-64 characters) |
+
+<a id="tokengaterecheckresponse"></a>
+
+## TokenGateRecheckResponse
+
+**Related endpoints**
+
+- [`POST /channels/{channel_id}/token-gate/recheck`](/api-reference/channels/recheck-the-current-users-access-to-a-gated-channel)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| gate_address? | ?string | The effective mint/collection address that was checked, if any |
+| satisfied | boolean | Whether the requesting user now satisfies the channel/category tokengate |
+
+<a id="tokengatesetrequest"></a>
+
+## TokenGateSetRequest
+
+**Related endpoints**
+
+- [`PUT /channels/{channel_id}/token-gate`](/api-reference/channels/set-the-tokengate-for-a-channel-or-category)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| address | string | The base58-encoded Solana mint or collection address gating this channel/category. What satisfies the gate depends on match_mode. |
+| match_mode? | ?[TokenGateMatchMode](#tokengatematchmode) | Whether `address` must match a held asset exactly, or any asset belonging to the collection at that address. Defaults to EXACT_ASSET if omitted. |
+
+<a id="tokengatevisibilitysetrequest"></a>
+
+## TokenGateVisibilitySetRequest
+
+**Related endpoints**
+
+- [`PUT /channels/{channel_id}/token-gate/visibility`](/api-reference/channels/set-how-a-channelcategory-appears-to-members-who-fail-its-tokengate)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| visibility | integer (int32) | How this channel/category should appear to members who don't satisfy its effective tokengate. |
 
 <a id="voiceregionadminresponse"></a>
 

@@ -241,6 +241,10 @@ Default notification level for new members
 | mfa_code? | string | MFA verification code from authenticator app or SMS |
 | mfa_method? | [GuildUpdateRequestMfaMethod](#guildupdaterequestmfamethod) | MFA method to use for verification |
 | password? | [PasswordType](#passwordtype) |  |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | webauthn_challenge? | string | WebAuthn challenge string |
 | webauthn_response? | JSON value | WebAuthn authentication response |
 
@@ -639,6 +643,9 @@ Category of the guild report
 | splash_width? | ?[Int32Type](#int32type) | The width of the guild splash in pixels |
 | system_channel_flags | [SystemChannelFlags](#systemchannelflags) |  |
 | system_channel_id? | ?[SnowflakeType](#snowflaketype) | The ID of the channel where system messages are sent |
+| token_gate_address? | ?string | The mint or collection address gating the entire guild, if configured. Channels/categories with no gate of their own (and whose parent category, if any, also has none) fall back to this. |
+| token_gate_match_mode? | ?[TokenGateMatchMode](#tokengatematchmode) | How the guild-wide gate's address is matched against a wallet's held assets. Only meaningful when token_gate_address is set. |
+| token_gate_visibility | [TokenGateVisibility](#tokengatevisibility) | How the guild-wide gate appears to members who don't satisfy it, and the default for any channel/category with no explicit visibility choice of its own |
 | vanity_url_code? | ?string | The vanity URL code for the guild |
 | verification_level | [GuildVerificationLevel](#guildverificationlevel) | Required verification level for members to participate |
 
@@ -872,10 +879,17 @@ Type: [GuildStickerWithUserResponse](#guildstickerwithuserresponse)[]
 | name? | string | The name of the guild (1-100 characters) |
 | nsfw_level? | [NSFWLevel](#nsfwlevel) | The NSFW level of the guild |
 | password? | [PasswordType](#passwordtype) |  |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | splash? | ?[Base64ImageType](#base64imagetype) | Base64-encoded image data for the guild splash screen |
 | splash_card_alignment? | [GuildUpdateRequestSplashCardAlignment](#guildupdaterequestsplashcardalignment) | Alignment of the splash card (center, left, or right) |
 | system_channel_flags? | [SystemChannelFlags](#systemchannelflags) |  |
 | system_channel_id? | ?[SnowflakeType](#snowflaketype) | The ID of the channel where system messages are sent |
+| token_gate_address? | ?string | The base58-encoded Solana mint or collection address gating the entire guild. Set to null to remove the guild-wide gate. |
+| token_gate_match_mode? | ?[TokenGateMatchMode](#tokengatematchmode) | Whether token_gate_address must match a held asset exactly, or any asset belonging to the collection at that address. Defaults to EXACT_ASSET if omitted while setting an address. |
+| token_gate_visibility? | [TokenGateVisibility](#tokengatevisibility) | How the guild-wide gate appears to members who don't satisfy it, and the default for any channel/category with no explicit visibility choice of its own |
 | verification_level? | [GuildVerificationLevel](#guildverificationlevel) | Required verification level for members to participate |
 | webauthn_challenge? | string | WebAuthn challenge string |
 | webauthn_response? | JSON value | WebAuthn authentication response |
@@ -1046,6 +1060,7 @@ The NSFW level of the guild
 - [`POST /channels/{channel_id}/messages/bulk-delete`](/api-reference/channels/bulk-delete-messages)
 - [`POST /channels/{channel_id}/messages/schedule`](/api-reference/channels/schedule-a-message-to-send-later)
 - [`POST /channels/{channel_id}/pins/ack`](/api-reference/channels/acknowledge-new-pin-notifications)
+- [`POST /channels/{channel_id}/token-gate/recheck`](/api-reference/channels/recheck-the-current-users-access-to-a-gated-channel)
 - [`POST /channels/{channel_id}/typing`](/api-reference/channels/indicate-typing-activity)
 - [`POST /channels/{channel_id}/webhooks`](/api-reference/webhooks/create-webhook)
 - [`POST /discovery/guilds/{guild_id}/join`](/api-reference/discovery/join-a-discoverable-guild)
@@ -1074,6 +1089,8 @@ The NSFW level of the guild
 - [`PUT /channels/{channel_id}/permissions/{overwrite_id}`](/api-reference/channels/set-permission-overwrite-for-channel)
 - [`PUT /channels/{channel_id}/pins/{message_id}`](/api-reference/channels/pin-a-message)
 - [`PUT /channels/{channel_id}/recipients/{user_id}`](/api-reference/channels/add-recipient-to-group-dm)
+- [`PUT /channels/{channel_id}/token-gate`](/api-reference/channels/set-the-tokengate-for-a-channel-or-category)
+- [`PUT /channels/{channel_id}/token-gate/visibility`](/api-reference/channels/set-how-a-channelcategory-appears-to-members-who-fail-its-tokengate)
 - [`PUT /guilds/{guild_id}/bans/{user_id}`](/api-reference/guilds/ban-guild-member)
 - [`PUT /guilds/{guild_id}/members/{user_id}/roles/{role_id}`](/api-reference/guilds/add-role-to-guild-member)
 - [`PUT /users/@me/channels/{channel_id}/pin`](/api-reference/users/pin-direct-message-channel)
@@ -1112,6 +1129,7 @@ The NSFW level of the guild
 - [`DELETE /channels/{channel_id}/permissions/{overwrite_id}`](/api-reference/channels/delete-permission-overwrite)
 - [`DELETE /channels/{channel_id}/pins/{message_id}`](/api-reference/channels/unpin-a-message)
 - [`DELETE /channels/{channel_id}/recipients/{user_id}`](/api-reference/channels/remove-recipient-from-group-dm)
+- [`DELETE /channels/{channel_id}/token-gate`](/api-reference/channels/clear-the-tokengate-for-a-channel-or-category)
 - [`DELETE /guilds/{guild_id}/bans/{user_id}`](/api-reference/guilds/unban-guild-member)
 - [`DELETE /guilds/{guild_id}/discovery`](/api-reference/discovery/withdraw-discovery-application)
 - [`DELETE /guilds/{guild_id}/emojis/{emoji_id}`](/api-reference/guilds/delete-guild-emoji)

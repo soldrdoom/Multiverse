@@ -44,7 +44,7 @@ export function UserRelationshipController(app: HonoApp) {
 			summary: 'List user relationships',
 			responseSchema: z.array(RelationshipResponse),
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Retrieves all relationships for the current user, including friends, friend requests (incoming and outgoing), and blocked users. Returns list of relationship objects with type and metadata.',
@@ -69,7 +69,7 @@ export function UserRelationshipController(app: HonoApp) {
 			summary: 'Send friend request by tag',
 			responseSchema: RelationshipResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Sends a friend request to a user identified by username tag (username#discriminator). Returns the new relationship object. Can fail if user not found or request already sent.',
@@ -95,7 +95,7 @@ export function UserRelationshipController(app: HonoApp) {
 			summary: 'Send friend request',
 			responseSchema: RelationshipResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Sends a friend request to a user identified by user ID. Returns the new relationship object. Can fail if user not found or request already sent.',
@@ -122,7 +122,7 @@ export function UserRelationshipController(app: HonoApp) {
 			summary: 'Accept or update friend request',
 			responseSchema: RelationshipResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Accepts a pending incoming friend request from a user or updates the relationship type. Can also be used to change friend relationship to blocked status. Returns updated relationship object.',
@@ -149,7 +149,7 @@ export function UserRelationshipController(app: HonoApp) {
 			summary: 'Remove relationship',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				'Removes a relationship with another user by ID. Removes friends, cancels friend requests (incoming or outgoing), or unblocks a blocked user depending on current relationship type.',
@@ -175,7 +175,7 @@ export function UserRelationshipController(app: HonoApp) {
 			summary: 'Update relationship nickname',
 			responseSchema: RelationshipResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['Users'],
 			description:
 				"Updates the nickname associated with a relationship (friend or blocked user). Nicknames are personal labels that override the user's display name in the current user's view. Returns updated relationship object.",

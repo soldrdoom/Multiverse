@@ -54,7 +54,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			summary: 'List user applications',
 			responseSchema: ApplicationListResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Lists all OAuth2 applications owned by the authenticated user. Includes application credentials, metadata, and configuration.',
@@ -72,7 +72,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			summary: 'List user applications',
 			responseSchema: ApplicationListResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Lists all OAuth2 applications owned by the authenticated user. Includes application credentials, metadata, and configuration.',
@@ -91,7 +91,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			summary: 'Create OAuth2 application',
 			responseSchema: ApplicationResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Creates a new OAuth2 application (client). Returns client credentials including ID and secret. Application can be used for authorization flows and API access.',
@@ -115,7 +115,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			summary: 'Get application',
 			responseSchema: ApplicationResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Retrieves details of a specific OAuth2 application owned by the user. Returns full application configuration and credentials.',
@@ -141,7 +141,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			summary: 'Update application',
 			responseSchema: ApplicationResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Modifies OAuth2 application configuration such as name, description, and redirect URIs. Does not rotate credentials.',
@@ -169,7 +169,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			summary: 'Delete application',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Permanently deletes an OAuth2 application. Requires sudo mode authentication. Invalidates all issued tokens and revokes all user authorizations.',
@@ -200,7 +200,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			summary: 'Reset bot token',
 			responseSchema: BotTokenResetResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Rotates the bot token for an OAuth2 application. Requires sudo mode authentication. Invalidates all previously issued bot tokens. Used for security rotation and compromise mitigation.',
@@ -232,7 +232,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			summary: 'Reset client secret',
 			responseSchema: ApplicationResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Rotates the client secret for an OAuth2 application. Requires sudo mode authentication. Essential security operation for protecting client credentials. Existing access tokens remain valid.',
@@ -263,7 +263,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			summary: 'Update bot profile',
 			responseSchema: BotProfileResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Modifies bot profile information such as name, avatar, and status. Changes apply to the bot account associated with this OAuth2 application.',

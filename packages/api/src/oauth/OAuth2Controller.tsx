@@ -79,7 +79,7 @@ export function OAuth2Controller(app: HonoApp) {
 			summary: 'Grant OAuth2 consent',
 			responseSchema: OAuth2ConsentResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'User grants permission for an OAuth2 application to access authorized scopes. Used in authorization code flow to complete the authorization process after user review.',
@@ -262,7 +262,7 @@ export function OAuth2Controller(app: HonoApp) {
 			summary: 'Reset bot token',
 			responseSchema: BotTokenResetResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Rotates the bot token for an OAuth2 application. Requires sudo mode authentication. Invalidates all previously issued bot tokens. Used for security rotation and compromise mitigation.',
@@ -294,7 +294,7 @@ export function OAuth2Controller(app: HonoApp) {
 			summary: 'Reset client secret',
 			responseSchema: ApplicationResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Rotates the client secret for an OAuth2 application. Requires sudo mode authentication. Essential security operation for protecting client credentials. Existing access tokens remain valid.',
@@ -323,7 +323,7 @@ export function OAuth2Controller(app: HonoApp) {
 			summary: 'List user OAuth2 authorizations',
 			responseSchema: OAuth2AuthorizationsListResponse,
 			statusCode: 200,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Lists all third-party applications the user has authorized. Shows granted scopes and authorization metadata. Allows user to review and manage delegated access.',
@@ -346,7 +346,7 @@ export function OAuth2Controller(app: HonoApp) {
 			summary: 'Revoke OAuth2 authorization',
 			responseSchema: null,
 			statusCode: 204,
-			security: ['botToken', 'bearerToken', 'sessionToken'],
+			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
 				'Revokes user authorization for a third-party application. Immediately invalidates all tokens issued to that application. User regains control of delegated access.',

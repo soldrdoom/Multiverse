@@ -431,6 +431,21 @@ description: 'Admin object schemas from the Fluxer API.'
 | key_id | [SnowflakeType](#snowflaketype) | Unique identifier for the API key |
 | name | string | Display name for the API key |
 
+<a id="createnewsstoryrequest"></a>
+
+## CreateNewsStoryRequest
+
+**Related endpoints**
+
+- [`POST /admin/news/create`](/api-reference/admin/create-a-news-story)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| body | string | Body content of the news story |
+| image_data? | ?string | Base64 data URL of an uploaded image; takes precedence over image_url when present |
+| image_url? | ?string | URL of the image shown at the top of the news card |
+| title | string | Title of the news story |
+
 <a id="createsystemdmjobrequest"></a>
 
 ## CreateSystemDmJobRequest
@@ -589,6 +604,18 @@ description: 'Admin object schemas from the Fluxer API.'
 | Field | Type | Description |
 |-------|------|-------------|
 | success | enum&lt;`true`&gt; |  |
+
+<a id="deletenewsstoryresponse"></a>
+
+## DeleteNewsStoryResponse
+
+**Related endpoints**
+
+- [`POST /admin/news/delete`](/api-reference/admin/delete-a-news-story)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| story_id | [SnowflakeType](#snowflaketype) |  |
 
 <a id="deletesnowflakereservationrequest"></a>
 
@@ -769,6 +796,7 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`GET /admin/gateway/stats`](/api-reference/admin/get-gateway-node-statistics)
 - [`GET /admin/guilds/{guild_id}/emojis`](/api-reference/admin/list-guild-emojis)
 - [`GET /admin/guilds/{guild_id}/stickers`](/api-reference/admin/list-guild-stickers)
+- [`GET /admin/news/{story_id}`](/api-reference/admin/get-a-news-story)
 - [`GET /admin/reports/{report_id}`](/api-reference/admin/get-report-details)
 - [`GET /admin/reports/{report_id}/legal-hold`](/api-reference/admin/get-legal-hold-status)
 - [`GET /admin/reports/{report_id}/ncmec-status`](/api-reference/admin/get-ncmec-submission-status)
@@ -813,7 +841,7 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`GET /klipy/search`](/api-reference/klipy/search-klipy-gifs)
 - [`GET /klipy/suggest`](/api-reference/klipy/get-klipy-search-suggestions)
 - [`GET /klipy/trending-gifs`](/api-reference/klipy/get-trending-klipy-gifs)
-- [`GET /nfts`](/api-reference/cosmetics/list-cosmetic-nfts-in-the-current-users-wallet)
+- [`GET /news`](/api-reference/news/list-published-news-stories)
 - [`GET /oauth2/@me`](/api-reference/oauth2/get-current-oauth2-user)
 - [`GET /oauth2/@me/authorizations`](/api-reference/oauth2/list-user-oauth2-authorizations)
 - [`GET /oauth2/applications/{id}`](/api-reference/oauth2/get-application)
@@ -915,6 +943,12 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`POST /admin/messages/lookup-by-attachment`](/api-reference/admin/look-up-message-by-attachment)
 - [`POST /admin/messages/shred`](/api-reference/admin/queue-message-shred-operation)
 - [`POST /admin/messages/shred-status`](/api-reference/admin/get-message-shred-status)
+- [`POST /admin/news/create`](/api-reference/admin/create-a-news-story)
+- [`POST /admin/news/delete`](/api-reference/admin/delete-a-news-story)
+- [`POST /admin/news/list`](/api-reference/admin/list-news-stories)
+- [`POST /admin/news/publish`](/api-reference/admin/publish-a-news-story)
+- [`POST /admin/news/unpublish`](/api-reference/admin/unpublish-a-news-story)
+- [`POST /admin/news/update`](/api-reference/admin/update-a-news-story)
 - [`POST /admin/reports/{report_id}/legal-hold`](/api-reference/admin/set-legal-hold-on-evidence)
 - [`POST /admin/reports/{report_id}/ncmec-submit`](/api-reference/admin/submit-report-to-ncmec)
 - [`POST /admin/reports/list`](/api-reference/admin/list-reports)
@@ -956,6 +990,7 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`POST /admin/users/unlink-phone`](/api-reference/admin/unlink-user-phone)
 - [`POST /admin/users/update-flags`](/api-reference/admin/update-user-flags)
 - [`POST /admin/users/update-suspicious-activity-flags`](/api-reference/admin/update-suspicious-activity-flags)
+- [`POST /admin/users/update-visionary`](/api-reference/admin/grant-or-revoke-visionary-status)
 - [`POST /admin/users/verify-email`](/api-reference/admin/verify-user-email)
 - [`POST /admin/voice/regions/create`](/api-reference/admin/create-voice-region)
 - [`POST /admin/voice/regions/delete`](/api-reference/admin/delete-voice-region)
@@ -1000,6 +1035,7 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`POST /channels/{channel_id}/messages/bulk-delete`](/api-reference/channels/bulk-delete-messages)
 - [`POST /channels/{channel_id}/messages/schedule`](/api-reference/channels/schedule-a-message-to-send-later)
 - [`POST /channels/{channel_id}/pins/ack`](/api-reference/channels/acknowledge-new-pin-notifications)
+- [`POST /channels/{channel_id}/token-gate/recheck`](/api-reference/channels/recheck-the-current-users-access-to-a-gated-channel)
 - [`POST /channels/{channel_id}/typing`](/api-reference/channels/indicate-typing-activity)
 - [`POST /channels/{channel_id}/webhooks`](/api-reference/webhooks/create-webhook)
 - [`POST /cosmetics/purchase`](/api-reference/cosmetics/purchase-a-cosmetic-nft)
@@ -1097,6 +1133,8 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`PUT /channels/{channel_id}/permissions/{overwrite_id}`](/api-reference/channels/set-permission-overwrite-for-channel)
 - [`PUT /channels/{channel_id}/pins/{message_id}`](/api-reference/channels/pin-a-message)
 - [`PUT /channels/{channel_id}/recipients/{user_id}`](/api-reference/channels/add-recipient-to-group-dm)
+- [`PUT /channels/{channel_id}/token-gate`](/api-reference/channels/set-the-tokengate-for-a-channel-or-category)
+- [`PUT /channels/{channel_id}/token-gate/visibility`](/api-reference/channels/set-how-a-channelcategory-appears-to-members-who-fail-its-tokengate)
 - [`PUT /creators/@me/listings/{id}`](/api-reference/creators/update-a-draft-cosmetic-listing)
 - [`PUT /guilds/{guild_id}/bans/{user_id}`](/api-reference/guilds/ban-guild-member)
 - [`PUT /guilds/{guild_id}/members/{user_id}/roles/{role_id}`](/api-reference/guilds/add-role-to-guild-member)
@@ -1154,6 +1192,7 @@ description: 'Admin object schemas from the Fluxer API.'
 - [`DELETE /channels/{channel_id}/permissions/{overwrite_id}`](/api-reference/channels/delete-permission-overwrite)
 - [`DELETE /channels/{channel_id}/pins/{message_id}`](/api-reference/channels/unpin-a-message)
 - [`DELETE /channels/{channel_id}/recipients/{user_id}`](/api-reference/channels/remove-recipient-from-group-dm)
+- [`DELETE /channels/{channel_id}/token-gate`](/api-reference/channels/clear-the-tokengate-for-a-channel-or-category)
 - [`DELETE /creators/@me/listings/{id}`](/api-reference/creators/delete-a-draft-cosmetic-listing)
 - [`DELETE /guilds/{guild_id}/bans/{user_id}`](/api-reference/guilds/unban-guild-member)
 - [`DELETE /guilds/{guild_id}/discovery`](/api-reference/discovery/withdraw-discovery-application)
@@ -1611,6 +1650,18 @@ Type: [MessageShredStatusNotFoundResponse](#messageshredstatusnotfoundresponse) 
 |-------|------|-------------|
 | bans | [IpBanListEntrySchema](#ipbanlistentryschema)[] |  |
 
+<a id="listnewsstoriesresponse"></a>
+
+## ListNewsStoriesResponse
+
+**Related endpoints**
+
+- [`POST /admin/news/list`](/api-reference/admin/list-news-stories)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| stories | [NewsStoryAdminResponse](#newsstoryadminresponse)[] |  |
+
 <a id="listphonebansresponseschema"></a>
 
 ## ListPhoneBansResponseSchema
@@ -2023,6 +2074,44 @@ Type: [MessageShredStatusNotFoundResponse](#messageshredstatusnotfoundresponse) 
 | error | ?string |  |
 | ncmec_report_id | ?[SnowflakeType](#snowflaketype) |  |
 | success | boolean |  |
+
+<a id="newsstoryadminresponse"></a>
+
+## NewsStoryAdminResponse
+
+**Related endpoints**
+
+- [`GET /admin/news/{story_id}`](/api-reference/admin/get-a-news-story)
+- [`POST /admin/news/create`](/api-reference/admin/create-a-news-story)
+- [`POST /admin/news/publish`](/api-reference/admin/publish-a-news-story)
+- [`POST /admin/news/unpublish`](/api-reference/admin/unpublish-a-news-story)
+- [`POST /admin/news/update`](/api-reference/admin/update-a-news-story)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| body | string |  |
+| created_at | string |  |
+| created_by_user_id | [SnowflakeType](#snowflaketype) |  |
+| image_url | ?string |  |
+| published_at | ?string |  |
+| status | [NewsStoryStatusSchema](#newsstorystatusschema) |  |
+| story_id | [SnowflakeType](#snowflaketype) |  |
+| title | string |  |
+| updated_at | string |  |
+
+<a id="newsstoryidrequest"></a>
+
+## NewsStoryIdRequest
+
+**Related endpoints**
+
+- [`POST /admin/news/delete`](/api-reference/admin/delete-a-news-story)
+- [`POST /admin/news/publish`](/api-reference/admin/publish-a-news-story)
+- [`POST /admin/news/unpublish`](/api-reference/admin/unpublish-a-news-story)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| story_id | [SnowflakeType](#snowflaketype) |  |
 
 <a id="nodestatsresponse"></a>
 
@@ -2652,6 +2741,22 @@ Type: Bitflags32
 | guild_id | [SnowflakeType](#snowflaketype) |  |
 | vanity_url_code | ?string | New vanity URL code, or null to remove |
 
+<a id="updatenewsstoryrequest"></a>
+
+## UpdateNewsStoryRequest
+
+**Related endpoints**
+
+- [`POST /admin/news/update`](/api-reference/admin/update-a-news-story)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| body | string | Body content of the news story |
+| image_data? | ?string | Base64 data URL of an uploaded image; takes precedence over image_url when present |
+| image_url? | ?string | URL of the image shown at the top of the news card |
+| story_id | [SnowflakeType](#snowflaketype) |  |
+| title | string | Title of the news story |
+
 <a id="updatesuspiciousactivityflagsrequest"></a>
 
 ## UpdateSuspiciousActivityFlagsRequest
@@ -2677,6 +2782,19 @@ Type: Bitflags32
 |-------|------|-------------|
 | add_flags? | [UserFlags](#userflags)[] | User flags to add |
 | remove_flags? | [UserFlags](#userflags)[] | User flags to remove |
+| user_id | [SnowflakeType](#snowflaketype) |  |
+
+<a id="updateuservisionaryrequest"></a>
+
+## UpdateUserVisionaryRequest
+
+**Related endpoints**
+
+- [`POST /admin/users/update-visionary`](/api-reference/admin/grant-or-revoke-visionary-status)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| granted | boolean | Whether to grant (true) or revoke (false) the Visionary lifetime badge |
 | user_id | [SnowflakeType](#snowflaketype) |  |
 
 <a id="updatevoiceregionrequest"></a>
@@ -2768,6 +2886,7 @@ Type: Bitflags32
 - [`POST /admin/users/unlink-phone`](/api-reference/admin/unlink-user-phone)
 - [`POST /admin/users/update-flags`](/api-reference/admin/update-user-flags)
 - [`POST /admin/users/update-suspicious-activity-flags`](/api-reference/admin/update-suspicious-activity-flags)
+- [`POST /admin/users/update-visionary`](/api-reference/admin/grant-or-revoke-visionary-status)
 - [`POST /admin/users/verify-email`](/api-reference/admin/verify-user-email)
 
 | Field | Type | Description |

@@ -129,6 +129,19 @@ export class OpenAPIOperationBuilder {
 		explicitSecurity: Array<string>,
 		route: ExtractedRoute,
 	): Array<Record<string, Array<string>>> {
+		// A route guarded by DefaultUserOnly rejects bot tokens at runtime with
+		// AccessDeniedError, so advertising botToken in the spec is a lie that
+		// third-party developers have no way to check. The middleware is the
+		// source of truth; a contradiction is a bug in the route definition.
+		if (route.hasDefaultUserOnly && explicitSecurity.includes('botToken')) {
+			throw new Error(
+				`${route.method.toUpperCase()} ${route.path} in ${route.controllerFile}:${route.lineNumber} declares ` +
+					"security: ['botToken', ...] but also applies DefaultUserOnly, which rejects bot tokens at " +
+					"runtime. Remove 'botToken' from the security array, or drop DefaultUserOnly if bots really " +
+					'should be able to call this route.',
+			);
+		}
+
 		const baseSecurity = explicitSecurity.map((scheme) => ({[scheme]: []}));
 		return this.applyOAuth2ScopeSecurity(baseSecurity, route);
 	}
