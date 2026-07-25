@@ -149,32 +149,8 @@
 	color: var(--text-tertiary);
 }
 
-.footer {
-	margin-top: 1.25rem;
-	display: flex;
-	flex-direction: column;
-	gap: 0.75rem;
-}
-
 .footerText {
 	text-align: left;
-}
-
-.footerLabel {
-	font-size: 0.875rem;
-	color: var(--text-tertiary);
-}
-
-.footerLink {
-	font-size: 0.875rem;
-	color: var(--text-link);
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.footerLink:hover {
-	color: var(--text-link);
-	text-decoration: underline;
 }
 
 .mfaDescription {
@@ -449,18 +425,24 @@
 	margin-bottom: 1.5rem;
 }
 
-/* ── Solana Login Button — Neon Green ── */
+/* ── Solana Login Button — Solana gradient ── */
 .solanaButtonWrapper button,
 .solanaButtonWrapper [role='button'] {
-	background-color: #00C864 !important;
-	color: #0B0E14 !important;
+	background: var(--gradient-brand) !important;
+	color: var(--button-primary-text) !important;
 	font-weight: 700 !important;
-	box-shadow: 0 0 10px rgba(0, 200, 100, 0.4) !important;
-	transition: background-color 0.15s ease, box-shadow 0.15s ease !important;
+	box-shadow:
+		0 0 10px color-mix(in srgb, var(--brand-secondary) 40%, transparent),
+		0 0 10px color-mix(in srgb, var(--brand-primary) 40%, transparent) !important;
+	transition:
+		filter 0.15s ease,
+		box-shadow 0.15s ease !important;
 }
 
 .solanaButtonWrapper button:hover:not(:disabled),
 .solanaButtonWrapper [role='button']:hover:not(:disabled) {
-	background-color: #33E87A !important;
-	box-shadow: 0 0 18px rgba(0, 200, 100, 0.6) !important;
+	filter: brightness(1.12) !important;
+	box-shadow:
+		0 0 18px color-mix(in srgb, var(--brand-secondary) 60%, transparent),
+		0 0 18px color-mix(in srgb, var(--brand-primary) 60%, transparent) !important;
 }

@@ -129,11 +129,6 @@ interface UpdateUserActivityParams {
 	clientIp: string;
 }
 
-interface ValidateAgeParams {
-	dateOfBirth: string;
-	minAge: number;
-}
-
 interface CheckEmailChangeRateLimitParams {
 	userId: UserID;
 }
@@ -209,7 +204,6 @@ export class AuthService implements IAuthService {
 			cacheService,
 			this.passwordService.hashPassword.bind(this.passwordService),
 			this.passwordService.isPasswordPwned.bind(this.passwordService),
-			this.utilityService.validateAge.bind(this.utilityService),
 			this.utilityService.generateSecureToken.bind(this.utilityService),
 			this.sessionService.createAuthSession.bind(this.sessionService),
 		);
@@ -543,10 +537,6 @@ export class AuthService implements IAuthService {
 		userId,
 	}: CheckEmailChangeRateLimitParams): Promise<{allowed: boolean; retryAfter?: number}> {
 		return this.utilityService.checkEmailChangeRateLimit({userId});
-	}
-
-	validateAge({dateOfBirth, minAge}: ValidateAgeParams): boolean {
-		return this.utilityService.validateAge({dateOfBirth, minAge});
 	}
 
 	async authorizeIpByToken(token: string): Promise<{userId: UserID; email: string} | null> {

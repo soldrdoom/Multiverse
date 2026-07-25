@@ -34,7 +34,6 @@ import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {useAuthLayoutContext} from '@app/contexts/AuthLayoutContext';
 import {Endpoints} from '@app/Endpoints';
 import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
-import MultiverseWordmarkMonochrome from '@app/images/fluxer-logo-wordmark-monochrome.svg?react';
 import http from '@app/lib/HttpClient';
 import {HttpError} from '@app/lib/HttpError';
 import {Logger} from '@app/lib/Logger';
@@ -42,6 +41,7 @@ import UserStore from '@app/stores/UserStore';
 import {getApiErrorCode, getApiErrorMessage} from '@app/utils/ApiErrorUtils';
 import * as AvatarUtils from '@app/utils/AvatarUtils';
 import {formatBotPermissionsQuery, getAllBotPermissions} from '@app/utils/PermissionUtils';
+import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
 import type {OAuth2Scope} from '@fluxer/constants/src/OAuth2Constants';
 import {Trans, useLingui} from '@lingui/react/macro';
@@ -557,7 +557,8 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 		return (
 			<div className={styles.page}>
 				<div className={styles.pageLogo}>
-					<MultiverseWordmarkMonochrome className={styles.pageWordmark} />
+					<img src={multiverseOfficialLogo} alt="" className={styles.pageLogoIcon} />
+					<span className={styles.pageLogoText}>Multiverse</span>
 				</div>
 
 				<div className={styles.breadcrumbs}>
@@ -682,7 +683,8 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 	return (
 		<div className={styles.page}>
 			<div className={styles.pageLogo}>
-				<MultiverseWordmarkMonochrome className={styles.pageWordmark} />
+				<img src={multiverseOfficialLogo} alt="" className={styles.pageLogoIcon} />
+				<span className={styles.pageLogoText}>Multiverse</span>
 			</div>
 
 			{needsPermissionsStep && (

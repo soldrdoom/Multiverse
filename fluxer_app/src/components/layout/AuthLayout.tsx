@@ -20,6 +20,8 @@
 import {AuthBackground} from '@app/components/auth/AuthBackground';
 import {AuthCardContainer} from '@app/components/auth/AuthCardContainer';
 import {AuthLoginHero} from '@app/components/auth/AuthLoginHero';
+import {AuthLoginNewsTiles} from '@app/components/auth/AuthLoginNewsTiles';
+import {AuthTopNav} from '@app/components/auth/AuthTopNav';
 import styles from '@app/components/layout/AuthLayout.module.css';
 import {NativeDragRegion} from '@app/components/layout/NativeDragRegion';
 import {NativeTitlebar} from '@app/components/layout/NativeTitlebar';
@@ -30,9 +32,10 @@ import {useSetLayoutVariant} from '@app/contexts/LayoutVariantContext';
 import {useAuthBackground} from '@app/hooks/useAuthBackground';
 import {useNativePlatform} from '@app/hooks/useNativePlatform';
 import i18n, {initI18n} from '@app/I18n';
-import MultiverseWordmarkMonochrome from '@app/images/fluxer-logo-wordmark-monochrome.svg?react';
 import foodPatternUrl from '@app/images/i-like-food.svg';
+import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 import {useLocation} from '@app/lib/router/React';
+import NewsStore from '@app/stores/NewsStore';
 import {isMobileExperienceEnabled} from '@app/utils/MobileExperience';
 import type {GuildSplashCardAlignmentValue} from '@fluxer/constants/src/GuildConstants';
 import {GuildSplashCardAlignment} from '@fluxer/constants/src/GuildConstants';
@@ -55,6 +58,12 @@ const AuthLayoutContent = observer(function AuthLayoutContent({children}: {child
 	const scrollerRef = useRef<ScrollerHandle>(null);
 	const location = useLocation();
 	const showLoginHero = location.pathname === '/login';
+
+	useEffect(() => {
+		if (showLoginHero) {
+			NewsStore.fetchPublished().catch(() => {});
+		}
+	}, [showLoginHero]);
 
 	const {patternReady, splashLoaded, splashDimensions} = useAuthBackground(splashUrl, foodPatternUrl);
 
@@ -156,7 +165,8 @@ const AuthLayoutContent = observer(function AuthLayoutContent({children}: {child
 						>
 							<div className={styles.mobileContent}>
 								<div className={styles.mobileLogoContainer}>
-									<MultiverseWordmarkMonochrome className={styles.mobileWordmark} />
+									<img src={multiverseOfficialLogo} alt="" className={styles.mobileWordmarkIcon} />
+									<span className={styles.mobileWordmarkText}>Multiverse</span>
 								</div>
 								{children}
 							</div>
@@ -195,11 +205,17 @@ const AuthLayoutContent = observer(function AuthLayoutContent({children}: {child
 								<div className={styles.leftSplitWrapper}>
 									<div className={styles.leftSplitAnimated}>
 										{showLoginHero ? (
-											<div className={styles.heroRow}>
-												<AuthLoginHero />
-												<AuthCardContainer showLogoSide={showLogoSide} isInert={false}>
-													{children}
-												</AuthCardContainer>
+											<div className={styles.heroWrapper}>
+												<AuthTopNav />
+												<div className={styles.heroRow}>
+													<AuthLoginHero />
+													<div className={styles.cardColumn}>
+														<AuthCardContainer showLogoSide={showLogoSide} isInert={false}>
+															{children}
+														</AuthCardContainer>
+													</div>
+												</div>
+												<AuthLoginNewsTiles />
 											</div>
 										) : (
 											<AuthCardContainer showLogoSide={showLogoSide} isInert={false}>

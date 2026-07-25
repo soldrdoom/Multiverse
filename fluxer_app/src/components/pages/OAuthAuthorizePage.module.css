@@ -71,13 +71,23 @@
 
 .pageLogo {
 	display: flex;
+	align-items: center;
 	justify-content: center;
+	gap: 0.5rem;
 	margin-bottom: 0.35rem;
 }
 
-.pageWordmark {
+.pageLogoIcon {
 	height: 32px;
-	width: auto;
+	width: 32px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.pageLogoText {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: var(--text-primary);
 }
 
 .breadcrumbs {

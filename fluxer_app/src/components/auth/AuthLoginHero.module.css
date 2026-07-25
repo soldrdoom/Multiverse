@@ -25,6 +25,27 @@
 	color: #ffffff;
 }
 
+.eyebrow {
+	display: inline-flex;
+	width: fit-content;
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	margin-bottom: 0.6rem;
+	/* Fallback for browsers without background-clip: text support. */
+	color: var(--brand-primary);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+	.eyebrow {
+		background: var(--gradient-brand);
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
+	}
+}
+
 .headline {
 	font-size: clamp(1.5rem, 3vw, 2rem);
 	font-weight: 800;
@@ -60,9 +81,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: rgba(74, 144, 140, 0.14);
-	border: 1px solid rgba(74, 144, 140, 0.3);
-	color: rgba(74, 144, 140, 0.95);
+	background: color-mix(in srgb, var(--brand-primary) 14%, transparent);
+	border: 1px solid color-mix(in srgb, var(--brand-primary) 30%, transparent);
+	color: var(--brand-primary);
+	box-shadow:
+		0 0 12px var(--vanguard-glass-glow-a),
+		0 0 12px var(--vanguard-glass-glow-b);
 }
 
 .featureText {

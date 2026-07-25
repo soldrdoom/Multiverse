@@ -22,7 +22,6 @@ import {promisify} from 'node:util';
 import type {UserID} from '@fluxer/api/src/BrandedTypes';
 import type {User} from '@fluxer/api/src/models/User';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
-import * as AgeUtils from '@fluxer/api/src/utils/AgeUtils';
 import * as RandomUtils from '@fluxer/api/src/utils/RandomUtils';
 import {UserFlags} from '@fluxer/constants/src/UserConstants';
 import {BotUserAuthEndpointAccessDeniedError} from '@fluxer/errors/src/domains/auth/BotUserAuthEndpointAccessDeniedError';
@@ -44,11 +43,6 @@ function base62Encode(buffer: Uint8Array): string {
 		num = num / base;
 	}
 	return encoded;
-}
-
-interface ValidateAgeParams {
-	dateOfBirth: string;
-	minAge: number;
 }
 
 interface CheckEmailChangeRateLimitParams {
@@ -104,16 +98,6 @@ export class AuthUtilityService {
 			allowed: rateLimit.allowed,
 			retryAfter: rateLimit.retryAfter,
 		};
-	}
-
-	validateAge({dateOfBirth, minAge}: ValidateAgeParams): boolean {
-		const birthDate = new Date(dateOfBirth);
-		const age = AgeUtils.calculateAge({
-			year: birthDate.getFullYear(),
-			month: birthDate.getMonth() + 1,
-			day: birthDate.getDate(),
-		});
-		return age >= minAge;
 	}
 
 	assertNonBotUser(user: User): void {

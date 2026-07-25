@@ -37,7 +37,6 @@ import {getUserSearchService} from '@fluxer/api/src/SearchFactory';
 import {InstanceConfiguration, UserByEmail} from '@fluxer/api/src/Tables';
 import {withBusinessSpan} from '@fluxer/api/src/telemetry/BusinessSpans';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
-import * as AgeUtils from '@fluxer/api/src/utils/AgeUtils';
 import * as FetchUtils from '@fluxer/api/src/utils/FetchUtils';
 import {getIpAddressReverse, lookupGeoip} from '@fluxer/api/src/utils/IpUtils';
 import {generateRandomUsername} from '@fluxer/api/src/utils/UsernameGenerator';
@@ -56,44 +55,8 @@ import type {IRateLimitService, RateLimitResult} from '@fluxer/rate_limit/src/IR
 import type {RegisterRequest} from '@fluxer/schema/src/domains/auth/AuthSchemas';
 import {recordCounter} from '@fluxer/telemetry/src/Metrics';
 import Bowser from 'bowser';
-import {types} from 'cassandra-driver';
 import {ms} from 'itty-time';
 
-const MINIMUM_AGE_BY_COUNTRY: Record<string, number> = {
-	KR: 14,
-	VN: 15,
-	AW: 16,
-	BQ: 16,
-	CW: 16,
-	SX: 16,
-	AT: 14,
-	BG: 14,
-	HR: 16,
-	CY: 14,
-	CZ: 15,
-	FR: 15,
-	DE: 16,
-	GR: 15,
-	HU: 16,
-	IE: 16,
-	IT: 14,
-	LT: 14,
-	LU: 16,
-	NL: 16,
-	PL: 16,
-	RO: 16,
-	SM: 16,
-	RS: 15,
-	SK: 16,
-	SI: 16,
-	ES: 14,
-	CL: 14,
-	CO: 14,
-	PE: 14,
-	VE: 14,
-};
-
-const DEFAULT_MINIMUM_AGE = 13;
 const USER_AGENT_TRUNCATE_LENGTH = 512;
 
 interface RegistrationMetadataContext {
@@ -113,24 +76,6 @@ interface RegistrationMetadataContext {
 	ipAddressReverse: string | null;
 }
 
-const AGE_BUCKETS: Array<{label: string; min: number; max: number}> = [
-	{label: '0-12', min: 0, max: 12},
-	{label: '13-17', min: 13, max: 17},
-	{label: '18-24', min: 18, max: 24},
-	{label: '25-34', min: 25, max: 34},
-	{label: '35-44', min: 35, max: 44},
-	{label: '45-54', min: 45, max: 54},
-	{label: '55-64', min: 55, max: 64},
-];
-
-function determineAgeGroup(age: number | null): string {
-	if (age === null || age < 0) return 'unknown';
-	for (const bucket of AGE_BUCKETS) {
-		if (age >= bucket.min && age <= bucket.max) return bucket.label;
-	}
-	return '65+';
-}
-
 function isIpv6(ip: string): boolean {
 	return ip.includes(':');
 }
@@ -145,14 +90,6 @@ function throwRegistrationRateLimit(result: RateLimitResult): never {
 		limit: result.limit,
 		resetTime: result.resetTime,
 	});
-}
-
-function parseDobLocalDate(dateOfBirth: string): types.LocalDate {
-	try {
-		return types.LocalDate.fromString(dateOfBirth);
-	} catch {
-		throw InputValidationError.create('date_of_birth', 'Invalid date of birth format');
-	}
 }
 
 interface RegisterParams {
@@ -178,7 +115,6 @@ export class AuthRegistrationService {
 		private cacheService: ICacheService,
 		private hashPassword: (password: string) => Promise<string>,
 		private isPasswordPwned: (password: string) => Promise<boolean>,
-		private validateAge: (params: {dateOfBirth: string; minAge: number}) => boolean,
 		private generateSecureToken: () => Promise<string>,
 		private createAuthSession: (params: {user: User; request: Request}) => Promise<[string, AuthSession]>,
 	) {}
@@ -205,14 +141,6 @@ export class AuthRegistrationService {
 		});
 		const geoipResult = await lookupGeoip(clientIp);
 		const countryCode = geoipResult.countryCode;
-
-		const minAge = (countryCode && MINIMUM_AGE_BY_COUNTRY[countryCode]) || DEFAULT_MINIMUM_AGE;
-		if (!this.validateAge({dateOfBirth: data.date_of_birth, minAge})) {
-			throw InputValidationError.create(
-				'date_of_birth',
-				`You must be at least ${minAge} years old to create an account`,
-			);
-		}
 
 		if (data.password && (await this.isPasswordPwned(data.password))) {
 			throw InputValidationError.create('password', 'Password is too common');
@@ -307,7 +235,7 @@ export class AuthRegistrationService {
 				bio: null,
 				pronouns: null,
 				accent_color: null,
-				date_of_birth: parseDobLocalDate(data.date_of_birth),
+				date_of_birth: null,
 				locale: userLocale,
 				flags,
 				premium_type: null,
@@ -359,22 +287,11 @@ export class AuthRegistrationService {
 				},
 			});
 
-			const age = data.date_of_birth ? AgeUtils.calculateAge(data.date_of_birth) : null;
-			recordCounter({
-				name: 'user.age',
-				dimensions: {
-					country: countryCode ?? 'unknown',
-					state: geoipResult.region ?? 'unknown',
-					age: age !== null ? age.toString() : 'unknown',
-					age_group: determineAgeGroup(age),
-				},
-			});
-
 			await this.repository.upsertSettings(
 				UserSettings.getDefaultUserSettings({
 					userId,
 					locale: userLocale,
-					isAdult: AgeUtils.isUserAdult(data.date_of_birth),
+					isAdult: false,
 				}),
 			);
 

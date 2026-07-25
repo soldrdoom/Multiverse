@@ -33,7 +33,7 @@ import * as WebAuthnUtils from '@app/utils/WebAuthnUtils';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
 
 const logger = new Logger('SudoVerificationModal');
@@ -54,12 +54,69 @@ interface SolanaPayload {
 	address: string;
 	signature: string;
 	nonce: string;
+	signedMessage?: string;
 }
 
 const isMacAppIdentifierError = (error: unknown): boolean => {
 	const message = error instanceof Error ? error.message : '';
 	return message.toLowerCase().includes('application identifier');
 };
+
+// Prefer window.phantom.solana for Phantom mobile in-app browser; fall back to other known providers,
+// then to the Wallet Standard registry to support Jupiter and any other standard-compliant wallet.
+// Mirrors the detection in AuthLoginLayout.handleSolanaLogin, since anything that can sign in via
+// Solana here must also be usable for sudo re-verification.
+const getWalletStandardProvider = (): any => {
+	try {
+		const registered: any[] = [];
+		window.dispatchEvent(
+			new CustomEvent('wallet-standard:app-ready', {
+				bubbles: false,
+				cancelable: false,
+				composed: false,
+				detail: Object.freeze({register: (w: any) => registered.push(w)}),
+			}),
+		);
+		const wallet =
+			registered.find((w) => w.name === 'Jupiter' && w.chains?.some((c: string) => c.startsWith('solana:'))) ??
+			registered.find((w) => w.chains?.some((c: string) => c.startsWith('solana:')));
+		if (!wallet) return null;
+
+		let account: any = null;
+		const provider: any = {
+			isConnected: false,
+			connect: async () => {
+				const {accounts} = await wallet.features['standard:connect'].connect();
+				account = accounts[0];
+				if (!account) throw new Error('No accounts returned from wallet');
+				provider.isConnected = true;
+			},
+			signMessage: async (messageBytes: Uint8Array) => {
+				const [result] = await wallet.features['solana:signMessage'].signMessage({
+					account,
+					message: messageBytes,
+				});
+				return {signature: result.signature};
+			},
+		};
+		Object.defineProperty(provider, 'publicKey', {
+			get: () => (account ? {toString: () => account.address, toBase58: () => account.address} : null),
+		});
+		return provider;
+	} catch {
+		return null;
+	}
+};
+
+const getSolanaProvider = (): any =>
+	(window as any).phantom?.solana ??
+	(window as any).solana ??
+	(window as any).solflare ??
+	(window as any).coinbaseSolana ??
+	(window as any).backpack?.solana ??
+	(window as any).magicEden?.solana ??
+	(window as any).station ??
+	getWalletStandardProvider();
 
 const getMethodAvailable = (
 	method: SudoVerificationMethod,
@@ -129,6 +186,12 @@ const SudoVerificationModal: React.FC = observer(() => {
 	const [webAuthnPayload, setWebAuthnPayload] = useState<{challenge: string; response: unknown} | null>(null);
 	const [solanaPayload, setSolanaPayload] = useState<SolanaPayload | null>(null);
 	const [solanaError, setSolanaError] = useState<string | null>(null);
+	// Guards against double-submission: state updates (e.g. isVerifying flipping back to false on
+	// failure) can retrigger these effects while `solanaPayload`/`webAuthnPayload` still hold the
+	// same stale object from this render (the `setXPayload(null)` reset elsewhere only takes effect
+	// next render), so a plain `!isVerifying` check alone isn't enough to prevent resubmitting it.
+	const submittedWebAuthnPayloadRef = useRef<{challenge: string; response: unknown} | null>(null);
+	const submittedSolanaPayloadRef = useRef<SolanaPayload | null>(null);
 
 	useEffect(() => {
 		if (!isOpen) return;
@@ -158,6 +221,12 @@ const SudoVerificationModal: React.FC = observer(() => {
 	useEffect(() => {
 		if (!verificationError && !rawError) return;
 
+		if (selectedMethod === SudoVerificationMethod.SOLANA) {
+			setSolanaError(verificationError ?? 'Verification failed');
+			setSolanaPayload(null);
+			return;
+		}
+
 		const fallbackField = getDefaultFieldForMethod(selectedMethod);
 		if (rawError) {
 			FormUtils.handleError(i18n, form, rawError, fallbackField);
@@ -167,16 +236,13 @@ const SudoVerificationModal: React.FC = observer(() => {
 		if (verificationError) {
 			form.setError(fallbackField, {type: 'server', message: verificationError});
 		}
-
-		if (selectedMethod === SudoVerificationMethod.SOLANA) {
-			setSolanaError(verificationError ?? 'Verification failed');
-			setSolanaPayload(null);
-		}
 	}, [form, verificationError, rawError, selectedMethod, i18n]);
 
 	useEffect(() => {
 		if (selectedMethod !== SudoVerificationMethod.WEBAUTHN) return;
 		if (!webAuthnPayload || isVerifying) return;
+		if (submittedWebAuthnPayloadRef.current === webAuthnPayload) return;
+		submittedWebAuthnPayloadRef.current = webAuthnPayload;
 
 		SudoPromptStore.submit({
 			mfa_method: SudoVerificationMethod.WEBAUTHN,
@@ -188,11 +254,14 @@ const SudoVerificationModal: React.FC = observer(() => {
 	useEffect(() => {
 		if (selectedMethod !== SudoVerificationMethod.SOLANA) return;
 		if (!solanaPayload || isVerifying) return;
+		if (submittedSolanaPayloadRef.current === solanaPayload) return;
+		submittedSolanaPayloadRef.current = solanaPayload;
 
 		SudoPromptStore.submit({
 			solana_address: solanaPayload.address,
 			solana_signature: solanaPayload.signature,
 			solana_nonce: solanaPayload.nonce,
+			solana_signed_message: solanaPayload.signedMessage,
 		});
 	}, [selectedMethod, solanaPayload, isVerifying]);
 
@@ -262,9 +331,11 @@ const SudoVerificationModal: React.FC = observer(() => {
 		setSolanaError(null);
 		setSolanaPayload(null);
 
-		const sol = (window as any).phantom?.solana ?? (window as any).solana;
+		const sol = getSolanaProvider();
 		if (!sol) {
-			setSolanaError(t`Solana wallet not found. Please install Phantom.`);
+			setSolanaError(
+				t`No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter.`,
+			);
 			return;
 		}
 
@@ -291,7 +362,16 @@ const SudoVerificationModal: React.FC = observer(() => {
 			const sigBytes = new Uint8Array(signResult.signature as ArrayLike<number>);
 			const signature = btoa(String.fromCharCode(...sigBytes));
 
-			setSolanaPayload({address, signature, nonce});
+			// Wallet Standard wallets report the exact bytes they signed, which may not match
+			// `messageBytes` verbatim (e.g. an off-chain-message prefix). Send those back so the
+			// server verifies against what was actually signed instead of guessing the framing.
+			let signedMessage: string | undefined;
+			if (signResult.signedMessage) {
+				const signedMessageBytes = new Uint8Array(signResult.signedMessage as ArrayLike<number>);
+				signedMessage = btoa(String.fromCharCode(...signedMessageBytes));
+			}
+
+			setSolanaPayload({address, signature, nonce, signedMessage});
 		} catch (err) {
 			logger.error('Solana sudo signing failed', err);
 			setSolanaError(t`Wallet signing failed. Please try again.`);

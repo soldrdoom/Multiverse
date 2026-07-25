@@ -1,0 +1,138 @@
+/*
+ * Copyright (C) 2026 Multiverse Contributors
+ *
+ * This file is part of Multiverse.
+ *
+ * Multiverse is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Multiverse is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding-left: 0.25rem;
+}
+
+.headerIcon {
+	color: var(--brand-primary);
+}
+
+.headerLabel {
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--text-secondary);
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1.1rem;
+}
+
+.tile {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border-radius: 0.85rem;
+	background-color: rgba(11, 14, 20, 0.75);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border: 1px solid var(--vanguard-glass-border);
+	transition:
+		border-color 0.2s ease,
+		box-shadow 0.2s ease,
+		transform 0.2s ease;
+}
+
+.tile:hover {
+	border-color: color-mix(in srgb, var(--brand-primary) 40%, var(--vanguard-glass-border));
+	box-shadow:
+		0 0 0 1px color-mix(in srgb, var(--brand-secondary) 25%, transparent),
+		0 12px 30px rgb(0 0 0 / 0.35);
+	transform: translateY(-2px);
+}
+
+.thumb {
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	flex-shrink: 0;
+	background-color: rgba(255, 255, 255, 0.03);
+}
+
+.thumbImage {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.thumbFallback {
+	width: 100%;
+	height: 100%;
+	background: var(--gradient-brand);
+	opacity: 0.25;
+}
+
+.tileContent {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	padding: 0.9rem 1.1rem 1.1rem;
+}
+
+.date {
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--text-tertiary);
+}
+
+.title {
+	margin: 0;
+	font-size: 0.85rem;
+	font-weight: 700;
+	line-height: 1.3;
+	color: var(--text-primary);
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.excerpt {
+	margin: 0;
+	font-size: 0.78rem;
+	line-height: 1.45;
+	color: var(--text-secondary);
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+@media (max-width: 900px) {
+	.grid {
+		grid-template-columns: 1fr;
+	}
+}

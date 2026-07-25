@@ -1,0 +1,120 @@
+/*
+ * Copyright (C) 2026 Multiverse Contributors
+ *
+ * This file is part of Multiverse.
+ *
+ * Multiverse is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Multiverse is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	z-index: var(--z-index-elevated-3);
+	background-color: rgba(11, 14, 20, 0.32);
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	border-radius: 0;
+	border: none;
+	border-bottom: 1px solid var(--vanguard-glass-border);
+	box-sizing: border-box;
+}
+
+/* Native (Electron) non-macOS windows render their own draggable titlebar
+   fixed at the very top (see NativeTitlebar.module.css); sit below it here
+   instead of underlapping it. macOS native uses inset traffic lights within
+   the top-left corner instead of a full titlebar strip, so it doesn't need
+   this offset. */
+:global(html.platform-native:not(.platform-macos)) .nav {
+	top: var(--native-titlebar-height);
+}
+
+.navInner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
+	width: 100%;
+	max-width: 76rem;
+	margin: 0 auto;
+	padding: 0.85rem 1.5rem;
+	box-sizing: border-box;
+}
+
+.brand {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.brandIcon {
+	height: 1.5rem;
+	width: 1.5rem;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.brandText {
+	font-size: 1rem;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	color: var(--text-primary);
+}
+
+.links {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	border-radius: var(--radius-lg);
+	background-color: rgba(255, 255, 255, 0.03);
+	padding: 0.25rem;
+}
+
+.links .link {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.5rem 1.1rem;
+	border-radius: var(--radius-md);
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.72);
+	text-decoration: none;
+	transition:
+		color 0.2s ease,
+		background-color 0.2s ease;
+	white-space: nowrap;
+}
+
+.links .link:hover {
+	/* Fallback for browsers without background-clip: text support — plain
+	   white keeps the label readable on the dark nav bar. */
+	color: #ffffff;
+	text-decoration: none;
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+	.links .link:hover {
+		background: var(--gradient-brand);
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
+	}
+}
+
+.links .link:focus-visible {
+	outline: 2px solid var(--focus-primary);
+	outline-offset: 2px;
+}

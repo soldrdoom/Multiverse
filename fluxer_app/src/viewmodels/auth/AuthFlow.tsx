@@ -188,7 +188,6 @@ export async function registerAccount({
 	globalName,
 	username,
 	password,
-	dateOfBirth,
 	consent,
 	inviteCode,
 	giftCode,
@@ -197,7 +196,6 @@ export async function registerAccount({
 	globalName?: string;
 	username?: string;
 	password: string;
-	dateOfBirth: string;
 	consent: boolean;
 	inviteCode?: string;
 	giftCode?: string;
@@ -207,7 +205,6 @@ export async function registerAccount({
 		global_name: globalName,
 		username,
 		password,
-		date_of_birth: dateOfBirth,
 		consent,
 		invite_code: inviteCode ?? giftCode,
 	});

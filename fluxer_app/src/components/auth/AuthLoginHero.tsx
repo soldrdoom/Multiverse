@@ -50,6 +50,9 @@ export function AuthLoginHero() {
 
 	return (
 		<div className={styles.column}>
+			<span className={styles.eyebrow}>
+				<Trans>Multiverse</Trans>
+			</span>
 			<h1 className={styles.headline}>
 				<Trans>A chat app that puts you first</Trans>
 			</h1>

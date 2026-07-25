@@ -42,7 +42,11 @@
 	position: relative;
 	min-height: 100svh;
 	width: 100%;
-	background: radial-gradient(circle at center, #1A202C 0%, #0B0E14 100%);
+	background: radial-gradient(
+		circle at center,
+		color-mix(in srgb, var(--brand-secondary) 10%, #1a202c) 0%,
+		#0b0e14 100%
+	);
 }
 
 :global(.auth-page),
@@ -96,13 +100,48 @@
 	justify-content: center;
 }
 
+.heroWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: clamp(1.5rem, 3vw, 2.25rem);
+	width: 100%;
+	max-width: 76rem;
+	/* AuthTopNav is now position: fixed (pinned to the viewport top, solana.com
+	   style) and no longer occupies flow space here, so reserve room for it
+	   above the hero row to avoid the content jumping up underneath it. */
+	padding-top: calc(var(--layout-header-height) + 1.5rem);
+	/* .leftSplit vertically centers this wrapper as a whole; padding-bottom here
+	   (rather than reducing padding-top) biases that centered point upward,
+	   nudging the hero row above dead-center without touching other auth
+	   screens (register/MFA/etc.), which share .leftSplit but not .heroWrapper. */
+	padding-bottom: clamp(2rem, 8vh, 5rem);
+}
+
 .heroRow {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	gap: clamp(2rem, 4vw, 4rem);
 	width: 100%;
 	max-width: 76rem;
 	justify-content: center;
+}
+
+.cardColumn {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	width: 100%;
+	max-width: 46rem;
+}
+
+/* Inside the login hero row, the card should sit flush with the top of the
+   hero column instead of the full-viewport vertical centering .cardContainer
+   uses elsewhere (register/MFA/etc. screens, where it's the only content). */
+.cardColumn > .cardContainer {
+	min-height: 0;
+	align-items: flex-start;
+	padding: 0;
 }
 
 .splashImage {
@@ -138,23 +177,37 @@
 }
 
 .card {
+	position: relative;
 	margin: 0;
 	display: flex;
 	height: auto;
-	min-height: 500px;
+	min-height: 420px;
 	width: 100%;
-	max-width: 56rem;
+	max-width: 46rem;
 	overflow: hidden;
 	border-radius: 1rem;
 	background-color: rgba(11, 14, 20, 0.82);
 	backdrop-filter: blur(24px);
 	-webkit-backdrop-filter: blur(24px);
-	border: 1px solid rgba(74, 144, 140, 0.14);
-	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.6), 0 0 60px rgba(74, 144, 140, 0.04);
+	border: 1px solid var(--vanguard-glass-border);
+	box-shadow:
+		0 25px 50px -12px rgb(0 0 0 / 0.6),
+		0 0 60px var(--vanguard-glass-glow-a);
+}
+
+.card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: var(--gradient-brand);
+	z-index: 1;
 }
 
 .cardSingle {
-	max-width: 42rem;
+	max-width: 38rem;
 }
 
 .logoSide {
@@ -163,21 +216,21 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 3rem 2rem;
-	border-right: 1px solid rgba(74, 144, 140, 0.18);
+	padding: 2.25rem 1.5rem;
+	border-right: 1px solid var(--vanguard-glass-border);
 	background-color: rgba(7, 9, 14, 0.55);
 }
 
 .logo {
 	width: 100%;
-	max-width: 220px;
+	max-width: 150px;
 	height: auto;
 	object-fit: contain;
-	margin-bottom: 1rem;
+	margin-bottom: 0.85rem;
 }
 
 .wordmark {
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 	font-weight: 700;
 	letter-spacing: 0.04em;
 	color: #ffffff;
@@ -190,7 +243,7 @@
 	width: 66.666667%;
 	flex-direction: column;
 	justify-content: center;
-	padding: 3rem;
+	padding: 2.25rem;
 	background: rgba(13, 16, 22, 0.65);
 }
 
@@ -216,13 +269,22 @@
 
 .mobileLogoContainer {
 	margin-bottom: 2rem;
-	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6rem;
 }
 
-.mobileWordmark {
-	margin-left: auto;
-	margin-right: auto;
+.mobileWordmarkIcon {
 	height: 2rem;
+	width: 2rem;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.mobileWordmarkText {
+	font-size: 1.35rem;
+	font-weight: 800;
 	color: var(--text-primary);
 }
 

@@ -18,6 +18,7 @@
  */
 
 import type {AuthService} from '@fluxer/api/src/auth/AuthService';
+import {SolanaAuthService} from '@fluxer/api/src/auth/services/SolanaAuthService';
 import type {AuthMfaService} from '@fluxer/api/src/auth/services/AuthMfaService';
 import {getSudoModeService} from '@fluxer/api/src/auth/services/SudoModeService';
 import {SUDO_MODE_HEADER} from '@fluxer/api/src/middleware/SudoModeMiddleware';
@@ -36,9 +37,13 @@ export interface SudoVerificationBody {
 	mfa_code?: string;
 	webauthn_response?: AuthenticationResponseJSON;
 	webauthn_challenge?: string;
+	solana_address?: string;
+	solana_signature?: string;
+	solana_nonce?: string;
+	solana_signed_message?: string;
 }
 
-type SudoVerificationMethod = 'password' | 'mfa' | 'sudo_token';
+type SudoVerificationMethod = 'password' | 'mfa' | 'sudo_token' | 'solana';
 
 export function userHasMfa(user: {authenticatorTypes?: Set<number> | null}): boolean {
 	return (user.authenticatorTypes?.size ?? 0) > 0;
@@ -118,6 +123,28 @@ async function verifySudoMode(
 		}
 
 		return {verified: true, method: 'password'};
+	}
+
+	if (body.solana_address && body.solana_signature && body.solana_nonce) {
+		const solanaService = new SolanaAuthService(
+			ctx.get('cacheService'),
+			ctx.get('userRepository'),
+			ctx.get('snowflakeService'),
+			authService.createAuthSession.bind(authService),
+		);
+		const valid = await solanaService.verifySudoSignature({
+			user,
+			address: body.solana_address,
+			signature: body.solana_signature,
+			nonce: body.solana_nonce,
+			signedMessage: body.solana_signed_message,
+		});
+
+		if (!valid) {
+			throw InputValidationError.fromCode('solana_signature', ValidationErrorCodes.INVALID_VERIFICATION_CODE);
+		}
+
+		return {verified: true, method: 'solana'};
 	}
 
 	throw new SudoModeRequiredError(hasMfa);

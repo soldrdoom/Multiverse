@@ -19,10 +19,10 @@
 
 import * as AuthenticationActionCreators from '@app/actions/AuthenticationActionCreators';
 import {initializeVault, loadPrivateKey} from '@app/services/vault/VaultService';
+import SolanaWalletStore from '@app/stores/SolanaWalletStore';
 import VaultStore from '@app/stores/VaultStore';
 import {AccountSelector} from '@app/components/accounts/AccountSelector';
 import {AuthRouterLink} from '@app/components/auth/AuthRouterLink';
-import {ExternalLink} from '@app/components/common/ExternalLink';
 import AuthLoginEmailPasswordForm from '@app/components/auth/auth_login_core/AuthLoginEmailPasswordForm';
 import AuthLoginPasskeyActions, {AuthLoginDivider} from '@app/components/auth/auth_login_core/AuthLoginPasskeyActions';
 import {useDesktopHandoffFlow} from '@app/components/auth/auth_login_core/useDesktopHandoffFlow';
@@ -339,6 +339,12 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 			}
 			await handleLoginSuccess({token: result.token, userId: result.user_id});
 
+			// Reflect the now-authenticated wallet in the reactive wallet store so UI that
+			// derives "connected wallet" state from it (e.g. the Web3 & Identity side menu)
+			// picks it up immediately — SIWS itself talks to the injected provider directly
+			// and never otherwise touches this store.
+			SolanaWalletStore.setConnectedAddress(address);
+
 			// Derive the E2EE vault key from the wallet — deterministic, cross-device.
 			// Skip if already initialized on this device (IDB has the key).
 			const userId = result.user_id;
@@ -484,15 +490,6 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 					/>
 				</>
 			) : null}
-
-			<div className={styles.footer}>
-				<span className={styles.footerLabel}>
-					<Trans>Need help?</Trans>{' '}
-				</span>
-				<ExternalLink href={Routes.support()} className={styles.footerLink}>
-					<Trans>Visit Support</Trans>
-				</ExternalLink>
-			</div>
 		</>
 	);
 });

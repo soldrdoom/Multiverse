@@ -26,4 +26,5 @@ export interface SudoVerificationPayload extends Record<string, unknown> {
 	solana_address?: string;
 	solana_signature?: string;
 	solana_nonce?: string;
+	solana_signed_message?: string;
 }

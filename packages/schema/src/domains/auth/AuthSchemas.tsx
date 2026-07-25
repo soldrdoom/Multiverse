@@ -41,9 +41,6 @@ export const RegisterRequest = z.object({
 	username: UsernameType.optional().describe('Username for the new account (1-32 characters)'),
 	global_name: GlobalNameType.optional().describe('Display name shown to other users'),
 	password: PasswordType.optional().describe('Password for the new account'),
-	date_of_birth: createStringType(10, 10)
-		.refine((value) => /^\d{4}-\d{2}-\d{2}$/.test(value), 'Invalid date format')
-		.describe('Date of birth in YYYY-MM-DD format'),
 	consent: z.boolean().describe('Whether user consents to terms of service'),
 	invite_code: createStringType(0, 256).nullish().describe('Guild invite code to join after registration'),
 });
@@ -102,6 +99,12 @@ export const SudoVerificationSchema = z.object({
 	mfa_code: createStringType(1, 32).optional().describe('MFA verification code from authenticator app or SMS'),
 	webauthn_response: z.custom<AuthenticationResponseJSON>().optional().describe('WebAuthn authentication response'),
 	webauthn_challenge: createStringType().optional().describe('WebAuthn challenge string'),
+	solana_address: createStringType(32, 44).optional().describe('Solana wallet address for sudo verification'),
+	solana_signature: createStringType(1, 128).optional().describe('Solana wallet signature for sudo verification'),
+	solana_nonce: createStringType(1, 64).optional().describe('Solana nonce for sudo verification'),
+	solana_signed_message: createStringType(1, 512)
+		.optional()
+		.describe('Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet'),
 });
 
 export const SsoStatusResponse = z.object({

@@ -22,6 +22,7 @@ import SessionManager, {type Account, SessionExpiredError} from '@app/lib/Sessio
 import {Routes} from '@app/Routes';
 import * as PushSubscriptionService from '@app/services/push/PushSubscriptionService';
 import GatewayConnectionStore from '@app/stores/gateway/GatewayConnectionStore';
+import SolanaWalletStore from '@app/stores/SolanaWalletStore';
 import * as NotificationUtils from '@app/utils/NotificationUtils';
 import {isInstalledPwa} from '@app/utils/PwaUtils';
 import * as RouterUtils from '@app/utils/RouterUtils';
@@ -152,6 +153,11 @@ class AccountManager {
 
 	async logout(): Promise<void> {
 		await SessionManager.logout();
+		// SessionManager.logout() wipes persisted storage, but this is an SPA route swap
+		// (not a full reload), so in-memory observables like SolanaWalletStore.walletAddress
+		// would otherwise survive and could be misread as "connected" for whichever account
+		// logs in next in this tab.
+		SolanaWalletStore.disconnect();
 		RouterUtils.replaceWith('/login');
 	}
 }
