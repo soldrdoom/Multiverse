@@ -17,11 +17,12 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {SOLANA_RPC_URL} from '@fluxer/solana_das/src/SolanaNetwork';
 import {PublicKey} from '@solana/web3.js';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const STANDARD_RPC_URL = 'https://api.mainnet-beta.solana.com';
+const STANDARD_RPC_URL = SOLANA_RPC_URL;
 const TOKEN_PROGRAM_ID = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
 const TOKEN_METADATA_PROGRAM_ID = new PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
 const NON_NFT_INTERFACES = new Set(['FungibleToken', 'FungibleAsset', 'Custom']);
@@ -29,6 +30,8 @@ const DAS_PAGE_LIMIT = 100;
 const MAX_PAGES = 10; // cap at 1 000 NFTs
 
 // ── Public types ──────────────────────────────────────────────────────────────
+
+export type CosmeticRarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
 
 export interface NftItem {
 	mint: string;
@@ -38,6 +41,74 @@ export interface NftItem {
 	collection: string | null;
 	collectionMint: string | null;
 	compressed: boolean;
+	/** Alias of imageUrl — the field name the cosmetics-apply feature (OwnedCosmeticNft) expects. */
+	image: string;
+	/**
+	 * Cosmetic slot this NFT can be applied to, derived from a "Cosmetic Type"
+	 * trait in the NFT's metadata attributes. null for the vast majority of a
+	 * wallet's NFTs, which aren't tagged as a Multiverse cosmetic at all.
+	 */
+	cosmetic_type: string | null;
+	/** Rarity tier from a "Rarity" trait. Defaults to "common" when absent. */
+	rarity: CosmeticRarity;
+}
+
+/**
+ * The minimal shape needed to evaluate a tokengate: does this wallet hold an
+ * asset matching a configured mint or collection address? Unlike NftItem,
+ * this is never dropped for missing display metadata (no image/video) —
+ * a wallet can legitimately hold a matching mint/cNFT whose off-chain
+ * metadata can't be resolved to a displayable image, and it must still
+ * satisfy the gate.
+ */
+export interface GatingAsset {
+	mint: string;
+	collectionMint: string | null;
+	compressed: boolean;
+}
+
+// ── Cosmetic trait parsing ────────────────────────────────────────────────────
+//
+// Multiverse cosmetic NFTs are expected to carry "Cosmetic Type" / "Rarity"
+// entries in their metadata `attributes` array (the standard Metaplex
+// trait_type/value convention). Everything else a wallet holds — PFPs, DRiP
+// airdrops, etc. — simply has no such trait and comes back with
+// cosmetic_type: null, which excludes it from cosmetic-slot pickers client-side.
+
+const RARITY_VALUES = new Set<CosmeticRarity>(['common', 'uncommon', 'rare', 'epic', 'legendary']);
+
+interface MetadataAttribute {
+	trait_type?: string;
+	value?: unknown;
+}
+
+function normaliseTraitValue(value: unknown): string | null {
+	if (typeof value !== 'string') return null;
+	const normalised = value
+		.trim()
+		.toLowerCase()
+		.replace(/[\s-]+/g, '_');
+	return normalised || null;
+}
+
+function parseCosmeticTraits(attributes: Array<MetadataAttribute> | undefined): {
+	cosmeticType: string | null;
+	rarity: CosmeticRarity;
+} {
+	let cosmeticType: string | null = null;
+	let rarity: CosmeticRarity | null = null;
+
+	for (const attr of attributes ?? []) {
+		const traitType = attr.trait_type?.trim().toLowerCase();
+		if (traitType === 'cosmetic type' || traitType === 'cosmetic_type') {
+			cosmeticType = normaliseTraitValue(attr.value);
+		} else if (traitType === 'rarity') {
+			const value = normaliseTraitValue(attr.value);
+			if (value && RARITY_VALUES.has(value as CosmeticRarity)) rarity = value as CosmeticRarity;
+		}
+	}
+
+	return {cosmeticType, rarity: rarity ?? 'common'};
 }
 
 // ── URL normalisation ─────────────────────────────────────────────────────────
@@ -62,7 +133,7 @@ interface DasAsset {
 	content?: {
 		links?: {image?: string};
 		files?: Array<DasAssetFile>;
-		metadata?: {name?: string};
+		metadata?: {name?: string; attributes?: Array<MetadataAttribute>};
 	};
 	compression?: {compressed: boolean};
 	grouping?: Array<{
@@ -106,24 +177,48 @@ function parseDasAsset(asset: DasAsset): NftItem | null {
 
 	const name = content.metadata?.name?.trim() || `NFT ${asset.id.slice(0, 6)}…`;
 	const col = asset.grouping?.find((g) => g.group_key === 'collection');
+	const {cosmeticType, rarity} = parseCosmeticTraits(content.metadata?.attributes);
 
 	return {
 		mint: asset.id,
 		name,
 		imageUrl,
+		image: imageUrl,
 		mediaType,
 		collection: col?.collection_metadata?.name ?? null,
+		collectionMint: col?.group_value ?? null,
+		compressed: asset.compression?.compressed ?? false,
+		cosmetic_type: cosmeticType,
+		rarity,
+	};
+}
+
+/**
+ * Gating-oriented parse: only needs mint/collection/compression, so (unlike
+ * parseDasAsset) it never drops an asset for lacking a resolvable image.
+ */
+function parseDasAssetForGating(asset: DasAsset): GatingAsset | null {
+	if (NON_NFT_INTERFACES.has(asset.interface)) return null;
+	const col = asset.grouping?.find((g) => g.group_key === 'collection');
+	return {
+		mint: asset.id,
 		collectionMint: col?.group_value ?? null,
 		compressed: asset.compression?.compressed ?? false,
 	};
 }
 
-async function fetchWithDas(walletAddress: string, dasUrl: string): Promise<Array<NftItem>> {
-	const accumulated: Array<NftItem> = [];
+async function fetchDasPages<T>(
+	walletAddress: string,
+	dasUrl: string,
+	parse: (asset: DasAsset) => T | null,
+): Promise<Array<T>> {
+	const accumulated: Array<T> = [];
 	let page = 1;
-	let totalAssets = Infinity;
 
-	while (accumulated.length < totalAssets && page <= MAX_PAGES) {
+	// Note: Helius's `total` field is not a reliable grand total — in practice it
+	// just echoes back `limit` whenever a full page is returned, on every page.
+	// The only trustworthy end-of-pagination signal is a short page.
+	while (page <= MAX_PAGES) {
 		const response = await fetch(dasUrl, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
@@ -147,12 +242,11 @@ async function fetchWithDas(walletAddress: string, dasUrl: string): Promise<Arra
 		const data = (await response.json()) as DasResponse;
 		if (data.error) throw new Error(`DAS error ${data.error.code}: ${data.error.message}`);
 
-		const {items, total} = data.result;
-		totalAssets = total;
+		const {items} = data.result;
 
 		for (const asset of items) {
-			const nft = parseDasAsset(asset);
-			if (nft) accumulated.push(nft);
+			const parsed = parse(asset);
+			if (parsed) accumulated.push(parsed);
 		}
 
 		if (items.length < DAS_PAGE_LIMIT) break;
@@ -160,6 +254,34 @@ async function fetchWithDas(walletAddress: string, dasUrl: string): Promise<Arra
 	}
 
 	return accumulated;
+}
+
+async function fetchWithDas(walletAddress: string, dasUrl: string): Promise<Array<NftItem>> {
+	return fetchDasPages(walletAddress, dasUrl, parseDasAsset);
+}
+
+/**
+ * Fetch the minimal gating-relevant shape of every asset (NFT or cNFT) a
+ * wallet holds, via the DAS `getAssetsByOwner` method. Requires a DAS
+ * endpoint (Helius/Shyft/QuickNode) — cNFTs cannot be enumerated any other
+ * way, since they live in Merkle trees rather than as SPL token accounts.
+ */
+export async function fetchGatingAssetsForWallet(walletAddress: string, dasUrl: string): Promise<Array<GatingAsset>> {
+	return fetchDasPages(walletAddress, dasUrl, parseDasAssetForGating);
+}
+
+/**
+ * Does any asset in `assets` satisfy the configured gate, per `matchMode`?
+ * `matchMode` mirrors `TokenGateMatchMode` in `@fluxer/constants/src/GuildConstants`
+ * (0 = EXACT_ASSET, 1 = COLLECTION) -- passed as a raw number rather than
+ * importing that enum, since this package has no other dependency on
+ * `@fluxer/constants` and one enum isn't worth adding one.
+ */
+export function matchesTokenGate(assets: ReadonlyArray<GatingAsset>, gateAddress: string, matchMode: number): boolean {
+	if (matchMode === 1) {
+		return assets.some((asset) => asset.collectionMint === gateAddress);
+	}
+	return assets.some((asset) => asset.mint === gateAddress);
 }
 
 // ── Standard Solana RPC mode (traditional / non-compressed NFTs only) ─────────
@@ -235,19 +357,24 @@ function parseMetadataAccount(data: Buffer): {name: string; uri: string} | null 
 	return {name: name || 'Unknown NFT', uri};
 }
 
-/** Fetch the off-chain JSON metadata and extract the image URL. */
-async function fetchImageFromUri(uri: string): Promise<string | null> {
-	if (!uri) return null;
+/** Fetch the off-chain JSON metadata and extract the image URL + cosmetic traits. */
+async function fetchNftMetadataJson(
+	uri: string,
+): Promise<{imageUrl: string | null; attributes?: Array<MetadataAttribute>}> {
+	if (!uri) return {imageUrl: null};
 	try {
 		const res = await fetch(normaliseUrl(uri), {
 			signal: AbortSignal.timeout(8_000),
 			headers: {Accept: 'application/json'},
 		});
-		if (!res.ok) return null;
-		const json = (await res.json()) as {image?: string};
-		return json.image ? normaliseUrl(json.image) : null;
+		if (!res.ok) return {imageUrl: null};
+		const json = (await res.json()) as {image?: string; attributes?: Array<MetadataAttribute>};
+		return {
+			imageUrl: json.image ? normaliseUrl(json.image) : null,
+			attributes: json.attributes,
+		};
 	} catch {
-		return null;
+		return {imageUrl: null};
 	}
 }
 
@@ -300,7 +427,9 @@ async function fetchWithStandardRpc(walletAddress: string): Promise<Array<NftIte
 	type MultipleAccountsValue = Array<{data: [string, string]} | null>;
 	const chunks = chunkArray(metadataPDAs, 100);
 	const chunkResults = await Promise.all(
-		chunks.map((ch) => rpcPost<MultipleAccountsValue>('getMultipleAccounts', [ch, {encoding: 'base64'}], STANDARD_RPC_URL)),
+		chunks.map((ch) =>
+			rpcPost<MultipleAccountsValue>('getMultipleAccounts', [ch, {encoding: 'base64'}], STANDARD_RPC_URL),
+		),
 	);
 	const metadataAccounts = chunkResults.flat();
 
@@ -316,18 +445,22 @@ async function fetchWithStandardRpc(walletAddress: string): Promise<Array<NftIte
 
 	// 6. Fetch off-chain JSON to resolve image URLs (max 20 concurrent).
 	const nfts = await withConcurrency(
-		parsed.map((meta) => async () => {
-			const imageUrl = await fetchImageFromUri(meta.uri);
+		parsed.map((meta) => async (): Promise<NftItem | null> => {
+			const {imageUrl, attributes} = await fetchNftMetadataJson(meta.uri);
 			if (!imageUrl) return null;
+			const {cosmeticType, rarity} = parseCosmeticTraits(attributes);
 			return {
 				mint: meta.mint,
 				name: meta.name,
 				imageUrl,
+				image: imageUrl,
 				mediaType: 'image',
 				collection: null,
 				collectionMint: null,
 				compressed: false,
-			} satisfies NftItem;
+				cosmetic_type: cosmeticType,
+				rarity,
+			};
 		}),
 		20,
 	);

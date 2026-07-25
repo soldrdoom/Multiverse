@@ -18,14 +18,22 @@
  */
 
 import {Endpoints} from '@app/Endpoints';
-import {Logger} from '@app/lib/Logger';
 import http from '@app/lib/HttpClient';
+import {HttpError} from '@app/lib/HttpError';
+import {Logger} from '@app/lib/Logger';
 import {NftStickerRecord} from '@app/records/NftStickerRecord';
 import {makeAutoObservable} from 'mobx';
 
 const logger = new Logger('NftStickerStore');
 
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+/** The `/v1/nfts` route reports failures as `{error: string}`, not the `{message}` shape used elsewhere. */
+function getServerErrorMessage(e: unknown): string | undefined {
+	if (!(e instanceof HttpError) || typeof e.body !== 'object' || e.body === null) return undefined;
+	const {error} = e.body as {error?: unknown};
+	return typeof error === 'string' ? error : undefined;
+}
 
 interface NftApiItem {
 	mint: string;
@@ -103,8 +111,7 @@ class NftStickerStore {
 			this.lastFetchTime = Date.now();
 			logger.info(`Loaded ${this.nfts.length} NFT stickers`);
 		} catch (e: unknown) {
-			const message = e instanceof Error ? e.message : 'Failed to fetch NFTs';
-			this.error = message;
+			this.error = getServerErrorMessage(e) ?? (e instanceof Error ? e.message : 'Failed to fetch NFTs');
 			logger.error('NFT sticker fetch failed:', e);
 		} finally {
 			this.loading = false;

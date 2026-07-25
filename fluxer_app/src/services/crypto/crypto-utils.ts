@@ -188,7 +188,7 @@ export async function wrapPrivateKey(
 	wrappingKey: CryptoKey,
 ): Promise<WrappedPrivateKey> {
 	const iv = crypto.getRandomValues(new Uint8Array(12));
-	const ciphertext = await crypto.subtle.encrypt({name: 'AES-GCM', iv}, wrappingKey, privateKeyBytes);
+	const ciphertext = await crypto.subtle.encrypt({name: 'AES-GCM', iv}, wrappingKey, new Uint8Array(privateKeyBytes));
 	return {
 		encrypted_data: u8ToBase64(new Uint8Array(ciphertext)),
 		nonce: u8ToBase64(iv),
@@ -204,9 +204,9 @@ export async function unwrapPrivateKey(
 	wrappingKey: CryptoKey,
 ): Promise<Uint8Array | null> {
 	try {
-		const iv = base64ToU8(wrapped.nonce);
+		const iv = new Uint8Array(base64ToU8(wrapped.nonce));
 		const ciphertext = base64ToU8(wrapped.encrypted_data);
-		const plaintext = await crypto.subtle.decrypt({name: 'AES-GCM', iv}, wrappingKey, ciphertext);
+		const plaintext = await crypto.subtle.decrypt({name: 'AES-GCM', iv}, wrappingKey, new Uint8Array(ciphertext));
 		return new Uint8Array(plaintext);
 	} catch {
 		return null;

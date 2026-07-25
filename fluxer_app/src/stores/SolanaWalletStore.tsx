@@ -57,6 +57,18 @@ class SolanaWalletStore {
 		return this.walletAddress !== null;
 	}
 
+	/**
+	 * Records an address that was already connected/authenticated elsewhere (e.g. by the
+	 * Sign-In With Solana flow, which talks to the injected wallet provider directly and
+	 * doesn't go through `connect()` above). Keeps this store — the single reactive source
+	 * other UI like the Web3 & Identity side menu reads "wallet connected" state from — in
+	 * sync with SIWS instead of requiring a redundant connection here.
+	 */
+	setConnectedAddress(address: string): void {
+		this.walletAddress = address;
+		this.error = null;
+	}
+
 	private getProvider(): SolanaWalletProvider | null {
 		const win = window as unknown as {
 			phantom?: {solana?: SolanaWalletProvider};

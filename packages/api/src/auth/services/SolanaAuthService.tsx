@@ -34,6 +34,16 @@ const SIWS_URI = 'https://multiverse.forum';
 const SIWS_STATEMENT = 'Sign in to Multiverse';
 const SIWS_ICON = 'https://multiverse.forum/web/logo.png';
 
+// Some wallets prepend a magic prefix before signing a message. Try several known formats.
+// Format 1 (raw): no prefix
+// Format 2 (off-chain v0): 0xff*4 + "solana offchain" (19 bytes)
+// Format 3 (off-chain v0 + null): 0xff*4 + "solana offchain" + 0x00 (20 bytes)
+const OFFCHAIN_MAGIC_19 = Buffer.from([
+	0xff, 0xff, 0xff, 0xff,
+	115, 111, 108, 97, 110, 97, 32, 111, 102, 102, 99, 104, 97, 105, 110,
+]);
+const OFFCHAIN_MAGIC_20 = Buffer.concat([OFFCHAIN_MAGIC_19, Buffer.from([0x00])]);
+
 function buildSiwsMessage(params: {address: string; nonce: string; issuedAt: string}): string {
 	return [
 		`${SIWS_DOMAIN} wants you to sign in with your Solana account:`,
@@ -165,12 +175,6 @@ export class SolanaAuthService {
 		// Format 1 (raw): no prefix
 		// Format 2 (off-chain v0): 0xff*4 + "solana offchain" (19 bytes)
 		// Format 3 (off-chain v0 + null): 0xff*4 + "solana offchain" + 0x00 (20 bytes)
-		const OFFCHAIN_MAGIC_19 = Buffer.from([
-			0xff, 0xff, 0xff, 0xff,
-			115, 111, 108, 97, 110, 97, 32, 111, 102, 102, 99, 104, 97, 105, 110,
-		]);
-		const OFFCHAIN_MAGIC_20 = Buffer.concat([OFFCHAIN_MAGIC_19, Buffer.from([0x00])]);
-
 		const candidates = [
 			messageBytes,
 			Buffer.concat([OFFCHAIN_MAGIC_19, messageBytes]),
@@ -319,6 +323,62 @@ export class SolanaAuthService {
 	 * solana_address on the user record.  Idempotent — if the same address is
 	 * already linked to this user the call succeeds without error.
 	 */
+	/**
+	 * Verifies a wallet re-signature for sudo-mode re-verification (e.g. before changing a
+	 * MultiverseTag). Unlike {@link linkWallet}, this never mutates the user's linked wallet —
+	 * it only confirms the signer controls a wallet already linked to `user`.
+	 */
+	async verifySudoSignature({
+		user,
+		address,
+		signature,
+		nonce,
+		signedMessage,
+	}: {
+		user: User;
+		address: string;
+		signature: string;
+		nonce: string;
+		signedMessage?: string;
+	}): Promise<boolean> {
+		if (user.solanaAddress !== address) return false;
+
+		const nonceKey = `${SolanaAuthService.NONCE_PREFIX}${address}`;
+		const storedRaw = await this.cacheService.getAndDelete<string>(nonceKey);
+		if (!storedRaw) return false;
+
+		const colonIdx = storedRaw.indexOf(':');
+		const storedNonce = colonIdx > 0 ? storedRaw.slice(0, colonIdx) : storedRaw;
+		if (storedNonce !== nonce) return false;
+
+		const signatureBytes = Buffer.from(signature, 'base64');
+		const rawPublicKey = decodeBase58(address);
+		const spkiPrefix = Buffer.from('302a300506032b6570032100', 'hex');
+		const spkiKey = Buffer.concat([spkiPrefix, rawPublicKey]);
+		const publicKey = createPublicKey({key: spkiKey, format: 'der', type: 'spki'});
+
+		if (signedMessage) {
+			// Wallet reported the exact bytes it signed (may include an off-chain-message prefix,
+			// or differ in other wallet-specific ways) — verify against those directly rather than
+			// guessing the framing. Same approach as verifySiws().
+			const exactBytes = Buffer.from(signedMessage, 'base64');
+			const text = exactBytes.toString('utf-8');
+			const nonceMatch = text.match(/Nonce:\s*([a-f0-9]+)/);
+			if (!nonceMatch || nonceMatch[1] !== storedNonce) return false;
+			return cryptoVerify(null, exactBytes, publicKey, signatureBytes);
+		}
+
+		// No signedMessage reported (e.g. classic extension providers like Phantom that only return
+		// a signature) — reconstruct the challenge and try known prefix variants, same as verifySiws().
+		const messageBytes = Buffer.from(`Sign in to Multiverse\nNonce: ${storedNonce}`, 'utf-8');
+		const candidates = [
+			messageBytes,
+			Buffer.concat([OFFCHAIN_MAGIC_19, messageBytes]),
+			Buffer.concat([OFFCHAIN_MAGIC_20, messageBytes]),
+		];
+		return candidates.some((candidate) => cryptoVerify(null, candidate, publicKey, signatureBytes));
+	}
+
 	async linkWallet({
 		user,
 		address,
