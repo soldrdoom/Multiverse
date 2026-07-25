@@ -43,6 +43,7 @@ services:
       HOME: /tmp
       FLUXER_CONFIG: /usr/src/app/config/config.json
       NODE_ENV: production
+      SOLANA_NETWORK: mainnet-beta
       SOLANA_DAS_URL: https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}
       SOLANA_TREASURY_WALLET: 4iLSmzRJzm682ojiqM6xhNaWTAx6EpCcgypYh8srzrii
       COREPACK_HOME: /tmp/corepack
@@ -118,7 +119,6 @@ services:
     user: "1001:1001"
     environment:
       IRIS_AUTH_TOKEN: ${IRIS_AUTH_TOKEN:?Set IRIS_AUTH_TOKEN in .env or environment}
-      IRIS_OWNER_USER_ID: ${IRIS_OWNER_USER_ID:?Set IRIS_OWNER_USER_ID in .env or environment}
       IRIS_INSTANCE_BASE_URL: ${IRIS_INSTANCE_BASE_URL:-https://multiverse.forum}
       OLLAMA_BASE_URL: http://ollama:11434
       OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:0.6b}

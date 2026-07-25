@@ -65,6 +65,7 @@ COPY packages/schema/package.json ./packages/schema/
 COPY packages/sentry/package.json ./packages/sentry/
 COPY packages/sms/package.json ./packages/sms/
 COPY packages/snowflake/package.json ./packages/snowflake/
+COPY packages/solana_das/package.json ./packages/solana_das/
 COPY packages/telemetry/package.json ./packages/telemetry/
 COPY packages/time/package.json ./packages/time/
 COPY packages/ui/package.json ./packages/ui/
@@ -129,9 +130,9 @@ ARG BUILD_NUMBER
 ARG BUILD_TIMESTAMP
 ARG RELEASE_CHANNEL
 
-LABEL org.opencontainers.image.title="Fluxer Server"
-LABEL org.opencontainers.image.description="Unified Fluxer server - combines all backend services into a single deployable container"
-LABEL org.opencontainers.image.vendor="Fluxer Contributors"
+LABEL org.opencontainers.image.title="Multiverse Server"
+LABEL org.opencontainers.image.description="Unified Multiverse server - combines all backend services into a single deployable container"
+LABEL org.opencontainers.image.vendor="Multiverse Contributors"
 LABEL org.opencontainers.image.licenses="AGPL-3.0-or-later"
 LABEL org.opencontainers.image.source="https://github.com/fluxerapp/fluxer"
 LABEL org.opencontainers.image.documentation="https://docs.fluxer.app"

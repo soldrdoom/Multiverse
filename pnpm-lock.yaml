@@ -276,6 +276,9 @@ importers:
       '@simplewebauthn/browser':
         specifier: '*'
         version: 13.3.0
+      '@solana/web3.js':
+        specifier: ^1.98.4
+        version: 1.98.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)
       bowser:
         specifier: '*'
         version: 2.14.1
@@ -517,12 +520,6 @@ importers:
 
   fluxer_server:
     dependencies:
-      '@solana/web3.js':
-        specifier: ^1.98.4
-        version: 1.98.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)
-      bs58:
-        specifier: ^6.0.0
-        version: 6.0.0
       hono:
         specifier: 4.11.9
         version: 4.11.9
@@ -696,9 +693,6 @@ importers:
       sharp:
         specifier: '*'
         version: 0.34.5
-      stripe:
-        specifier: '*'
-        version: 20.4.1(@types/node@25.5.0)
       tempy:
         specifier: '*'
         version: 3.2.0
@@ -757,15 +751,9 @@ importers:
       '@fluxer/hono_types':
         specifier: workspace:*
         version: link:../hono_types
-      '@fluxer/ip_utils':
-        specifier: workspace:*
-        version: link:../ip_utils
       '@fluxer/logger':
         specifier: workspace:*
         version: link:../logger
-      '@fluxer/rate_limit':
-        specifier: workspace:*
-        version: link:../rate_limit
       '@fluxer/sentry':
         specifier: workspace:*
         version: link:../sentry
@@ -924,9 +912,6 @@ importers:
 
   packages/errors:
     dependencies:
-      '@fluxer/config':
-        specifier: workspace:*
-        version: link:../config
       '@fluxer/constants':
         specifier: workspace:*
         version: link:../constants
@@ -1706,6 +1691,25 @@ importers:
       itty-time:
         specifier: 'catalog:'
         version: 2.0.2
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.2.2
+      '@typescript/native-preview':
+        specifier: 'catalog:'
+        version: 7.0.0-dev.20260209.1
+      vite-tsconfig-paths:
+        specifier: 'catalog:'
+        version: 6.1.0(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)(yaml@2.8.2))
+      vitest:
+        specifier: 'catalog:'
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.2.2)(happy-dom@20.8.4(bufferutil@4.1.0)(utf-8-validate@6.0.6))(jiti@2.6.1)(jsdom@29.0.1(@noble/hashes@1.8.0))(lightningcss@1.32.0)(msw@2.12.13(@types/node@25.2.2)(typescript@5.9.3))(tsx@4.21.0)(yaml@2.8.2)
+
+  packages/solana_das:
+    dependencies:
+      '@solana/web3.js':
+        specifier: ^1.98.4
+        version: 1.98.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -9867,15 +9871,6 @@ packages:
   strip-json-comments@5.0.3:
     resolution: {integrity: sha512-1tB5mhVo7U+ETBKNf92xT4hrQa3pm0MZ0PQvuDnWgAAGHDsfp4lPSpiS6psrSiet87wyGPh9ft6wmhOMQ0hDiw==}
     engines: {node: '>=14.16'}
-
-  stripe@20.4.1:
-    resolution: {integrity: sha512-axCguHItc8Sxt0HC6aSkdVRPffjYPV7EQqZRb2GkIa8FzWDycE7nHJM19C6xAIynH1Qp1/BHiopSi96jGBxT0w==}
-    engines: {node: '>=16'}
-    peerDependencies:
-      '@types/node': '>=16'
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
 
   strnum@2.2.1:
     resolution: {integrity: sha512-BwRvNd5/QoAtyW1na1y1LsJGQNvRlkde6Q/ipqqEaivoMdV+B1OMOTVdwR+N/cwVUcIt9PYyHmV8HyexCZSupg==}
@@ -20176,10 +20171,6 @@ snapshots:
       ansi-regex: 6.2.2
 
   strip-json-comments@5.0.3: {}
-
-  stripe@20.4.1(@types/node@25.5.0):
-    optionalDependencies:
-      '@types/node': 25.5.0
 
   strnum@2.2.1: {}
 

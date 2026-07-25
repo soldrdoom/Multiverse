@@ -18,7 +18,8 @@
  */
 
 import type {Config} from '@app/Config';
-import {fetchNftsForWallet} from '@app/utils/NftFetcher';
+import {fetchNftsForWallet} from '@fluxer/solana_das/src/NftFetcher';
+import {SOLANA_RPC_URL} from '@fluxer/solana_das/src/SolanaNetwork';
 import {SolanaAuthService} from '@fluxer/api/src/auth/services/SolanaAuthService';
 import {createGuildID, createUserID} from '@fluxer/api/src/BrandedTypes';
 import {GUILD_VANITY_MERCHANT_WALLET} from '@fluxer/api/src/guild/services/data/GuildVanityPurchaseService';
@@ -196,7 +197,7 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 			}
 
 			async function fetchRecentBlockhash(): Promise<string> {
-				const rpcRes = await fetch('https://api.mainnet-beta.solana.com', {
+				const rpcRes = await fetch(SOLANA_RPC_URL, {
 					method: 'POST',
 					headers: {'Content-Type': 'application/json'},
 					body: JSON.stringify({jsonrpc: '2.0', id: 1, method: 'getLatestBlockhash', params: [{commitment: 'confirmed'}]}),
@@ -212,7 +213,7 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 				let txData: any;
 				for (let attempt = 0; attempt < 8; attempt++) {
 					try {
-						const rpcRes = await fetch('https://api.mainnet-beta.solana.com', {
+						const rpcRes = await fetch(SOLANA_RPC_URL, {
 							method: 'POST',
 							headers: {'Content-Type': 'application/json'},
 							body: JSON.stringify({
@@ -228,6 +229,25 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 					if (attempt < 7) await new Promise(r => setTimeout(r, 3000));
 				}
 				return txData;
+			}
+
+			/**
+			 * Sums lamports transferred to `destination` via System Program `transfer`
+			 * instructions in a parsed transaction. Sums each matching instruction
+			 * individually rather than diffing `destination`'s net pre/post account
+			 * balance — the latter breaks whenever the payer is also `destination`
+			 * (e.g. a self-paid platform fee), since the account's net balance then
+			 * reflects every other outgoing transfer too, not just the inbound one.
+			 */
+			function sumTransfersTo(txData: any, destination: string): number {
+				const instructions: Array<any> = txData?.transaction?.message?.instructions ?? [];
+				let total = 0;
+				for (const ix of instructions) {
+					if (ix?.program !== 'system' || ix?.parsed?.type !== 'transfer') continue;
+					if (ix.parsed.info?.destination !== destination) continue;
+					total += Number(ix.parsed.info?.lamports ?? 0);
+				}
+				return total;
 			}
 
 			// ── Guild vanity link purchase (SOL-only, one-time, $1.99) ───────
@@ -266,14 +286,7 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 
 				let recentBlockhash: string;
 				try {
-					const rpcRes = await fetch('https://api.mainnet-beta.solana.com', {
-						method: 'POST',
-						headers: {'Content-Type': 'application/json'},
-						body: JSON.stringify({jsonrpc: '2.0', id: 1, method: 'getLatestBlockhash', params: [{commitment: 'confirmed'}]}),
-					});
-					const rpcData = await rpcRes.json() as any;
-					recentBlockhash = rpcData?.result?.value?.blockhash;
-					if (!recentBlockhash) throw new Error('No blockhash in response');
+					recentBlockhash = await fetchRecentBlockhash();
 				} catch {
 					return ctx.json({error: 'Unable to fetch Solana blockhash. Please try again.'}, 503);
 				}
@@ -323,25 +336,8 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 					return ctx.json({error: err?.message ?? 'Purchase not found'}, err?.status ?? 404);
 				}
 
-				// Verify the transaction on Solana mainnet — retry up to 8x with 3s delay for confirmation lag.
-				let txData: any;
-				for (let attempt = 0; attempt < 8; attempt++) {
-					try {
-						const rpcRes = await fetch('https://api.mainnet-beta.solana.com', {
-							method: 'POST',
-							headers: {'Content-Type': 'application/json'},
-							body: JSON.stringify({
-								jsonrpc: '2.0', id: 1,
-								method: 'getTransaction',
-								params: [txSignature, {encoding: 'jsonParsed', commitment: 'confirmed', maxSupportedTransactionVersion: 0}],
-							}),
-						});
-						const rpcJson = await rpcRes.json() as any;
-						txData = rpcJson?.result;
-					} catch { /* ignore transient error, retry */ }
-					if (txData) break;
-					if (attempt < 7) await new Promise(r => setTimeout(r, 3000));
-				}
+				// Verify the transaction — retry up to 8x with 3s delay for confirmation lag.
+				const txData = await pollSolanaTransaction(txSignature);
 
 				if (!txData) {
 					return ctx.json({error: 'Transaction not found after waiting. Please contact support with your tx signature.'}, 400);
@@ -350,21 +346,13 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 					return ctx.json({error: 'Transaction failed on-chain'}, 400);
 				}
 
-				const accountKeys: Array<{pubkey: string}> = txData.transaction?.message?.accountKeys ?? [];
-				const merchantIdx = accountKeys.findIndex((k: any) => k.pubkey === GUILD_VANITY_MERCHANT_WALLET);
-				if (merchantIdx < 0) {
-					return ctx.json({error: 'Merchant wallet not found in transaction accounts'}, 400);
-				}
-
-				const preBalances: number[] = txData.meta?.preBalances ?? [];
-				const postBalances: number[] = txData.meta?.postBalances ?? [];
-				const received = (postBalances[merchantIdx] ?? 0) - (preBalances[merchantIdx] ?? 0);
-
+				const received = sumTransfersTo(txData, GUILD_VANITY_MERCHANT_WALLET);
 				if (received < purchase.amount_lamports) {
 					return ctx.json({error: `Insufficient payment. Expected ${purchase.amount_lamports} lamports, received ${received}`}, 400);
 				}
 
 				// Account 0 is always the fee-payer/sender for a simple transfer transaction.
+				const accountKeys: Array<{pubkey: string}> = txData.transaction?.message?.accountKeys ?? [];
 				const payerWalletAddress = accountKeys[0]?.pubkey ?? '';
 
 				try {
@@ -480,20 +468,8 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 					return ctx.json({error: 'Transaction failed on-chain'}, 400);
 				}
 
-				const accountKeys: Array<{pubkey: string}> = txData.transaction?.message?.accountKeys ?? [];
-				const recipientIdx = accountKeys.findIndex((k: any) => k.pubkey === recipientWalletAddress);
-				const platformIdx = accountKeys.findIndex((k: any) => k.pubkey === GUILD_VANITY_MERCHANT_WALLET);
-				if (recipientIdx < 0) {
-					return ctx.json({error: 'Recipient wallet not found in transaction accounts'}, 400);
-				}
-				if (platformIdx < 0) {
-					return ctx.json({error: 'Platform fee wallet not found in transaction accounts'}, 400);
-				}
-
-				const preBalances: number[] = txData.meta?.preBalances ?? [];
-				const postBalances: number[] = txData.meta?.postBalances ?? [];
-				const amountLamports = (postBalances[recipientIdx] ?? 0) - (preBalances[recipientIdx] ?? 0);
-				const feeLamports = (postBalances[platformIdx] ?? 0) - (preBalances[platformIdx] ?? 0);
+				const amountLamports = sumTransfersTo(txData, recipientWalletAddress);
+				const feeLamports = sumTransfersTo(txData, GUILD_VANITY_MERCHANT_WALLET);
 
 				if (amountLamports <= 0) {
 					return ctx.json({error: 'No SOL was transferred to the recipient'}, 400);
@@ -503,6 +479,7 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 				}
 
 				// Account 0 is always the fee-payer/sender for this transaction shape.
+				const accountKeys: Array<{pubkey: string}> = txData.transaction?.message?.accountKeys ?? [];
 				const senderWalletAddress = accountKeys[0]?.pubkey ?? '';
 
 				let solPriceUsd = 0;
@@ -607,7 +584,7 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 		app.get('/sol-balance/:address', async (ctx) => {
 			const address = ctx.req.param('address');
 			try {
-				const res = await fetch('https://api.mainnet-beta.solana.com', {
+				const res = await fetch(SOLANA_RPC_URL, {
 					method: 'POST',
 					headers: {'Content-Type': 'application/json'},
 					body: JSON.stringify({jsonrpc: '2.0', id: 1, method: 'getBalance', params: [address, {commitment: 'confirmed'}]}),

@@ -296,7 +296,7 @@ function createAppServerInitializer(context: ServiceInitializationContext): Serv
 			scriptSrc: ["'self'", "'unsafe-inline'"],
 			styleSrc: ["'self'", "'unsafe-inline'"],
 			imgSrc: ["'self'", 'data:', 'blob:', 'https:', publicUrlHost, mediaUrlHost],
-			connectSrc: ["'self'", 'wss:', 'ws:', publicUrlHost, 'https://ip.fluxer.workers.dev', 'https://mainnet.helius-rpc.com', 'https://api.mainnet-beta.solana.com'],
+			connectSrc: ["'self'", 'wss:', 'ws:', publicUrlHost, 'https://ip.fluxer.workers.dev', 'https://mainnet.helius-rpc.com', 'https://api.mainnet-beta.solana.com', 'https://devnet.helius-rpc.com', 'https://api.devnet.solana.com', 'https://rpc.ankr.com'],
 			fontSrc: ["'self'"],
 			mediaSrc: ["'self'", 'blob:', mediaUrlHost],
 			frameSrc: [],

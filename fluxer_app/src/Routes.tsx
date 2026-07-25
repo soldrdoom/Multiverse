@@ -49,6 +49,7 @@ export const Routes = {
 	PREMIUM_CALLBACK: '/premium-callback',
 	CONNECTION_CALLBACK: '/connection-callback',
 
+	home: () => marketingUrl(''),
 	terms: () => marketingUrl('terms'),
 	privacy: () => marketingUrl('privacy'),
 	guidelines: () => marketingUrl('guidelines'),
@@ -59,6 +60,8 @@ export const Routes = {
 	help: () => marketingUrl('help'),
 	helpArticle: (slug: string) => marketingUrl(`help/${slug}`),
 	support: () => marketingUrl('support'),
+	roadmap: () => marketingUrl('roadmap'),
+	whitepaper: () => marketingUrl('whitepaper'),
 
 	dmChannel: (channelId: string) => `/channels/@me/${channelId}`,
 	favoritesChannel: (channelId: string) => `/channels/@favorites/${channelId}`,

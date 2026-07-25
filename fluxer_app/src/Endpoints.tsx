@@ -74,6 +74,9 @@ export const Endpoints = {
 	OAUTH_AUTHORIZATION: (applicationId: string) => `/oauth2/@me/authorizations/${applicationId}`,
 
 	CHANNEL: (channelId: string) => `/channels/${channelId}`,
+	CHANNEL_TOKEN_GATE: (channelId: string) => `/channels/${channelId}/token-gate`,
+	CHANNEL_TOKEN_GATE_VISIBILITY: (channelId: string) => `/channels/${channelId}/token-gate/visibility`,
+	CHANNEL_TOKEN_GATE_RECHECK: (channelId: string) => `/channels/${channelId}/token-gate/recheck`,
 	CHANNEL_ATTACHMENTS: (channelId: string) => `/channels/${channelId}/attachments`,
 	CHANNEL_INVITES: (channelId: string) => `/channels/${channelId}/invites`,
 	CHANNEL_RECIPIENT: (channelId: string, userId: string) => `/channels/${channelId}/recipients/${userId}`,
@@ -298,6 +301,10 @@ export const Endpoints = {
 	ADMIN_CREATOR_APPLICATIONS: '/admin/creator-applications',
 	ADMIN_CREATOR_APPLICATION_APPROVE: (address: string) => `/admin/creator-applications/${address}/approve`,
 	ADMIN_CREATOR_APPLICATION_REJECT: (address: string) => `/admin/creator-applications/${address}/reject`,
+
+	ADMIN_USERS_LOOKUP: '/admin/users/lookup',
+	ADMIN_UPDATE_USER_FLAGS: '/admin/users/update-flags',
+	ADMIN_UPDATE_USER_VISIONARY: '/admin/users/update-visionary',
 
 	CONNECTIONS: '/users/@me/connections',
 	CONNECTIONS_VERIFY_AND_CREATE: '/users/@me/connections/verify',

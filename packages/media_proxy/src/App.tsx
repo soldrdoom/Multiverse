@@ -326,6 +326,7 @@ export async function createMediaProxyApp(options: CreateMediaProxyAppOptions): 
 		app.get('/banners/:id/:filename', async (ctx) => handleImageRoute(ctx, 'banners'));
 		app.get('/splashes/:id/:filename', async (ctx) => handleImageRoute(ctx, 'splashes'));
 		app.get('/embed-splashes/:id/:filename', async (ctx) => handleImageRoute(ctx, 'embed-splashes'));
+		app.get('/news/:id/:filename', async (ctx) => handleImageRoute(ctx, 'news'));
 		app.get('/emojis/:id', async (ctx) => handleSimpleImageRoute(ctx, 'emojis'));
 		app.get('/stickers/:id', handleStickerRoute);
 		app.get('/guilds/:guild_id/users/:user_id/avatars/:filename', async (ctx) =>

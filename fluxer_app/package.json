@@ -63,6 +63,7 @@
 		"@radix-ui/react-switch": "*",
 		"@sentry/react": "*",
 		"@simplewebauthn/browser": "*",
+		"@solana/web3.js": "^1.98.4",
 		"bowser": "*",
 		"bs58": "6.0.0",
 		"clsx": "*",
