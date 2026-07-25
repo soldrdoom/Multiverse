@@ -12,4 +12,6 @@ OAuth2 scopes define the level of access that an application can request from a 
 | `identify` | Allows access to basic user information including username, discriminator, avatar, and flags. |
 | `email` | Allows access to the user's email address. Requires the identify scope. |
 | `guilds` | Allows access to the list of guilds the user is a member of. |
+| `connections` | Allows access to the list of the user's external service connections, via GET /users/@me/connections. |
 | `bot` | Used for bot authorization. Adds a bot to a guild on behalf of the authorizing user. |
+| `admin` | Reserved for the built-in first-party admin application. Requests from any other client are rejected. |

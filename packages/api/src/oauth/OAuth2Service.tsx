@@ -36,6 +36,7 @@ import {mapUserToOAuthResponse} from '@fluxer/api/src/user/UserMappers';
 import {verifyPassword} from '@fluxer/api/src/utils/PasswordUtils';
 import type {ICacheService} from '@fluxer/cache/src/ICacheService';
 import {ADMIN_OAUTH2_APPLICATION_ID} from '@fluxer/constants/src/Core';
+import {OAuth2Scopes} from '@fluxer/constants/src/OAuth2Constants';
 import {AccessDeniedError} from '@fluxer/errors/src/domains/core/AccessDeniedError';
 import {InvalidRequestError} from '@fluxer/errors/src/domains/core/InvalidRequestError';
 import {InvalidTokenError} from '@fluxer/errors/src/domains/core/InvalidTokenError';
@@ -56,7 +57,7 @@ interface OAuth2ServiceDeps {
 	cacheService?: ICacheService;
 }
 
-const PREFERRED_SCOPE_ORDER = ['identify', 'email', 'guilds', 'connections', 'bot', 'admin'];
+const PREFERRED_SCOPE_ORDER: ReadonlyArray<string> = OAuth2Scopes;
 
 function sortScopes(scope: Set<string>): Array<string> {
 	return Array.from(scope).sort((a, b) => {
@@ -74,7 +75,7 @@ export const ACCESS_TOKEN_TTL_SECONDS = seconds('7 days');
 export class OAuth2Service {
 	private applications: IApplicationRepository;
 	private tokens: IOAuth2TokenRepository;
-	private static readonly ALLOWED_SCOPES = ['identify', 'email', 'guilds', 'connections', 'bot', 'admin'];
+	private static readonly ALLOWED_SCOPES: ReadonlyArray<string> = OAuth2Scopes;
 
 	constructor(private readonly deps: OAuth2ServiceDeps) {
 		this.applications = deps.applicationRepository ?? new ApplicationRepository();

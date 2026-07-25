@@ -19,6 +19,7 @@
 
 import {ApplicationFlags, BotFlags, BotFlagsDescriptions} from '@fluxer/constants/src/BotConstants';
 import {AVATAR_MAX_SIZE} from '@fluxer/constants/src/LimitConstants';
+import {type OAuth2Scope, OAuth2Scopes} from '@fluxer/constants/src/OAuth2Constants';
 import {
 	PublicUserFlags,
 	PublicUserFlagsDescriptions,
@@ -48,9 +49,9 @@ const RedirectURIString = createStringType(1).refine((value) => {
 	}
 }, 'Invalid URL format');
 
-export const OAuthScopes = ['identify', 'email', 'guilds', 'bot'] as const;
+export const OAuthScopes = OAuth2Scopes;
 
-export type OAuthScope = (typeof OAuthScopes)[number];
+export type OAuthScope = OAuth2Scope;
 
 const AuthenticatorTypeEnum = withOpenApiType(
 	createInt32EnumType(
