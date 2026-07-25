@@ -19,21 +19,25 @@
 
 import type {ConversationTurn} from './LlmClient';
 
-const MAX_TURNS_PER_CHANNEL = 20;
+const MAX_TURNS_PER_USER = 5;
+
+function key(channelId: string, authorId: string): string {
+	return `${channelId}:${authorId}`;
+}
 
 export class ConversationStore {
-	private readonly byChannel = new Map<string, Array<ConversationTurn>>();
+	private readonly byUser = new Map<string, Array<ConversationTurn>>();
 
-	getHistory(channelId: string): ReadonlyArray<ConversationTurn> {
-		return this.byChannel.get(channelId) ?? [];
+	getHistory(channelId: string, authorId: string): ReadonlyArray<ConversationTurn> {
+		return this.byUser.get(key(channelId, authorId)) ?? [];
 	}
 
-	append(channelId: string, turn: ConversationTurn): void {
-		const history = this.byChannel.get(channelId) ?? [];
+	append(channelId: string, authorId: string, turn: ConversationTurn): void {
+		const k = key(channelId, authorId);
+		const history = this.byUser.get(k) ?? [];
 		history.push(turn);
-		while (history.length > MAX_TURNS_PER_CHANNEL) {
-			history.shift();
-		}
-		this.byChannel.set(channelId, history);
+		// Compact rather than slide: once a user's history fills up, drop it and
+		// start fresh instead of trimming the oldest turn, so it never grows unbounded.
+		this.byUser.set(k, history.length > MAX_TURNS_PER_USER ? [turn] : history);
 	}
 }

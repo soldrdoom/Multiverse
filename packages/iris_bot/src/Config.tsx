@@ -27,7 +27,6 @@ function requireEnv(name: string): string {
 
 export interface IrisConfig {
 	readonly authToken: string;
-	readonly ownerUserId: string;
 	readonly instanceBaseUrl: string;
 	readonly ollamaBaseUrl: string;
 	readonly ollamaModel: string;
@@ -37,7 +36,6 @@ export interface IrisConfig {
 export function loadConfig(): IrisConfig {
 	return {
 		authToken: requireEnv('IRIS_AUTH_TOKEN'),
-		ownerUserId: requireEnv('IRIS_OWNER_USER_ID'),
 		instanceBaseUrl: process.env.IRIS_INSTANCE_BASE_URL ?? 'https://multiverse.forum',
 		ollamaBaseUrl: process.env.OLLAMA_BASE_URL ?? 'http://ollama:11434',
 		ollamaModel: process.env.OLLAMA_MODEL ?? 'qwen3:0.6b',

@@ -69,7 +69,6 @@ export class MessageHandler {
 	private readonly replyCounts = new Map<string, number>();
 
 	constructor(
-		private readonly ownerUserId: string,
 		private readonly botUserId: string,
 		private readonly apiBaseUrl: string,
 		private readonly restClient: RestClient,
@@ -86,7 +85,7 @@ export class MessageHandler {
 
 	private async handleMessageCreate(message: MessageCreatePayload): Promise<void> {
 		if (message.author.id === this.botUserId) return;
-		if (message.author.id !== this.ownerUserId) return;
+		if (message.author.bot) return;
 
 		if (!message.content) {
 			if (message.encrypted_content) {
@@ -95,9 +94,9 @@ export class MessageHandler {
 			return;
 		}
 
-		this.log.info({channelId: message.channel_id, guildId: message.guild_id}, 'Replying to owner message');
+		this.log.info({channelId: message.channel_id, guildId: message.guild_id}, 'Replying to message');
 
-		const history = this.conversations.getHistory(message.channel_id);
+		const history = this.conversations.getHistory(message.channel_id, message.author.id);
 		let reply = mentionsPlatform(message.content)
 			? PLATFORM_DEFLECTION
 			: await this.llmClient.generateReply(history, message.content);
@@ -105,8 +104,8 @@ export class MessageHandler {
 
 		reply = this.maybeAppendBotTease(message.channel_id, reply);
 
-		this.conversations.append(message.channel_id, {role: 'user', content: message.content});
-		this.conversations.append(message.channel_id, {role: 'assistant', content: reply});
+		this.conversations.append(message.channel_id, message.author.id, {role: 'user', content: message.content});
+		this.conversations.append(message.channel_id, message.author.id, {role: 'assistant', content: reply});
 
 		await this.restClient.sendMessage(this.apiBaseUrl, message.channel_id, reply);
 	}

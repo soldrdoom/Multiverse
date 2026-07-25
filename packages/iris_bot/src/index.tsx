@@ -47,7 +47,6 @@ async function main(): Promise<void> {
 				const ready = data as {user: {id: string}};
 				botUserId = ready.user.id;
 				handler = new MessageHandler(
-					config.ownerUserId,
 					botUserId,
 					wellKnown.endpoints.api,
 					restClient,
