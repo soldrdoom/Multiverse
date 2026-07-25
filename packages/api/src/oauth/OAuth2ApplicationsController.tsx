@@ -25,7 +25,11 @@ import {RateLimitConfigs} from '@fluxer/api/src/RateLimitConfig';
 import type {HonoApp, HonoEnv} from '@fluxer/api/src/types/HonoEnv';
 import {Validator} from '@fluxer/api/src/Validator';
 import {SudoVerificationSchema} from '@fluxer/schema/src/domains/auth/AuthSchemas';
-import {ApplicationIdParam, ClientIdParam, ClientIdTokenIdParam} from '@fluxer/schema/src/domains/common/CommonParamSchemas';
+import {
+	ApplicationIdParam,
+	ClientIdParam,
+	ClientIdTokenIdParam,
+} from '@fluxer/schema/src/domains/common/CommonParamSchemas';
 import {
 	ApplicationCreateRequest,
 	ApplicationListResponse,
@@ -38,6 +42,7 @@ import {
 	BotTokenListResponse,
 	BotTokenResetResponse,
 } from '@fluxer/schema/src/domains/oauth/OAuthSchemas';
+import {ApplicationTeamTransferRequest} from '@fluxer/schema/src/domains/oauth/TeamSchemas';
 import type {Context} from 'hono';
 
 export function OAuth2ApplicationsController(app: HonoApp) {
@@ -264,6 +269,34 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			const params = ctx.req.valid('param');
 			await ctx.get('oauth2ApplicationsRequestService').revokeBotToken(userId, params.client_id, params.token_id);
 			return ctx.body(null, 204);
+		},
+	);
+
+	app.patch(
+		'/oauth2/applications/:client_id/team',
+		RateLimitMiddleware(RateLimitConfigs.OAUTH_DEV_CLIENT_UPDATE),
+		LoginRequiredAllowSuspicious,
+		DefaultUserOnly,
+		SudoModeMiddleware,
+		Validator('param', ClientIdParam),
+		Validator('json', ApplicationTeamTransferRequest),
+		OpenAPI({
+			operationId: 'transfer_application_team',
+			summary: 'Transfer application to team',
+			responseSchema: ApplicationResponse,
+			statusCode: 200,
+			security: ['bearerToken', 'sessionToken'],
+			tags: ['OAuth2'],
+			description:
+				"Transfers an application to a developer team (or detaches it with a null team_id). Owner only, requires sudo mode, and requires admin rights on the destination team. The application's owner becomes the team's owner; it is never null.",
+		}),
+		async (ctx) => {
+			const userId = ctx.get('user').id;
+			const body = ctx.req.valid('json');
+			const response = await ctx
+				.get('oauth2ApplicationsRequestService')
+				.transferApplicationToTeam(userId, ctx.req.valid('param').client_id, body.team_id);
+			return ctx.json(response);
 		},
 	);
 

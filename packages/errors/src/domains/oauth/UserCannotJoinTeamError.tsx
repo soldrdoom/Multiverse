@@ -17,31 +17,14 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export interface ApplicationBotResponse {
-	id: string;
-	username: string;
-	discriminator: string;
-	avatar?: string | null;
-	banner?: string | null;
-	bio: string | null;
-	token?: string;
-	mfa_enabled?: boolean;
-	authenticator_types?: Array<number>;
-	flags: number;
-}
+import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
+import {BadRequestError} from '@fluxer/errors/src/domains/core/BadRequestError';
 
-export interface ApplicationResponse {
-	id: string;
-	name: string;
-	description: string | null;
-	icon: string | null;
-	tags: Array<string>;
-	privacy_policy_url: string | null;
-	terms_of_service_url: string | null;
-	team_id: string | null;
-	redirect_uris: Array<string>;
-	bot_public: boolean;
-	bot_require_code_grant: boolean;
-	client_secret?: string;
-	bot?: ApplicationBotResponse;
+export class UserCannotJoinTeamError extends BadRequestError {
+	constructor(messageVariables?: Record<string, unknown>) {
+		super({
+			code: APIErrorCodes.USER_CANNOT_JOIN_TEAM,
+			messageVariables,
+		});
+	}
 }

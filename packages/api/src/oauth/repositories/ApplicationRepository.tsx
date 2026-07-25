@@ -31,7 +31,7 @@ import type {ApplicationByOwnerRow, ApplicationRow} from '@fluxer/api/src/databa
 import {APPLICATION_COLUMNS} from '@fluxer/api/src/database/types/OAuth2Types';
 import {Application} from '@fluxer/api/src/models/Application';
 import type {IApplicationRepository} from '@fluxer/api/src/oauth/repositories/IApplicationRepository';
-import {Applications, ApplicationsByOwner} from '@fluxer/api/src/Tables';
+import {Applications, ApplicationsByOwner, ApplicationsByTeam} from '@fluxer/api/src/Tables';
 import {hashPassword} from '@fluxer/api/src/utils/PasswordUtils';
 import {ADMIN_OAUTH2_APPLICATION_ID} from '@fluxer/constants/src/Core';
 
@@ -144,6 +144,34 @@ export class ApplicationRepository implements IApplicationRepository {
 				application_id: data.application_id,
 			}),
 		);
+		// Most updates never change the owner or the owning team, so the index
+		// maintenance below only fires on a team transfer (which passes oldData).
+		// Without the deletes, the previous owner would keep listing an
+		// application they no longer own.
+		if (oldData && oldData.owner_user_id !== data.owner_user_id) {
+			batch.addPrepared(
+				ApplicationsByOwner.deleteByPk({
+					owner_user_id: oldData.owner_user_id,
+					application_id: data.application_id,
+				}),
+			);
+		}
+		if (data.team_id !== null && data.team_id !== undefined) {
+			batch.addPrepared(
+				ApplicationsByTeam.upsertAll({
+					team_id: data.team_id,
+					application_id: data.application_id,
+				}),
+			);
+		}
+		if (oldData?.team_id !== null && oldData?.team_id !== undefined && oldData.team_id !== data.team_id) {
+			batch.addPrepared(
+				ApplicationsByTeam.deleteByPk({
+					team_id: oldData.team_id,
+					application_id: data.application_id,
+				}),
+			);
+		}
 		await batch.execute();
 
 		return new Application({...data, version: result.finalVersion});
@@ -167,6 +195,14 @@ export class ApplicationRepository implements IApplicationRepository {
 				application_id: applicationId,
 			}),
 		);
+		if (application.teamId !== null) {
+			batch.addPrepared(
+				ApplicationsByTeam.deleteByPk({
+					team_id: application.teamId,
+					application_id: applicationId,
+				}),
+			);
+		}
 		await batch.execute();
 	}
 }

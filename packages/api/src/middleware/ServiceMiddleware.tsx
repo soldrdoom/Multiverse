@@ -35,13 +35,12 @@ import {Config} from '@fluxer/api/src/Config';
 import {ChannelRepository} from '@fluxer/api/src/channel/ChannelRepository';
 import {ChannelRequestService} from '@fluxer/api/src/channel/services/ChannelRequestService';
 import {ChannelService} from '@fluxer/api/src/channel/services/ChannelService';
-import {TokenGateCacheService} from '@fluxer/api/src/channel/services/TokenGateCacheService';
-import {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
-import {SOLANA_DAS_URL} from '@fluxer/solana_das/src/SolanaNetwork';
 import {MessageRequestService} from '@fluxer/api/src/channel/services/message/MessageRequestService';
 import {ScheduledMessageService} from '@fluxer/api/src/channel/services/ScheduledMessageService';
 import {StreamPreviewService} from '@fluxer/api/src/channel/services/StreamPreviewService';
 import {StreamService} from '@fluxer/api/src/channel/services/StreamService';
+import {TokenGateCacheService} from '@fluxer/api/src/channel/services/TokenGateCacheService';
+import {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import {ConnectionRepository} from '@fluxer/api/src/connection/ConnectionRepository';
 import {ConnectionRequestService} from '@fluxer/api/src/connection/ConnectionRequestService';
 import {ConnectionService} from '@fluxer/api/src/connection/ConnectionService';
@@ -113,16 +112,20 @@ import {
 } from '@fluxer/api/src/middleware/ServiceRegistry';
 import {NewsRepository} from '@fluxer/api/src/news/NewsRepository';
 import {NewsService} from '@fluxer/api/src/news/NewsService';
+import {ApplicationAccessService} from '@fluxer/api/src/oauth/ApplicationAccessService';
 import {ApplicationService} from '@fluxer/api/src/oauth/ApplicationService';
 import {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
-import {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
-import {BotTokenRepository} from '@fluxer/api/src/oauth/repositories/BotTokenRepository';
 import {BotMfaMirrorService} from '@fluxer/api/src/oauth/BotMfaMirrorService';
+import {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
 import {OAuth2ApplicationsRequestService} from '@fluxer/api/src/oauth/OAuth2ApplicationsRequestService';
 import {OAuth2RequestService} from '@fluxer/api/src/oauth/OAuth2RequestService';
 import {OAuth2Service} from '@fluxer/api/src/oauth/OAuth2Service';
+import {OAuth2TeamsRequestService} from '@fluxer/api/src/oauth/OAuth2TeamsRequestService';
 import {ApplicationRepository} from '@fluxer/api/src/oauth/repositories/ApplicationRepository';
+import {BotTokenRepository} from '@fluxer/api/src/oauth/repositories/BotTokenRepository';
 import {OAuth2TokenRepository} from '@fluxer/api/src/oauth/repositories/OAuth2TokenRepository';
+import {TeamRepository} from '@fluxer/api/src/oauth/repositories/TeamRepository';
+import {TeamService} from '@fluxer/api/src/oauth/TeamService';
 import {PackRepository} from '@fluxer/api/src/pack/PackRepository';
 import {PackRequestService} from '@fluxer/api/src/pack/PackRequestService';
 import {PackService} from '@fluxer/api/src/pack/PackService';
@@ -137,6 +140,7 @@ import {getGuildSearchService, getReportSearchService} from '@fluxer/api/src/Sea
 import {SearchService} from '@fluxer/api/src/search/SearchService';
 import {TenorService} from '@fluxer/api/src/tenor/TenorService';
 import {ThemeService} from '@fluxer/api/src/theme/ThemeService';
+import {TokenActivityRepository} from '@fluxer/api/src/token/TokenActivityRepository';
 import type {HonoEnv} from '@fluxer/api/src/types/HonoEnv';
 import {EmailChangeRepository} from '@fluxer/api/src/user/repositories/auth/EmailChangeRepository';
 import {PasswordChangeRepository} from '@fluxer/api/src/user/repositories/auth/PasswordChangeRepository';
@@ -159,7 +163,6 @@ import {SweegoWebhookService} from '@fluxer/api/src/webhook/SweegoWebhookService
 import {WebhookRepository} from '@fluxer/api/src/webhook/WebhookRepository';
 import {WebhookRequestService} from '@fluxer/api/src/webhook/WebhookRequestService';
 import {WebhookService} from '@fluxer/api/src/webhook/WebhookService';
-import {TokenActivityRepository} from '@fluxer/api/src/token/TokenActivityRepository';
 import type {ICacheService} from '@fluxer/cache/src/ICacheService';
 import {KVCacheProvider} from '@fluxer/cache/src/providers/KVCacheProvider';
 import {EmailI18nService} from '@fluxer/email/src/EmailI18nService';
@@ -172,6 +175,7 @@ import {RateLimitService} from '@fluxer/rate_limit/src/RateLimitService';
 import type {ISmsProvider} from '@fluxer/sms/src/providers/ISmsProvider';
 import {createSmsProvider} from '@fluxer/sms/src/providers/SmsProviderFactory';
 import {SmsService} from '@fluxer/sms/src/SmsService';
+import {SOLANA_DAS_URL} from '@fluxer/solana_das/src/SolanaNetwork';
 import {createMiddleware} from 'hono/factory';
 
 const errorI18nService = new ErrorI18nService();
@@ -695,6 +699,8 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 
 	const botTokenRepository = new BotTokenRepository();
 	const botTokenService = new BotTokenService(botTokenRepository, snowflakeService);
+	const teamRepository = new TeamRepository();
+	const applicationAccessService = new ApplicationAccessService(applicationRepository, teamRepository);
 	const botAuthService = new BotAuthService(applicationRepository, botTokenService);
 	const gatewayRequestService = new GatewayRequestService(botAuthService);
 
@@ -807,6 +813,8 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 
 	const applicationService = new ApplicationService({
 		applicationRepository,
+		teamRepository,
+		applicationAccessService,
 		channelRepository,
 		userRepository,
 		userCacheService,
@@ -818,11 +826,20 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		gatewayService,
 	});
 
+	const teamService = new TeamService({
+		teamRepository,
+		applicationRepository,
+		applicationAccessService,
+		userRepository,
+		snowflakeService,
+	});
+
 	const oauth2Service = new OAuth2Service({
 		userRepository,
 		applicationRepository,
 		oauth2TokenRepository,
 		cacheService,
+		applicationAccessService,
 	});
 	const oauth2RequestService = new OAuth2RequestService(
 		oauth2Service,
@@ -838,12 +855,14 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	);
 	const oauth2ApplicationsRequestService = new OAuth2ApplicationsRequestService(
 		applicationService,
-		applicationRepository,
 		userRepository,
 		authService,
 		authMfaService,
 		botTokenService,
+		applicationAccessService,
+		teamService,
 	);
+	const oauth2TeamsRequestService = new OAuth2TeamsRequestService(teamService, userRepository);
 
 	const searchService = new SearchService({
 		channelRepository,
@@ -916,6 +935,9 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	ctx.set('oauth2Service', oauth2Service);
 	ctx.set('oauth2RequestService', oauth2RequestService);
 	ctx.set('oauth2ApplicationsRequestService', oauth2ApplicationsRequestService);
+	ctx.set('oauth2TeamsRequestService', oauth2TeamsRequestService);
+	ctx.set('applicationAccessService', applicationAccessService);
+	ctx.set('teamService', teamService);
 	ctx.set('oauth2TokenRepository', oauth2TokenRepository);
 	ctx.set('rateLimitService', rateLimitService);
 	ctx.set('readStateService', readStateService);

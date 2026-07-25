@@ -88,6 +88,7 @@ Type: [ApplicationResponse](#applicationresponse)[]
 - [`GET /oauth2/applications/{id}`](/api-reference/oauth2/get-application)
 - [`POST /oauth2/applications`](/api-reference/oauth2/create-oauth2-application)
 - [`POST /oauth2/applications/{id}/client-secret/reset`](/api-reference/oauth2/reset-client-secret)
+- [`PATCH /oauth2/applications/{client_id}/team`](/api-reference/oauth2/transfer-application-to-team)
 - [`PATCH /oauth2/applications/{id}`](/api-reference/oauth2/update-application)
 
 | Field | Type | Description |
@@ -103,6 +104,7 @@ Type: [ApplicationResponse](#applicationresponse)[]
 | privacy_policy_url | ?string | URL of the application's privacy policy |
 | redirect_uris | string[] | The registered redirect URIs for OAuth2 |
 | tags | string[] | Tags categorising the application |
+| team_id | ?[SnowflakeType](#snowflaketype) | The developer team that owns this application, if any |
 | terms_of_service_url | ?string | URL of the application's terms of service |
 
 <a id="applicationsmeresponse"></a>
@@ -123,6 +125,18 @@ Type: [ApplicationResponse](#applicationresponse)[]
 | icon | ?string | The icon hash of the application |
 | id | [SnowflakeType](#snowflaketype) | The unique identifier of the application |
 | name | string | The name of the application |
+
+<a id="applicationteamtransferrequest"></a>
+
+## ApplicationTeamTransferRequest
+
+**Related endpoints**
+
+- [`PATCH /oauth2/applications/{client_id}/team`](/api-reference/oauth2/transfer-application-to-team)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| team_id | ?[SnowflakeType](#snowflaketype) | The team to transfer the application to, or null to detach it |
 
 <a id="applicationupdaterequest"></a>
 
@@ -419,6 +433,113 @@ Type: string
 | client_secret? | string | The application client secret |
 | token | string | The token to revoke |
 | token_type_hint? | [RevokeRequestFormTokenTypeHint](#revokerequestformtokentypehint) | A hint about the type of token being revoked |
+
+<a id="teamcreaterequest"></a>
+
+## TeamCreateRequest
+
+**Related endpoints**
+
+- [`POST /teams`](/api-reference/oauth2/create-team)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | The name of the team |
+
+<a id="teamlistresponse"></a>
+
+## TeamListResponse
+
+**Related endpoints**
+
+- [`GET /teams`](/api-reference/oauth2/list-teams)
+
+Type: [TeamWithMembershipResponse](#teamwithmembershipresponse)[]
+
+<a id="teammemberinviterequest"></a>
+
+## TeamMemberInviteRequest
+
+**Related endpoints**
+
+- [`POST /teams/{team_id}/members`](/api-reference/oauth2/invite-team-member)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| discriminator? | string | The discriminator of the user to invite |
+| role? | [TeamMemberRoleType](#teammemberroletype) |  |
+| user_id? | [SnowflakeType](#snowflaketype) |  |
+| username? | [UsernameType](#usernametype) |  |
+
+<a id="teammemberlistresponse"></a>
+
+## TeamMemberListResponse
+
+**Related endpoints**
+
+- [`GET /teams/{team_id}/members`](/api-reference/oauth2/list-team-members)
+
+Type: [TeamMemberResponse](#teammemberresponse)[]
+
+<a id="teammemberresponse"></a>
+
+## TeamMemberResponse
+
+**Related endpoints**
+
+- [`POST /teams/{team_id}/members`](/api-reference/oauth2/invite-team-member)
+- [`POST /teams/{team_id}/members/@me/accept`](/api-reference/oauth2/accept-team-invite)
+- [`PATCH /teams/{team_id}/members/{user_id}`](/api-reference/oauth2/update-team-member-role)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| accepted_at | ?string | When the member accepted the invite, if they have |
+| invited_at | string | When the member was invited |
+| membership_state | [TeamMembershipStateType](#teammembershipstatetype) |  |
+| role | [TeamMemberRoleType](#teammemberroletype) |  |
+| team_id | [SnowflakeType](#snowflaketype) | The team this membership belongs to |
+| user | [UserPartialResponse](#userpartialresponse) | The member |
+
+<a id="teammemberupdaterequest"></a>
+
+## TeamMemberUpdateRequest
+
+**Related endpoints**
+
+- [`PATCH /teams/{team_id}/members/{user_id}`](/api-reference/oauth2/update-team-member-role)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| role | enum&lt;`admin`, `developer`, `read_only`&gt; | The member's new role |
+
+<a id="teamresponse"></a>
+
+## TeamResponse
+
+**Related endpoints**
+
+- [`GET /teams/{team_id}`](/api-reference/oauth2/get-team)
+- [`POST /teams`](/api-reference/oauth2/create-team)
+- [`PATCH /teams/{team_id}`](/api-reference/oauth2/update-team)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| created_at | string | When the team was created |
+| id | [SnowflakeType](#snowflaketype) | The unique identifier of the team |
+| name | string | The name of the team |
+| owner_user_id | [SnowflakeType](#snowflaketype) | The user who owns the team |
+
+<a id="teamupdaterequest"></a>
+
+## TeamUpdateRequest
+
+**Related endpoints**
+
+- [`PATCH /teams/{team_id}`](/api-reference/oauth2/update-team)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | The name of the team |
 
 <a id="tokengatematchmode"></a>
 

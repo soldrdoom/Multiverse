@@ -81,6 +81,11 @@ export const OAuthRateLimitConfigs = {
 		config: {limit: 15, windowMs: ms('1 hour')},
 	} as RouteRateLimitConfig,
 
+	OAUTH_DEV_TEAM_UPDATE: {
+		bucket: 'oauth_dev:teams:update::team_id',
+		config: {limit: 30, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+
 	OAUTH_DEV_TEAM_DELETE: {
 		bucket: 'oauth_dev:teams:delete::team_id',
 		config: {limit: 15, windowMs: ms('1 hour')},

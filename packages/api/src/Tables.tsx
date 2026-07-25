@@ -78,7 +78,6 @@ import {
 	type WebhookRow,
 } from '@fluxer/api/src/database/types/ChannelTypes';
 import {USER_CONNECTION_COLUMNS, type UserConnectionRow} from '@fluxer/api/src/database/types/ConnectionTypes';
-import {USER_PUBLIC_KEY_COLUMNS, type UserPublicKeyRow} from '@fluxer/api/src/database/types/VaultTypes';
 import {
 	APPLIED_PROFILE_COSMETIC_COLUMNS,
 	APPLIED_SERVER_COSMETIC_COLUMNS,
@@ -139,7 +138,6 @@ import {
 	type GuildVanityPurchaseByTxSignatureRow,
 	type GuildVanityPurchaseRow,
 } from '@fluxer/api/src/database/types/GuildVanityPurchaseTypes';
-import {USER_TIP_COLUMNS, type UserTipRow} from '@fluxer/api/src/database/types/UserTipTypes';
 import {
 	INSTANCE_CONFIGURATION_COLUMNS,
 	type InstanceConfigurationRow,
@@ -163,13 +161,27 @@ import {
 	type MessageRow,
 } from '@fluxer/api/src/database/types/MessageTypes';
 import {
+	NEWS_STORY_BY_STATUS_COLUMNS,
+	NEWS_STORY_COLUMNS,
+	type NewsStoryByStatusRow,
+	type NewsStoryRow,
+} from '@fluxer/api/src/database/types/NewsTypes';
+import {
 	APPLICATION_BOT_TOKEN_BY_APPLICATION_COLUMNS,
 	APPLICATION_BOT_TOKEN_COLUMNS,
+	APPLICATION_BY_TEAM_COLUMNS,
 	APPLICATION_COLUMNS,
+	APPLICATION_TEAM_BY_USER_COLUMNS,
+	APPLICATION_TEAM_COLUMNS,
+	APPLICATION_TEAM_MEMBER_COLUMNS,
 	type ApplicationBotTokenByApplicationRow,
 	type ApplicationBotTokenRow,
 	type ApplicationByOwnerRow,
+	type ApplicationByTeamRow,
 	type ApplicationRow,
+	type ApplicationTeamByUserRow,
+	type ApplicationTeamMemberRow,
+	type ApplicationTeamRow,
 	OAUTH2_ACCESS_TOKEN_COLUMNS,
 	OAUTH2_AUTHORIZATION_CODE_COLUMNS,
 	OAUTH2_REFRESH_TOKEN_COLUMNS,
@@ -180,12 +192,6 @@ import {
 	type OAuth2RefreshTokenRow,
 } from '@fluxer/api/src/database/types/OAuth2Types';
 import {
-	NEWS_STORY_BY_STATUS_COLUMNS,
-	NEWS_STORY_COLUMNS,
-	type NewsStoryByStatusRow,
-	type NewsStoryRow,
-} from '@fluxer/api/src/database/types/NewsTypes';
-import {
 	DSA_REPORT_EMAIL_VERIFICATION_COLUMNS,
 	DSA_REPORT_TICKET_COLUMNS,
 	type DSAReportEmailVerificationRow,
@@ -194,6 +200,7 @@ import {
 	type IARSubmissionRow,
 } from '@fluxer/api/src/database/types/ReportTypes';
 import {SYSTEM_DM_JOB_COLUMNS, type SystemDmJobRow} from '@fluxer/api/src/database/types/SystemDmJobTypes';
+import {USER_TIP_COLUMNS, type UserTipRow} from '@fluxer/api/src/database/types/UserTipTypes';
 import {
 	EXPRESSION_PACK_COLUMNS,
 	type ExpressionPackRow,
@@ -214,6 +221,7 @@ import {
 	type ScheduledMessageRow,
 	USER_BY_EMAIL_COLUMNS,
 	USER_BY_PHONE_COLUMNS,
+	USER_BY_SOLANA_ADDRESS_COLUMNS,
 	USER_BY_STRIPE_CUSTOMER_ID_COLUMNS,
 	USER_BY_STRIPE_SUBSCRIPTION_ID_COLUMNS,
 	USER_BY_USERNAME_COLUMNS,
@@ -224,7 +232,6 @@ import {
 	USER_HARVEST_COLUMNS,
 	USER_SETTINGS_COLUMNS,
 	USERS_PENDING_DELETION_COLUMNS,
-	USER_BY_SOLANA_ADDRESS_COLUMNS,
 	type UserByEmailRow,
 	type UserByPhoneRow,
 	type UserBySolanaAddressRow,
@@ -239,6 +246,7 @@ import {
 	type UserSettingsRow,
 	type UsersPendingDeletionRow,
 } from '@fluxer/api/src/database/types/UserTypes';
+import {USER_PUBLIC_KEY_COLUMNS, type UserPublicKeyRow} from '@fluxer/api/src/database/types/VaultTypes';
 import {ATTACHMENT_DECAY_COLUMNS, type AttachmentDecayRow} from '@fluxer/api/src/types/AttachmentDecayTypes';
 
 export const Users = defineTable<UserRow, 'user_id'>({
@@ -932,6 +940,33 @@ export const ApplicationBotTokensByApplication = defineTable<
 	columns: APPLICATION_BOT_TOKEN_BY_APPLICATION_COLUMNS,
 	primaryKey: ['application_id', 'token_id'],
 	partitionKey: ['application_id'],
+});
+
+export const ApplicationTeams = defineTable<ApplicationTeamRow, 'team_id'>({
+	name: 'application_teams',
+	columns: APPLICATION_TEAM_COLUMNS,
+	primaryKey: ['team_id'],
+});
+
+export const ApplicationTeamMembers = defineTable<ApplicationTeamMemberRow, 'team_id' | 'user_id'>({
+	name: 'application_team_members',
+	columns: APPLICATION_TEAM_MEMBER_COLUMNS,
+	primaryKey: ['team_id', 'user_id'],
+	partitionKey: ['team_id'],
+});
+
+export const ApplicationTeamsByUser = defineTable<ApplicationTeamByUserRow, 'user_id' | 'team_id'>({
+	name: 'application_teams_by_user',
+	columns: APPLICATION_TEAM_BY_USER_COLUMNS,
+	primaryKey: ['user_id', 'team_id'],
+	partitionKey: ['user_id'],
+});
+
+export const ApplicationsByTeam = defineTable<ApplicationByTeamRow, 'team_id' | 'application_id'>({
+	name: 'applications_by_team',
+	columns: APPLICATION_BY_TEAM_COLUMNS,
+	primaryKey: ['team_id', 'application_id'],
+	partitionKey: ['team_id'],
 });
 
 const OAUTH2_ACCESS_TOKENS_BY_USER_COLUMNS = ['user_id', 'token_'] as const satisfies ReadonlyArray<

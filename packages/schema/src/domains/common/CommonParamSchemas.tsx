@@ -83,6 +83,21 @@ export const ClientIdTokenIdParam = z.object({
 });
 export type ClientIdTokenIdParam = z.infer<typeof ClientIdTokenIdParam>;
 
+/**
+ * Named `team_id` to match the `::team_id` placeholders in the scaffolded
+ * OAUTH_DEV_TEAM* rate-limit buckets — see the note on ClientIdParam above.
+ */
+export const TeamIdParam = z.object({
+	team_id: SnowflakeType.describe('The ID of the team'),
+});
+export type TeamIdParam = z.infer<typeof TeamIdParam>;
+
+export const TeamIdUserIdParam = z.object({
+	team_id: SnowflakeType.describe('The ID of the team'),
+	user_id: SnowflakeType.describe('The ID of the user'),
+});
+export type TeamIdUserIdParam = z.infer<typeof TeamIdUserIdParam>;
+
 export const GuildIdUserIdParam = z.object({
 	guild_id: SnowflakeType.describe('The ID of the guild'),
 	user_id: SnowflakeType.describe('The ID of the user'),

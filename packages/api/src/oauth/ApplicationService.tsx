@@ -31,11 +31,13 @@ import type {UserCacheService} from '@fluxer/api/src/infrastructure/UserCacheSer
 import {Logger} from '@fluxer/api/src/Logger';
 import type {Application} from '@fluxer/api/src/models/Application';
 import type {User} from '@fluxer/api/src/models/User';
+import type {ApplicationAccessService, ApplicationCapability} from '@fluxer/api/src/oauth/ApplicationAccessService';
 import {remapAuthorMessagesToDeletedUser} from '@fluxer/api/src/oauth/ApplicationMessageAuthorAnonymization';
 import type {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
 import type {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
 import {DEFAULT_BOT_TOKEN_NAME} from '@fluxer/api/src/oauth/BotTokenService';
 import type {IApplicationRepository} from '@fluxer/api/src/oauth/repositories/IApplicationRepository';
+import type {ITeamRepository} from '@fluxer/api/src/oauth/repositories/ITeamRepository';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
 import {hasPartialUserFieldsChanged} from '@fluxer/api/src/user/UserMappers';
 import {hashPassword} from '@fluxer/api/src/utils/PasswordUtils';
@@ -43,12 +45,10 @@ import {generateRandomUsername} from '@fluxer/api/src/utils/UsernameGenerator';
 import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
 import {DELETED_USER_GLOBAL_NAME, DELETED_USER_USERNAME, UserFlags} from '@fluxer/constants/src/UserConstants';
 import {ValidationErrorCodes} from '@fluxer/constants/src/ValidationErrorCodes';
-import {ForbiddenError} from '@fluxer/errors/src/domains/core/ForbiddenError';
 import {InputValidationError} from '@fluxer/errors/src/domains/core/InputValidationError';
 import {InternalServerError} from '@fluxer/errors/src/domains/core/InternalServerError';
 import {BotUserNotFoundError} from '@fluxer/errors/src/domains/oauth/BotUserNotFoundError';
 import {UnclaimedAccountCannotCreateApplicationsError} from '@fluxer/errors/src/domains/oauth/UnclaimedAccountCannotCreateApplicationsError';
-import {UnknownApplicationError} from '@fluxer/errors/src/domains/oauth/UnknownApplicationError';
 
 export interface ApplicationServiceDeps {
 	discriminatorService: DiscriminatorService;
@@ -56,6 +56,8 @@ export interface ApplicationServiceDeps {
 	userRepository: IUserRepository;
 	snowflakeService: SnowflakeService;
 	applicationRepository: IApplicationRepository;
+	teamRepository: ITeamRepository;
+	applicationAccessService: ApplicationAccessService;
 	botAuthService: BotAuthService;
 	botTokenService: BotTokenService;
 	entityAssetService: EntityAssetService;
@@ -63,12 +65,9 @@ export interface ApplicationServiceDeps {
 	gatewayService: IGatewayService;
 }
 
-export class ApplicationNotOwnedError extends ForbiddenError {
-	constructor() {
-		super({code: APIErrorCodes.APPLICATION_NOT_OWNED});
-		this.name = 'ApplicationNotOwnedError';
-	}
-}
+// Re-exported from its new home so existing importers keep working; the error
+// itself now lives beside the capability checks that throw it.
+export {ApplicationNotOwnedError} from '@fluxer/api/src/oauth/ApplicationAccessService';
 
 class BotUserGenerationError extends InternalServerError {
 	constructor() {
@@ -282,21 +281,46 @@ export class ApplicationService {
 		return this.deps.applicationRepository.getApplication(applicationId);
 	}
 
-	async listApplicationsByOwner(ownerUserId: UserID): Promise<Array<Application>> {
-		return this.deps.applicationRepository.listApplicationsByOwner(ownerUserId);
+	/**
+	 * Every application the user can see: the ones they own plus the ones owned
+	 * by teams they are an accepted member of. Invited-but-not-accepted
+	 * memberships contribute nothing.
+	 */
+	async listApplicationsAccessibleBy(userId: UserID): Promise<Array<Application>> {
+		const owned = await this.deps.applicationRepository.listApplicationsByOwner(userId);
+
+		const seen = new Set<string>(owned.map((app) => app.applicationId.toString()));
+		const result = [...owned];
+
+		const teamIds = await this.deps.teamRepository.listTeamIdsByUser(userId);
+		for (const teamId of teamIds) {
+			const member = await this.deps.teamRepository.getMember(teamId, userId);
+			if (!member || member.membership_state !== 'accepted') {
+				continue;
+			}
+
+			const applicationIds = await this.deps.teamRepository.listApplicationIdsByTeam(teamId);
+			for (const applicationId of applicationIds) {
+				if (seen.has(applicationId.toString())) {
+					continue;
+				}
+				const application = await this.deps.applicationRepository.getApplication(applicationId);
+				if (application) {
+					seen.add(applicationId.toString());
+					result.push(application);
+				}
+			}
+		}
+
+		return result;
 	}
 
-	private async verifyOwnership(userId: UserID, applicationId: ApplicationID): Promise<Application> {
-		const application = await this.deps.applicationRepository.getApplication(applicationId);
-		if (!application) {
-			throw new UnknownApplicationError();
-		}
-
-		if (application.ownerUserId !== userId) {
-			throw new ApplicationNotOwnedError();
-		}
-
-		return application;
+	private async requireAccess(
+		userId: UserID,
+		applicationId: ApplicationID,
+		capability: ApplicationCapability,
+	): Promise<Application> {
+		return this.deps.applicationAccessService.requireAccess(userId, applicationId, capability);
 	}
 
 	async updateApplication(args: {
@@ -312,7 +336,7 @@ export class ApplicationService {
 		botPublic?: boolean;
 		botRequireCodeGrant?: boolean;
 	}): Promise<Application> {
-		const application = await this.verifyOwnership(args.userId, args.applicationId);
+		const application = await this.requireAccess(args.userId, args.applicationId, 'edit');
 
 		// The application's icon is stored against its own ID rather than its bot
 		// user's. Those IDs are equal today (applicationIdToUserId is an identity
@@ -362,7 +386,7 @@ export class ApplicationService {
 	}
 
 	async deleteApplication(userId: UserID, applicationId: ApplicationID): Promise<void> {
-		const application = await this.verifyOwnership(userId, applicationId);
+		const application = await this.requireAccess(userId, applicationId, 'delete');
 
 		// Token records are keyed on the hash of their own secret, not on the
 		// application, so deleting the application does not cascade to them.
@@ -464,7 +488,7 @@ export class ApplicationService {
 		token: string;
 		preview: string;
 	}> {
-		const application = await this.verifyOwnership(userId, applicationId);
+		const application = await this.requireAccess(userId, applicationId, 'manage_tokens');
 
 		if (!application.hasBotUser()) {
 			throw new BotUserNotFoundError();
@@ -511,7 +535,7 @@ export class ApplicationService {
 	): Promise<{
 		clientSecret: string;
 	}> {
-		const application = await this.verifyOwnership(userId, applicationId);
+		const application = await this.requireAccess(userId, applicationId, 'manage_tokens');
 
 		const clientSecret = randomBytes(32).toString('base64url');
 		const clientSecretHash = await hashPassword(clientSecret);
@@ -545,7 +569,7 @@ export class ApplicationService {
 		user: User;
 		application: Application;
 	}> {
-		const application = await this.verifyOwnership(userId, applicationId);
+		const application = await this.requireAccess(userId, applicationId, 'edit');
 
 		if (!application.hasBotUser()) {
 			throw new BotUserNotFoundError();

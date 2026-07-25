@@ -505,6 +505,42 @@ Spoiler rendering preference
 | price_lamports | integer (int53) |  |
 | rarity | [CreatorListingEntryRarity](#creatorlistingentryrarity) |  |
 
+<a id="teammemberroletype"></a>
+
+## TeamMemberRoleType
+
+A team member's role
+
+| Value | Description |
+|-------|-------------|
+| `admin` | Full management: edit applications, manage tokens and secrets, manage members |
+| `developer` | Edit applications and invite private bots; cannot touch credentials or members |
+| `read_only` | Read applications and token metadata only |
+
+<a id="teammembershipstatetype"></a>
+
+## TeamMembershipStateType
+
+The state of a team member's invitation
+
+| Value | Description |
+|-------|-------------|
+| `invited` | Invited but not yet accepted; confers no access |
+| `accepted` | Accepted membership |
+
+<a id="teamwithmembershipresponse"></a>
+
+## TeamWithMembershipResponse
+
+| Field | Type | Description |
+|-------|------|-------------|
+| created_at | string | When the team was created |
+| id | [SnowflakeType](#snowflaketype) | The unique identifier of the team |
+| membership_state | enum&lt;`invited`, `accepted`&gt; | The current user's membership state |
+| name | string | The name of the team |
+| owner_user_id | [SnowflakeType](#snowflaketype) | The user who owns the team |
+| role | enum&lt;`admin`, `developer`, `read_only`&gt; | The current user's role in the team |
+
 <a id="tenorcategorytagresponse"></a>
 
 ## TenorCategoryTagResponse

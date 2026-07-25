@@ -213,6 +213,7 @@ export const ApplicationResponse = z.object({
 	tags: z.array(z.string()).max(APPLICATION_MAX_TAGS).describe('Tags categorising the application'),
 	privacy_policy_url: z.string().nullable().describe("URL of the application's privacy policy"),
 	terms_of_service_url: z.string().nullable().describe("URL of the application's terms of service"),
+	team_id: SnowflakeStringType.nullable().describe('The developer team that owns this application, if any'),
 	redirect_uris: z.array(z.string()).max(20).describe('The registered redirect URIs for OAuth2'),
 	bot_public: z.boolean().describe('Whether the bot can be invited by anyone'),
 	bot_require_code_grant: z.boolean().describe('Whether the bot requires OAuth2 code grant'),

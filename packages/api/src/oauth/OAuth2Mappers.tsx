@@ -17,15 +17,24 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import type {
+	ApplicationBotTokenRow,
+	ApplicationTeamMemberRow,
+	ApplicationTeamRow,
+} from '@fluxer/api/src/database/types/OAuth2Types';
 import {getGlobalLimitConfigSnapshot} from '@fluxer/api/src/limits/LimitConfigService';
 import {resolveLimitSafe} from '@fluxer/api/src/limits/LimitConfigUtils';
 import {createLimitMatchContext} from '@fluxer/api/src/limits/LimitMatchContextBuilder';
 import type {Application} from '@fluxer/api/src/models/Application';
 import type {User} from '@fluxer/api/src/models/User';
-import type {ApplicationBotTokenRow} from '@fluxer/api/src/database/types/OAuth2Types';
 import type {ApplicationBotResponse, ApplicationResponse} from '@fluxer/api/src/oauth/OAuth2Types';
-import type {BotTokenResponse} from '@fluxer/schema/src/domains/oauth/OAuthSchemas';
 import {mapUserToPartialResponse} from '@fluxer/api/src/user/UserMappers';
+import type {BotTokenResponse} from '@fluxer/schema/src/domains/oauth/OAuthSchemas';
+import type {
+	TeamMemberResponse,
+	TeamResponse,
+	TeamWithMembershipResponse,
+} from '@fluxer/schema/src/domains/oauth/TeamSchemas';
 
 export function mapBotUserToResponse(user: User, opts?: {token?: string}): ApplicationBotResponse {
 	const partial = mapUserToPartialResponse(user);
@@ -63,6 +72,7 @@ export function mapApplicationToResponse(
 		tags: Array.from(application.tags),
 		privacy_policy_url: application.privacyPolicyUrl,
 		terms_of_service_url: application.termsOfServiceUrl,
+		team_id: application.teamId?.toString() ?? null,
 		redirect_uris: Array.from(application.oauth2RedirectUris),
 		bot_public: application.botIsPublic,
 		bot_require_code_grant: application.botRequireCodeGrant,
@@ -98,6 +108,37 @@ export function mapBotProfileToResponse(user: User) {
 		avatar: user.avatarHash,
 		banner: user.bannerHash,
 		bio: user.bio,
+	};
+}
+
+export function mapTeamToResponse(team: ApplicationTeamRow): TeamResponse {
+	return {
+		id: team.team_id.toString(),
+		name: team.name,
+		owner_user_id: team.owner_user_id.toString(),
+		created_at: team.created_at.toISOString(),
+	};
+}
+
+export function mapTeamWithMembershipToResponse(
+	team: ApplicationTeamRow,
+	membership: ApplicationTeamMemberRow,
+): TeamWithMembershipResponse {
+	return {
+		...mapTeamToResponse(team),
+		role: membership.role,
+		membership_state: membership.membership_state,
+	};
+}
+
+export function mapTeamMemberToResponse(member: ApplicationTeamMemberRow, user: User): TeamMemberResponse {
+	return {
+		team_id: member.team_id.toString(),
+		user: mapUserToPartialResponse(user),
+		role: member.role,
+		membership_state: member.membership_state,
+		invited_at: member.invited_at.toISOString(),
+		accepted_at: member.accepted_at ? member.accepted_at.toISOString() : null,
 	};
 }
 

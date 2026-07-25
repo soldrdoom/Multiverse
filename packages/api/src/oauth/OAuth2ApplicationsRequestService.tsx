@@ -25,11 +25,16 @@ import {createApplicationID, type UserID} from '@fluxer/api/src/BrandedTypes';
 import {UsernameNotAvailableError} from '@fluxer/api/src/infrastructure/DiscriminatorService';
 import type {Application} from '@fluxer/api/src/models/Application';
 import type {User} from '@fluxer/api/src/models/User';
+import type {ApplicationAccessService} from '@fluxer/api/src/oauth/ApplicationAccessService';
 import type {ApplicationService} from '@fluxer/api/src/oauth/ApplicationService';
-import type {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
 import {ApplicationNotOwnedError} from '@fluxer/api/src/oauth/ApplicationService';
-import {mapApplicationToResponse, mapBotProfileToResponse, mapBotTokenToResponse} from '@fluxer/api/src/oauth/OAuth2Mappers';
-import type {IApplicationRepository} from '@fluxer/api/src/oauth/repositories/IApplicationRepository';
+import type {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
+import {
+	mapApplicationToResponse,
+	mapBotProfileToResponse,
+	mapBotTokenToResponse,
+} from '@fluxer/api/src/oauth/OAuth2Mappers';
+import type {TeamService} from '@fluxer/api/src/oauth/TeamService';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
 import {AccessDeniedError} from '@fluxer/errors/src/domains/core/AccessDeniedError';
 import {BotUserNotFoundError} from '@fluxer/errors/src/domains/oauth/BotUserNotFoundError';
@@ -49,15 +54,16 @@ import type {Context} from 'hono';
 export class OAuth2ApplicationsRequestService {
 	constructor(
 		private readonly applicationService: ApplicationService,
-		private readonly applicationRepository: IApplicationRepository,
 		private readonly userRepository: IUserRepository,
 		private readonly authService: AuthService,
 		private readonly authMfaService: AuthMfaService,
 		private readonly botTokenService: BotTokenService,
+		private readonly applicationAccessService: ApplicationAccessService,
+		private readonly teamService: TeamService,
 	) {}
 
 	async listApplications(userId: UserID) {
-		const applications: Array<Application> = await this.applicationService.listApplicationsByOwner(userId);
+		const applications: Array<Application> = await this.applicationService.listApplicationsAccessibleBy(userId);
 
 		const botUserMap = new Map<string, User>();
 		const botUserFetches: Array<{id: string; promise: Promise<User | null>}> = [];
@@ -109,20 +115,10 @@ export class OAuth2ApplicationsRequestService {
 		});
 	}
 
-	private async requireOwnedApplication(userId: UserID, applicationId: bigint) {
-		const appId = createApplicationID(applicationId);
-		const application = await this.applicationRepository.getApplication(appId);
-		if (!application) {
-			throw new UnknownApplicationError();
-		}
-		if (application.ownerUserId !== userId) {
-			throw new ApplicationNotOwnedError();
-		}
-		return application;
-	}
-
 	async listBotTokens(userId: UserID, applicationId: bigint): Promise<BotTokenListResponse> {
-		await this.requireOwnedApplication(userId, applicationId);
+		// Token metadata (name, preview, timestamps) is 'read'; only minting and
+		// revoking demand the 'manage_tokens' capability.
+		await this.applicationAccessService.requireAccess(userId, createApplicationID(applicationId), 'read');
 		const rows = await this.botTokenService.listTokens(createApplicationID(applicationId));
 		return rows.map(mapBotTokenToResponse);
 	}
@@ -132,7 +128,11 @@ export class OAuth2ApplicationsRequestService {
 		applicationId: bigint,
 		body: BotTokenCreateRequest,
 	): Promise<BotTokenCreateResponse> {
-		const application = await this.requireOwnedApplication(userId, applicationId);
+		const application = await this.applicationAccessService.requireAccess(
+			userId,
+			createApplicationID(applicationId),
+			'manage_tokens',
+		);
 		if (!application.hasBotUser()) {
 			throw new BotUserNotFoundError();
 		}
@@ -149,22 +149,37 @@ export class OAuth2ApplicationsRequestService {
 	}
 
 	async revokeBotToken(userId: UserID, applicationId: bigint, tokenId: bigint): Promise<void> {
-		await this.requireOwnedApplication(userId, applicationId);
+		await this.applicationAccessService.requireAccess(userId, createApplicationID(applicationId), 'manage_tokens');
 		const revoked = await this.botTokenService.revokeToken(createApplicationID(applicationId), tokenId);
 		if (!revoked) {
 			throw new UnknownApplicationError();
 		}
 	}
 
-	async getApplication(userId: UserID, applicationId: bigint) {
-		const appId = createApplicationID(applicationId);
-		const application = await this.applicationRepository.getApplication(appId);
-		if (!application) {
-			throw new UnknownApplicationError();
+	async transferApplicationToTeam(userId: UserID, applicationId: bigint, teamId: bigint | null) {
+		const updated = await this.teamService.transferApplication(userId, createApplicationID(applicationId), teamId);
+
+		let botUser = null;
+		if (updated.hasBotUser()) {
+			const botUserId = updated.getBotUserId();
+			if (botUserId) {
+				botUser = await this.userRepository.findUnique(botUserId);
+			}
 		}
 
-		if (application.ownerUserId !== userId) {
-			throw new AccessDeniedError();
+		return mapApplicationToResponse(updated, {botUser: botUser ?? undefined});
+	}
+
+	async getApplication(userId: UserID, applicationId: bigint) {
+		const appId = createApplicationID(applicationId);
+		let application: Application;
+		try {
+			application = await this.applicationAccessService.requireAccess(userId, appId, 'read');
+		} catch (err) {
+			if (err instanceof ApplicationNotOwnedError) {
+				throw new AccessDeniedError();
+			}
+			throw err;
 		}
 
 		let botUser = null;

@@ -451,6 +451,12 @@ stripe.subscription_period_end_missing: Subscription current_period_end is missi
 stripe.webhook_not_available: Webhook processing isn't available.
 stripe.webhook_signature_invalid: Stripe webhook signature is invalid.
 stripe.webhook_signature_missing: Stripe webhook signature is missing.
+teams.member_already_exists: That user is already a member of this team or has a pending invite.
+teams.owner_cannot_be_removed: The team owner can't be removed from the team.
+teams.team_still_owns_applications: Transfer or delete this team's applications before deleting the team.
+teams.unknown_team: Team wasn't found.
+teams.unknown_team_member: Team member wasn't found.
+teams.user_cannot_join_team: That user can't be added to a team.
 tickets.ticket_already_completed: This ticket has already been completed.
 tos_and_age.date_of_birth_format_invalid: Invalid date of birth format.
 tos_and_age.must_agree_to_tos_and_privacy: You must agree to the Terms of Service and Privacy Policy.

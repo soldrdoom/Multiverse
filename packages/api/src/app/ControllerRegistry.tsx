@@ -23,6 +23,7 @@ import {BlueskyOAuthController} from '@fluxer/api/src/bluesky/BlueskyOAuthContro
 import {ChannelController} from '@fluxer/api/src/channel/ChannelController';
 import type {APIConfig} from '@fluxer/api/src/config/APIConfig';
 import {ConnectionController} from '@fluxer/api/src/connection/ConnectionController';
+import {CosmeticsController} from '@fluxer/api/src/cosmetics/CosmeticsController';
 import {DownloadController} from '@fluxer/api/src/download/DownloadController';
 import {FavoriteMemeController} from '@fluxer/api/src/favorite_meme/FavoriteMemeController';
 import {GatewayController} from '@fluxer/api/src/gateway/GatewayController';
@@ -33,6 +34,7 @@ import {KlipyController} from '@fluxer/api/src/klipy/KlipyController';
 import {NewsController} from '@fluxer/api/src/news/NewsController';
 import {OAuth2ApplicationsController} from '@fluxer/api/src/oauth/OAuth2ApplicationsController';
 import {OAuth2Controller} from '@fluxer/api/src/oauth/OAuth2Controller';
+import {OAuth2TeamsController} from '@fluxer/api/src/oauth/OAuth2TeamsController';
 import {registerPackControllers} from '@fluxer/api/src/pack/controllers';
 import {ReadStateController} from '@fluxer/api/src/read_state/ReadStateController';
 import {ReportController} from '@fluxer/api/src/report/ReportController';
@@ -42,7 +44,6 @@ import {TestHarnessController} from '@fluxer/api/src/test/TestHarnessController'
 import {ThemeController} from '@fluxer/api/src/theme/ThemeController';
 import type {HonoApp} from '@fluxer/api/src/types/HonoEnv';
 import {UserController} from '@fluxer/api/src/user/controllers/UserController';
-import {CosmeticsController} from '@fluxer/api/src/cosmetics/CosmeticsController';
 import {VaultController} from '@fluxer/api/src/vault/VaultController';
 import {WebhookController} from '@fluxer/api/src/webhook/WebhookController';
 
@@ -77,4 +78,5 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	WebhookController(routes);
 	OAuth2Controller(routes);
 	OAuth2ApplicationsController(routes);
+	OAuth2TeamsController(routes);
 }

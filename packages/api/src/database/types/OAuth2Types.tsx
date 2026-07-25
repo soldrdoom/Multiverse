@@ -74,6 +74,57 @@ export interface ApplicationBotTokenByApplicationRow {
 	lookup_hash: string;
 }
 
+export const TEAM_MEMBER_ROLES = ['admin', 'developer', 'read_only'] as const;
+export type TeamMemberRole = (typeof TEAM_MEMBER_ROLES)[number];
+
+export const TEAM_MEMBERSHIP_STATES = ['invited', 'accepted'] as const;
+export type TeamMembershipState = (typeof TEAM_MEMBERSHIP_STATES)[number];
+
+/**
+ * A developer team.
+ *
+ * Teams are purely additive: an application transferred to a team keeps a
+ * non-null owner_user_id (rewritten to the team's owner), so every consumer of
+ * applications_by_owner keeps working and abuse attribution always resolves to
+ * a person. The team owner also holds a member row (role 'admin', state
+ * 'accepted') so the by-user index covers them; ownership itself lives here.
+ */
+export interface ApplicationTeamRow {
+	team_id: bigint;
+	name: string;
+	owner_user_id: UserID;
+	created_at: Date;
+	version?: number | null;
+}
+
+/**
+ * One row per (team, user) membership.
+ *
+ * Membership is invite-based: a row starts in state 'invited' and confers zero
+ * capabilities until the invited user accepts. Nobody can be silently added to
+ * a team that owns a bot they never consented to.
+ */
+export interface ApplicationTeamMemberRow {
+	team_id: bigint;
+	user_id: UserID;
+	role: TeamMemberRole;
+	membership_state: TeamMembershipState;
+	invited_by_user_id: UserID;
+	invited_at: Date;
+	accepted_at: Date | null;
+	version?: number | null;
+}
+
+export interface ApplicationTeamByUserRow {
+	user_id: UserID;
+	team_id: bigint;
+}
+
+export interface ApplicationByTeamRow {
+	team_id: bigint;
+	application_id: ApplicationID;
+}
+
 export interface OAuth2AuthorizationCodeRow {
 	code: string;
 	application_id: ApplicationID;
@@ -176,3 +227,30 @@ export const APPLICATION_BOT_TOKEN_BY_APPLICATION_COLUMNS = [
 	'token_id',
 	'lookup_hash',
 ] as const satisfies ReadonlyArray<keyof ApplicationBotTokenByApplicationRow>;
+
+export const APPLICATION_TEAM_COLUMNS = [
+	'team_id',
+	'name',
+	'owner_user_id',
+	'created_at',
+	'version',
+] as const satisfies ReadonlyArray<keyof ApplicationTeamRow>;
+
+export const APPLICATION_TEAM_MEMBER_COLUMNS = [
+	'team_id',
+	'user_id',
+	'role',
+	'membership_state',
+	'invited_by_user_id',
+	'invited_at',
+	'accepted_at',
+	'version',
+] as const satisfies ReadonlyArray<keyof ApplicationTeamMemberRow>;
+
+export const APPLICATION_TEAM_BY_USER_COLUMNS = ['user_id', 'team_id'] as const satisfies ReadonlyArray<
+	keyof ApplicationTeamByUserRow
+>;
+
+export const APPLICATION_BY_TEAM_COLUMNS = ['team_id', 'application_id'] as const satisfies ReadonlyArray<
+	keyof ApplicationByTeamRow
+>;

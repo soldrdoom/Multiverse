@@ -27,10 +27,12 @@ import type {
 } from '@fluxer/api/src/database/types/OAuth2Types';
 import {Logger} from '@fluxer/api/src/Logger';
 import type {Application} from '@fluxer/api/src/models/Application';
+import {ApplicationAccessService} from '@fluxer/api/src/oauth/ApplicationAccessService';
 import {ApplicationRepository} from '@fluxer/api/src/oauth/repositories/ApplicationRepository';
 import type {IApplicationRepository} from '@fluxer/api/src/oauth/repositories/IApplicationRepository';
 import type {IOAuth2TokenRepository} from '@fluxer/api/src/oauth/repositories/IOAuth2TokenRepository';
 import {OAuth2TokenRepository} from '@fluxer/api/src/oauth/repositories/OAuth2TokenRepository';
+import {TeamRepository} from '@fluxer/api/src/oauth/repositories/TeamRepository';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
 import {mapUserToOAuthResponse} from '@fluxer/api/src/user/UserMappers';
 import {verifyPassword} from '@fluxer/api/src/utils/PasswordUtils';
@@ -55,6 +57,7 @@ interface OAuth2ServiceDeps {
 	applicationRepository?: IApplicationRepository;
 	oauth2TokenRepository?: IOAuth2TokenRepository;
 	cacheService?: ICacheService;
+	applicationAccessService?: ApplicationAccessService;
 }
 
 const PREFERRED_SCOPE_ORDER: ReadonlyArray<string> = OAuth2Scopes;
@@ -77,9 +80,13 @@ export class OAuth2Service {
 	private tokens: IOAuth2TokenRepository;
 	private static readonly ALLOWED_SCOPES: ReadonlyArray<string> = OAuth2Scopes;
 
+	private readonly accessService: ApplicationAccessService;
+
 	constructor(private readonly deps: OAuth2ServiceDeps) {
 		this.applications = deps.applicationRepository ?? new ApplicationRepository();
 		this.tokens = deps.oauth2TokenRepository ?? new OAuth2TokenRepository();
+		this.accessService =
+			deps.applicationAccessService ?? new ApplicationAccessService(this.applications, new TeamRepository());
 	}
 
 	private parseScope(scope: string): Array<OAuthScope> {
@@ -122,8 +129,13 @@ export class OAuth2Service {
 			throw new InvalidScopeError();
 		}
 
-		if (scopeSet.has('bot') && !application.botIsPublic && params.userId !== application.ownerUserId) {
-			throw new AccessDeniedError();
+		if (scopeSet.has('bot') && !application.botIsPublic) {
+			// The private-bot invite gate: owner, and team admins/developers, may
+			// invite; read_only members and everyone else may not.
+			const capabilities = await this.accessService.resolveAccess(params.userId, application);
+			if (!capabilities.has('invite_bot')) {
+				throw new AccessDeniedError();
+			}
 		}
 
 		const isBotOnly = scopeSet.size === 1 && scopeSet.has('bot');
