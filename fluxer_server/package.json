@@ -16,7 +16,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "*",
-		"@typescript/native-preview": "*"
+		"@typescript/native-preview": "catalog:"
 	},
 	"packageManager": "pnpm@10.29.3",
 	"engines": {

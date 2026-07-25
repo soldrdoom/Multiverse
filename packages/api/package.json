@@ -49,7 +49,7 @@
         "@types/lodash": "*",
         "@types/luxon": "*",
         "@types/node": "*",
-        "@typescript/native-preview": "*",
+        "@typescript/native-preview": "catalog:",
         "msw": "*",
         "testcontainers": "*",
         "vite-tsconfig-paths": "*",

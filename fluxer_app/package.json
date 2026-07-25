@@ -124,7 +124,7 @@
 		"@types/qrcode": "*",
 		"@types/react": "*",
 		"@types/react-dom": "*",
-		"@typescript/native-preview": "*",
+		"@typescript/native-preview": "catalog:",
 		"@vitest/coverage-v8": "*",
 		"autoprefixer": "*",
 		"browserslist": "*",
