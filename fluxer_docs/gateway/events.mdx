@@ -1248,7 +1248,7 @@ Sent when the voice server for a guild or call is updated.
 
 **Dispatched by:** Gateway (internal)
 
-<Note>Sent after joining a voice channel or when the voice server changes. For guild voice, includes guild_id. For DM calls, includes channel_id.</Note>
+<Note>Sent after joining a voice channel or when the voice server changes. Includes channel_id for both guild voice and DM calls.</Note>
 
 **Payload:**
 
@@ -1258,7 +1258,7 @@ Sent when the voice server for a guild or call is updated.
 | endpoint | string | Voice server host (hostname:port) |
 | connection_id | string | Connection ID for this voice connection |
 | guild_id? | string | Guild ID (present for guild voice channels) |
-| channel_id? | string | Channel ID (present for DM calls) |
+| channel_id? | string | Channel ID |
 
 ---
 

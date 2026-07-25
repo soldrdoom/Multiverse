@@ -13,6 +13,13 @@ These error codes are returned in the `code` field of the main error response bo
 |------|-------------|
 | `ACCESS_DENIED` | Access to this resource is denied |
 | `ACCOUNT_DISABLED` | This account has been disabled |
+| `BAD_GATEWAY` | Bad gateway |
+| `BAD_REQUEST` | Bad request |
+| `BLUESKY_OAUTH_AUTHORIZATION_FAILED` | The Bluesky handle could not be resolved for authorisation |
+| `BLUESKY_OAUTH_CALLBACK_FAILED` | The Bluesky OAuth callback could not be processed |
+| `BLUESKY_OAUTH_NOT_ENABLED` | Bluesky OAuth connections are not enabled on this instance |
+| `BLUESKY_OAUTH_SESSION_EXPIRED` | The Bluesky OAuth session has expired or been revoked |
+| `BLUESKY_OAUTH_STATE_INVALID` | The OAuth state parameter is invalid or expired |
 | `ACCOUNT_SCHEDULED_FOR_DELETION` | This account is scheduled for deletion |
 | `ACCOUNT_SUSPENDED_PERMANENTLY` | This account has been permanently suspended |
 | `ACCOUNT_SUSPENDED_TEMPORARILY` | This account has been temporarily suspended |
@@ -20,11 +27,18 @@ These error codes are returned in the `code` field of the main error response bo
 | `ACCOUNT_TOO_NEW_FOR_GUILD` | Account is too new to join this guild |
 | `ACLS_MUST_BE_NON_EMPTY` | Access control list must not be empty |
 | `ADMIN_API_KEY_NOT_FOUND` | Admin API key was not found |
+| `APPLICATION_NOT_FOUND` | Application not found |
+| `APPLICATION_NOT_OWNED` | You do not own this application |
 | `ALREADY_FRIENDS` | You are already friends with this user |
 | `AUDIT_LOG_INDEXING` | Audit log is currently being indexed |
 | `BOTS_CANNOT_SEND_FRIEND_REQUESTS` | Bots cannot send friend requests |
+| `BOT_ALREADY_IN_GUILD` | Bot is already in this guild |
+| `BOT_APPLICATION_NOT_FOUND` | Bot application not found |
+| `BOT_IS_PRIVATE` | This bot is private and can only be invited by the owner |
 | `BOT_USER_AUTH_ENDPOINT_ACCESS_DENIED` | Bot users cannot access this authentication endpoint |
 | `BOT_USER_AUTH_SESSION_CREATION_DENIED` | Bot users cannot create authentication sessions |
+| `BOT_USER_GENERATION_FAILED` | Failed to generate bot user |
+| `BOT_USER_NOT_FOUND` | Bot user not found |
 | `CALL_ALREADY_EXISTS` | A call already exists in this channel |
 | `CANNOT_EDIT_OTHER_USER_MESSAGE` | You cannot edit another user message |
 | `CANNOT_EXECUTE_ON_DM` | This action cannot be executed on a DM channel |
@@ -39,21 +53,48 @@ These error codes are returned in the `code` field of the main error response bo
 | `CANNOT_SEND_FRIEND_REQUEST_TO_SELF` | Cannot send friend request to yourself |
 | `CANNOT_SEND_MESSAGES_IN_NON_TEXT_CHANNEL` | Cannot send messages in a non-text channel |
 | `CANNOT_SEND_MESSAGES_TO_USER` | Cannot send messages to this user |
+| `CANNOT_TRANSFER_OWNERSHIP_TO_BOT` | Guild ownership cannot be transferred to a bot |
 | `CANNOT_SHRINK_RESERVED_SLOTS` | Cannot shrink reserved slots |
 | `CAPTCHA_REQUIRED` | Captcha verification is required |
 | `CHANNEL_INDEXING` | Channel is currently being indexed |
 | `COMMUNICATION_DISABLED` | You are timed out in this guild |
+| `CONNECTION_ALREADY_EXISTS` | A connection of this type with this identifier already exists |
+| `CONNECTION_INITIATION_TOKEN_INVALID` | The connection initiation token is invalid or has expired |
+| `CONNECTION_INVALID_IDENTIFIER` | The connection identifier is invalid |
+| `CONNECTION_INVALID_TYPE` | The connection type is not supported |
+| `CONNECTION_LIMIT_REACHED` | Maximum number of connections reached |
+| `CONNECTION_NOT_FOUND` | Unknown connection |
+| `CONNECTION_VERIFICATION_FAILED` | Connection verification failed |
+| `CONFLICT` | Resource conflict |
 | `CONTENT_BLOCKED` | Content was blocked |
 | `CREATION_FAILED` | Resource creation failed |
+| `CSAM_SCAN_FAILED` | CSAM scan service error |
+| `CSAM_SCAN_PARSE_ERROR` | Failed to parse CSAM scan result |
+| `CSAM_SCAN_SUBSCRIPTION_ERROR` | CSAM scan subscription error |
+| `CSAM_SCAN_TIMEOUT` | CSAM scan request timed out |
+| `DECRYPTION_FAILED` | Failed to decrypt data |
 | `DELETION_FAILED` | Resource deletion failed |
+| `DISCOVERY_ALREADY_APPLIED` | This community has already applied for discovery |
+| `DISCOVERY_APPLICATION_ALREADY_REVIEWED` | This discovery application has already been reviewed |
+| `DISCOVERY_APPLICATION_NOT_FOUND` | Discovery application not found |
+| `DISCOVERY_DESCRIPTION_REQUIRED` | A description is required for discovery |
+| `DISCOVERY_DISABLED` | Discovery is not available on this instance |
+| `DISCOVERY_INSUFFICIENT_MEMBERS` | Community does not meet the minimum member count for discovery |
+| `DISCOVERY_INVALID_CATEGORY` | Invalid discovery category |
+| `DISCOVERY_NOT_DISCOVERABLE` | This community is not listed in discovery |
 | `DISCRIMINATOR_REQUIRED` | A discriminator is required |
 | `EMAIL_SERVICE_NOT_TESTABLE` | Email service is not in testable mode |
 | `EMAIL_VERIFICATION_REQUIRED` | Email verification is required |
+| `EMPTY_ENCRYPTED_BODY` | Encrypted body is empty |
+| `ENCRYPTION_FAILED` | Failed to encrypt data |
 | `EXPLICIT_CONTENT_CANNOT_BE_SENT` | Explicit content cannot be sent in this channel |
 | `FEATURE_TEMPORARILY_DISABLED` | This feature is temporarily disabled |
 | `FILE_SIZE_TOO_LARGE` | File size exceeds the maximum allowed |
+| `FORBIDDEN` | Access forbidden |
 | `FRIEND_REQUEST_BLOCKED` | Friend request was blocked |
+| `GATEWAY_TIMEOUT` | Gateway timeout |
 | `GENERAL_ERROR` | A general error occurred |
+| `GONE` | Resource no longer exists |
 | `GIFT_CODE_ALREADY_REDEEMED` | This gift code has already been redeemed |
 | `GUILD_PHONE_VERIFICATION_REQUIRED` | Phone verification is required to join this guild |
 | `GUILD_VERIFICATION_REQUIRED` | Account verification is required to interact in this guild |
@@ -64,6 +105,7 @@ These error codes are returned in the `code` field of the main error response bo
 | `HARVEST_ON_COOLDOWN` | Data harvest is on cooldown |
 | `HTTP_GET_AUTHORIZE_NOT_SUPPORTED` | HTTP GET authorize is not supported |
 | `INSTANCE_VERSION_MISMATCH` | Instance version mismatch |
+| `INTERNAL_SERVER_ERROR` | Internal server error |
 | `INVALID_ACLS_FORMAT` | Invalid access control list format |
 | `INVALID_API_ORIGIN` | Invalid API origin |
 | `INVALID_AUTH_TOKEN` | Invalid authentication token |
@@ -76,7 +118,10 @@ These error codes are returned in the `code` field of the main error response bo
 | `INVALID_DSA_REPORT_TARGET` | Invalid DSA report target |
 | `INVALID_DSA_TICKET` | Invalid DSA ticket |
 | `INVALID_DSA_VERIFICATION_CODE` | Invalid DSA verification code |
+| `INVALID_DECRYPTED_JSON` | Invalid JSON in decrypted data |
+| `INVALID_EPHEMERAL_KEY` | Invalid ephemeral key |
 | `INVALID_FLAGS_FORMAT` | Invalid flags format |
+| `INVALID_IV` | Invalid initialization vector |
 | `INVALID_FORM_BODY` | Invalid request body format |
 | `INVALID_GRANT` | Invalid OAuth2 grant |
 | `INVALID_HANDOFF_CODE` | Invalid handoff code |
@@ -106,7 +151,6 @@ These error codes are returned in the `code` field of the main error response bo
 | `IP_AUTHORIZATION_RESEND_LIMIT_EXCEEDED` | IP authorization email resend limit exceeded |
 | `IP_BANNED` | This IP address has been banned |
 | `MAX_ANIMATED_EMOJIS` | Maximum animated emojis limit reached |
-| `MAX_BETA_CODES_REACHED` | Maximum beta codes limit reached |
 | `MAX_BOOKMARKS` | Maximum bookmarks limit reached |
 | `MAX_CATEGORY_CHANNELS` | Maximum category channels limit reached |
 | `MAX_EMOJIS` | Maximum emojis limit reached |
@@ -122,6 +166,7 @@ These error codes are returned in the `code` field of the main error response bo
 | `MAX_PACK_EXPRESSIONS` | Maximum pack expressions limit reached |
 | `MAX_PACKS` | Maximum packs limit reached |
 | `MAX_PINS_PER_CHANNEL` | Maximum pins per channel limit reached |
+| `MESSAGE_TOTAL_ATTACHMENT_SIZE_TOO_LARGE` | Total attachment size per message is too large |
 | `MAX_REACTIONS` | Maximum reactions limit reached |
 | `MAX_STICKERS` | Maximum stickers limit reached |
 | `MAX_WEBHOOKS_PER_CHANNEL` | Maximum webhooks per channel limit reached |
@@ -130,10 +175,13 @@ These error codes are returned in the `code` field of the main error response bo
 | `NCMEC_ALREADY_SUBMITTED` | NCMEC report has already been submitted |
 | `NCMEC_SUBMISSION_FAILED` | NCMEC report submission failed |
 | `MEDIA_METADATA_ERROR` | Error processing media metadata |
+| `METHOD_NOT_ALLOWED` | Method not allowed |
 | `MISSING_ACCESS` | Missing access to this resource |
 | `MISSING_ACL` | Missing access control list entry |
 | `MISSING_AUTHORIZATION` | Missing authorization header |
 | `MISSING_CLIENT_SECRET` | Missing client secret |
+| `MISSING_EPHEMERAL_KEY` | Missing ephemeral key |
+| `MISSING_IV` | Missing initialization vector |
 | `MISSING_OAUTH_ADMIN_SCOPE` | Missing OAuth admin scope |
 | `MISSING_OAUTH_FIELDS` | Missing required OAuth fields |
 | `MISSING_OAUTH_SCOPE` | Missing required OAuth scope |
@@ -141,10 +189,13 @@ These error codes are returned in the `code` field of the main error response bo
 | `MISSING_REDIRECT_URI` | Missing redirect URI |
 | `NO_ACTIVE_CALL` | No active call in this channel |
 | `NO_ACTIVE_SUBSCRIPTION` | No active subscription |
+| `NOT_FOUND` | Resource not found |
+| `NOT_IMPLEMENTED` | Feature not implemented |
 | `NO_PASSKEYS_REGISTERED` | No passkeys registered for this account |
 | `NO_PENDING_DELETION` | No pending deletion for this account |
-| `NO_USERS_WITH_FLUXERTAG_EXIST` | No users with this Fluxertag exist |
+| `NO_USERS_WITH_FLUXERTAG_EXIST` | No users with this Multiversetag exist |
 | `NO_VISIONARY_SLOTS_AVAILABLE` | No Visionary slots available |
+| `NOT_A_BOT_APPLICATION` | Application is not a bot |
 | `NOT_FRIENDS_WITH_USER` | You are not friends with this user |
 | `NOT_OWNER_OF_ADMIN_API_KEY` | You are not the owner of this admin API key |
 | `NSFW_CONTENT_AGE_RESTRICTED` | NSFW content is age restricted |
@@ -162,6 +213,8 @@ These error codes are returned in the `code` field of the main error response bo
 | `REDIRECT_URI_REQUIRED_FOR_NON_BOT` | Redirect URI required for non-bot application |
 | `REPORT_ALREADY_RESOLVED` | This report has already been resolved |
 | `REPORT_BANNED` | You are banned from submitting reports |
+| `RESPONSE_VALIDATION_ERROR` | Response validation error |
+| `SERVICE_UNAVAILABLE` | Service temporarily unavailable |
 | `SESSION_TOKEN_MISMATCH` | Session token mismatch |
 | `SLOWMODE_RATE_LIMITED` | You are being rate limited by slowmode |
 | `SMS_MFA_NOT_ENABLED` | SMS MFA is not enabled |
@@ -185,6 +238,13 @@ These error codes are returned in the `code` field of the main error response bo
 | `STRIPE_WEBHOOK_NOT_AVAILABLE` | Stripe webhook not available |
 | `STRIPE_WEBHOOK_SIGNATURE_INVALID` | Invalid Stripe webhook signature |
 | `STRIPE_WEBHOOK_SIGNATURE_MISSING` | Missing Stripe webhook signature |
+| `TOKEN_GATE_REQUIREMENT_NOT_MET` | You don't hold the NFT required to access this channel |
+| `TOKEN_GATE_UNAVAILABLE` | This channel's token gate can't be verified right now |
+| `DONATION_AMOUNT_INVALID` | Invalid donation amount |
+| `DONATION_MAGIC_LINK_EXPIRED` | Donation magic link has expired |
+| `DONATION_MAGIC_LINK_INVALID` | Invalid donation magic link |
+| `DONATION_MAGIC_LINK_USED` | Donation magic link has already been used |
+| `DONOR_NOT_FOUND` | Donor was not found |
 | `SUDO_MODE_REQUIRED` | Sudo mode is required for this action |
 | `TAG_ALREADY_TAKEN` | This tag is already taken |
 | `TEMPORARY_INVITE_REQUIRES_PRESENCE` | Temporary invite requires presence tracking |
@@ -196,7 +256,6 @@ These error codes are returned in the `code` field of the main error response bo
 | `UNCLAIMED_ACCOUNT_CANNOT_ACCEPT_FRIEND_REQUESTS` | Unclaimed accounts cannot accept friend requests |
 | `UNCLAIMED_ACCOUNT_CANNOT_ADD_REACTIONS` | Unclaimed accounts cannot add reactions |
 | `UNCLAIMED_ACCOUNT_CANNOT_CREATE_APPLICATIONS` | Unclaimed accounts cannot create applications |
-| `UNCLAIMED_ACCOUNT_CANNOT_CREATE_BETA_CODES` | Unclaimed accounts cannot create beta codes |
 | `UNCLAIMED_ACCOUNT_CANNOT_JOIN_GROUP_DMS` | Unclaimed accounts cannot join group DMs |
 | `UNCLAIMED_ACCOUNT_CANNOT_JOIN_ONE_ON_ONE_VOICE_CALLS` | Unclaimed accounts cannot join one-on-one voice calls |
 | `UNCLAIMED_ACCOUNT_CANNOT_JOIN_VOICE_CHANNELS` | Unclaimed accounts cannot join voice channels |
@@ -204,7 +263,6 @@ These error codes are returned in the `code` field of the main error response bo
 | `UNCLAIMED_ACCOUNT_CANNOT_SEND_DIRECT_MESSAGES` | Unclaimed accounts cannot send direct messages |
 | `UNCLAIMED_ACCOUNT_CANNOT_SEND_FRIEND_REQUESTS` | Unclaimed accounts cannot send friend requests |
 | `UNCLAIMED_ACCOUNT_CANNOT_SEND_MESSAGES` | Unclaimed accounts cannot send messages |
-| `UNKNOWN_BETA_CODE` | Unknown beta code |
 | `UNKNOWN_CHANNEL` | Unknown channel |
 | `UNKNOWN_EMOJI` | Unknown emoji |
 | `UNKNOWN_FAVORITE_MEME` | Unknown favourite meme |
@@ -224,13 +282,16 @@ These error codes are returned in the `code` field of the main error response bo
 | `UNKNOWN_VOICE_REGION` | Unknown voice region |
 | `UNKNOWN_VOICE_SERVER` | Unknown voice server |
 | `UNKNOWN_WEBAUTHN_CREDENTIAL` | Unknown WebAuthn credential |
+| `UNKNOWN_APPLICATION` | Unknown application |
 | `UNKNOWN_WEBHOOK` | Unknown webhook |
 | `UNSUPPORTED_RESPONSE_TYPE` | Unsupported response type |
+| `USERNAME_NOT_AVAILABLE` | Username is not available |
 | `UPDATE_FAILED` | Resource update failed |
 | `USER_BANNED_FROM_GUILD` | User is banned from this guild |
 | `USER_IP_BANNED_FROM_GUILD` | User IP is banned from this guild |
 | `USER_NOT_IN_VOICE` | User is not in a voice channel |
 | `USER_OWNS_GUILDS` | User owns guilds and cannot perform this action |
+| `VALIDATION_ERROR` | Validation error |
 | `VOICE_CHANNEL_FULL` | Voice channel is full |
 | `WEBAUTHN_CREDENTIAL_LIMIT_REACHED` | WebAuthn credential limit reached |
 
@@ -265,6 +326,7 @@ These error codes are returned in the `code` field of individual validation erro
 | `CANNOT_ADD_YOURSELF_TO_GROUP_DM` | Cannot add yourself to a group DM |
 | `CANNOT_DELETE_MORE_THAN_100_MESSAGES` | Cannot delete more than 100 messages at once |
 | `CANNOT_DM_YOURSELF` | Cannot send a direct message to yourself |
+| `CANNOT_EDIT_ATTACHMENT_METADATA` | Users with MANAGE_MESSAGES can only edit attachment descriptions, not other metadata |
 | `CANNOT_LEAVE_GUILD_AS_OWNER` | Cannot leave guild as the owner |
 | `CANNOT_POSITION_CHANNEL_RELATIVE_TO_ITSELF` | Cannot position channel relative to itself |
 | `CANNOT_PRELOAD_MORE_THAN_100_CHANNELS` | Cannot preload more than 100 channels |
@@ -334,6 +396,8 @@ These error codes are returned in the `code` field of individual validation erro
 | `GLOBAL_NAME_RESERVED_VALUE` | Display name is a reserved value |
 | `GUILD_BANNER_REQUIRES_FEATURE` | Guild banner requires the feature to be enabled |
 | `GUILD_ID_MUST_MATCH_REFERENCED_MESSAGE` | Guild ID must match referenced message |
+| `GUILD_VANITY_ALREADY_PURCHASED` | This guild already has a permanent vanity link |
+| `GUILD_VANITY_TX_ALREADY_USED` | This transaction has already been used for a purchase |
 | `IMAGE_SIZE_EXCEEDS_LIMIT` | Image size exceeds limit |
 | `INTEGER_OUT_OF_INT64_RANGE` | Integer is out of 64-bit range |
 | `SNOWFLAKE_OUT_OF_RANGE` | Snowflake is out of valid range |
@@ -342,6 +406,7 @@ These error codes are returned in the `code` field of individual validation erro
 | `INVALID_CHANNEL_ID` | Invalid channel ID |
 | `INVALID_CHANNEL` | Invalid channel |
 | `INVALID_CODE` | Invalid code |
+| `INVALID_CURRENT_PASSWORD` | Invalid current password |
 | `INVALID_DATE_OF_BIRTH_FORMAT` | Invalid date of birth format |
 | `INVALID_DATETIME_FOR_SCHEDULED_SEND` | Invalid datetime for scheduled send |
 | `INVALID_EMAIL_ADDRESS` | Invalid email address |
@@ -360,7 +425,6 @@ These error codes are returned in the `code` field of individual validation erro
 | `INVALID_JSON_IN_PAYLOAD_JSON` | Invalid JSON in payload_json field |
 | `INVALID_MESSAGE_DATA` | Invalid message data |
 | `INVALID_MFA_CODE` | Invalid MFA code |
-| `INVALID_OR_ALREADY_USED_BETA_CODE` | Invalid or already used beta code |
 | `INVALID_OR_EXPIRED_AUTHORIZATION_TICKET` | Invalid or expired authorisation ticket |
 | `INVALID_OR_EXPIRED_AUTHORIZATION_TOKEN` | Invalid or expired authorisation token |
 | `INVALID_OR_EXPIRED_RESET_TOKEN` | Invalid or expired password reset token |
@@ -375,6 +439,7 @@ These error codes are returned in the `code` field of individual validation erro
 | `INVALID_RTC_REGION` | Invalid RTC region |
 | `INVALID_SCHEDULED_MESSAGE_PAYLOAD` | Invalid scheduled message payload |
 | `INVALID_SNOWFLAKE` | Invalid snowflake |
+| `INVALID_SOLANA_ADDRESS` | Invalid Solana address |
 | `INVALID_TIMEOUT_VALUE` | Invalid timeout value |
 | `INVALID_TIMEZONE_IDENTIFIER` | Invalid timezone identifier |
 | `INVALID_URL_FORMAT` | Invalid URL format |
@@ -385,9 +450,12 @@ These error codes are returned in the `code` field of individual validation erro
 | `JOB_IS_ALREADY_PROCESSED` | Job has already been processed |
 | `JOB_NOT_FOUND` | Job was not found |
 | `MEDIA_ALREADY_IN_FAVORITE_MEMES` | Media is already in favourite memes |
+| `MESSAGE_HISTORY_CUTOFF_BEFORE_GUILD_CREATION` | Message history cutoff cannot be before the guild was created |
+| `MESSAGE_HISTORY_CUTOFF_IN_FUTURE` | Message history cutoff cannot be in the future |
 | `MESSAGE_IDS_CANNOT_BE_EMPTY` | Message IDs cannot be empty |
 | `MESSAGES_ARRAY_REQUIRED_AND_NOT_EMPTY` | Messages array is required and cannot be empty |
 | `MESSAGES_WITH_SNAPSHOTS_CANNOT_BE_EDITED` | Messages with snapshots cannot be edited |
+| `MESSAGE_TOTAL_ATTACHMENT_SIZE_TOO_LARGE` | Total attachment size exceeds the maximum allowed |
 | `MULTIPLE_FILES_FOR_INDEX_NOT_ALLOWED` | Multiple files for the same index are not allowed |
 | `MUST_AGREE_TO_TOS_AND_PRIVACY_POLICY` | Must agree to terms of service and privacy policy |
 | `MUST_BE_MINIMUM_AGE` | Must be minimum age to use this service |
@@ -436,6 +504,9 @@ These error codes are returned in the `code` field of individual validation erro
 | `THIS_VANITY_URL_IS_ALREADY_TAKEN` | This vanity URL is already taken |
 | `TICKET_ALREADY_COMPLETED` | Ticket has already been completed |
 | `TIMEOUT_CANNOT_EXCEED_365_DAYS` | Timeout cannot exceed 365 days |
+| `TIP_RECIPIENT_HAS_NO_WALLET` | Recipient hasn't linked a Solana wallet |
+| `TIP_SELF_NOT_ALLOWED` | You can't tip yourself |
+| `TIP_TX_ALREADY_USED` | Transaction has already been recorded as a tip |
 | `TOO_MANY_EMBEDS` | Too many embeds |
 | `TOO_MANY_FILES` | Too many files |
 | `TOO_MANY_USERS_WITH_THIS_USERNAME` | Too many users with this username |
@@ -447,7 +518,6 @@ These error codes are returned in the `code` field of individual validation erro
 | `URL_LENGTH_INVALID` | URL length is invalid |
 | `USER_DOES_NOT_HAVE_AN_EMAIL_ADDRESS` | User does not have an email address |
 | `USER_IS_NOT_BANNED` | User is not banned |
-| `USER_IS_NOT_PENDING_VERIFICATION` | User is not pending verification |
 | `USER_MUST_BE_A_BOT_TO_BE_MARKED_AS_A_SYSTEM_USER` | User must be a bot to be marked as a system user |
 | `USER_NOT_IN_CHANNEL` | User is not in the channel |
 | `USERNAME_CANNOT_CONTAIN_RESERVED_TERMS` | Username cannot contain reserved terms |
@@ -466,5 +536,6 @@ These error codes are returned in the `code` field of individual validation erro
 | `VERIFICATION_CODE_NOT_ISSUED` | Verification code was not issued |
 | `VISIONARY_REQUIRED_FOR_BOT_DISCRIMINATOR` | Visionary subscription required for bot discriminator |
 | `VISIONARY_REQUIRED_FOR_DISCRIMINATOR` | Visionary subscription required for discriminator |
+| `BOT_DISCRIMINATOR_CANNOT_BE_CHANGED` | Bot discriminator cannot be changed |
 | `VOICE_CHANNELS_CANNOT_BE_ABOVE_TEXT_CHANNELS` | Voice channels cannot be positioned above text channels |
 | `WEBHOOK_NAME_LENGTH_INVALID` | Webhook name length is invalid |
