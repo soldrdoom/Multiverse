@@ -56,7 +56,7 @@ const GuildCard: FC<{config: Config; guild: z.infer<typeof GuildAdminResponse>}>
 	const iconUrl = getGuildIconUrl(config.mediaEndpoint, guild.id, guild.icon, true);
 
 	return (
-		<div class="overflow-hidden rounded-lg border border-neutral-200 bg-white transition-colors hover:border-neutral-300">
+		<div class="overflow-hidden rounded-lg border border-neutral-200 bg-[var(--background-secondary)] transition-colors hover:border-neutral-300">
 			<div class="p-5">
 				<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
 					{iconUrl ? (
@@ -76,7 +76,7 @@ const GuildCard: FC<{config: Config; guild: z.infer<typeof GuildAdminResponse>}>
 								{guild.name}
 							</Heading>
 							{guild.features.length > 0 && (
-								<span class="rounded bg-purple-100 px-2 py-0.5 text-purple-700 text-xs uppercase">Featured</span>
+								<span class="rounded bg-purple-500/15 px-2 py-0.5 text-purple-300 text-xs uppercase">Featured</span>
 							)}
 						</div>
 						<div class="space-y-0.5">
@@ -90,7 +90,7 @@ const GuildCard: FC<{config: Config; guild: z.infer<typeof GuildAdminResponse>}>
 								Owner:{' '}
 								<a
 									href={`${config.basePath}/users/${guild.owner_id}`}
-									class="transition-colors hover:text-blue-600 hover:underline"
+									class="transition-colors hover:text-brand-primary hover:underline"
 								>
 									{guild.owner_id}
 								</a>
@@ -154,6 +154,7 @@ export async function GuildsPage({
 				<div class="mx-auto max-w-7xl space-y-6">
 					<PageHeader
 						title="Guilds"
+						description="Search for a guild by ID, name, or vanity URL to view its members, settings, and moderation history."
 						actions={
 							<Text size="sm" color="muted">
 								Found {total} results (showing {guilds.length})
@@ -192,7 +193,10 @@ export async function GuildsPage({
 		} else {
 			content = (
 				<div class="mx-auto max-w-7xl space-y-6">
-					<PageHeader title="Guilds" />
+					<PageHeader
+						title="Guilds"
+						description="Search for a guild by ID, name, or vanity URL to view its members, settings, and moderation history."
+					/>
 					<SearchForm
 						action="/guilds"
 						basePath={config.basePath}

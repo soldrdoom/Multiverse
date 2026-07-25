@@ -29,7 +29,12 @@ export interface TableProps {
 
 export function Table({children, className}: PropsWithChildren<TableProps>) {
 	return (
-		<table class={clsx('min-w-full border-collapse rounded-lg border border-neutral-200 bg-white', className)}>
+		<table
+			class={clsx(
+				'min-w-full border-collapse rounded-lg border border-neutral-200 bg-[var(--background-secondary)]',
+				className,
+			)}
+		>
 			{children}
 		</table>
 	);

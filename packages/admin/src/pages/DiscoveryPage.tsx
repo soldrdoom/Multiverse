@@ -60,8 +60,8 @@ function StatusTabs({currentStatus, basePath}: StatusTabProps) {
 			{statuses.map((status) => {
 				const isActive = currentStatus === status;
 				const classes = isActive
-					? 'px-4 py-2 rounded-md text-sm font-medium bg-neutral-800 text-white'
-					: 'px-4 py-2 rounded-md text-sm font-medium bg-neutral-100 text-neutral-600 hover:bg-neutral-200';
+					? 'px-4 py-2 rounded-md text-sm font-semibold bg-[image:var(--gradient-brand)] text-[var(--button-primary-text)]'
+					: 'px-4 py-2 rounded-md text-sm font-medium bg-neutral-100 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-200';
 				return (
 					<a key={status} href={`${basePath}/discovery?status=${status}`} class={classes}>
 						{status.charAt(0).toUpperCase() + status.slice(1)}
@@ -150,7 +150,9 @@ export const DiscoveryPage: FC<DiscoveryPageProps> = ({
 									Discovery Management
 								</Heading>
 								<Text size="sm" color="muted">
-									Review discovery applications and manage listed communities.
+									Review discovery applications and manage listed communities. Approving lists the guild in the public
+									discovery directory; rejecting lets the guild reapply later; removing delists a previously approved
+									guild.
 								</Text>
 								<StatusTabs currentStatus={currentStatus} basePath={config.basePath} />
 							</VStack>
@@ -185,7 +187,7 @@ export const DiscoveryPage: FC<DiscoveryPageProps> = ({
 														<TableCell>
 															<a
 																href={`${config.basePath}/guilds/${app.guild_id}`}
-																class="font-mono text-blue-600 text-sm hover:underline"
+																class="font-mono text-brand-primary text-sm hover:underline"
 															>
 																{app.guild_id}
 															</a>

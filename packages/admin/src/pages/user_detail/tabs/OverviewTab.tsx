@@ -65,26 +65,26 @@ export function OverviewTab({
 	return (
 		<div class="space-y-6">
 			{user.temp_banned_until && (
-				<div class="rounded-lg border border-red-200 bg-red-50 p-4">
-					<div class="flex items-center gap-2 font-medium text-red-900 text-sm">
+				<div class="rounded-lg border border-red-500/30 bg-red-500/10 p-4">
+					<div class="flex items-center gap-2 font-medium text-red-300 text-sm">
 						Temporarily Banned Until: {user.temp_banned_until}
 					</div>
 				</div>
 			)}
 
 			{!user.temp_banned_until && user.pending_deletion_at && (
-				<div class="rounded-lg border border-orange-200 bg-orange-50 p-4">
-					<div class="font-medium text-orange-900 text-sm">Scheduled for Deletion: {user.pending_deletion_at}</div>
+				<div class="rounded-lg border border-orange-500/30 bg-orange-500/10 p-4">
+					<div class="font-medium text-orange-300 text-sm">Scheduled for Deletion: {user.pending_deletion_at}</div>
 					{user.deletion_reason_code !== null && user.deletion_public_reason !== null && (
-						<div class="mt-1 text-orange-700 text-sm">
+						<div class="mt-1 text-orange-300/80 text-sm">
 							Reason: {user.deletion_public_reason} (code: {user.deletion_reason_code})
 						</div>
 					)}
 					{user.deletion_reason_code !== null && user.deletion_public_reason === null && (
-						<div class="mt-1 text-orange-700 text-sm">Reason code: {user.deletion_reason_code}</div>
+						<div class="mt-1 text-orange-300/80 text-sm">Reason code: {user.deletion_reason_code}</div>
 					)}
 					{user.deletion_reason_code === null && user.deletion_public_reason !== null && (
-						<div class="mt-1 text-orange-700 text-sm">Reason: {user.deletion_public_reason}</div>
+						<div class="mt-1 text-orange-300/80 text-sm">Reason: {user.deletion_public_reason}</div>
 					)}
 				</div>
 			)}
@@ -103,7 +103,7 @@ export function OverviewTab({
 							<CsrfInput token={csrfToken} />
 							<button
 								type="submit"
-								class="mt-3 w-full rounded bg-neutral-900 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-neutral-800"
+								class="mt-3 w-full rounded bg-[image:var(--gradient-brand)] px-4 py-2 font-semibold text-[var(--button-primary-text)] text-sm transition-[filter] hover:brightness-110"
 							>
 								Cancel Bulk Message Deletion
 							</button>
@@ -127,11 +127,11 @@ export function OverviewTab({
 									{user.email ? (
 										<span>
 											<span>{user.email}</span>{' '}
-											{user.email_verified ? <CheckmarkIcon class="text-green-600" /> : <XIcon class="text-red-600" />}
-											{user.email_bounced && <span class="ml-1 text-orange-600">(bounced)</span>}
+											{user.email_verified ? <CheckmarkIcon class="text-emerald-400" /> : <XIcon class="text-red-400" />}
+											{user.email_bounced && <span class="ml-1 text-orange-400">(bounced)</span>}
 											<a
 												href={buildUserSearchHref(config, user.email)}
-												class="ml-2 text-blue-600 text-xs no-underline hover:underline"
+												class="ml-2 text-brand-primary text-xs no-underline hover:underline"
 											>
 												Search
 											</a>
@@ -146,7 +146,7 @@ export function OverviewTab({
 											<span class="font-mono">{user.phone}</span>
 											<a
 												href={buildUserSearchHref(config, user.phone)}
-												class="ml-2 text-blue-600 text-xs no-underline hover:underline"
+												class="ml-2 text-brand-primary text-xs no-underline hover:underline"
 											>
 												Search
 											</a>
@@ -175,7 +175,7 @@ export function OverviewTab({
 											)}
 											<a
 												href={buildUserSearchHref(config, user.last_active_ip)}
-												class="ml-2 text-blue-600 text-xs no-underline hover:underline"
+												class="ml-2 text-brand-primary text-xs no-underline hover:underline"
 											>
 												Search
 											</a>
@@ -371,14 +371,14 @@ const TraitsCard: FC<TraitsCardProps> = ({config, user, adminAcls, limitConfigRe
 						<div class="text-neutral-500 text-sm">You need the trait update ACL to make changes.</div>
 					)
 				) : (
-					<div class="text-red-700 text-sm">
+					<div class="text-red-400 text-sm">
 						Failed to load limit configuration: {formatError(limitConfigResult?.error)}
 					</div>
 				)}
 				{traitDefinitions.length === 0 && (
 					<p class="text-neutral-500 text-xs">
 						No trait definitions are declared yet. Add entries to the limit configuration so they can be assigned here.{' '}
-						<a href={`${config.basePath}/instance-config`} class="text-blue-600 underline">
+						<a href={`${config.basePath}/instance-config`} class="text-brand-primary underline">
 							Open Instance Configuration
 						</a>
 					</p>
@@ -432,7 +432,7 @@ const ChangeLogCard: FC<ChangeLogCardProps> = ({changeLogResult}) => {
 				{changeLogResult?.ok ? (
 					<ChangeLogEntries entries={changeLogResult.data.entries} />
 				) : (
-					<div class="text-red-700 text-sm">Failed to load change log: {formatError(changeLogResult?.error)}</div>
+					<div class="text-red-400 text-sm">Failed to load change log: {formatError(changeLogResult?.error)}</div>
 				)}
 			</VStack>
 		</Card>

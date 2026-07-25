@@ -83,7 +83,7 @@ export const Input: FC<InputProps> = ({
 		'rounded-lg',
 		'border',
 		'border-neutral-300',
-		'bg-white',
+		'bg-[var(--background-secondary)]',
 		'text-neutral-900',
 		'placeholder:text-neutral-400',
 		'transition-all',

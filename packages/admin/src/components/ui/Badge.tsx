@@ -36,10 +36,10 @@ export function Badge({variant = 'neutral', size = 'md', children}: PropsWithChi
 			'px-2.5 py-1 text-sm': size === 'md',
 		},
 		{
-			'bg-green-100 text-green-600': variant === 'success',
-			'bg-red-100 text-red-600': variant === 'danger',
-			'bg-neutral-100 text-neutral-700 border border-neutral-200': variant === 'warning',
-			'bg-blue-100 text-blue-600': variant === 'info',
+			'bg-emerald-500/15 text-emerald-300': variant === 'success',
+			'bg-red-500/15 text-red-300': variant === 'danger',
+			'bg-amber-500/15 text-amber-300': variant === 'warning',
+			'bg-blue-500/15 text-blue-300': variant === 'info',
 			'bg-neutral-100 text-neutral-600': variant === 'neutral',
 		},
 	);

@@ -100,7 +100,7 @@ const DmChannelsGrid: FC<{
 			{channels.map((channel) => (
 				<div
 					key={channel.channel_id}
-					class="overflow-hidden rounded-lg border border-neutral-200 bg-white transition-colors hover:border-neutral-300"
+					class="overflow-hidden rounded-lg border border-neutral-200 bg-[var(--background-secondary)] transition-colors hover:border-neutral-300"
 				>
 					<div class="p-5">
 						<div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -158,7 +158,7 @@ const CounterpartyRow: FC<{config: Config; userId: string; recipientIds: Array<s
 				<span key={recipientId}>
 					<a
 						href={`${config.basePath}/users/${recipientId}`}
-						class="font-mono transition-colors hover:text-blue-600 hover:underline"
+						class="font-mono transition-colors hover:text-brand-primary hover:underline"
 					>
 						{recipientId}
 					</a>
@@ -198,7 +198,7 @@ const DmHistoryPagination: FC<DmHistoryPaginationProps> = ({config, userId, chan
 			{prevPath && (
 				<a
 					href={prevPath}
-					class="rounded px-3 py-1 font-medium text-neutral-600 text-sm transition-colors hover:bg-white hover:text-neutral-900"
+					class="rounded px-3 py-1 font-medium text-neutral-600 text-sm transition-colors hover:bg-neutral-100 hover:text-neutral-900"
 				>
 					Previous
 				</a>
@@ -206,7 +206,7 @@ const DmHistoryPagination: FC<DmHistoryPaginationProps> = ({config, userId, chan
 			{nextPath && (
 				<a
 					href={nextPath}
-					class="rounded px-3 py-1 font-medium text-neutral-600 text-sm transition-colors hover:bg-white hover:text-neutral-900"
+					class="rounded px-3 py-1 font-medium text-neutral-600 text-sm transition-colors hover:bg-neutral-100 hover:text-neutral-900"
 				>
 					Next
 				</a>

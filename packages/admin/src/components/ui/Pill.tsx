@@ -28,12 +28,12 @@ export interface PillProps {
 }
 
 export function Pill({tone = 'neutral', children}: PropsWithChildren<PillProps>) {
-	const classes = clsx('inline-block rounded-lg border px-3 py-2 font-medium text-sm shadow-sm', {
-		'border-gray-200 bg-neutral-100 text-neutral-700': tone === 'neutral',
-		'border-green-200 bg-green-50 text-green-700': tone === 'success',
-		'border-red-200 bg-red-50 text-red-700': tone === 'danger',
-		'border-neutral-200 bg-neutral-50 text-neutral-700': tone === 'warning',
-		'border-blue-200 bg-blue-50 text-blue-700': tone === 'info',
+	const classes = clsx('inline-block rounded-lg border px-3 py-2 font-medium text-sm', {
+		'border-neutral-200 bg-neutral-100 text-neutral-700': tone === 'neutral',
+		'border-emerald-500/30 bg-emerald-500/10 text-emerald-300': tone === 'success',
+		'border-red-500/30 bg-red-500/10 text-red-300': tone === 'danger',
+		'border-amber-500/30 bg-amber-500/10 text-amber-300': tone === 'warning',
+		'border-blue-500/30 bg-blue-500/10 text-blue-300': tone === 'info',
 	});
 
 	return <span class={classes}>{children}</span>;

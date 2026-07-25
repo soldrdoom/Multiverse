@@ -25,6 +25,7 @@ import {AdminGuildService} from '@fluxer/api/src/admin/services/AdminGuildServic
 import {AdminMessageDeletionService} from '@fluxer/api/src/admin/services/AdminMessageDeletionService';
 import {AdminMessageService} from '@fluxer/api/src/admin/services/AdminMessageService';
 import {AdminMessageShredService} from '@fluxer/api/src/admin/services/AdminMessageShredService';
+import {AdminNewsService} from '@fluxer/api/src/admin/services/AdminNewsService';
 import {AdminReportService} from '@fluxer/api/src/admin/services/AdminReportService';
 import {AdminSearchService} from '@fluxer/api/src/admin/services/AdminSearchService';
 import {AdminSnowflakeReservationService} from '@fluxer/api/src/admin/services/AdminSnowflakeReservationService';
@@ -32,7 +33,7 @@ import {AdminUserService} from '@fluxer/api/src/admin/services/AdminUserService'
 import {AdminVoiceService} from '@fluxer/api/src/admin/services/AdminVoiceService';
 import {SystemDmService} from '@fluxer/api/src/admin/services/SystemDmService';
 import type {AuthService} from '@fluxer/api/src/auth/AuthService';
-import type {AttachmentID, ChannelID, GuildID, ReportID, UserID} from '@fluxer/api/src/BrandedTypes';
+import type {AttachmentID, ChannelID, GuildID, NewsStoryID, ReportID, UserID} from '@fluxer/api/src/BrandedTypes';
 import type {IChannelRepository} from '@fluxer/api/src/channel/IChannelRepository';
 import {GuildDiscoveryRepository} from '@fluxer/api/src/guild/repositories/GuildDiscoveryRepository';
 import type {IGuildRepositoryAggregate} from '@fluxer/api/src/guild/repositories/IGuildRepositoryAggregate';
@@ -50,6 +51,7 @@ import type {UserCacheService} from '@fluxer/api/src/infrastructure/UserCacheSer
 import {SnowflakeReservationRepository} from '@fluxer/api/src/instance/SnowflakeReservationRepository';
 import type {InviteRepository} from '@fluxer/api/src/invite/InviteRepository';
 import type {RequestCache} from '@fluxer/api/src/middleware/RequestCacheMiddleware';
+import {NewsRepository} from '@fluxer/api/src/news/NewsRepository';
 import type {BotMfaMirrorService} from '@fluxer/api/src/oauth/BotMfaMirrorService';
 import type {ReportService} from '@fluxer/api/src/report/ReportService';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
@@ -113,6 +115,7 @@ import type {
 	TerminateSessionsRequest,
 	UnlinkPhoneRequest,
 	UpdateSuspiciousActivityFlagsRequest,
+	UpdateUserVisionaryRequest,
 	VerifyUserEmailRequest,
 } from '@fluxer/schema/src/domains/admin/AdminUserSchemas';
 import type {
@@ -148,6 +151,7 @@ export class AdminService {
 	private readonly messageShredService: AdminMessageShredService;
 	private readonly messageDeletionService: AdminMessageDeletionService;
 	private readonly reportServiceAggregate: AdminReportService;
+	private readonly newsServiceAggregate: AdminNewsService;
 	private readonly voiceService: AdminVoiceService;
 	private readonly searchService: AdminSearchService;
 	private readonly systemDmService: SystemDmService;
@@ -239,6 +243,13 @@ export class AdminService {
 			auditService: this.auditService,
 			userCacheService: this.userCacheService,
 		});
+		this.newsServiceAggregate = new AdminNewsService({
+			newsRepository: new NewsRepository(),
+			snowflakeService: this.snowflakeService,
+			auditService: this.auditService,
+			mediaService: this.mediaService,
+			storageService: this.storageService,
+		});
 		this.voiceService = new AdminVoiceService({
 			voiceRepository: this.voiceRepository,
 			cacheService: this.cacheService,
@@ -323,6 +334,10 @@ export class AdminService {
 		auditLogReason: string | null;
 	}) {
 		return this.userService.updateUserFlags(args);
+	}
+
+	async updateUserVisionary(data: UpdateUserVisionaryRequest, adminUserId: UserID, auditLogReason: string | null) {
+		return this.userService.updateUserVisionary(data, adminUserId, auditLogReason);
 	}
 
 	async disableMfa(data: DisableMfaRequest, adminUserId: UserID, auditLogReason: string | null) {
@@ -755,6 +770,47 @@ export class AdminService {
 
 	async searchReports(data: SearchReportsRequest) {
 		return this.reportServiceAggregate.searchReports(data);
+	}
+
+	async listNewsStories() {
+		return this.newsServiceAggregate.listAll();
+	}
+
+	async getNewsStory(storyId: NewsStoryID) {
+		return this.newsServiceAggregate.getStory(storyId);
+	}
+
+	async createNewsStory(
+		title: string,
+		body: string,
+		imageUrl: string | null,
+		imageData: string | null,
+		adminUserId: UserID,
+	) {
+		return this.newsServiceAggregate.createStory(title, body, imageUrl, imageData, adminUserId);
+	}
+
+	async updateNewsStory(
+		storyId: NewsStoryID,
+		title: string,
+		body: string,
+		imageUrl: string | null,
+		imageData: string | null,
+		adminUserId: UserID,
+	) {
+		return this.newsServiceAggregate.updateStory(storyId, title, body, imageUrl, imageData, adminUserId);
+	}
+
+	async publishNewsStory(storyId: NewsStoryID, adminUserId: UserID) {
+		return this.newsServiceAggregate.publishStory(storyId, adminUserId);
+	}
+
+	async unpublishNewsStory(storyId: NewsStoryID, adminUserId: UserID) {
+		return this.newsServiceAggregate.unpublishStory(storyId, adminUserId);
+	}
+
+	async deleteNewsStory(storyId: NewsStoryID, adminUserId: UserID) {
+		return this.newsServiceAggregate.deleteStory(storyId, adminUserId);
 	}
 
 	async searchGuilds(data: {query?: string; limit: number; offset: number}) {

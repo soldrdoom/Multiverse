@@ -41,13 +41,19 @@ const paddingClasses: Record<CardPadding, string> = {
 };
 
 const variantClasses: Record<CardVariant, string> = {
-	default: 'border border-neutral-200',
-	bordered: 'border-2 border-neutral-300',
-	elevated: 'border border-neutral-200 shadow-md',
+	default: 'border border-[var(--vanguard-glass-border)]',
+	bordered: 'border-2 border-[var(--brand-primary)]/30',
+	elevated:
+		'border border-[var(--vanguard-glass-border)] shadow-[0_20px_40px_-16px_rgba(0,0,0,0.6),0_0_40px_var(--vanguard-glass-glow-a)]',
 };
 
 export function Card({padding = 'md', variant = 'default', className, children}: PropsWithChildren<CardProps>) {
-	const classes = clsx('rounded-lg bg-white', variantClasses[variant], paddingClasses[padding], className);
+	const classes = clsx(
+		'rounded-lg bg-[var(--background-secondary)]',
+		variantClasses[variant],
+		paddingClasses[padding],
+		className,
+	);
 
 	return <div class={classes}>{children}</div>;
 }

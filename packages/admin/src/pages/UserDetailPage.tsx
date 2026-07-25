@@ -286,8 +286,8 @@ export const UserDetailPage: FC<UserDetailPageProps> = async ({
 								href={`${config.basePath}/users/${userId}?tab=${t.id}`}
 								class={`-mb-px border-b-2 pb-3 font-medium text-sm transition-colors ${
 									activeTab === t.id
-										? 'border-neutral-900 text-neutral-900'
-										: 'border-transparent text-neutral-500 hover:text-neutral-700'
+										? 'border-[var(--brand-primary)] text-neutral-50'
+										: 'border-transparent text-neutral-500 hover:text-neutral-200'
 								}`}
 							>
 								{t.label}

@@ -26,10 +26,12 @@ import {createAdminErrorHandler} from '@fluxer/admin/src/middleware/ErrorHandler
 import {resolveAdminPublicDir} from '@fluxer/admin/src/PublicDir';
 import {createAdminRoutes} from '@fluxer/admin/src/routes/Admin';
 import {createAuthRoutes} from '@fluxer/admin/src/routes/Auth';
+import {createBadgesRoutes} from '@fluxer/admin/src/routes/Badges';
 import {createBansRoutes} from '@fluxer/admin/src/routes/Bans';
 import {createDiscoveryRoutes} from '@fluxer/admin/src/routes/Discovery';
 import {createGuildsRoutes} from '@fluxer/admin/src/routes/Guilds';
 import {createMessagesRoutes} from '@fluxer/admin/src/routes/Messages';
+import {createNewsRoutes} from '@fluxer/admin/src/routes/News';
 import {createReportsRoutes} from '@fluxer/admin/src/routes/Reports';
 import type {RouteFactory} from '@fluxer/admin/src/routes/RouteTypes';
 import {createSystemRoutes} from '@fluxer/admin/src/routes/System';
@@ -162,7 +164,9 @@ export function createAdminApp(options: CreateAdminAppOptions): AdminAppResult {
 		createUsersRoutes,
 		createGuildsRoutes,
 		createBansRoutes,
+		createBadgesRoutes,
 		createReportsRoutes,
+		createNewsRoutes,
 		createMessagesRoutes,
 		createVoiceRoutes,
 		createDiscoveryRoutes,

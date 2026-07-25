@@ -33,7 +33,7 @@ export function EmptyState({variant = 'empty', children, class: className}: Empt
 	const variantStyles = {
 		empty: 'text-neutral-500 text-center py-8',
 		loading: 'text-neutral-500 text-center py-8',
-		error: 'text-red-600 text-center py-8',
+		error: 'text-red-400 text-center py-8',
 	};
 
 	return <div class={cn(variantStyles[variant], className)}>{children}</div>;

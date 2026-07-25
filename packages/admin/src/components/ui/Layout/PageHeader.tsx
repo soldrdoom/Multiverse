@@ -34,8 +34,8 @@ export function PageHeader({title, description, actions, children}: PropsWithChi
 		<div>
 			<div class={cn('flex items-start justify-between', description ? 'mb-2' : 'mb-0')}>
 				<div class="flex min-w-0 flex-1 flex-col gap-2">
-					<h1 class="font-bold text-3xl text-gray-900">{title}</h1>
-					{description && <p class="text-base text-gray-600">{description}</p>}
+					<h1 class="font-display font-bold text-3xl text-neutral-900">{title}</h1>
+					{description && <p class="text-base text-neutral-500">{description}</p>}
 				</div>
 				{actions && <div class="ml-4 flex-shrink-0">{actions}</div>}
 			</div>

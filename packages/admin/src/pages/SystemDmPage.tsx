@@ -189,22 +189,39 @@ export async function SystemDmPage({
 			assetVersion={assetVersion}
 		>
 			<Stack gap="lg">
-				<Heading level={1}>System DMs</Heading>
+				<Stack gap="sm">
+					<Heading level={1}>System DMs</Heading>
+					<Text size="sm" color="muted">
+						Send a one-off direct message from the system account to a filtered set of users, and track delivery.
+					</Text>
+				</Stack>
 
 				<Card padding="lg">
 					<Stack gap="md">
 						<Heading level={2} size="base">
 							Schedule a system DM
 						</Heading>
+						<Text size="sm" color="muted">
+							Creating a job here does not send it right away — a job starts as "pending" and needs to be approved
+							(below) before it goes out to matching users.
+						</Text>
 						{formError && <ErrorAlert error={formError} />}
 						<form method="post" action={`${config.basePath}${PAGE_PATH}?action=send`}>
 							<CsrfInput token={csrfToken} />
 							<Stack gap="md">
-								<FormFieldGroup label="Content" htmlFor="system-dm-content">
+								<FormFieldGroup
+									label="Content"
+									htmlFor="system-dm-content"
+									helper="Sent as a DM from the official system account to every user matching the filters below (up to 4000 characters)."
+								>
 									<Textarea id="system-dm-content" name="content" required rows={6} maxlength={4000} size="sm" />
 								</FormFieldGroup>
 								<Grid cols={2} gap="md">
-									<FormFieldGroup label="Registration start" htmlFor="system-dm-registration-start">
+									<FormFieldGroup
+										label="Registration start"
+										htmlFor="system-dm-registration-start"
+										helper="Only send to users who registered on or after this time. Leave blank for no lower bound."
+									>
 										<Input
 											id="system-dm-registration-start"
 											type="datetime-local"
@@ -212,7 +229,11 @@ export async function SystemDmPage({
 											size="sm"
 										/>
 									</FormFieldGroup>
-									<FormFieldGroup label="Registration end" htmlFor="system-dm-registration-end">
+									<FormFieldGroup
+										label="Registration end"
+										htmlFor="system-dm-registration-end"
+										helper="Only send to users who registered on or before this time. Leave blank for no upper bound."
+									>
 										<Input id="system-dm-registration-end" type="datetime-local" name="registration_end" size="sm" />
 									</FormFieldGroup>
 								</Grid>

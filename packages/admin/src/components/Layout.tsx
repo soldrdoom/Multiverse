@@ -72,24 +72,31 @@ const Head: FC<{
 
 const SidebarSection: FC<PropsWithChildren<{title: string}>> = ({title, children}) => (
 	<div>
-		<div class="mb-2 text-neutral-400 text-xs uppercase">{title}</div>
-		<div class="space-y-1">{children}</div>
+		<div class="mb-2 px-3 font-extrabold text-[13px] text-neutral-700 uppercase tracking-wide">{title}</div>
+		<div class="space-y-0.5">{children}</div>
 	</div>
 );
 
-const SidebarItem: FC<{title: string; path: string; active: boolean; basePath: string}> = ({
+const SidebarItem: FC<{title: string; path: string; description?: string; active: boolean; basePath: string}> = ({
 	title,
 	path,
+	description,
 	active,
 	basePath,
 }) => {
 	const classes = active
-		? 'block px-3 py-2 rounded bg-neutral-800 text-white text-sm transition-colors'
-		: 'block px-3 py-2 rounded text-neutral-300 hover:bg-neutral-800 hover:text-white text-sm transition-colors';
+		? 'group relative flex flex-col gap-0.5 rounded-lg px-3 py-2 text-sm font-medium text-[var(--button-primary-text)] transition-colors'
+		: 'group relative flex flex-col gap-0.5 rounded-lg px-3 py-2 text-sm text-neutral-400 transition-colors hover:bg-white/[0.04] hover:text-neutral-100';
+	const style = active ? {background: 'var(--gradient-brand)'} : undefined;
 
 	return (
-		<a href={`${basePath}${path}`} class={classes} {...(active ? {'data-active': ''} : {})}>
-			{title}
+		<a href={`${basePath}${path}`} class={classes} style={style} {...(active ? {'data-active': ''} : {})}>
+			<span>{title}</span>
+			{description && (
+				<span class={active ? 'text-[11px] text-[var(--button-primary-text)]/70' : 'text-[11px] text-neutral-500'}>
+					{description}
+				</span>
+			)}
 		</a>
 	);
 };
@@ -98,35 +105,53 @@ const Sidebar: FC<{
 	activePage: string;
 	adminAcls: Array<string>;
 	basePath: string;
+	assetVersion: string;
 	inspectedVoiceRegionId?: string;
-}> = ({activePage, adminAcls, basePath, inspectedVoiceRegionId}) => {
+}> = ({activePage, adminAcls, basePath, assetVersion, inspectedVoiceRegionId}) => {
 	const sections = getAccessibleSections(adminAcls, {inspectedVoiceRegionId});
 
 	return (
 		<div
 			data-sidebar=""
-			class="fixed inset-y-0 left-0 z-40 flex h-screen w-64 -translate-x-full transform flex-col bg-neutral-900 text-white shadow-xl transition-transform duration-200 ease-in-out lg:static lg:inset-auto lg:translate-x-0 lg:shadow-none"
+			class="fixed inset-y-0 left-0 z-40 flex h-screen w-64 -translate-x-full transform flex-col border-white/[0.06] border-r bg-[var(--background-primary)] text-neutral-100 shadow-2xl transition-transform duration-200 ease-in-out lg:static lg:inset-auto lg:translate-x-0 lg:shadow-none"
 		>
-			<div class="flex items-center justify-between gap-3 border-neutral-800 border-b p-6">
-				<a href={`${basePath}/users`}>
-					<h1 class="font-semibold text-base">Multiverse Admin</h1>
+			<div
+				class="relative flex items-center justify-between gap-3 overflow-hidden border-white/[0.06] border-b px-5 py-5"
+				style={{
+					background:
+						'linear-gradient(135deg, color-mix(in srgb, #9945ff 14%, transparent) 0%, transparent 55%), linear-gradient(315deg, color-mix(in srgb, #14f195 10%, transparent) 0%, transparent 55%)',
+				}}
+			>
+				<a href={`${basePath}/users`} class="flex items-center gap-3">
+					<img
+						src={cacheBustedAsset(basePath, assetVersion, '/static/multiverse-official-logo.png')}
+						alt=""
+						class="h-9 w-9 flex-shrink-0 rounded-lg object-cover"
+					/>
+					<span class="flex flex-col leading-none gap-1">
+						<span class="font-display font-extrabold text-[20px] text-neutral-950 tracking-tight">
+							Multiverse
+						</span>
+						<span class="text-[11px] text-neutral-500">Admin Console</span>
+					</span>
 				</a>
 				<button
 					type="button"
 					data-sidebar-close=""
-					class="inline-flex items-center justify-center rounded-md p-2 text-neutral-200 hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-white/40 lg:hidden"
+					class="inline-flex items-center justify-center rounded-md p-2 text-neutral-400 hover:bg-white/[0.06] hover:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-[var(--focus-primary)]/50 lg:hidden"
 					aria-label="Close sidebar"
 				>
 					Close
 				</button>
 			</div>
-			<nav class="sidebar-scrollbar flex-1 space-y-4 overflow-y-auto p-4">
+			<nav class="sidebar-scrollbar flex-1 space-y-5 overflow-y-auto px-3 py-4">
 				{sections.map((section) => (
 					<SidebarSection title={section.title}>
 						{section.items.map((item) => (
 							<SidebarItem
 								title={item.title}
 								path={item.path}
+								description={item.description}
 								active={activePage === item.activeKey}
 								basePath={basePath}
 							/>
@@ -151,12 +176,12 @@ const Header: FC<{
 	assetVersion: string;
 	csrfToken: string;
 }> = ({config, session, currentAdmin, assetVersion, csrfToken}) => (
-	<header class="sticky top-0 z-10 flex items-center justify-between gap-4 border-neutral-200 border-b bg-white px-4 py-4 sm:px-6 lg:px-8">
+	<header class="sticky top-0 z-10 flex items-center justify-between gap-4 border-white/[0.06] border-b bg-[color-mix(in_srgb,var(--background-primary)_82%,transparent)] px-4 py-3.5 backdrop-blur-xl sm:px-6 lg:px-8">
 		<div class="flex min-w-0 items-center gap-3">
 			<button
 				type="button"
 				data-sidebar-toggle=""
-				class="inline-flex items-center justify-center rounded-md border border-neutral-300 p-2 text-neutral-700 hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 lg:hidden"
+				class="inline-flex items-center justify-center rounded-md border border-white/10 p-2 text-neutral-300 hover:bg-white/[0.06] focus:outline-none focus:ring-2 focus:ring-[var(--focus-primary)]/50 lg:hidden"
 				aria-label="Toggle sidebar"
 			>
 				<svg
@@ -187,21 +212,21 @@ const Header: FC<{
 							assetVersion,
 						)}
 						alt={`${currentAdmin.username}'s avatar`}
-						class="h-10 w-10 rounded-full"
+						class="h-9 w-9 rounded-full ring-2 ring-white/10"
 					/>
 					<div class="flex flex-col">
-						<div class="text-neutral-900 text-sm">
+						<div class="text-neutral-900 text-sm leading-tight">
 							{currentAdmin.username}#{formatDiscriminator(currentAdmin.discriminator)}
 						</div>
-						<div class="text-neutral-500 text-xs">Admin</div>
+						<div class="text-[11px] text-[var(--brand-primary)]">Admin</div>
 					</div>
 				</a>
 			) : (
-				<div class="text-neutral-600 text-sm">
+				<div class="text-neutral-400 text-sm">
 					Logged in as:{' '}
 					<a
 						href={`${config.basePath}/users/${session.userId}`}
-						class="text-blue-600 hover:text-blue-800 hover:underline"
+						class="text-[var(--brand-primary)] hover:text-[var(--brand-primary-light)] hover:underline"
 					>
 						{session.userId}
 					</a>
@@ -212,7 +237,7 @@ const Header: FC<{
 			<CsrfInput token={csrfToken} />
 			<button
 				type="submit"
-				class="rounded border border-neutral-300 px-4 py-2 font-medium text-neutral-700 text-sm transition-colors hover:border-neutral-400 hover:text-neutral-900"
+				class="rounded-md border border-white/10 px-4 py-2 font-medium text-neutral-300 text-sm transition-colors hover:border-white/20 hover:bg-white/[0.06] hover:text-neutral-50"
 			>
 				Logout
 			</button>
@@ -348,15 +373,16 @@ export function Layout({
 				assetVersion={assetVersion}
 				autoRefresh={autoRefresh}
 			/>
-			<body class="min-h-screen overflow-hidden bg-neutral-50">
+			<body class="min-h-screen overflow-hidden bg-[var(--background-primary)] text-neutral-200">
 				<div class="flex h-screen">
 					<Sidebar
 						activePage={activePage}
 						adminAcls={adminAcls}
 						basePath={config.basePath}
+						assetVersion={assetVersion}
 						inspectedVoiceRegionId={inspectedVoiceRegionId}
 					/>
-					<div data-sidebar-overlay="" class="fixed inset-0 z-30 hidden bg-black/50 lg:hidden" />
+					<div data-sidebar-overlay="" class="fixed inset-0 z-30 hidden bg-black/60 lg:hidden" />
 					<div class="flex h-screen w-full flex-1 flex-col overflow-y-auto">
 						<Header
 							config={config}

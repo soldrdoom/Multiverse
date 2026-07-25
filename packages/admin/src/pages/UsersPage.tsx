@@ -216,7 +216,7 @@ const PreviousLink: FC<{config: Config; searchQuery: string; page: number}> = ({
 		<Text size="sm" color="muted">
 			<TextLink
 				href={`${config.basePath}/users${buildPaginationUrl(page - 1, {q: searchQuery})}`}
-				class="hover:text-neutral-900"
+				class="hover:text-brand-primary-light"
 			>
 				← Previous
 			</TextLink>
@@ -229,7 +229,7 @@ const NextLink: FC<{config: Config; searchQuery: string; page: number}> = ({conf
 		<Text size="sm" color="muted">
 			<TextLink
 				href={`${config.basePath}/users${buildPaginationUrl(page + 1, {q: searchQuery})}`}
-				class="hover:text-neutral-900"
+				class="hover:text-brand-primary-light"
 			>
 				Next →
 			</TextLink>
@@ -273,7 +273,10 @@ export const UsersPage: FC<UsersPageProps> = async ({
 			assetVersion={assetVersion}
 		>
 			<div class="mx-auto max-w-7xl space-y-6">
-				<PageHeader title="Users" />
+				<PageHeader
+					title="Users"
+					description="Look up a user by ID, username, email, or phone to view their account, sessions, and moderation history."
+				/>
 
 				<SearchForm
 					action="/users"

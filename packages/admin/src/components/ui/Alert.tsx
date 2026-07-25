@@ -32,10 +32,10 @@ interface AlertProps {
 
 export function Alert({variant = 'info', title, children, class: className}: AlertProps) {
 	const variantStyles = {
-		success: 'bg-green-50 border-green-200 text-green-700',
-		warning: 'bg-neutral-50 border-neutral-200 text-neutral-700',
-		error: 'bg-red-50 border-red-200 text-red-700',
-		info: 'bg-blue-50 border-blue-200 text-blue-700',
+		success: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300',
+		warning: 'bg-amber-500/10 border-amber-500/30 text-amber-300',
+		error: 'bg-red-500/10 border-red-500/30 text-red-300',
+		info: 'bg-blue-500/10 border-blue-500/30 text-blue-300',
 	};
 
 	return (

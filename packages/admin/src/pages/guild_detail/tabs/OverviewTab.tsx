@@ -155,7 +155,7 @@ const AssetPreview: FC<{
 			: 'h-36 w-full rounded bg-neutral-100 object-cover';
 
 	return (
-		<VStack gap={2} class="rounded-lg border border-neutral-200 bg-white p-3">
+		<VStack gap={2} class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-3">
 			<Text size="sm" weight="semibold">
 				{label}
 			</Text>
@@ -219,7 +219,7 @@ export function OverviewTab({config, guild, csrfToken}: OverviewTabProps) {
 							</Text>
 							<a
 								href={`${config.basePath}/users/${guild.owner_id}`}
-								class="text-neutral-900 text-sm hover:text-blue-600 hover:underline"
+								class="text-neutral-900 text-sm hover:text-brand-primary hover:underline"
 							>
 								{guild.owner_id}
 							</a>

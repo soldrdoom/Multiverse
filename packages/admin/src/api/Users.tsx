@@ -198,6 +198,17 @@ export async function updateUserFlags(
 	);
 }
 
+export async function updateUserVisionary(
+	config: Config,
+	session: Session,
+	userId: string,
+	granted: boolean,
+	auditLogReason?: string,
+): Promise<ApiResult<void>> {
+	const client = new ApiClient(config, session);
+	return client.postVoid('/admin/users/update-visionary', {user_id: userId, granted}, auditLogReason);
+}
+
 export async function updateSuspiciousActivityFlags(
 	config: Config,
 	session: Session,

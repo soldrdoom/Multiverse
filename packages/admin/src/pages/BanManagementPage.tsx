@@ -44,6 +44,7 @@ interface BanConfig {
 	placeholder: string;
 	entityName: string;
 	activePage: string;
+	banHelper: string;
 }
 
 export function getBanConfig(banType: BanType): BanConfig {
@@ -58,6 +59,8 @@ export function getBanConfig(banType: BanType): BanConfig {
 				placeholder: '192.168.1.1 or 192.168.0.0/16',
 				entityName: 'IP/CIDR',
 				activePage: 'ip-bans',
+				banHelper:
+					'Blocks registration and login attempts from this address at the network level — independent of any account-level ban. A CIDR range blocks every address in it.',
 			};
 		case 'email':
 			return {
@@ -69,6 +72,8 @@ export function getBanConfig(banType: BanType): BanConfig {
 				placeholder: 'user@example.com',
 				entityName: 'Email',
 				activePage: 'email-bans',
+				banHelper:
+					'Blocks this exact email address from registering or being added to an account — independent of any account-level ban.',
 			};
 		case 'phone':
 			return {
@@ -80,6 +85,8 @@ export function getBanConfig(banType: BanType): BanConfig {
 				placeholder: '+1234567890',
 				entityName: 'Phone',
 				activePage: 'phone-bans',
+				banHelper:
+					'Blocks this exact phone number from being used for verification — independent of any account-level ban.',
 			};
 	}
 }
@@ -111,6 +118,7 @@ const BanCard: FC<{config: Config; banConfig: BanConfig; csrfToken: string}> = (
 							type={banConfig.inputType}
 							required={true}
 							placeholder={banConfig.placeholder}
+							helper={banConfig.banHelper}
 						/>
 						<Input
 							label="Private reason (audit log, optional)"
@@ -118,6 +126,7 @@ const BanCard: FC<{config: Config; banConfig: BanConfig; csrfToken: string}> = (
 							type="text"
 							required={false}
 							placeholder="Why is this ban being applied?"
+							helper="Recorded in the audit log only; never shown to the banned party."
 						/>
 						<Button type="submit" variant="primary">
 							Ban {banConfig.entityName}
@@ -183,6 +192,7 @@ const UnbanCard: FC<{config: Config; banConfig: BanConfig; csrfToken: string}> =
 							type="text"
 							required={false}
 							placeholder="Why is this ban being removed?"
+							helper="Recorded in the audit log only; never shown publicly."
 						/>
 						<Button type="submit" variant="danger">
 							Unban {banConfig.entityName}
@@ -234,7 +244,7 @@ const BanListCard: FC<{
 											<span class="font-mono">{ban.value}</span>
 											<a
 												href={`${config.basePath}/users?q=${encodeURIComponent(ban.value)}`}
-												class="ml-2 text-blue-600 text-xs no-underline hover:underline"
+												class="ml-2 text-brand-primary text-xs no-underline hover:underline"
 											>
 												Search users
 											</a>
@@ -288,7 +298,13 @@ export const BanManagementPage: FC<BanManagementPageProps> = ({
 			assetVersion={assetVersion}
 		>
 			<Stack gap="6">
-				<Heading level={1}>{banConfig.title}</Heading>
+				<Stack gap="2">
+					<Heading level={1}>{banConfig.title}</Heading>
+					<Text size="sm" color="muted">
+						Block or allow specific {banConfig.entityName.toLowerCase()} values at the network/account level, independent
+						of individual account bans.
+					</Text>
+				</Stack>
 
 				<Grid cols="2" gap="6">
 					<BanCard config={config} banConfig={banConfig} csrfToken={csrfToken} />

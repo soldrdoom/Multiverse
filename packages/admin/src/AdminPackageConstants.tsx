@@ -69,6 +69,20 @@ export const FLAG_DM_HISTORY_BACKFILLED: PatchableUserFlag = {
 	value: UserFlags.DM_HISTORY_BACKFILLED,
 };
 
+export interface PatchableBadge {
+	name: string;
+	label: string;
+	flag: PatchableUserFlag | null;
+}
+
+export const BADGES: Array<PatchableBadge> = [
+	{name: 'STAFF', label: 'Staff', flag: FLAG_STAFF},
+	{name: 'CTP_MEMBER', label: 'Community Team (CTP)', flag: FLAG_CTP_MEMBER},
+	{name: 'PARTNER', label: 'Partner', flag: FLAG_PARTNER},
+	{name: 'BUG_HUNTER', label: 'Bug Hunter', flag: FLAG_BUG_HUNTER},
+	{name: 'VISIONARY', label: 'Visionary', flag: null},
+];
+
 export const PATCHABLE_FLAGS: Array<PatchableUserFlag> = [
 	FLAG_STAFF,
 	FLAG_STAFF_HIDDEN,

@@ -41,7 +41,7 @@ export const ResourceLink: FC<ResourceLinkProps> = ({
 	class: className = '',
 }) => {
 	const sizeClass = size === 'sm' ? 'text-sm' : '';
-	const baseClass = `text-neutral-900 underline decoration-neutral-300 hover:text-neutral-600 hover:decoration-neutral-500 ${sizeClass} ${className}`;
+	const baseClass = `text-brand-primary underline decoration-brand-primary/30 hover:text-brand-primary-light hover:decoration-brand-primary-light/50 ${sizeClass} ${className}`;
 	const href = `${config.basePath}/${resourceType === 'user' ? 'users' : 'guilds'}/${resourceId}`;
 
 	return (

@@ -66,6 +66,7 @@ import type {
 	TerminateSessionsRequest,
 	UnlinkPhoneRequest,
 	UpdateSuspiciousActivityFlagsRequest,
+	UpdateUserVisionaryRequest,
 	VerifyUserEmailRequest,
 } from '@fluxer/schema/src/domains/admin/AdminUserSchemas';
 import {mapUserToAdminResponse} from '../models/UserTypes';
@@ -212,6 +213,10 @@ export class AdminUserService {
 		auditLogReason: string | null;
 	}) {
 		return this.securityService.updateUserFlags({userId, data, adminUserId, auditLogReason});
+	}
+
+	async updateUserVisionary(data: UpdateUserVisionaryRequest, adminUserId: UserID, auditLogReason: string | null) {
+		return this.securityService.updateUserVisionary(data, adminUserId, auditLogReason);
 	}
 
 	async disableMfa(data: DisableMfaRequest, adminUserId: UserID, auditLogReason: string | null) {

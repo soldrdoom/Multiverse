@@ -154,7 +154,7 @@ const StatusContent: FC<{status: IndexRefreshStatusWithDetails}> = ({status}) =>
 						</Text>
 					</HStack>
 					<div class="h-2 w-full overflow-hidden rounded-full bg-neutral-200">
-						<div class="h-2 bg-neutral-900 transition-[width] duration-300" style={`width: ${percentage}%`} />
+						<div class="h-2 transition-[width] duration-300" style={`width: ${percentage}%; background: var(--gradient-brand)`} />
 					</div>
 				</VStack>
 			)}
@@ -282,7 +282,12 @@ export async function SearchIndexPage({
 		>
 			<PageLayout maxWidth="3xl">
 				<VStack gap={6}>
-					<Heading level={1}>Search Index Management</Heading>
+					<VStack gap={2}>
+						<Heading level={1}>Search Index Management</Heading>
+						<Text color="muted" size="sm">
+							Trigger reindexing of search collections when results look stale or out of sync with the database.
+						</Text>
+					</VStack>
 					<ReindexControls config={config} csrfToken={csrfToken} />
 					{jobId && statusResult && <StatusSection config={config} jobId={jobId} statusResult={statusResult} />}
 				</VStack>

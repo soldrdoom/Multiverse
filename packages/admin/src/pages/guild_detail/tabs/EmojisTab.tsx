@@ -84,7 +84,7 @@ const RenderEmojiCard: FC<{config: Config; guildId: string; emoji: GuildEmojiAss
 					<Text size="xs" color="muted" class="break-words">
 						ID: {emoji.id}
 					</Text>
-					<a href={`${config.basePath}/users/${emoji.creator_id}`} class="text-blue-600 text-xs hover:underline">
+					<a href={`${config.basePath}/users/${emoji.creator_id}`} class="text-brand-primary text-xs hover:underline">
 						Uploader: {emoji.creator_id}
 					</a>
 					<form action={`${config.basePath}/guilds/${guildId}?tab=emojis&action=delete_emoji`} method="post">
@@ -143,7 +143,7 @@ export async function EmojisTab({config, session, guildId, adminAcls, csrfToken}
 				<ErrorCard title="Error" message={getErrorMessage(result.error)} />
 				<a
 					href={`${config.basePath}/guilds/${guildId}?tab=emojis`}
-					class="inline-block rounded bg-neutral-900 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-neutral-800"
+					class="inline-block rounded bg-[image:var(--gradient-brand)] px-4 py-2 font-semibold text-sm text-[var(--button-primary-text)] transition-[filter] hover:brightness-110"
 				>
 					Back to Guild
 				</a>

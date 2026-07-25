@@ -52,7 +52,7 @@ const customSizes: Record<NonNullable<HeadingProps['size']>, string> = {
 export function Heading(props: PropsWithChildren<HeadingProps>) {
 	const {level, size, children, class: className} = props;
 
-	const classes = cn('text-gray-900 tracking-tight', size ? customSizes[size] : headingSizes[level], className);
+	const classes = cn('text-neutral-900 tracking-tight', size ? customSizes[size] : headingSizes[level], className);
 
 	if (level === 1) return <h1 class={classes}>{children}</h1>;
 	if (level === 2) return <h2 class={classes}>{children}</h2>;
@@ -84,11 +84,11 @@ const textWeights: Record<NonNullable<TextProps['weight']>, string> = {
 };
 
 const textColors: Record<NonNullable<TextProps['color']>, string> = {
-	default: 'text-gray-900',
+	default: 'text-neutral-900',
 	muted: 'text-neutral-500',
 	primary: 'text-brand-primary',
-	danger: 'text-red-600',
-	success: 'text-green-600',
+	danger: 'text-red-400',
+	success: 'text-emerald-400',
 };
 
 export function Text(props: PropsWithChildren<TextProps>) {
@@ -113,7 +113,7 @@ export function Label(props: PropsWithChildren<LabelProps>) {
 	return (
 		<label for={htmlFor} class={classes}>
 			{children}
-			{required && <span class="ml-1 text-red-600">*</span>}
+			{required && <span class="ml-1 text-red-400">*</span>}
 		</label>
 	);
 }
@@ -124,9 +124,9 @@ export interface CaptionProps {
 }
 
 const captionVariants: Record<NonNullable<CaptionProps['variant']>, string> = {
-	default: 'text-gray-500',
-	error: 'text-red-600',
-	success: 'text-green-600',
+	default: 'text-neutral-500',
+	error: 'text-red-400',
+	success: 'text-emerald-400',
 };
 
 export function Caption(props: PropsWithChildren<CaptionProps>) {
@@ -148,11 +148,11 @@ export function SectionHeading(props: PropsWithChildren<SectionHeadingProps>) {
 	if (actions) {
 		return (
 			<div class={cn('mb-4 flex items-center justify-between', className)}>
-				<h2 class="font-semibold text-gray-900 text-xl">{children}</h2>
+				<h2 class="font-semibold text-neutral-900 text-xl">{children}</h2>
 				<div class="flex items-center gap-2">{actions}</div>
 			</div>
 		);
 	}
 
-	return <h2 class={cn('mb-4 font-semibold text-gray-900 text-xl', className)}>{children}</h2>;
+	return <h2 class={cn('mb-4 font-semibold text-neutral-900 text-xl', className)}>{children}</h2>;
 }

@@ -113,17 +113,17 @@ const OperationResult: FC<{response: BulkOperationResponseType}> = ({response}) 
 	const failCount = response.failed.length;
 
 	return (
-		<div class="mb-6 rounded-lg border border-neutral-200 bg-white p-6">
+		<div class="mb-6 rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-6">
 			<Heading level={3} size="base" class="mb-4">
 				Operation Result
 			</Heading>
 			<VStack gap={3}>
 				<Text size="sm">
-					<span class="font-medium text-green-600 text-sm">Successful: </span>
+					<span class="font-medium text-emerald-400 text-sm">Successful: </span>
 					{successCount}
 				</Text>
 				<Text size="sm">
-					<span class="font-medium text-red-600 text-sm">Failed: </span>
+					<span class="font-medium text-red-400 text-sm">Failed: </span>
 					{failCount}
 				</Text>
 				{response.failed.length > 0 && (
@@ -157,7 +157,10 @@ const BulkUpdateUserFlags: FC<{basePath: string; csrfToken: string}> = ({basePat
 		<form method="post" action={`${basePath}/bulk-actions?action=bulk-update-user-flags`}>
 			<VStack gap={4}>
 				<CsrfInput token={csrfToken} />
-				<FormFieldGroup label="User IDs (one per line)">
+				<FormFieldGroup
+					label="User IDs (one per line)"
+					helper="Every ID here is patched — there's no per-user confirmation or preview, so double-check the list before submitting."
+				>
 					<Textarea
 						id="bulk-user-flags-user-ids"
 						name="user_ids"
@@ -170,6 +173,9 @@ const BulkUpdateUserFlags: FC<{basePath: string; csrfToken: string}> = ({basePat
 					<Text weight="medium" size="sm" class="mb-2 block text-neutral-700">
 						Flags to Add
 					</Text>
+					<Text size="xs" color="muted" class="mb-2 block">
+						Checked flags are OR'd into each user's existing flags — unrelated flags they already have are left alone.
+					</Text>
 					<div class="grid grid-cols-2 gap-3">
 						{PATCHABLE_FLAGS.map((flag) => (
 							<Checkbox name="add_flags[]" value={flag.value.toString()} label={flag.name} />
@@ -180,13 +186,17 @@ const BulkUpdateUserFlags: FC<{basePath: string; csrfToken: string}> = ({basePat
 					<Text weight="medium" size="sm" class="mb-2 block text-neutral-700">
 						Flags to Remove
 					</Text>
+					<Text size="xs" color="muted" class="mb-2 block">
+						Checked flags are cleared from each user, if present. A flag checked in both this list and "Flags to Add" is
+						added then immediately removed, so it has no net effect.
+					</Text>
 					<div class="grid grid-cols-2 gap-3">
 						{PATCHABLE_FLAGS.map((flag) => (
 							<Checkbox name="remove_flags[]" value={flag.value.toString()} label={flag.name} />
 						))}
 					</div>
 				</div>
-				<FormFieldGroup label="Audit Log Reason (optional)">
+				<FormFieldGroup label="Audit Log Reason (optional)" helper="Recorded in the audit log; not shown to the affected users.">
 					<Input
 						id="bulk-user-flags-audit-log-reason"
 						type="text"
@@ -210,7 +220,10 @@ const BulkUpdateGuildFeatures: FC<{basePath: string; csrfToken: string}> = ({bas
 		<form method="post" action={`${basePath}/bulk-actions?action=bulk-update-guild-features`}>
 			<VStack gap={4}>
 				<CsrfInput token={csrfToken} />
-				<FormFieldGroup label="Guild IDs (one per line)">
+				<FormFieldGroup
+					label="Guild IDs (one per line)"
+					helper="Every ID here is patched — there's no per-guild confirmation or preview, so double-check the list before submitting."
+				>
 					<Textarea
 						id="bulk-guild-features-guild-ids"
 						name="guild_ids"
@@ -228,7 +241,12 @@ const BulkUpdateGuildFeatures: FC<{basePath: string; csrfToken: string}> = ({bas
 							<Checkbox name="add_features[]" value={feature.value} label={feature.value} />
 						))}
 					</div>
-					<FormFieldGroup label="Custom features" htmlFor="bulk-guild-features-custom-add-features" class="mt-3">
+					<FormFieldGroup
+						label="Custom features"
+						htmlFor="bulk-guild-features-custom-add-features"
+						class="mt-3"
+						helper="Comma-separated feature flags not listed above, for features this admin panel doesn't know about yet."
+					>
 						<Input
 							id="bulk-guild-features-custom-add-features"
 							type="text"
@@ -246,7 +264,12 @@ const BulkUpdateGuildFeatures: FC<{basePath: string; csrfToken: string}> = ({bas
 							<Checkbox name="remove_features[]" value={feature.value} label={feature.value} />
 						))}
 					</div>
-					<FormFieldGroup label="Custom features" htmlFor="bulk-guild-features-custom-remove-features" class="mt-3">
+					<FormFieldGroup
+						label="Custom features"
+						htmlFor="bulk-guild-features-custom-remove-features"
+						class="mt-3"
+						helper="Comma-separated feature flags to strip even if they aren't in the checklist above."
+					>
 						<Input
 							id="bulk-guild-features-custom-remove-features"
 							type="text"
@@ -255,7 +278,7 @@ const BulkUpdateGuildFeatures: FC<{basePath: string; csrfToken: string}> = ({bas
 						/>
 					</FormFieldGroup>
 				</div>
-				<FormFieldGroup label="Audit Log Reason (optional)">
+				<FormFieldGroup label="Audit Log Reason (optional)" helper="Recorded in the audit log; not shown to guild members.">
 					<Input
 						id="bulk-guild-features-audit-log-reason"
 						type="text"
@@ -282,7 +305,10 @@ const BulkAddGuildMembers: FC<{basePath: string; csrfToken: string}> = ({basePat
 				<FormFieldGroup label="Guild ID">
 					<Input id="bulk-add-guild-members-guild-id" type="text" name="guild_id" placeholder="123456789" required />
 				</FormFieldGroup>
-				<FormFieldGroup label="User IDs (one per line)">
+				<FormFieldGroup
+					label="User IDs (one per line)"
+					helper="Adds each user directly to the guild, bypassing invites and any join restrictions."
+				>
 					<Textarea
 						id="bulk-add-guild-members-user-ids"
 						name="user_ids"
@@ -291,7 +317,7 @@ const BulkAddGuildMembers: FC<{basePath: string; csrfToken: string}> = ({basePat
 						rows={5}
 					/>
 				</FormFieldGroup>
-				<FormFieldGroup label="Audit Log Reason (optional)">
+				<FormFieldGroup label="Audit Log Reason (optional)" helper="Recorded in the audit log; not shown to added members.">
 					<Input
 						id="bulk-add-guild-members-audit-log-reason"
 						type="text"
@@ -340,7 +366,10 @@ const BulkScheduleUserDeletion: FC<{basePath: string; csrfToken: string}> = ({ba
 		>
 			<VStack gap={4}>
 				<CsrfInput token={csrfToken} />
-				<FormFieldGroup label="User IDs (one per line)">
+				<FormFieldGroup
+					label="User IDs (one per line)"
+					helper="Every account listed is scheduled for permanent deletion — there is no per-user confirmation step."
+				>
 					<Textarea
 						id="bulk-user-deletion-user-ids"
 						name="user_ids"
@@ -349,7 +378,10 @@ const BulkScheduleUserDeletion: FC<{basePath: string; csrfToken: string}> = ({ba
 						rows={5}
 					/>
 				</FormFieldGroup>
-				<FormFieldGroup label="Deletion Reason">
+				<FormFieldGroup
+					label="Deletion Reason"
+					helper="Child-safety-related reasons force immediate (0-day) deletion below; all other reasons default to a 14-day minimum."
+				>
 					<Select
 						id="bulk-deletion-reason"
 						name="reason_code"
@@ -357,7 +389,10 @@ const BulkScheduleUserDeletion: FC<{basePath: string; csrfToken: string}> = ({ba
 						options={DELETION_REASONS.map(([code, label]) => ({value: String(code), label}))}
 					/>
 				</FormFieldGroup>
-				<FormFieldGroup label="Public Reason (optional)">
+				<FormFieldGroup
+					label="Public Reason (optional)"
+					helper="Shown to affected users if the platform surfaces a deletion reason to them."
+				>
 					<Input
 						id="bulk-user-deletion-public-reason"
 						type="text"
@@ -365,10 +400,13 @@ const BulkScheduleUserDeletion: FC<{basePath: string; csrfToken: string}> = ({ba
 						placeholder="Terms of service violation"
 					/>
 				</FormFieldGroup>
-				<FormFieldGroup label="Days Until Deletion">
+				<FormFieldGroup
+					label="Days Until Deletion"
+					helper="Countdown before the accounts and their data are permanently removed. Auto-adjusts based on the reason selected above."
+				>
 					<Input type="number" id="bulk-deletion-days" name="days_until_deletion" value="14" min="14" required />
 				</FormFieldGroup>
-				<FormFieldGroup label="Audit Log Reason (optional)">
+				<FormFieldGroup label="Audit Log Reason (optional)" helper="Recorded in the audit log; not shown to affected users.">
 					<Input
 						id="bulk-user-deletion-audit-log-reason"
 						type="text"
@@ -412,7 +450,13 @@ export function BulkActionsPage({
 			assetVersion={assetVersion}
 		>
 			<VStack gap={6}>
-				<Heading level={1}>Bulk Actions</Heading>
+				<VStack gap={2}>
+					<Heading level={1}>Bulk Actions</Heading>
+					<Text color="muted" size="sm">
+						Apply flag, feature, membership, or deletion changes to many users or guilds at once. These operate on raw ID
+						lists with no per-item confirmation — double-check the list before submitting.
+					</Text>
+				</VStack>
 
 				{result && <OperationResult response={result} />}
 

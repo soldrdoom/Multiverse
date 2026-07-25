@@ -39,7 +39,7 @@ export function TableRow({
 		<tr
 			class={clsx(
 				hover && 'transition-colors hover:bg-neutral-50',
-				selected && 'bg-blue-50',
+				selected && 'bg-[var(--brand-primary-fill)]',
 				clickable && 'cursor-pointer',
 			)}
 		>

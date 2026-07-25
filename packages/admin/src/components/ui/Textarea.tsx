@@ -81,7 +81,7 @@ export const Textarea: FC<TextareaProps> = ({
 	const baseClasses = [
 		'rounded-lg',
 		'border',
-		'bg-white',
+		'bg-[var(--background-secondary)]',
 		'text-neutral-900',
 		'placeholder:text-neutral-400',
 		'transition-all',

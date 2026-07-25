@@ -26,6 +26,11 @@ export interface NavItem {
 	path: string;
 	activeKey: string;
 	requiredAcls: Array<string>;
+	/**
+	 * One-line subtitle for this nav item, rendered under the title when present.
+	 * Not populated yet — Phase 2 (copywriting pass) will fill these in.
+	 */
+	description?: string;
 }
 
 export interface NavSection {

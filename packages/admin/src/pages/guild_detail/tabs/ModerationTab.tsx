@@ -54,9 +54,14 @@ export function ModerationTab({config, guild: _guild, guildId, adminAcls, csrfTo
 			{canUpdateName && (
 				<Card padding="md">
 					<Stack gap="md">
-						<Heading level={2} size="base">
-							Update Guild Name
-						</Heading>
+						<VStack gap={1}>
+							<Heading level={2} size="base">
+								Update Guild Name
+							</Heading>
+							<Text size="sm" color="muted">
+								Overrides the name the owner set. Members see the new name immediately.
+							</Text>
+						</VStack>
 						<form
 							method="post"
 							action={`${config.basePath}/guilds/${guildId}?action=update_name&tab=moderation`}
@@ -77,9 +82,14 @@ export function ModerationTab({config, guild: _guild, guildId, adminAcls, csrfTo
 			{canUpdateVanity && (
 				<Card padding="md">
 					<Stack gap="md">
-						<Heading level={2} size="base">
-							Update Vanity URL
-						</Heading>
+						<VStack gap={1}>
+							<Heading level={2} size="base">
+								Update Vanity URL
+							</Heading>
+							<Text size="sm" color="muted">
+								Sets or removes the guild's custom invite link (e.g. multiverse.gg/your-code). Leave empty to remove it.
+							</Text>
+						</VStack>
 						<form
 							method="post"
 							action={`${config.basePath}/guilds/${guildId}?action=update_vanity&tab=moderation`}
@@ -100,9 +110,15 @@ export function ModerationTab({config, guild: _guild, guildId, adminAcls, csrfTo
 			{canTransferOwnership && (
 				<Card padding="md">
 					<Stack gap="md">
-						<Heading level={2} size="base">
-							Transfer Ownership
-						</Heading>
+						<VStack gap={1}>
+							<Heading level={2} size="base">
+								Transfer Ownership
+							</Heading>
+							<Text size="sm" color="muted">
+								Immediately hands full guild ownership to another user ID. The current owner loses owner-only
+								permissions right away — this is not easily reversible.
+							</Text>
+						</VStack>
 						<form
 							method="post"
 							action={`${config.basePath}/guilds/${guildId}?action=transfer_ownership&tab=moderation`}
@@ -123,9 +139,14 @@ export function ModerationTab({config, guild: _guild, guildId, adminAcls, csrfTo
 			{canForceAddUser && (
 				<Card padding="md">
 					<Stack gap="md">
-						<Heading level={2} size="base">
-							Force Add User to Guild
-						</Heading>
+						<VStack gap={1}>
+							<Heading level={2} size="base">
+								Force Add User to Guild
+							</Heading>
+							<Text size="sm" color="muted">
+								Adds the user to this guild directly, bypassing invites and any join restrictions.
+							</Text>
+						</VStack>
 						<form
 							method="post"
 							action={`${config.basePath}/guilds/${guildId}?action=force_add_user&tab=moderation`}
@@ -146,9 +167,15 @@ export function ModerationTab({config, guild: _guild, guildId, adminAcls, csrfTo
 			{(canReload || canShutdown) && (
 				<Card padding="md">
 					<Stack gap="md">
-						<Heading level={2} size="base">
-							Guild Process Controls
-						</Heading>
+						<VStack gap={1}>
+							<Heading level={2} size="base">
+								Guild Process Controls
+							</Heading>
+							<Text size="sm" color="muted">
+								Reload re-reads this guild's state from the database into memory. Shutdown drops it from memory
+								entirely — members reconnect and it reloads automatically, but active voice calls will be interrupted.
+							</Text>
+						</VStack>
 						<div class="flex flex-wrap gap-3">
 							{canReload && (
 								<form

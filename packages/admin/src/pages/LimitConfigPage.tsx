@@ -200,7 +200,7 @@ const RuleModifiedBadge: FC<{count: number; isActive: boolean}> = ({count, isAct
 
 const ActiveModifiedBadge: FC<{count: number}> = ({count}) => {
 	return (
-		<Text size="xs" class="rounded-full bg-white/20 px-1.5 py-0.5 text-white">
+		<Text size="xs" class="rounded-full bg-black/15 px-1.5 py-0.5 text-[var(--button-primary-text)]">
 			{count} modified
 		</Text>
 	);
@@ -570,11 +570,11 @@ const RenderScopeBadge: FC<{scope: string}> = ({scope}) => {
 	switch (scope) {
 		case 'user':
 			label = 'User';
-			color = 'bg-blue-100 text-blue-700';
+			color = 'bg-blue-500/15 text-blue-300';
 			break;
 		case 'guild':
 			label = 'Guild';
-			color = 'bg-purple-100 text-purple-700';
+			color = 'bg-purple-500/15 text-purple-300';
 			break;
 		case 'both':
 			label = 'Both';
@@ -597,7 +597,7 @@ const ToggleFieldContainer: FC<{isModified: boolean; children: Child}> = ({isMod
 		<HStack
 			gap={2}
 			justify="between"
-			class={`rounded-lg border p-3 ${isModified ? 'border-neutral-200 bg-neutral-50' : 'border-neutral-200 bg-white'}`}
+			class={`rounded-lg border p-3 ${isModified ? 'border-[var(--brand-primary)]/25 bg-[var(--brand-primary-fill)]' : 'border-neutral-200 bg-[var(--background-secondary)]'}`}
 		>
 			{children}
 		</HStack>
@@ -649,7 +649,7 @@ const ToggleSwitch: FC<{limitKey: string; isEnabled: boolean}> = ({limitKey, isE
 	return (
 		<label class="relative inline-flex cursor-pointer items-center">
 			<input type="checkbox" name={limitKey} id={limitKey} value="1" checked={isEnabled} class="peer sr-only" />
-			<div class="peer h-6 w-11 rounded-full bg-neutral-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300" />
+			<div class="peer h-6 w-11 rounded-full bg-neutral-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-300 after:bg-[var(--background-secondary)] after:transition-all after:content-[''] peer-checked:bg-[var(--brand-primary)] peer-checked:after:translate-x-full peer-checked:after:border-transparent peer-checked:after:bg-[var(--button-primary-text)] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[var(--focus-primary)]/40" />
 		</label>
 	);
 };
@@ -666,7 +666,7 @@ const NumericFieldContainer: FC<{isModified: boolean; children: Child}> = ({isMo
 	return (
 		<VStack
 			gap={2}
-			class={`rounded-lg border p-3 ${isModified ? 'border-neutral-200 bg-neutral-50' : 'border-neutral-200 bg-white'}`}
+			class={`rounded-lg border p-3 ${isModified ? 'border-[var(--brand-primary)]/25 bg-[var(--brand-primary-fill)]' : 'border-neutral-200 bg-[var(--background-secondary)]'}`}
 		>
 			{children}
 		</VStack>
@@ -737,8 +737,8 @@ const RenderCreateRuleModal: FC<{config: Config; response: LimitConfigResponse; 
 	const existingIds = response.limit_config.rules.map((r) => r.id).sort();
 
 	return (
-		<div id="create-rule-modal" class="fixed inset-0 z-50 flex hidden items-center justify-center bg-black/50">
-			<VStack class="mx-4 w-full max-w-md rounded-lg bg-white shadow-xl">
+		<div id="create-rule-modal" class="fixed inset-0 z-50 flex hidden items-center justify-center bg-black/60">
+			<VStack class="mx-4 w-full max-w-md rounded-lg border border-[var(--vanguard-glass-border)] bg-[var(--background-secondary)] shadow-2xl">
 				<VStack gap={6} class="p-6">
 					<HStack gap={2} justify="between">
 						<Heading level={3} size="lg">
@@ -747,7 +747,7 @@ const RenderCreateRuleModal: FC<{config: Config; response: LimitConfigResponse; 
 						<Button
 							type="button"
 							variant="ghost"
-							class="text-neutral-400 hover:text-neutral-600"
+							class="text-neutral-400 hover:text-neutral-100"
 							onclick="document.getElementById('create-rule-modal').classList.add('hidden')"
 						>
 							x

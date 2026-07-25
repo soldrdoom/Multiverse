@@ -222,6 +222,13 @@ export const UpdateUserFlagsRequest = z.object({
 
 export type UpdateUserFlagsRequest = z.infer<typeof UpdateUserFlagsRequest>;
 
+export const UpdateUserVisionaryRequest = z.object({
+	user_id: SnowflakeType.describe('ID of the user to update'),
+	granted: z.boolean().describe('Whether to grant (true) or revoke (false) the Visionary lifetime badge'),
+});
+
+export type UpdateUserVisionaryRequest = z.infer<typeof UpdateUserVisionaryRequest>;
+
 export const DisableMfaRequest = z.object({
 	user_id: SnowflakeType.describe('ID of the user to disable MFA for'),
 });

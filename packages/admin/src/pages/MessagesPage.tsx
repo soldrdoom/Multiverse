@@ -86,7 +86,7 @@ const MessageList: FC<{config: Config; messages: LookupMessageResponse['messages
 								<VStack gap={1}>
 									{msg.attachments.map((att) => (
 										<Text size="xs" color="muted">
-											<a href={att.url} target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
+											<a href={att.url} target="_blank" rel="noopener noreferrer" class="text-brand-primary hover:underline">
 												{att.filename}
 											</a>
 										</Text>
@@ -329,7 +329,12 @@ export async function MessagesPage({
 		>
 			<PageLayout maxWidth="7xl">
 				<VStack gap={6}>
-					<Heading level={1}>Message Tools</Heading>
+					<VStack gap={2}>
+						<Heading level={1}>Message Tools</Heading>
+						<Text color="muted" size="sm">
+							Look up a message by channel/message ID or by attachment, and delete individual messages when needed.
+						</Text>
+					</VStack>
 
 					{lookupResult && <LookupResult config={config} result={lookupResult} />}
 

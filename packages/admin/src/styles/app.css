@@ -21,33 +21,145 @@
 
 @source "../../../ui/src/**/*.tsx";
 
+/*
+ * Multiverse Admin — Vanguard Theme
+ * Palette: Obsidian / Steel Charcoal / Solana Gradient (Purple -> Green)
+ *
+ * Ported from fluxer_app/src/styles/multiverse-theme.css (source of truth for
+ * brand tokens) and adapted for a dense, server-rendered admin console:
+ * gradients stay on chrome (buttons, active nav pills, header wash, glow
+ * accents) — never on paragraph text or dense data tables. Flat brand green
+ * is used for links/focus rings/small glyphs.
+ *
+ * The Tailwind `neutral-*` scale below is deliberately inverted (50 = darkest
+ * surface, 900 = brightest text) so the large existing body of `bg-neutral-*`
+ * / `text-neutral-*` utility usage across admin's pages and shared `@fluxer/ui`
+ * components repaints as a coherent dark theme without a full rewrite of every
+ * call site. `bg-white`, pastel semantic colors (`bg-blue-50` etc.), and a
+ * handful of literal `gray-*` usages sit outside that scale and are patched
+ * at their call sites.
+ */
+
 @theme {
 	--font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
 	--font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
 	--font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-	--color-brand-primary: hsl(242 70% 55%);
-	--color-brand-primary-rgb: 93 79 192;
+
+	/* Brand accent — Solana purple -> green (utilities: bg-brand-primary, text-brand-primary, ...) */
+	--color-brand-primary: #14f195;
+	--color-brand-primary-light: #6fffc2;
+	--color-brand-secondary: #9945ff;
+	--color-brand-primary-rgb: 20 241 149;
+
+	/* Inverted neutral scale — dark surfaces (low numbers) to bright text (high numbers) */
+	--color-neutral-50: #171c27;
+	--color-neutral-100: #1c2230;
+	--color-neutral-200: #262e40;
+	--color-neutral-300: #333c52;
+	--color-neutral-400: #6b7690;
+	--color-neutral-500: #8b95ab;
+	--color-neutral-600: #aab3c4;
+	--color-neutral-700: #cdd3de;
+	--color-neutral-800: #e2e6ec;
+	--color-neutral-900: #f4f6f9;
+	--color-neutral-950: #fafbfc;
 }
 
 :root {
-	--brand-primary: hsl(242 70% 55%);
-	--font-bricolage: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+	/* Core backgrounds — Obsidian / Steel Charcoal */
+	--background-primary: #0b0e14;
+	--background-secondary: #151921;
+	--background-secondary-lighter: #1a202c;
+	--background-tertiary: #111520;
+
+	/* Brand accent aliases (plain CSS vars, mirrors fluxer_app's theme file) */
+	--brand-primary: #14f195;
+	--brand-secondary: #9945ff;
+	--brand-primary-light: #6fffc2;
+	--brand-primary-fill: rgba(20, 241, 149, 0.15);
+	--accent-primary: #14f195;
+	--accent-primary-strong: #6fffc2;
+
+	/* Full gradient — chrome only (buttons, active pills, header wash, glow) */
+	--gradient-brand: linear-gradient(90deg, #9945ff 0%, #5799cb 33%, #3bbeb6 66%, #14f195 100%);
+
+	/* Glass-card accents */
+	--vanguard-glass-border: rgba(130, 130, 220, 0.16);
+	--vanguard-glass-glow-a: rgba(153, 69, 255, 0.06);
+	--vanguard-glass-glow-b: rgba(20, 241, 149, 0.05);
+
+	/* Buttons */
+	--button-primary-fill: #14f195;
+	--button-primary-active-fill: #0fd684;
+	--button-primary-text: #0b0e14;
+
+	/* Focus ring — brand green (kept flat/single-hue for clear a11y focus indication) */
+	--focus-primary: #14f195;
+
+	/* Border radius — polished */
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-lg: 8px;
+	--radius-xl: 10px;
+
+	/* Scrollbars — brand-green-tinted minimal */
+	--scrollbar-thumb-bg: rgba(20, 241, 149, 0.25);
+	--scrollbar-thumb-bg-hover: rgba(20, 241, 149, 0.5);
+	--scrollbar-track-bg: transparent;
+
+	/* Legacy alias kept for anything still reading it directly */
+	--brand-primary-legacy-rgb: 20 241 149;
 }
 
 html,
 body {
 	height: 100%;
 	overflow: hidden;
+	background-color: var(--background-primary);
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: var(--font-display);
 }
 
+/* ── Thin brand-tinted scrollbars (page-wide) ────────────────────────── */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-track-bg);
+}
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+::-webkit-scrollbar-track {
+	background: var(--scrollbar-track-bg);
+}
+::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-thumb-bg);
+	border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--scrollbar-thumb-bg-hover);
+}
+
+/* ── Vanguard Card — Glassmorphism utility (ported from fluxer_app) ──── */
+.vanguard-card {
+	background-color: rgba(11, 14, 20, 0.82);
+	backdrop-filter: blur(24px);
+	-webkit-backdrop-filter: blur(24px);
+	border: 1px solid var(--vanguard-glass-border);
+	border-radius: 1rem;
+	box-shadow:
+		0 25px 50px -12px rgb(0 0 0 / 0.6),
+		0 0 60px var(--vanguard-glass-glow-a),
+		0 0 90px var(--vanguard-glass-glow-b);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
 .btn {
-	--btn-highlight: rgba(255, 255, 255, 0.1);
-	--btn-edge: rgba(0, 0, 0, 0.25);
-	--btn-shadow: rgba(0, 0, 0, 0.2);
+	--btn-highlight: rgba(255, 255, 255, 0.08);
+	--btn-edge: rgba(0, 0, 0, 0.35);
+	--btn-shadow: rgba(0, 0, 0, 0.3);
 
 	display: inline-flex;
 	align-items: center;
@@ -55,7 +167,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 14px;
 	font-weight: 600;
 	line-height: 20px;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	border: none;
 	cursor: pointer;
 	appearance: none;
@@ -66,7 +178,8 @@ h1, h2, h3, h4, h5, h6 {
 		background-color 0.15s ease,
 		color 0.15s ease,
 		transform 0.1s ease,
-		box-shadow 0.1s ease;
+		box-shadow 0.1s ease,
+		filter 0.15s ease;
 	box-shadow:
 		inset 0 1px 0 0 var(--btn-highlight),
 		0 2px 0 0 var(--btn-edge),
@@ -75,8 +188,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn:hover:not(:disabled) {
 	--btn-highlight: rgba(255, 255, 255, 0.12);
-	--btn-edge: rgba(0, 0, 0, 0.3);
-	--btn-shadow: rgba(0, 0, 0, 0.25);
+	--btn-edge: rgba(0, 0, 0, 0.4);
+	--btn-shadow: rgba(0, 0, 0, 0.35);
 	box-shadow:
 		inset 0 1px 0 0 var(--btn-highlight),
 		0 2px 0 0 var(--btn-edge),
@@ -84,9 +197,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn:active:not(:disabled) {
-	--btn-highlight: rgba(255, 255, 255, 0.05);
+	--btn-highlight: rgba(255, 255, 255, 0.04);
 	--btn-edge: transparent;
-	--btn-shadow: rgba(0, 0, 0, 0.15);
+	--btn-shadow: rgba(0, 0, 0, 0.2);
 	transform: translateY(2px);
 	box-shadow:
 		inset 0 1px 0 0 var(--btn-highlight),
@@ -100,7 +213,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn:focus-visible {
-	outline: 2px solid var(--brand-primary);
+	outline: 2px solid var(--focus-primary);
 	outline-offset: 2px;
 }
 
@@ -137,82 +250,80 @@ h1, h2, h3, h4, h5, h6 {
 	width: 100%;
 }
 
+/* Primary — full Solana gradient fill, dark text (WCAG AA across the gradient) */
 .btn-primary {
-	--btn-highlight: rgba(255, 255, 255, 0.15);
-	--btn-edge: color-mix(in srgb, var(--brand-primary) 70%, #000);
-	--btn-shadow: rgba(0, 0, 0, 0.25);
-	background-color: var(--brand-primary);
-	color: white;
+	--btn-highlight: rgba(255, 255, 255, 0.25);
+	--btn-edge: rgba(0, 0, 0, 0.3);
+	--btn-shadow: rgba(20, 241, 149, 0.18);
+	background: var(--gradient-brand);
+	color: var(--button-primary-text);
+	font-weight: 700;
 }
 
 .btn-primary:hover:not(:disabled) {
-	--btn-highlight: rgba(255, 255, 255, 0.18);
-	--btn-edge: color-mix(in srgb, var(--brand-primary) 60%, #000);
-	--btn-shadow: rgba(0, 0, 0, 0.3);
-	background-color: color-mix(in srgb, var(--brand-primary) 90%, #000);
+	--btn-highlight: rgba(255, 255, 255, 0.3);
+	--btn-shadow: rgba(20, 241, 149, 0.28);
+	filter: brightness(1.1);
 }
 
 .btn-primary:active:not(:disabled) {
-	background-color: color-mix(in srgb, var(--brand-primary) 85%, #000);
+	filter: brightness(0.96);
 }
 
 .btn-secondary {
-	--btn-highlight: rgba(255, 255, 255, 0.5);
-	--btn-edge: rgba(0, 0, 0, 0.08);
-	--btn-shadow: rgba(0, 0, 0, 0.06);
-	background-color: #f4f4f5;
-	color: #18181b;
+	--btn-highlight: rgba(255, 255, 255, 0.06);
+	--btn-edge: rgba(0, 0, 0, 0.3);
+	--btn-shadow: rgba(0, 0, 0, 0.2);
+	background-color: var(--background-secondary-lighter);
+	color: var(--color-neutral-700);
+	border: 1px solid var(--vanguard-glass-border);
 }
 
 .btn-secondary:hover:not(:disabled) {
-	--btn-highlight: rgba(255, 255, 255, 0.6);
-	--btn-edge: rgba(0, 0, 0, 0.1);
-	--btn-shadow: rgba(0, 0, 0, 0.08);
-	background-color: #e4e4e7;
+	background-color: color-mix(in srgb, var(--background-secondary-lighter) 85%, white);
+	color: var(--color-neutral-900);
 }
 
 .btn-secondary:active:not(:disabled) {
-	--btn-highlight: rgba(255, 255, 255, 0.3);
-	--btn-shadow: rgba(0, 0, 0, 0.04);
-	background-color: #d4d4d8;
+	background-color: var(--background-secondary);
 }
 
 .btn-danger {
 	--btn-highlight: rgba(255, 255, 255, 0.12);
 	--btn-edge: color-mix(in srgb, #dc2626 70%, #000);
-	--btn-shadow: rgba(0, 0, 0, 0.25);
-	background-color: #dc2626;
+	--btn-shadow: rgba(220, 38, 38, 0.25);
+	background-color: #ef4444;
 	color: white;
 }
 
 .btn-danger:hover:not(:disabled) {
 	--btn-highlight: rgba(255, 255, 255, 0.15);
 	--btn-edge: color-mix(in srgb, #b91c1c 70%, #000);
-	--btn-shadow: rgba(0, 0, 0, 0.3);
-	background-color: #b91c1c;
+	--btn-shadow: rgba(220, 38, 38, 0.35);
+	background-color: #dc2626;
 }
 
 .btn-danger:active:not(:disabled) {
-	background-color: #991b1b;
+	background-color: #b91c1c;
 }
 
 .btn-success {
 	--btn-highlight: rgba(255, 255, 255, 0.12);
 	--btn-edge: color-mix(in srgb, #16a34a 70%, #000);
-	--btn-shadow: rgba(0, 0, 0, 0.25);
-	background-color: #16a34a;
-	color: white;
+	--btn-shadow: rgba(16, 185, 129, 0.25);
+	background-color: #10b981;
+	color: #06281c;
 }
 
 .btn-success:hover:not(:disabled) {
 	--btn-highlight: rgba(255, 255, 255, 0.15);
 	--btn-edge: color-mix(in srgb, #15803d 70%, #000);
-	--btn-shadow: rgba(0, 0, 0, 0.3);
-	background-color: #15803d;
+	--btn-shadow: rgba(16, 185, 129, 0.35);
+	background-color: #34d399;
 }
 
 .btn-success:active:not(:disabled) {
-	background-color: #166534;
+	background-color: #059669;
 }
 
 .btn-ghost {
@@ -220,18 +331,18 @@ h1, h2, h3, h4, h5, h6 {
 	--btn-edge: transparent;
 	--btn-shadow: transparent;
 	background-color: transparent;
-	color: #52525b;
+	color: var(--color-neutral-500);
 	box-shadow: none;
 }
 
 .btn-ghost:hover:not(:disabled) {
-	background-color: #f4f4f5;
-	color: #18181b;
+	background-color: var(--background-secondary-lighter);
+	color: var(--color-neutral-900);
 	box-shadow: none;
 }
 
 .btn-ghost:active:not(:disabled) {
-	background-color: #e4e4e7;
+	background-color: var(--background-tertiary);
 	box-shadow: none;
 	transform: none;
 }
@@ -276,33 +387,36 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
+/* ── Custom checkbox — brand green fill when checked ─────────────────── */
 .checkbox-custom {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 1.5px solid #d4d4d8;
+	border: 1.5px solid var(--color-neutral-300);
 	border-radius: 6px;
 	width: 20px;
 	height: 20px;
-	background-color: white;
-	color: white;
+	background-color: var(--background-secondary-lighter);
+	color: var(--button-primary-text);
 	transition: all 150ms ease-in-out;
 }
 
 .group:hover .checkbox-custom {
-	border-color: #a1a1aa;
+	border-color: var(--color-neutral-400);
 }
 
 input:checked + .checkbox-custom {
 	background-color: var(--brand-primary);
 	border-color: var(--brand-primary);
+	box-shadow: 0 0 0 3px var(--brand-primary-fill);
 }
 
+/* ── Range slider — brand green fill/thumb ───────────────────────────── */
 .slider-input {
 	--slider-percent: 0%;
-	--slider-track-bg: #e5e5e5;
-	--slider-fill-bg: #18181b;
-	--slider-thumb-bg: #18181b;
+	--slider-track-bg: var(--color-neutral-200);
+	--slider-fill-bg: var(--brand-primary);
+	--slider-thumb-bg: var(--brand-primary);
 	--slider-thumb-size: 16px;
 	--slider-track-height: 8px;
 
@@ -324,9 +438,9 @@ input:checked + .checkbox-custom {
 	height: var(--slider-thumb-size);
 	background: var(--slider-thumb-bg);
 	border-radius: 50%;
-	border: none;
+	border: 2px solid var(--background-primary);
 	cursor: pointer;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 0 1px var(--brand-primary-fill), 0 1px 3px rgba(0, 0, 0, 0.5);
 	transition: transform 0.1s ease;
 }
 
@@ -351,20 +465,20 @@ input:checked + .checkbox-custom {
 	height: var(--slider-thumb-size);
 	background: var(--slider-thumb-bg);
 	border-radius: 50%;
-	border: none;
+	border: 2px solid var(--background-primary);
 	cursor: pointer;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .slider-input:focus-visible {
-	outline: 2px solid var(--brand-primary);
+	outline: 2px solid var(--focus-primary);
 	outline-offset: 2px;
 }
 
 .slider-input:disabled {
-	--slider-track-bg: #f5f5f5;
-	--slider-fill-bg: #a3a3a3;
-	--slider-thumb-bg: #a3a3a3;
+	--slider-track-bg: var(--color-neutral-100);
+	--slider-fill-bg: var(--color-neutral-400);
+	--slider-thumb-bg: var(--color-neutral-400);
 }
 
 .slider-input:disabled::-webkit-slider-thumb {
@@ -375,9 +489,10 @@ input:checked + .checkbox-custom {
 	cursor: not-allowed;
 }
 
+/* ── Sidebar scrollbar ────────────────────────────────────────────────── */
 .sidebar-scrollbar {
 	scrollbar-width: thin;
-	scrollbar-color: #475569 #020617;
+	scrollbar-color: var(--scrollbar-thumb-bg) transparent;
 }
 
 .sidebar-scrollbar::-webkit-scrollbar {
@@ -385,12 +500,16 @@ input:checked + .checkbox-custom {
 }
 
 .sidebar-scrollbar::-webkit-scrollbar-track {
-	background: #020617;
+	background: transparent;
 }
 
 .sidebar-scrollbar::-webkit-scrollbar-thumb {
-	background-color: #475569;
+	background-color: var(--scrollbar-thumb-bg);
 	border-radius: 999px;
 	border: 2px solid transparent;
 	background-clip: content-box;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+	background-color: var(--scrollbar-thumb-bg-hover);
 }

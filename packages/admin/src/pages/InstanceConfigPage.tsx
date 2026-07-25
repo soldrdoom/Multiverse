@@ -199,12 +199,14 @@ const ConfigForm: FC<{config: Config; instanceConfig: InstanceConfigResponse; cs
 									name="manual_review_schedule_start_hour_utc"
 									value={instanceConfig.manual_review_schedule_start_hour_utc.toString()}
 									options={hourOptions}
+									helper="Only applies while schedule-based activation is enabled above."
 								/>
 								<Select
 									label="End Hour (UTC)"
 									name="manual_review_schedule_end_hour_utc"
 									value={instanceConfig.manual_review_schedule_end_hour_utc.toString()}
 									options={hourOptions}
+									helper="Only applies while schedule-based activation is enabled above."
 								/>
 							</Grid>
 						</Stack>
@@ -267,6 +269,10 @@ const SsoConfigForm: FC<{config: Config; sso: SsoConfigResponse; csrfToken: stri
 								label="Automatically provision users on first SSO login"
 								checked={sso.auto_provision}
 							/>
+							<Caption>
+								When enabled, a new account is created automatically the first time someone signs in via SSO. When
+								disabled, only users who already have an account can log in through SSO.
+							</Caption>
 						</Stack>
 
 						<Grid cols={2} gap="md">
@@ -348,6 +354,7 @@ const SsoConfigForm: FC<{config: Config; sso: SsoConfigResponse; csrfToken: stri
 								type="text"
 								value={sso.scope ?? ''}
 								placeholder="openid email profile"
+								helper="Space-separated OAuth scopes requested from the IdP. Must include openid."
 							/>
 							<Input
 								label="Redirect URI"
@@ -495,7 +502,11 @@ const AddSnowflakeReservationForm: FC<{config: Config; csrfToken: string}> = ({c
 				>
 					<Input id="reservation-email" name="reservation_email" type="email" placeholder="user@example.com" />
 				</FormFieldGroup>
-				<FormFieldGroup label="Snowflake ID" htmlFor="reservation-snowflake">
+				<FormFieldGroup
+					label="Snowflake ID"
+					htmlFor="reservation-snowflake"
+					helper="The exact user ID this email will be assigned when they register — useful for pre-committing a vanity/low ID for a trusted tester."
+				>
 					<Input id="reservation-snowflake" name="reservation_snowflake" type="text" placeholder="123456789012345678" />
 				</FormFieldGroup>
 				<Button type="submit" variant="primary">

@@ -59,6 +59,7 @@ import {
 	UnlinkPhoneRequest,
 	UpdateSuspiciousActivityFlagsRequest,
 	UpdateUserFlagsRequest,
+	UpdateUserVisionaryRequest,
 	UserMutationResponse,
 	VerifyUserEmailRequest,
 } from '@fluxer/schema/src/domains/admin/AdminUserSchemas';
@@ -622,6 +623,29 @@ export function UserAdminController(app: HonoApp) {
 					auditLogReason,
 				}),
 			);
+		},
+	);
+
+	app.post(
+		'/admin/users/update-visionary',
+		RateLimitMiddleware(RateLimitConfigs.ADMIN_USER_MODIFY),
+		requireAdminACL(AdminACLs.USER_UPDATE_PREMIUM),
+		Validator('json', UpdateUserVisionaryRequest),
+		OpenAPI({
+			operationId: 'update_user_visionary',
+			summary: 'Grant or revoke Visionary status',
+			responseSchema: UserMutationResponse,
+			statusCode: 200,
+			security: 'adminApiKey',
+			tags: 'Admin',
+			description:
+				'Grant or revoke the lifetime "Visionary" premium badge for a user. Creates audit log entry. Requires USER_UPDATE_PREMIUM permission.',
+		}),
+		async (ctx) => {
+			const adminService = ctx.get('adminService');
+			const adminUserId = ctx.get('adminUserId');
+			const auditLogReason = ctx.get('auditLogReason');
+			return ctx.json(await adminService.updateUserVisionary(ctx.req.valid('json'), adminUserId, auditLogReason));
 		},
 	);
 

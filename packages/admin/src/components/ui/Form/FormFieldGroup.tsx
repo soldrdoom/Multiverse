@@ -56,7 +56,7 @@ export function FormFieldGroup(props: FormFieldGroupProps) {
 			<div class="flex flex-col gap-1">
 				{children}
 				{error && (
-					<p class="flex items-center gap-1 text-red-600 text-sm">
+					<p class="flex items-center gap-1 text-red-400 text-sm">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 20 20"

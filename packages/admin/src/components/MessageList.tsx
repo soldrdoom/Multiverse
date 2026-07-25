@@ -60,7 +60,7 @@ const MessageRow: FC<MessageRowProps> = ({basePath, message, includeDeleteButton
 		<div class="flex-shrink-0 pt-0.5">
 			<a
 				href={`${basePath}/users/${message.author_id}`}
-				class="cursor-pointer text-neutral-900 text-xs hover:underline"
+				class="cursor-pointer text-brand-primary text-xs hover:text-brand-primary-light hover:underline"
 				title={message.author_id}
 			>
 				{formatUserTag(message.author_username, message.author_discriminator)}
@@ -74,7 +74,7 @@ const MessageRow: FC<MessageRowProps> = ({basePath, message, includeDeleteButton
 					{message.attachments.map((att) => (
 						<div class="flex items-center gap-1 text-xs">
 							<PaperclipIcon color="text-neutral-500" />
-							<a href={att.url} target="_blank" class="text-blue-600 hover:underline">
+							<a href={att.url} target="_blank" class="text-brand-primary hover:text-brand-primary-light hover:underline">
 								{att.filename}
 							</a>
 						</div>
@@ -111,7 +111,7 @@ const MessageRow: FC<MessageRowProps> = ({basePath, message, includeDeleteButton
 			<div class="flex-shrink-0 opacity-0 transition-opacity group-hover:opacity-100">
 				<button
 					type="button"
-					class="rounded px-2 py-1 text-red-600 text-xs transition-colors hover:bg-red-50 hover:text-red-700"
+					class="rounded px-2 py-1 text-red-400 text-xs transition-colors hover:bg-red-500/10 hover:text-red-300"
 					title="Delete message"
 					onclick={`deleteMessage('${message.channel_id}', '${message.id}', this)`}
 				>
@@ -174,7 +174,7 @@ function deleteMessage(channelId, messageId, button) {
       }
       const buttonContainer = button.parentElement;
       const deletedBadge = document.createElement('span');
-      deletedBadge.className = 'px-2 py-1 bg-red-100 text-red-800 text-xs rounded opacity-100';
+      deletedBadge.className = 'px-2 py-1 bg-red-500/15 text-red-300 text-xs rounded opacity-100';
       deletedBadge.textContent = 'DELETED';
       button.replaceWith(deletedBadge);
       if (buttonContainer) {

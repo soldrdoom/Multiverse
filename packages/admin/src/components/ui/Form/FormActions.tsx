@@ -35,7 +35,7 @@ export function FormActions(props: FormActionsProps) {
 	const {submitText = 'Submit', cancelText = 'Cancel', loading = false, cancelHref, class: className} = props;
 
 	return (
-		<div class={cn('flex items-center justify-end gap-3 border-gray-200 border-t pt-4', className)}>
+		<div class={cn('flex items-center justify-end gap-3 border-neutral-200 border-t pt-4', className)}>
 			{cancelHref && (
 				<Button variant="secondary" href={cancelHref} disabled={loading}>
 					{cancelText}

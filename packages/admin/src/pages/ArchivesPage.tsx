@@ -71,7 +71,7 @@ function getStatusLabel(archive: Archive): string {
 
 const ArchiveTable: FC<{archives: Array<Archive>; config: Config}> = ({archives, config}) => {
 	return (
-		<div class="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+		<div class="overflow-hidden rounded-lg border border-neutral-200 bg-[var(--background-secondary)]">
 			<Table>
 				<TableHead>
 					<tr>
@@ -177,7 +177,10 @@ export async function ArchivesPage({
 		>
 			<PageLayout maxWidth="7xl">
 				<VStack gap={4}>
-					<PageHeader title={`Archives${filterHint}`} />
+					<PageHeader
+						title={`Archives${filterHint}`}
+						description="Data export archives requested for users and guilds, for compliance or legal requests. Trigger new archives from a user or guild's detail page."
+					/>
 
 					{error ? (
 						<ErrorAlert error={error} />

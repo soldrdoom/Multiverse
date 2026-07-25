@@ -69,9 +69,15 @@ export function ModerationTab({
 			<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 				<Card padding="md">
 					<VStack gap={4}>
-						<Heading level={2} size="base">
-							Ban Actions
-						</Heading>
+						<VStack gap={1}>
+							<Heading level={2} size="base">
+								Ban Actions
+							</Heading>
+							<Text size="sm" color="muted">
+								Temporarily suspend this account from logging in, or lift an existing suspension. Bans expire
+								automatically after the chosen duration.
+							</Text>
+						</VStack>
 						{user.temp_banned_until ? (
 							<form
 								method="post"
@@ -128,9 +134,15 @@ export function ModerationTab({
 
 				<Card padding="md">
 					<VStack gap={4}>
-						<Heading level={2} size="base">
-							Account Deletion
-						</Heading>
+						<VStack gap={1}>
+							<Heading level={2} size="base">
+								Account Deletion
+							</Heading>
+							<Text size="sm" color="muted">
+								Schedules this account for permanent deletion after a cooling-off period, or cancels a pending one. Once
+								the countdown elapses, the account and its data are removed — this cannot be undone after that point.
+							</Text>
+						</VStack>
 						{user.pending_deletion_at ? (
 							<form
 								method="post"
@@ -374,7 +386,7 @@ const MessageShredStatusSection: FC<MessageShredStatusSectionProps> = ({config, 
 	}
 
 	return (
-		<VStack gap={3} class="rounded-lg border border-neutral-200 bg-white p-4">
+		<VStack gap={3} class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-4">
 			<HStack justify="between" align="center">
 				<Heading level={2} size="sm" class="font-medium">
 					Message Shred Status
@@ -433,7 +445,7 @@ const MessageShredStatusContent: FC<{status: MessageShredStatusResponse}> = ({st
 						</span>
 					</HStack>
 					<div class="h-2 w-full overflow-hidden rounded-full bg-neutral-200">
-						<div class="h-2 bg-neutral-900 transition-[width] duration-300" style={`width: ${percentage}%`} />
+						<div class="h-2 transition-[width] duration-300" style={`width: ${percentage}%; background: var(--gradient-brand)`} />
 					</div>
 				</VStack>
 			)}
@@ -448,9 +460,9 @@ const MessageShredStatusContent: FC<{status: MessageShredStatusResponse}> = ({st
 			{status.completed_at && (
 				<Caption class="text-neutral-500">Completed {formatTimestampLocal(status.completed_at)}</Caption>
 			)}
-			{status.failed_at && <Caption class="text-red-600">Failed {formatTimestampLocal(status.failed_at)}</Caption>}
+			{status.failed_at && <Caption class="text-red-400">Failed {formatTimestampLocal(status.failed_at)}</Caption>}
 			{status.error && (
-				<Text size="sm" class="text-red-600">
+				<Text size="sm" class="text-red-400">
 					{status.error}
 				</Text>
 			)}

@@ -100,7 +100,7 @@ const GuildCard: FC<{config: Config; guild: GuildAdminResponse}> = ({config, gui
 	const iconUrl = getGuildIconUrl(config.mediaEndpoint, guild.id, guild.icon, true);
 
 	return (
-		<div class="overflow-hidden rounded-lg border border-neutral-200 bg-white transition-colors hover:border-neutral-300">
+		<div class="overflow-hidden rounded-lg border border-neutral-200 bg-[var(--background-secondary)] transition-colors hover:border-neutral-300">
 			<div class="p-5">
 				<div class="flex items-center gap-4">
 					{iconUrl ? (
@@ -120,7 +120,7 @@ const GuildCard: FC<{config: Config; guild: GuildAdminResponse}> = ({config, gui
 								{guild.name}
 							</Heading>
 							{guild.features.length > 0 && (
-								<span class="rounded bg-purple-100 px-2 py-0.5 text-purple-700 text-xs uppercase">Featured</span>
+								<span class="rounded bg-purple-500/15 px-2 py-0.5 text-purple-300 text-xs uppercase">Featured</span>
 							)}
 						</div>
 						<Stack gap="sm">
@@ -134,7 +134,7 @@ const GuildCard: FC<{config: Config; guild: GuildAdminResponse}> = ({config, gui
 								Owner:{' '}
 								<a
 									href={`${config.basePath}/users/${guild.owner_id}`}
-									class="transition-colors hover:text-blue-600 hover:underline"
+									class="transition-colors hover:text-brand-primary hover:underline"
 								>
 									{guild.owner_id}
 								</a>
@@ -183,7 +183,7 @@ const GuildsPagination: FC<GuildsPaginationProps> = ({config, userId, guilds, li
 			{prevPath && (
 				<a
 					href={prevPath}
-					class="rounded px-3 py-1 font-medium text-neutral-600 text-sm transition-colors hover:bg-white hover:text-neutral-900"
+					class="rounded px-3 py-1 font-medium text-neutral-600 text-sm transition-colors hover:bg-neutral-100 hover:text-neutral-900"
 				>
 					Previous
 				</a>
@@ -191,7 +191,7 @@ const GuildsPagination: FC<GuildsPaginationProps> = ({config, userId, guilds, li
 			{nextPath && (
 				<a
 					href={nextPath}
-					class="rounded px-3 py-1 font-medium text-neutral-600 text-sm transition-colors hover:bg-white hover:text-neutral-900"
+					class="rounded px-3 py-1 font-medium text-neutral-600 text-sm transition-colors hover:bg-neutral-100 hover:text-neutral-900"
 				>
 					Next
 				</a>

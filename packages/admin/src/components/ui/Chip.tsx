@@ -32,8 +32,9 @@ export function Chip({active = false, href, children}: PropsWithChildren<ChipPro
 	const chipClasses = clsx(
 		'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-medium text-sm transition-colors no-underline',
 		{
-			'border-brand-primary bg-brand-primary text-white': active,
-			'border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:bg-neutral-50': !active,
+			'border-transparent bg-brand-primary text-[var(--button-primary-text)]': active,
+			'border-neutral-200 bg-[var(--background-secondary)] text-neutral-400 hover:border-neutral-300 hover:text-neutral-100':
+				!active,
 		},
 	);
 

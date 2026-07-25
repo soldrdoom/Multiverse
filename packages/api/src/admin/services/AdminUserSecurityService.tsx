@@ -29,7 +29,7 @@ import type {UserContactChangeLogService} from '@fluxer/api/src/user/services/Us
 import {getIpAddressReverse, getLocationLabelFromIp} from '@fluxer/api/src/utils/IpUtils';
 import {resolveSessionClientInfo} from '@fluxer/api/src/utils/UserAgentUtils';
 import type {ICacheService} from '@fluxer/cache/src/ICacheService';
-import {UserFlags} from '@fluxer/constants/src/UserConstants';
+import {UserFlags, UserPremiumTypes} from '@fluxer/constants/src/UserConstants';
 import {ValidationErrorCodes} from '@fluxer/constants/src/ValidationErrorCodes';
 import type {IEmailService} from '@fluxer/email/src/IEmailService';
 import {InputValidationError} from '@fluxer/errors/src/domains/core/InputValidationError';
@@ -48,6 +48,7 @@ import type {
 	TerminateSessionsRequest,
 	UnlinkPhoneRequest,
 	UpdateSuspiciousActivityFlagsRequest,
+	UpdateUserVisionaryRequest,
 } from '@fluxer/schema/src/domains/admin/AdminUserSchemas';
 import type {WebAuthnCredentialListResponse} from '@fluxer/schema/src/domains/auth/AuthSchemas';
 
@@ -115,6 +116,38 @@ export class AdminUserSecurityService {
 					] as Array<[string, string]>
 				).filter(([_, v]) => v.length > 0),
 			),
+		});
+
+		return {
+			user: await mapUserToAdminResponse(updatedUser, this.deps.cacheService),
+		};
+	}
+
+	async updateUserVisionary(data: UpdateUserVisionaryRequest, adminUserId: UserID, auditLogReason: string | null) {
+		const {userRepository, auditService, updatePropagator} = this.deps;
+		const userId = createUserID(data.user_id);
+		const user = await userRepository.findUnique(userId);
+		if (!user) {
+			throw new UnknownUserError();
+		}
+
+		const updatedUser = await userRepository.patchUpsert(
+			userId,
+			data.granted
+				? {premium_type: UserPremiumTypes.LIFETIME, premium_since: new Date()}
+				: {premium_type: UserPremiumTypes.NONE, premium_since: null},
+			user.toRow(),
+		);
+
+		await updatePropagator.propagateUserUpdate({userId, oldUser: user, updatedUser: updatedUser});
+
+		await auditService.createAuditLog({
+			adminUserId,
+			targetType: 'user',
+			targetId: BigInt(userId),
+			action: data.granted ? 'grant_visionary' : 'revoke_visionary',
+			auditLogReason,
+			metadata: new Map(),
 		});
 
 		return {

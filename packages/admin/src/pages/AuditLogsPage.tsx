@@ -446,6 +446,7 @@ export async function AuditLogsPage({
 					<VStack gap={6}>
 						<PageHeader
 							title="Audit Logs"
+							description="Every admin action taken across the platform, in order — who did it, what it touched, and why."
 							actions={
 								<Text size="sm" color="muted">
 									Showing {result.data.logs.length} of {result.data.total} entries
@@ -478,7 +479,10 @@ export async function AuditLogsPage({
 	) : (
 		<PageLayout maxWidth="7xl">
 			<VStack gap={6}>
-				<PageHeader title="Audit Logs" />
+				<PageHeader
+					title="Audit Logs"
+					description="Every admin action taken across the platform, in order — who did it, what it touched, and why."
+				/>
 				<ErrorAlert error={getErrorMessage(result.error)} />
 			</VStack>
 		</PageLayout>

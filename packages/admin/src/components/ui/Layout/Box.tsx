@@ -37,16 +37,16 @@ export interface BoxProps {
 }
 
 const backgroundClasses: Record<BoxBackground, string> = {
-	white: 'bg-white',
-	'gray-50': 'bg-gray-50',
-	'gray-100': 'bg-gray-100',
+	white: 'bg-[var(--background-secondary)]',
+	'gray-50': 'bg-neutral-50',
+	'gray-100': 'bg-neutral-100',
 	transparent: 'bg-transparent',
 };
 
 const borderClasses: Record<BoxBorder, string> = {
 	none: '',
-	'gray-200': 'border border-gray-200',
-	'gray-300': 'border border-gray-300',
+	'gray-200': 'border border-neutral-200',
+	'gray-300': 'border border-neutral-300',
 };
 
 const roundedClasses: Record<BoxRounded, string> = {

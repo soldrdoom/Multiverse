@@ -202,6 +202,7 @@ const SuccessView: FC<{
 		<VStack gap={6}>
 			<PageHeader
 				title="Gateway"
+				description="Live realtime gateway node stats and the top 100 guilds by memory usage — reload guild state if it's gone stale."
 				actions={
 					canReloadAll && (
 						<form method="post" action={`${config.basePath}/gateway?action=reload_all`}>
@@ -222,7 +223,7 @@ const SuccessView: FC<{
 
 			{nodeStats && <NodeStatsSection stats={nodeStats} />}
 
-			<div class="rounded-lg border border-neutral-200 bg-white shadow-sm">
+			<div class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] shadow-sm">
 				<VStack gap={2} class="border-neutral-200 border-b p-6">
 					<Heading level={2}>Guild Memory Leaderboard (Top 100)</Heading>
 					<Text size="sm" color="muted">

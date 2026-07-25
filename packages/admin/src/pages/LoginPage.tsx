@@ -25,7 +25,6 @@ import {VStack} from '@fluxer/admin/src/components/ui/Layout/VStack';
 import {Heading} from '@fluxer/admin/src/components/ui/Typography';
 import type {AdminConfig as Config} from '@fluxer/admin/src/types/Config';
 import {Button} from '@fluxer/ui/src/components/Button';
-import {Card} from '@fluxer/ui/src/components/Card';
 export interface LoginPageProps {
 	config: Config;
 	errorMessage: string | undefined;
@@ -40,14 +39,29 @@ export function LoginPage({config, errorMessage}: LoginPageProps) {
 				<title>Login ~ Multiverse Admin</title>
 				<link rel="stylesheet" href={`${config.basePath}/static/app.css`} />
 			</head>
-			<body class="flex min-h-screen items-center justify-center bg-neutral-50 p-4">
+			<body
+				class="flex min-h-screen items-center justify-center bg-[var(--background-primary)] p-4"
+				style={{
+					backgroundImage:
+						'radial-gradient(circle at 15% 15%, color-mix(in srgb, #9945ff 16%, transparent) 0%, transparent 45%), radial-gradient(circle at 85% 85%, color-mix(in srgb, #14f195 14%, transparent) 0%, transparent 45%)',
+				}}
+			>
 				<VStack gap={4} class="w-full max-w-sm">
-					<Card padding="lg">
+					<VStack gap={2} align="center" class="mb-2">
+						<span
+							class="flex h-12 w-12 items-center justify-center rounded-xl font-bold text-[var(--button-primary-text)] text-xl"
+							style={{background: 'var(--gradient-brand)'}}
+						>
+							M
+						</span>
+					</VStack>
+					<div class="vanguard-card p-8">
 						<VStack gap={8}>
-							<VStack gap={2} align="center">
-								<Heading level={1} size="xl">
+							<VStack gap={1} align="center">
+								<Heading level={1} size="xl" class="text-neutral-50">
 									Multiverse Admin
 								</Heading>
+								<p class="text-neutral-500 text-sm">Sign in with your staff account to continue.</p>
 							</VStack>
 
 							{errorMessage && <ErrorAlert error={errorMessage} />}
@@ -56,7 +70,7 @@ export function LoginPage({config, errorMessage}: LoginPageProps) {
 								Sign in with Multiverse
 							</Button>
 						</VStack>
-					</Card>
+					</div>
 				</VStack>
 			</body>
 		</html>

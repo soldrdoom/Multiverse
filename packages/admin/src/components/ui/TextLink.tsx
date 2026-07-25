@@ -37,7 +37,7 @@ export const TextLink: FC<TextLinkProps> = ({
 	mono = false,
 	class: className = '',
 }) => {
-	const baseClass = `text-neutral-900 underline decoration-neutral-300 hover:text-neutral-600 hover:decoration-neutral-500 ${mono ? 'font-mono' : ''} ${className}`;
+	const baseClass = `text-brand-primary underline decoration-brand-primary/30 hover:text-brand-primary-light hover:decoration-brand-primary-light/50 ${mono ? 'font-mono' : ''} ${className}`;
 	const externalProps = external ? {target: '_blank', rel: 'noopener noreferrer'} : {};
 
 	return (

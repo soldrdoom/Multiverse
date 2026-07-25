@@ -589,8 +589,8 @@ const REPORTS_SCRIPT = `
     box.className = 'fixed left-4 right-4 bottom-4 z-50';
     box.innerHTML =
       '<div class="max-w-xl mx-auto">' +
-      '<div class="px-4 py-3 rounded-lg shadow border ' +
-      (ok ? 'bg-green-50 border-green-200 text-green-800' : 'bg-red-50 border-red-200 text-red-800') +
+      '<div class="px-4 py-3 rounded-lg shadow-lg border backdrop-blur-xl ' +
+      (ok ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 'bg-red-500/10 border-red-500/30 text-red-300') +
       '">' +
       '<div class="text-sm font-semibold">' + (ok ? 'Success' : 'Action failed') + '</div>' +
       '<div class="text-sm mt-1 break-words" data-toast-message=""></div>' +
@@ -652,8 +652,8 @@ const REPORTS_SCRIPT = `
       const inner = pill.querySelector('span');
       if (inner) {
         inner.textContent = 'Resolved';
-        inner.classList.remove('bg-yellow-100', 'text-yellow-700');
-        inner.classList.add('bg-green-100', 'text-green-700');
+        inner.classList.remove('bg-amber-500/15', 'text-amber-300', 'border-amber-500/30');
+        inner.classList.add('bg-emerald-500/15', 'text-emerald-300', 'border-emerald-500/30');
       }
     }
     const form = table.querySelector('form[data-report-id="' + reportId + '"]');
@@ -763,6 +763,7 @@ export async function ReportsPage({
 				<div class="mx-auto max-w-7xl">
 					<PageHeader
 						title="Reports"
+						description="User-submitted reports against messages, users, and guilds — filter, review, and resolve them here."
 						actions={
 							<Text size="sm" color="muted">
 								Found {result.data.total} results (showing {sortedReports.length})
@@ -805,7 +806,10 @@ export async function ReportsPage({
 		})()
 	) : (
 		<div class="mx-auto max-w-7xl">
-			<PageHeader title="Reports" />
+			<PageHeader
+				title="Reports"
+				description="User-submitted reports against messages, users, and guilds — filter, review, and resolve them here."
+			/>
 			<Stack gap="6">
 				<Filters
 					config={config}

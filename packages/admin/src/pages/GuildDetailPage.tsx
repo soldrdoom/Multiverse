@@ -99,8 +99,8 @@ const RenderTabs: FC<{config: Config; tabs: Array<Tab>}> = ({config, tabs}) => {
 						href={`${config.basePath}${tab.path}`}
 						class={
 							tab.active
-								? 'border-neutral-900 border-b-2 px-1 py-3 font-medium text-neutral-900 text-sm'
-								: 'px-1 py-3 font-medium text-neutral-500 text-sm hover:border-neutral-300 hover:border-b-2 hover:text-neutral-700'
+								? 'border-[var(--brand-primary)] border-b-2 px-1 py-3 font-medium text-neutral-50 text-sm'
+								: 'px-1 py-3 font-medium text-neutral-500 text-sm hover:border-neutral-300 hover:border-b-2 hover:text-neutral-200'
 						}
 					>
 						{tab.label}
@@ -121,7 +121,7 @@ const RenderArchiveTable: FC<{config: Config; archives: Array<Archive>}> = ({con
 	}
 
 	return (
-		<VStack gap={0} class="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+		<VStack gap={0} class="overflow-hidden rounded-lg border border-neutral-200 bg-[var(--background-secondary)]">
 			<table class="min-w-full divide-y divide-neutral-200">
 				<thead class="bg-neutral-50">
 					<tr>
@@ -173,7 +173,13 @@ const ArchivesTab: FC<{
 	return (
 		<VStack gap={6}>
 			<HStack gap={3} class="flex-wrap items-center justify-between">
-				<Heading level={2}>Guild Archives</Heading>
+				<VStack gap={1}>
+					<Heading level={2}>Guild Archives</Heading>
+					<Text size="sm" color="muted">
+						Exports this guild's data (settings, members, messages) as a downloadable file, e.g. for a compliance or
+						legal request. Generation runs in the background and can take a while for large guilds.
+					</Text>
+				</VStack>
 				<form method="post" action={`${config.basePath}/guilds/${guildId}?tab=archives&action=trigger_archive`}>
 					<CsrfInput token={csrfToken} />
 					<Button type="submit" variant="primary">
@@ -197,7 +203,7 @@ const RenderGuildHeader: FC<{
 	const iconUrl = getGuildIconUrl(config.mediaEndpoint, guild.id, guild.icon, true);
 
 	return (
-		<VStack gap={0} class="mb-6 rounded-lg border border-neutral-200 bg-white p-6">
+		<VStack gap={0} class="mb-6 rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-6">
 			<HStack gap={6} class="flex-col items-start sm:flex-row">
 				{iconUrl ? (
 					<VStack gap={0} class="flex flex-shrink-0 items-center justify-center sm:block">
@@ -233,7 +239,7 @@ const RenderGuildHeader: FC<{
 							</Text>
 							<a
 								href={`${config.basePath}/users/${guild.owner_id}`}
-								class="block text-neutral-900 text-sm hover:text-blue-600 hover:underline"
+								class="block text-neutral-900 text-sm hover:text-brand-primary hover:underline"
 							>
 								{guild.owner_id}
 							</a>
@@ -381,7 +387,7 @@ const RenderGuildContent: FC<{
 const RenderNotFoundContent: FC<{config: Config}> = ({config}) => {
 	return (
 		<VStack gap={0} class="mx-auto max-w-4xl">
-			<VStack gap={6} class="rounded-lg border border-neutral-200 bg-white p-12 text-center">
+			<VStack gap={6} class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-12 text-center">
 				<Heading level={2} size="base">
 					Guild Not Found
 				</Heading>
@@ -398,7 +404,7 @@ const RenderNotFoundContent: FC<{config: Config}> = ({config}) => {
 const RenderApiError: FC<{config: Config; errorMessage: string}> = ({config, errorMessage}) => {
 	return (
 		<VStack gap={0} class="mx-auto max-w-4xl">
-			<VStack gap={6} class="rounded-lg border border-neutral-200 bg-white p-12 text-center">
+			<VStack gap={6} class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-12 text-center">
 				<Heading level={2} size="base">
 					Error
 				</Heading>

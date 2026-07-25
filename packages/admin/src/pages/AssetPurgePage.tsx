@@ -67,7 +67,10 @@ const PurgeForm: FC<{config: Config; csrfToken: string}> = ({config, csrfToken})
 			<form method="post" action={`${config.basePath}/asset-purge?action=purge-assets`}>
 				<VStack gap={4}>
 					<CsrfInput token={csrfToken} />
-					<FormFieldGroup label="IDs" helper="Separate multiple IDs with commas or line breaks.">
+					<FormFieldGroup
+						label="IDs"
+						helper="Separate multiple IDs with commas or line breaks. This permanently deletes the underlying file from storage and CDN caches — it does not remove the emoji/sticker record itself, and there is no undo."
+					>
 						<Textarea
 							id="asset-purge-ids"
 							name="asset_ids"
@@ -77,7 +80,10 @@ const PurgeForm: FC<{config: Config; csrfToken: string}> = ({config, csrfToken})
 							size="sm"
 						/>
 					</FormFieldGroup>
-					<FormFieldGroup label="Audit Log Reason (optional)">
+					<FormFieldGroup
+						label="Audit Log Reason (optional)"
+						helper="Recorded in the audit log for this action; not shown to the guild."
+					>
 						<Input
 							id="asset-purge-audit-log-reason"
 							type="text"

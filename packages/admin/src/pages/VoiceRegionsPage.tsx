@@ -211,7 +211,7 @@ const RegionCard: FC<{config: Config; region: VoiceRegionWithServersResponse; cs
 				</a>
 			</HStack>
 			<details>
-				<summary class="cursor-pointer rounded bg-blue-50 px-4 py-2 font-medium text-blue-700 text-sm transition-colors hover:bg-blue-100">
+				<summary class="cursor-pointer rounded bg-neutral-100 px-4 py-2 font-medium text-neutral-300 text-sm transition-colors hover:bg-neutral-200 hover:text-neutral-100">
 					Edit Region
 				</summary>
 				<VStack gap={3} class="border-neutral-200 border-t pt-3">
@@ -313,6 +313,7 @@ export async function VoiceRegionsPage({
 					<VStack gap={6}>
 						<PageHeader
 							title="Voice Regions"
+							description="Voice/video regions users can select for calls, and the LiveKit servers backing each one."
 							actions={
 								<a href="#create">
 									<Button type="button">Create Region</Button>

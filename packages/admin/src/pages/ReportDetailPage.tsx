@@ -162,7 +162,7 @@ const BasicInfo: FC<{config: Config; report: Report}> = ({config, report}) => {
 	const reporterPrimary = report.reporter_tag ?? report.reporter_email ?? 'Anonymous';
 
 	return (
-		<div class="rounded-lg border border-neutral-200 bg-white p-6">
+		<div class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-6">
 			<h2 class="title-sm mb-4 text-neutral-900">Basic Information</h2>
 			<dl class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 				<InfoRow label="Report ID" value={report.report_id} mono />
@@ -273,7 +273,7 @@ const ReportedEntity: FC<{config: Config; report: Report}> = ({config, report}) 
 	);
 
 	return (
-		<div class="rounded-lg border border-neutral-200 bg-white p-6">
+		<div class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-6">
 			<h2 class="title-sm mb-4 text-neutral-900">Reported Entity</h2>
 			<dl class="grid grid-cols-1 gap-4">
 				{report.report_type === 0 && renderMessageReportEntity()}
@@ -300,7 +300,7 @@ const MessageContextList: FC<{config: Config; messages: Array<MessageContext>}> 
 	}));
 
 	return (
-		<div class="rounded-lg border border-neutral-200 bg-white p-6">
+		<div class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-6">
 			<h2 class="title-sm mb-4 text-neutral-900">Message Context</h2>
 			<MessageList basePath={config.basePath} messages={mappedMessages} includeDeleteButton />
 		</div>
@@ -308,21 +308,21 @@ const MessageContextList: FC<{config: Config; messages: Array<MessageContext>}> 
 };
 
 const AdditionalInfo: FC<{info: string}> = ({info}) => (
-	<div class="rounded-lg border border-neutral-200 bg-white p-6">
+	<div class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-6">
 		<h2 class="title-sm mb-4 text-neutral-900">Additional Information</h2>
 		<p class="whitespace-pre-wrap text-neutral-700">{info}</p>
 	</div>
 );
 
 const StatusCard: FC<{config: Config; report: Report}> = ({config, report}) => (
-	<div class="rounded-lg border border-neutral-200 bg-white p-6">
+	<div class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-6">
 		<h2 class="title-sm mb-4 text-neutral-900">Status</h2>
 		<div class="space-y-3">
 			<div class="text-center">
 				{report.status === 0 && (
 					<span class="subtitle rounded-lg bg-neutral-100 px-4 py-2 text-neutral-700">Pending</span>
 				)}
-				{report.status === 1 && <span class="subtitle rounded-lg bg-green-100 px-4 py-2 text-green-700">Resolved</span>}
+				{report.status === 1 && <span class="subtitle rounded-lg bg-emerald-500/15 px-4 py-2 text-emerald-300">Resolved</span>}
 				{report.status !== 0 && report.status !== 1 && (
 					<span class="subtitle rounded-lg bg-neutral-100 px-4 py-2 text-neutral-700">Unknown</span>
 				)}
@@ -421,7 +421,7 @@ const ActionsCard: FC<{config: Config; report: Report; csrfToken: string}> = ({c
 	};
 
 	return (
-		<div class="rounded-lg border border-neutral-200 bg-white p-6">
+		<div class="rounded-lg border border-neutral-200 bg-[var(--background-secondary)] p-6">
 			<h2 class="title-sm mb-4 text-neutral-900">Actions</h2>
 			<div class="space-y-3">
 				{renderResolveButton()}

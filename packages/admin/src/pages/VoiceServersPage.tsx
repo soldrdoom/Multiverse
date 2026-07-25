@@ -183,7 +183,7 @@ const ServerCard: FC<{config: Config; region_id: string; server: VoiceServerAdmi
 			</form>
 		</HStack>
 		<details class="mt-6">
-			<summary class="cursor-pointer rounded bg-blue-50 px-4 py-2 font-medium text-blue-700 text-sm transition-colors hover:bg-blue-100">
+			<summary class="cursor-pointer rounded bg-neutral-100 px-4 py-2 font-medium text-neutral-300 text-sm transition-colors hover:bg-neutral-200 hover:text-neutral-100">
 				Edit Server
 			</summary>
 			<VStack gap={0} class="mt-3 border-neutral-200 border-t pt-3">
@@ -341,6 +341,10 @@ export async function VoiceServersPage({
 							&larr; Back to Regions
 						</a>
 						<Heading level={1}>Servers: {regionName}</Heading>
+						<Text size="sm" color="muted">
+							LiveKit SFU servers backing this region's call capacity — activate, deactivate, or remove individual
+							servers.
+						</Text>
 					</VStack>
 					<a href="#create">
 						<Button type="button">Add Server</Button>

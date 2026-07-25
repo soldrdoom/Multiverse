@@ -29,7 +29,7 @@ interface NavLinkProps {
 }
 
 export const NavLink: FC<NavLinkProps> = ({href, children, class: className = ''}) => {
-	const baseClass = `label rounded-lg border border-neutral-300 bg-white px-3 py-2 text-neutral-700 transition-colors hover:bg-neutral-50 ${className}`;
+	const baseClass = `label rounded-lg border border-neutral-300 bg-[var(--background-secondary)] px-3 py-2 text-neutral-700 transition-colors hover:border-neutral-400 hover:text-neutral-100 ${className}`;
 
 	return (
 		<a href={href} class={baseClass}>

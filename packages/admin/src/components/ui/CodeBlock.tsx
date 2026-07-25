@@ -43,7 +43,7 @@ function copyCode(button) {
 export function CodeBlock({children, copiable = false, class: className}: CodeBlockProps) {
 	return (
 		<div class={cn('relative', className)}>
-			<pre class="overflow-x-auto rounded border border-neutral-200 bg-neutral-100 p-3 font-mono text-sm">
+			<pre class="overflow-x-auto rounded border border-neutral-200 bg-[var(--background-tertiary)] p-3 font-mono text-neutral-300 text-sm">
 				<code>{children}</code>
 			</pre>
 			{copiable && (
@@ -51,7 +51,7 @@ export function CodeBlock({children, copiable = false, class: className}: CodeBl
 					<button
 						type="button"
 						onclick="copyCode(this)"
-						class="absolute top-2 right-2 rounded border border-neutral-300 bg-white px-2 py-1 text-xs hover:bg-neutral-50"
+						class="absolute top-2 right-2 rounded border border-neutral-300 bg-[var(--background-secondary-lighter)] px-2 py-1 text-neutral-300 text-xs hover:text-neutral-100"
 					>
 						Copy
 					</button>

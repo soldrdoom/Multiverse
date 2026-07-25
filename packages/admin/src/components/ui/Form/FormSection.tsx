@@ -34,9 +34,9 @@ export function FormSection(props: PropsWithChildren<FormSectionProps>) {
 
 	return (
 		<div class={cn('space-y-4', className)}>
-			<div class="flex flex-col gap-1 border-gray-200 border-b pb-3">
-				<h3 class="font-semibold text-gray-900 text-lg">{title}</h3>
-				{description && <p class="text-gray-600 text-sm">{description}</p>}
+			<div class="flex flex-col gap-1 border-neutral-200 border-b pb-3">
+				<h3 class="font-semibold text-neutral-900 text-lg">{title}</h3>
+				{description && <p class="text-neutral-500 text-sm">{description}</p>}
 			</div>
 			<div class="space-y-4">{children}</div>
 		</div>

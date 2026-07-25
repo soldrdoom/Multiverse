@@ -85,7 +85,7 @@ const RenderStickerCard: FC<{config: Config; guildId: string; sticker: GuildStic
 						</Badge>
 					</HStack>
 					<Caption class="break-words">ID: {sticker.id}</Caption>
-					<a href={`${config.basePath}/users/${sticker.creator_id}`} class="text-blue-600 text-xs hover:underline">
+					<a href={`${config.basePath}/users/${sticker.creator_id}`} class="text-brand-primary text-xs hover:underline">
 						Uploader: {sticker.creator_id}
 					</a>
 					<form
@@ -148,7 +148,7 @@ export async function StickersTab({config, session, guildId, adminAcls, csrfToke
 				<ErrorCard title="Error" message={getErrorMessage(result.error)} />
 				<a
 					href={`${config.basePath}/guilds/${guildId}?tab=stickers`}
-					class="inline-block rounded bg-neutral-900 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-neutral-800"
+					class="inline-block rounded bg-[image:var(--gradient-brand)] px-4 py-2 font-semibold text-sm text-[var(--button-primary-text)] transition-[filter] hover:brightness-110"
 				>
 					Back to Guild
 				</a>

@@ -147,6 +147,10 @@ const RenderCreateForm: FC<{
 				<Heading level={1} size="2xl">
 					Create Admin API Key
 				</Heading>
+				<Text size="sm" color="muted">
+					Issue a scoped API key for programmatic access to admin endpoints. You can only grant permissions your own
+					account has.
+				</Text>
 				{createdKeyView}
 				<form id="create-key-form" method="post" action={`${config.basePath}/admin-api-keys?action=create`}>
 					<VStack gap={4}>
@@ -192,8 +196,8 @@ const RenderCreatedKey: FC<{createdKey: CreateAdminApiKeyResponse}> = ({createdK
 				<Text size="sm" color="success">
 					Save this key now. You won't be able to see it again.
 				</Text>
-				<HStack gap={2} align="center" class="rounded-lg border border-green-200 bg-white p-3">
-					<code id="api-key-value" class="flex-1 break-all font-mono text-green-900 text-sm">
+				<HStack gap={2} align="center" class="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-3">
+					<code id="api-key-value" class="flex-1 break-all font-mono text-emerald-300 text-sm">
 						{createdKey.key}
 					</code>
 					<Caption variant="success">Key ID: {createdKey.key_id}</Caption>
