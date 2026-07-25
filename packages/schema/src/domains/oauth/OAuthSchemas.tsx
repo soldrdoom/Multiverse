@@ -465,3 +465,30 @@ export const BotProfileUpdateRequest = z.object({
 });
 
 export type BotProfileUpdateRequest = z.infer<typeof BotProfileUpdateRequest>;
+
+export const BotTokenResponse = z.object({
+	id: SnowflakeStringType.describe('The unique identifier of the token'),
+	name: z.string().describe('The developer-chosen label for this token'),
+	preview: z.string().describe('The first few characters of the secret, to identify it in a list'),
+	created_at: z.string().describe('When the token was issued'),
+	created_by_user_id: SnowflakeStringType.describe('The user who issued the token'),
+	last_used_at: z.string().nullable().describe('When the token last authenticated a request, if ever'),
+});
+
+export type BotTokenResponse = z.infer<typeof BotTokenResponse>;
+
+export const BotTokenListResponse = z.array(BotTokenResponse);
+
+export type BotTokenListResponse = z.infer<typeof BotTokenListResponse>;
+
+export const BotTokenCreateRequest = z.object({
+	name: createStringType(1, 64).describe('A label identifying where this token is used'),
+});
+
+export type BotTokenCreateRequest = z.infer<typeof BotTokenCreateRequest>;
+
+export const BotTokenCreateResponse = BotTokenResponse.extend({
+	token: z.string().describe('The token secret. Returned once, at creation, and never again.'),
+});
+
+export type BotTokenCreateResponse = z.infer<typeof BotTokenCreateResponse>;

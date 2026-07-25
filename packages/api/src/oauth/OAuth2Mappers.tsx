@@ -22,7 +22,9 @@ import {resolveLimitSafe} from '@fluxer/api/src/limits/LimitConfigUtils';
 import {createLimitMatchContext} from '@fluxer/api/src/limits/LimitMatchContextBuilder';
 import type {Application} from '@fluxer/api/src/models/Application';
 import type {User} from '@fluxer/api/src/models/User';
+import type {ApplicationBotTokenRow} from '@fluxer/api/src/database/types/OAuth2Types';
 import type {ApplicationBotResponse, ApplicationResponse} from '@fluxer/api/src/oauth/OAuth2Types';
+import type {BotTokenResponse} from '@fluxer/schema/src/domains/oauth/OAuthSchemas';
 import {mapUserToPartialResponse} from '@fluxer/api/src/user/UserMappers';
 
 export function mapBotUserToResponse(user: User, opts?: {token?: string}): ApplicationBotResponse {
@@ -96,5 +98,16 @@ export function mapBotProfileToResponse(user: User) {
 		avatar: user.avatarHash,
 		banner: user.bannerHash,
 		bio: user.bio,
+	};
+}
+
+export function mapBotTokenToResponse(row: ApplicationBotTokenRow): BotTokenResponse {
+	return {
+		id: row.token_id.toString(),
+		name: row.name,
+		preview: row.preview,
+		created_at: row.created_at.toISOString(),
+		created_by_user_id: row.created_by_user_id.toString(),
+		last_used_at: row.last_used_at ? row.last_used_at.toISOString() : null,
 	};
 }

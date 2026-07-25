@@ -19,38 +19,41 @@
 
 import {randomBytes} from 'node:crypto';
 import type {ApplicationID, UserID} from '@fluxer/api/src/BrandedTypes';
+import type {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
+import {parseBotToken} from '@fluxer/api/src/oauth/BotTokenService';
 import type {IApplicationRepository} from '@fluxer/api/src/oauth/repositories/IApplicationRepository';
 import {hashPassword, verifyPassword} from '@fluxer/api/src/utils/PasswordUtils';
 
 export class BotAuthService {
-	constructor(private readonly applicationRepository: IApplicationRepository) {}
+	constructor(
+		private readonly applicationRepository: IApplicationRepository,
+		private readonly botTokenService: BotTokenService,
+	) {}
 
-	private parseBotToken(token: string): {applicationId: ApplicationID; secret: string} | null {
-		const parts = token.split('.');
-		if (parts.length !== 2) {
-			return null;
-		}
-
-		const [applicationIdStr, secret] = parts;
-		if (!applicationIdStr || !secret) {
-			return null;
-		}
-
-		try {
-			const applicationId = BigInt(applicationIdStr) as ApplicationID;
-			return {applicationId, secret};
-		} catch {
-			return null;
-		}
-	}
-
+	/**
+	 * Resolve a bot token to its bot user.
+	 *
+	 * Three-part tokens resolve through BotTokenService as a single hash lookup.
+	 * Two-part tokens predate per-token records and fall back to the
+	 * application's bot_token_hash, which is still argon2-verified — that path
+	 * exists so a token issued before this rollout keeps working, and is removed
+	 * once no such tokens remain.
+	 */
 	async validateBotToken(token: string): Promise<UserID | null> {
-		const parsed = this.parseBotToken(token);
+		const parsed = parseBotToken(token);
 		if (!parsed) {
 			return null;
 		}
 
-		const {applicationId, secret} = parsed;
+		if (parsed.tokenId !== null) {
+			const resolved = await this.botTokenService.resolveToken(token);
+			return resolved ? resolved.botUserId : null;
+		}
+
+		return this.validateLegacyBotToken(parsed.applicationId, parsed.secret);
+	}
+
+	private async validateLegacyBotToken(applicationId: ApplicationID, secret: string): Promise<UserID | null> {
 		const application = await this.applicationRepository.getApplication(applicationId);
 
 		if (!application || !application.hasBotUser() || !application.botTokenHash) {
@@ -65,6 +68,9 @@ export class BotAuthService {
 		}
 	}
 
+	/**
+	 * @deprecated Issues a legacy two-part token. Use BotTokenService.createToken.
+	 */
 	async generateBotToken(applicationId: ApplicationID): Promise<{
 		token: string;
 		hash: string;

@@ -65,6 +65,24 @@ export const ApplicationIdParam = z.object({
 });
 export type ApplicationIdParam = z.infer<typeof ApplicationIdParam>;
 
+/**
+ * Names the application parameter `client_id` rather than `id`.
+ *
+ * Rate-limit buckets substitute `:<paramName>` from the route, so a route whose
+ * bucket string says `::client_id` must declare a `client_id` param or every
+ * caller collapses into one shared bucket.
+ */
+export const ClientIdParam = z.object({
+	client_id: SnowflakeType.describe('The ID of the application'),
+});
+export type ClientIdParam = z.infer<typeof ClientIdParam>;
+
+export const ClientIdTokenIdParam = z.object({
+	client_id: SnowflakeType.describe('The ID of the application'),
+	token_id: SnowflakeType.describe('The ID of the bot token'),
+});
+export type ClientIdTokenIdParam = z.infer<typeof ClientIdTokenIdParam>;
+
 export const GuildIdUserIdParam = z.object({
 	guild_id: SnowflakeType.describe('The ID of the guild'),
 	user_id: SnowflakeType.describe('The ID of the user'),

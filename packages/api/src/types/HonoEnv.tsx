@@ -68,6 +68,7 @@ import type {User} from '@fluxer/api/src/models/User';
 import type {NewsService} from '@fluxer/api/src/news/NewsService';
 import type {ApplicationService} from '@fluxer/api/src/oauth/ApplicationService';
 import type {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
+import type {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
 import type {OAuth2ApplicationsRequestService} from '@fluxer/api/src/oauth/OAuth2ApplicationsRequestService';
 import type {OAuth2RequestService} from '@fluxer/api/src/oauth/OAuth2RequestService';
 import type {OAuth2Service} from '@fluxer/api/src/oauth/OAuth2Service';
@@ -197,6 +198,7 @@ export interface HonoEnv {
 		applicationRepository: IApplicationRepository;
 		oauth2TokenRepository: IOAuth2TokenRepository;
 		botAuthService: BotAuthService;
+		botTokenService: BotTokenService;
 		sudoModeValid: boolean;
 		sudoModeToken: string | null;
 		instanceConfigRepository: InstanceConfigRepository;

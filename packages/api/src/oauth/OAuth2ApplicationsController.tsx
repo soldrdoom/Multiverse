@@ -25,7 +25,7 @@ import {RateLimitConfigs} from '@fluxer/api/src/RateLimitConfig';
 import type {HonoApp, HonoEnv} from '@fluxer/api/src/types/HonoEnv';
 import {Validator} from '@fluxer/api/src/Validator';
 import {SudoVerificationSchema} from '@fluxer/schema/src/domains/auth/AuthSchemas';
-import {ApplicationIdParam} from '@fluxer/schema/src/domains/common/CommonParamSchemas';
+import {ApplicationIdParam, ClientIdParam, ClientIdTokenIdParam} from '@fluxer/schema/src/domains/common/CommonParamSchemas';
 import {
 	ApplicationCreateRequest,
 	ApplicationListResponse,
@@ -33,6 +33,9 @@ import {
 	ApplicationUpdateRequest,
 	BotProfileResponse,
 	BotProfileUpdateRequest,
+	BotTokenCreateRequest,
+	BotTokenCreateResponse,
+	BotTokenListResponse,
 	BotTokenResetResponse,
 } from '@fluxer/schema/src/domains/oauth/OAuthSchemas';
 import type {Context} from 'hono';
@@ -183,6 +186,83 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 				body,
 				applicationId: ctx.req.valid('param').id,
 			});
+			return ctx.body(null, 204);
+		},
+	);
+
+	app.get(
+		'/oauth2/applications/:client_id/bot/tokens',
+		RateLimitMiddleware(RateLimitConfigs.OAUTH_DEV_BOT_TOKENS_LIST),
+		LoginRequiredAllowSuspicious,
+		DefaultUserOnly,
+		Validator('param', ClientIdParam),
+		OpenAPI({
+			operationId: 'list_bot_tokens',
+			summary: 'List bot tokens',
+			responseSchema: BotTokenListResponse,
+			statusCode: 200,
+			security: ['bearerToken', 'sessionToken'],
+			tags: ['OAuth2'],
+			description:
+				'Lists the bot tokens issued for an application. Returns only metadata — name, preview, and usage timestamps. Token secrets are never returned after creation.',
+		}),
+		async (ctx) => {
+			const userId = ctx.get('user').id;
+			const response = await ctx
+				.get('oauth2ApplicationsRequestService')
+				.listBotTokens(userId, ctx.req.valid('param').client_id);
+			return ctx.json(response);
+		},
+	);
+
+	app.post(
+		'/oauth2/applications/:client_id/bot/tokens',
+		RateLimitMiddleware(RateLimitConfigs.OAUTH_DEV_BOT_TOKENS_CREATE),
+		LoginRequiredAllowSuspicious,
+		DefaultUserOnly,
+		SudoModeMiddleware,
+		Validator('param', ClientIdParam),
+		Validator('json', BotTokenCreateRequest),
+		OpenAPI({
+			operationId: 'create_bot_token',
+			summary: 'Create bot token',
+			responseSchema: BotTokenCreateResponse,
+			statusCode: 200,
+			security: ['bearerToken', 'sessionToken'],
+			tags: ['OAuth2'],
+			description:
+				'Issues an additional named bot token for an application. Requires sudo mode authentication. The secret is returned once in this response and cannot be retrieved again. Existing tokens continue to work.',
+		}),
+		async (ctx) => {
+			const userId = ctx.get('user').id;
+			const response = await ctx
+				.get('oauth2ApplicationsRequestService')
+				.createBotToken(userId, ctx.req.valid('param').client_id, ctx.req.valid('json'));
+			return ctx.json(response);
+		},
+	);
+
+	app.delete(
+		'/oauth2/applications/:client_id/bot/tokens/:token_id',
+		RateLimitMiddleware(RateLimitConfigs.OAUTH_DEV_BOT_TOKEN_REVOKE),
+		LoginRequiredAllowSuspicious,
+		DefaultUserOnly,
+		SudoModeMiddleware,
+		Validator('param', ClientIdTokenIdParam),
+		OpenAPI({
+			operationId: 'revoke_bot_token',
+			summary: 'Revoke bot token',
+			responseSchema: null,
+			statusCode: 204,
+			security: ['bearerToken', 'sessionToken'],
+			tags: ['OAuth2'],
+			description:
+				"Revokes a single bot token, leaving the application's other tokens working. Requires sudo mode authentication. Note that this disconnects all of the bot's active gateway sessions, not only those opened with the revoked token.",
+		}),
+		async (ctx) => {
+			const userId = ctx.get('user').id;
+			const params = ctx.req.valid('param');
+			await ctx.get('oauth2ApplicationsRequestService').revokeBotToken(userId, params.client_id, params.token_id);
 			return ctx.body(null, 204);
 		},
 	);

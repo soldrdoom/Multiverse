@@ -115,6 +115,8 @@ import {NewsRepository} from '@fluxer/api/src/news/NewsRepository';
 import {NewsService} from '@fluxer/api/src/news/NewsService';
 import {ApplicationService} from '@fluxer/api/src/oauth/ApplicationService';
 import {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
+import {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
+import {BotTokenRepository} from '@fluxer/api/src/oauth/repositories/BotTokenRepository';
 import {BotMfaMirrorService} from '@fluxer/api/src/oauth/BotMfaMirrorService';
 import {OAuth2ApplicationsRequestService} from '@fluxer/api/src/oauth/OAuth2ApplicationsRequestService';
 import {OAuth2RequestService} from '@fluxer/api/src/oauth/OAuth2RequestService';
@@ -691,7 +693,9 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	const adminApiKeyRepository = new AdminApiKeyRepository();
 	const adminApiKeyService = new AdminApiKeyService(adminApiKeyRepository, snowflakeService);
 
-	const botAuthService = new BotAuthService(applicationRepository);
+	const botTokenRepository = new BotTokenRepository();
+	const botTokenService = new BotTokenService(botTokenRepository, snowflakeService);
+	const botAuthService = new BotAuthService(applicationRepository, botTokenService);
 	const gatewayRequestService = new GatewayRequestService(botAuthService);
 
 	const rpcService = new RpcService(
@@ -810,6 +814,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		discriminatorService,
 		snowflakeService,
 		botAuthService,
+		botTokenService,
 		gatewayService,
 	});
 
@@ -837,6 +842,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		userRepository,
 		authService,
 		authMfaService,
+		botTokenService,
 	);
 
 	const searchService = new SearchService({
@@ -873,6 +879,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	ctx.set('authRequestService', authRequestService);
 	ctx.set('ssoService', ssoService);
 	ctx.set('botAuthService', botAuthService);
+	ctx.set('botTokenService', botTokenService);
 	ctx.set('cacheService', cacheService);
 	ctx.set('channelService', channelService);
 	ctx.set('channelRequestService', channelRequestService);

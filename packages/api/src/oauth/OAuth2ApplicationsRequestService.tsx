@@ -26,8 +26,9 @@ import {UsernameNotAvailableError} from '@fluxer/api/src/infrastructure/Discrimi
 import type {Application} from '@fluxer/api/src/models/Application';
 import type {User} from '@fluxer/api/src/models/User';
 import type {ApplicationService} from '@fluxer/api/src/oauth/ApplicationService';
+import type {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
 import {ApplicationNotOwnedError} from '@fluxer/api/src/oauth/ApplicationService';
-import {mapApplicationToResponse, mapBotProfileToResponse} from '@fluxer/api/src/oauth/OAuth2Mappers';
+import {mapApplicationToResponse, mapBotProfileToResponse, mapBotTokenToResponse} from '@fluxer/api/src/oauth/OAuth2Mappers';
 import type {IApplicationRepository} from '@fluxer/api/src/oauth/repositories/IApplicationRepository';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
 import {AccessDeniedError} from '@fluxer/errors/src/domains/core/AccessDeniedError';
@@ -39,6 +40,9 @@ import type {
 	ApplicationUpdateRequest,
 	BotProfileResponse,
 	BotProfileUpdateRequest,
+	BotTokenCreateRequest,
+	BotTokenCreateResponse,
+	BotTokenListResponse,
 } from '@fluxer/schema/src/domains/oauth/OAuthSchemas';
 import type {Context} from 'hono';
 
@@ -49,6 +53,7 @@ export class OAuth2ApplicationsRequestService {
 		private readonly userRepository: IUserRepository,
 		private readonly authService: AuthService,
 		private readonly authMfaService: AuthMfaService,
+		private readonly botTokenService: BotTokenService,
 	) {}
 
 	async listApplications(userId: UserID) {
@@ -102,6 +107,53 @@ export class OAuth2ApplicationsRequestService {
 			botToken: result.botToken,
 			clientSecret: result.clientSecret,
 		});
+	}
+
+	private async requireOwnedApplication(userId: UserID, applicationId: bigint) {
+		const appId = createApplicationID(applicationId);
+		const application = await this.applicationRepository.getApplication(appId);
+		if (!application) {
+			throw new UnknownApplicationError();
+		}
+		if (application.ownerUserId !== userId) {
+			throw new ApplicationNotOwnedError();
+		}
+		return application;
+	}
+
+	async listBotTokens(userId: UserID, applicationId: bigint): Promise<BotTokenListResponse> {
+		await this.requireOwnedApplication(userId, applicationId);
+		const rows = await this.botTokenService.listTokens(createApplicationID(applicationId));
+		return rows.map(mapBotTokenToResponse);
+	}
+
+	async createBotToken(
+		userId: UserID,
+		applicationId: bigint,
+		body: BotTokenCreateRequest,
+	): Promise<BotTokenCreateResponse> {
+		const application = await this.requireOwnedApplication(userId, applicationId);
+		if (!application.hasBotUser()) {
+			throw new BotUserNotFoundError();
+		}
+
+		const {token, row} = await this.botTokenService.createToken({
+			applicationId: createApplicationID(applicationId),
+			createdByUserId: userId,
+			name: body.name,
+		});
+
+		// The secret is returned exactly once, here. Nothing stores it in a form
+		// it can be read back from.
+		return {...mapBotTokenToResponse(row), token};
+	}
+
+	async revokeBotToken(userId: UserID, applicationId: bigint, tokenId: bigint): Promise<void> {
+		await this.requireOwnedApplication(userId, applicationId);
+		const revoked = await this.botTokenService.revokeToken(createApplicationID(applicationId), tokenId);
+		if (!revoked) {
+			throw new UnknownApplicationError();
+		}
 	}
 
 	async getApplication(userId: UserID, applicationId: bigint) {

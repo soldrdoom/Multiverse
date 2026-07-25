@@ -211,6 +211,46 @@ Type: Bitflags32
 | global_name? | ?string | The display name of the bot |
 | username? | [UsernameType](#usernametype) |  |
 
+<a id="bottokencreaterequest"></a>
+
+## BotTokenCreateRequest
+
+**Related endpoints**
+
+- [`POST /oauth2/applications/{client_id}/bot/tokens`](/api-reference/oauth2/create-bot-token)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | A label identifying where this token is used |
+
+<a id="bottokencreateresponse"></a>
+
+## BotTokenCreateResponse
+
+**Related endpoints**
+
+- [`POST /oauth2/applications/{client_id}/bot/tokens`](/api-reference/oauth2/create-bot-token)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| created_at | string | When the token was issued |
+| created_by_user_id | [SnowflakeType](#snowflaketype) | The user who issued the token |
+| id | [SnowflakeType](#snowflaketype) | The unique identifier of the token |
+| last_used_at | ?string | When the token last authenticated a request, if ever |
+| name | string | The developer-chosen label for this token |
+| preview | string | The first few characters of the secret, to identify it in a list |
+| token | string | The token secret. Returned once, at creation, and never again. |
+
+<a id="bottokenlistresponse"></a>
+
+## BotTokenListResponse
+
+**Related endpoints**
+
+- [`GET /oauth2/applications/{client_id}/bot/tokens`](/api-reference/oauth2/list-bot-tokens)
+
+Type: [BotTokenResponse](#bottokenresponse)[]
+
 <a id="bottokenresetresponse"></a>
 
 ## BotTokenResetResponse
@@ -223,6 +263,19 @@ Type: Bitflags32
 |-------|------|-------------|
 | bot | [ApplicationBotResponse](#applicationbotresponse) |  |
 | token | string | The new bot token |
+
+<a id="bottokenresponse"></a>
+
+## BotTokenResponse
+
+| Field | Type | Description |
+|-------|------|-------------|
+| created_at | string | When the token was issued |
+| created_by_user_id | [SnowflakeType](#snowflaketype) | The user who issued the token |
+| id | [SnowflakeType](#snowflaketype) | The unique identifier of the token |
+| last_used_at | ?string | When the token last authenticated a request, if ever |
+| name | string | The developer-chosen label for this token |
+| preview | string | The first few characters of the secret, to identify it in a list |
 
 <a id="introspectrequestform"></a>
 

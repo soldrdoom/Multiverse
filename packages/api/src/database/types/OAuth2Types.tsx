@@ -46,6 +46,34 @@ export interface ApplicationByOwnerRow {
 	application_id: ApplicationID;
 }
 
+/**
+ * One row per issued bot token.
+ *
+ * Keyed on lookup_hash — the SHA-256 of the token secret — so authenticating a
+ * request is a single point read with no key derivation. The secret is 256 bits
+ * of CSPRNG output, so it has nothing to stretch: password hashing exists to
+ * make low-entropy secrets expensive to guess, and applying it per request here
+ * only bought latency.
+ */
+export interface ApplicationBotTokenRow {
+	lookup_hash: string;
+	token_id: bigint;
+	application_id: ApplicationID;
+	bot_user_id: UserID;
+	name: string;
+	preview: string;
+	created_at: Date;
+	created_by_user_id: UserID;
+	last_used_at: Date | null;
+	version?: number | null;
+}
+
+export interface ApplicationBotTokenByApplicationRow {
+	application_id: ApplicationID;
+	token_id: bigint;
+	lookup_hash: string;
+}
+
 export interface OAuth2AuthorizationCodeRow {
 	code: string;
 	application_id: ApplicationID;
@@ -129,3 +157,22 @@ export const OAUTH2_REFRESH_TOKEN_COLUMNS = [
 	'scope',
 	'created_at',
 ] as const satisfies ReadonlyArray<keyof OAuth2RefreshTokenRow>;
+
+export const APPLICATION_BOT_TOKEN_COLUMNS = [
+	'lookup_hash',
+	'token_id',
+	'application_id',
+	'bot_user_id',
+	'name',
+	'preview',
+	'created_at',
+	'created_by_user_id',
+	'last_used_at',
+	'version',
+] as const satisfies ReadonlyArray<keyof ApplicationBotTokenRow>;
+
+export const APPLICATION_BOT_TOKEN_BY_APPLICATION_COLUMNS = [
+	'application_id',
+	'token_id',
+	'lookup_hash',
+] as const satisfies ReadonlyArray<keyof ApplicationBotTokenByApplicationRow>;

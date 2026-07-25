@@ -33,6 +33,8 @@ import type {Application} from '@fluxer/api/src/models/Application';
 import type {User} from '@fluxer/api/src/models/User';
 import {remapAuthorMessagesToDeletedUser} from '@fluxer/api/src/oauth/ApplicationMessageAuthorAnonymization';
 import type {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
+import type {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
+import {DEFAULT_BOT_TOKEN_NAME} from '@fluxer/api/src/oauth/BotTokenService';
 import type {IApplicationRepository} from '@fluxer/api/src/oauth/repositories/IApplicationRepository';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
 import {hasPartialUserFieldsChanged} from '@fluxer/api/src/user/UserMappers';
@@ -55,6 +57,7 @@ export interface ApplicationServiceDeps {
 	snowflakeService: SnowflakeService;
 	applicationRepository: IApplicationRepository;
 	botAuthService: BotAuthService;
+	botTokenService: BotTokenService;
 	entityAssetService: EntityAssetService;
 	userCacheService: UserCacheService;
 	gatewayService: IGatewayService;
@@ -219,12 +222,18 @@ export class ApplicationService {
 
 		const botUser = await this.deps.userRepository.create(botUserRow);
 
-		const {
-			token: botToken,
-			hash: botTokenHash,
-			preview: botTokenPreview,
-		} = await this.deps.botAuthService.generateBotToken(applicationId);
-		const botTokenCreatedAt = new Date();
+		const {token: botToken, row: botTokenRow} = await this.deps.botTokenService.createToken({
+			applicationId,
+			createdByUserId: args.ownerUserId,
+			name: DEFAULT_BOT_TOKEN_NAME,
+		});
+		// The legacy single-token hash is no longer written; application_bot_tokens
+		// is authoritative. The preview and timestamp are still mirrored here so
+		// existing readers of the application row keep working until those columns
+		// are dropped.
+		const botTokenHash = null;
+		const botTokenPreview = botTokenRow.preview;
+		const botTokenCreatedAt = botTokenRow.created_at;
 		const clientSecret = randomBytes(32).toString('base64url');
 		const clientSecretHash = await hashPassword(clientSecret);
 		const clientSecretCreatedAt = new Date();
@@ -250,7 +259,16 @@ export class ApplicationService {
 			client_secret_created_at: clientSecretCreatedAt,
 		};
 
-		const application = await this.deps.applicationRepository.upsertApplication(applicationRow);
+		let application: Application;
+		try {
+			application = await this.deps.applicationRepository.upsertApplication(applicationRow);
+		} catch (error) {
+			// The token row was written before the application row. If the
+			// application never lands, that token would authenticate against an
+			// application that does not exist, so drop it.
+			await this.deps.botTokenService.revokeAllTokens(applicationId);
+			throw error;
+		}
 
 		Logger.info(
 			{applicationId: applicationId.toString(), botUserId: botUserId.toString()},
@@ -345,6 +363,12 @@ export class ApplicationService {
 
 	async deleteApplication(userId: UserID, applicationId: ApplicationID): Promise<void> {
 		const application = await this.verifyOwnership(userId, applicationId);
+
+		// Token records are keyed on the hash of their own secret, not on the
+		// application, so deleting the application does not cascade to them.
+		// Without this they would keep authenticating against an application that
+		// no longer exists.
+		await this.deps.botTokenService.revokeAllTokens(applicationId);
 
 		if (application.hasBotUser()) {
 			const botUserId = application.getBotUserId()!;
@@ -446,14 +470,26 @@ export class ApplicationService {
 			throw new BotUserNotFoundError();
 		}
 
-		const {token, hash, preview} = await this.deps.botAuthService.generateBotToken(applicationId);
-		const botTokenCreatedAt = new Date();
+		// "Rotate" now means: revoke every token this application has, then issue a
+		// single replacement named `default`. That preserves the old one-token
+		// mental model for callers of this endpoint while the underlying store is
+		// multi-token.
+		await this.deps.botTokenService.revokeAllTokens(applicationId);
+		const {token, row} = await this.deps.botTokenService.createToken({
+			applicationId,
+			createdByUserId: userId,
+			name: DEFAULT_BOT_TOKEN_NAME,
+		});
 
+		// The legacy single-hash columns are cleared rather than rewritten: the
+		// token they described has just been revoked, and leaving a stale hash
+		// behind would keep a superseded token verifiable through the fallback
+		// path in BotAuthService.
 		const updatedRow: ApplicationRow = {
 			...application.toRow(),
-			bot_token_hash: hash,
-			bot_token_preview: preview,
-			bot_token_created_at: botTokenCreatedAt,
+			bot_token_hash: null,
+			bot_token_preview: row.preview,
+			bot_token_created_at: row.created_at,
 		};
 
 		await this.deps.applicationRepository.upsertApplication(updatedRow);
@@ -466,7 +502,7 @@ export class ApplicationService {
 			});
 		}
 
-		return {token, preview};
+		return {token, preview: row.preview};
 	}
 
 	async rotateClientSecret(

@@ -163,7 +163,11 @@ import {
 	type MessageRow,
 } from '@fluxer/api/src/database/types/MessageTypes';
 import {
+	APPLICATION_BOT_TOKEN_BY_APPLICATION_COLUMNS,
+	APPLICATION_BOT_TOKEN_COLUMNS,
 	APPLICATION_COLUMNS,
+	type ApplicationBotTokenByApplicationRow,
+	type ApplicationBotTokenRow,
 	type ApplicationByOwnerRow,
 	type ApplicationRow,
 	OAUTH2_ACCESS_TOKEN_COLUMNS,
@@ -912,6 +916,22 @@ export const ApplicationsByOwner = defineTable<ApplicationByOwnerRow, 'owner_use
 	name: 'applications_by_owner',
 	columns: APPLICATIONS_BY_OWNER_COLUMNS,
 	primaryKey: ['owner_user_id', 'application_id'],
+});
+
+export const ApplicationBotTokens = defineTable<ApplicationBotTokenRow, 'lookup_hash'>({
+	name: 'application_bot_tokens',
+	columns: APPLICATION_BOT_TOKEN_COLUMNS,
+	primaryKey: ['lookup_hash'],
+});
+
+export const ApplicationBotTokensByApplication = defineTable<
+	ApplicationBotTokenByApplicationRow,
+	'application_id' | 'token_id'
+>({
+	name: 'application_bot_tokens_by_application',
+	columns: APPLICATION_BOT_TOKEN_BY_APPLICATION_COLUMNS,
+	primaryKey: ['application_id', 'token_id'],
+	partitionKey: ['application_id'],
 });
 
 const OAUTH2_ACCESS_TOKENS_BY_USER_COLUMNS = ['user_id', 'token_'] as const satisfies ReadonlyArray<
