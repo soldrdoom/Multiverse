@@ -30,7 +30,7 @@ import {hasBigIntFlag} from '@fluxer/admin/src/utils/Bigint';
 import {AdminACLs} from '@fluxer/constants/src/AdminACLs';
 import type {UserAdminResponse} from '@fluxer/schema/src/domains/admin/AdminUserSchemas';
 import {Button} from '@fluxer/ui/src/components/Button';
-import {CheckboxForm, CheckboxItem} from '@fluxer/ui/src/components/CheckboxForm';
+import {CheckboxForm, CheckboxItem, getRevealScript} from '@fluxer/ui/src/components/CheckboxForm';
 import {CsrfInput} from '@fluxer/ui/src/components/CsrfInput';
 import {Checkbox} from '@fluxer/ui/src/components/Form';
 import type {FC} from 'hono/jsx';
@@ -110,9 +110,14 @@ export function AclsForm({
 		);
 	}
 
+	const toggleAllScript = `document.querySelectorAll('#acls-form input[name="acls[]"]').forEach(function(cb) { cb.checked = this.checked; }, this); ${getRevealScript('acls-form-save-button')}`;
+
 	return (
 		<CheckboxForm id="acls-form" action="?action=update_acls">
 			<CsrfInput token={csrfToken} />
+			<div class="mb-3 border-neutral-200 border-b pb-3">
+				<Checkbox name="acls-select-all" value="all" label="All" onChange={toggleAllScript} />
+			</div>
 			<div class="max-h-96 overflow-y-auto overscroll-contain">
 				<Stack gap="sm">
 					{ALL_ACLS.map((acl) => (

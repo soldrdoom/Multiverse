@@ -34,7 +34,7 @@ export interface CheckboxFormProps {
 	children?: Child;
 }
 
-function getRevealScript(saveButtonId: string | undefined): string | undefined {
+export function getRevealScript(saveButtonId: string | undefined): string | undefined {
 	if (!saveButtonId) {
 		return undefined;
 	}
