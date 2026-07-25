@@ -22,6 +22,7 @@ import type {MessageRequest, MessageUpdateRequest} from '@fluxer/api/src/channel
 import type {IChannelRepositoryAggregate} from '@fluxer/api/src/channel/repositories/IChannelRepositoryAggregate';
 import {MessageAnonymizationService} from '@fluxer/api/src/channel/services/message/MessageAnonymizationService';
 import {MessageChannelAuthService} from '@fluxer/api/src/channel/services/message/MessageChannelAuthService';
+import type {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import {MessageDispatchService} from '@fluxer/api/src/channel/services/message/MessageDispatchService';
 import {MessageMentionService} from '@fluxer/api/src/channel/services/message/MessageMentionService';
 import {MessageOperationsService} from '@fluxer/api/src/channel/services/message/MessageOperationsService';
@@ -84,6 +85,7 @@ export class MessageService {
 		guildAuditLogService: GuildAuditLogService,
 		persistenceService: MessagePersistenceService,
 		limitConfigService: LimitConfigService,
+		tokenGateService: TokenGateService,
 	) {
 		this.validationService = new MessageValidationService(cacheService, limitConfigService);
 		this.mentionService = new MessageMentionService(userRepository, guildRepository, workerService);
@@ -94,6 +96,7 @@ export class MessageService {
 			userRepository,
 			guildRepository,
 			gatewayService,
+			tokenGateService,
 		);
 		this.dispatchService = new MessageDispatchService(
 			gatewayService,

@@ -20,6 +20,7 @@
 import type {ChannelID, GuildID, UserID} from '@fluxer/api/src/BrandedTypes';
 import {mapChannelToResponse} from '@fluxer/api/src/channel/ChannelMappers';
 import type {IChannelRepository} from '@fluxer/api/src/channel/IChannelRepository';
+import type {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import type {GuildAuditLogService} from '@fluxer/api/src/guild/GuildAuditLogService';
 import type {IGuildRepositoryAggregate} from '@fluxer/api/src/guild/repositories/IGuildRepositoryAggregate';
 import {ChannelOperationsService} from '@fluxer/api/src/guild/services/channel/ChannelOperationsService';
@@ -30,8 +31,8 @@ import type {LimitConfigService} from '@fluxer/api/src/limits/LimitConfigService
 import type {RequestCache} from '@fluxer/api/src/middleware/RequestCacheMiddleware';
 import type {ICacheService} from '@fluxer/cache/src/ICacheService';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
+import {TokenGateVisibility} from '@fluxer/constants/src/GuildConstants';
 import {MissingPermissionsError} from '@fluxer/errors/src/domains/core/MissingPermissionsError';
-import {UnknownGuildError} from '@fluxer/errors/src/domains/guild/UnknownGuildError';
 import type {ChannelCreateRequest} from '@fluxer/schema/src/domains/channel/ChannelRequestSchemas';
 import type {ChannelResponse} from '@fluxer/schema/src/domains/channel/ChannelSchemas';
 
@@ -47,6 +48,7 @@ export class GuildChannelService {
 		snowflakeService: SnowflakeService,
 		guildAuditLogService: GuildAuditLogService,
 		limitConfigService: LimitConfigService,
+		private readonly tokenGateService: TokenGateService,
 	) {
 		this.channelOps = new ChannelOperationsService(
 			channelRepository,
@@ -65,14 +67,8 @@ export class GuildChannelService {
 		guildId: GuildID;
 		requestCache: RequestCache;
 	}): Promise<Array<ChannelResponse>> {
-		try {
-			await this.gatewayService.getGuildData({guildId: params.guildId, userId: params.userId});
-		} catch (error) {
-			if (error instanceof UnknownGuildError) {
-				throw error;
-			}
-			throw error;
-		}
+		const guildData = await this.gatewayService.getGuildData({guildId: params.guildId, userId: params.userId});
+		const isGuildOwner = guildData.owner_id === params.userId.toString();
 		const viewableChannelIds = await this.gatewayService.getViewableChannels({
 			guildId: params.guildId,
 			userId: params.userId,
@@ -80,16 +76,37 @@ export class GuildChannelService {
 		const channels = await this.channelRepository.listGuildChannels(params.guildId);
 		const viewableChannels = channels.filter((channel) => viewableChannelIds.includes(channel.id));
 
-		return Promise.all(
-			viewableChannels.map((channel) => {
+		const responses = await Promise.all(
+			viewableChannels.map(async (channel) => {
+				if (isGuildOwner) {
+					const effectiveGate = await this.tokenGateService.resolveEffectiveTokenGate(channel);
+					return mapChannelToResponse({
+						channel,
+						currentUserId: null,
+						userCacheService: this.userCacheService,
+						requestCache: params.requestCache,
+						tokenGateSatisfied: effectiveGate ? true : undefined,
+					});
+				}
+				const [gateStatus, effectiveVisibility] = await Promise.all([
+					this.tokenGateService.isChannelUnlockedForUser({channel, userId: params.userId}),
+					this.tokenGateService.resolveEffectiveTokenGateVisibility(channel),
+				]);
+				const hideGatedChannel = effectiveVisibility === TokenGateVisibility.HIDDEN;
+				if (hideGatedChannel && (gateStatus === 'unsatisfied' || gateStatus === 'unavailable')) {
+					return null;
+				}
 				return mapChannelToResponse({
 					channel,
 					currentUserId: null,
 					userCacheService: this.userCacheService,
 					requestCache: params.requestCache,
+					tokenGateSatisfied: gateStatus === 'no_gate' ? undefined : gateStatus === 'satisfied',
 				});
 			}),
 		);
+
+		return responses.filter((response): response is ChannelResponse => response !== null);
 	}
 
 	async createChannel(

@@ -196,13 +196,28 @@ derive_member_view(UserId, Member, State, Channels) ->
                 ChannelId = map_utils:get_integer(Channel, <<"id">>, undefined),
                 case ChannelId of
                     undefined -> false;
-                    _ -> guild_permissions:can_view_channel(UserId, ChannelId, Member, State)
+                    _ ->
+                        guild_permissions:can_view_channel(UserId, ChannelId, Member, State) andalso
+                            channel_listable(UserId, Channel, State)
                 end
             end,
             Channels
         ),
     JoinedAt = maps:get(<<"joined_at">>, Member, null),
     {Filtered, JoinedAt}.
+
+%% A channel a member fails the tokengate for is only omitted from their
+%% channel list when that channel's effective visibility (own choice, else
+%% its parent category's, else the guild's own whole-server choice, else
+%% LOCKED) is HIDDEN; otherwise it stays listed (locked-with-icon mode),
+%% matching the REST listing's per-channel `hideGatedChannels` behavior in
+%% GuildChannelService.tsx.
+-spec channel_listable(user_id(), map(), guild_state()) -> boolean().
+channel_listable(UserId, Channel, State) ->
+    case tokengate:effective_gate_visibility(Channel, State) of
+        1 -> tokengate:user_satisfies_channel_gate(UserId, Channel, State);
+        _ -> true
+    end.
 
 -spec voice_members_from_states([map()], [guild_member()]) -> [guild_member()].
 voice_members_from_states(VoiceStates, Members) ->
@@ -319,6 +334,44 @@ get_guild_state_filters_channels_test() ->
     Channels = maps:get(<<"channels">>, GuildState),
     ?assert(lists:any(fun(Chan) -> maps:get(<<"id">>, Chan) =:= <<"500">> end, Channels)),
     ?assertEqual(<<"2024-01-01T00:00:00Z">>, maps:get(<<"joined_at">>, GuildState)).
+
+derive_member_view_ungated_channel_unaffected_by_hidden_test() ->
+    %% A HIDDEN channel-level choice shouldn't touch channels that have no gate at all.
+    State = test_state_with_gated_channel(1),
+    GuildState = get_guild_state(200, State),
+    Channels = maps:get(<<"channels">>, GuildState),
+    ?assert(lists:any(fun(Chan) -> maps:get(<<"id">>, Chan) =:= <<"500">> end, Channels)).
+
+derive_member_view_hides_unsatisfied_gated_channel_when_hidden_test() ->
+    State = test_state_with_gated_channel(1),
+    ok = tokengate_cache:put(<<"GateAddr">>, 0, 200, false),
+    GuildState = get_guild_state(200, State),
+    Channels = maps:get(<<"channels">>, GuildState),
+    ?assertNot(lists:any(fun(Chan) -> maps:get(<<"id">>, Chan) =:= <<"600">> end, Channels)),
+    ok = tokengate_cache:invalidate(<<"GateAddr">>, 0, 200).
+
+derive_member_view_keeps_unsatisfied_gated_channel_when_locked_test() ->
+    State = test_state_with_gated_channel(0),
+    ok = tokengate_cache:put(<<"GateAddr">>, 0, 200, false),
+    GuildState = get_guild_state(200, State),
+    Channels = maps:get(<<"channels">>, GuildState),
+    ?assert(lists:any(fun(Chan) -> maps:get(<<"id">>, Chan) =:= <<"600">> end, Channels)),
+    ok = tokengate_cache:invalidate(<<"GateAddr">>, 0, 200).
+
+test_state_with_gated_channel(TokenGateVisibility) ->
+    Base = test_state(),
+    Data = maps:get(data, Base),
+    Channels = maps:get(<<"channels">>, Data),
+    GatedChannel = #{
+        <<"id">> => <<"600">>,
+        <<"type">> => 0,
+        <<"permission_overwrites">> => [],
+        <<"token_gate_address">> => <<"GateAddr">>,
+        <<"token_gate_visibility">> => TokenGateVisibility
+    },
+    Base#{
+        data => Data#{<<"channels">> => Channels ++ [GatedChannel]}
+    }.
 
 find_everyone_viewable_text_channel_test() ->
     State = test_state(),

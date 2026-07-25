@@ -17,33 +17,48 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-.sectionTabs {
+.panelLayout {
 	display: flex;
-	gap: var(--spacing-1);
-	margin-bottom: var(--spacing-4);
-	border-bottom: 1px solid var(--background-modifier-accent);
-	padding-bottom: var(--spacing-2);
+	align-items: flex-start;
+	gap: var(--spacing-6);
 }
 
-.sectionTab {
-	padding: var(--spacing-1) var(--spacing-3);
+.submenu {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	width: 200px;
+	flex-shrink: 0;
+}
+
+.submenuItem {
+	padding: var(--spacing-2) var(--spacing-3);
 	border-radius: var(--radius-md);
 	background-color: transparent;
+	border: none;
 	color: var(--text-secondary);
 	font-size: 0.875rem;
 	font-weight: 500;
+	text-align: left;
 	cursor: pointer;
-	transition: background-color 0.15s ease, color 0.15s ease;
+	transition:
+		background-color 0.15s ease,
+		color 0.15s ease;
 }
 
-.sectionTab:hover {
+.submenuItem:hover {
 	background-color: var(--background-modifier-hover);
 	color: var(--text-primary);
 }
 
-.sectionTabActive {
+.submenuItemActive {
 	background-color: var(--brand-accent);
 	color: var(--white);
+}
+
+.panelContent {
+	flex: 1;
+	min-width: 0;
 }
 
 .applicantUsername {
@@ -82,7 +97,10 @@
 	font-size: 0.8125rem;
 	font-weight: 500;
 	cursor: pointer;
-	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+	transition:
+		background-color 0.15s ease,
+		color 0.15s ease,
+		border-color 0.15s ease;
 }
 
 .filterBtn:hover {
@@ -103,6 +121,22 @@
 	background-color: var(--status-danger-background);
 	color: var(--status-danger);
 	font-size: 0.875rem;
+}
+
+.success {
+	padding: var(--spacing-3);
+	margin-bottom: var(--spacing-3);
+	border-radius: var(--radius-md);
+	background-color: var(--status-success-background);
+	color: var(--status-success);
+	font-size: 0.875rem;
+}
+
+.badgeList {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-2);
+	margin: var(--spacing-3) 0;
 }
 
 .emptyState {

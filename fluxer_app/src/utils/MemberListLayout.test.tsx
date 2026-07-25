@@ -86,4 +86,38 @@ describe('MemberListLayout', () => {
 		expect(getRowIndexRangeForMemberIndexRange(layouts, 0, 0)).toEqual([1, 1]);
 		expect(getRowIndexRangeForMemberIndexRange(layouts, 0, 2)).toEqual([1, 4]);
 	});
+
+	test('allocates a header row for a zero-count group instead of skipping it', () => {
+		// Reproduces a real guild's group layout: two single-member role groups,
+		// an empty "online" bucket (everyone with no hoisted role happens to be
+		// offline), then "offline". The server allocates one row per group
+		// header regardless of count, so the client's row-index space must too,
+		// or every row at/after the empty group shifts by one and the last
+		// member falls out of totalRows entirely.
+		const layouts = buildMemberListLayout([
+			{id: 'role-a', count: 1},
+			{id: 'role-b', count: 1},
+			{id: 'online', count: 0},
+			{id: 'offline', count: 5},
+		]);
+
+		expect(layouts).toHaveLength(4);
+
+		// role-a: header row 0, member row 1
+		expect(layouts[0]).toMatchObject({headerRowIndex: 0, memberStartIndex: 0, memberEndIndex: 0, rowEndIndex: 1});
+		// role-b: header row 2, member row 3
+		expect(layouts[1]).toMatchObject({headerRowIndex: 2, memberStartIndex: 1, memberEndIndex: 1, rowEndIndex: 3});
+		// online: header row 4 only, no member rows, no member-index slots consumed
+		expect(layouts[2]).toMatchObject({headerRowIndex: 4, memberStartIndex: 2, memberEndIndex: 1, rowEndIndex: 4});
+		// offline: header row 5, members at rows 6-10
+		expect(layouts[3]).toMatchObject({headerRowIndex: 5, memberStartIndex: 2, memberEndIndex: 6, rowEndIndex: 10});
+
+		// 4 headers + 7 members = 11 rows total (indices 0-10)
+		expect(getTotalRowsFromLayout(layouts)).toBe(11);
+
+		// The last offline member (global member index 6) must land on row 10,
+		// not fall outside totalRows.
+		expect(getRowIndexForMemberIndex(layouts, 6)).toBe(10);
+		expect(getMemberIndexForRow(layouts, 10, 'forward')).toBe(6);
+	});
 });

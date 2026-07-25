@@ -22,6 +22,6 @@ import {BaseChannelAuthService, type ChannelAuthOptions} from '@fluxer/api/src/c
 export class ChannelAuthService extends BaseChannelAuthService {
 	protected readonly options: ChannelAuthOptions = {
 		errorOnMissingGuild: 'missing_permissions',
-		validateNsfw: true,
+		validateTokenGate: true,
 	};
 }

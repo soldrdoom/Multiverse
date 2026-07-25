@@ -26,7 +26,7 @@ import type {GuildResponse} from '@fluxer/schema/src/domains/guild/GuildResponse
 export class MessageChannelAuthService extends BaseChannelAuthService {
 	protected readonly options: ChannelAuthOptions = {
 		errorOnMissingGuild: 'unknown_channel',
-		validateNsfw: true,
+		validateTokenGate: true,
 	};
 
 	async checkGuildVerification({

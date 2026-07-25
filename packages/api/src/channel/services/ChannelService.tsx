@@ -27,6 +27,7 @@ import {GroupDmService} from '@fluxer/api/src/channel/services/GroupDmService';
 import {MessageInteractionService} from '@fluxer/api/src/channel/services/MessageInteractionService';
 import {MessageService} from '@fluxer/api/src/channel/services/MessageService';
 import {MessagePersistenceService} from '@fluxer/api/src/channel/services/message/MessagePersistenceService';
+import type {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import type {IFavoriteMemeRepository} from '@fluxer/api/src/favorite_meme/IFavoriteMemeRepository';
 import type {GuildAuditLogService} from '@fluxer/api/src/guild/GuildAuditLogService';
 import type {IGuildRepositoryAggregate} from '@fluxer/api/src/guild/repositories/IGuildRepositoryAggregate';
@@ -89,6 +90,7 @@ export class ChannelService {
 		inviteRepository: IInviteRepository,
 		webhookRepository: IWebhookRepository,
 		limitConfigService: LimitConfigService,
+		tokenGateService: TokenGateService,
 		voiceAvailabilityService?: VoiceAvailabilityService,
 	) {
 		const messagePersistenceService = new MessagePersistenceService(
@@ -124,6 +126,7 @@ export class ChannelService {
 			inviteRepository,
 			webhookRepository,
 			limitConfigService,
+			tokenGateService,
 		);
 
 		this.messages = new MessageService(
@@ -144,6 +147,7 @@ export class ChannelService {
 			guildAuditLogService,
 			messagePersistenceService,
 			limitConfigService,
+			tokenGateService,
 		);
 
 		this.interactions = new MessageInteractionService(
@@ -158,6 +162,7 @@ export class ChannelService {
 			messagePersistenceService,
 			guildAuditLogService,
 			limitConfigService,
+			tokenGateService,
 		);
 
 		this.attachments = new AttachmentUploadService(
@@ -431,5 +436,21 @@ export class ChannelService {
 		params: Parameters<ChannelDataService['deleteChannelPermissionOverwrite']>[0],
 	) {
 		return this.channelData.deleteChannelPermissionOverwrite(params);
+	}
+
+	async setChannelTokenGate(params: Parameters<ChannelDataService['setChannelTokenGate']>[0]) {
+		return this.channelData.setChannelTokenGate(params);
+	}
+
+	async clearChannelTokenGate(params: Parameters<ChannelDataService['clearChannelTokenGate']>[0]) {
+		return this.channelData.clearChannelTokenGate(params);
+	}
+
+	async setChannelTokenGateVisibility(params: Parameters<ChannelDataService['setChannelTokenGateVisibility']>[0]) {
+		return this.channelData.setChannelTokenGateVisibility(params);
+	}
+
+	async recheckChannelTokenGateAccess(params: Parameters<ChannelDataService['recheckChannelTokenGateAccess']>[0]) {
+		return this.channelData.recheckChannelTokenGateAccess(params);
 	}
 }

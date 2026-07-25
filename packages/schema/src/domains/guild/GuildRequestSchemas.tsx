@@ -39,6 +39,8 @@ import {
 	GuildVerificationLevelSchema,
 	NSFWLevelSchema,
 	SplashCardAlignmentSchema,
+	TokenGateMatchModeSchema,
+	TokenGateVisibilitySchema,
 } from '@fluxer/schema/src/primitives/GuildValidators';
 import {QueryBooleanType} from '@fluxer/schema/src/primitives/QueryValidators';
 import {
@@ -92,6 +94,18 @@ export const GuildUpdateRequest = z
 		),
 		mfa_level: withFieldDescription(GuildMFALevelSchema, 'Required MFA level for moderation actions'),
 		nsfw_level: withFieldDescription(NSFWLevelSchema, 'The NSFW level of the guild'),
+		token_gate_address: createStringType(32, 44)
+			.nullish()
+			.describe(
+				'The base58-encoded Solana mint or collection address gating the entire guild. Set to null to remove the guild-wide gate.',
+			),
+		token_gate_match_mode: TokenGateMatchModeSchema.nullish().describe(
+			'Whether token_gate_address must match a held asset exactly, or any asset belonging to the collection at that address. Defaults to EXACT_ASSET if omitted while setting an address.',
+		),
+		token_gate_visibility: withFieldDescription(
+			TokenGateVisibilitySchema,
+			"How the guild-wide gate appears to members who don't satisfy it, and the default for any channel/category with no explicit visibility choice of its own",
+		),
 		explicit_content_filter: withFieldDescription(
 			GuildExplicitContentFilterSchema,
 			'Level of content filtering for explicit media',

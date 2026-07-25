@@ -19,7 +19,12 @@
 
 import type {ChannelID, GuildID, UserID, VanityURLCode} from '@fluxer/api/src/BrandedTypes';
 import type {GuildRow} from '@fluxer/api/src/database/types/GuildTypes';
-import {GuildSplashCardAlignment, type GuildSplashCardAlignmentValue} from '@fluxer/constants/src/GuildConstants';
+import {
+	GuildSplashCardAlignment,
+	type GuildSplashCardAlignmentValue,
+	TokenGateMatchMode,
+	TokenGateVisibility,
+} from '@fluxer/constants/src/GuildConstants';
 
 export class Guild {
 	readonly id: GuildID;
@@ -41,6 +46,9 @@ export class Guild {
 	readonly verificationLevel: number;
 	readonly mfaLevel: number;
 	readonly nsfwLevel: number;
+	readonly tokenGateAddress: string | null;
+	readonly tokenGateMatchMode: number | null;
+	readonly tokenGateVisibility: number;
 	readonly explicitContentFilter: number;
 	readonly defaultMessageNotifications: number;
 	readonly systemChannelId: ChannelID | null;
@@ -75,6 +83,10 @@ export class Guild {
 		this.verificationLevel = row.verification_level ?? 0;
 		this.mfaLevel = row.mfa_level ?? 0;
 		this.nsfwLevel = row.nsfw_level ?? 0;
+		this.tokenGateAddress = row.token_gate_address ?? null;
+		this.tokenGateMatchMode =
+			row.token_gate_match_mode ?? (this.tokenGateAddress ? TokenGateMatchMode.EXACT_ASSET : null);
+		this.tokenGateVisibility = row.token_gate_visibility ?? TokenGateVisibility.LOCKED;
 		this.explicitContentFilter = row.explicit_content_filter ?? 0;
 		this.defaultMessageNotifications = row.default_message_notifications ?? 0;
 		this.systemChannelId = row.system_channel_id ?? null;
@@ -111,6 +123,9 @@ export class Guild {
 			verification_level: this.verificationLevel,
 			mfa_level: this.mfaLevel,
 			nsfw_level: this.nsfwLevel,
+			token_gate_address: this.tokenGateAddress,
+			token_gate_match_mode: this.tokenGateMatchMode,
+			token_gate_visibility: this.tokenGateVisibility,
 			explicit_content_filter: this.explicitContentFilter,
 			default_message_notifications: this.defaultMessageNotifications,
 			system_channel_id: this.systemChannelId,

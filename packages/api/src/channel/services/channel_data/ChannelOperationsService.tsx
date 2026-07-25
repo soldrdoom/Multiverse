@@ -22,6 +22,7 @@ import {createChannelID, createGuildID, createRoleID, createUserID} from '@fluxe
 import type {IChannelRepositoryAggregate} from '@fluxer/api/src/channel/repositories/IChannelRepositoryAggregate';
 import type {ChannelAuthService} from '@fluxer/api/src/channel/services/channel_data/ChannelAuthService';
 import type {ChannelUtilsService} from '@fluxer/api/src/channel/services/channel_data/ChannelUtilsService';
+import type {TokenGateRecheckResult, TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import type {GuildAuditLogService} from '@fluxer/api/src/guild/GuildAuditLogService';
 import {mapGuildToGuildResponse} from '@fluxer/api/src/guild/GuildModel';
 import type {IGuildRepositoryAggregate} from '@fluxer/api/src/guild/repositories/IGuildRepositoryAggregate';
@@ -44,7 +45,7 @@ import type {VoiceRegionAvailability} from '@fluxer/api/src/voice/VoiceModel';
 import type {IWebhookRepository} from '@fluxer/api/src/webhook/IWebhookRepository';
 import {AuditLogActionType} from '@fluxer/constants/src/AuditLogActionType';
 import {ALL_PERMISSIONS, ChannelTypes, Permissions} from '@fluxer/constants/src/ChannelConstants';
-import {GuildFeatures} from '@fluxer/constants/src/GuildConstants';
+import {GuildFeatures, TokenGateMatchMode} from '@fluxer/constants/src/GuildConstants';
 import {MAX_CHANNELS_PER_CATEGORY} from '@fluxer/constants/src/LimitConstants';
 import {ValidationErrorCodes} from '@fluxer/constants/src/ValidationErrorCodes';
 import {InvalidChannelTypeError} from '@fluxer/errors/src/domains/channel/InvalidChannelTypeError';
@@ -55,6 +56,7 @@ import {InputValidationError} from '@fluxer/errors/src/domains/core/InputValidat
 import {MissingPermissionsError} from '@fluxer/errors/src/domains/core/MissingPermissionsError';
 import {resolveLimit} from '@fluxer/limits/src/LimitResolver';
 import {ChannelNameType} from '@fluxer/schema/src/primitives/ChannelValidators';
+import {isValidSolanaAddress} from '@fluxer/solana_das/src/SolanaAddress';
 
 export interface ChannelUpdateData {
 	name?: string;
@@ -92,6 +94,7 @@ export class ChannelOperationsService {
 		private webhookRepository: IWebhookRepository,
 		private guildRepository: IGuildRepositoryAggregate,
 		private limitConfigService: LimitConfigService,
+		private tokenGateService: TokenGateService,
 	) {}
 
 	async getChannel({userId, channelId}: {userId: UserID; channelId: ChannelID}): Promise<Channel> {
@@ -631,5 +634,99 @@ export class ChannelOperationsService {
 			),
 		});
 		await this.channelUtilsService.dispatchChannelUpdate({channel: updated, requestCache: params.requestCache});
+	}
+
+	async setChannelTokenGate(params: {
+		userId: UserID;
+		channelId: ChannelID;
+		address: string;
+		matchMode?: number | null;
+		requestCache: RequestCache;
+	}): Promise<void> {
+		if (!isValidSolanaAddress(params.address)) {
+			throw InputValidationError.fromCode('address', ValidationErrorCodes.INVALID_SOLANA_ADDRESS);
+		}
+
+		const channel = await this.channelRepository.channelData.findUnique(params.channelId);
+		if (!channel || !channel.guildId) throw new UnknownChannelError();
+		const canManageChannels = await this.gatewayService.checkPermission({
+			guildId: channel.guildId,
+			userId: params.userId,
+			permission: Permissions.MANAGE_CHANNELS,
+		});
+		if (!canManageChannels) throw new MissingPermissionsError();
+
+		const updated = await this.channelRepository.channelData.upsert({
+			...channel.toRow(),
+			token_gate_address: params.address,
+			token_gate_match_mode: params.matchMode ?? channel.tokenGateMatchMode ?? TokenGateMatchMode.EXACT_ASSET,
+		});
+		await this.channelUtilsService.dispatchChannelUpdate({channel: updated, requestCache: params.requestCache});
+	}
+
+	async clearChannelTokenGate(params: {
+		userId: UserID;
+		channelId: ChannelID;
+		requestCache: RequestCache;
+	}): Promise<void> {
+		const channel = await this.channelRepository.channelData.findUnique(params.channelId);
+		if (!channel || !channel.guildId) throw new UnknownChannelError();
+		const canManageChannels = await this.gatewayService.checkPermission({
+			guildId: channel.guildId,
+			userId: params.userId,
+			permission: Permissions.MANAGE_CHANNELS,
+		});
+		if (!canManageChannels) throw new MissingPermissionsError();
+
+		const updated = await this.channelRepository.channelData.upsert({
+			...channel.toRow(),
+			token_gate_address: null,
+			token_gate_match_mode: null,
+		});
+		await this.channelUtilsService.dispatchChannelUpdate({channel: updated, requestCache: params.requestCache});
+	}
+
+	async setChannelTokenGateVisibility(params: {
+		userId: UserID;
+		channelId: ChannelID;
+		visibility: number;
+		requestCache: RequestCache;
+	}): Promise<void> {
+		const channel = await this.channelRepository.channelData.findUnique(params.channelId);
+		if (!channel || !channel.guildId) throw new UnknownChannelError();
+		const canManageChannels = await this.gatewayService.checkPermission({
+			guildId: channel.guildId,
+			userId: params.userId,
+			permission: Permissions.MANAGE_CHANNELS,
+		});
+		if (!canManageChannels) throw new MissingPermissionsError();
+
+		const updated = await this.channelRepository.channelData.upsert({
+			...channel.toRow(),
+			token_gate_visibility: params.visibility,
+		});
+		await this.channelUtilsService.dispatchChannelUpdate({channel: updated, requestCache: params.requestCache});
+	}
+
+	/**
+	 * Force a fresh DAS lookup for the requesting user's wallet against this
+	 * channel's tokengate, bypassing the cache. Deliberately checks VIEW_CHANNEL
+	 * directly rather than going through the full channel-auth flow, since a
+	 * user calling this is by definition looking at a channel whose gate they
+	 * currently fail — routing through the normal auth path would immediately
+	 * re-throw TokenGateRequirementNotMetError before the recheck ever runs.
+	 */
+	async recheckChannelTokenGateAccess(params: {userId: UserID; channelId: ChannelID}): Promise<TokenGateRecheckResult> {
+		const channel = await this.channelRepository.channelData.findUnique(params.channelId);
+		if (!channel || !channel.guildId) throw new UnknownChannelError();
+		const canView = await this.gatewayService.checkPermission({
+			guildId: channel.guildId,
+			userId: params.userId,
+			permission: Permissions.VIEW_CHANNEL,
+			channelId: channel.id,
+		});
+		if (!canView) throw new MissingPermissionsError();
+
+		return this.tokenGateService.recheckAccess({channel, userId: params.userId});
 	}
 }

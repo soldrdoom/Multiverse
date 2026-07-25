@@ -81,7 +81,7 @@ export const TextareaPlusMenu = observer(
 				)}
 				<MenuItem
 					icon={<GiftIcon />}
-					onClick={() => PremiumModalActionCreators.open(true)}
+					onClick={() => PremiumModalActionCreators.open()}
 					disabled={sendGiftHint != null}
 					hint={sendGiftHint}
 				>

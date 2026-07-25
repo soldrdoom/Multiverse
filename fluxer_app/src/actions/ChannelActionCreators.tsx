@@ -124,6 +124,48 @@ export async function updatePermissionOverwrites(
 	}
 }
 
+export async function setTokenGate(channelId: string, address: string, matchMode: number) {
+	try {
+		await http.put({url: Endpoints.CHANNEL_TOKEN_GATE(channelId), body: {address, match_mode: matchMode}});
+	} catch (error) {
+		logger.error(`Failed to set token gate for channel ${channelId}:`, error);
+		throw error;
+	}
+}
+
+export async function clearTokenGate(channelId: string) {
+	try {
+		await http.delete({url: Endpoints.CHANNEL_TOKEN_GATE(channelId)});
+	} catch (error) {
+		logger.error(`Failed to clear token gate for channel ${channelId}:`, error);
+		throw error;
+	}
+}
+
+export async function setTokenGateVisibility(channelId: string, visibility: number) {
+	try {
+		await http.put({url: Endpoints.CHANNEL_TOKEN_GATE_VISIBILITY(channelId), body: {visibility}});
+	} catch (error) {
+		logger.error(`Failed to set token gate visibility for channel ${channelId}:`, error);
+		throw error;
+	}
+}
+
+export interface TokenGateRecheckResult {
+	satisfied: boolean;
+	gate_address: string | null;
+}
+
+export async function recheckTokenGateAccess(channelId: string): Promise<TokenGateRecheckResult> {
+	try {
+		const response = await http.post<TokenGateRecheckResult>({url: Endpoints.CHANNEL_TOKEN_GATE_RECHECK(channelId)});
+		return response.body;
+	} catch (error) {
+		logger.error(`Failed to recheck token gate access for channel ${channelId}:`, error);
+		throw error;
+	}
+}
+
 export async function fetchChannelInvites(channelId: string): Promise<Array<Invite>> {
 	try {
 		InviteStore.handleChannelInvitesFetchPending(channelId);

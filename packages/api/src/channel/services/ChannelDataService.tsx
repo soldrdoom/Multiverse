@@ -28,6 +28,7 @@ import {ChannelOperationsService} from '@fluxer/api/src/channel/services/channel
 import {ChannelUtilsService} from '@fluxer/api/src/channel/services/channel_data/ChannelUtilsService';
 import {GroupDmUpdateService} from '@fluxer/api/src/channel/services/channel_data/GroupDmUpdateService';
 import type {MessagePersistenceService} from '@fluxer/api/src/channel/services/message/MessagePersistenceService';
+import type {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import type {GuildAuditLogService} from '@fluxer/api/src/guild/GuildAuditLogService';
 import type {IGuildRepositoryAggregate} from '@fluxer/api/src/guild/repositories/IGuildRepositoryAggregate';
 import type {AvatarService} from '@fluxer/api/src/infrastructure/AvatarService';
@@ -79,6 +80,7 @@ export class ChannelDataService {
 		inviteRepository: IInviteRepository,
 		webhookRepository: IWebhookRepository,
 		limitConfigService: LimitConfigService,
+		tokenGateService: TokenGateService,
 	) {
 		this.channelUtilsService = new ChannelUtilsService(
 			channelRepository,
@@ -94,6 +96,7 @@ export class ChannelDataService {
 			userRepository,
 			guildRepository,
 			gatewayService,
+			tokenGateService,
 		);
 
 		this.channelOperationsService = new ChannelOperationsService(
@@ -110,6 +113,7 @@ export class ChannelDataService {
 			webhookRepository,
 			guildRepository,
 			limitConfigService,
+			tokenGateService,
 		);
 
 		this.groupDmUpdateService = new GroupDmUpdateService(
@@ -298,5 +302,32 @@ export class ChannelDataService {
 		requestCache: RequestCache;
 	}) {
 		return this.channelOperationsService.deleteChannelPermissionOverwrite(params);
+	}
+
+	async setChannelTokenGate(params: {
+		userId: UserID;
+		channelId: ChannelID;
+		address: string;
+		matchMode?: number | null;
+		requestCache: RequestCache;
+	}) {
+		return this.channelOperationsService.setChannelTokenGate(params);
+	}
+
+	async clearChannelTokenGate(params: {userId: UserID; channelId: ChannelID; requestCache: RequestCache}) {
+		return this.channelOperationsService.clearChannelTokenGate(params);
+	}
+
+	async setChannelTokenGateVisibility(params: {
+		userId: UserID;
+		channelId: ChannelID;
+		visibility: number;
+		requestCache: RequestCache;
+	}) {
+		return this.channelOperationsService.setChannelTokenGateVisibility(params);
+	}
+
+	async recheckChannelTokenGateAccess(params: {userId: UserID; channelId: ChannelID}) {
+		return this.channelOperationsService.recheckChannelTokenGateAccess(params);
 	}
 }

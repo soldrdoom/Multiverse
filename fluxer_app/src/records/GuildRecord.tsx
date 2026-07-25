@@ -68,6 +68,9 @@ export class GuildRecord {
 	readonly verificationLevel: number;
 	readonly mfaLevel: number;
 	readonly nsfwLevel: number;
+	readonly tokenGateAddress: string | null;
+	readonly tokenGateMatchMode: number | null;
+	readonly tokenGateVisibility: number;
 	readonly explicitContentFilter: number;
 	readonly defaultMessageNotifications: number;
 	private readonly _disabledOperations: number;
@@ -104,6 +107,9 @@ export class GuildRecord {
 		this.verificationLevel = this.normalizeVerificationLevel(guild);
 		this.mfaLevel = this.normalizeMfaLevel(guild);
 		this.nsfwLevel = this.normalizeNsfwLevel(guild);
+		this.tokenGateAddress = this.normalizeTokenGateAddress(guild);
+		this.tokenGateMatchMode = this.normalizeTokenGateMatchMode(guild);
+		this.tokenGateVisibility = this.normalizeTokenGateVisibility(guild);
 		this.explicitContentFilter = this.normalizeExplicitContentFilter(guild);
 		this.defaultMessageNotifications = this.normalizeDefaultMessageNotifications(guild);
 		this._disabledOperations = this.normalizeDisabledOperations(guild);
@@ -214,6 +220,18 @@ export class GuildRecord {
 		return this.normalizeFieldWithDefault(guild, 'nsfw_level', 'nsfwLevel', 0);
 	}
 
+	private normalizeTokenGateAddress(guild: GuildInput): string | null {
+		return this.normalizeField(guild, 'token_gate_address', 'tokenGateAddress');
+	}
+
+	private normalizeTokenGateMatchMode(guild: GuildInput): number | null {
+		return this.normalizeField(guild, 'token_gate_match_mode', 'tokenGateMatchMode');
+	}
+
+	private normalizeTokenGateVisibility(guild: GuildInput): number {
+		return this.normalizeFieldWithDefault(guild, 'token_gate_visibility', 'tokenGateVisibility', 0);
+	}
+
 	private normalizeExplicitContentFilter(guild: GuildInput): number {
 		return this.normalizeFieldWithDefault(guild, 'explicit_content_filter', 'explicitContentFilter', 0);
 	}
@@ -301,6 +319,9 @@ export class GuildRecord {
 			verification_level: this.verificationLevel,
 			mfa_level: this.mfaLevel,
 			nsfw_level: this.nsfwLevel,
+			token_gate_address: this.tokenGateAddress,
+			token_gate_match_mode: this.tokenGateMatchMode,
+			token_gate_visibility: this.tokenGateVisibility,
 			explicit_content_filter: this.explicitContentFilter,
 			default_message_notifications: this.defaultMessageNotifications,
 			disabled_operations: this._disabledOperations,
@@ -339,6 +360,10 @@ export class GuildRecord {
 				verificationLevel: guild.verification_level ?? this.verificationLevel,
 				mfaLevel: guild.mfa_level ?? this.mfaLevel,
 				nsfwLevel: guild.nsfw_level ?? this.nsfwLevel,
+				tokenGateAddress: guild.token_gate_address !== undefined ? guild.token_gate_address : this.tokenGateAddress,
+				tokenGateMatchMode:
+					guild.token_gate_match_mode !== undefined ? guild.token_gate_match_mode : this.tokenGateMatchMode,
+				tokenGateVisibility: guild.token_gate_visibility ?? this.tokenGateVisibility,
 				explicitContentFilter: guild.explicit_content_filter ?? this.explicitContentFilter,
 				defaultMessageNotifications: guild.default_message_notifications ?? this.defaultMessageNotifications,
 				disabledOperations: guild.disabled_operations ?? this.disabledOperations,

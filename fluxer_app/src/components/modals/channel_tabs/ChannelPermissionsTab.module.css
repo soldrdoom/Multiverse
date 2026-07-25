@@ -54,6 +54,21 @@
 	color: var(--status-idle);
 }
 
+.tokenGateSection {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	border: 1px solid var(--background-modifier-accent);
+	border-radius: 6px;
+	padding: 16px;
+	margin-top: 12px;
+}
+
+.tokenGateActions {
+	display: flex;
+	gap: 8px;
+}
+
 .grid {
 	display: grid;
 	grid-template-columns: 1fr;

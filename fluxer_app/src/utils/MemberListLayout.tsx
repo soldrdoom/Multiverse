@@ -39,14 +39,10 @@ export function buildMemberListLayout(groups: ReadonlyArray<MemberListGroupSnaps
 	let memberIndex = 0;
 
 	for (const group of groups) {
-		if (group.count <= 0) {
-			continue;
-		}
-
 		const headerRowIndex = rowIndex;
 		const memberStartIndex = memberIndex;
 		const memberEndIndex = memberIndex + group.count - 1;
-		const rowEndIndex = headerRowIndex + group.count;
+		const rowEndIndex = headerRowIndex + Math.max(0, group.count);
 
 		layouts.push({
 			id: group.id,

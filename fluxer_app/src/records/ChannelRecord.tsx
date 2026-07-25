@@ -85,6 +85,10 @@ export class ChannelRecord {
 	readonly permissionOverwrites: Readonly<Record<string, ChannelOverwriteRecord>>;
 	readonly recipientIds: ReadonlyArray<string>;
 	readonly nsfw: boolean;
+	readonly tokenGateAddress: string | null;
+	readonly tokenGateSatisfied: boolean | null;
+	readonly tokenGateVisibility: number | null;
+	readonly tokenGateMatchMode: number | null;
 	readonly rateLimitPerUser: number;
 	readonly nicks: Readonly<Record<string, string>>;
 	readonly flags: number;
@@ -111,6 +115,10 @@ export class ChannelRecord {
 		this.lastMessageId = channel.last_message_id ?? null;
 		this.lastPinTimestamp = channel.last_pin_timestamp ? new Date(channel.last_pin_timestamp) : null;
 		this.nsfw = channel.nsfw ?? false;
+		this.tokenGateAddress = channel.token_gate_address ?? null;
+		this.tokenGateSatisfied = channel.token_gate_satisfied ?? null;
+		this.tokenGateVisibility = channel.token_gate_visibility ?? null;
+		this.tokenGateMatchMode = channel.token_gate_match_mode ?? null;
 		this.rateLimitPerUser = channel.rate_limit_per_user ?? 0;
 		this.flags = channel.flags ?? 0;
 		this.nicks = channel.nicks ?? {};
@@ -198,6 +206,11 @@ export class ChannelRecord {
 		return this.nsfw;
 	}
 
+	/** Whether this channel/category has a tokengate (its own or inherited) that the current user does not satisfy. */
+	get isLockedForMe(): boolean {
+		return this.tokenGateSatisfied === false;
+	}
+
 	getRecipientId(): string | undefined {
 		if (this.type !== ChannelTypes.DM) return undefined;
 		const id = this.recipientIds[0];
@@ -248,6 +261,14 @@ export class ChannelRecord {
 					: undefined,
 				recipients: newRecipients.length > 0 ? newRecipients : undefined,
 				nsfw: updates.nsfw ?? this.nsfw,
+				token_gate_address:
+					updates.token_gate_address !== undefined ? updates.token_gate_address : this.tokenGateAddress,
+				token_gate_satisfied:
+					updates.token_gate_satisfied !== undefined ? updates.token_gate_satisfied : this.tokenGateSatisfied,
+				token_gate_visibility:
+					updates.token_gate_visibility !== undefined ? updates.token_gate_visibility : this.tokenGateVisibility,
+				token_gate_match_mode:
+					updates.token_gate_match_mode !== undefined ? updates.token_gate_match_mode : this.tokenGateMatchMode,
 				rate_limit_per_user: updates.rate_limit_per_user ?? this.rateLimitPerUser,
 				nicks: updates.nicks ?? this.nicks,
 				flags: updates.flags ?? this.flags,
@@ -297,6 +318,10 @@ export class ChannelRecord {
 		if (this.lastMessageId !== other.lastMessageId) return false;
 		if (this.lastPinTimestamp?.getTime() !== other.lastPinTimestamp?.getTime()) return false;
 		if (this.nsfw !== other.nsfw) return false;
+		if (this.tokenGateAddress !== other.tokenGateAddress) return false;
+		if (this.tokenGateSatisfied !== other.tokenGateSatisfied) return false;
+		if (this.tokenGateVisibility !== other.tokenGateVisibility) return false;
+		if (this.tokenGateMatchMode !== other.tokenGateMatchMode) return false;
 		if (this.rateLimitPerUser !== other.rateLimitPerUser) return false;
 		if (this.flags !== other.flags) return false;
 
@@ -340,6 +365,10 @@ export class ChannelRecord {
 					? this.recipientIds.map((id) => UserStore.getUser(id)!.toJSON())
 					: undefined,
 			nsfw: this.nsfw,
+			token_gate_address: this.tokenGateAddress,
+			token_gate_satisfied: this.tokenGateSatisfied,
+			token_gate_visibility: this.tokenGateVisibility,
+			token_gate_match_mode: this.tokenGateMatchMode,
 			rate_limit_per_user: this.rateLimitPerUser,
 			nicks: this.nicks,
 			flags: this.flags,

@@ -22,26 +22,25 @@ import {userIdToChannelId} from '@fluxer/api/src/BrandedTypes';
 import type {IChannelRepositoryAggregate} from '@fluxer/api/src/channel/repositories/IChannelRepositoryAggregate';
 import type {AuthenticatedChannel} from '@fluxer/api/src/channel/services/AuthenticatedChannel';
 import {DMPermissionValidator} from '@fluxer/api/src/channel/services/DMPermissionValidator';
+import type {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import {SYSTEM_USER_ID} from '@fluxer/api/src/constants/Core';
 import type {IGuildRepositoryAggregate} from '@fluxer/api/src/guild/repositories/IGuildRepositoryAggregate';
 import type {IGatewayService} from '@fluxer/api/src/infrastructure/IGatewayService';
 import type {Channel} from '@fluxer/api/src/models/Channel';
 import type {User} from '@fluxer/api/src/models/User';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
-import {isUserAdult} from '@fluxer/api/src/utils/AgeUtils';
 import {ChannelTypes, Permissions} from '@fluxer/constants/src/ChannelConstants';
-import {GuildNSFWLevel} from '@fluxer/constants/src/GuildConstants';
+import {TokenGateRequirementNotMetError} from '@fluxer/errors/src/domains/channel/TokenGateRequirementNotMetError';
+import {TokenGateUnavailableError} from '@fluxer/errors/src/domains/channel/TokenGateUnavailableError';
 import {UnknownChannelError} from '@fluxer/errors/src/domains/channel/UnknownChannelError';
 import {AccessDeniedError} from '@fluxer/errors/src/domains/core/AccessDeniedError';
 import {MissingPermissionsError} from '@fluxer/errors/src/domains/core/MissingPermissionsError';
 import {UnknownGuildError} from '@fluxer/errors/src/domains/guild/UnknownGuildError';
-import {NsfwContentRequiresAgeVerificationError} from '@fluxer/errors/src/domains/moderation/NsfwContentRequiresAgeVerificationError';
-import {UnknownUserError} from '@fluxer/errors/src/domains/user/UnknownUserError';
 import type {GuildResponse} from '@fluxer/schema/src/domains/guild/GuildResponseSchemas';
 
 export interface ChannelAuthOptions {
 	errorOnMissingGuild: 'unknown_channel' | 'missing_permissions';
-	validateNsfw: boolean;
+	validateTokenGate: boolean;
 }
 
 export abstract class BaseChannelAuthService {
@@ -53,6 +52,7 @@ export abstract class BaseChannelAuthService {
 		protected userRepository: IUserRepository,
 		protected guildRepository: IGuildRepositoryAggregate,
 		protected gatewayService: IGatewayService,
+		protected tokenGateService: TokenGateService,
 	) {
 		this.dmPermissionValidator = new DMPermissionValidator({
 			userRepository: this.userRepository,
@@ -184,16 +184,12 @@ export abstract class BaseChannelAuthService {
 
 		await checkPermission(Permissions.VIEW_CHANNEL);
 
-		const isGuildAgeRestricted = guildDataResult!.nsfw_level === GuildNSFWLevel.AGE_RESTRICTED;
-		const requiresAgeVerification = channel.isNsfw || isGuildAgeRestricted;
+		const isGuildOwner = guildDataResult!.owner_id === userId.toString();
 
-		if (this.options.validateNsfw && channel.type === ChannelTypes.GUILD_TEXT && requiresAgeVerification) {
-			const user = await this.userRepository.findUnique(userId);
-			if (!user) throw new UnknownUserError();
-
-			if (!isUserAdult(user.dateOfBirth)) {
-				throw new NsfwContentRequiresAgeVerificationError();
-			}
+		if (this.options.validateTokenGate && !isGuildOwner) {
+			const gateStatus = await this.tokenGateService.isChannelUnlockedForUser({channel, userId});
+			if (gateStatus === 'unsatisfied') throw new TokenGateRequirementNotMetError();
+			if (gateStatus === 'unavailable') throw new TokenGateUnavailableError();
 		}
 
 		return {

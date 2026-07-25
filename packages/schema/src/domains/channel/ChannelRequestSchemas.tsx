@@ -34,6 +34,7 @@ import {
 import {ChannelNicknameOverrides} from '@fluxer/schema/src/domains/channel/ChannelSchemas';
 import {ChannelOverwriteTypeSchema, GeneralChannelNameType} from '@fluxer/schema/src/primitives/ChannelValidators';
 import {createBase64StringType} from '@fluxer/schema/src/primitives/FileValidators';
+import {TokenGateMatchModeSchema, TokenGateVisibilitySchema} from '@fluxer/schema/src/primitives/GuildValidators';
 import {QueryBooleanType} from '@fluxer/schema/src/primitives/QueryValidators';
 import {
 	createNamedLiteral,
@@ -207,6 +208,25 @@ export const PermissionOverwriteCreateRequest = z.object({
 });
 
 export type PermissionOverwriteCreateRequest = z.infer<typeof PermissionOverwriteCreateRequest>;
+
+export const TokenGateSetRequest = z.object({
+	address: createStringType(32, 44).describe(
+		'The base58-encoded Solana mint or collection address gating this channel/category. What satisfies the gate depends on match_mode.',
+	),
+	match_mode: TokenGateMatchModeSchema.nullish().describe(
+		'Whether `address` must match a held asset exactly, or any asset belonging to the collection at that address. Defaults to EXACT_ASSET if omitted.',
+	),
+});
+
+export type TokenGateSetRequest = z.infer<typeof TokenGateSetRequest>;
+
+export const TokenGateVisibilitySetRequest = z.object({
+	visibility: TokenGateVisibilitySchema.describe(
+		"How this channel/category should appear to members who don't satisfy its effective tokengate.",
+	),
+});
+
+export type TokenGateVisibilitySetRequest = z.infer<typeof TokenGateVisibilitySetRequest>;
 
 export const DeleteChannelQuery = z.object({
 	silent: QueryBooleanType.describe('Whether to suppress the system message when leaving a group DM'),

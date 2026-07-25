@@ -53,8 +53,13 @@ get_user_viewable_channels(UserId, State) ->
                             case
                                 guild_permissions:can_view_channel(UserId, ChannelId, Member, State)
                             of
-                                true -> {true, ChannelId};
-                                false -> false
+                                false ->
+                                    false;
+                                true ->
+                                    case tokengate:user_satisfies_channel_gate(UserId, Channel, State) of
+                                        true -> {true, ChannelId};
+                                        false -> false
+                                    end
                             end
                     end
                 end,
@@ -279,7 +284,15 @@ ensure_new_channel_visibility(UserId, ChannelId, ConnectedSet, State) ->
 
 -spec channel_is_visible(user_id(), channel_id(), map() | undefined, guild_state()) -> boolean().
 channel_is_visible(UserId, ChannelId, Member, State) ->
-    guild_permissions:can_view_channel(UserId, ChannelId, Member, State).
+    guild_permissions:can_view_channel(UserId, ChannelId, Member, State) andalso
+        channel_satisfies_tokengate(UserId, ChannelId, State).
+
+-spec channel_satisfies_tokengate(user_id(), channel_id(), guild_state()) -> boolean().
+channel_satisfies_tokengate(UserId, ChannelId, State) ->
+    case guild_permissions:find_channel_by_id(ChannelId, State) of
+        undefined -> true;
+        Channel -> tokengate:user_satisfies_channel_gate(UserId, Channel, State)
+    end.
 
 -spec update_viewable_map_for_channel(map(), channel_id(), boolean()) -> map().
 update_viewable_map_for_channel(ViewableMap, ChannelId, true) ->
@@ -469,7 +482,8 @@ send_member_list_sync(SessionId, SessionData, ChannelId, GuildId, State) ->
 -spec can_send_member_list(user_id() | undefined, channel_id(), guild_state()) -> boolean().
 can_send_member_list(UserId, ChannelId, State) ->
     is_integer(UserId) andalso
-        guild_permissions:can_view_channel(UserId, ChannelId, undefined, State).
+        guild_permissions:can_view_channel(UserId, ChannelId, undefined, State) andalso
+        channel_satisfies_tokengate(UserId, ChannelId, State).
 
 -ifdef(TEST).
 

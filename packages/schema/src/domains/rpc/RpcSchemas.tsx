@@ -32,6 +32,7 @@ import {
 	UserPrivateResponse,
 	UserSettingsResponse,
 } from '@fluxer/schema/src/domains/user/UserResponseSchemas';
+import {TokenGateMatchModeSchema} from '@fluxer/schema/src/primitives/GuildValidators';
 import {createStringType, SnowflakeStringType, SnowflakeType} from '@fluxer/schema/src/primitives/SchemaPrimitives';
 import {z} from 'zod';
 
@@ -176,6 +177,16 @@ export const RpcRequest = z.discriminatedUnion('type', [
 		type: z.literal('validate_custom_status').describe('Request type for validating a custom status'),
 		user_id: SnowflakeType.describe('ID of the user'),
 		custom_status: CustomStatusPayload.nullish().describe('Custom status data to validate'),
+	}),
+	z.object({
+		type: z
+			.literal('check_tokengate')
+			.describe('Request type for checking whether a user satisfies a tokengate, for real-time dispatch filtering'),
+		user_id: SnowflakeType.describe('ID of the user to check'),
+		gate_address: createStringType(32, 44).describe('The mint or collection address gating the channel'),
+		match_mode: TokenGateMatchModeSchema.describe(
+			'Whether gate_address must match a held asset exactly, or via collection membership',
+		),
 	}),
 ]);
 
@@ -355,6 +366,16 @@ export const RpcResponse = z.discriminatedUnion('type', [
 				channel: ChannelResponse.nullish().describe('The DM channel or null if not found'),
 			})
 			.describe('DM channel result'),
+	}),
+	z.object({
+		type: z.literal('check_tokengate').describe('Response type for tokengate satisfaction check'),
+		data: z
+			.object({
+				status: z
+					.enum(['satisfied', 'unsatisfied', 'unavailable'])
+					.describe('Whether the user satisfies the gate, or whether it could not be evaluated'),
+			})
+			.describe('Tokengate check result'),
 	}),
 ]);
 

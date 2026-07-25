@@ -22,6 +22,7 @@ import {channelIdToUserId} from '@fluxer/api/src/BrandedTypes';
 import type {IChannelRepository} from '@fluxer/api/src/channel/IChannelRepository';
 import {mapMessageToResponse} from '@fluxer/api/src/channel/MessageMappers';
 import {MessageInteractionAuthService} from '@fluxer/api/src/channel/services/interaction/MessageInteractionAuthService';
+import type {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import {MessagePinService} from '@fluxer/api/src/channel/services/interaction/MessagePinService';
 import {MessageReactionService} from '@fluxer/api/src/channel/services/interaction/MessageReactionService';
 import {MessageReadStateService} from '@fluxer/api/src/channel/services/interaction/MessageReadStateService';
@@ -62,12 +63,14 @@ export class MessageInteractionService {
 		messagePersistenceService: MessagePersistenceService,
 		guildAuditLogService: GuildAuditLogService,
 		limitConfigService: LimitConfigService,
+		tokenGateService: TokenGateService,
 	) {
 		this.authService = new MessageInteractionAuthService(
 			channelRepository,
 			userRepository,
 			guildRepository,
 			gatewayService,
+			tokenGateService,
 		);
 
 		this.readStateService = new MessageReadStateService(gatewayService, readStateService);

@@ -32,6 +32,8 @@ import {
 	GuildVerificationLevelSchema,
 	NSFWLevelSchema,
 	SplashCardAlignmentSchema,
+	TokenGateMatchModeSchema,
+	TokenGateVisibilitySchema,
 } from '@fluxer/schema/src/primitives/GuildValidators';
 import {PermissionStringType} from '@fluxer/schema/src/primitives/PermissionValidators';
 import {
@@ -125,6 +127,19 @@ export const GuildResponse = z.object({
 	),
 	mfa_level: withFieldDescription(GuildMFALevelSchema, 'Required MFA level for moderation actions'),
 	nsfw_level: withFieldDescription(NSFWLevelSchema, 'The NSFW level of the guild'),
+	token_gate_address: z
+		.string()
+		.nullish()
+		.describe(
+			'The mint or collection address gating the entire guild, if configured. Channels/categories with no gate of their own (and whose parent category, if any, also has none) fall back to this.',
+		),
+	token_gate_match_mode: TokenGateMatchModeSchema.nullish().describe(
+		"How the guild-wide gate's address is matched against a wallet's held assets. Only meaningful when token_gate_address is set.",
+	),
+	token_gate_visibility: withFieldDescription(
+		TokenGateVisibilitySchema,
+		"How the guild-wide gate appears to members who don't satisfy it, and the default for any channel/category with no explicit visibility choice of its own",
+	),
 	explicit_content_filter: withFieldDescription(
 		GuildExplicitContentFilterSchema,
 		'Level of content filtering for explicit media',
@@ -206,6 +221,9 @@ export interface Guild {
 	readonly verification_level?: number;
 	readonly mfa_level?: number;
 	readonly nsfw_level?: number;
+	readonly token_gate_address?: string | null;
+	readonly token_gate_match_mode?: number | null;
+	readonly token_gate_visibility?: number;
 	readonly explicit_content_filter?: number;
 	readonly default_message_notifications?: number;
 	readonly disabled_operations?: number;

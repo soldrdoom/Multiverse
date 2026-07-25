@@ -80,7 +80,7 @@ import {openExternalUrl} from '@app/utils/NativeUtils';
 import * as PermissionUtils from '@app/utils/PermissionUtils';
 import {ChannelTypes, Permissions} from '@fluxer/constants/src/ChannelConstants';
 import {useLingui} from '@lingui/react/macro';
-import {CaretDownIcon, GearIcon, PlusIcon, UserPlusIcon} from '@phosphor-icons/react';
+import {CaretDownIcon, GearIcon, LockIcon, PlusIcon, UserPlusIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
@@ -689,6 +689,11 @@ export const ChannelItem = observer(
 							)}
 						{showMentionBadge && <MentionBadge mentionCount={mentionCount} size="small" />}
 					</>
+				)}
+				{!channelIsCategory && channel.isLockedForMe && (
+					<Tooltip text={t`You need a qualifying NFT to access this channel`}>
+						<LockIcon className={styles.channelItemIcon} />
+					</Tooltip>
 				)}
 				{shouldShowVoiceUserCount && channel.userLimit != null && (
 					<div className={styles.voiceUserCount}>

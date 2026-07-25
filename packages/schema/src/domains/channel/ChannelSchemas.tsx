@@ -20,6 +20,7 @@
 import {MAX_GROUP_DM_RECIPIENTS} from '@fluxer/constants/src/LimitConstants';
 import {type UserPartial, UserPartialResponse} from '@fluxer/schema/src/domains/user/UserResponseSchemas';
 import {ChannelOverwriteTypeSchema, ChannelTypeSchema} from '@fluxer/schema/src/primitives/ChannelValidators';
+import {TokenGateMatchModeSchema, TokenGateVisibilitySchema} from '@fluxer/schema/src/primitives/GuildValidators';
 import {PermissionStringType} from '@fluxer/schema/src/primitives/PermissionValidators';
 import {createStringType, Int32Type, SnowflakeStringType} from '@fluxer/schema/src/primitives/SchemaPrimitives';
 import {z} from 'zod';
@@ -40,6 +41,13 @@ export const RtcRegionResponse = z.object({
 });
 
 export type RtcRegionResponse = z.infer<typeof RtcRegionResponse>;
+
+export const TokenGateRecheckResponse = z.object({
+	satisfied: z.boolean().describe('Whether the requesting user now satisfies the channel/category tokengate'),
+	gate_address: z.string().nullish().describe('The effective mint/collection address that was checked, if any'),
+});
+
+export type TokenGateRecheckResponse = z.infer<typeof TokenGateRecheckResponse>;
 
 export const CallEligibilityResponse = z.object({
 	ringable: z.boolean().describe('Whether the current user can ring this call'),
@@ -78,6 +86,24 @@ export const ChannelResponse = z.object({
 		.optional()
 		.describe('The recipients of the DM channel'),
 	nsfw: z.boolean().optional().describe('Whether the channel is marked as NSFW'),
+	token_gate_address: z
+		.string()
+		.nullish()
+		.describe(
+			"The mint or collection address gating this channel, if configured on this channel or inherited from its parent category. Null/absent if this channel has no gate of its own — check the parent category's value to know whether it's inheriting one.",
+		),
+	token_gate_satisfied: z
+		.boolean()
+		.nullish()
+		.describe(
+			"Whether the requesting user currently satisfies this channel's effective tokengate. Only present on responses computed for a specific requesting user (not broadcast dispatch payloads); null/absent means no gate applies.",
+		),
+	token_gate_visibility: TokenGateVisibilitySchema.nullish().describe(
+		"How this channel/category appears to members who don't satisfy its effective tokengate, if configured on this channel or inherited from its parent category. Null/absent if this channel has no explicit choice of its own — check the parent category's value, defaulting to LOCKED if neither is set.",
+	),
+	token_gate_match_mode: TokenGateMatchModeSchema.nullish().describe(
+		"How this channel/category's tokengate address is matched against a wallet's held assets, if configured on this channel or inherited from its parent category. Null/absent if this channel has no explicit choice of its own — check the parent category's value, defaulting to EXACT_ASSET if neither is set.",
+	),
 	rate_limit_per_user: Int32Type.optional().describe('The slowmode rate limit in seconds'),
 	nicks: z
 		.record(z.string(), createStringType(1, 32))
@@ -150,6 +176,10 @@ export interface Channel {
 	readonly permission_overwrites?: ReadonlyArray<ChannelOverwrite>;
 	readonly recipients?: ReadonlyArray<UserPartial>;
 	readonly nsfw?: boolean;
+	readonly token_gate_address?: string | null;
+	readonly token_gate_satisfied?: boolean | null;
+	readonly token_gate_visibility?: number | null;
+	readonly token_gate_match_mode?: number | null;
 	readonly rate_limit_per_user?: number;
 	readonly nicks?: Readonly<Record<string, string>>;
 	readonly flags?: number;

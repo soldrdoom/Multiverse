@@ -52,6 +52,17 @@ export interface GuildRow {
 	verification_level: number;
 	mfa_level: number;
 	nsfw_level: number;
+	/** The address gating the entire guild, if configured. Channels/categories without their own gate inherit this. */
+	token_gate_address: Nullish<string>;
+	/** Match mode for `token_gate_address` (see `TokenGateMatchMode`). Only meaningful when `token_gate_address` is set. */
+	token_gate_match_mode: Nullish<number>;
+	/**
+	 * How the guild's own tokengate (`token_gate_address`) appears to members who don't satisfy it, and the
+	 * bottom fallback tier for any channel/category that has no explicit visibility choice of its own.
+	 * Historically this controlled a separate, since-removed "hide all gated channels guild-wide" behavior;
+	 * repurposed 2026-07-22 for the new whole-guild gate feature (see TODO.md/PROJECT_REPORT.md).
+	 */
+	token_gate_visibility: number;
 	explicit_content_filter: number;
 	default_message_notifications: number;
 	system_channel_id: Nullish<ChannelID>;
@@ -87,6 +98,9 @@ export const GUILD_COLUMNS = [
 	'verification_level',
 	'mfa_level',
 	'nsfw_level',
+	'token_gate_address',
+	'token_gate_match_mode',
+	'token_gate_visibility',
 	'explicit_content_filter',
 	'default_message_notifications',
 	'system_channel_id',

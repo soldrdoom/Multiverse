@@ -30,15 +30,12 @@ import {buildMessageSearchFilters} from '@fluxer/api/src/search/BuildMessageSear
 import {channelNeedsReindexing} from '@fluxer/api/src/search/ChannelIndexingUtils';
 import {MessageSearchResponseMapper} from '@fluxer/api/src/search/MessageSearchResponseMapper';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
-import {isUserAdult} from '@fluxer/api/src/utils/AgeUtils';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
 import {GuildNSFWLevel} from '@fluxer/constants/src/GuildConstants';
 import {ValidationErrorCodes} from '@fluxer/constants/src/ValidationErrorCodes';
 import {FeatureTemporarilyDisabledError} from '@fluxer/errors/src/domains/core/FeatureTemporarilyDisabledError';
 import {InputValidationError} from '@fluxer/errors/src/domains/core/InputValidationError';
 import {MissingPermissionsError} from '@fluxer/errors/src/domains/core/MissingPermissionsError';
-import {NsfwContentRequiresAgeVerificationError} from '@fluxer/errors/src/domains/moderation/NsfwContentRequiresAgeVerificationError';
-import {UnknownUserError} from '@fluxer/errors/src/domains/user/UnknownUserError';
 import type {MessageSearchRequest} from '@fluxer/schema/src/domains/message/MessageRequestSchemas';
 import type {MessageSearchResponse} from '@fluxer/schema/src/domains/message/MessageResponseSchemas';
 import type {IWorkerService} from '@fluxer/worker/src/contracts/IWorkerService';
@@ -89,38 +86,20 @@ export class GuildSearchService {
 		}
 
 		const includeNsfwRequested = searchParams.include_nsfw ?? false;
-		let userIsAdultResult: boolean | null = null;
-		const getIsUserAdult = async (): Promise<boolean> => {
-			if (userIsAdultResult !== null) {
-				return userIsAdultResult;
-			}
-			const user = await this.userRepository.findUnique(userId);
-			if (!user) {
-				throw new UnknownUserError();
-			}
-			userIsAdultResult = isUserAdult(user.dateOfBirth);
-			return userIsAdultResult;
-		};
 
-		if (guildIsAgeRestricted) {
-			if (!(await getIsUserAdult())) {
-				throw new NsfwContentRequiresAgeVerificationError();
-			}
-
-			// Searching an age-restricted community requires an explicit NSFW opt-in.
-			if (!includeNsfwRequested) {
-				const hitsPerPage = searchParams.hits_per_page ?? 25;
-				const page = searchParams.page ?? 1;
-				return {
-					messages: [],
-					total: 0,
-					hits_per_page: hitsPerPage,
-					page,
-				};
-			}
+		// Searching an age-restricted community requires an explicit NSFW opt-in.
+		if (guildIsAgeRestricted && !includeNsfwRequested) {
+			const hitsPerPage = searchParams.hits_per_page ?? 25;
+			const page = searchParams.page ?? 1;
+			return {
+				messages: [],
+				total: 0,
+				hits_per_page: hitsPerPage,
+				page,
+			};
 		}
 
-		const canIncludeNsfw = includeNsfwRequested ? await getIsUserAdult() : false;
+		const canIncludeNsfw = includeNsfwRequested;
 		const validChannelIds: Array<ChannelID> = [];
 		for (const channelId of channelIds) {
 			const channel = await this.channelRepository.findUnique(channelId);
@@ -241,14 +220,7 @@ export class GuildSearchService {
 		}
 
 		const includeNsfwRequested = searchParams.include_nsfw ?? false;
-		let canIncludeNsfw = false;
-		if (includeNsfwRequested) {
-			const user = await this.userRepository.findUnique(userId);
-			if (!user) {
-				throw new UnknownUserError();
-			}
-			canIncludeNsfw = isUserAdult(user.dateOfBirth);
-		}
+		const canIncludeNsfw = includeNsfwRequested;
 
 		searchChannelIds = searchChannelIds.filter((channelIdStr) => {
 			const channel = accessibleChannels.get(channelIdStr);

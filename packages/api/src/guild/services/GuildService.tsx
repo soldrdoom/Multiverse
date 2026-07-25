@@ -24,6 +24,7 @@ import type {ChannelService} from '@fluxer/api/src/channel/services/ChannelServi
 import type {GuildAuditLogService} from '@fluxer/api/src/guild/GuildAuditLogService';
 import type {GuildAuditLogChange} from '@fluxer/api/src/guild/GuildAuditLogTypes';
 import type {IGuildRepositoryAggregate} from '@fluxer/api/src/guild/repositories/IGuildRepositoryAggregate';
+import type {TokenGateService} from '@fluxer/api/src/channel/services/TokenGateService';
 import {GuildChannelService} from '@fluxer/api/src/guild/services/GuildChannelService';
 import {GuildContentService} from '@fluxer/api/src/guild/services/GuildContentService';
 import {GuildDataService} from '@fluxer/api/src/guild/services/GuildDataService';
@@ -168,6 +169,7 @@ export class GuildService {
 		webhookRepository: IWebhookRepository,
 		guildAuditLogService: GuildAuditLogService,
 		limitConfigService: LimitConfigService,
+		tokenGateService: TokenGateService,
 	) {
 		this.gatewayService = gatewayService;
 		this.guildRepository = guildRepository;
@@ -235,6 +237,7 @@ export class GuildService {
 			snowflakeService,
 			guildAuditLogService,
 			limitConfigService,
+			tokenGateService,
 		);
 		this.search = new GuildSearchService(
 			channelRepository,

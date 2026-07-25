@@ -41,6 +41,8 @@ import {
 	sortRolesByPosition,
 } from '@app/components/modals/shared/PermissionComponents';
 import {Button} from '@app/components/uikit/button/Button';
+import type {RadioOption} from '@app/components/uikit/radio_group/RadioGroup';
+import {RadioGroup} from '@app/components/uikit/radio_group/RadioGroup';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {useMergeRefs} from '@app/hooks/useMergeRefs';
 import type {GuildRoleRecord} from '@app/records/GuildRoleRecord';
@@ -51,8 +53,10 @@ import PermissionLayoutStore from '@app/stores/PermissionLayoutStore';
 import PermissionStore from '@app/stores/PermissionStore';
 import SettingsSidebarStore from '@app/stores/SettingsSidebarStore';
 import UserStore from '@app/stores/UserStore';
+import {getApiErrorErrors} from '@app/utils/ApiErrorUtils';
 import * as PermissionUtils from '@app/utils/PermissionUtils';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
+import {TokenGateMatchMode, TokenGateVisibility} from '@fluxer/constants/src/GuildConstants';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {
 	ArrowsDownUpIcon,
@@ -324,8 +328,32 @@ const GuildRolesTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 	const pendingRoleCreationRef = useRef(false);
 	const previousRoleIdsRef = useRef<Array<string>>([]);
 
+	const [tokenGateAddress, setTokenGateAddress] = useState('');
+	const [tokenGateMatchMode, setTokenGateMatchMode] = useState<number>(TokenGateMatchMode.EXACT_ASSET);
+	const [tokenGateVisibility, setTokenGateVisibility] = useState<number>(TokenGateVisibility.LOCKED);
+	const [tokenGateError, setTokenGateError] = useState<string | undefined>(undefined);
+	const [isSavingTokenGate, setIsSavingTokenGate] = useState(false);
+
 	const canManageRoles = PermissionStore.can(Permissions.MANAGE_ROLES, {guildId});
+	const canManageGuild = PermissionStore.can(Permissions.MANAGE_GUILD, {guildId});
 	const isGuildOwner = guild && currentUser ? guild.isOwner(currentUser.id) : false;
+
+	useEffect(() => {
+		if (!guild) return;
+		setTokenGateAddress(guild.tokenGateAddress ?? '');
+		setTokenGateMatchMode(guild.tokenGateMatchMode ?? TokenGateMatchMode.EXACT_ASSET);
+		setTokenGateVisibility(guild.tokenGateVisibility ?? TokenGateVisibility.LOCKED);
+		setTokenGateError(undefined);
+	}, [guild?.tokenGateAddress, guild?.tokenGateMatchMode, guild?.tokenGateVisibility]);
+
+	const tokenGateHasChanges = useMemo(() => {
+		if (!guild) return false;
+		return (
+			tokenGateAddress.trim() !== (guild.tokenGateAddress ?? '') ||
+			tokenGateMatchMode !== (guild.tokenGateMatchMode ?? TokenGateMatchMode.EXACT_ASSET) ||
+			tokenGateVisibility !== (guild.tokenGateVisibility ?? TokenGateVisibility.LOCKED)
+		);
+	}, [guild, tokenGateAddress, tokenGateMatchMode, tokenGateVisibility]);
 
 	const roles = useMemo(() => {
 		if (!guild) return [];
@@ -493,14 +521,15 @@ const GuildRolesTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 		}
 	}, [roles, selectedRoleId, isMobile]);
 
-	const hasUnsavedChanges = roleUpdates.size > 0 || pendingRoleOrder !== null || pendingHoistOrder !== null;
+	const hasUnsavedChanges =
+		roleUpdates.size > 0 || pendingRoleOrder !== null || pendingHoistOrder !== null || tokenGateHasChanges;
 
 	useEffect(() => {
 		UnsavedChangesActionCreators.setUnsavedChanges(GUILD_ROLES_TAB_ID, hasUnsavedChanges);
 	}, [hasUnsavedChanges]);
 
 	const handleSave = useCallback(async () => {
-		if (!guild || !canManageRoles) return;
+		if (!guild) return;
 
 		for (const [_roleId, updates] of roleUpdates.entries()) {
 			if (updates.name !== undefined && updates.name.trim() === '') {
@@ -509,50 +538,92 @@ const GuildRolesTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 			}
 		}
 
-		try {
-			if (pendingRoleOrder) {
-				await GuildActionCreators.setRoleOrder(guild.id, pendingRoleOrder);
+		if (canManageRoles && (roleUpdates.size > 0 || pendingRoleOrder !== null || pendingHoistOrder !== null)) {
+			try {
+				if (pendingRoleOrder) {
+					await GuildActionCreators.setRoleOrder(guild.id, pendingRoleOrder);
+				}
+
+				if (pendingHoistOrder) {
+					await GuildActionCreators.setRoleHoistOrder(guild.id, pendingHoistOrder);
+				}
+
+				for (const [roleId, updates] of roleUpdates.entries()) {
+					const updateData: Record<string, unknown> = {};
+					if (updates.name !== undefined) updateData.name = updates.name;
+					if (updates.color !== undefined) updateData.color = updates.color;
+					if (updates.hoist !== undefined) updateData.hoist = updates.hoist;
+					if (updates.mentionable !== undefined) updateData.mentionable = updates.mentionable;
+					if (updates.permissions !== undefined) updateData.permissions = updates.permissions.toString();
+
+					await GuildActionCreators.updateRole(guild.id, roleId, updateData);
+				}
+
+				setRoleUpdates(new Map());
+				setPendingRoleOrder(null);
+				setPendingHoistOrder(null);
+
+				ToastActionCreators.createToast({type: 'success', children: <Trans>Roles updated successfully</Trans>});
+			} catch (_error) {
+				ModalActionCreators.push(modal(() => <RoleUpdateFailedModal />));
 			}
-
-			if (pendingHoistOrder) {
-				await GuildActionCreators.setRoleHoistOrder(guild.id, pendingHoistOrder);
-			}
-
-			for (const [roleId, updates] of roleUpdates.entries()) {
-				const updateData: Record<string, unknown> = {};
-				if (updates.name !== undefined) updateData.name = updates.name;
-				if (updates.color !== undefined) updateData.color = updates.color;
-				if (updates.hoist !== undefined) updateData.hoist = updates.hoist;
-				if (updates.mentionable !== undefined) updateData.mentionable = updates.mentionable;
-				if (updates.permissions !== undefined) updateData.permissions = updates.permissions.toString();
-
-				await GuildActionCreators.updateRole(guild.id, roleId, updateData);
-			}
-
-			setRoleUpdates(new Map());
-			setPendingRoleOrder(null);
-			setPendingHoistOrder(null);
-
-			ToastActionCreators.createToast({type: 'success', children: <Trans>Roles updated successfully</Trans>});
-		} catch (_error) {
-			ModalActionCreators.push(modal(() => <RoleUpdateFailedModal />));
 		}
-	}, [guild, canManageRoles, roleUpdates, pendingRoleOrder, pendingHoistOrder]);
+
+		if (canManageGuild && tokenGateHasChanges) {
+			setIsSavingTokenGate(true);
+			setTokenGateError(undefined);
+			try {
+				await GuildActionCreators.update(guild.id, {
+					token_gate_address: tokenGateAddress.trim() || null,
+					token_gate_match_mode: tokenGateMatchMode,
+					token_gate_visibility: tokenGateVisibility,
+				});
+				ToastActionCreators.createToast({type: 'success', children: <Trans>Server-wide tokengating updated</Trans>});
+			} catch (err) {
+				const validationErrors = getApiErrorErrors(err);
+				if (validationErrors?.some((e) => e.path === 'token_gate_address')) {
+					setTokenGateError(t`That doesn't look like a valid Solana mint or collection address.`);
+				} else {
+					ToastActionCreators.error(t`Failed to save server-wide tokengating. Please try again.`);
+				}
+			} finally {
+				setIsSavingTokenGate(false);
+			}
+		}
+	}, [
+		guild,
+		canManageRoles,
+		canManageGuild,
+		roleUpdates,
+		pendingRoleOrder,
+		pendingHoistOrder,
+		tokenGateHasChanges,
+		tokenGateAddress,
+		tokenGateMatchMode,
+		tokenGateVisibility,
+		t,
+	]);
 
 	const handleReset = useCallback(() => {
 		setRoleUpdates(new Map());
 		setPendingRoleOrder(null);
 		setPendingHoistOrder(null);
 		setHoistOrderMode(false);
-	}, []);
+		if (guild) {
+			setTokenGateAddress(guild.tokenGateAddress ?? '');
+			setTokenGateMatchMode(guild.tokenGateMatchMode ?? TokenGateMatchMode.EXACT_ASSET);
+			setTokenGateVisibility(guild.tokenGateVisibility ?? TokenGateVisibility.LOCKED);
+		}
+		setTokenGateError(undefined);
+	}, [guild]);
 
 	useEffect(() => {
 		UnsavedChangesActionCreators.setTabData(GUILD_ROLES_TAB_ID, {
 			onReset: handleReset,
 			onSave: handleSave,
-			isSubmitting: false,
+			isSubmitting: isSavingTokenGate,
 		});
-	}, [handleReset, handleSave]);
+	}, [handleReset, handleSave, isSavingTokenGate]);
 
 	useEffect(() => {
 		return () => {
@@ -930,10 +1001,92 @@ const GuildRolesTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 
 	if (!guild || !currentUser) return null;
 
+	const tokenGateMatchModeOptions: ReadonlyArray<RadioOption<number>> = [
+		{
+			value: TokenGateMatchMode.EXACT_ASSET,
+			name: t`Specific NFT`,
+			desc: t`Only the wallet holding this exact NFT satisfies the gate.`,
+		},
+		{
+			value: TokenGateMatchMode.COLLECTION,
+			name: t`Collection`,
+			desc: t`Any wallet holding any asset from this collection satisfies the gate.`,
+		},
+	];
+
+	const tokenGateVisibilityOptions: ReadonlyArray<RadioOption<number>> = [
+		{
+			value: TokenGateVisibility.LOCKED,
+			name: t`Locked`,
+			desc: t`Visible in the channel list with a lock icon, but not enterable.`,
+		},
+		{
+			value: TokenGateVisibility.HIDDEN,
+			name: t`Hidden`,
+			desc: t`Not shown in the channel list at all.`,
+		},
+	];
+
+	const tokenGateSection = canManageGuild && (
+		<div className={styles.tokenGateSection}>
+			<div className={styles.sectionHeader}>
+				<h2 className={styles.sectionTitle}>
+					<Trans>Server-wide tokengating</Trans>
+				</h2>
+				<p className={styles.subtleText}>
+					<Trans>
+						Require members to hold a specific NFT or compressed NFT (cNFT) to access this community at all. Channels
+						and categories that don't have their own gate use this one.
+					</Trans>
+				</p>
+			</div>
+
+			<Input
+				value={tokenGateAddress}
+				onChange={(e) => setTokenGateAddress(e.target.value)}
+				type="text"
+				label={tokenGateMatchMode === TokenGateMatchMode.COLLECTION ? t`Collection Address` : t`NFT Mint Address`}
+				placeholder={
+					tokenGateMatchMode === TokenGateMatchMode.COLLECTION
+						? t`e.g. a Metaplex collection address`
+						: t`e.g. this specific NFT's mint address`
+				}
+				error={tokenGateError}
+			/>
+
+			<RadioGroup
+				value={tokenGateMatchMode}
+				onChange={setTokenGateMatchMode}
+				disabled={!canManageGuild}
+				options={tokenGateMatchModeOptions}
+				aria-label={t`Server-wide token gate match mode`}
+			/>
+
+			<div className={styles.sectionSubtitle}>
+				<Trans>Token gate visibility</Trans>
+			</div>
+			<p className={styles.subtleText}>
+				<Trans>
+					Choose what members who don't hold the required NFT see for the server-wide gate above, and for any channel or
+					category with no explicit visibility choice of its own.
+				</Trans>
+			</p>
+
+			<RadioGroup
+				value={tokenGateVisibility}
+				onChange={setTokenGateVisibility}
+				disabled={!canManageGuild}
+				options={tokenGateVisibilityOptions}
+				aria-label={t`Token gate visibility setting`}
+			/>
+		</div>
+	);
+
 	if (isMobile && !mobileShowEditor) {
 		return (
 			<div className={styles.container}>
 				<div className={styles.mobileRoleList}>
+					{tokenGateSection}
 					<div className={styles.mobileListHeader}>
 						<h2 className={styles.mobileListTitle}>
 							<Trans>Roles</Trans>
@@ -982,6 +1135,7 @@ const GuildRolesTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 		<div className={styles.container}>
 			<div className={styles.right}>
 				<div className={styles.rightScroller} key={rolesScrollerKey}>
+					{tokenGateSection}
 					{selectedRoleWithUpdates && (
 						<>
 							{isMobile && (

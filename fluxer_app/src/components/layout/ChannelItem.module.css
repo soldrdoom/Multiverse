@@ -38,9 +38,9 @@
 }
 
 .channelItemCoreSelected {
-	background-color: rgba(0, 200, 100, 0.18);
-	color: #00C864;
-	box-shadow: inset 3px 0 0 0 #00C864;
+	background-color: color-mix(in srgb, var(--brand-primary) 18%, transparent);
+	color: var(--brand-primary);
+	box-shadow: inset 3px 0 0 0 var(--brand-primary);
 }
 
 .channelItemCoreUnselected {
@@ -225,9 +225,9 @@
 }
 
 .channelItemSelected {
-	background-color: rgba(0, 200, 100, 0.18);
-	color: #00C864;
-	box-shadow: inset 3px 0 0 0 #00C864;
+	background-color: color-mix(in srgb, var(--brand-primary) 18%, transparent);
+	color: var(--brand-primary);
+	box-shadow: inset 3px 0 0 0 var(--brand-primary);
 }
 
 .channelItemSelectedWithUnread {

@@ -140,4 +140,9 @@ export const ChannelRateLimitConfigs = {
 		bucket: 'channel:stream:preview:post::stream_key',
 		config: {limit: 20, windowMs: ms('10 seconds')},
 	} as RouteRateLimitConfig,
+
+	CHANNEL_TOKEN_GATE_RECHECK: {
+		bucket: 'channel:token_gate:recheck::channel_id',
+		config: {limit: 5, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
 } as const;

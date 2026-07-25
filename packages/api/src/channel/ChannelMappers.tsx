@@ -34,6 +34,14 @@ interface MapChannelToResponseParams {
 	currentUserId: UserID | null;
 	userCacheService: UserCacheService;
 	requestCache: RequestCache;
+	/**
+	 * Whether the requesting user currently satisfies this channel's effective
+	 * tokengate. Omitted (not just `undefined`-valued) on broadcast/bulk
+	 * dispatch paths, since it's inherently per-viewer and those payloads are
+	 * fanned out identically to an entire guild room — only pass this when
+	 * `currentUserId` really is the single recipient of this response.
+	 */
+	tokenGateSatisfied?: boolean | null;
 }
 
 function serializeBaseChannelFields(channel: Channel) {
@@ -56,6 +64,9 @@ function serializeGuildChannelFields(channel: Channel) {
 		name: channel.name ?? undefined,
 		position: channel.position ?? undefined,
 		permission_overwrites: serializePermissionOverwrites(channel),
+		token_gate_address: channel.tokenGateAddress,
+		token_gate_visibility: channel.tokenGateVisibility,
+		token_gate_match_mode: channel.tokenGateMatchMode,
 	};
 }
 
@@ -177,6 +188,7 @@ export async function mapChannelToResponse({
 	currentUserId,
 	userCacheService,
 	requestCache,
+	tokenGateSatisfied,
 }: MapChannelToResponseParams): Promise<ChannelResponse> {
 	let response: ChannelResponse;
 
@@ -218,6 +230,10 @@ export async function mapChannelToResponse({
 				parent_id: channel.parentId ? channel.parentId.toString() : null,
 				permission_overwrites: channel.guildId ? serializePermissionOverwrites(channel) : undefined,
 			};
+	}
+
+	if (channel.guildId && tokenGateSatisfied !== undefined) {
+		response.token_gate_satisfied = tokenGateSatisfied;
 	}
 
 	return response;

@@ -204,6 +204,11 @@ export const ReportIdParam = z.object({
 });
 export type ReportIdParam = z.infer<typeof ReportIdParam>;
 
+export const NewsStoryIdParam = z.object({
+	story_id: SnowflakeType.describe('The ID of the news story'),
+});
+export type NewsStoryIdParam = z.infer<typeof NewsStoryIdParam>;
+
 export const KeyIdParam = z.object({
 	keyId: createStringType(1, 64).describe('The ID of the key'),
 });

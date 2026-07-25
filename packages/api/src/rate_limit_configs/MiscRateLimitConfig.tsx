@@ -26,6 +26,11 @@ export const MiscRateLimitConfigs = {
 		config: {limit: 60, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
 
+	NEWS_LIST: {
+		bucket: 'news:list',
+		config: {limit: 60, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+
 	DOWNLOAD_DESKTOP_LATEST: {
 		bucket: 'download:desktop:latest',
 		config: {limit: 60, windowMs: ms('1 minute')},

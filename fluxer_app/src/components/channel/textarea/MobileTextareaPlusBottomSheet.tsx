@@ -64,7 +64,7 @@ export const MobileTextareaPlusBottomSheet = observer(
 				icon: <GiftIcon />,
 				label: t`Send Gift`,
 				onClick: () => {
-					PremiumModalActionCreators.open(true);
+					PremiumModalActionCreators.open();
 					onClose();
 				},
 			});

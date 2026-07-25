@@ -34,6 +34,9 @@ export class Channel {
 	readonly ownerId: UserID | null;
 	readonly recipientIds: Set<UserID>;
 	readonly isNsfw: boolean;
+	readonly tokenGateAddress: string | null;
+	readonly tokenGateVisibility: number | null;
+	readonly tokenGateMatchMode: number | null;
 	readonly rateLimitPerUser: number;
 	readonly bitrate: number | null;
 	readonly userLimit: number | null;
@@ -59,6 +62,9 @@ export class Channel {
 		this.ownerId = row.owner_id ?? null;
 		this.recipientIds = row.recipient_ids ?? new Set();
 		this.isNsfw = row.nsfw ?? false;
+		this.tokenGateAddress = row.token_gate_address ?? null;
+		this.tokenGateVisibility = row.token_gate_visibility ?? null;
+		this.tokenGateMatchMode = row.token_gate_match_mode ?? null;
 		this.rateLimitPerUser = row.rate_limit_per_user ?? 0;
 		this.bitrate = row.bitrate ?? 0;
 		this.userLimit = row.user_limit ?? 0;
@@ -101,6 +107,9 @@ export class Channel {
 			owner_id: this.ownerId,
 			recipient_ids: this.recipientIds.size > 0 ? this.recipientIds : null,
 			nsfw: this.isNsfw,
+			token_gate_address: this.tokenGateAddress,
+			token_gate_visibility: this.tokenGateVisibility,
+			token_gate_match_mode: this.tokenGateMatchMode,
 			rate_limit_per_user: this.rateLimitPerUser,
 			bitrate: this.bitrate,
 			user_limit: this.userLimit,

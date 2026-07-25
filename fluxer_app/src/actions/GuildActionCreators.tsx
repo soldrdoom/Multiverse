@@ -100,6 +100,9 @@ export async function update(
 			| 'verification_level'
 			| 'mfa_level'
 			| 'nsfw_level'
+			| 'token_gate_address'
+			| 'token_gate_match_mode'
+			| 'token_gate_visibility'
 			| 'explicit_content_filter'
 		>
 	>,

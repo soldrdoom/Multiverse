@@ -24,6 +24,8 @@ import {
 	GuildSplashCardAlignment,
 	GuildVerificationLevel,
 	JoinSourceTypes,
+	TokenGateMatchMode,
+	TokenGateVisibility,
 } from '@fluxer/constants/src/GuildConstants';
 import {MessageNotifications} from '@fluxer/constants/src/NotificationConstants';
 import {
@@ -85,6 +87,28 @@ export const NSFWLevelSchema = createInt32EnumType(
 	],
 	'The NSFW level of the guild',
 	'NSFWLevel',
+);
+
+export const TokenGateVisibilitySchema = createInt32EnumType(
+	[
+		[TokenGateVisibility.LOCKED, 'LOCKED', 'Gated channels are visible with a lock icon to non-qualifying members'],
+		[TokenGateVisibility.HIDDEN, 'HIDDEN', 'Gated channels are hidden entirely from non-qualifying members'],
+	],
+	'How token-gated channels/categories appear to members who do not satisfy the gate',
+	'TokenGateVisibility',
+);
+
+export const TokenGateMatchModeSchema = createInt32EnumType(
+	[
+		[TokenGateMatchMode.EXACT_ASSET, 'EXACT_ASSET', 'Only the wallet holding this exact NFT satisfies the gate'],
+		[
+			TokenGateMatchMode.COLLECTION,
+			'COLLECTION',
+			'Any wallet holding any asset from the collection at this address satisfies the gate',
+		],
+	],
+	"How a channel/category's tokengate address is matched against a wallet's held assets",
+	'TokenGateMatchMode',
 );
 
 export const SplashCardAlignmentSchema = createNamedLiteralUnion(

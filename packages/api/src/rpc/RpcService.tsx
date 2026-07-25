@@ -33,6 +33,7 @@ import {Config} from '@fluxer/api/src/Config';
 import {mapChannelToResponse} from '@fluxer/api/src/channel/ChannelMappers';
 import type {IChannelRepository} from '@fluxer/api/src/channel/IChannelRepository';
 import {mapMessageToResponse} from '@fluxer/api/src/channel/MessageMappers';
+import type {TokenGateCacheService} from '@fluxer/api/src/channel/services/TokenGateCacheService';
 import {mapFavoriteMemeToResponse} from '@fluxer/api/src/favorite_meme/FavoriteMemeModel';
 import type {IFavoriteMemeRepository} from '@fluxer/api/src/favorite_meme/IFavoriteMemeRepository';
 import {
@@ -182,6 +183,7 @@ export class RpcService {
 		private rateLimitService: IRateLimitService,
 		private mediaService: IMediaService,
 		private readonly limitConfigService: LimitConfigService,
+		private readonly tokenGateCacheService: TokenGateCacheService,
 		private voiceService?: VoiceService,
 		private voiceAvailabilityService?: VoiceAvailabilityService,
 	) {
@@ -319,6 +321,9 @@ export class RpcService {
 			owner_id: null,
 			recipient_ids: new Set(),
 			nsfw: false,
+			token_gate_address: null,
+			token_gate_visibility: null,
+			token_gate_match_mode: null,
 			rate_limit_per_user: 0,
 			bitrate: null,
 			user_limit: null,
@@ -612,6 +617,17 @@ export class RpcService {
 				return {
 					type: 'get_dm_channel',
 					data: {channel},
+				};
+			}
+			case 'check_tokengate': {
+				const status = await this.checkTokenGate({
+					userId: createUserID(request.user_id),
+					gateAddress: request.gate_address,
+					matchMode: request.match_mode,
+				});
+				return {
+					type: 'check_tokengate',
+					data: {status},
 				};
 			}
 			default: {
@@ -1274,11 +1290,12 @@ export class RpcService {
 		const guild = await this.getGuildOrThrow(guildId);
 		const channels = await this.channelRepository.listGuildChannels(guildId);
 		const repairedGuild = await this.repairDanglingChannelReferences({guild, channels});
-		this.repairOrphanedInvitesAndWebhooks({guild: repairedGuild, channels}).catch((error) => {
+		const repairedChannels = await this.repairChannelTokenGateVisibility({guild: repairedGuild, channels});
+		this.repairOrphanedInvitesAndWebhooks({guild: repairedGuild, channels: repairedChannels}).catch((error) => {
 			Logger.warn({guildId: guildId.toString(), error}, 'Failed to repair orphaned invites/webhooks');
 		});
 		const mappedChannels = await Promise.all(
-			channels.map((channel) =>
+			repairedChannels.map((channel) =>
 				mapChannelToResponse({
 					channel,
 					currentUserId: null,
@@ -1593,6 +1610,44 @@ export class RpcService {
 		});
 	}
 
+	/**
+	 * One-time backfill for the token-gate visibility migration from a single
+	 * guild-wide setting to a per-channel/category one: any channel that
+	 * already owns a gate (its own `token_gate_address`) but has never had its
+	 * own visibility choice made gets the old guild-wide value copied onto it,
+	 * preserving today's behavior exactly. Guarded by `tokenGateVisibility ===
+	 * null`, so this only ever fires once per channel — self-heals the next
+	 * time this guild's channels are loaded, no manual migration needed.
+	 */
+	private async repairChannelTokenGateVisibility(params: {
+		guild: Guild;
+		channels: Array<Channel>;
+	}): Promise<Array<Channel>> {
+		const {guild, channels} = params;
+
+		return Promise.all(
+			channels.map(async (channel) => {
+				if (!channel.tokenGateAddress || channel.tokenGateVisibility !== null) {
+					return channel;
+				}
+
+				Logger.info(
+					{
+						guildId: guild.id.toString(),
+						channelId: channel.id.toString(),
+						visibility: guild.tokenGateVisibility,
+					},
+					'Repairing channel token gate visibility',
+				);
+
+				return this.channelRepository.upsert({
+					...channel.toRow(),
+					token_gate_visibility: guild.tokenGateVisibility,
+				});
+			}),
+		);
+	}
+
 	private async repairGuildBannerHeight(guild: Guild): Promise<Guild> {
 		if (!guild.bannerHash || (guild.bannerHeight != null && guild.bannerWidth != null)) {
 			return guild;
@@ -1881,5 +1936,26 @@ export class RpcService {
 			}
 			throw error;
 		}
+	}
+
+	/**
+	 * Called by the Erlang gateway (via `rpc.api`) before real-time dispatch of a
+	 * channel-scoped event, for channels the gateway has already determined have an
+	 * effective tokengate configured. The gateway resolves category inheritance and
+	 * caches results itself (see `tokengate_cache.erl`) — this only ever runs the
+	 * DAS-dependent part that only Node/TS can do.
+	 */
+	private async checkTokenGate(params: {
+		userId: UserID;
+		gateAddress: string;
+		matchMode: number;
+	}): Promise<'satisfied' | 'unsatisfied' | 'unavailable'> {
+		const user = await this.userRepository.findUnique(params.userId);
+		if (!user?.solanaAddress) return 'unsatisfied';
+		return this.tokenGateCacheService.check({
+			wallet: user.solanaAddress,
+			gateAddress: params.gateAddress,
+			matchMode: params.matchMode,
+		});
 	}
 }

@@ -31,6 +31,11 @@ import type {UserRecord} from '@app/records/UserRecord';
 import AuthenticationStore from '@app/stores/AuthenticationStore';
 import MemberSidebarStore from '@app/stores/MemberSidebarStore';
 import UserStore from '@app/stores/UserStore';
+import {
+	buildMemberListLayout,
+	getRowIndexRangeForMemberIndexRange,
+	getTotalMemberCount,
+} from '@app/utils/MemberListLayout';
 import type {GroupDMMemberGroup} from '@app/utils/MemberListUtils';
 import * as MemberListUtils from '@app/utils/MemberListUtils';
 import * as NicknameUtils from '@app/utils/NicknameUtils';
@@ -43,7 +48,9 @@ import {observer} from 'mobx-react-lite';
 import type {UIEvent} from 'react';
 import {useCallback, useMemo, useState} from 'react';
 
-const MEMBER_ITEM_HEIGHT = 44;
+// Matches MemberListItem's rendered height (32px grid + 4px top/bottom padding)
+// plus ChannelMembers.module.css .membersList's 2px row gap.
+const MEMBER_ITEM_HEIGHT = 42;
 const INITIAL_MEMBER_RANGE: [number, number] = [0, 99];
 const SCROLL_BUFFER = 50;
 
@@ -172,16 +179,37 @@ const LazyMemberList = observer(function LazyMemberList({guild, channel}: LazyMe
 			const scrollTop = target.scrollTop;
 			const clientHeight = target.clientHeight;
 
-			const startIndex = Math.max(0, Math.floor(scrollTop / MEMBER_ITEM_HEIGHT) - SCROLL_BUFFER);
-			const endIndex = Math.ceil((scrollTop + clientHeight) / MEMBER_ITEM_HEIGHT) + SCROLL_BUFFER;
+			// scrollTop/clientHeight only ever measure rendered member rows, so this
+			// yields a *member* index, not a row index. The gateway addresses ranges
+			// in a flat row list that also counts each group header as one slot, so
+			// the member range has to be translated into row-index space (via the
+			// same group layout GuildMemberListUpdate/MemberSidebarStore use) before
+			// being sent as a subscription — sending the member index directly drifts
+			// further out of sync with every group header scrolled past, silently
+			// dropping members from later groups.
+			const startMemberIndex = Math.max(0, Math.floor(scrollTop / MEMBER_ITEM_HEIGHT) - SCROLL_BUFFER);
+			const endMemberIndex = Math.ceil((scrollTop + clientHeight) / MEMBER_ITEM_HEIGHT) + SCROLL_BUFFER;
 
-			if (startIndex !== subscribedRange[0] || endIndex !== subscribedRange[1]) {
-				const nextRange: [number, number] = [startIndex, endIndex];
+			const groups = memberListState?.groups ?? [];
+			const totalMembers = getTotalMemberCount(groups);
+
+			let nextRange: [number, number] = [startMemberIndex, endMemberIndex];
+			if (totalMembers > 0) {
+				const groupLayouts = buildMemberListLayout(groups);
+				const clampedStart = Math.min(startMemberIndex, totalMembers - 1);
+				const clampedEnd = Math.min(endMemberIndex, totalMembers - 1);
+				const rowRange = getRowIndexRangeForMemberIndexRange(groupLayouts, clampedStart, clampedEnd);
+				if (rowRange) {
+					nextRange = rowRange;
+				}
+			}
+
+			if (nextRange[0] !== subscribedRange[0] || nextRange[1] !== subscribedRange[1]) {
 				setSubscribedRange(nextRange);
 				subscribe([nextRange]);
 			}
 		},
-		[subscribedRange, subscribe],
+		[subscribedRange, subscribe, memberListState?.groups],
 	);
 
 	if (memberListUpdatesDisabled) {

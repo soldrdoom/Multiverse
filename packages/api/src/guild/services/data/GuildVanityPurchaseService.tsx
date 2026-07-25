@@ -29,8 +29,14 @@ import {InputValidationError} from '@fluxer/errors/src/domains/core/InputValidat
 import {MissingAccessError} from '@fluxer/errors/src/domains/core/MissingAccessError';
 import {UnknownGuildError} from '@fluxer/errors/src/domains/guild/UnknownGuildError';
 
-/** The wallet that receives all Solana payments to Multiverse — reused across payment features. */
-export const GUILD_VANITY_MERCHANT_WALLET = 'AwsW3kad25Uk7ptX3YY3wy4o1mN5BJTATfuMa1u4Di23';
+/**
+ * The wallet that receives all Solana payments to Multiverse — reused across payment features.
+ * Must be a dedicated treasury address, distinct from any individual user's linked wallet —
+ * payment verification computes amounts as balance deltas per account, which breaks if the
+ * payer (or recipient, for tips) happens to also be this wallet.
+ */
+export const GUILD_VANITY_MERCHANT_WALLET =
+	process.env['SOLANA_TREASURY_WALLET'] ?? 'AwsW3kad25Uk7ptX3YY3wy4o1mN5BJTATfuMa1u4Di23';
 
 /** Fixed USD price for a permanent guild vanity link. SOL amount is computed at invoice time from the live price. */
 export const GUILD_VANITY_PURCHASE_USD = 1.99;

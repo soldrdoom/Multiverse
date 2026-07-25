@@ -32,12 +32,10 @@ import {channelNeedsReindexing} from '@fluxer/api/src/search/ChannelIndexingUtil
 import type {IMessageSearchService} from '@fluxer/api/src/search/IMessageSearchService';
 import {MessageSearchResponseMapper} from '@fluxer/api/src/search/MessageSearchResponseMapper';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
-import {isUserAdult} from '@fluxer/api/src/utils/AgeUtils';
 import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
 import {GuildNSFWLevel} from '@fluxer/constants/src/GuildConstants';
 import {FeatureTemporarilyDisabledError} from '@fluxer/errors/src/domains/core/FeatureTemporarilyDisabledError';
 import {MissingPermissionsError} from '@fluxer/errors/src/domains/core/MissingPermissionsError';
-import {UnknownUserError} from '@fluxer/errors/src/domains/user/UnknownUserError';
 import type {MessageSearchRequest} from '@fluxer/schema/src/domains/message/MessageRequestSchemas';
 import type {MessageSearchResponse} from '@fluxer/schema/src/domains/message/MessageResponseSchemas';
 import type {IWorkerService} from '@fluxer/worker/src/contracts/IWorkerService';
@@ -136,14 +134,7 @@ export class GlobalSearchService {
 		);
 
 		const includeNsfwRequested = params.searchParams.include_nsfw ?? false;
-		let canIncludeNsfw = false;
-		if (includeNsfwRequested) {
-			const user = await this.userRepository.findUnique(params.userId);
-			if (!user) {
-				throw new UnknownUserError();
-			}
-			canIncludeNsfw = isUserAdult(user.dateOfBirth);
-		}
+		const canIncludeNsfw = includeNsfwRequested;
 
 		const finalChannelIds = validatedChannelIds.filter((channelIdStr) => {
 			// DMs are not stored in `accessibleChannels`.

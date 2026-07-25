@@ -49,6 +49,9 @@ export interface ChannelRow {
 	owner_id: Nullish<UserID>;
 	recipient_ids: Nullish<Set<UserID>>;
 	nsfw: Nullish<boolean>;
+	token_gate_address: Nullish<string>;
+	token_gate_visibility: Nullish<number>;
+	token_gate_match_mode: Nullish<number>;
 	rate_limit_per_user: Nullish<number>;
 	bitrate: Nullish<number>;
 	user_limit: Nullish<number>;
@@ -121,6 +124,9 @@ export const CHANNEL_COLUMNS = [
 	'owner_id',
 	'recipient_ids',
 	'nsfw',
+	'token_gate_address',
+	'token_gate_visibility',
+	'token_gate_match_mode',
 	'rate_limit_per_user',
 	'bitrate',
 	'user_limit',

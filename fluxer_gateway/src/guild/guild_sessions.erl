@@ -429,7 +429,18 @@ check_member_channel_access(UserId, ChannelId, State) ->
         undefined ->
             false;
         _ ->
-            guild_permissions:can_view_channel(UserId, ChannelId, Member, State)
+            guild_permissions:can_view_channel(UserId, ChannelId, Member, State) andalso
+                channel_satisfies_tokengate(UserId, ChannelId, State)
+    end.
+
+%% Mirrors guild_visibility's private helper of the same name -- kept small and
+%% duplicated here rather than exported, since guild_visibility already depends
+%% on this module (set_session_viewable_channels/3).
+-spec channel_satisfies_tokengate(user_id(), channel_id(), guild_state()) -> boolean().
+channel_satisfies_tokengate(UserId, ChannelId, State) ->
+    case guild_permissions:find_channel_by_id(ChannelId, State) of
+        undefined -> true;
+        Channel -> tokengate:user_satisfies_channel_gate(UserId, Channel, State)
     end.
 
 -spec build_viewable_channel_map([channel_id()]) -> #{channel_id() => true}.

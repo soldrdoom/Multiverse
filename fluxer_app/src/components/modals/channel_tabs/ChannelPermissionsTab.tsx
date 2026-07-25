@@ -36,6 +36,8 @@ import {
 } from '@app/components/modals/shared/PermissionComponents';
 import {Avatar} from '@app/components/uikit/Avatar';
 import {Button} from '@app/components/uikit/button/Button';
+import type {RadioOption} from '@app/components/uikit/radio_group/RadioGroup';
+import {RadioGroup} from '@app/components/uikit/radio_group/RadioGroup';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {Logger} from '@app/lib/Logger';
 import type {UserRecord} from '@app/records/UserRecord';
@@ -48,6 +50,7 @@ import PermissionLayoutStore from '@app/stores/PermissionLayoutStore';
 import PermissionStore from '@app/stores/PermissionStore';
 import SettingsSidebarStore from '@app/stores/SettingsSidebarStore';
 import UserStore from '@app/stores/UserStore';
+import {getApiErrorErrors} from '@app/utils/ApiErrorUtils';
 import * as PermissionUtils from '@app/utils/PermissionUtils';
 import {
 	FloatingFocusManager,
@@ -61,6 +64,7 @@ import {
 	useRole,
 } from '@floating-ui/react';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
+import {TokenGateMatchMode, TokenGateVisibility} from '@fluxer/constants/src/GuildConstants';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {
 	CaretRightIcon,
@@ -137,6 +141,16 @@ const ChannelPermissionsTab: React.FC<{channelId: string}> = observer(({channelI
 	const [newOverwriteIds, setNewOverwriteIds] = useState<Set<string>>(new Set());
 	const [permissionSearchQuery, setPermissionSearchQuery] = useState('');
 
+	const [tokenGateAddress, setTokenGateAddress] = useState('');
+	const [tokenGateMatchMode, setTokenGateMatchMode] = useState<number>(TokenGateMatchMode.EXACT_ASSET);
+	const [isSavingTokenGate, setIsSavingTokenGate] = useState(false);
+	const [isClearingTokenGate, setIsClearingTokenGate] = useState(false);
+	const [tokenGateError, setTokenGateError] = useState<string | undefined>(undefined);
+
+	const [tokenGateVisibility, setTokenGateVisibility] = useState<number>(TokenGateVisibility.LOCKED);
+	const [isVisibilityTouched, setIsVisibilityTouched] = useState(false);
+	const [isSavingVisibility, setIsSavingVisibility] = useState(false);
+
 	const [isAddOverrideOpen, setIsAddOverrideOpen] = useState(false);
 	const {
 		refs: addOverrideRefs,
@@ -158,6 +172,65 @@ const ChannelPermissionsTab: React.FC<{channelId: string}> = observer(({channelI
 
 	const canManageChannels = PermissionStore.can(Permissions.MANAGE_CHANNELS, {guildId: channel?.guildId || ''});
 	const canManageRoles = PermissionStore.can(Permissions.MANAGE_ROLES, {guildId: channel?.guildId || ''});
+
+	useEffect(() => {
+		setTokenGateAddress(channel?.tokenGateAddress ?? '');
+		setTokenGateMatchMode(channel?.tokenGateMatchMode ?? TokenGateMatchMode.EXACT_ASSET);
+		setTokenGateError(undefined);
+	}, [channel?.tokenGateAddress, channel?.tokenGateMatchMode]);
+
+	useEffect(() => {
+		setTokenGateVisibility(
+			channel?.tokenGateVisibility ?? parentChannel?.tokenGateVisibility ?? TokenGateVisibility.LOCKED,
+		);
+		setIsVisibilityTouched(false);
+	}, [channel?.tokenGateVisibility, parentChannel?.tokenGateVisibility]);
+
+	const handleSaveTokenGate = useCallback(async () => {
+		const trimmed = tokenGateAddress.trim();
+		if (!trimmed) return;
+
+		setIsSavingTokenGate(true);
+		setTokenGateError(undefined);
+		try {
+			await ChannelActionCreators.setTokenGate(channelId, trimmed, tokenGateMatchMode);
+			ToastActionCreators.createToast({type: 'success', children: <Trans>Token gate saved</Trans>});
+		} catch (err) {
+			const validationErrors = getApiErrorErrors(err);
+			if (validationErrors?.some((e) => e.path === 'address')) {
+				setTokenGateError(t`That doesn't look like a valid Solana mint or collection address.`);
+			} else {
+				ToastActionCreators.error(t`Failed to save the token gate. Please try again.`);
+			}
+		} finally {
+			setIsSavingTokenGate(false);
+		}
+	}, [tokenGateAddress, tokenGateMatchMode, channelId, t]);
+
+	const handleClearTokenGate = useCallback(async () => {
+		setIsClearingTokenGate(true);
+		try {
+			await ChannelActionCreators.clearTokenGate(channelId);
+			ToastActionCreators.createToast({type: 'success', children: <Trans>Token gate removed</Trans>});
+		} catch (_err) {
+			ToastActionCreators.error(t`Failed to remove the token gate. Please try again.`);
+		} finally {
+			setIsClearingTokenGate(false);
+		}
+	}, [channelId, t]);
+
+	const handleSaveTokenGateVisibility = useCallback(async () => {
+		setIsSavingVisibility(true);
+		try {
+			await ChannelActionCreators.setTokenGateVisibility(channelId, tokenGateVisibility);
+			setIsVisibilityTouched(false);
+			ToastActionCreators.createToast({type: 'success', children: <Trans>Token gate visibility saved</Trans>});
+		} catch (_err) {
+			ToastActionCreators.error(t`Failed to save the token gate visibility. Please try again.`);
+		} finally {
+			setIsSavingVisibility(false);
+		}
+	}, [channelId, tokenGateVisibility, t]);
 
 	useEffect(() => {
 		const key = `channel-permissions-add-override-${channelId}`;
@@ -835,6 +908,160 @@ const ChannelPermissionsTab: React.FC<{channelId: string}> = observer(({channelI
 
 	if (!channel || !guild || !currentUser) return null;
 
+	const isInheritingTokenGate = !channel.tokenGateAddress && Boolean(parentChannel?.tokenGateAddress);
+	const tokenGateHasChanges =
+		tokenGateAddress.trim() !== (channel.tokenGateAddress ?? '') ||
+		(Boolean(tokenGateAddress.trim()) &&
+			tokenGateMatchMode !== (channel.tokenGateMatchMode ?? TokenGateMatchMode.EXACT_ASSET));
+	const tokenGateMatchModeOptions: ReadonlyArray<RadioOption<number>> = [
+		{
+			value: TokenGateMatchMode.EXACT_ASSET,
+			name: t`Specific NFT`,
+			desc: t`Only the wallet holding this exact NFT satisfies the gate.`,
+		},
+		{
+			value: TokenGateMatchMode.COLLECTION,
+			name: t`Collection`,
+			desc: t`Any wallet holding any asset from this collection satisfies the gate.`,
+		},
+	];
+	const isInheritingTokenGateVisibility =
+		channel.tokenGateVisibility === null && parentChannel?.tokenGateVisibility != null;
+	const tokenGateVisibilityOptions: ReadonlyArray<RadioOption<number>> = [
+		{
+			value: TokenGateVisibility.LOCKED,
+			name: t`Locked`,
+			desc: t`Visible in the channel list with a lock icon, but not enterable.`,
+		},
+		{
+			value: TokenGateVisibility.HIDDEN,
+			name: t`Hidden`,
+			desc: t`Not shown in the channel list at all.`,
+		},
+	];
+
+	const tokenGateSection = canManageChannels && (
+		<div className={styles.tokenGateSection}>
+			<div className={styles.sectionHeader}>
+				<h2 className={styles.sectionTitle}>
+					<Trans>Token Gating</Trans>
+				</h2>
+				<p className={styles.subtleText}>
+					{channel.isGuildCategory() ? (
+						<Trans>
+							Require members to hold a specific NFT or compressed NFT (cNFT) to view this category. Channels inside
+							that don't have their own gate inherit this one.
+						</Trans>
+					) : (
+						<Trans>
+							Require members to hold a specific NFT or compressed NFT (cNFT) to view this channel. Leave blank to use
+							the parent category's gate, if any.
+						</Trans>
+					)}
+				</p>
+			</div>
+
+			{isInheritingTokenGate && (
+				<p className={styles.subtleText}>
+					<Trans>
+						This channel currently inherits its gate from the "{parentChannel?.name}" category. Setting an address below
+						overrides that.
+					</Trans>
+				</p>
+			)}
+
+			<Input
+				value={tokenGateAddress}
+				onChange={(e) => setTokenGateAddress(e.target.value)}
+				type="text"
+				label={tokenGateMatchMode === TokenGateMatchMode.COLLECTION ? t`Collection Address` : t`NFT Mint Address`}
+				placeholder={
+					tokenGateMatchMode === TokenGateMatchMode.COLLECTION
+						? t`e.g. a Metaplex collection address`
+						: t`e.g. this specific NFT's mint address`
+				}
+				error={tokenGateError}
+			/>
+
+			<RadioGroup
+				value={tokenGateMatchMode}
+				onChange={(value) => setTokenGateMatchMode(value)}
+				disabled={!canManageChannels}
+				options={tokenGateMatchModeOptions}
+				aria-label={t`Token gate match mode`}
+			/>
+
+			<p className={styles.subtleText}>
+				{tokenGateMatchMode === TokenGateMatchMode.COLLECTION ? (
+					<Trans>Any wallet holding any asset belonging to the collection at this address satisfies the gate.</Trans>
+				) : (
+					<Trans>
+						Only a wallet holding this exact NFT satisfies the gate — other assets in the same collection don't.
+					</Trans>
+				)}{' '}
+				<Trans>Works for both regular NFTs and compressed NFTs (e.g. DRiP drops).</Trans>
+			</p>
+
+			<div className={styles.tokenGateActions}>
+				<Button
+					small={true}
+					onClick={handleSaveTokenGate}
+					disabled={!tokenGateAddress.trim() || !tokenGateHasChanges}
+					submitting={isSavingTokenGate}
+				>
+					<Trans>Save</Trans>
+				</Button>
+				{channel.tokenGateAddress && (
+					<Button
+						variant="danger-secondary"
+						small={true}
+						onClick={handleClearTokenGate}
+						submitting={isClearingTokenGate}
+					>
+						<Trans>Remove Gate</Trans>
+					</Button>
+				)}
+			</div>
+
+			<div className={styles.sectionHeader}>
+				<p className={styles.subtleText}>
+					<Trans>Choose what members who don't hold the required NFT see for this channel/category.</Trans>
+				</p>
+			</div>
+
+			{isInheritingTokenGateVisibility && (
+				<p className={styles.subtleText}>
+					<Trans>
+						Currently inheriting its visibility choice from the "{parentChannel?.name}" category. Choosing an option
+						below overrides it for this channel only.
+					</Trans>
+				</p>
+			)}
+
+			<RadioGroup
+				value={tokenGateVisibility}
+				onChange={(value) => {
+					setTokenGateVisibility(value);
+					setIsVisibilityTouched(true);
+				}}
+				disabled={!canManageChannels}
+				options={tokenGateVisibilityOptions}
+				aria-label={t`Token gate visibility setting`}
+			/>
+
+			<div className={styles.tokenGateActions}>
+				<Button
+					small={true}
+					onClick={handleSaveTokenGateVisibility}
+					disabled={!isVisibilityTouched}
+					submitting={isSavingVisibility}
+				>
+					<Trans>Save</Trans>
+				</Button>
+			</div>
+		</div>
+	);
+
 	if (isMobile && !mobileShowEditor) {
 		return (
 			<div className={styles.container}>
@@ -863,6 +1090,7 @@ const ChannelPermissionsTab: React.FC<{channelId: string}> = observer(({channelI
 						)}
 					</div>
 				)}
+				{tokenGateSection}
 				<div className={styles.mobileOverrideList}>
 					<div className={styles.mobileListHeader}>
 						<h2 className={styles.mobileListTitle}>
@@ -958,6 +1186,7 @@ const ChannelPermissionsTab: React.FC<{channelId: string}> = observer(({channelI
 					)}
 				</div>
 			)}
+			{tokenGateSection}
 			<div className={styles.grid}>
 				<div className={styles.right}>
 					<div className={styles.rightScroller} key={permissionsScrollerKey}>

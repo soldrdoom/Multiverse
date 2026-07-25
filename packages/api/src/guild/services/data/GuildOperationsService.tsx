@@ -62,6 +62,8 @@ import {
 	type GuildSplashCardAlignmentValue,
 	JoinSourceTypes,
 	SystemChannelFlags,
+	TokenGateMatchMode,
+	TokenGateVisibility,
 } from '@fluxer/constants/src/GuildConstants';
 import {MAX_GUILDS_NON_PREMIUM} from '@fluxer/constants/src/LimitConstants';
 import {DEFAULT_GUILD_FOLDER_ICON, UNCATEGORIZED_FOLDER_ID} from '@fluxer/constants/src/UserConstants';
@@ -75,6 +77,7 @@ import {resolveLimit} from '@fluxer/limits/src/LimitResolver';
 import type {GuildCreateRequest, GuildUpdateRequest} from '@fluxer/schema/src/domains/guild/GuildRequestSchemas';
 import type {GuildPartialResponse, GuildResponse} from '@fluxer/schema/src/domains/guild/GuildResponseSchemas';
 import {extractTimestamp} from '@fluxer/snowflake/src/SnowflakeUtils';
+import {isValidSolanaAddress} from '@fluxer/solana_das/src/SolanaAddress';
 
 interface PreparedGuildAssets {
 	icon: PreparedAssetUpload | null;
@@ -284,6 +287,9 @@ export class GuildOperationsService {
 				verification_level: 0,
 				mfa_level: 0,
 				nsfw_level: 0,
+				token_gate_address: null,
+				token_gate_match_mode: null,
+				token_gate_visibility: TokenGateVisibility.LOCKED,
 				explicit_content_filter: 0,
 				default_message_notifications: 0,
 				system_channel_id: generalChannelId,
@@ -325,6 +331,9 @@ export class GuildOperationsService {
 						owner_id: null,
 						recipient_ids: null,
 						nsfw: false,
+						token_gate_address: null,
+						token_gate_visibility: null,
+						token_gate_match_mode: null,
 						rate_limit_per_user: 0,
 						bitrate,
 						user_limit: bitrate !== null ? 0 : null,
@@ -660,6 +669,25 @@ export class GuildOperationsService {
 			sanitizedSystemChannelFlags = data.system_channel_flags & SUPPORTED_SYSTEM_CHANNEL_FLAGS;
 		}
 
+		let tokenGateAddress: string | null | undefined;
+		if (data.token_gate_address !== undefined) {
+			if (data.token_gate_address) {
+				if (!isValidSolanaAddress(data.token_gate_address)) {
+					throw InputValidationError.fromCode('token_gate_address', ValidationErrorCodes.INVALID_SOLANA_ADDRESS);
+				}
+				tokenGateAddress = data.token_gate_address;
+			} else {
+				tokenGateAddress = null;
+			}
+		}
+
+		let tokenGateMatchMode: number | null | undefined = data.token_gate_match_mode;
+		if (tokenGateAddress === null) {
+			tokenGateMatchMode = null;
+		} else if (tokenGateAddress !== undefined && tokenGateMatchMode === undefined) {
+			tokenGateMatchMode = currentGuild.tokenGateMatchMode ?? TokenGateMatchMode.EXACT_ASSET;
+		}
+
 		let updatedFeatures = currentGuild.features;
 		if (data.features !== undefined) {
 			const newFeatures = new Set(currentGuild.features);
@@ -739,6 +767,10 @@ export class GuildOperationsService {
 			verification_level: data.verification_level ?? currentGuildRow.verification_level,
 			mfa_level: data.mfa_level ?? currentGuildRow.mfa_level,
 			nsfw_level: data.nsfw_level ?? currentGuildRow.nsfw_level,
+			token_gate_address: tokenGateAddress !== undefined ? tokenGateAddress : currentGuildRow.token_gate_address,
+			token_gate_match_mode:
+				tokenGateMatchMode !== undefined ? tokenGateMatchMode : currentGuildRow.token_gate_match_mode,
+			token_gate_visibility: data.token_gate_visibility ?? currentGuildRow.token_gate_visibility,
 			explicit_content_filter: data.explicit_content_filter ?? currentGuildRow.explicit_content_filter,
 			message_history_cutoff:
 				messageHistoryCutoff !== undefined ? messageHistoryCutoff : currentGuildRow.message_history_cutoff,

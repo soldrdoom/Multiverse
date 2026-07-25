@@ -132,6 +132,16 @@
 	gap: 16px;
 }
 
+.tokenGateSection {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	border: 1px solid var(--background-modifier-accent);
+	border-radius: 6px;
+	padding: 16px;
+	margin-bottom: 20px;
+}
+
 @media (min-width: 640px) {
 	.displayRow {
 		flex-direction: row;

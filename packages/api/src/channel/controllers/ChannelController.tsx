@@ -28,8 +28,14 @@ import {
 	ChannelUpdateRequest,
 	DeleteChannelQuery,
 	PermissionOverwriteCreateRequest,
+	TokenGateSetRequest,
+	TokenGateVisibilitySetRequest,
 } from '@fluxer/schema/src/domains/channel/ChannelRequestSchemas';
-import {ChannelResponse, RtcRegionResponse} from '@fluxer/schema/src/domains/channel/ChannelSchemas';
+import {
+	ChannelResponse,
+	RtcRegionResponse,
+	TokenGateRecheckResponse,
+} from '@fluxer/schema/src/domains/channel/ChannelSchemas';
 import {
 	ChannelIdOverwriteIdParam,
 	ChannelIdParam,
@@ -300,6 +306,115 @@ export function ChannelController(app: HonoApp) {
 			const requestCache = ctx.get('requestCache');
 			await ctx.get('channelService').deleteChannelPermissionOverwrite({userId, channelId, overwriteId, requestCache});
 			return ctx.body(null, 204);
+		},
+	);
+
+	app.put(
+		'/channels/:channel_id/token-gate',
+		RateLimitMiddleware(RateLimitConfigs.CHANNEL_UPDATE),
+		LoginRequired,
+		Validator('param', ChannelIdParam),
+		Validator('json', TokenGateSetRequest),
+		OpenAPI({
+			operationId: 'set_channel_token_gate',
+			summary: 'Set the tokengate for a channel or category',
+			description:
+				'Requires members to hold an NFT satisfying the given address to view this channel/category, per match_mode (exact mint by default, or any asset in the collection). Categories with a gate are inherited by child channels that have no gate of their own. Requires Manage Channels.',
+			responseSchema: null,
+			statusCode: 204,
+			security: ['botToken', 'bearerToken', 'sessionToken'],
+			tags: 'Channels',
+		}),
+		async (ctx) => {
+			const userId = ctx.get('user').id;
+			const channelId = createChannelID(ctx.req.valid('param').channel_id);
+			const {address, match_mode: matchMode} = ctx.req.valid('json');
+			const requestCache = ctx.get('requestCache');
+
+			await ctx.get('channelService').setChannelTokenGate({userId, channelId, address, matchMode, requestCache});
+			return ctx.body(null, 204);
+		},
+	);
+
+	app.delete(
+		'/channels/:channel_id/token-gate',
+		RateLimitMiddleware(RateLimitConfigs.CHANNEL_UPDATE),
+		LoginRequired,
+		Validator('param', ChannelIdParam),
+		OpenAPI({
+			operationId: 'delete_channel_token_gate',
+			summary: 'Clear the tokengate for a channel or category',
+			description:
+				"Removes this channel/category's own tokengate. A channel with no gate of its own falls back to its parent category's gate, if any. Requires Manage Channels.",
+			responseSchema: null,
+			statusCode: 204,
+			security: ['botToken', 'bearerToken', 'sessionToken'],
+			tags: 'Channels',
+		}),
+		async (ctx) => {
+			const userId = ctx.get('user').id;
+			const channelId = createChannelID(ctx.req.valid('param').channel_id);
+			const requestCache = ctx.get('requestCache');
+
+			await ctx.get('channelService').clearChannelTokenGate({userId, channelId, requestCache});
+			return ctx.body(null, 204);
+		},
+	);
+
+	app.put(
+		'/channels/:channel_id/token-gate/visibility',
+		RateLimitMiddleware(RateLimitConfigs.CHANNEL_UPDATE),
+		LoginRequired,
+		Validator('param', ChannelIdParam),
+		Validator('json', TokenGateVisibilitySetRequest),
+		OpenAPI({
+			operationId: 'set_channel_token_gate_visibility',
+			summary: 'Set how a channel/category appears to members who fail its tokengate',
+			description:
+				"Sets this channel/category's own choice for whether members who don't satisfy its effective tokengate see it locked (visible, not enterable) or hidden entirely. A channel with no explicit choice of its own falls back to its parent category's choice, then to LOCKED. Requires Manage Channels.",
+			responseSchema: null,
+			statusCode: 204,
+			security: ['botToken', 'bearerToken', 'sessionToken'],
+			tags: 'Channels',
+		}),
+		async (ctx) => {
+			const userId = ctx.get('user').id;
+			const channelId = createChannelID(ctx.req.valid('param').channel_id);
+			const {visibility} = ctx.req.valid('json');
+			const requestCache = ctx.get('requestCache');
+
+			await ctx.get('channelService').setChannelTokenGateVisibility({userId, channelId, visibility, requestCache});
+			return ctx.body(null, 204);
+		},
+	);
+
+	app.post(
+		'/channels/:channel_id/token-gate/recheck',
+		RateLimitMiddleware(RateLimitConfigs.CHANNEL_TOKEN_GATE_RECHECK),
+		LoginRequired,
+		Validator('param', ChannelIdParam),
+		OpenAPI({
+			operationId: 'recheck_channel_token_gate',
+			summary: 'Recheck the current user’s access to a gated channel',
+			description:
+				"Forces a fresh on-chain lookup for the requesting user's linked wallet against this channel's effective tokengate, bypassing the cached result. Intended for a user who just acquired the required NFT and wants immediate access without waiting for the cache to expire.",
+			responseSchema: TokenGateRecheckResponse,
+			statusCode: 200,
+			security: ['botToken', 'bearerToken', 'sessionToken'],
+			tags: 'Channels',
+		}),
+		async (ctx) => {
+			const userId = ctx.get('user').id;
+			const channelId = createChannelID(ctx.req.valid('param').channel_id);
+
+			const result = await ctx.get('channelService').recheckChannelTokenGateAccess({userId, channelId});
+			return ctx.json(
+				{
+					satisfied: result.status === 'satisfied',
+					gate_address: result.gateAddress,
+				},
+				200,
+			);
 		},
 	);
 }
