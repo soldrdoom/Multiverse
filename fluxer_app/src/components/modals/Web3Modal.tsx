@@ -23,8 +23,8 @@ import * as Modal from '@app/components/modals/Modal';
 import styles from '@app/components/modals/Web3Modal.module.css';
 import {Button} from '@app/components/uikit/button/Button';
 import {Spinner} from '@app/components/uikit/Spinner';
+import SolanaWalletStore from '@app/stores/SolanaWalletStore';
 import VaultStore from '@app/stores/VaultStore';
-import UserStore from '@app/stores/UserStore';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {CheckCircleIcon, CopyIcon, LockKeyIcon, SignOutIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
@@ -32,49 +32,48 @@ import type React from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
 const LAMPORTS_PER_SOL = 1_000_000_000;
-const SOLANA_RPC_ENDPOINTS = [
-	'https://mainnet.helius-rpc.com/?api-key=da09865b-ac23-4449-a4f7-4b440c93d9ed',
-	'https://rpc.ankr.com/solana',
-	'https://api.mainnet-beta.solana.com',
-];
 
 function getSolanaProvider(): {publicKey?: {toBase58(): string}; disconnect(): Promise<void>; signMessage(msg: Uint8Array): Promise<{signature: Uint8Array}> } | null {
 	const w = window as any;
 	return w.phantom?.solana ?? w.solana ?? w.solflare ?? null;
 }
 
+// Balances are fetched through this deployment's own `/sol-balance/:address` route
+// (fluxer_server's Routes.tsx, same-origin, unauthenticated) rather than hitting a
+// public Solana RPC directly from the browser. Two reasons, both confirmed live:
+//   1. Public RPC endpoints (api.mainnet-beta.solana.com, rpc.ankr.com) reject
+//      cross-origin *browser* requests outright — api.mainnet-beta.solana.com returns
+//      HTTP 403 "Access forbidden" the moment a request carries an `Origin` header
+//      (verified: identical request succeeds with curl, fails the same way with an
+//      `Origin: https://multiverse.forum` header added — this is not rate limiting,
+//      it's a deterministic block on all browser-originated traffic). rpc.ankr.com's
+//      public endpoint additionally 403s unconditionally ("API key is not allowed to
+//      access blockchain") regardless of Origin — it requires a paid Ankr key we don't
+//      have, so it was never a working fallback to begin with.
+//   2. This also collapses the client back onto SolanaNetwork.tsx's single
+//      SOLANA_RPC_URL (devnet/mainnet switch) instead of a hardcoded, independently
+//      drifting endpoint list — the same array that has twice accidentally ended up
+//      with a leaked Helius key hardcoded into it.
 async function fetchSolBalance(address: string): Promise<number | null> {
-	const body = JSON.stringify({
-		jsonrpc: '2.0',
-		id: 1,
-		method: 'getBalance',
-		params: [address, {commitment: 'confirmed'}],
-	});
-	for (const endpoint of SOLANA_RPC_ENDPOINTS) {
-		try {
-			const res = await fetch(endpoint, {
-				method: 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body,
-			});
-			if (!res.ok) continue;
-			const json = await res.json();
-			if (json.result?.value == null) continue;
-			return json.result.value / LAMPORTS_PER_SOL;
-		} catch {
-			// try next endpoint
-		}
+	try {
+		const res = await fetch(`/sol-balance/${encodeURIComponent(address)}`);
+		if (!res.ok) return null;
+		const json = await res.json();
+		if (json.result?.value == null) return null;
+		return json.result.value / LAMPORTS_PER_SOL;
+	} catch {
+		return null;
 	}
-	return null;
 }
 
 
 export const Web3Modal: React.FC = observer(() => {
 	const {t} = useLingui();
 
-	// Wallet state
-	const provider = getSolanaProvider();
-	const address: string | null = provider?.publicKey?.toBase58() ?? null;
+	// Wallet state — read from the persisted store, not the raw injected provider:
+	// the provider only has `publicKey` populated after connect() runs in this page
+	// session, but the store's address survives reloads.
+	const address = SolanaWalletStore.walletAddress;
 	const [balance, setBalance] = useState<number | null>(null);
 	const [balanceLoading, setBalanceLoading] = useState(false);
 	const [copied, setCopied] = useState(false);
@@ -86,11 +85,16 @@ export const Web3Modal: React.FC = observer(() => {
 	// Fetch SOL balance on mount
 	useEffect(() => {
 		if (!address) return;
+		let cancelled = false;
 		setBalanceLoading(true);
 		fetchSolBalance(address).then((bal) => {
+			if (cancelled) return;
 			setBalance(bal);
 			setBalanceLoading(false);
 		});
+		return () => {
+			cancelled = true;
+		};
 	}, [address]);
 
 	const handleCopy = useCallback(() => {

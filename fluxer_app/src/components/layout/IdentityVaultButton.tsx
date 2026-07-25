@@ -18,7 +18,7 @@
  */
 
 import styles from '@app/components/layout/GuildsLayout.module.css';
-import {IdentityIcon} from '@phosphor-icons/react'; // Assuming an IdentityIcon exists or can be chosen.
+import {IdentificationBadgeIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 
 interface IdentityVaultButtonProps {
@@ -27,9 +27,9 @@ interface IdentityVaultButtonProps {
 
 export const IdentityVaultButton: React.FC<IdentityVaultButtonProps> = ({onClick}) => {
   return (
-    <div class={styles.identityVaultButton}>
-      <button type="button" class={clsx(styles.identityVaultButtonIcon)} onClick={onClick}>
-        <IdentityIcon size={24} weight="bold" />
+    <div className={styles.identityVaultButton}>
+      <button type="button" className={clsx(styles.identityVaultButtonIcon)} onClick={onClick}>
+        <IdentificationBadgeIcon size={24} weight="bold" />
       </button>
     </div>
   );
