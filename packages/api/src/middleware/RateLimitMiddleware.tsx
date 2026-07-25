@@ -47,6 +47,13 @@ function shouldEnforceRateLimits(ctx: Context<HonoEnv>): boolean {
 function getClientIdentifier(ctx: Context<HonoEnv>): string {
 	const user = ctx.get('user');
 	if (user?.id) {
+		// Bots get their own bucket namespace so bot traffic is separable in
+		// metrics and can be given its own limits later without disturbing the
+		// limits applied to human users. Today both tiers resolve to the same
+		// numbers; only the key prefix differs.
+		if (ctx.get('authTokenType') === 'bot') {
+			return `bot:${user.id}`;
+		}
 		return `user:${user.id}`;
 	}
 	const ip = extractClientIp(ctx.req.raw, {trustCfConnectingIp: Config.proxy.trust_cf_connecting_ip});
