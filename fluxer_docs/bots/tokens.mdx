@@ -1,0 +1,62 @@
+---
+title: 'Bot tokens'
+description: 'Named, individually-revocable bot credentials: minting, revoking, rotation, and the current gateway-disconnect semantics.'
+---
+
+An application doesn't have *a* bot token — it has as many **named tokens** as you want (`production`, `staging`, `ci`, …), each mintable and revocable on its own. This makes zero-downtime rotation possible: mint the new token, roll it out, revoke the old one.
+
+For the token format, the `Bot` header scheme, and show-once semantics, see [Authentication](/introduction/authentication#bot-tokens).
+
+## Managing tokens in the portal
+
+Open your application under **User Settings → Applications** and scroll to the **Bot Tokens** section. Each token row shows its name, a preview (the first 8 characters of the secret), when it was created, and when it was last used. Creating and revoking both prompt for [sudo mode](/introduction/authentication#sudo-mode).
+
+## Managing tokens via the API
+
+These endpoints require a **session token** (they're user-client-only — a bot can't mint its own credentials), the `manage_tokens` capability on the application (owner or team admin — see the [roles matrix](/bots/teams#roles)), and [sudo mode](/introduction/authentication#sudo-mode) for the write operations.
+
+| Method | Path | Sudo | Notes |
+| --- | --- | --- | --- |
+| `GET` | `/oauth2/applications/:client_id/bot/tokens` | — | Metadata only; never returns full tokens |
+| `POST` | `/oauth2/applications/:client_id/bot/tokens` | Yes | Body: `{"name": "..."}`; the response contains the full token, **once** |
+| `DELETE` | `/oauth2/applications/:client_id/bot/tokens/:token_id` | Yes | Immediate revocation |
+
+<Note>
+  The older `POST /oauth2/applications/:id/bot/reset-token` endpoint still
+  exists as a compatibility alias. It now means "revoke **all** of the
+  application's tokens and mint one named `default`" — prefer the endpoints
+  above.
+</Note>
+
+### Token metadata
+
+- **`preview`** — the first 8 characters of the secret, so you can match a leaked or configured token against the list without the API ever storing or returning the full value.
+- **`last_used_at`** — updated when the token authenticates a request, with roughly 5-minute granularity (a busy bot doesn't write on every request). "Never used" means the token has genuinely never authenticated.
+
+## Revocation semantics
+
+Revoking a token takes effect **immediately** for REST: the very next request with that token gets a `401`.
+
+On the gateway side, revocation closes the bot's sessions with close code `4014` (`SESSION_REVOKED`), which is non-resumable — a client receiving it must not reconnect with the same token.
+
+<Warning>
+  **Revoking any one token currently disconnects *all* of the bot's gateway
+  sessions** — including sessions that were opened with the application's
+  other, still-valid tokens. Gateway sessions don't yet record which token
+  opened them.
+
+  Sessions running on a still-valid token can reconnect immediately and will
+  authenticate fine; a well-behaved client (like
+  [`@fluxer/bot_sdk`](/bots/sdk), which treats `4014` as fatal) will stop, so
+  if you run blue/green deployments on separate tokens, expect the surviving
+  color to need a restart or manual reconnect after you revoke the old
+  token. Per-token session revocation is planned — see the
+  [roadmap](/bots/roadmap).
+</Warning>
+
+## Rotation recipe
+
+1. Mint a new token (e.g. `production-2026-08`).
+2. Deploy your bot with the new token.
+3. Revoke the old token.
+4. Because of the all-sessions disconnect above, the newly-deployed instance will be dropped with `4014` at step 3 — make sure it reconnects (restart it after the revoke, or use a client that re-identifies on operator command). Its REST calls are unaffected throughout.

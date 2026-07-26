@@ -1,0 +1,119 @@
+---
+title: 'Using Discord-compatible libraries'
+description: 'Run existing Discord bot libraries, like @discordjs/core, against the Fluxer API.'
+---
+
+Fluxer's HTTP and Gateway APIs are intentionally similar to Discord's, so existing Discord bot libraries often work with little modification. This page shows a working ping-pong bot with `@discordjs/core`, and documents exactly where the compatibility ends.
+
+<Note>
+  This path is **community-supported and best-effort**. Fluxer is not Discord,
+  does not track Discord API changes, and makes no promise that future
+  versions of these libraries keep working — the versions pinned below are
+  known-good. The supported first-party path is
+  [`@fluxer/bot_sdk`](/bots/sdk).
+</Note>
+
+## Compatibility matrix
+
+### What works
+
+| Area | Notes |
+| --- | --- |
+| REST message shape | Message create/reply payloads (`content`, `message_reference`, …) match what Discord libraries send |
+| `Bot` auth scheme | `Authorization: Bot <token>` works as-is — see [Authentication](/introduction/authentication#bot-tokens) |
+| Core gateway protocol | `HELLO`/`HEARTBEAT`/`IDENTIFY`/`RESUME` opcodes and the dispatch envelope work with Discord gateway clients |
+| Snowflakes | IDs are [snowflakes](/topics/snowflakes) with the same shape libraries expect |
+
+### What doesn't
+
+| Area | Notes |
+| --- | --- |
+| Intents | There is no intents bitfield. Pass `intents: 0`; the value is not meaningful on Fluxer. A named-string *subscriptions* model is the planned replacement — see the [roadmap](/bots/roadmap) |
+| Sharding | There is no sharding surface. `GET /gateway/bot` returns `shards: 1` and that value is **authoritative** — libraries must read it, not compute their own shard count. Don't trust the `session_start_limit` block's numbers |
+| Interactions | Slash commands, components, and modals are not implemented. Library helpers for registering or receiving application commands will not work |
+
+Beyond these, expect small differences in payload fields — Fluxer's API is Multiverse-native, not a Discord clone. The [API reference](/api-reference/introduction) and [gateway events](/gateway/events) pages document the actual shapes.
+
+## Ping-pong with @discordjs/core
+
+Follow the [quickstart](/quickstart) through Step 8 to create your application, mint a token, and invite the bot. Then:
+
+First, create a new project directory:
+
+```
+mkdir fluxer_bot && cd fluxer_bot && npm init -y
+```
+
+Second, install the required dependencies (these exact versions are known-good):
+
+```
+npm i -E @discordjs/core@2.4.0 @discordjs/rest@2.6.0 @discordjs/ws@2.0.4
+```
+
+Third, store your token in a `.env` file in this folder:
+
+```
+FLUXER_BOT_TOKEN=<your token goes here>
+```
+
+Fourth, create a new `bot.mjs` file, looking like so:
+
+```javascript
+import {Client, GatewayDispatchEvents} from '@discordjs/core';
+import {REST} from '@discordjs/rest';
+import {WebSocketManager} from '@discordjs/ws';
+
+const token = process.env['FLUXER_BOT_TOKEN'];
+if (!token) {
+  throw new Error('You forgot the token!');
+}
+
+const rest = new REST({api: 'https://api.fluxer.app', version: '1'}).setToken(token);
+
+const gateway = new WebSocketManager({
+  intents: 0,
+  rest,
+  token,
+  version: '1',
+});
+
+const client = new Client({rest, gateway});
+
+client.on(GatewayDispatchEvents.MessageCreate, async ({api, data}) => {
+  if (data.author.bot) {
+    return;
+  }
+
+  if (data.content === '!ping') {
+    await api.channels.createMessage(data.channel_id, {
+      content: 'pong!',
+      message_reference: {message_id: data.id},
+    });
+  }
+});
+
+client.on(GatewayDispatchEvents.Ready, ({data}) => {
+  const {username, discriminator} = data.user;
+  console.log(`Logged in as @${username}#${discriminator}`);
+});
+
+gateway.connect();
+```
+
+<Note>
+  The `api` option is the REST base URL of the instance you're targeting. The
+  snippet above targets the Fluxer.app instance; adjust it for your instance
+  (an instance publishes its REST base in `GET /.well-known/fluxer` under
+  `endpoints.api`).
+</Note>
+
+Finally, save this file and run it via `node --env-file=.env bot.mjs`.
+
+```
+➜  fluxer_bot node --env-file=.env bot.mjs
+Logged in as @My_Awesome_Application#0168
+```
+
+<Frame caption="Your bot should now be alive and well!">
+  ![Clean Shot 2026 02 21 At 16 23 04@2x](/images/CleanShot2026-02-21at16.23.04@2x.png)
+</Frame>

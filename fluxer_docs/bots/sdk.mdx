@@ -1,0 +1,110 @@
+---
+title: '@fluxer/bot_sdk'
+description: 'The first-party bot SDK: typed REST, a correct gateway lifecycle, and client-side rate limiting.'
+---
+
+`@fluxer/bot_sdk` is a thin, first-party TypeScript SDK for building Fluxer bots. "Thin" is the point: it owns transport correctness — endpoint discovery, authentication, rate limiting, retries, and the full gateway lifecycle — and stays out of your way for everything else.
+
+## Installing
+
+<Warning>
+  The SDK is **not published to npm yet** (that's on the
+  [roadmap](/bots/roadmap)). It lives in the
+  [Fluxer monorepo](https://github.com/fluxerapp/fluxer) at
+  `packages/bot_sdk` and ships as TypeScript source, run under the
+  [`tsx`](https://tsx.is) runner.
+</Warning>
+
+Until it's published, consume it from a checkout of the monorepo — the same way the first production consumer (`packages/iris_bot`) does:
+
+1. Clone the repo and run `pnpm install` at the root.
+2. Create your bot as a workspace package (copy `packages/iris_bot`'s layout) and depend on it with `"@fluxer/bot_sdk": "workspace:*"` plus `tsx`.
+3. Import from the source path and run with `tsx`:
+
+```typescript
+import {createClient} from '@fluxer/bot_sdk/src/index';
+```
+
+```
+npx tsx --env-file=.env bot.mts
+```
+
+## Creating a client
+
+```typescript
+import {createClient} from '@fluxer/bot_sdk/src/index';
+
+const client = createClient({
+  // Base URL of the instance. REST and gateway endpoints are resolved from
+  // its /.well-known/fluxer document (with a sensible fallback if absent).
+  instanceBaseUrl: 'https://multiverse.forum',
+  token: process.env['FLUXER_BOT_TOKEN']!,
+  tokenType: 'bot',
+});
+
+client.on('MESSAGE_CREATE', async (message) => {
+  // message is typed as the message object
+});
+
+await client.connect(); // resolves on first READY, rejects on fatal errors
+```
+
+### Options
+
+| Option | Required | Meaning |
+| --- | :-: | --- |
+| `token` | ✓ | The credential |
+| `instanceBaseUrl` | ✓ | e.g. `https://multiverse.forum`; endpoints are resolved from `/.well-known/fluxer` |
+| `tokenType` | ✓ | `'bot'` or `'session'` — see below |
+| `logger` | | A pino-style logger (`info`/`warn`/`error` taking `(obj, msg)`); silent by default |
+| `properties` | | The `IDENTIFY` properties (`os`, `browser`, `device`) |
+| `fetchImpl` | | Custom `fetch`, mainly for tests |
+
+**`tokenType: 'bot'` is the norm** — it sends `Authorization: Bot <token>` and is what every real bot application should use. `'session'` sends a raw session token with no scheme; it exists (permanently) for bots that run on a plain user account rather than an application, but for anything new, create an application and use a bot token.
+
+### Endpoint discovery
+
+`connect()` fetches `<instanceBaseUrl>/.well-known/fluxer` and reads its `endpoints` block for the REST base URL and gateway WebSocket URL. If the document is unreachable or incomplete, the SDK derives the conventional shape (`<base>/api` and `wss://<host>/gateway`) instead. REST calls work even before `connect()`.
+
+## What the gateway client does for you
+
+- **Automatic RESUME.** On disconnect, the client resumes the session (op 6 with the session ID and last sequence) instead of re-identifying, so the server replays events you missed. The server only holds a dead session briefly, so the SDK's first reconnect attempts are fast.
+- **Full-jitter exponential backoff** between reconnect attempts, reset on `READY`/`RESUMED` — no thundering herd against a recovering gateway.
+- **Close-code classification.** Fatal codes (`4004` authentication failed, `4014` session revoked, shard/version errors) stop the client and surface an `error` event instead of hot-looping a dead token. Recoverable codes resume; codes that invalidate session state re-identify. See the [close-code reference](/gateway/close_codes).
+- **Heartbeating**, with the first beat jittered so a fleet of bots doesn't heartbeat in lockstep.
+
+Lifecycle events you can observe: `error` (fatal, client stopped), `disconnected` (`{code, reason, willReconnect}`), `reconnecting` (`{attempt, delayMs, resume}`), and `dispatch` (every dispatch, untyped, for the firehose).
+
+## What the REST client does for you
+
+- **Client-side rate limiting**: requests are serialized per route bucket, `X-RateLimit-*` headers are tracked, and a `429` is waited out (`Retry-After`) and retried a bounded number of times. This is safe because a `429` means the request never executed.
+- **Retries with backoff** on network errors and `5xx` — but only for idempotent methods (`GET`/`PUT`/`DELETE`). A `POST`/`PATCH` is never blindly retried (a retried message send can double-post); opt in per request with `retryable: true` when your payload carries its own idempotency guard (e.g. a `nonce`).
+- **Typed errors**: failures throw `FluxerApiError` with `status`, the API's [error `code`](/topics/error_codes), `message`, and the raw body — so you can branch on `MISSING_PERMISSIONS` vs `UNKNOWN_CHANNEL` instead of string-matching.
+
+### Calling the API
+
+A small ergonomic facade covers the common calls:
+
+```typescript
+await client.api.sendMessage(channelId, 'hello');           // or a full payload object
+await client.api.getChannel(channelId);
+await client.api.getCurrentUser();
+await client.api.getCurrentApplication();
+await client.api.getGatewayBot();
+```
+
+Everything else in the bot-callable surface is reachable through the generated endpoint map, which is produced from the OpenAPI spec and therefore only contains operations that actually accept bot tokens:
+
+```typescript
+import {BotEndpoints} from '@fluxer/bot_sdk/src/index';
+
+await client.rest.callEndpoint(BotEndpoints.get_guild, {
+  params: {guild_id: guildId},
+});
+```
+
+<Note>
+  `GET /gateway/bot` returns `shards` — it is authoritative and currently
+  always `1`. Read it rather than assuming; there is no sharding surface
+  today. See the [compatibility matrix](/bots/migrating_from_discord_js#compatibility-matrix).
+</Note>

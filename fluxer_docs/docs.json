@@ -18,6 +18,17 @@
 						"pages": ["index", "quickstart", "introduction/authentication"]
 					},
 					{
+						"group": "Bots",
+						"pages": [
+							"bots/overview",
+							"bots/tokens",
+							"bots/teams",
+							"bots/sdk",
+							"bots/migrating_from_discord_js",
+							"bots/roadmap"
+						]
+					},
+					{
 						"group": "Gateway",
 						"pages": [
 							"gateway/overview",

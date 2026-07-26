@@ -1,0 +1,28 @@
+---
+title: 'Bot platform roadmap'
+description: "What's shipped, and the direction for what comes next. No dates, no promises."
+---
+
+This page is the honest state of the bot platform: what exists today, and the directions being explored. Nothing in the "exploring" section is a commitment, and there are no dates.
+
+## Shipped
+
+- **Self-serve applications** with real metadata — description, icon (independent of the bot's avatar), privacy policy and terms of service URLs. See the [overview](/bots/overview).
+- **Named, individually-revocable bot tokens** with previews and last-used tracking, sudo-gated minting/revocation, and immediate revocation (REST cut instantly; gateway sessions closed with `4014`). See [Bot tokens](/bots/tokens).
+- **Developer teams** — roles, invite/accept membership, and application transfer, with a permanent human owner. See [Teams](/bots/teams).
+- **A developer portal** in the client: User Settings → Applications and User Settings → Developer Teams.
+- **`@fluxer/bot_sdk`** — first-party typed REST + gateway client with automatic RESUME, jittered backoff, close-code handling, and client-side rate limiting. See [the SDK](/bots/sdk).
+- **Instance endpoint discovery** via `/.well-known/fluxer`.
+- **A truthful API reference**: each operation's security requirements reflect actual enforcement, so "accepts bot tokens" in the spec means it really does.
+
+## Exploring
+
+Directions under consideration, roughly in the order they're being thought about:
+
+- **Event subscriptions (the intents replacement).** Rather than a Discord-style intents bitfield, the direction is a named-string allow-list in `IDENTIFY` (e.g. `subscriptions: ["MESSAGE_CREATE"]`) — self-documenting on the wire and additive. Privileged event access would be a server-checked application flag, not a bit the client sets.
+- **Per-token gateway session revocation.** Today, revoking one token disconnects all of a bot's sessions ([details](/bots/tokens#revocation-semantics)); the fix is tracking which token opened each session so a revoke only kills its own sessions.
+- **Bot-specific rate-limit tiers.** Bots already have their own rate-limit identity server-side; tiers built on top of it would give well-behaved bots more headroom.
+- **Interactions.** Application commands (slash commands), components, and modals, with a signed-request interactions endpoint. This is a large surface and is genuinely not started — libraries' interactions helpers will not work today. See the [compatibility matrix](/bots/migrating_from_discord_js#compatibility-matrix).
+- **Publishing `@fluxer/bot_sdk` to npm.** It currently ships as source in the monorepo ([installing](/bots/sdk#installing)).
+
+If you need to know whether something specific is coming before you build, ask — don't assume from this list.

@@ -1,0 +1,58 @@
+---
+title: 'Developer teams'
+description: 'Share access to applications without sharing credentials: roles, invites, and transfers.'
+---
+
+A **developer team** lets several people manage the same applications without passing tokens or passwords around. Teams are managed in the client under **User Settings → Developer Teams**, or via the API endpoints below.
+
+Teams are purely additive: an application without a team behaves exactly as before, and an application always has a human owner.
+
+## Roles
+
+Every team member has one of three roles; the team's owner sits above them. Capabilities on a team-owned application:
+
+| Capability | Owner | Admin | Developer | Read-only |
+| --- | :-: | :-: | :-: | :-: |
+| Read the application, list token metadata | ✓ | ✓ | ✓ | ✓ |
+| Edit metadata / bot profile / redirect URIs | ✓ | ✓ | ✓ | |
+| Mint/revoke bot tokens, rotate the client secret | ✓ | ✓ | | |
+| Invite a private bot to a guild | ✓ | ✓ | ✓ | |
+| Add/remove team members | ✓ | ✓ | | |
+| Delete the application, transfer it to/off a team | ✓ | | | |
+
+Sensitive operations (token minting/revocation, secret rotation, deletion, transfer, team deletion) additionally require [sudo mode](/introduction/authentication#sudo-mode) regardless of role.
+
+## Membership is invite-based
+
+You can't be silently added to a team (and thereby associated with bots you never consented to). Inviting someone creates a membership in the `invited` state, which grants **zero** capabilities — nothing, not even read — until the invitee accepts. Invites can name a user by ID or by username + discriminator, and carry a role (default: `developer`).
+
+## Ownership never goes away
+
+An application's owner is always a person, even when the application is team-owned. Transferring an application to a team sets its team **and** rewrites its owner to the team's owner; transferring it off a team returns it to purely personal ownership. There is no null-owner state.
+
+## API endpoints
+
+All team endpoints require a session token (user-client-only).
+
+| Method | Path | Notes |
+| --- | --- | --- |
+| `GET` | `/teams` | Teams you own or are an accepted member of |
+| `POST` | `/teams` | Create a team |
+| `GET` | `/teams/:team_id` | |
+| `PATCH` | `/teams/:team_id` | Rename |
+| `DELETE` | `/teams/:team_id` | Owner only; requires sudo |
+| `GET` | `/teams/:team_id/members` | |
+| `POST` | `/teams/:team_id/members` | Invite: `{"user_id"}` or `{"username", "discriminator"}`, optional `"role"` |
+| `POST` | `/teams/:team_id/members/@me/accept` | Accept your pending invite |
+| `PATCH` | `/teams/:team_id/members/:user_id` | Change a member's role |
+| `DELETE` | `/teams/:team_id/members/:user_id` | Remove a member; with your own ID, this is "leave team" or "decline invite". The owner can never be removed |
+
+### Transferring an application
+
+```
+PATCH /oauth2/applications/:client_id/team
+{"team_id": "<team id>"}        // transfer to a team
+{"team_id": null}                // detach from its team
+```
+
+Requires the `delete` capability (application owner) and sudo mode.

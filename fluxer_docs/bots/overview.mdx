@@ -1,0 +1,49 @@
+---
+title: 'Bot platform overview'
+description: 'What a Fluxer bot application is, and how the pieces fit together.'
+---
+
+A **bot** on Fluxer is the bot user of an **application**. You create and manage applications yourself in the client under **User Settings → Applications** — no approval process, no waitlist. Every application gets:
+
+- **A bot user.** The bot's user ID is the application's ID (they're the same snowflake). It appears in guilds as a distinct member with a `BOT` tag.
+- **Named bot tokens** you mint and revoke individually — see [Bot tokens](/bots/tokens).
+- **An OAuth2 identity** (client ID, client secret, redirect URIs) for the invite flow and for [OAuth2](/topics/oauth2) integrations.
+- **Metadata**: description, icon (independent of the bot's avatar), privacy policy and terms of service URLs.
+- Optionally, an owning **developer team** so several people can manage it without sharing credentials — see [Teams](/bots/teams).
+
+## The lifecycle at a glance
+
+1. **Create an application** in User Settings → Applications.
+2. **Mint a bot token** in the application's Bot Tokens section ([sudo-gated](/introduction/authentication#sudo-mode), shown once).
+3. **Invite the bot** to a guild via the OAuth2 URL Builder's authorize URL (`bot` scope). Anyone can invite a *public* bot if they know its ID; a private bot can only be invited by people with access to the application.
+4. **Authenticate** REST calls with `Authorization: Bot <token>` and open a gateway connection by sending the token in `IDENTIFY` — see [Authentication](/introduction/authentication).
+5. **Build** against the [HTTP API](/api-reference/introduction) and the [gateway](/gateway/overview), ideally via [`@fluxer/bot_sdk`](/bots/sdk) or a [Discord-compatible library](/bots/migrating_from_discord_js).
+
+The [quickstart](/quickstart) walks through all of this end to end.
+
+## What bots can and can't call
+
+Bots are first-class on messaging, guild, and channel surfaces, but a large part of the API is deliberately user-client-only (account settings, billing, and most client-facing endpoints) and returns `403` for bot tokens. The [API reference](/api-reference/introduction)'s per-operation security requirements are the source of truth — they're generated from the actual route enforcement. See [Authentication](/introduction/authentication#which-endpoints-accept-bot-tokens).
+
+## Where to go next
+
+<CardGroup cols={2}>
+	<Card title="Quickstart" icon="rocket" href="/quickstart">
+		Ship a ping-pong bot in ten minutes.
+	</Card>
+	<Card title="Bot tokens" icon="key" href="/bots/tokens">
+		Named credentials: minting, revoking, and rotation.
+	</Card>
+	<Card title="Teams" icon="users" href="/bots/teams">
+		Share access to an application without sharing credentials.
+	</Card>
+	<Card title="The SDK" icon="cube" href="/bots/sdk">
+		`@fluxer/bot_sdk`: typed REST + a correct gateway lifecycle.
+	</Card>
+	<Card title="Discord-compatible libraries" icon="plug" href="/bots/migrating_from_discord_js">
+		What works with existing Discord libraries, and what doesn't.
+	</Card>
+	<Card title="Roadmap" icon="map" href="/bots/roadmap">
+		What's shipped and what's being explored.
+	</Card>
+</CardGroup>

@@ -1,6 +1,112 @@
 ---
 title: 'Authentication'
-description: 'Token types and how to authenticate to Fluxer.'
+description: 'Token types, the Bot scheme, sudo mode, and which endpoints accept which credentials.'
 ---
 
-TBD
+Every authenticated request to the HTTP API carries a credential in the `Authorization` header. The scheme prefix (or its absence) tells the API what kind of credential it is:
+
+| Credential | Header format | Who uses it |
+| --- | --- | --- |
+| Session token | `Authorization: <token>` (no scheme) | User clients (the official app, third-party clients) |
+| Bot token | `Authorization: Bot <token>` | Bot applications |
+| OAuth2 access token | `Authorization: Bearer <token>` | OAuth2 integrations acting on a user's behalf |
+| Admin API key | `Authorization: Admin <key>` | Instance administration tooling (only valid on `/admin/*` routes) |
+
+Parsing is strict: the header must not have leading or trailing whitespace, the scheme prefixes are case-sensitive (`Bot`, `Bearer`, `Admin`, each followed by exactly one space), and a schemeless value containing a space is rejected. An unparseable header is treated as no authentication at all — you'll get a `401`, not a parse error.
+
+## Session tokens
+
+A session token is what a user client gets from the login flow. It's sent **raw**, with no scheme prefix. Session tokens identify a person, are tied to an auth session (visible and revocable under Settings → Sessions), and are the only credential type accepted by client-only endpoints.
+
+If you're building a third-party *client*, this is your credential. If you're building a *bot*, don't use one — use a bot token, which gets a `BOT`-tagged user and bot-appropriate handling.
+
+## Bot tokens
+
+Bot tokens authenticate an application's bot user. Send them with the `Bot` scheme:
+
+```
+Authorization: Bot <token>
+```
+
+### Token format
+
+A bot token has three dot-separated parts:
+
+```
+<application_id>.<token_id>.<secret>
+```
+
+- `application_id` — the application the token belongs to (also the bot's user ID; they're the same snowflake).
+- `token_id` — identifies this specific named token, so it can be revoked individually.
+- `secret` — 256 bits of randomness. This is the only secret part; the first two are public identifiers.
+
+Treat the whole string as opaque and secret. A token is validated by a constant-time hash lookup on the server — there's no expiry; a token works until it is revoked.
+
+<Note>
+  A legacy two-part format (`<application_id>.<secret>`) from before named
+  tokens is still accepted during the transition, but new tokens are always
+  three-part. Don't build anything that assumes two parts.
+</Note>
+
+### Show-once semantics
+
+The full token string is returned **exactly once**, in the response to the mint request (portal or `POST /oauth2/applications/:client_id/bot/tokens`). After that, the API and portal only ever show metadata: the token's name, the first 8 characters of the secret as a preview, when it was created, and when it was last used. If you lose a token, revoke it and mint a new one.
+
+### Revocation
+
+Revoking a token (portal, or `DELETE /oauth2/applications/:client_id/bot/tokens/:token_id`) takes effect immediately:
+
+- **REST**: the token stops authenticating right away.
+- **Gateway**: every one of the bot's live gateway sessions is closed with close code `4014` (`SESSION_REVOKED`), which is **not resumable** — a client must not reconnect with the revoked token.
+
+Currently, revoking *any* one of an application's tokens disconnects **all** of that bot's gateway sessions, including sessions opened with the application's other, still-valid tokens; those can simply reconnect with their still-valid token. See [Bot tokens](/bots/tokens) for the details and the planned per-token granularity.
+
+### Which endpoints accept bot tokens
+
+Many endpoints reject bot tokens **by design** — they're user-client-only (settings, billing, account management, most of the client-facing surface) and return `403` for a bot credential. This is intentional, not a bug to work around.
+
+The [API reference](/api-reference/introduction) is the source of truth here: each operation's security requirements list exactly which credential types it accepts. If an operation doesn't list `botToken`, a bot token will be rejected. The spec is generated from the actual route middleware, so it reflects enforcement, not aspiration.
+
+## OAuth2 access tokens (`Bearer`)
+
+Access tokens obtained through the [OAuth2 authorization code flow](/topics/oauth2) are sent with the `Bearer` scheme. They act on behalf of the user who authorized your application and are limited to the scopes that were granted. See [OAuth2](/topics/oauth2) for scopes and the token endpoints.
+
+## Admin API keys
+
+Instance administrators can mint API keys sent as `Authorization: Admin <key>`. They are only honored on `/admin/*` routes and are ignored everywhere else. If you're not operating an instance, you'll never use one.
+
+## Gateway authentication
+
+The WebSocket gateway authenticates in the `IDENTIFY` payload, not with an HTTP header. Send the raw token string — the gateway accepts both session and bot tokens unprefixed (an optional `Bot ` prefix is tolerated and stripped, and bot tokens are detected by their shape). See the [connection lifecycle](/gateway/connection_lifecycle).
+
+## Sudo mode
+
+Sensitive operations require **sudo mode**: fresh proof that the person behind the session is really there, on top of a valid session token. Developer-facing operations that require sudo include:
+
+- Minting or revoking a bot token
+- Resetting the client secret (and the legacy bot-token reset)
+- Deleting an application
+- Transferring an application to or from a team
+- Deleting a team
+
+### The retry contract
+
+Call the endpoint normally first. If sudo is required and you haven't proven presence recently, you get a `403` with error code `SUDO_MODE_REQUIRED` and a `has_mfa` boolean in the error's `data`:
+
+1. **`has_mfa: false`** — retry the same request with `"password": "..."` added to the JSON body.
+2. **`has_mfa: true`** — retry with MFA fields in the body: `"mfa_method": "totp" | "sms" | "webauthn"` plus `"mfa_code"` (or `webauthn_response` and `webauthn_challenge` for WebAuthn).
+3. Accounts with a linked Solana wallet can instead prove presence with a wallet signature (`solana_address`, `solana_signature`, `solana_nonce`, `solana_signed_message`).
+
+After a successful MFA verification, the response includes an `X-Multiverse-Sudo-Mode-JWT` header (and, for browser clients, a cookie). Replay that header on subsequent sudo-gated requests to skip re-verification — it's valid for about 5 minutes.
+
+The official client handles all of this for you; you only need to implement the retry contract if you're automating developer operations or building your own client.
+
+## Common failure modes
+
+| Symptom | Likely cause |
+| --- | --- |
+| `401` on everything | Malformed `Authorization` header (whitespace, wrong scheme casing), or a revoked/invalid token |
+| `403` with a bot token on an endpoint that works with a session token | The endpoint is user-client-only; check its security requirements in the API reference |
+| `403` with code `SUDO_MODE_REQUIRED` | The operation needs sudo mode — follow the retry contract above |
+| Gateway close `4004` | The token failed to authenticate at `IDENTIFY` |
+| Gateway close `4014` | The credential behind the session was revoked; do not reconnect with it |

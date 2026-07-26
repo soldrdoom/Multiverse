@@ -1,18 +1,14 @@
 ---
 title: "Quickstart: ping-pong bot"
-description: 'Create a bot application, invite it to a guild, and reply "pong" to "ping".'
+description: 'Create a bot application, mint a token, invite the bot to a guild, and reply "pong" to "ping".'
 ---
-
-<Warning>
-  A lot of the documentation here is still being written, sorry for the incompleteness! This guide should get you up and running with a bot fairly quickly, though.
-</Warning>
 
 So, you're thinking about creating a Fluxer bot, huh? Think no further, for this guide will get you up and running in no time. You'll need a few things to follow this guide through:
 
 - A text/code editor (such as [VS Code](https://code.visualstudio.com/)) or an integrated development environment (IDE)
 - Some basic programming skills and familiarity with JavaScript/Node.js
 - [Node.js](https://nodejs.org/en) (a recent LTS version is fine) installed on your system
-- An account registered at [Fluxer.app](https://web.fluxer.app/register) (though you're not forced to use this instance, of course!)
+- A registered account on the instance you're targeting
 - A community (referred to as a guild in the API) that you've created
 
 ### Step 1: Open "User Settings" in the bottom-left
@@ -33,31 +29,34 @@ This should work on mobile web devices too!
 
 ### Step 3: Create a new application
 
-Give it a fancy name. This will be the default username of your application unless changed.
+Give it a fancy name. This will be the default username of your application unless changed. You can also add a description and other metadata now or later.
 
 <Frame>
   ![Clean Shot 2026 02 21 At 14 33 30@2x](/images/CleanShot2026-02-21at14.33.30@2x.png)
 </Frame>
 
-### Step 4: Regenerate the bot token
+### Step 4: Mint a bot token
 
-Press the "Regenerate" button for the bot token field, confirm the action, and store the generated value somewhere secure, such as in a password manager.
+Open your new application and scroll to the **Bot Tokens** section. Bot tokens are named — give this one a name that says where it will run (for example `dev` or `production`), then press **Create token**. You'll be asked to confirm your password (or MFA) first; this is [sudo mode](/introduction/authentication#sudo-mode).
 
-<Frame>
-  ![Clean Shot 2026 02 21 At 14 34 47@2x](/images/CleanShot2026-02-21at14.34.47@2x.png)
-</Frame>
+<Note>
+  Copy the token now and store it somewhere secure, such as a password manager —
+  **it is shown exactly once**. If you lose it, revoke it and mint a new one.
+  You can mint several named tokens and revoke each one individually; see
+  [Bot tokens](/bots/tokens).
+</Note>
+
+{/* TODO(screenshot): reshoot — the old "Regenerate bot token" screenshot predates the named Bot Tokens section. */}
 
 ### Step 5: Mark the bot as private (optional)
 
-You might not want anyone to be able to invite your bot if they know its user ID.
+You might not want anyone to be able to invite your bot if they know its user ID. In the **Application Information** section, turn off the **Public Bot** switch.
 
-<Frame>
-  ![Clean Shot 2026 02 21 At 14 37 16@2x](/images/CleanShot2026-02-21at14.37.16@2x.png)
-</Frame>
+{/* TODO(screenshot): reshoot — the old screenshot predates the current Application Information layout. */}
 
 ### Step 6: Generate the bot invite URL
 
-Check "bot" (you don't need any extra permissions for now) and copy the "Authorize URL."
+In the **OAuth2 URL Builder** section, check "bot" (you don't need any extra permissions for now) and copy the "Authorize URL."
 
 <Frame>
   ![Clean Shot 2026 02 21 At 14 38 28@2x](/images/CleanShot2026-02-21at14.38.28@2x.png)
@@ -85,87 +84,80 @@ Now it's time to start writing some code to make our awesome application do awes
 
 ### Step 9: Write the code and run the bot
 
-First, create a new project directory:
+We'll use `@fluxer/bot_sdk`, the first-party SDK. It handles the gateway lifecycle (heartbeats, automatic RESUME, reconnect backoff), client-side rate limiting, and typed errors for you — see [the SDK page](/bots/sdk) for everything it does.
 
-```
-mkdir fluxer_bot && cd fluxer_bot && npm init -y
-```
+<Note>
+  `@fluxer/bot_sdk` is not published to npm yet — it lives in the
+  [Fluxer monorepo](https://github.com/fluxerapp/fluxer) under
+  `packages/bot_sdk`, and you currently consume it from a checkout of the repo
+  (see [the SDK page](/bots/sdk#installing) for details). If you'd rather
+  `npm install` something today, existing Discord libraries work well against
+  Fluxer — see [Using Discord-compatible libraries](/bots/migrating_from_discord_js),
+  which walks through this same bot with `@discordjs/core`.
+</Note>
 
-Second, install the required dependencies:
+The SDK ships as TypeScript source and runs under the [`tsx`](https://tsx.is) runner — that's also how the SDK's first consumer runs in production. Set your project up as described in [Installing the SDK](/bots/sdk#installing), then:
 
-```
-npm i -E @discordjs/core@2.4.0 @discordjs/rest@2.6.0 @discordjs/ws@2.0.4
-```
-
-Third, store your token from Step 4 in a `.env` file in this folder:
+First, store your token from Step 4 in a `.env` file in your project folder:
 
 ```
 FLUXER_BOT_TOKEN=<your token goes here>
 ```
 
-Fourth, create a new `bot.mjs` file, looking like so:
+Then create a `bot.mts` file, looking like so:
 
-```javascript
-import {Client, GatewayDispatchEvents} from '@discordjs/core';
-import {REST} from '@discordjs/rest';
-import {WebSocketManager} from '@discordjs/ws';
+```typescript
+import {createClient} from '@fluxer/bot_sdk/src/index';
 
 const token = process.env['FLUXER_BOT_TOKEN'];
 if (!token) {
   throw new Error('You forgot the token!');
 }
 
-const rest = new REST({api: 'https://api.fluxer.app', version: '1'}).setToken(token);
-
-const gateway = new WebSocketManager({
-  intents: 0,
-  rest,
+const client = createClient({
+  // Your instance's base URL. REST and gateway endpoints are resolved
+  // automatically from its /.well-known/fluxer document.
+  instanceBaseUrl: 'https://multiverse.forum',
   token,
-  version: '1',
+  tokenType: 'bot',
 });
 
-const client = new Client({rest, gateway});
-
-client.on(GatewayDispatchEvents.MessageCreate, async ({api, data}) => {
-  if (data.author.bot) {
+client.on('MESSAGE_CREATE', async (message) => {
+  if (message.author.bot) {
     return;
   }
 
-  if (data.content === '!ping') {
-    await api.channels.createMessage(data.channel_id, {
+  if (message.content === '!ping') {
+    await client.api.sendMessage(message.channel_id, {
       content: 'pong!',
-      message_reference: {message_id: data.id},
+      message_reference: {message_id: message.id},
     });
   }
 });
 
-client.on(GatewayDispatchEvents.Ready, ({data}) => {
-  const {username, discriminator} = data.user;
-  console.log(`Logged in as @${username}#${discriminator}`);
+client.on('READY', (data) => {
+  console.log(`Logged in as @${data.user.username}`);
 });
 
-gateway.connect();
+// Resolves once the first READY arrives; rejects on fatal errors (bad token).
+await client.connect();
 ```
 
-Finally, save this file and run it via `node --env-file=.env bot.mjs`.
+Finally, save this file and run it via `npx tsx --env-file=.env bot.mts`.
 
-```
-➜  fluxer_bot node --env-file=.env bot.mjs
-Logged in as @My_Awesome_Application#0168
-```
-
-<Frame caption="Your bot should now be alive and well!">
-  ![Clean Shot 2026 02 21 At 16 23 04@2x](/images/CleanShot2026-02-21at16.23.04@2x.png)
-</Frame>
+Say `!ping` in a channel your bot can see, and it should reply:
 
 <Frame caption="Heyo!">
   ![Clean Shot 2026 02 21 At 16 24 19@2x](/images/CleanShot2026-02-21at16.24.19@2x.png)
 </Frame>
 
-<Warning>
-  A lot of the documentation here is still being written, sorry for the incompleteness! This guide should get you up and running with a bot fairly quickly, though.\
-  \
-  Fluxer's HTTP API & Gateway API share similarities with the Discord API to make it easy for you to migrate existing Discord bot libraries. Note that slash commands & interactions are not yet implemented on Fluxer, but they're coming soon!
-</Warning>
+<Info>
+  Fluxer's HTTP API & Gateway API share similarities with the Discord API, so
+  existing Discord bot libraries often work with little modification — see
+  [Using Discord-compatible libraries](/bots/migrating_from_discord_js) for
+  what works and what doesn't. Slash commands & interactions are not
+  implemented on Fluxer; see the [bot platform roadmap](/bots/roadmap) for
+  what's shipped and what's being explored.
+</Info>
 
 Hack the planet!
