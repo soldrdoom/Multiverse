@@ -28,8 +28,6 @@ function requireEnv(name: string): string {
 export interface IrisConfig {
 	readonly authToken: string;
 	readonly instanceBaseUrl: string;
-	readonly ollamaBaseUrl: string;
-	readonly ollamaModel: string;
 	readonly healthPort: number;
 }
 
@@ -37,8 +35,6 @@ export function loadConfig(): IrisConfig {
 	return {
 		authToken: requireEnv('IRIS_AUTH_TOKEN'),
 		instanceBaseUrl: process.env.IRIS_INSTANCE_BASE_URL ?? 'https://multiverse.forum',
-		ollamaBaseUrl: process.env.OLLAMA_BASE_URL ?? 'http://ollama:11434',
-		ollamaModel: process.env.OLLAMA_MODEL ?? 'qwen3:0.6b',
 		healthPort: Number(process.env.PORT ?? 8080),
 	};
 }

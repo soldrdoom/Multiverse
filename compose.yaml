@@ -89,9 +89,14 @@ services:
       start_period: 15s
     logging: *default-logging
 
+  # Idle since 2026-07-26: I.R.I.S. runs without an LLM for now, and nothing
+  # else consumes ollama. Definition and the ollama_data volume (with the
+  # pulled models) are kept so re-enabling is just `--profile llm up -d` plus
+  # restoring iris_bot's OLLAMA_* env and depends_on entry.
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
+    profiles: ['llm']
     restart: unless-stopped
     volumes:
       - ollama_data:/root/.ollama
@@ -120,12 +125,8 @@ services:
     environment:
       IRIS_AUTH_TOKEN: ${IRIS_AUTH_TOKEN:?Set IRIS_AUTH_TOKEN in .env or environment}
       IRIS_INSTANCE_BASE_URL: ${IRIS_INSTANCE_BASE_URL:-https://multiverse.forum}
-      OLLAMA_BASE_URL: http://ollama:11434
-      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:0.6b}
     depends_on:
       fluxer_server:
-        condition: service_healthy
-      ollama:
         condition: service_healthy
     healthcheck:
       test: ['CMD-SHELL', 'curl -fsS http://127.0.0.1:8080/_health || exit 1']

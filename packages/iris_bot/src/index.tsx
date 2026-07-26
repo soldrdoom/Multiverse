@@ -21,9 +21,7 @@ import {createServer} from 'node:http';
 import {createClient, FluxerApiError} from '@fluxer/bot_sdk/src/index';
 import pino from 'pino';
 import {loadConfig} from './Config';
-import {IRIS_SYSTEM_PROMPT} from './LlmClient';
 import {MessageHandler, type MessageSender} from './MessageHandler';
-import {OllamaLlmClient} from './OllamaLlmClient';
 
 async function main(): Promise<void> {
 	const log = pino({level: process.env.LOG_LEVEL ?? 'info'});
@@ -39,8 +37,6 @@ async function main(): Promise<void> {
 		logger: log,
 		properties: {os: 'linux', browser: 'iris_bot', device: 'iris_bot'},
 	});
-
-	const llmClient = new OllamaLlmClient(config.ollamaBaseUrl, config.ollamaModel, IRIS_SYSTEM_PROMPT);
 
 	// Preserves the deleted local RestClient.sendMessage contract byte-for-byte:
 	// an HTTP failure is logged and swallowed (the reply is dropped, never
@@ -68,7 +64,7 @@ async function main(): Promise<void> {
 		if (t === 'READY') {
 			const ready = d as {user: {id: string}};
 			botUserId = ready.user.id;
-			handler = new MessageHandler(botUserId, client.rest.baseUrl, messageSender, llmClient, log);
+			handler = new MessageHandler(botUserId, client.rest.baseUrl, messageSender, log);
 			log.info({botUserId}, 'I.R.I.S. ready');
 			return;
 		}

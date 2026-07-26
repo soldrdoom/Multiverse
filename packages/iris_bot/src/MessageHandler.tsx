@@ -18,8 +18,6 @@
  */
 
 import type {Logger} from 'pino';
-import {ConversationStore} from './ConversationStore';
-import type {LlmClient} from './LlmClient';
 
 /**
  * The message-sending contract this handler was written against (the deleted
@@ -45,9 +43,9 @@ const BOT_TEASE_LINES = [
 	'(bot support is coming soon, by the way)',
 ];
 
-// I.R.I.S. doesn't discuss the platform at all right now — the model can't reliably
-// self-censor this (it confidently invented wrong platform details in testing), so
-// obvious platform questions are deflected in code before ever reaching the model.
+// I.R.I.S. doesn't discuss the platform beyond this canned deflection — with
+// no model behind it there is nothing to hallucinate, but the deflection stays
+// so platform questions get a consistent, deliberate answer.
 const PLATFORM_KEYWORDS = [
 	'multiverse',
 	'self-host',
@@ -67,20 +65,24 @@ const PLATFORM_KEYWORDS = [
 const PLATFORM_DEFLECTION =
 	"I can't get into that right now — ask my creator directly! Happy to chat about anything else though.";
 
+// The LLM was removed for now (2026-07-26): every non-platform DM gets this
+// fixed line instead of a generated reply. Guild messages get no reply at all —
+// a canned bot answering every public message would be noise.
+const LIGHTWEIGHT_REPLY =
+	"I'm running in lightweight mode right now, so I can't hold a real conversation — but I'm still here, and smarter days are coming!";
+
 function mentionsPlatform(content: string): boolean {
 	const lower = content.toLowerCase();
 	return PLATFORM_KEYWORDS.some((keyword) => lower.includes(keyword));
 }
 
 export class MessageHandler {
-	private readonly conversations = new ConversationStore();
 	private readonly replyCounts = new Map<string, number>();
 
 	constructor(
 		private readonly botUserId: string,
 		private readonly apiBaseUrl: string,
 		private readonly restClient: MessageSender,
-		private readonly llmClient: LlmClient,
 		private readonly log: Logger,
 	) {}
 
@@ -95,6 +97,10 @@ export class MessageHandler {
 		if (message.author.id === this.botUserId) return;
 		if (message.author.bot) return;
 
+		// DM-only while in lightweight mode: guild traffic is read but never
+		// answered.
+		if (message.guild_id) return;
+
 		if (!message.content) {
 			if (message.encrypted_content) {
 				this.log.info({channelId: message.channel_id}, 'Skipping end-to-end encrypted message, cannot read content');
@@ -102,18 +108,10 @@ export class MessageHandler {
 			return;
 		}
 
-		this.log.info({channelId: message.channel_id, guildId: message.guild_id}, 'Replying to message');
+		this.log.info({channelId: message.channel_id}, 'Replying to message');
 
-		const history = this.conversations.getHistory(message.channel_id, message.author.id);
-		let reply = mentionsPlatform(message.content)
-			? PLATFORM_DEFLECTION
-			: await this.llmClient.generateReply(history, message.content);
-		if (!reply) return;
-
+		let reply = mentionsPlatform(message.content) ? PLATFORM_DEFLECTION : LIGHTWEIGHT_REPLY;
 		reply = this.maybeAppendBotTease(message.channel_id, reply);
-
-		this.conversations.append(message.channel_id, message.author.id, {role: 'user', content: message.content});
-		this.conversations.append(message.channel_id, message.author.id, {role: 'assistant', content: reply});
 
 		await this.restClient.sendMessage(this.apiBaseUrl, message.channel_id, reply);
 	}
