@@ -93,7 +93,17 @@
 	--brand-primary: #14f195;
 	--brand-secondary: #9945ff;
 	--brand-primary-light: #6fffc2;
-	--brand-primary-fill: rgba(20, 241, 149, 0.15);
+	/*
+	 * Foreground for content sitting ON --brand-primary, not a fill/tint —
+	 * every consumer uses it as `color:`. It was briefly a translucent green
+	 * tint, which painted that text in its own background (1.00:1, literally
+	 * invisible) everywhere: the BOT tag, hovered guild-menu items, selected
+	 * permission rows, the add-guild glyph, the accept-friend button.
+	 * Dark-on-brand-green measures 12.92:1. Use --brand-primary-tint below
+	 * when a translucent green surface is what's wanted.
+	 */
+	--brand-primary-fill: #0b0e14;
+	--brand-primary-tint: rgba(20, 241, 149, 0.15);
 
 	/* Accent aliases */
 	--accent-primary: #14f195;

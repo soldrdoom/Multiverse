@@ -17,12 +17,32 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+/* BOT / SYSTEM tag — Solana purple→green brand gradient on chrome.
+ *
+ * Previously this was `background-color: var(--brand-primary)` +
+ * `color: var(--brand-primary-fill)`. The Multiverse theme redefines
+ * --brand-primary-fill as a translucent green tint (rgba(20, 241, 149, 0.15)),
+ * so the label composited to exactly the same green as its own background —
+ * a 1.00:1 contrast ratio, i.e. an invisible word inside a green block.
+ *
+ * The gradient reuses --brand-secondary (#9945FF) → --brand-primary (#14F195)
+ * via the same color-mix idiom as .roleBadge / .avatarPlaceholder. The purple
+ * end is lifted 20% toward the green stop so the darkest point of the gradient
+ * still clears WCAG AA for small text against --button-primary-text (#0B0E14):
+ * 4.61:1 at the purple end, 7.31:1 mid, 12.92:1 at the green end. Both the
+ * gradient and the label colour are theme-independent tokens, so the tag reads
+ * identically in dark and light themes.
+ */
 .tag {
 	display: inline-block;
-	background-color: var(--brand-primary);
+	background-image: linear-gradient(
+		90deg,
+		color-mix(in srgb, var(--brand-secondary) 80%, var(--brand-primary)) 0%,
+		var(--brand-primary) 100%
+	);
 	text-indent: 0;
 	text-transform: uppercase;
-	color: var(--brand-primary-fill);
+	color: var(--button-primary-text);
 	padding: 0 0.35rem;
 	vertical-align: baseline;
 	padding-block: var(--user-tag-padding-vertical, 0.125rem);
@@ -48,7 +68,9 @@
 
 .text {
 	display: inline-block;
-	font-weight: 600;
+	/* 700 rather than 600: at 0.625rem the uppercase label needs the extra
+	 * stroke weight to stay crisp on a saturated gradient. */
+	font-weight: 700;
 	pointer-events: none;
 	line-height: var(--user-tag-line-height, 1);
 }
