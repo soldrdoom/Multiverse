@@ -1,0 +1,28 @@
+{
+	"name": "@fluxer/bot_sdk",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./*": "./*"
+	},
+	"scripts": {
+		"generate": "tsx scripts/GenerateSdk.tsx",
+		"lint": "tsx scripts/GenerateSdk.tsx --check",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@fluxer/constants": "workspace:*",
+		"ws": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@types/ws": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"tsx": "catalog:",
+		"vite-tsconfig-paths": "catalog:",
+		"vitest": "catalog:"
+	}
+}

@@ -11,6 +11,7 @@ COPY pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY patches/ ./patches/
 COPY packages/iris_bot/package.json ./packages/iris_bot/
 COPY packages/constants/package.json ./packages/constants/
+COPY packages/bot_sdk/package.json ./packages/bot_sdk/
 
 # Install dependencies
 # Note: --no-frozen-lockfile (not --frozen-lockfile) because pnpm's frozen-lockfile check
@@ -37,6 +38,8 @@ COPY --from=deps /app/packages/iris_bot/node_modules ./packages/iris_bot/node_mo
 # Copy source
 COPY packages/constants/package.json ./packages/constants/
 COPY packages/constants/src ./packages/constants/src
+COPY packages/bot_sdk/package.json ./packages/bot_sdk/
+COPY packages/bot_sdk/src ./packages/bot_sdk/src
 COPY packages/iris_bot/package.json packages/iris_bot/tsconfig.json ./packages/iris_bot/
 COPY packages/iris_bot/src ./packages/iris_bot/src
 
