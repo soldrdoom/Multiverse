@@ -68,7 +68,17 @@ export const Endpoints = {
 	OAUTH_APPLICATION_CLIENT_SECRET_RESET: (applicationId: string) =>
 		`/oauth2/applications/${applicationId}/client-secret/reset`,
 	OAUTH_APPLICATION_BOT_PROFILE: (applicationId: string) => `/oauth2/applications/${applicationId}/bot`,
+	OAUTH_APPLICATION_BOT_TOKENS: (applicationId: string) => `/oauth2/applications/${applicationId}/bot/tokens`,
+	OAUTH_APPLICATION_BOT_TOKEN: (applicationId: string, tokenId: string) =>
+		`/oauth2/applications/${applicationId}/bot/tokens/${tokenId}`,
+	OAUTH_APPLICATION_TEAM: (applicationId: string) => `/oauth2/applications/${applicationId}/team`,
 	OAUTH_PUBLIC_APPLICATION: (applicationId: string) => `/oauth2/applications/${applicationId}/public`,
+
+	TEAMS: '/teams',
+	TEAM: (teamId: string) => `/teams/${teamId}`,
+	TEAM_MEMBERS: (teamId: string) => `/teams/${teamId}/members`,
+	TEAM_MEMBER: (teamId: string, userId: string) => `/teams/${teamId}/members/${userId}`,
+	TEAM_INVITE_ACCEPT: (teamId: string) => `/teams/${teamId}/members/@me/accept`,
 
 	OAUTH_AUTHORIZATIONS: '/oauth2/@me/authorizations',
 	OAUTH_AUTHORIZATION: (applicationId: string) => `/oauth2/@me/authorizations/${applicationId}`,

@@ -22,6 +22,8 @@ import clsx from 'clsx';
 import type React from 'react';
 
 interface SectionCardProps {
+	/** DOM id matching this card's SECTION_REGISTRY entry, for scroll-spy deep links. */
+	id?: string;
 	title: React.ReactNode;
 	subtitle?: React.ReactNode;
 	actions?: React.ReactNode;
@@ -29,9 +31,9 @@ interface SectionCardProps {
 	children: React.ReactNode;
 }
 
-export const SectionCard: React.FC<SectionCardProps> = ({title, subtitle, actions, children, tone = 'default'}) => {
+export const SectionCard: React.FC<SectionCardProps> = ({id, title, subtitle, actions, children, tone = 'default'}) => {
 	return (
-		<section className={clsx(styles.card, tone === 'danger' && styles.cardDanger)}>
+		<section id={id} className={clsx(styles.card, tone === 'danger' && styles.cardDanger)}>
 			<div className={styles.cardHeader}>
 				<div>
 					<h3 className={styles.cardTitle}>{title}</h3>

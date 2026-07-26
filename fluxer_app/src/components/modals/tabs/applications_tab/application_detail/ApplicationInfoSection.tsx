@@ -17,15 +17,22 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Input} from '@app/components/form/Input';
+import {Input, Textarea} from '@app/components/form/Input';
 import {Switch} from '@app/components/form/Switch';
 import styles from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationDetail.module.css';
 import type {ApplicationDetailForm} from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationDetailTypes';
 import {SectionCard} from '@app/components/modals/tabs/applications_tab/application_detail/SectionCard';
 import {Button} from '@app/components/uikit/button/Button';
+import {Checkbox} from '@app/components/uikit/checkbox/Checkbox';
+import {
+	APPLICATION_DESCRIPTION_MAX_LENGTH,
+	APPLICATION_MAX_TAGS,
+	ApplicationTags,
+} from '@fluxer/constants/src/BotConstants';
 import {useLingui} from '@lingui/react/macro';
 import {XIcon} from '@phosphor-icons/react';
 import type React from 'react';
+import {Controller} from 'react-hook-form';
 
 interface ApplicationInfoSectionProps {
 	form: ApplicationDetailForm;
@@ -33,7 +40,10 @@ interface ApplicationInfoSectionProps {
 	onAddRedirect: () => void;
 	onRemoveRedirect: (index: number) => void;
 	onUpdateRedirect: (index: number, value: string) => void;
+	sectionId?: string;
 }
+
+const URL_PATTERN = /^https?:\/\/.+/;
 
 export const ApplicationInfoSection: React.FC<ApplicationInfoSectionProps> = ({
 	form,
@@ -41,12 +51,19 @@ export const ApplicationInfoSection: React.FC<ApplicationInfoSectionProps> = ({
 	onAddRedirect,
 	onRemoveRedirect,
 	onUpdateRedirect,
+	sectionId,
 }) => {
 	const {t} = useLingui();
 	const redirectList = redirectInputs ?? [];
+	const selectedTags = form.watch('tags') ?? {};
+	const selectedTagCount = Object.values(selectedTags).filter(Boolean).length;
 
 	return (
-		<SectionCard title={t`Application Information`} subtitle={t`Basic settings and allowed redirect URIs.`}>
+		<SectionCard
+			id={sectionId}
+			title={t`Application Information`}
+			subtitle={t`Basic settings and allowed redirect URIs.`}
+		>
 			<div className={styles.fieldStack}>
 				<Input
 					{...form.register('name', {required: t`Application name is required`})}
@@ -55,6 +72,70 @@ export const ApplicationInfoSection: React.FC<ApplicationInfoSectionProps> = ({
 					placeholder={t`My Application`}
 					maxLength={100}
 					error={form.formState.errors.name?.message}
+				/>
+
+				<Controller
+					name="description"
+					control={form.control}
+					render={({field}) => (
+						<Textarea
+							ref={field.ref}
+							name={field.name}
+							onBlur={field.onBlur}
+							label={t`Description`}
+							value={field.value ?? ''}
+							onChange={(event) => field.onChange(event.target.value)}
+							placeholder={t`What does your application do?`}
+							minRows={2}
+							maxRows={5}
+							maxLength={APPLICATION_DESCRIPTION_MAX_LENGTH}
+							error={form.formState.errors.description?.message}
+						/>
+					)}
+				/>
+
+				<div className={styles.scopeGrid}>
+					<p className={styles.fieldLabel}>{t`Tags (up to ${APPLICATION_MAX_TAGS})`}</p>
+					<div className={styles.scopeList}>
+						{ApplicationTags.map((tag) => (
+							<div key={tag} className={styles.scopeItem}>
+								<Controller
+									name={`tags.${tag}` as const}
+									control={form.control}
+									render={({field}) => (
+										<Checkbox
+											checked={!!field.value}
+											onChange={(checked) => field.onChange(checked)}
+											disabled={!field.value && selectedTagCount >= APPLICATION_MAX_TAGS}
+											size="small"
+										>
+											<span className={styles.scopeLabel}>{tag}</span>
+										</Checkbox>
+									)}
+								/>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<Input
+					{...form.register('privacyPolicyUrl', {
+						validate: (value) => !value || URL_PATTERN.test(value.trim()) || t`Must be a valid http(s) URL`,
+					})}
+					label={t`Privacy Policy URL`}
+					value={form.watch('privacyPolicyUrl')}
+					placeholder={t`https://example.com/privacy`}
+					error={form.formState.errors.privacyPolicyUrl?.message}
+				/>
+
+				<Input
+					{...form.register('termsOfServiceUrl', {
+						validate: (value) => !value || URL_PATTERN.test(value.trim()) || t`Must be a valid http(s) URL`,
+					})}
+					label={t`Terms of Service URL`}
+					value={form.watch('termsOfServiceUrl')}
+					placeholder={t`https://example.com/terms`}
+					error={form.formState.errors.termsOfServiceUrl?.message}
 				/>
 
 				<Switch

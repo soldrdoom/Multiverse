@@ -156,9 +156,10 @@ const ApplicationsTab: React.FC = observer(() => {
 								<Trans>Create Application</Trans>
 							</Button>
 						)}
-						<a className={styles.documentationLink} href="https://fluxer.dev" target="_blank" rel="noreferrer">
+						{/* Same docs host marketing links (Navigation/Footer); fluxer.dev was never it. */}
+						<a className={styles.documentationLink} href="https://docs.fluxer.app" target="_blank" rel="noreferrer">
 							<BookOpenIcon weight="fill" size={18} className={styles.documentationIcon} />
-							<Trans>Read the Documentation (fluxer.dev)</Trans>
+							<Trans>Read the Documentation (docs.fluxer.app)</Trans>
 						</a>
 					</div>
 					<ApplicationsList applications={store.applications} onSelectApplication={handleSelectApplication} />

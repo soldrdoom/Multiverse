@@ -26,9 +26,11 @@ import AuthorizedAppsTab from '@app/components/modals/tabs/AuthorizedAppsTab';
 import ApplicationsTab from '@app/components/modals/tabs/applications_tab';
 import BlockedUsersTab from '@app/components/modals/tabs/BlockedUsersTab';
 import ChatSettingsTab from '@app/components/modals/tabs/ChatSettingsTab';
+import CosmeticsTab from '@app/components/modals/tabs/CosmeticsTab';
 import ComponentGalleryTab from '@app/components/modals/tabs/component_gallery_tab';
 import DevicesTab from '@app/components/modals/tabs/DevicesTab';
 import DeveloperOptionsTab from '@app/components/modals/tabs/developer_options_tab';
+import DeveloperTeamsTab from '@app/components/modals/tabs/developer_teams_tab';
 import ExpressionPacksTab from '@app/components/modals/tabs/ExpressionPacksTab';
 import KeybindsTab from '@app/components/modals/tabs/KeybindsTab';
 import LanguageTab from '@app/components/modals/tabs/LanguageTab';
@@ -37,7 +39,6 @@ import LinkedAccountsTab from '@app/components/modals/tabs/LinkedAccountsTab';
 import MyProfileTab from '@app/components/modals/tabs/MyProfileTab';
 import NotificationsTab from '@app/components/modals/tabs/NotificationsTab';
 import PrivacySafetyTab from '@app/components/modals/tabs/PrivacySafetyTab';
-import CosmeticsTab from '@app/components/modals/tabs/CosmeticsTab';
 import VaultTab from '@app/components/modals/tabs/VaultTab';
 import VoiceVideoTab from '@app/components/modals/tabs/VoiceVideoTab';
 import type {UserSettingsTabType} from '@app/components/modals/utils/SettingsSectionRegistry';
@@ -62,6 +63,7 @@ const DESKTOP_TAB_COMPONENTS: Partial<Record<UserSettingsTabType, React.Componen
 	language: LanguageTab,
 	advanced: AdvancedTab,
 	applications: ApplicationsTab,
+	developer_teams: DeveloperTeamsTab,
 	admin_panel: AdminPanelTab,
 	limits_config: LimitsConfigTab,
 	developer_options: DeveloperOptionsTab,

@@ -18,8 +18,8 @@
  */
 
 import GuildAuditLogTab from '@app/components/modals/guild_tabs/GuildAuditLogTab';
-import GuildCosmeticsTab from '@app/components/modals/guild_tabs/GuildCosmeticsTab';
 import GuildBansTab from '@app/components/modals/guild_tabs/GuildBansTab';
+import GuildCosmeticsTab from '@app/components/modals/guild_tabs/GuildCosmeticsTab';
 import GuildDiscoveryTab from '@app/components/modals/guild_tabs/GuildDiscoveryTab';
 import GuildEmojiTab from '@app/components/modals/guild_tabs/GuildEmojiTab';
 import GuildInvitesTab from '@app/components/modals/guild_tabs/GuildInvitesTab';

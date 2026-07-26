@@ -34,6 +34,7 @@ import {Controller} from 'react-hook-form';
 interface BotProfileSectionProps {
 	application: DeveloperApplication;
 	form: ApplicationDetailForm;
+	sectionId?: string;
 	displayAvatarUrl: string | null;
 	hasAvatar: boolean;
 	hasClearedAvatar: boolean;
@@ -49,6 +50,7 @@ interface BotProfileSectionProps {
 export const BotProfileSection: React.FC<BotProfileSectionProps> = ({
 	application,
 	form,
+	sectionId,
 	displayAvatarUrl,
 	hasAvatar,
 	hasClearedAvatar,
@@ -63,7 +65,11 @@ export const BotProfileSection: React.FC<BotProfileSectionProps> = ({
 	const {t} = useLingui();
 	const friendlyFlagEnabled = form.watch('friendlyBot') ?? false;
 	return (
-		<SectionCard title={t`Bot Profile`} subtitle={t`Avatar, tag, and rich profile details for your bot.`}>
+		<SectionCard
+			id={sectionId}
+			title={t`Bot Profile`}
+			subtitle={t`Avatar, tag, and rich profile details for your bot.`}
+		>
 			<div className={styles.fieldStack}>
 				<div className={styles.avatarRow}>
 					{displayAvatarUrl ? (

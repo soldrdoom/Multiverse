@@ -28,11 +28,14 @@ import ApplicationsTabStore from '@app/components/modals/tabs/applications_tab/A
 import styles from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationDetail.module.css';
 import type {ApplicationDetailFormValues} from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationDetailTypes';
 import {ApplicationHeader} from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationHeader';
+import {ApplicationIconSection} from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationIconSection';
 import {ApplicationInfoSection} from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection';
 import {BotProfileSection} from '@app/components/modals/tabs/applications_tab/application_detail/BotProfileSection';
+import {BotTokensSection} from '@app/components/modals/tabs/applications_tab/application_detail/BotTokensSection';
 import {OAuthBuilderSection} from '@app/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection';
 import {SecretsSection} from '@app/components/modals/tabs/applications_tab/application_detail/SecretsSection';
 import {SectionCard} from '@app/components/modals/tabs/applications_tab/application_detail/SectionCard';
+import {TeamSection} from '@app/components/modals/tabs/applications_tab/application_detail/TeamSection';
 import {Button} from '@app/components/uikit/button/Button';
 import {Endpoints} from '@app/Endpoints';
 import {useFormSubmit} from '@app/hooks/useFormSubmit';
@@ -40,8 +43,11 @@ import {useSudo} from '@app/hooks/useSudo';
 import HttpClient from '@app/lib/HttpClient';
 import {Logger} from '@app/lib/Logger';
 import type {DeveloperApplication} from '@app/records/DeveloperApplicationRecord';
+import type {DeveloperTeam} from '@app/records/DeveloperTeamRecord';
+import UserStore from '@app/stores/UserStore';
 import * as AvatarUtils from '@app/utils/AvatarUtils';
 import {formatBotPermissionsQuery, getAllBotPermissions} from '@app/utils/PermissionUtils';
+import {ApplicationTags} from '@fluxer/constants/src/BotConstants';
 import {OAuth2Scopes} from '@fluxer/constants/src/OAuth2Constants';
 import {PublicUserFlags} from '@fluxer/constants/src/UserConstants';
 import {Trans, useLingui} from '@lingui/react/macro';
@@ -80,19 +86,42 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 		const [hasClearedAvatar, setHasClearedAvatar] = useState(false);
 		const [previewBannerUrl, setPreviewBannerUrl] = useState<string | null>(null);
 		const [hasClearedBanner, setHasClearedBanner] = useState(false);
+		const [previewIconUrl, setPreviewIconUrl] = useState<string | null>(null);
+		const [hasClearedIcon, setHasClearedIcon] = useState(false);
 		const [isDeleting, setIsDeleting] = useState(false);
 		const [initialValues, setInitialValues] = useState<ApplicationDetailFormValues | null>(null);
 		const [clientSecret, setClientSecret] = useState<string | null>(null);
-		const [botToken, setBotToken] = useState<string | null>(null);
-		const [isRotating, setIsRotating] = useState<'client' | 'bot' | null>(null);
+		const [isRotating, setIsRotating] = useState<'client' | null>(null);
+		const [myTeams, setMyTeams] = useState<Array<DeveloperTeam>>([]);
 		const clientSecretInputId = useId();
-		const botTokenInputId = useId();
 
 		const sudo = useSudo();
+
+		useEffect(() => {
+			const controller = new AbortController();
+			void (async () => {
+				try {
+					const response = await HttpClient.get<Array<DeveloperTeam>>({
+						url: Endpoints.TEAMS,
+						signal: controller.signal,
+					});
+					setMyTeams(response.body);
+				} catch (err) {
+					if ((err as DOMException).name === 'AbortError') return;
+					logger.error('Failed to fetch teams', err);
+				}
+			})();
+			return () => controller.abort();
+		}, []);
 
 		const form = useForm<ApplicationDetailFormValues>({
 			defaultValues: {
 				name: '',
+				description: '',
+				tags: {} as Record<string, boolean>,
+				privacyPolicyUrl: '',
+				termsOfServiceUrl: '',
+				icon: null,
 				botPublic: true,
 				botRequireCodeGrant: false,
 				friendlyBot: false,
@@ -114,10 +143,20 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 				return acc;
 			}, {});
 
+			const tagMap = ApplicationTags.reduce<Record<string, boolean>>((acc, tag) => {
+				acc[tag] = (app.tags ?? []).includes(tag);
+				return acc;
+			}, {});
+
 			const redirectList = (app.redirect_uris ?? []).length > 0 ? app.redirect_uris : [''];
 
 			return {
 				name: app.name,
+				description: app.description ?? '',
+				tags: tagMap,
+				privacyPolicyUrl: app.privacy_policy_url ?? '',
+				termsOfServiceUrl: app.terms_of_service_url ?? '',
+				icon: null,
 				redirectUris: app.redirect_uris ?? [],
 				redirectUriInputs: redirectList,
 				botPublic: app.bot_public,
@@ -136,9 +175,7 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 		useEffect(() => {
 			if (application && application.id === applicationId) {
 				const fetchedClientSecret = application.client_secret ?? null;
-				const fetchedBotToken = application.bot?.token ?? null;
 				setClientSecret(fetchedClientSecret);
-				setBotToken(fetchedBotToken);
 
 				const defaults = buildFormDefaults(application);
 				form.reset(defaults);
@@ -148,6 +185,8 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 				setHasClearedAvatar(false);
 				setPreviewBannerUrl(null);
 				setHasClearedBanner(false);
+				setPreviewIconUrl(null);
+				setHasClearedIcon(false);
 			}
 		}, [application, applicationId, buildFormDefaults, form]);
 
@@ -167,8 +206,19 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 			const currentValues =
 				(watchedValues as ApplicationDetailFormValues | undefined) ?? ({} as ApplicationDetailFormValues);
 
+			const selectedTags = (values: ApplicationDetailFormValues) =>
+				Object.entries(values.tags ?? {})
+					.filter(([, enabled]) => enabled)
+					.map(([tag]) => tag)
+					.sort()
+					.join(',');
+
 			return (
 				(currentValues.name ?? '') !== (initialValues.name ?? '') ||
+				(currentValues.description ?? '') !== (initialValues.description ?? '') ||
+				selectedTags(currentValues) !== selectedTags(initialValues) ||
+				(currentValues.privacyPolicyUrl ?? '') !== (initialValues.privacyPolicyUrl ?? '') ||
+				(currentValues.termsOfServiceUrl ?? '') !== (initialValues.termsOfServiceUrl ?? '') ||
 				(currentValues.redirectUris ?? []).join(',') !== (initialValues.redirectUris ?? []).join(',') ||
 				(currentValues.redirectUriInputs ?? []).join(',') !== (initialValues.redirectUriInputs ?? []).join(',') ||
 				(currentValues.botPublic ?? true) !== (initialValues.botPublic ?? true) ||
@@ -183,8 +233,24 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 		}, [initialValues, watchedValues]);
 
 		const hasUnsavedChanges = useMemo(() => {
-			return Boolean(hasFormChanges || previewAvatarUrl || hasClearedAvatar || previewBannerUrl || hasClearedBanner);
-		}, [hasFormChanges, previewAvatarUrl, hasClearedAvatar, previewBannerUrl, hasClearedBanner]);
+			return Boolean(
+				hasFormChanges ||
+					previewAvatarUrl ||
+					hasClearedAvatar ||
+					previewBannerUrl ||
+					hasClearedBanner ||
+					previewIconUrl ||
+					hasClearedIcon,
+			);
+		}, [
+			hasFormChanges,
+			previewAvatarUrl,
+			hasClearedAvatar,
+			previewBannerUrl,
+			hasClearedBanner,
+			previewIconUrl,
+			hasClearedIcon,
+		]);
 
 		const onSubmit = useCallback(
 			async (data: ApplicationDetailFormValues) => {
@@ -199,6 +265,41 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 					if (normalizedName !== application.name) {
 						changes.name = normalizedName;
 					}
+
+					// The server's description type is min-length 1; an empty field is
+					// an explicit null, not an empty string.
+					const normalizedDescription = (data.description ?? '').trim();
+					if (normalizedDescription !== (application.description ?? '')) {
+						changes.description = normalizedDescription.length > 0 ? normalizedDescription : null;
+					}
+
+					const selectedTags = Object.entries(data.tags ?? {})
+						.filter(([, enabled]) => enabled)
+						.map(([tag]) => tag);
+					const initialTags = application.tags ?? [];
+					if ([...selectedTags].sort().join(',') !== [...initialTags].sort().join(',')) {
+						changes.tags = selectedTags;
+					}
+
+					const normalizedPrivacyUrl = (data.privacyPolicyUrl ?? '').trim();
+					if (normalizedPrivacyUrl !== (application.privacy_policy_url ?? '')) {
+						changes.privacy_policy_url = normalizedPrivacyUrl.length > 0 ? normalizedPrivacyUrl : null;
+					}
+
+					const normalizedTermsUrl = (data.termsOfServiceUrl ?? '').trim();
+					if (normalizedTermsUrl !== (application.terms_of_service_url ?? '')) {
+						changes.terms_of_service_url = normalizedTermsUrl.length > 0 ? normalizedTermsUrl : null;
+					}
+
+					const shouldSendIcon = dirtyFields.icon || hasClearedIcon;
+					if (shouldSendIcon) {
+						if (hasClearedIcon) {
+							changes.icon = null;
+						} else if (data.icon) {
+							changes.icon = data.icon;
+						}
+					}
+
 					const initialRedirects = application.redirect_uris ?? [];
 					if ((redirectUris ?? []).join(',') !== initialRedirects.join(',')) {
 						changes.redirect_uris = redirectUris;
@@ -297,13 +398,23 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 					ToastActionCreators.createToast({type: 'success', children: t`Application updated successfully`});
 					setPreviewAvatarUrl(null);
 					setHasClearedAvatar(false);
+					setPreviewIconUrl(null);
+					setHasClearedIcon(false);
 					await store.fetchApplication(applicationId);
 				} catch (err) {
 					logger.error('Failed to update application', err);
 					throw err;
 				}
 			},
-			[application, applicationId, store, form.formState.dirtyFields, hasClearedAvatar, hasClearedBanner],
+			[
+				application,
+				applicationId,
+				store,
+				form.formState.dirtyFields,
+				hasClearedAvatar,
+				hasClearedBanner,
+				hasClearedIcon,
+			],
 		);
 
 		const {handleSubmit: handleSave} = useFormSubmit({
@@ -322,6 +433,8 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 			setHasClearedAvatar(false);
 			setPreviewBannerUrl(null);
 			setHasClearedBanner(false);
+			setPreviewIconUrl(null);
+			setHasClearedIcon(false);
 		}, [application, buildFormDefaults, form]);
 
 		useEffect(() => {
@@ -372,6 +485,22 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 			form.setValue('avatar', null, {shouldDirty: true});
 			setPreviewAvatarUrl(null);
 			setHasClearedAvatar(true);
+		}, [form]);
+
+		const handleIconChange = useCallback(
+			(base64: string) => {
+				form.setValue('icon', base64, {shouldDirty: true});
+				setPreviewIconUrl(base64);
+				setHasClearedIcon(false);
+				form.clearErrors('icon');
+			},
+			[form],
+		);
+
+		const handleIconClear = useCallback(() => {
+			form.setValue('icon', null, {shouldDirty: true});
+			setPreviewIconUrl(null);
+			setHasClearedIcon(true);
 		}, [form]);
 
 		const handleCopyId = async () => {
@@ -425,28 +554,20 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 			);
 		};
 
-		const rotateSecret = async (type: 'client' | 'bot') => {
+		const rotateClientSecret = async () => {
 			if (!application) return;
-			setIsRotating(type);
+			setIsRotating('client');
 			try {
 				const sudoPayload = await sudo.require();
-				const endpoint =
-					type === 'client'
-						? Endpoints.OAUTH_APPLICATION_CLIENT_SECRET_RESET(application.id)
-						: Endpoints.OAUTH_APPLICATION_BOT_TOKEN_RESET(application.id);
-				const res = await HttpClient.post<{client_secret?: string; token?: string}>(endpoint, sudoPayload);
-				if (type === 'client') {
-					setClientSecret(res.body.client_secret ?? null);
-				} else {
-					setBotToken(res.body.token ?? null);
-				}
+				const res = await HttpClient.post<{client_secret?: string}>(
+					Endpoints.OAUTH_APPLICATION_CLIENT_SECRET_RESET(application.id),
+					sudoPayload,
+				);
+				setClientSecret(res.body.client_secret ?? null);
 				sudo.finalize();
 				ToastActionCreators.createToast({
 					type: 'success',
-					children:
-						type === 'client'
-							? t`Client secret regenerated. Update any code that uses the old secret.`
-							: t`Bot token regenerated. Update any code that uses the old token.`,
+					children: t`Client secret regenerated. Update any code that uses the old secret.`,
 				});
 			} catch (err) {
 				logger.error('Failed to rotate secret', err);
@@ -539,22 +660,18 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 			return normalized.map((url) => ({value: url, label: url}));
 		}, [builderRedirectUri, redirectInputs]);
 
-		const confirmRotate = (type: 'client' | 'bot') => {
+		const confirmRotateClientSecret = () => {
 			if (!application) return;
-			const isClient = type === 'client';
-			const description = isClient ? (
-				<Trans>Regenerating will invalidate the current secret. Update any code that uses the old value.</Trans>
-			) : (
-				<Trans>Regenerating will invalidate the current token. Update any code that uses the old value.</Trans>
-			);
 			ModalActionCreators.push(
 				modal(() => (
 					<ConfirmModal
-						title={isClient ? t`Regenerate client secret?` : t`Regenerate bot token?`}
-						description={description}
+						title={t`Regenerate client secret?`}
+						description={
+							<Trans>Regenerating will invalidate the current secret. Update any code that uses the old value.</Trans>
+						}
 						primaryText={t`Regenerate`}
 						primaryVariant="danger-primary"
-						onPrimary={() => rotateSecret(type)}
+						onPrimary={() => rotateClientSecret()}
 					/>
 				)),
 			);
@@ -606,6 +723,22 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 
 		const displayAvatarUrl = hasClearedAvatar ? defaultAvatarUrl : previewAvatarUrl || avatarUrl || defaultAvatarUrl;
 		const hasAvatar = (!hasClearedAvatar && Boolean(application.bot?.avatar)) || Boolean(previewAvatarUrl);
+
+		const iconUrl = application.icon
+			? AvatarUtils.getApplicationIconURL({id: application.id, icon: application.icon})
+			: null;
+		const displayIconUrl = hasClearedIcon ? null : previewIconUrl || iconUrl;
+		const hasIcon = (!hasClearedIcon && Boolean(application.icon)) || Boolean(previewIconUrl);
+
+		// An application without a team is only reachable by its owner; with a
+		// team, the effective owner is the team's owner and admins co-manage.
+		const currentUserId = UserStore.currentUser?.id;
+		const owningTeam = application.team_id ? (myTeams.find((team) => team.id === application.team_id) ?? null) : null;
+		const canManageTokens =
+			application.team_id === null ||
+			(owningTeam !== null &&
+				(owningTeam.owner_user_id === currentUserId ||
+					(owningTeam.membership_state === 'accepted' && owningTeam.role === 'admin')));
 		const displayBannerUrl =
 			previewBannerUrl ||
 			(hasClearedBanner
@@ -629,19 +762,27 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 					<div className={styles.detailGrid}>
 						<div className={styles.columnStack}>
 							<SecretsSection
+								sectionId="app-secrets"
 								clientSecret={clientSecret}
-								botToken={botToken}
-								onRegenerateClientSecret={() => confirmRotate('client')}
-								onRegenerateBotToken={() => confirmRotate('bot')}
+								onRegenerateClientSecret={confirmRotateClientSecret}
 								isRotatingClient={isRotating === 'client'}
-								isRotatingBot={isRotating === 'bot'}
-								hasBot={Boolean(application.bot)}
 								clientSecretInputId={clientSecretInputId}
-								botTokenInputId={botTokenInputId}
 							/>
 							<div className={styles.sectionSpacer} aria-hidden="true" />
 
+							{application.bot && (
+								<>
+									<BotTokensSection
+										sectionId="app-bot-tokens"
+										applicationId={application.id}
+										canManage={canManageTokens}
+									/>
+									<div className={styles.sectionSpacer} aria-hidden="true" />
+								</>
+							)}
+
 							<ApplicationInfoSection
+								sectionId="app-info"
 								form={form}
 								redirectInputs={form.watch('redirectUriInputs') ?? []}
 								onAddRedirect={addRedirectInput}
@@ -649,10 +790,23 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 								onUpdateRedirect={updateRedirectInput}
 							/>
 
+							<div className={styles.sectionSpacer} aria-hidden="true" />
+							<ApplicationIconSection
+								sectionId="app-icon"
+								application={application}
+								displayIconUrl={displayIconUrl}
+								hasIcon={hasIcon}
+								hasClearedIcon={hasClearedIcon}
+								onIconChange={handleIconChange}
+								onIconClear={handleIconClear}
+								errorMessage={form.formState.errors.icon?.message}
+							/>
+
 							{application.bot && (
 								<>
 									<div className={styles.sectionSpacer} aria-hidden="true" />
 									<BotProfileSection
+										sectionId="app-bot-profile"
 										application={application}
 										form={form}
 										displayAvatarUrl={displayAvatarUrl}
@@ -671,9 +825,11 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 						</div>
 
 						<div className={styles.columnStack}>
+							<TeamSection sectionId="app-team" application={application} teams={myTeams} />
 							<div className={styles.sectionSpacer} aria-hidden="true" />
 							<div>
 								<OAuthBuilderSection
+									sectionId="app-oauth-builder"
 									form={form}
 									availableScopes={AVAILABLE_SCOPES}
 									builderScopeList={builderScopeList}
@@ -689,6 +845,7 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 					<div className={styles.sectionSpacer} aria-hidden="true" />
 
 					<SectionCard
+						id="app-danger"
 						tone="danger"
 						title={<Trans>Danger Zone</Trans>}
 						subtitle={<Trans>This cannot be undone. Removing the application also deletes its bot.</Trans>}

@@ -36,6 +36,7 @@ export interface DeveloperApplication {
 	tags: Array<string>;
 	privacy_policy_url: string | null;
 	terms_of_service_url: string | null;
+	team_id: string | null;
 	redirect_uris: Array<string>;
 	bot_public: boolean;
 	bot_require_code_grant: boolean;
@@ -51,6 +52,7 @@ export class DeveloperApplicationRecord implements DeveloperApplication {
 	readonly tags: Array<string>;
 	readonly privacy_policy_url: string | null;
 	readonly terms_of_service_url: string | null;
+	readonly team_id: string | null;
 	readonly redirect_uris: Array<string>;
 	readonly bot_public: boolean;
 	readonly bot_require_code_grant: boolean;
@@ -65,6 +67,7 @@ export class DeveloperApplicationRecord implements DeveloperApplication {
 		this.tags = application.tags ? [...application.tags] : [];
 		this.privacy_policy_url = application.privacy_policy_url ?? null;
 		this.terms_of_service_url = application.terms_of_service_url ?? null;
+		this.team_id = application.team_id ?? null;
 		this.redirect_uris = application.redirect_uris ? [...application.redirect_uris] : [];
 		this.bot_public = application.bot_public;
 		this.bot_require_code_grant = application.bot_require_code_grant;
@@ -107,6 +110,7 @@ export class DeveloperApplicationRecord implements DeveloperApplication {
 			tags: [...this.tags],
 			privacy_policy_url: this.privacy_policy_url,
 			terms_of_service_url: this.terms_of_service_url,
+			team_id: this.team_id,
 			redirect_uris: [...this.redirect_uris],
 			bot_public: this.bot_public,
 			bot_require_code_grant: this.bot_require_code_grant,

@@ -38,6 +38,7 @@ interface OAuthBuilderSectionProps {
 	builderUrl: string;
 	redirectOptions: Array<SelectOption<string>>;
 	onCopyBuilderUrl: () => Promise<void>;
+	sectionId?: string;
 }
 
 export const OAuthBuilderSection: React.FC<OAuthBuilderSectionProps> = ({
@@ -48,6 +49,7 @@ export const OAuthBuilderSection: React.FC<OAuthBuilderSectionProps> = ({
 	builderUrl,
 	redirectOptions,
 	onCopyBuilderUrl,
+	sectionId,
 }) => {
 	const builderRedirectUri = form.watch('builderRedirectUri');
 	const botRequireCodeGrant = form.watch('botRequireCodeGrant') ?? false;
@@ -66,6 +68,7 @@ export const OAuthBuilderSection: React.FC<OAuthBuilderSectionProps> = ({
 
 	return (
 		<SectionCard
+			id={sectionId}
 			title={<Trans>OAuth2 URL Builder</Trans>}
 			subtitle={<Trans>Construct an authorize URL with scopes and permissions.</Trans>}
 		>

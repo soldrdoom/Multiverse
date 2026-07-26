@@ -153,6 +153,23 @@ export function getGuildIconURL({id, icon}: IconOptions, animated = false) {
 	});
 }
 
+export function getApplicationIconURL({id, icon}: IconOptions, animated = false) {
+	// Application icons are stored under the same `icons/<id>/<hash>` path as
+	// guild icons, keyed by the application ID.
+	if (!icon) {
+		return '';
+	}
+
+	const {hash, animated: isAnimated} = parseAvatarHash(icon);
+	return buildWebpMediaUrl({
+		path: 'icons',
+		id,
+		hash,
+		size: MEDIA_PROXY_ICON_SIZE_DEFAULT,
+		animated: isAnimated && animated,
+	});
+}
+
 export function getGuildSplashURL({id, splash}: {id: string; splash: string | null}, size: MediaProxyImageSize = 1024) {
 	if (!splash) {
 		return '';

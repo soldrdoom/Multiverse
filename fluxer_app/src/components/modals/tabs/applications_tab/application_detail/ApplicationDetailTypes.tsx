@@ -21,6 +21,11 @@ import type {UseFormReturn} from 'react-hook-form';
 
 export interface ApplicationDetailFormValues {
 	name: string;
+	description: string;
+	tags: Record<string, boolean>;
+	privacyPolicyUrl: string;
+	termsOfServiceUrl: string;
+	icon?: string | null;
 	redirectUris: Array<string>;
 	botPublic: boolean;
 	botRequireCodeGrant: boolean;

@@ -18,10 +18,14 @@
  */
 
 import {Endpoints} from '@app/Endpoints';
+import i18n from '@app/I18n';
 import HttpClient from '@app/lib/HttpClient';
 import {Logger} from '@app/lib/Logger';
+import type {BotToken} from '@app/records/BotTokenRecord';
+import {BotTokenRecord} from '@app/records/BotTokenRecord';
 import type {DeveloperApplication} from '@app/records/DeveloperApplicationRecord';
 import {DeveloperApplicationRecord} from '@app/records/DeveloperApplicationRecord';
+import {msg} from '@lingui/core/macro';
 import {action, makeAutoObservable, runInAction} from 'mobx';
 
 const logger = new Logger('ApplicationsTabStore');
@@ -38,12 +42,16 @@ class ApplicationsTabStore {
 	navigationState: NavigationState = NavigationState.LOADING_LIST;
 	applicationOrder: Array<string> = [];
 	applicationsById: Record<string, DeveloperApplicationRecord> = {};
+	tokensByAppId: Record<string, Array<BotTokenRecord>> = {};
 	selectedAppId: string | null = null;
 	error: string | null = null;
+	tokensError: string | null = null;
 	isLoading: boolean = false;
+	isLoadingTokens: boolean = false;
 
 	private listAbortController: AbortController | null = null;
 	private detailAbortController: AbortController | null = null;
+	private tokensAbortController: AbortController | null = null;
 
 	constructor() {
 		makeAutoObservable(this, {}, {autoBind: true});
@@ -123,7 +131,7 @@ class ApplicationsTabStore {
 			logger.error('Failed to fetch applications', err);
 
 			runInAction(() => {
-				this.error = 'Failed to load applications';
+				this.error = i18n._(msg`Failed to load applications`);
 				if (!this.isDetailView) {
 					this.navigationState = NavigationState.ERROR;
 				}
@@ -170,13 +178,55 @@ class ApplicationsTabStore {
 
 			logger.error('Failed to fetch application', err);
 			runInAction(() => {
-				this.error = 'Failed to load application details';
+				this.error = i18n._(msg`Failed to load application details`);
 				this.navigationState = NavigationState.ERROR;
 			});
 		} finally {
 			runInAction(() => {
 				this.isLoading = false;
 				this.detailAbortController = null;
+			});
+		}
+	}
+
+	getTokensForApp(appId: string): ReadonlyArray<BotTokenRecord> {
+		return this.tokensByAppId[appId] ?? [];
+	}
+
+	async fetchBotTokens(appId: string): Promise<void> {
+		if (this.tokensAbortController) {
+			this.tokensAbortController.abort();
+		}
+
+		this.tokensAbortController = new AbortController();
+
+		runInAction(() => {
+			this.isLoadingTokens = true;
+			this.tokensError = null;
+		});
+
+		try {
+			const response = await HttpClient.get<Array<BotToken>>({
+				url: Endpoints.OAUTH_APPLICATION_BOT_TOKENS(appId),
+				signal: this.tokensAbortController.signal,
+			});
+
+			runInAction(() => {
+				this.tokensByAppId = {...this.tokensByAppId, [appId]: response.body.map(BotTokenRecord.from)};
+			});
+		} catch (err) {
+			if ((err as DOMException).name === 'AbortError') {
+				return;
+			}
+
+			logger.error('Failed to fetch bot tokens', err);
+			runInAction(() => {
+				this.tokensError = i18n._(msg`Failed to load bot tokens`);
+			});
+		} finally {
+			runInAction(() => {
+				this.isLoadingTokens = false;
+				this.tokensAbortController = null;
 			});
 		}
 	}

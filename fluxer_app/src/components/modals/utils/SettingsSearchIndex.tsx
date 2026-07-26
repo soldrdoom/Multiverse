@@ -280,6 +280,22 @@ const ADDITIONAL_SEARCHABLE_ITEMS: Array<SearchableSettingDescriptor> = [
 	},
 
 	{
+		id: 'developer-teams',
+		tabType: 'developer_teams',
+		label: msg`Developer Teams`,
+		keywords: [
+			msg`teams`,
+			msg`team`,
+			msg`developer`,
+			msg`invite`,
+			msg`members`,
+			msg`collaborate`,
+			msg`shared applications`,
+		],
+		description: msg`Create teams and share access to applications`,
+	},
+
+	{
 		id: 'limits-config',
 		tabType: 'limits_config',
 		label: msg`Limits Config`,

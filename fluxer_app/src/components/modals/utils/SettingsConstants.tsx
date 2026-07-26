@@ -52,6 +52,7 @@ import {
 	TranslateIcon,
 	UserIcon,
 	UserListIcon,
+	UsersThreeIcon,
 } from '@phosphor-icons/react';
 import type React from 'react';
 
@@ -221,6 +222,12 @@ const ALL_TABS_DESCRIPTORS: Array<SettingsTabDescriptor> = [
 		label: msg`Applications`,
 		icon: CodeIcon,
 		iconWeight: 'bold',
+	},
+	{
+		type: 'developer_teams',
+		category: 'developer',
+		label: msg`Teams`,
+		icon: UsersThreeIcon,
 	},
 	{
 		type: 'admin_panel',

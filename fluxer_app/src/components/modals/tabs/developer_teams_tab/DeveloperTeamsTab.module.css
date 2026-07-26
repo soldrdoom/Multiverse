@@ -1,0 +1,373 @@
+/*
+ * Copyright (C) 2026 Multiverse Contributors
+ *
+ * This file is part of Multiverse.
+ *
+ * Multiverse is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Multiverse is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.buttonContainer {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: var(--spacing-3);
+	margin-bottom: var(--spacing-3);
+	flex-wrap: wrap;
+}
+
+.createForm {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-3);
+}
+
+.spinnerContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem;
+}
+
+.listContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-2);
+}
+
+.itemContainer {
+	border-radius: var(--radius-xl);
+	border: 1px solid var(--background-modifier-accent);
+	background-color: var(--background-textarea);
+	overflow: hidden;
+}
+
+.itemButton {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	min-height: var(--input-container-min-height);
+	padding: 0 var(--input-container-padding);
+	background: transparent;
+	border: none;
+	text-align: left;
+	cursor: pointer;
+	transition: background-color var(--transition-fast);
+}
+
+.itemButton:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+.itemLeft {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-2);
+	min-width: 0;
+	flex: 1;
+}
+
+.itemAvatarPlaceholder {
+	height: 32px;
+	width: 32px;
+	flex-shrink: 0;
+	border-radius: 9999px;
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--brand-primary) 90%, transparent),
+		color-mix(in srgb, var(--brand-secondary) 85%, transparent)
+	);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: 600;
+	font-size: 0.875rem;
+}
+
+.itemTextBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+	flex: 1;
+}
+
+.itemTitleRow {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--spacing-1);
+}
+
+.itemName {
+	font-weight: 500;
+	font-size: 0.875rem;
+	line-height: 1.125rem;
+	color: var(--text-primary);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.itemMetaRow {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-2);
+	color: var(--text-primary-muted);
+	font-size: 0.75rem;
+	line-height: 0.8125rem;
+	min-width: 0;
+}
+
+.itemChevron {
+	height: 20px;
+	width: 20px;
+	flex-shrink: 0;
+	color: var(--text-tertiary);
+	transition: transform var(--transition-fast);
+}
+
+.itemActions {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-2);
+	padding-right: var(--input-container-padding);
+	flex-shrink: 0;
+}
+
+.inviteRowContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing-2);
+	min-height: var(--input-container-min-height);
+	padding: 0 var(--input-container-padding);
+}
+
+.roleBadge {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.2rem 0.6rem;
+	border-radius: 999px;
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--brand-primary) 25%, transparent),
+		color-mix(in srgb, var(--brand-secondary) 25%, transparent)
+	);
+	color: var(--text-primary);
+	font-weight: 700;
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+/* Pending-invite modifier for .roleBadge: warning tint (same convention as the
+ * one-time token banners) so an invite doesn't read as a granted role. */
+.inviteBadge {
+	background: color-mix(in srgb, var(--status-warning) 18%, transparent);
+}
+
+.emptyState {
+	padding: 3rem 2rem;
+	text-align: center;
+	color: var(--text-primary-muted);
+}
+
+.page {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-4);
+	padding: var(--spacing-6) var(--spacing-5) var(--spacing-4);
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	min-height: 100%;
+	background: var(--background-secondary);
+}
+
+.pageHeader {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-2);
+	padding-bottom: var(--spacing-1);
+}
+
+.breadcrumbRow {
+	display: flex;
+	margin-bottom: var(--spacing-4);
+}
+
+.heroTitle {
+	margin: 0 0 var(--spacing-2) 0;
+	font-size: 1.35rem;
+	font-weight: 750;
+	color: var(--text-primary);
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-2);
+}
+
+.metaInput {
+	width: 100%;
+	max-width: none;
+	font-family: var(--font-mono);
+}
+
+.fieldStack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-3);
+}
+
+.sectionSpacer {
+	height: var(--spacing-5);
+	flex: 0 0 auto;
+}
+
+.renameRow {
+	display: flex;
+	align-items: flex-end;
+	gap: var(--spacing-2);
+	flex-wrap: wrap;
+}
+
+.renameRow > :first-child {
+	flex: 1;
+	min-width: 220px;
+}
+
+.memberList {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-2);
+}
+
+.memberRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing-2);
+	padding: var(--spacing-2) var(--spacing-3);
+	border-radius: var(--radius-lg);
+	border: 1px solid var(--background-modifier-accent);
+	background: var(--background-primary);
+	flex-wrap: wrap;
+}
+
+.memberInfo {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-2);
+	min-width: 0;
+	flex: 1;
+}
+
+.memberAvatar {
+	height: 32px;
+	width: 32px;
+	flex-shrink: 0;
+	border-radius: 9999px;
+	object-fit: cover;
+	background: var(--background-tertiary);
+}
+
+.memberText {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.memberName {
+	font-weight: 700;
+	color: var(--text-primary);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.memberMeta {
+	font-size: 0.8rem;
+	color: var(--text-primary-muted);
+}
+
+.memberActions {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-2);
+	flex-wrap: wrap;
+}
+
+.memberRoleSelect {
+	min-width: 160px;
+}
+
+.inviteRow {
+	display: flex;
+	align-items: flex-end;
+	gap: var(--spacing-2);
+	flex-wrap: wrap;
+}
+
+.inviteRow > :first-child {
+	flex: 1;
+	min-width: 220px;
+}
+
+.inviteRoleSelect {
+	min-width: 160px;
+}
+
+.helperText {
+	color: var(--text-primary-muted);
+	font-size: 0.9rem;
+}
+
+.dangerContent {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-3);
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.dangerActions {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-2);
+	align-self: flex-start;
+	width: 100%;
+	flex-wrap: wrap;
+}
+
+.dangerActions > * {
+	flex: 0 0 auto;
+}
+
+.errorRow {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-2);
+	color: var(--status-danger);
+}
+
+.loadingState {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 320px;
+	padding: var(--spacing-5);
+}

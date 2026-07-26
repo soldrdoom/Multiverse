@@ -26,16 +26,17 @@ import {AccountSecurityInlineTab} from '@app/components/modals/tabs/account_secu
 import {AppearanceInlineContent} from '@app/components/modals/tabs/appearance_tab/Inline';
 import ApplicationsTab from '@app/components/modals/tabs/applications_tab';
 import BlockedUsersTab from '@app/components/modals/tabs/BlockedUsersTab';
+import CosmeticsTab from '@app/components/modals/tabs/CosmeticsTab';
 import {ChatSettingsInlineContent} from '@app/components/modals/tabs/chat_settings_tab/Inline';
 import {ComponentGalleryInlineTab} from '@app/components/modals/tabs/component_gallery_tab/Inline';
 import DevicesTab from '@app/components/modals/tabs/DevicesTab';
 import {DeveloperOptionsInlineContent} from '@app/components/modals/tabs/developer_options_tab/Inline';
+import DeveloperTeamsTab from '@app/components/modals/tabs/developer_teams_tab';
 import ExpressionPacksTab from '@app/components/modals/tabs/ExpressionPacksTab';
 import KeybindsTab from '@app/components/modals/tabs/KeybindsTab';
 import LanguageTab from '@app/components/modals/tabs/LanguageTab';
 import LimitsConfigTab from '@app/components/modals/tabs/LimitsConfigTab';
 import LinkedAccountsTab from '@app/components/modals/tabs/LinkedAccountsTab';
-import CosmeticsTab from '@app/components/modals/tabs/CosmeticsTab';
 import MyProfileTab from '@app/components/modals/tabs/MyProfileTab';
 import {NotificationsInlineContent} from '@app/components/modals/tabs/notifications_tab/Inline';
 import PlutoniumTab from '@app/components/modals/tabs/PlutoniumTab';
@@ -87,6 +88,7 @@ const INLINE_TAB_COMPONENTS: Partial<Record<UserSettingsTabType, React.Component
 	language: LanguageTab,
 	advanced: AdvancedTab,
 	applications: ApplicationsTab,
+	developer_teams: DeveloperTeamsTab,
 	keybinds: KeybindsTab,
 	developer_options: DeveloperOptionsInlineContent,
 	component_gallery: ComponentGalleryInlineTab,

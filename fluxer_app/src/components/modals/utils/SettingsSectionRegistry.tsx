@@ -36,6 +36,7 @@ export type UserSettingsTabType =
 	| 'notifications'
 	| 'advanced'
 	| 'applications'
+	| 'developer_teams'
 	| 'developer_options'
 	| 'component_gallery'
 	| 'language'
@@ -614,6 +615,124 @@ const SECTION_REGISTRY: Array<SectionDefinition> = [
 		keywords: [msg`push`, msg`mobile`, msg`push notifications`],
 		isAdvanced: false,
 	},
+	{
+		id: 'app-secrets',
+		tabType: 'applications',
+		label: msg`Client Secret`,
+		description: msg`View, copy, and regenerate your application's client secret.`,
+		keywords: [msg`client secret`, msg`secret`, msg`oauth`, msg`credentials`, msg`regenerate`, msg`rotate`],
+		isAdvanced: false,
+	},
+	{
+		id: 'app-bot-tokens',
+		tabType: 'applications',
+		label: msg`Bot Tokens`,
+		description: msg`Create and revoke named bot tokens.`,
+		keywords: [
+			msg`bot token`,
+			msg`token`,
+			msg`tokens`,
+			msg`api key`,
+			msg`credentials`,
+			msg`revoke`,
+			msg`mint`,
+			msg`bot`,
+		],
+		isAdvanced: false,
+	},
+	{
+		id: 'app-info',
+		tabType: 'applications',
+		label: msg`Application Information`,
+		description: msg`Name, description, tags, policy URLs, and redirect URIs.`,
+		keywords: [
+			msg`application`,
+			msg`name`,
+			msg`description`,
+			msg`tags`,
+			msg`privacy policy`,
+			msg`terms of service`,
+			msg`redirect uri`,
+			msg`redirect`,
+		],
+		isAdvanced: false,
+	},
+	{
+		id: 'app-icon',
+		tabType: 'applications',
+		label: msg`Application Icon`,
+		description: msg`Upload an icon for your application, independent of its bot's avatar.`,
+		keywords: [msg`icon`, msg`application icon`, msg`image`, msg`logo`, msg`upload`],
+		isAdvanced: false,
+	},
+	{
+		id: 'app-bot-profile',
+		tabType: 'applications',
+		label: msg`Bot Profile`,
+		description: msg`Avatar, tag, bio, and banner for your bot.`,
+		keywords: [msg`bot`, msg`bot profile`, msg`avatar`, msg`banner`, msg`bio`, msg`username`, msg`friendly bot`],
+		isAdvanced: false,
+	},
+	{
+		id: 'app-team',
+		tabType: 'applications',
+		label: msg`Team`,
+		description: msg`See which team owns this application and transfer it.`,
+		keywords: [msg`team`, msg`transfer`, msg`ownership`, msg`developer team`],
+		isAdvanced: false,
+	},
+	{
+		id: 'app-oauth-builder',
+		tabType: 'applications',
+		label: msg`OAuth2 URL Builder`,
+		description: msg`Construct an authorize URL with scopes and permissions.`,
+		keywords: [msg`oauth`, msg`oauth2`, msg`authorize`, msg`url builder`, msg`scopes`, msg`permissions`, msg`invite`],
+		isAdvanced: false,
+	},
+	{
+		id: 'app-danger',
+		tabType: 'applications',
+		label: msg`Danger Zone`,
+		description: msg`Delete this application and its bot.`,
+		keywords: [msg`delete`, msg`remove`, msg`danger`, msg`delete application`],
+		isAdvanced: false,
+	},
+
+	{
+		id: 'team-profile',
+		tabType: 'developer_teams',
+		label: msg`Team Profile`,
+		description: msg`Rename your developer team.`,
+		keywords: [msg`team`, msg`rename`, msg`team name`],
+		isAdvanced: false,
+	},
+	{
+		id: 'team-members',
+		tabType: 'developer_teams',
+		label: msg`Team Members`,
+		description: msg`Invite developers, change roles, and remove members.`,
+		keywords: [
+			msg`team`,
+			msg`members`,
+			msg`invite`,
+			msg`roles`,
+			msg`admin`,
+			msg`developer`,
+			msg`read only`,
+			msg`remove member`,
+			msg`leave team`,
+		],
+		isAdvanced: false,
+	},
+	{
+		id: 'team-danger',
+		tabType: 'developer_teams',
+		label: msg`Delete Team`,
+		description: msg`Delete a team that no longer owns applications.`,
+		keywords: [msg`delete team`, msg`delete`, msg`danger`],
+		isAdvanced: false,
+	},
+
 	{
 		id: 'general',
 		tabType: 'developer_options',
