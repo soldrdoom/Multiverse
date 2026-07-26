@@ -27,16 +27,17 @@ async function main(): Promise<void> {
 	const log = pino({level: process.env.LOG_LEVEL ?? 'info'});
 	const config = loadConfig();
 
-	// I.R.I.S. is a regular user account (not an OAuth2 bot application), so its
-	// token is a plain session token — tokenType 'session' sends it on
-	// Authorization with no "Bot " scheme prefix, exactly as before.
+	// tokenType comes from config: 'bot' when IRIS_BOT_TOKEN is set (the real
+	// OAuth2 bot application, Phase 1.6b), else 'session' for the legacy user
+	// account (raw token, no "Bot " prefix — the permanent rollback path).
 	const client = createClient({
-		token: config.authToken,
+		token: config.token,
 		instanceBaseUrl: config.instanceBaseUrl,
-		tokenType: 'session',
+		tokenType: config.tokenType,
 		logger: log,
 		properties: {os: 'linux', browser: 'iris_bot', device: 'iris_bot'},
 	});
+	log.info({tokenType: config.tokenType}, 'I.R.I.S. starting');
 
 	// Preserves the deleted local RestClient.sendMessage contract byte-for-byte:
 	// an HTTP failure is logged and swallowed (the reply is dropped, never

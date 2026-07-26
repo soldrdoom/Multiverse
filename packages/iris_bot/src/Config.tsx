@@ -26,14 +26,28 @@ function requireEnv(name: string): string {
 }
 
 export interface IrisConfig {
-	readonly authToken: string;
+	readonly token: string;
+	readonly tokenType: 'bot' | 'session';
 	readonly instanceBaseUrl: string;
 	readonly healthPort: number;
 }
 
 export function loadConfig(): IrisConfig {
+	// Phase 1.6b: when IRIS_BOT_TOKEN is set, I.R.I.S. runs as a real bot
+	// application. The IRIS_AUTH_TOKEN session path is the permanent rollback
+	// (plan risk H2): unset the bot token and the old account comes back.
+	const botToken = process.env.IRIS_BOT_TOKEN;
+	if (botToken) {
+		return {
+			token: botToken,
+			tokenType: 'bot',
+			instanceBaseUrl: process.env.IRIS_INSTANCE_BASE_URL ?? 'https://multiverse.forum',
+			healthPort: Number(process.env.PORT ?? 8080),
+		};
+	}
 	return {
-		authToken: requireEnv('IRIS_AUTH_TOKEN'),
+		token: requireEnv('IRIS_AUTH_TOKEN'),
+		tokenType: 'session',
 		instanceBaseUrl: process.env.IRIS_INSTANCE_BASE_URL ?? 'https://multiverse.forum',
 		healthPort: Number(process.env.PORT ?? 8080),
 	};

@@ -123,6 +123,10 @@ services:
     restart: unless-stopped
     user: "1001:1001"
     environment:
+      # IRIS_BOT_TOKEN (when set) makes I.R.I.S. run as its real OAuth2 bot
+      # application; IRIS_AUTH_TOKEN is the legacy user-account session token
+      # and the permanent rollback path — keep both in .env.
+      IRIS_BOT_TOKEN: ${IRIS_BOT_TOKEN:-}
       IRIS_AUTH_TOKEN: ${IRIS_AUTH_TOKEN:?Set IRIS_AUTH_TOKEN in .env or environment}
       IRIS_INSTANCE_BASE_URL: ${IRIS_INSTANCE_BASE_URL:-https://multiverse.forum}
     depends_on:
