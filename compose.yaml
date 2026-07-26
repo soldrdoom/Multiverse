@@ -146,7 +146,11 @@ services:
       MEILI_DB_PATH: /meili_data
       MEILI_HTTP_ADDR: 0.0.0.0:7700
     ports:
-      - '${MEILI_PORT:-7700}:7700'
+      # Bound to loopback: fluxer_server reaches this over the compose network
+      # (http://meilisearch:7700); the host mapping exists only for local
+      # debugging. An unbound mapping is published by Docker's own iptables
+      # rules, which bypass ufw — this was internet-reachable until 2026-07-26.
+      - '127.0.0.1:${MEILI_PORT:-7700}:7700'
     volumes:
       - meilisearch_data:/meili_data
     healthcheck:

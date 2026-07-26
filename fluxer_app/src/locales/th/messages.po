@@ -1040,8 +1040,8 @@ msgstr "<0>{seconds} วินาที</0>"
 msgid "<0>{seconds} seconds</0>"
 msgstr "<0>{seconds} วินาที</0>"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:121
-msgid "<0>{tokenName}</0> will stop working immediately. Revoking a token also disconnects all of this bot's active gateway sessions."
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:120
+msgid "<0>{tokenName}</0> will stop working immediately for API requests. If the bot has a live gateway connection opened with this token, it stays connected until it next disconnects — restart the bot to drop it sooner."
 msgstr ""
 
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:480
@@ -1454,7 +1454,7 @@ msgstr "ไม่กี่วินาที"
 msgid "A handful of keyboard warriors are assembling..."
 msgstr "นักรบบนแป้นพิมพ์กลุ่มหนึ่งกำลังรวมตัวกัน..."
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:139
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:143
 msgid "A helpful bot that does amazing things!"
 msgstr "บอทช่วยเหลือสุดเจ๋งที่ทำอะไรได้มากมาย!"
 
@@ -1529,7 +1529,7 @@ msgstr "สีเน้น"
 #: src/components/channel/direct_message/DMWelcomeSection.tsx:154
 #: src/components/channel/friends/FriendListItem.tsx:244
 #: src/components/channel/friends/MobileFriendRequestItem.tsx:100
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:100
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:101
 #: src/components/voice/IncomingCallUI.tsx:314
 msgid "Accept"
 msgstr "ยอมรับ"
@@ -1930,7 +1930,7 @@ msgstr "เพิ่มรีแอคชั่น"
 msgid "Add Reactions"
 msgstr "เพิ่มรีแอคชั่น"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:174
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:178
 msgid "Add redirect"
 msgstr "เพิ่มการเปลี่ยนเส้นทาง"
 
@@ -2094,7 +2094,7 @@ msgstr ""
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:83
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:79
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:389
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:67
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:68
 msgid "Admin"
 msgstr ""
 
@@ -2301,7 +2301,7 @@ msgstr "อนุญาตให้ใครก็ได้เพิ่มคุ
 msgid "Allow anyone to call you, even strangers"
 msgstr "อนุญาตให้ใครก็ได้โทรหาได้ แม้จะไม่รู้จัก"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:139
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:143
 msgid "Allow anyone to invite this bot to their communities."
 msgstr "อนุญาตให้ทุกคนเชิญบอทนี้เข้าชุมชนของพวกเขา"
 
@@ -2409,7 +2409,7 @@ msgstr "อนุญาตให้เลือกข้อความทั้
 msgid "Allow selecting all text content in the app. This setting is disabled on mobile to prevent interference with touch interactions."
 msgstr "อนุญาตให้เลือกข้อความทั้งหมดในแอป การตั้งค่านี้ปิดใช้งานบนมือถือเพื่อป้องกันการรบกวนกับการสัมผัส"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:173
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:177
 msgid "Allow users to send this bot friend requests for manual approval."
 msgstr "อนุญาตให้ผู้ใช้ส่งคำขอเป็นเพื่อนถึงบอทนี้เพื่อการอนุมัติโดยมือ"
 
@@ -2726,7 +2726,7 @@ msgstr ""
 msgid "Application"
 msgstr "แอปพลิเคชัน"
 
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:134
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:138
 msgid "Application created, but transferring it to the team failed. You can transfer it from its Team section."
 msgstr ""
 
@@ -2747,17 +2747,17 @@ msgstr ""
 msgid "Application ID"
 msgstr "รหัสแอปพลิเคชัน"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:60
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:64
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:646
 msgid "Application Information"
 msgstr "ข้อมูลแอปพลิเคชัน"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:66
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:159
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:70
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:163
 msgid "Application Name"
 msgstr "ชื่อแอปพลิเคชัน"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:65
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:69
 msgid "Application name is required"
 msgstr "ต้องระบุชื่อแอปพลิเคชัน"
 
@@ -2914,7 +2914,7 @@ msgid "Are you sure you want to delete #{channelName}? This cannot be undone."
 msgstr "คุณแน่ใจหรือว่าต้องการลบ #{channelName}? การดำเนินการนี้ไม่สามารถย้อนกลับได้."
 
 #. placeholder {0}: application.name
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:517
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:525
 msgid "Are you sure you want to delete <0>{0}</0>?"
 msgstr "แน่ใจไหมว่าต้องการลบ <0>{0}</0>?"
 
@@ -3440,7 +3440,7 @@ msgstr "การเลือกโหมดอวาตาร์"
 msgid "Avatar Stacks"
 msgstr "ชุดอวาตาร์"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:71
 msgid "Avatar, tag, and rich profile details for your bot."
 msgstr "อวาตาร์ แท็ก และรายละเอียดโปรไฟล์ที่สมบูรณ์สำหรับบอทของคุณ"
 
@@ -3474,7 +3474,7 @@ msgstr "กลับไปยังแอปพลิเคชัน"
 msgid "Back to call"
 msgstr "กลับไปที่การโทร"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:707
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:278
 msgid "Back to list"
 msgstr "กลับไปยังรายการ"
@@ -3693,7 +3693,7 @@ msgstr "การแบน"
 msgid "Bash"
 msgstr "Bash"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:61
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:65
 msgid "Basic settings and allowed redirect URIs."
 msgstr "การตั้งค่าพื้นฐานและ URI การเปลี่ยนเส้นทางที่อนุญาต"
 
@@ -3916,15 +3916,15 @@ msgstr "เพิ่มบอทแล้ว"
 msgid "Bot Added"
 msgstr "เพิ่มบอทแล้ว"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:72
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:76
 msgid "Bot avatar"
 msgstr "อวาตาร์บอท"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:163
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:167
 msgid "Bot banner preview"
 msgstr "ดูตัวอย่างแบนเนอร์บอท"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:136
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:140
 msgid "Bot Bio"
 msgstr "ประวัติบอท"
 
@@ -3952,7 +3952,7 @@ msgstr "สิทธิ์บอท"
 msgid "bot profile"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:70
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:671
 msgid "Bot Profile"
 msgstr "โปรไฟล์บอท"
@@ -3965,11 +3965,11 @@ msgstr "สโคปบอทที่ขอ"
 msgid "bot token"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:82
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:81
 msgid "Bot token created"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:102
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:101
 msgid "Bot token revoked"
 msgstr ""
 
@@ -3978,7 +3978,7 @@ msgstr ""
 msgid "Bot Tokens"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:101
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:105
 msgid "Bot Username"
 msgstr "ชื่อผู้ใช้บอท"
 
@@ -3986,7 +3986,7 @@ msgstr "ชื่อผู้ใช้บอท"
 msgid "Both Sides"
 msgstr "ทั้งสองฝั่ง"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:102
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:106
 msgid "BotName"
 msgstr "ชื่อบอท"
 
@@ -4285,7 +4285,7 @@ msgstr "กล้องจะถูกปิดเมื่อมีผู้เ
 #: src/components/modals/SudoVerificationModal.tsx:577
 #: src/components/modals/tabs/AdminPanelTab.tsx:223
 #: src/components/modals/tabs/AdminPanelTab.tsx:379
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:210
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:214
 #: src/components/modals/tabs/developer_teams_tab/TeamCreateModal.tsx:101
 #: src/components/modals/tabs/my_profile_tab/AvatarUploader.tsx:140
 #: src/components/modals/tabs/privacy_safety_tab/DataDeletionTab.tsx:95
@@ -5269,7 +5269,7 @@ msgstr "รหัสลับไคลเอนต์"
 msgid "Client Secret"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:562
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:570
 msgid "Client secret regenerated. Update any code that uses the old secret."
 msgstr "รหัสลับไคลเอนต์ได้รับการสร้างใหม่ ปรับปรุงโค้ดที่ใช้รหัสเก่า"
 
@@ -6134,7 +6134,7 @@ msgstr ""
 msgid "Copied to clipboard"
 msgstr "คัดลอกไปยังคลิปบอร์ดแล้ว"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:677
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:685
 msgid "Copied URL to clipboard"
 msgstr "คัดลอก URL ไปยังคลิปบอร์ดแล้ว"
 
@@ -6431,7 +6431,7 @@ msgstr "โหมดอบอุ่น"
 #: src/components/modals/AddFriendsToGroupModal.tsx:98
 #: src/components/modals/AddGuildStickerModal.tsx:123
 #: src/components/modals/CreatePackModal.tsx:109
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:213
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:217
 #: src/components/modals/tabs/developer_teams_tab/TeamCreateModal.tsx:104
 msgid "Create"
 msgstr "สร้าง"
@@ -6465,7 +6465,7 @@ msgstr "สร้างกลุ่มใหม่กับ {0}"
 msgid "Create a Private Group"
 msgstr "สร้างกลุ่มส่วนตัว"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:52
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:53
 msgid "Create a team to share access to your applications with other developers."
 msgstr ""
 
@@ -6501,7 +6501,7 @@ msgstr "สร้างและแบ่งปันชุดอิโมจิ
 msgid "create app"
 msgstr "สร้างแอป"
 
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:155
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:159
 #: src/components/modals/tabs/applications_tab/index.tsx:150
 #: src/components/modals/tabs/applications_tab/index.tsx:156
 msgid "Create Application"
@@ -6672,7 +6672,7 @@ msgid "Created {0} / {1}"
 msgstr "สร้างแล้ว {0} / {1}"
 
 #: src/components/modals/tabs/applications_tab/ApplicationsList.tsx:76
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:132
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:133
 msgid "Created {createdAt}"
 msgstr "สร้างเมื่อ {createdAt}"
 
@@ -7056,7 +7056,7 @@ msgstr "กดปุ่มรองอันตรายแล้ว!"
 
 #: src/components/modals/tabs/account_security_tab/Inline.tsx:100
 #: src/components/modals/tabs/AccountSecurityTab.tsx:112
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:842
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:850
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:466
 #: src/components/modals/utils/SettingsConstants.tsx:303
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:532
@@ -7257,7 +7257,7 @@ msgstr "เครื่องมือดีบัก"
 msgid "Debug User"
 msgstr "ดีบักผู้ใช้"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:109
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:110
 msgid "Decline"
 msgstr ""
 
@@ -7388,9 +7388,9 @@ msgstr "ลบข้อความทั้งหมดของฉัน"
 msgid "delete application"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:514
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:528
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:857
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:536
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:865
 msgid "Delete Application"
 msgstr "ลบแอปพลิเคชัน"
 
@@ -7637,8 +7637,8 @@ msgstr "คำอธิบาย"
 #: src/components/modals/EditPackModal.tsx:91
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:295
 #: src/components/modals/sticker_form/StickerFormFields.tsx:111
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:81
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:180
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:85
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:184
 msgid "Description"
 msgstr "คำอธิบาย"
 
@@ -7729,7 +7729,7 @@ msgstr "นักพัฒนา"
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:85
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:80
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:393
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:70
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:71
 #: src/components/modals/utils/SettingsConstants.tsx:103
 msgid "Developer"
 msgstr "นักพัฒนา"
@@ -8079,7 +8079,7 @@ msgstr ""
 msgid "Discovery listing updated"
 msgstr "อัปเดตการลงทะเบียนการค้นพบ"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:115
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:119
 msgid "Discriminator"
 msgstr "ตัวแยกแยะ"
 
@@ -9591,7 +9591,7 @@ msgstr "คัดลอกลิงก์เชิญไม่สำเร็จ
 msgid "Failed to copy to clipboard"
 msgstr "คัดลอกไปยังคลิปบอร์ดไม่สำเร็จ"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:86
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:85
 msgid "Failed to create bot token. Please try again."
 msgstr ""
 
@@ -9635,7 +9635,7 @@ msgstr "ครอปไอคอนไม่สำเร็จ โปรดล�
 msgid "Failed to decline invite. Please try again."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:539
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:547
 msgid "Failed to delete application. Please try again."
 msgstr "ลบแอปพลิเคชันไม่สำเร็จ โปรดลองอีกครั้ง"
 
@@ -9893,7 +9893,7 @@ msgstr "ไม่สามารถรีเซ็ตสถานะพรีเ
 msgid "Failed to revoke ban. Please try again."
 msgstr "ยกเลิกการแบนไม่สำเร็จ โปรดลองอีกครั้ง"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:106
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:105
 msgid "Failed to revoke bot token. Please try again."
 msgstr ""
 
@@ -9901,7 +9901,7 @@ msgstr ""
 msgid "Failed to Revoke Invite"
 msgstr "เพิกถอนคำเชิญไม่สำเร็จ"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:568
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:576
 msgid "Failed to rotate. Please try again."
 msgstr "หมุนไม่สำเร็จ โปรดลองอีกครั้ง"
 
@@ -10619,7 +10619,7 @@ msgstr "MultiverseTag ของเพื่อน"
 msgid "friendly bot"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:172
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:176
 msgid "Friendly bot"
 msgstr "บอทที่เป็นมิตร"
 
@@ -11541,15 +11541,15 @@ msgstr "HTML / XML"
 msgid "https://example.com"
 msgstr "https://example.com"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:158
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:162
 msgid "https://example.com/callback"
 msgstr "https://example.com/callback"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:123
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:127
 msgid "https://example.com/privacy"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:133
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:137
 msgid "https://example.com/terms"
 msgstr ""
 
@@ -12293,7 +12293,7 @@ msgstr "ไม่สามารถใช้คำเชิญได้"
 msgid "Invite Updated"
 msgstr "อัปเดตคำเชิญแล้ว"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:83
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:84
 msgid "Invited"
 msgstr ""
 
@@ -14554,7 +14554,7 @@ msgid "Multiverse uses push notifications when installed as a mobile PWA. Regist
 msgstr "Multiverse ใช้การแจ้งเตือนแบบพุชเมื่อติดตั้งในรูปแบบ PWA บนมือถือ การลงทะเบียนจะทำให้เกตเวย์ส่งข้อความถึงอุปกรณ์ได้แม้เบราว์เซอร์จะอยู่เบื้องหลัง"
 
 #: src/components/modals/MultiverseTagChangeModal.tsx:175
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:105
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:109
 msgid "MultiverseTag"
 msgstr "MultiverseTag"
 
@@ -14578,8 +14578,8 @@ msgstr "คนรักดนตรี"
 msgid "Music note"
 msgstr "โน้ตดนตรี"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:119
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:129
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:123
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:133
 msgid "Must be a valid http(s) URL"
 msgstr ""
 
@@ -14741,8 +14741,8 @@ msgstr "เพื่อนร่วม ({count})"
 msgid "Mutual Groups ({count})"
 msgstr "กลุ่มร่วม ({count})"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:68
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:165
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:72
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:169
 msgid "My Application"
 msgstr "แอปของฉัน"
 
@@ -15167,7 +15167,7 @@ msgstr "ไม่มีผู้ใช้ที่ถูกบล็อก"
 msgid "No Bookmarks"
 msgstr "ไม่มีที่คั่นหน้า"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:162
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:166
 msgid "No bot banner"
 msgstr "ไม่มีแบนเนอร์บอท"
 
@@ -15484,7 +15484,7 @@ msgstr "ไม่มีสติกเกอร์ที่ตรงกับก
 msgid "No System Channel"
 msgstr "ไม่มีแชนเนลระบบ"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:51
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:52
 msgid "No teams yet"
 msgstr ""
 
@@ -15818,7 +15818,7 @@ msgstr "เมื่อคลิก"
 msgid "on:"
 msgstr "เปิด:"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:847
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
 msgid "Once deleted, the application and its credentials are permanently removed."
 msgstr "เมื่อถูกลบ แอปและข้อมูลประจำตัวจะถูกลบอย่างถาวร"
 
@@ -16372,7 +16372,7 @@ msgstr "ที่เป็นของคุณ"
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:81
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:385
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:65
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:66
 msgid "Owner"
 msgstr ""
 
@@ -16942,7 +16942,7 @@ msgstr "โปรดระบุที่อยู่อีเมล"
 msgid "Please request a verification code first."
 msgstr "กรุณาขอรหัสยืนยันก่อน"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:691
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
 msgid "Please retry or go back to the applications list."
 msgstr "โปรดลองอีกครั้งหรือกลับไปที่รายการแอปพลิเคชัน"
 
@@ -17223,7 +17223,7 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr "นโยบายความเป็นส่วนตัว"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:121
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:125
 msgid "Privacy Policy URL"
 msgstr ""
 
@@ -17359,7 +17359,7 @@ msgstr "สมาชิกที่ถูกลบออกไม่มีกา
 msgid "ptt"
 msgstr "พีทีที"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:138
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:142
 msgid "Public Bot"
 msgstr "บอทสาธารณะ"
 
@@ -17566,7 +17566,7 @@ msgstr "อ่านข้อความที่เลือกออกเส
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:87
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:81
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:391
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:69
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:70
 msgid "Read-only"
 msgstr ""
 
@@ -17679,7 +17679,7 @@ msgstr "จำเป็นต้องมี URI เปลี่ยนเส้�
 msgid "Redirect URI is required when not using only the bot scope."
 msgstr "จำเป็นต้องมี URI เปลี่ยนเส้นทางเมื่อไม่ได้ใช้เฉพาะสโคปบอต"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:155
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:159
 msgid "Redirect URIs"
 msgstr "URI เปลี่ยนเส้นทาง"
 
@@ -17719,7 +17719,7 @@ msgstr ""
 
 #: src/components/modals/BackupCodesModal.tsx:94
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:87
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:664
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:672
 msgid "Regenerate"
 msgstr "สร้างใหม่"
 
@@ -17727,11 +17727,11 @@ msgstr "สร้างใหม่"
 msgid "Regenerate Backup Codes"
 msgstr "สร้างรหัสสำรองใหม่"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:660
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:668
 msgid "Regenerate client secret?"
 msgstr "ต้องการสร้างความลับของไคลเอนต์ใหม่?"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:662
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:670
 msgid "Regenerating will invalidate the current secret. Update any code that uses the old value."
 msgstr "การสร้างใหม่จะทำให้ความลับปัจจุบันใช้ไม่ได้ อัปเดตโค้ดที่ใช้ค่าเก่าด้วย"
 
@@ -18031,7 +18031,7 @@ msgstr "ลบหมายเลขโทรศัพท์"
 msgid "Remove Reaction"
 msgstr "ลบปฏิกิริยา"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:166
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:170
 msgid "Remove redirect URI"
 msgstr "ลบ URI เปลี่ยนเส้นทาง"
 
@@ -18380,7 +18380,7 @@ msgstr "ต้องการ 2FA สำหรับการดำเนิน�
 msgid "Require double-click to join voice channels"
 msgstr "ต้องดับเบิลคลิกเพื่อเข้าร่วมแชนแนลเสียง"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:185
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:189
 msgid "Require manual friend approval"
 msgstr "ต้องการการอนุมัติเพื่อนด้วยตนเอง"
 
@@ -18396,7 +18396,7 @@ msgstr ""
 msgid "Require members to hold a specific NFT or compressed NFT (cNFT) to view this channel. Leave blank to use the parent category's gate, if any."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:145
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:149
 msgid "Require OAuth2 code grant"
 msgstr "ต้องการ OAuth2 code grant"
 
@@ -18613,7 +18613,7 @@ msgstr "กู้คืนหน้าต่าง"
 #: src/components/modals/guild_tabs/GuildStickersTab.tsx:234
 #: src/components/modals/guild_tabs/GuildWebhooksTab.tsx:138
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:184
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:695
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:703
 #: src/components/modals/tabs/applications_tab/index.tsx:113
 #: src/components/modals/tabs/AuthorizedAppsTab.tsx:119
 #: src/components/modals/tabs/developer_teams_tab/index.tsx:161
@@ -18681,7 +18681,7 @@ msgstr "เพิกถอน"
 msgid "Revoke Ban"
 msgstr "ยกเลิกการแบน"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:119
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:118
 msgid "Revoke bot token?"
 msgstr ""
 
@@ -21663,7 +21663,7 @@ msgstr "แท็ก ({0}/{tagLimit})"
 msgid "Tags ({0}/10)"
 msgstr "แท็ก ({0}/10)"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:94
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:98
 msgid "Tags (up to {APPLICATION_MAX_TAGS})"
 msgstr ""
 
@@ -21688,7 +21688,7 @@ msgid "team"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:134
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:198
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:202
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:679
 msgid "Team"
 msgstr ""
@@ -21759,7 +21759,7 @@ msgstr ""
 msgid "Terms of Service"
 msgstr "ข้อกำหนดในการให้บริการ"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:131
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:135
 msgid "Terms of Service URL"
 msgstr ""
 
@@ -22103,7 +22103,7 @@ msgstr "ตัวเลือกที่สาม"
 msgid "third party"
 msgstr "บุคคลที่สาม"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:530
 msgid "This action cannot be undone. All associated data, including the bot user, will be permanently deleted."
 msgstr "การกระทำนี้ไม่สามารถย้อนกลับได้ ข้อมูลทั้งหมดที่เกี่ยวข้องรวมถึงผู้ใช้บอทจะถูกลบถาวร"
 
@@ -22126,7 +22126,7 @@ msgstr "ไฟล์แนบนี้หมดอายุแล้ว"
 msgid "This bot is requesting the Administrator permission. We do not recommend granting this to production apps unless you fully trust the developer. Consider asking them to request a reduced set of permissions. Close this page if you are unsure."
 msgstr "บอทนี้ขอสิทธิ์ผู้ดูแลระบบ เราไม่แนะนำให้ยอมให้สิทธิ์นี้กับแอปที่ใช้งานจริงเว้นแต่คุณจะเชื่อใจผู้พัฒนาเต็มที่ ลองขอให้พวกเขาขอสิทธิ์ที่ลดลง หากไม่แน่ใจให้ปิดหน้านี้"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:843
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:851
 msgid "This cannot be undone. Removing the application also deletes its bot."
 msgstr "ไม่สามารถย้อนกลับได้ การลบแอปจะลบบอทของมันด้วย"
 
@@ -24323,11 +24323,11 @@ msgstr "ชื่อผู้ใช้"
 msgid "Username (Optional)"
 msgstr "ชื่อผู้ใช้ (ไม่บังคับ)"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:95
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:99
 msgid "Username can only contain letters, numbers, and underscores"
 msgstr "ชื่อผู้ใช้สามารถมีได้เฉพาะตัวอักษร ตัวเลข และขีดเส้นใต้"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:90
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:94
 msgid "Username is required"
 msgstr "ต้องมีชื่อผู้ใช้"
 
@@ -24335,11 +24335,11 @@ msgstr "ต้องมีชื่อผู้ใช้"
 msgid "Username must be 32 characters or less"
 msgstr "ชื่อผู้ใช้ต้องมีความยาวไม่เกิน 32 ตัวอักษร"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:91
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:95
 msgid "Username must be at least 1 character"
 msgstr "ชื่อผู้ใช้ต้องมีอย่างน้อย 1 ตัวอักษร"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:92
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:96
 msgid "Username must be at most 32 characters"
 msgstr "ชื่อผู้ใช้ต้องมีไม่เกิน 32 ตัวอักษร"
 
@@ -25148,7 +25148,7 @@ msgstr "เราไม่สามารถเข้าร่วมชุมช
 msgid "We couldn't load the invites at this time."
 msgstr "เราไม่สามารถโหลดคำเชิญได้ในขณะนี้"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:690
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:698
 msgid "We couldn't load this application"
 msgstr "เราไม่สามารถโหลดแอปพลิเคชันนี้ได้"
 
@@ -25409,8 +25409,8 @@ msgstr "ยินดีต้อนรับ, {username}! อนาคตขอ�
 msgid "Welcome, {username}. Where we're going, we don't need roads."
 msgstr "ยินดีต้อนรับ, {username}. ที่ที่เราจะไปไม่ต้องการถนน"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:84
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:183
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:88
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:187
 msgid "What does your application do?"
 msgstr ""
 
@@ -25450,7 +25450,7 @@ msgstr "เมื่อวันที่เกณฑ์ที่กำหนด
 msgid "When disabled (default), typing indicators won't appear on the channel you're currently viewing."
 msgstr "เมื่อปิดใช้งาน (ค่าเริ่มต้น) ตัวบ่งชี้การพิมพ์จะไม่ปรากฏในแชนแนลที่คุณกำลังดูอยู่"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:146
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:150
 msgid "When enabled, inviting this bot requires a redirect URI and an authorization code."
 msgstr "เมื่อเปิดใช้งาน การเชิญบอตนี้ต้องมี URI เปลี่ยนเส้นทางและรหัสการอนุญาต"
 
@@ -25506,7 +25506,7 @@ msgstr "เมื่อเปิดใช้งาน จะใช้ภาษ�
 msgid "When enabled, you can favorite channels and they'll appear in the Favorites section. When disabled, all favorite-related UI elements (buttons, menu items) will be hidden. Your existing favorites will be preserved."
 msgstr "เมื่อเปิดใช้งาน คุณสามารถกำหนดให้แชนแนลเป็นรายการโปรดและจะปรากฏในส่วนรายการโปรด เมื่อปิดใช้งาน องค์ประกอบ UI ที่เกี่ยวกับรายการโปรดทั้งหมด (ปุ่ม รายการเมนู) จะถูกซ่อนไว้ รายการโปรดที่มีอยู่จะยังคงอยู่"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:186
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:190
 msgid "When enabled, you must accept friend requests to this bot manually."
 msgstr "เมื่อเปิดใช้งาน คุณต้องยอมรับคำขอเป็นเพื่อนกับบอทนี้ด้วยตนเอง"
 
@@ -26202,7 +26202,7 @@ msgstr "คุณกำลังดูข้อความเก่า"
 msgid "You've arrived, {username}! Enjoy the Jigowatt Joyride!"
 msgstr "คุณมาถึงแล้ว {username}! ขอให้สนุกกับการผจญภัย Jigowatt Joyride!"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:87
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:88
 msgid "You've been invited as {roleLabel}"
 msgstr ""
 

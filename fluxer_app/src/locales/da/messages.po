@@ -1040,8 +1040,8 @@ msgstr "<0>{seconds} sekund</0>"
 msgid "<0>{seconds} seconds</0>"
 msgstr "<0>{seconds} sekunder</0>"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:121
-msgid "<0>{tokenName}</0> will stop working immediately. Revoking a token also disconnects all of this bot's active gateway sessions."
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:120
+msgid "<0>{tokenName}</0> will stop working immediately for API requests. If the bot has a live gateway connection opened with this token, it stays connected until it next disconnects — restart the bot to drop it sooner."
 msgstr ""
 
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:480
@@ -1454,7 +1454,7 @@ msgstr "et par sekunder"
 msgid "A handful of keyboard warriors are assembling..."
 msgstr "En håndfuld tastaturkrigere samles..."
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:139
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:143
 msgid "A helpful bot that does amazing things!"
 msgstr "En hjælpsom bot der gør fantastiske ting!"
 
@@ -1529,7 +1529,7 @@ msgstr "Accentfarve"
 #: src/components/channel/direct_message/DMWelcomeSection.tsx:154
 #: src/components/channel/friends/FriendListItem.tsx:244
 #: src/components/channel/friends/MobileFriendRequestItem.tsx:100
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:100
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:101
 #: src/components/voice/IncomingCallUI.tsx:314
 msgid "Accept"
 msgstr "Accepter"
@@ -1930,7 +1930,7 @@ msgstr "Tilføj reaktion"
 msgid "Add Reactions"
 msgstr "Tilføj reaktioner"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:174
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:178
 msgid "Add redirect"
 msgstr "Tilføj omdirigering"
 
@@ -2094,7 +2094,7 @@ msgstr ""
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:83
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:79
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:389
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:67
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:68
 msgid "Admin"
 msgstr ""
 
@@ -2301,7 +2301,7 @@ msgstr "Tillad alle at tilføje dig til gruppechats uden at spørge"
 msgid "Allow anyone to call you, even strangers"
 msgstr "Tillad alle, også fremmede, at ringe til dig"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:139
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:143
 msgid "Allow anyone to invite this bot to their communities."
 msgstr "Tillad alle at invitere denne bot til deres fællesskaber."
 
@@ -2409,7 +2409,7 @@ msgstr "Tillad markering af alt tekstindhold i appen."
 msgid "Allow selecting all text content in the app. This setting is disabled on mobile to prevent interference with touch interactions."
 msgstr "Tillad markering af alt tekstindhold i appen. Denne indstilling er deaktiveret på mobil for at undgå forstyrrelser med berøringsinteraktioner."
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:173
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:177
 msgid "Allow users to send this bot friend requests for manual approval."
 msgstr "Tillad brugere at sende denne bot venneanmodninger til manuel godkendelse."
 
@@ -2726,7 +2726,7 @@ msgstr ""
 msgid "Application"
 msgstr "Applikation"
 
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:134
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:138
 msgid "Application created, but transferring it to the team failed. You can transfer it from its Team section."
 msgstr ""
 
@@ -2747,17 +2747,17 @@ msgstr ""
 msgid "Application ID"
 msgstr "Applikations-ID"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:60
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:64
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:646
 msgid "Application Information"
 msgstr "Applikationsinformation"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:66
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:159
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:70
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:163
 msgid "Application Name"
 msgstr "Applikationsnavn"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:65
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:69
 msgid "Application name is required"
 msgstr "Applikationsnavn er påkrævet"
 
@@ -2914,7 +2914,7 @@ msgid "Are you sure you want to delete #{channelName}? This cannot be undone."
 msgstr "Er du sikker på, at du vil slette #{channelName}? Dette kan ikke fortrydes."
 
 #. placeholder {0}: application.name
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:517
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:525
 msgid "Are you sure you want to delete <0>{0}</0>?"
 msgstr "Er du sikker på, at du vil slette <0>{0}</0>?"
 
@@ -3440,7 +3440,7 @@ msgstr "Valg af avatarmodus"
 msgid "Avatar Stacks"
 msgstr "Avatar-stakke"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:71
 msgid "Avatar, tag, and rich profile details for your bot."
 msgstr "Avatar, tag og detaljeret profilinformation til din bot."
 
@@ -3474,7 +3474,7 @@ msgstr "Tilbage til applikationer"
 msgid "Back to call"
 msgstr "Tilbage til opkald"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:707
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:278
 msgid "Back to list"
 msgstr "Tilbage til listen"
@@ -3693,7 +3693,7 @@ msgstr "Forbud"
 msgid "Bash"
 msgstr "Bash"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:61
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:65
 msgid "Basic settings and allowed redirect URIs."
 msgstr "Grundlæggende indstillinger og tilladte redirect-URI'er."
 
@@ -3916,15 +3916,15 @@ msgstr "Bot tilføjet"
 msgid "Bot Added"
 msgstr "Bot tilføjet"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:72
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:76
 msgid "Bot avatar"
 msgstr "Bot-avatar"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:163
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:167
 msgid "Bot banner preview"
 msgstr "Bot-banner eksempel"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:136
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:140
 msgid "Bot Bio"
 msgstr "Bot-bio"
 
@@ -3952,7 +3952,7 @@ msgstr "Bot-tilladelser"
 msgid "bot profile"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:70
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:671
 msgid "Bot Profile"
 msgstr "Bot-profil"
@@ -3965,11 +3965,11 @@ msgstr "Bot-område anmodet om"
 msgid "bot token"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:82
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:81
 msgid "Bot token created"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:102
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:101
 msgid "Bot token revoked"
 msgstr ""
 
@@ -3978,7 +3978,7 @@ msgstr ""
 msgid "Bot Tokens"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:101
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:105
 msgid "Bot Username"
 msgstr "Bot-brugernavn"
 
@@ -3986,7 +3986,7 @@ msgstr "Bot-brugernavn"
 msgid "Both Sides"
 msgstr "Begge sider"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:102
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:106
 msgid "BotName"
 msgstr "Botnavn"
 
@@ -4285,7 +4285,7 @@ msgstr "Kameraer er deaktiveret, når der er mere end {VOICE_CHANNEL_CAMERA_USER
 #: src/components/modals/SudoVerificationModal.tsx:577
 #: src/components/modals/tabs/AdminPanelTab.tsx:223
 #: src/components/modals/tabs/AdminPanelTab.tsx:379
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:210
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:214
 #: src/components/modals/tabs/developer_teams_tab/TeamCreateModal.tsx:101
 #: src/components/modals/tabs/my_profile_tab/AvatarUploader.tsx:140
 #: src/components/modals/tabs/privacy_safety_tab/DataDeletionTab.tsx:95
@@ -5269,7 +5269,7 @@ msgstr "Klienthemmelighed"
 msgid "Client Secret"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:562
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:570
 msgid "Client secret regenerated. Update any code that uses the old secret."
 msgstr "Klienthemmeligheden er regenereret. Opdater al kode, der bruger den gamle hemmelighed."
 
@@ -6134,7 +6134,7 @@ msgstr ""
 msgid "Copied to clipboard"
 msgstr "Kopieret til udklipsholder"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:677
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:685
 msgid "Copied URL to clipboard"
 msgstr "URL kopieret til udklipsholder"
 
@@ -6431,7 +6431,7 @@ msgstr "Hyggelig tilstand"
 #: src/components/modals/AddFriendsToGroupModal.tsx:98
 #: src/components/modals/AddGuildStickerModal.tsx:123
 #: src/components/modals/CreatePackModal.tsx:109
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:213
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:217
 #: src/components/modals/tabs/developer_teams_tab/TeamCreateModal.tsx:104
 msgid "Create"
 msgstr "Opret"
@@ -6465,7 +6465,7 @@ msgstr "Opret en ny gruppe med {0}"
 msgid "Create a Private Group"
 msgstr "Opret en privat gruppe"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:52
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:53
 msgid "Create a team to share access to your applications with other developers."
 msgstr ""
 
@@ -6501,7 +6501,7 @@ msgstr "Opret og del tilpassede emoji- og stickerpakker med Multiverse Plutonium
 msgid "create app"
 msgstr "opret app"
 
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:155
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:159
 #: src/components/modals/tabs/applications_tab/index.tsx:150
 #: src/components/modals/tabs/applications_tab/index.tsx:156
 msgid "Create Application"
@@ -6672,7 +6672,7 @@ msgid "Created {0} / {1}"
 msgstr "Oprettet {0} / {1}"
 
 #: src/components/modals/tabs/applications_tab/ApplicationsList.tsx:76
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:132
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:133
 msgid "Created {createdAt}"
 msgstr "Oprettet {createdAt}"
 
@@ -7056,7 +7056,7 @@ msgstr "Sekundær fareklikket!"
 
 #: src/components/modals/tabs/account_security_tab/Inline.tsx:100
 #: src/components/modals/tabs/AccountSecurityTab.tsx:112
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:842
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:850
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:466
 #: src/components/modals/utils/SettingsConstants.tsx:303
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:532
@@ -7257,7 +7257,7 @@ msgstr "debugværktøjer"
 msgid "Debug User"
 msgstr "Fejlsøg bruger"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:109
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:110
 msgid "Decline"
 msgstr ""
 
@@ -7388,9 +7388,9 @@ msgstr "Slet alle mine beskeder"
 msgid "delete application"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:514
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:528
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:857
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:536
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:865
 msgid "Delete Application"
 msgstr "Slet applikation"
 
@@ -7637,8 +7637,8 @@ msgstr "beskrivelse"
 #: src/components/modals/EditPackModal.tsx:91
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:295
 #: src/components/modals/sticker_form/StickerFormFields.tsx:111
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:81
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:180
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:85
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:184
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -7729,7 +7729,7 @@ msgstr "udvikler"
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:85
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:80
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:393
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:70
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:71
 #: src/components/modals/utils/SettingsConstants.tsx:103
 msgid "Developer"
 msgstr "Udvikler"
@@ -8079,7 +8079,7 @@ msgstr ""
 msgid "Discovery listing updated"
 msgstr "Opdagelsesliste opdateret"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:115
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:119
 msgid "Discriminator"
 msgstr "Discriminator"
 
@@ -9591,7 +9591,7 @@ msgstr "Kunne ikke kopiere invitationslink"
 msgid "Failed to copy to clipboard"
 msgstr "Kunne ikke kopiere til udklipsholder"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:86
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:85
 msgid "Failed to create bot token. Please try again."
 msgstr ""
 
@@ -9635,7 +9635,7 @@ msgstr "Kunne ikke beskære ikon. Prøv igen."
 msgid "Failed to decline invite. Please try again."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:539
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:547
 msgid "Failed to delete application. Please try again."
 msgstr "Kunne ikke slette applikation. Prøv igen."
 
@@ -9893,7 +9893,7 @@ msgstr "Mislykkedes med at nulstille premium-tilstand."
 msgid "Failed to revoke ban. Please try again."
 msgstr "Kunne ikke ophæve udelukkelse. Prøv igen."
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:106
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:105
 msgid "Failed to revoke bot token. Please try again."
 msgstr ""
 
@@ -9901,7 +9901,7 @@ msgstr ""
 msgid "Failed to Revoke Invite"
 msgstr "Kunne ikke tilbagekalde invitation"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:568
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:576
 msgid "Failed to rotate. Please try again."
 msgstr "Kunne ikke rotere. Prøv igen."
 
@@ -10619,7 +10619,7 @@ msgstr "Vens MultiverseTag"
 msgid "friendly bot"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:172
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:176
 msgid "Friendly bot"
 msgstr "Venlig bot"
 
@@ -11541,15 +11541,15 @@ msgstr "HTML / XML"
 msgid "https://example.com"
 msgstr "https://example.com"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:158
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:162
 msgid "https://example.com/callback"
 msgstr "https://example.com/callback"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:123
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:127
 msgid "https://example.com/privacy"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:133
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:137
 msgid "https://example.com/terms"
 msgstr ""
 
@@ -12293,7 +12293,7 @@ msgstr "Invitation utilgængelig"
 msgid "Invite Updated"
 msgstr "Invitation opdateret"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:83
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:84
 msgid "Invited"
 msgstr ""
 
@@ -14554,7 +14554,7 @@ msgid "Multiverse uses push notifications when installed as a mobile PWA. Regist
 msgstr "Multiverse bruger push-notifikationer, når det er installeret som en mobil PWA. Registrering sikrer, at gatewayen kan nå din enhed, selv når browseren kører i baggrunden."
 
 #: src/components/modals/MultiverseTagChangeModal.tsx:175
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:105
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:109
 msgid "MultiverseTag"
 msgstr "MultiverseTag"
 
@@ -14578,8 +14578,8 @@ msgstr "Musikelskere"
 msgid "Music note"
 msgstr "Musiknote"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:119
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:129
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:123
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:133
 msgid "Must be a valid http(s) URL"
 msgstr ""
 
@@ -14741,8 +14741,8 @@ msgstr "Fælles venner ({count})"
 msgid "Mutual Groups ({count})"
 msgstr "Fælles grupper ({count})"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:68
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:165
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:72
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:169
 msgid "My Application"
 msgstr "Min ansøgning"
 
@@ -15167,7 +15167,7 @@ msgstr "Ingen blokerede brugere"
 msgid "No Bookmarks"
 msgstr "Ingen bogmærker"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:162
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:166
 msgid "No bot banner"
 msgstr "Ingen bot-banner"
 
@@ -15484,7 +15484,7 @@ msgstr "Ingen klistermærker matcher din søgning"
 msgid "No System Channel"
 msgstr "Ingen systemkanal"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:51
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:52
 msgid "No teams yet"
 msgstr ""
 
@@ -15818,7 +15818,7 @@ msgstr "Ved klik"
 msgid "on:"
 msgstr "på:"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:847
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
 msgid "Once deleted, the application and its credentials are permanently removed."
 msgstr "Når den slettes, fjernes applikationen og dens legitimationsoplysninger permanent."
 
@@ -16372,7 +16372,7 @@ msgstr "Ejet"
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:81
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:385
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:65
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:66
 msgid "Owner"
 msgstr ""
 
@@ -16942,7 +16942,7 @@ msgstr "Angiv venligst en e-mailadresse."
 msgid "Please request a verification code first."
 msgstr "Anmod venligst om en bekræftelseskode først."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:691
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
 msgid "Please retry or go back to the applications list."
 msgstr "Prøv igen eller gå tilbage til applikationslisten."
 
@@ -17223,7 +17223,7 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr "Privatlivspolitik"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:121
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:125
 msgid "Privacy Policy URL"
 msgstr ""
 
@@ -17359,7 +17359,7 @@ msgstr "Fjernede medlemmer, der har været inaktive i <0>{dayCount} dage</0>."
 msgid "ptt"
 msgstr "ptt"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:138
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:142
 msgid "Public Bot"
 msgstr "Offentlig bot"
 
@@ -17566,7 +17566,7 @@ msgstr "Læs den fokuserede besked højt"
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:87
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:81
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:391
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:69
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:70
 msgid "Read-only"
 msgstr ""
 
@@ -17679,7 +17679,7 @@ msgstr "Omsendelses-URI er påkrævet, fordi denne bot kræver OAuth2 code grant
 msgid "Redirect URI is required when not using only the bot scope."
 msgstr "Omsendelses-URI er påkrævet, når der ikke kun bruges bot-omfang."
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:155
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:159
 msgid "Redirect URIs"
 msgstr "Omsendelses-URIs"
 
@@ -17719,7 +17719,7 @@ msgstr ""
 
 #: src/components/modals/BackupCodesModal.tsx:94
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:87
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:664
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:672
 msgid "Regenerate"
 msgstr "Regenerer"
 
@@ -17727,11 +17727,11 @@ msgstr "Regenerer"
 msgid "Regenerate Backup Codes"
 msgstr "Generer backupkoder igen"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:660
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:668
 msgid "Regenerate client secret?"
 msgstr "Regenerér klienthemmelighed?"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:662
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:670
 msgid "Regenerating will invalidate the current secret. Update any code that uses the old value."
 msgstr "Regenerering ugyldiggør den nuværende hemmelighed. Opdater al kode, der bruger den gamle værdi."
 
@@ -18031,7 +18031,7 @@ msgstr "Fjern telefonnummer"
 msgid "Remove Reaction"
 msgstr "Fjern reaktion"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:166
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:170
 msgid "Remove redirect URI"
 msgstr "Fjern omdirigerings-URI"
 
@@ -18380,7 +18380,7 @@ msgstr "Krav om 2FA for moderation handlinger"
 msgid "Require double-click to join voice channels"
 msgstr "Kræver dobbeltklik for at deltage i tale-kanaler"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:185
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:189
 msgid "Require manual friend approval"
 msgstr "Kræver manuel godkendelse af venner"
 
@@ -18396,7 +18396,7 @@ msgstr ""
 msgid "Require members to hold a specific NFT or compressed NFT (cNFT) to view this channel. Leave blank to use the parent category's gate, if any."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:145
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:149
 msgid "Require OAuth2 code grant"
 msgstr "Kræver OAuth2 code grant"
 
@@ -18613,7 +18613,7 @@ msgstr "Gendan vindue"
 #: src/components/modals/guild_tabs/GuildStickersTab.tsx:234
 #: src/components/modals/guild_tabs/GuildWebhooksTab.tsx:138
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:184
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:695
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:703
 #: src/components/modals/tabs/applications_tab/index.tsx:113
 #: src/components/modals/tabs/AuthorizedAppsTab.tsx:119
 #: src/components/modals/tabs/developer_teams_tab/index.tsx:161
@@ -18681,7 +18681,7 @@ msgstr "Tilbagekald"
 msgid "Revoke Ban"
 msgstr "Ophæv udelukkelse"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:119
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:118
 msgid "Revoke bot token?"
 msgstr ""
 
@@ -21663,7 +21663,7 @@ msgstr "Tags ({0}/{tagLimit})"
 msgid "Tags ({0}/10)"
 msgstr "Tags ({0}/10)"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:94
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:98
 msgid "Tags (up to {APPLICATION_MAX_TAGS})"
 msgstr ""
 
@@ -21688,7 +21688,7 @@ msgid "team"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:134
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:198
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:202
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:679
 msgid "Team"
 msgstr ""
@@ -21759,7 +21759,7 @@ msgstr ""
 msgid "Terms of Service"
 msgstr "Servicevilkår"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:131
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:135
 msgid "Terms of Service URL"
 msgstr ""
 
@@ -22103,7 +22103,7 @@ msgstr "Tredje mulighed"
 msgid "third party"
 msgstr "tredjepart"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:530
 msgid "This action cannot be undone. All associated data, including the bot user, will be permanently deleted."
 msgstr "Denne handling kan ikke fortrydes. Alle tilknyttede data, inklusive bot-brugeren, slettes permanent."
 
@@ -22126,7 +22126,7 @@ msgstr "Dette vedhæftede element er udløbet"
 msgid "This bot is requesting the Administrator permission. We do not recommend granting this to production apps unless you fully trust the developer. Consider asking them to request a reduced set of permissions. Close this page if you are unsure."
 msgstr "Denne bot beder om Administrator-adgangen. Vi anbefaler ikke at give den til produktionsapps, medmindre du har fuld tillid til udvikleren. Overvej at bede dem om at anmode om et reduceret sæt tilladelser. Luk siden, hvis du er i tvivl."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:843
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:851
 msgid "This cannot be undone. Removing the application also deletes its bot."
 msgstr "Dette kan ikke fortrydes. Fjernelse af applikationen sletter også dens bot."
 
@@ -24323,11 +24323,11 @@ msgstr "Brugernavn"
 msgid "Username (Optional)"
 msgstr "Brugernavn (valgfrit)"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:95
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:99
 msgid "Username can only contain letters, numbers, and underscores"
 msgstr "Brugernavn må kun indeholde bogstaver, tal og understregningstegn"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:90
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:94
 msgid "Username is required"
 msgstr "Brugernavn er påkrævet"
 
@@ -24335,11 +24335,11 @@ msgstr "Brugernavn er påkrævet"
 msgid "Username must be 32 characters or less"
 msgstr "Brugernavn skal være 32 tegn eller færre"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:91
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:95
 msgid "Username must be at least 1 character"
 msgstr "Brugernavn skal være mindst 1 tegn"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:92
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:96
 msgid "Username must be at most 32 characters"
 msgstr "Brugernavn må være højst 32 tegn"
 
@@ -25148,7 +25148,7 @@ msgstr "Vi kunne ikke tilslutte os denne fællesskab lige nu."
 msgid "We couldn't load the invites at this time."
 msgstr "Vi kunne ikke indlæse invitationerne lige nu."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:690
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:698
 msgid "We couldn't load this application"
 msgstr "Vi kunne ikke indlæse denne applikation"
 
@@ -25409,8 +25409,8 @@ msgstr "Velkommen, {username}! Din fremtid er, hvad du gør den til!"
 msgid "Welcome, {username}. Where we're going, we don't need roads."
 msgstr "Velkommen, {username}. Hvor vi skal hen, har vi ikke brug for veje."
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:84
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:183
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:88
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:187
 msgid "What does your application do?"
 msgstr ""
 
@@ -25450,7 +25450,7 @@ msgstr "Når en brugerdefineret tærskeldato ikke er indstillet, kan medlemmer u
 msgid "When disabled (default), typing indicators won't appear on the channel you're currently viewing."
 msgstr "Når det er slået fra (standard), vises der ikke skriveindikatorer i den kanal, du kigger på."
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:146
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:150
 msgid "When enabled, inviting this bot requires a redirect URI and an authorization code."
 msgstr "Når den er aktiveret, kræver invitation af denne bot en omsendelses-URI og en autorisationskode."
 
@@ -25506,7 +25506,7 @@ msgstr "Når det er aktiveret, bruger appen din computers lokalitet til at beste
 msgid "When enabled, you can favorite channels and they'll appear in the Favorites section. When disabled, all favorite-related UI elements (buttons, menu items) will be hidden. Your existing favorites will be preserved."
 msgstr "Når det er aktiveret, kan du markere kanaler som favoritter, og de vises i Favoritter-sektionen. Når det er slået fra, skjules alle UI-elementer relateret til favoritter (knapper, menupunkter). Dine eksisterende favoritter bevares."
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:186
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:190
 msgid "When enabled, you must accept friend requests to this bot manually."
 msgstr "Når det er aktiveret, skal du manuelt acceptere venneanmodninger til denne bot."
 
@@ -26202,7 +26202,7 @@ msgstr "Du ser på ældre beskeder"
 msgid "You've arrived, {username}! Enjoy the Jigowatt Joyride!"
 msgstr "Du er ankommet, {username}! Nyd Jigowatt Joyride!"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:87
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:88
 msgid "You've been invited as {roleLabel}"
 msgstr ""
 

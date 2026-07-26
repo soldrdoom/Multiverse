@@ -267,7 +267,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 			security: ['bearerToken', 'sessionToken'],
 			tags: ['OAuth2'],
 			description:
-				"Revokes a single bot token, leaving the application's other tokens working. Requires sudo mode authentication. Note that this disconnects all of the bot's active gateway sessions, not only those opened with the revoked token.",
+				"Revokes a single bot token, leaving the application's other tokens working. Requires sudo mode authentication. Revocation takes effect immediately for REST requests. Gateway sessions already connected with the revoked token are not disconnected: they remain active until they next drop, after which the token can no longer open or resume a session (beyond the gateway's ~10-second resume window). Restart the bot process to terminate its sessions sooner.",
 		}),
 		async (ctx) => {
 			const user = ctx.get('user');

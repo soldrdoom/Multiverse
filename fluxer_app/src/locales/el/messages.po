@@ -1040,8 +1040,8 @@ msgstr "<0>{seconds} δευτερόλεπτο</0>"
 msgid "<0>{seconds} seconds</0>"
 msgstr "<0>{seconds} δευτερόλεπτα</0>"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:121
-msgid "<0>{tokenName}</0> will stop working immediately. Revoking a token also disconnects all of this bot's active gateway sessions."
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:120
+msgid "<0>{tokenName}</0> will stop working immediately for API requests. If the bot has a live gateway connection opened with this token, it stays connected until it next disconnects — restart the bot to drop it sooner."
 msgstr ""
 
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:480
@@ -1454,7 +1454,7 @@ msgstr "λίγα δευτερόλεπτα"
 msgid "A handful of keyboard warriors are assembling..."
 msgstr "Μια χούφτα πολεμιστές του πληκτρολογίου συγκεντρώνονται..."
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:139
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:143
 msgid "A helpful bot that does amazing things!"
 msgstr "Ένα χρήσιμο bot που κάνει εκπληκτικά πράγματα!"
 
@@ -1529,7 +1529,7 @@ msgstr "Χρώμα έμφασης"
 #: src/components/channel/direct_message/DMWelcomeSection.tsx:154
 #: src/components/channel/friends/FriendListItem.tsx:244
 #: src/components/channel/friends/MobileFriendRequestItem.tsx:100
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:100
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:101
 #: src/components/voice/IncomingCallUI.tsx:314
 msgid "Accept"
 msgstr "Αποδοχή"
@@ -1930,7 +1930,7 @@ msgstr "Προσθήκη Αντίδρασης"
 msgid "Add Reactions"
 msgstr "Προσθήκη Αντιδράσεων"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:174
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:178
 msgid "Add redirect"
 msgstr "Προσθήκη ανακατεύθυνσης"
 
@@ -2094,7 +2094,7 @@ msgstr ""
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:83
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:79
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:389
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:67
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:68
 msgid "Admin"
 msgstr ""
 
@@ -2301,7 +2301,7 @@ msgstr "Επιτρέψτε σε οποιονδήποτε να σας προσθ�
 msgid "Allow anyone to call you, even strangers"
 msgstr "Επιτρέψτε σε οποιονδήποτε να σας καλεί, ακόμη και αγνώστους"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:139
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:143
 msgid "Allow anyone to invite this bot to their communities."
 msgstr "Επιτρέψτε σε οποιονδήποτε να προσκαλέσει αυτό το bot στις κοινότητές του."
 
@@ -2409,7 +2409,7 @@ msgstr "Επιτρέψτε την επιλογή όλου του κειμένο�
 msgid "Allow selecting all text content in the app. This setting is disabled on mobile to prevent interference with touch interactions."
 msgstr "Επιτρέψτε την επιλογή όλου του κειμένου στην εφαρμογή. Αυτή η ρύθμιση είναι απενεργοποιημένη στο κινητό για να αποτραπεί η παρεμβολή με τις αλληλεπιδράσεις αφής."
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:173
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:177
 msgid "Allow users to send this bot friend requests for manual approval."
 msgstr "Επιτρέψτε στους χρήστες να στέλνουν αιτήματα φιλίας σε αυτό το ρομπότ για χειροκίνητη έγκριση."
 
@@ -2726,7 +2726,7 @@ msgstr ""
 msgid "Application"
 msgstr "Εφαρμογή"
 
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:134
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:138
 msgid "Application created, but transferring it to the team failed. You can transfer it from its Team section."
 msgstr ""
 
@@ -2747,17 +2747,17 @@ msgstr ""
 msgid "Application ID"
 msgstr "Αναγνωριστικό εφαρμογής"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:60
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:64
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:646
 msgid "Application Information"
 msgstr "Πληροφορίες Εφαρμογής"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:66
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:159
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:70
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:163
 msgid "Application Name"
 msgstr "Όνομα εφαρμογής"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:65
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:69
 msgid "Application name is required"
 msgstr "Απαιτείται όνομα εφαρμογής"
 
@@ -2914,7 +2914,7 @@ msgid "Are you sure you want to delete #{channelName}? This cannot be undone."
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε το #{channelName}; Αυτό δεν μπορεί να αναιρεθεί."
 
 #. placeholder {0}: application.name
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:517
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:525
 msgid "Are you sure you want to delete <0>{0}</0>?"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε το <0>{0}</0>;"
 
@@ -3440,7 +3440,7 @@ msgstr "Επιλογή λειτουργίας εικόνας προφίλ"
 msgid "Avatar Stacks"
 msgstr "Στοίβες εικόνων προφίλ"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:71
 msgid "Avatar, tag, and rich profile details for your bot."
 msgstr "Εικόνα προφίλ, ετικέτα και πλούσιες πληροφορίες προφίλ για το bot σας."
 
@@ -3474,7 +3474,7 @@ msgstr "Επιστροφή στις Εφαρμογές"
 msgid "Back to call"
 msgstr "Επιστροφή στην κλήση"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:707
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:278
 msgid "Back to list"
 msgstr "Επιστροφή στη λίστα"
@@ -3693,7 +3693,7 @@ msgstr "Αποκλεισμοί"
 msgid "Bash"
 msgstr "Bash"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:61
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:65
 msgid "Basic settings and allowed redirect URIs."
 msgstr "Βασικές ρυθμίσεις και επιτρεπτές διευθύνσεις ανακατεύθυνσης."
 
@@ -3916,15 +3916,15 @@ msgstr "Προστέθηκε bot"
 msgid "Bot Added"
 msgstr "Προστέθηκε Bot"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:72
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:76
 msgid "Bot avatar"
 msgstr "Avatar Bot"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:163
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:167
 msgid "Bot banner preview"
 msgstr "Προεπισκόπηση πανό bot"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:136
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:140
 msgid "Bot Bio"
 msgstr "Βιογραφία bot"
 
@@ -3952,7 +3952,7 @@ msgstr "Δικαιώματα bot"
 msgid "bot profile"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:70
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:671
 msgid "Bot Profile"
 msgstr "Προφίλ Ρομπότ"
@@ -3965,11 +3965,11 @@ msgstr "Ζητήθηκε πεδίο bot"
 msgid "bot token"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:82
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:81
 msgid "Bot token created"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:102
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:101
 msgid "Bot token revoked"
 msgstr ""
 
@@ -3978,7 +3978,7 @@ msgstr ""
 msgid "Bot Tokens"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:101
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:105
 msgid "Bot Username"
 msgstr "Όνομα χρήστη bot"
 
@@ -3986,7 +3986,7 @@ msgstr "Όνομα χρήστη bot"
 msgid "Both Sides"
 msgstr "Και οι δύο πλευρές"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:102
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:106
 msgid "BotName"
 msgstr "BotName"
 
@@ -4285,7 +4285,7 @@ msgstr "Οι κάμερες είναι απενεργοποιημένες ότα
 #: src/components/modals/SudoVerificationModal.tsx:577
 #: src/components/modals/tabs/AdminPanelTab.tsx:223
 #: src/components/modals/tabs/AdminPanelTab.tsx:379
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:210
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:214
 #: src/components/modals/tabs/developer_teams_tab/TeamCreateModal.tsx:101
 #: src/components/modals/tabs/my_profile_tab/AvatarUploader.tsx:140
 #: src/components/modals/tabs/privacy_safety_tab/DataDeletionTab.tsx:95
@@ -5269,7 +5269,7 @@ msgstr "Μυστικό πελάτη"
 msgid "Client Secret"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:562
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:570
 msgid "Client secret regenerated. Update any code that uses the old secret."
 msgstr "Το μυστικό πελάτη ξαναδημιουργήθηκε. Ενημερώστε οποιονδήποτε κώδικα χρησιμοποιεί το παλιό μυστικό."
 
@@ -6134,7 +6134,7 @@ msgstr ""
 msgid "Copied to clipboard"
 msgstr "Αντιγράφηκε στο πρόχειρο"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:677
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:685
 msgid "Copied URL to clipboard"
 msgstr "Η διεύθυνση URL αντιγράφηκε στο πρόχειρο"
 
@@ -6431,7 +6431,7 @@ msgstr "Άνετη Λειτουργία"
 #: src/components/modals/AddFriendsToGroupModal.tsx:98
 #: src/components/modals/AddGuildStickerModal.tsx:123
 #: src/components/modals/CreatePackModal.tsx:109
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:213
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:217
 #: src/components/modals/tabs/developer_teams_tab/TeamCreateModal.tsx:104
 msgid "Create"
 msgstr "Δημιουργία"
@@ -6465,7 +6465,7 @@ msgstr "Δημιουργήστε μια νέα ομάδα με τον/την {0}
 msgid "Create a Private Group"
 msgstr "Δημιουργία ιδιωτικής ομάδας"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:52
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:53
 msgid "Create a team to share access to your applications with other developers."
 msgstr ""
 
@@ -6501,7 +6501,7 @@ msgstr "Δημιουργήστε και μοιραστείτε προσαρμο�
 msgid "create app"
 msgstr "δημιουργία εφαρμογής"
 
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:155
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:159
 #: src/components/modals/tabs/applications_tab/index.tsx:150
 #: src/components/modals/tabs/applications_tab/index.tsx:156
 msgid "Create Application"
@@ -6672,7 +6672,7 @@ msgid "Created {0} / {1}"
 msgstr "Δημιουργήθηκαν {0} / {1}"
 
 #: src/components/modals/tabs/applications_tab/ApplicationsList.tsx:76
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:132
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:133
 msgid "Created {createdAt}"
 msgstr "Δημιουργήθηκε στις {createdAt}"
 
@@ -7056,7 +7056,7 @@ msgstr "Η δευτερεύουσα ενέργεια κινδύνου πατήθ
 
 #: src/components/modals/tabs/account_security_tab/Inline.tsx:100
 #: src/components/modals/tabs/AccountSecurityTab.tsx:112
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:842
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:850
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:466
 #: src/components/modals/utils/SettingsConstants.tsx:303
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:532
@@ -7257,7 +7257,7 @@ msgstr "εργαλεία αποσφαλμάτωσης"
 msgid "Debug User"
 msgstr "Ανίχνευση σφαλμάτων χρήστη"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:109
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:110
 msgid "Decline"
 msgstr ""
 
@@ -7388,9 +7388,9 @@ msgstr "Διαγραφή όλων των μηνυμάτων μου"
 msgid "delete application"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:514
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:528
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:857
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:536
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:865
 msgid "Delete Application"
 msgstr "Διαγραφή εφαρμογής"
 
@@ -7637,8 +7637,8 @@ msgstr "περιγραφή"
 #: src/components/modals/EditPackModal.tsx:91
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:295
 #: src/components/modals/sticker_form/StickerFormFields.tsx:111
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:81
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:180
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:85
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:184
 msgid "Description"
 msgstr "Περιγραφή"
 
@@ -7729,7 +7729,7 @@ msgstr "προγραμματιστής"
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:85
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:80
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:393
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:70
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:71
 #: src/components/modals/utils/SettingsConstants.tsx:103
 msgid "Developer"
 msgstr "Προγραμματιστής"
@@ -8079,7 +8079,7 @@ msgstr ""
 msgid "Discovery listing updated"
 msgstr "Η καταχώριση ανακάλυψης ενημερώθηκε"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:115
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:119
 msgid "Discriminator"
 msgstr "Διακριτής"
 
@@ -9591,7 +9591,7 @@ msgstr "Αποτυχία αντιγραφής συνδέσμου πρόσκλη�
 msgid "Failed to copy to clipboard"
 msgstr "Αποτυχία αντιγραφής στο πρόχειρο"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:86
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:85
 msgid "Failed to create bot token. Please try again."
 msgstr ""
 
@@ -9635,7 +9635,7 @@ msgstr "Αποτυχία περικοπής εικονιδίου. Παρακαλ
 msgid "Failed to decline invite. Please try again."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:539
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:547
 msgid "Failed to delete application. Please try again."
 msgstr "Αποτυχία διαγραφής εφαρμογής. Παρακαλώ δοκιμάστε ξανά."
 
@@ -9893,7 +9893,7 @@ msgstr "Αποτυχία επαναφοράς της κατάσταση premium.
 msgid "Failed to revoke ban. Please try again."
 msgstr "Αποτυχία άρσης αποκλεισμού. Παρακαλώ δοκιμάστε ξανά."
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:106
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:105
 msgid "Failed to revoke bot token. Please try again."
 msgstr ""
 
@@ -9901,7 +9901,7 @@ msgstr ""
 msgid "Failed to Revoke Invite"
 msgstr "Αποτυχία ανάκλησης πρόσκλησης"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:568
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:576
 msgid "Failed to rotate. Please try again."
 msgstr "Αποτυχία περιστροφής. Παρακαλώ δοκιμάστε ξανά."
 
@@ -10619,7 +10619,7 @@ msgstr "MultiverseTag του φίλου"
 msgid "friendly bot"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:172
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:176
 msgid "Friendly bot"
 msgstr "Φιλικό ρομπότ"
 
@@ -11541,15 +11541,15 @@ msgstr "HTML / XML"
 msgid "https://example.com"
 msgstr "https://example.com"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:158
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:162
 msgid "https://example.com/callback"
 msgstr "https://example.com/callback"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:123
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:127
 msgid "https://example.com/privacy"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:133
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:137
 msgid "https://example.com/terms"
 msgstr ""
 
@@ -12293,7 +12293,7 @@ msgstr "Η πρόσκληση δεν είναι διαθέσιμη"
 msgid "Invite Updated"
 msgstr "Η πρόσκληση ενημερώθηκε"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:83
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:84
 msgid "Invited"
 msgstr ""
 
@@ -14554,7 +14554,7 @@ msgid "Multiverse uses push notifications when installed as a mobile PWA. Regist
 msgstr "Το Multiverse χρησιμοποιεί ειδοποιήσεις push όταν εγκαθίσταται ως mobile PWA. Η εγγραφή διασφαλίζει ότι η πύλη μπορεί να φτάσει στη συσκευή σας ακόμη και όταν το πρόγραμμα περιήγησης είναι στο παρασκήνιο."
 
 #: src/components/modals/MultiverseTagChangeModal.tsx:175
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:105
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:109
 msgid "MultiverseTag"
 msgstr "MultiverseTag"
 
@@ -14578,8 +14578,8 @@ msgstr "Λάτρεις της Μουσικής"
 msgid "Music note"
 msgstr "Νότα μουσικής"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:119
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:129
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:123
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:133
 msgid "Must be a valid http(s) URL"
 msgstr ""
 
@@ -14741,8 +14741,8 @@ msgstr "Κοινοί Φίλοι ({count})"
 msgid "Mutual Groups ({count})"
 msgstr "Κοινές Ομάδες ({count})"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:68
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:165
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:72
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:169
 msgid "My Application"
 msgstr "Η εφαρμογή μου"
 
@@ -15167,7 +15167,7 @@ msgstr "Χωρίς αποκλεισμένους χρήστες"
 msgid "No Bookmarks"
 msgstr "Χωρίς σελιδοδείκτες"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:162
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:166
 msgid "No bot banner"
 msgstr "Χωρίς πανό bot"
 
@@ -15484,7 +15484,7 @@ msgstr "Δεν βρέθηκαν αυτοκόλλητα που να ταιριά�
 msgid "No System Channel"
 msgstr "Κανάλι συστήματος μη διαθέσιμο"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:51
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:52
 msgid "No teams yet"
 msgstr ""
 
@@ -15818,7 +15818,7 @@ msgstr "Με κλικ"
 msgid "on:"
 msgstr "σε:"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:847
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
 msgid "Once deleted, the application and its credentials are permanently removed."
 msgstr "Μόλις διαγραφεί, η εφαρμογή και τα διαπιστευτήριά της αφαιρούνται οριστικά."
 
@@ -16372,7 +16372,7 @@ msgstr "Κατοχυρωμένο"
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:81
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:385
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:65
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:66
 msgid "Owner"
 msgstr ""
 
@@ -16942,7 +16942,7 @@ msgstr "Παρακαλώ δώσε μια διεύθυνση email."
 msgid "Please request a verification code first."
 msgstr "Παρακαλώ ζητήστε πρώτα έναν κωδικό επαλήθευσης."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:691
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
 msgid "Please retry or go back to the applications list."
 msgstr "Παρακαλώ δοκίμασε ξανά ή επέστρεψε στη λίστα εφαρμογών."
 
@@ -17223,7 +17223,7 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr "Πολιτική απορρήτου"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:121
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:125
 msgid "Privacy Policy URL"
 msgstr ""
 
@@ -17359,7 +17359,7 @@ msgstr "Διαγραμμένα μέλη ανενεργά για <0>{dayCount} η
 msgid "ptt"
 msgstr "ptt"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:138
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:142
 msgid "Public Bot"
 msgstr "Δημόσιο bot"
 
@@ -17566,7 +17566,7 @@ msgstr "Διάβασε το εστιασμένο μήνυμα φωναχτά"
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:87
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:81
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:391
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:69
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:70
 msgid "Read-only"
 msgstr ""
 
@@ -17679,7 +17679,7 @@ msgstr "Το Redirect URI απαιτείται επειδή αυτό το bot α
 msgid "Redirect URI is required when not using only the bot scope."
 msgstr "Το Redirect URI απαιτείται όταν δεν χρησιμοποιείται μόνο το bot scope."
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:155
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:159
 msgid "Redirect URIs"
 msgstr "Redirect URIs"
 
@@ -17719,7 +17719,7 @@ msgstr ""
 
 #: src/components/modals/BackupCodesModal.tsx:94
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:87
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:664
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:672
 msgid "Regenerate"
 msgstr "Επαναδημιουργία"
 
@@ -17727,11 +17727,11 @@ msgstr "Επαναδημιουργία"
 msgid "Regenerate Backup Codes"
 msgstr "Αναδημιουργία Κωδικών Αντίγραφου"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:660
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:668
 msgid "Regenerate client secret?"
 msgstr "Επαναδημιουργία client secret;"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:662
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:670
 msgid "Regenerating will invalidate the current secret. Update any code that uses the old value."
 msgstr "Η επαναδημιουργία θα ακυρώσει το τρέχον secret. Ενημέρωσε κάθε κώδικα που χρησιμοποιεί την παλιά τιμή."
 
@@ -18031,7 +18031,7 @@ msgstr "Κατάργηση αριθμού τηλεφώνου"
 msgid "Remove Reaction"
 msgstr "Αφαίρεση αντίδρασης"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:166
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:170
 msgid "Remove redirect URI"
 msgstr "Κατάργηση URI ανακατεύθυνσης"
 
@@ -18380,7 +18380,7 @@ msgstr "Απαιτείται 2FA για Ενέργειες Διαχείριση�
 msgid "Require double-click to join voice channels"
 msgstr "Απαιτήστε διπλό κλικ για είσοδο σε φωνητικά κανάλια"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:185
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:189
 msgid "Require manual friend approval"
 msgstr "Απαιτείται χειροκίνητη έγκριση φίλου"
 
@@ -18396,7 +18396,7 @@ msgstr ""
 msgid "Require members to hold a specific NFT or compressed NFT (cNFT) to view this channel. Leave blank to use the parent category's gate, if any."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:145
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:149
 msgid "Require OAuth2 code grant"
 msgstr "Απαιτείται OAuth2 code grant"
 
@@ -18613,7 +18613,7 @@ msgstr "Επαναφορά παραθύρου"
 #: src/components/modals/guild_tabs/GuildStickersTab.tsx:234
 #: src/components/modals/guild_tabs/GuildWebhooksTab.tsx:138
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:184
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:695
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:703
 #: src/components/modals/tabs/applications_tab/index.tsx:113
 #: src/components/modals/tabs/AuthorizedAppsTab.tsx:119
 #: src/components/modals/tabs/developer_teams_tab/index.tsx:161
@@ -18681,7 +18681,7 @@ msgstr "Ανάκληση"
 msgid "Revoke Ban"
 msgstr "Ανάκληση αποκλεισμού"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:119
+#: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:118
 msgid "Revoke bot token?"
 msgstr ""
 
@@ -21663,7 +21663,7 @@ msgstr "Ετικέτες ({0}/{tagLimit})"
 msgid "Tags ({0}/10)"
 msgstr "Ετικέτες ({0}/10)"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:94
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:98
 msgid "Tags (up to {APPLICATION_MAX_TAGS})"
 msgstr ""
 
@@ -21688,7 +21688,7 @@ msgid "team"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:134
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:198
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:202
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:679
 msgid "Team"
 msgstr ""
@@ -21759,7 +21759,7 @@ msgstr ""
 msgid "Terms of Service"
 msgstr "Όροι Παροχής Υπηρεσιών"
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:131
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:135
 msgid "Terms of Service URL"
 msgstr ""
 
@@ -22103,7 +22103,7 @@ msgstr "Τρίτη επιλογή"
 msgid "third party"
 msgstr "τρίτος φορέας"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:530
 msgid "This action cannot be undone. All associated data, including the bot user, will be permanently deleted."
 msgstr "Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Όλα τα συναφή δεδομένα, συμπεριλαμβανομένου του χρήστη bot, θα διαγραφούν οριστικά."
 
@@ -22126,7 +22126,7 @@ msgstr "Αυτό το συνημμένο έχει λήξει"
 msgid "This bot is requesting the Administrator permission. We do not recommend granting this to production apps unless you fully trust the developer. Consider asking them to request a reduced set of permissions. Close this page if you are unsure."
 msgstr "Αυτό το bot ζητά την άδεια Διαχειριστή. Δεν προτείνουμε να την χορηγήσετε σε παραγωγικές εφαρμογές εκτός αν εμπιστεύεστε πλήρως τον προγραμματιστή. Σκεφτείτε να τους ζητήσετε να ζητήσουν μειωμένο σύνολο αδειών. Κλείστε αυτήν τη σελίδα αν δεν είστε βέβαιοι."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:843
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:851
 msgid "This cannot be undone. Removing the application also deletes its bot."
 msgstr "Αυτό δεν μπορεί να αναιρεθεί. Η αφαίρεση της εφαρμογής διαγράφει και το bot της."
 
@@ -24323,11 +24323,11 @@ msgstr "Όνομα χρήστη"
 msgid "Username (Optional)"
 msgstr "Όνομα χρήστη (Προαιρετικό)"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:95
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:99
 msgid "Username can only contain letters, numbers, and underscores"
 msgstr "Το όνομα χρήστη μπορεί να περιέχει μόνο γράμματα, αριθμούς και κάτω παύλες"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:90
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:94
 msgid "Username is required"
 msgstr "Απαιτείται όνομα χρήστη"
 
@@ -24335,11 +24335,11 @@ msgstr "Απαιτείται όνομα χρήστη"
 msgid "Username must be 32 characters or less"
 msgstr "Το όνομα χρήστη πρέπει να είναι 32 χαρακτήρες ή λιγότερο"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:91
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:95
 msgid "Username must be at least 1 character"
 msgstr "Το όνομα χρήστη πρέπει να έχει τουλάχιστον 1 χαρακτήρα"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:92
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:96
 msgid "Username must be at most 32 characters"
 msgstr "Το όνομα χρήστη πρέπει να έχει το πολύ 32 χαρακτήρες"
 
@@ -25148,7 +25148,7 @@ msgstr "Δεν μπορέσαμε να συμμετάσχουμε σε αυτή�
 msgid "We couldn't load the invites at this time."
 msgstr "Δεν μπορέσαμε να φορτώσουμε τις προσκλήσεις αυτή τη στιγμή."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:690
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:698
 msgid "We couldn't load this application"
 msgstr "Δεν μπορέσαμε να φορτώσουμε αυτήν την εφαρμογή"
 
@@ -25409,8 +25409,8 @@ msgstr "Καλώς ήρθες, {username}! Το μέλλον σου είναι �
 msgid "Welcome, {username}. Where we're going, we don't need roads."
 msgstr "Καλώς ήρθες, {username}. Εκεί που πάμε, δεν χρειαζόμαστε δρόμους."
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:84
-#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:183
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:88
+#: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:187
 msgid "What does your application do?"
 msgstr ""
 
@@ -25450,7 +25450,7 @@ msgstr "Όταν δεν έχει οριστεί μια προσαρμοσμέν�
 msgid "When disabled (default), typing indicators won't appear on the channel you're currently viewing."
 msgstr "Όταν είναι απενεργοποιημένο (προεπιλογή), οι δείκτες πληκτρολόγησης δεν θα εμφανίζονται στο κανάλι που παρακολουθείς."
 
-#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:146
+#: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:150
 msgid "When enabled, inviting this bot requires a redirect URI and an authorization code."
 msgstr "Όταν είναι ενεργοποιημένο, η πρόσκληση αυτού του bot απαιτεί Redirect URI και κωδικό εξουσιοδότησης."
 
@@ -25506,7 +25506,7 @@ msgstr "Όταν είναι ενεργοποιημένο, χρησιμοποιε
 msgid "When enabled, you can favorite channels and they'll appear in the Favorites section. When disabled, all favorite-related UI elements (buttons, menu items) will be hidden. Your existing favorites will be preserved."
 msgstr "Όταν είναι ενεργοποιημένο, μπορείτε να προσθέσετε αγαπημένα κανάλια και θα εμφανιστούν στην ενότητα Αγαπημένα. Όταν είναι απενεργοποιημένο, όλα τα στοιχεία UI που σχετίζονται με τα αγαπημένα (κουμπιά, επιλογές μενού) θα κρύβονται. Τα υπάρχοντα αγαπημένα θα παραμείνουν."
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:186
+#: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:190
 msgid "When enabled, you must accept friend requests to this bot manually."
 msgstr "Όταν είναι ενεργοποιημένο, πρέπει να αποδέχεστε τις αιτήσεις φίλου σε αυτό το ρομπότ χειροκίνητα."
 
@@ -26202,7 +26202,7 @@ msgstr "Παρακολουθείς παλαιότερα μηνύματα"
 msgid "You've arrived, {username}! Enjoy the Jigowatt Joyride!"
 msgstr "Έφτασες, {username}! Απόλαυσε τη βόλτα με το Jigowatt!"
 
-#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:87
+#: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:88
 msgid "You've been invited as {roleLabel}"
 msgstr ""
 
