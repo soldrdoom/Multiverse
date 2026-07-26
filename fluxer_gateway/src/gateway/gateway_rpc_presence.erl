@@ -63,6 +63,15 @@ execute_method(<<"presence.terminate_all_sessions">>, #{<<"user_id">> := UserIdB
         ok -> true;
         _ -> throw({error, <<"terminate_sessions_error">>})
     end;
+%% Credential-revocation variant: sessions stop immediately (not resumable)
+%% and every connected socket closes with close code 4014 (session_revoked).
+%% Called by the REST API when a bot token is revoked or rotated.
+execute_method(<<"presence.terminate_all_sessions_revoked">>, #{<<"user_id">> := UserIdBin}) ->
+    UserId = validation:snowflake_or_throw(<<"user_id">>, UserIdBin),
+    case presence_manager:terminate_all_sessions_revoked(UserId) of
+        ok -> true;
+        _ -> throw({error, <<"terminate_sessions_error">>})
+    end;
 execute_method(<<"presence.has_active">>, #{<<"user_id">> := UserIdBin}) ->
     UserId = validation:snowflake_or_throw(<<"user_id">>, UserIdBin),
     case gen_server:call(presence_manager, {lookup, UserId}, ?PRESENCE_LOOKUP_TIMEOUT) of

@@ -86,7 +86,11 @@ close_code_to_num(session_timeout) -> 4009;
 close_code_to_num(invalid_shard) -> 4010;
 close_code_to_num(sharding_required) -> 4011;
 close_code_to_num(invalid_api_version) -> 4012;
-close_code_to_num(ack_backpressure) -> 4013.
+close_code_to_num(ack_backpressure) -> 4013;
+%% Sent when the credential that opened the session was revoked (e.g. a bot
+%% token was revoked or rotated). Fatal: the session is gone and the token
+%% cannot open or resume a session; do not reconnect with the same token.
+close_code_to_num(session_revoked) -> 4014.
 
 -spec dispatch_event_atom(atom() | binary()) -> atom() | binary().
 dispatch_event_atom(Event) when is_atom(Event) ->
@@ -169,7 +173,8 @@ close_code_to_num_test() ->
     ?assertEqual(4000, close_code_to_num(unknown_error)),
     ?assertEqual(4004, close_code_to_num(authentication_failed)),
     ?assertEqual(4008, close_code_to_num(rate_limited)),
-    ?assertEqual(4013, close_code_to_num(ack_backpressure)).
+    ?assertEqual(4013, close_code_to_num(ack_backpressure)),
+    ?assertEqual(4014, close_code_to_num(session_revoked)).
 
 status_type_atom_binary_to_atom_test() ->
     ?assertEqual(online, status_type_atom(<<"online">>)),

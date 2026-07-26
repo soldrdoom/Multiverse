@@ -174,6 +174,14 @@ export abstract class IGatewayService {
 
 	abstract terminateAllSessionsForUser(params: {userId: UserID}): Promise<void>;
 
+	/**
+	 * Credential-revocation variant of terminateAllSessionsForUser: every gateway
+	 * session for the user stops immediately (not resumable) and each connected
+	 * socket is closed with close code 4014 (SESSION_REVOKED), telling the client
+	 * not to reconnect with the same token.
+	 */
+	abstract terminateAllSessionsRevoked(params: {userId: UserID}): Promise<void>;
+
 	abstract updateMemberVoice(params: {
 		guildId: GuildID;
 		userId: UserID;

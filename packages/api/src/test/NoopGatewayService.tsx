@@ -631,6 +631,8 @@ export class NoopGatewayService extends IGatewayService {
 
 	async terminateAllSessionsForUser(_params: {userId: UserID}): Promise<void> {}
 
+	async terminateAllSessionsRevoked(_params: {userId: UserID}): Promise<void> {}
+
 	async updateMemberVoice(_params: {
 		guildId: GuildID;
 		userId: UserID;

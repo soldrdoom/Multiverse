@@ -21,7 +21,9 @@ import {createHash, randomBytes, timingSafeEqual} from 'node:crypto';
 import type {ApplicationID, UserID} from '@fluxer/api/src/BrandedTypes';
 import {applicationIdToUserId} from '@fluxer/api/src/BrandedTypes';
 import type {ApplicationBotTokenRow} from '@fluxer/api/src/database/types/OAuth2Types';
+import type {IGatewayService} from '@fluxer/api/src/infrastructure/IGatewayService';
 import type {SnowflakeService} from '@fluxer/api/src/infrastructure/SnowflakeService';
+import {Logger} from '@fluxer/api/src/Logger';
 import type {IBotTokenRepository} from '@fluxer/api/src/oauth/repositories/IBotTokenRepository';
 
 /** Minimum interval between last_used_at writes for a single token. */
@@ -107,6 +109,7 @@ export class BotTokenService {
 	constructor(
 		private readonly botTokenRepository: IBotTokenRepository,
 		private readonly snowflakeService: SnowflakeService,
+		private readonly gatewayService: IGatewayService,
 	) {}
 
 	/**
@@ -199,6 +202,7 @@ export class BotTokenService {
 		}
 		await this.botTokenRepository.delete(applicationId, tokenId, row.lookup_hash);
 		this.lastUsedWrites.delete(row.lookup_hash);
+		this.terminateBotGatewaySessions(applicationId);
 		return true;
 	}
 
@@ -208,5 +212,30 @@ export class BotTokenService {
 			this.lastUsedWrites.delete(row.lookup_hash);
 		}
 		await this.botTokenRepository.deleteAllForApplication(applicationId);
+		this.terminateBotGatewaySessions(applicationId);
+	}
+
+	/**
+	 * Disconnect every live gateway session belonging to the application's bot
+	 * user (close code 4014, SESSION_REVOKED, non-resumable).
+	 *
+	 * Gateway sessions do not record which token opened them, so this kills all
+	 * of the bot's sessions — including ones opened with the application's other,
+	 * still-valid tokens. That is the accepted M1 semantics; per-token
+	 * granularity needs token_id threaded into gateway session state (Phase 2).
+	 *
+	 * Fire-and-forget by design: the token row deletion is the source of truth
+	 * for revocation, and a briefly unavailable gateway must not fail the revoke.
+	 * A session that survives a missed notification still cannot re-IDENTIFY or
+	 * RESUME once its socket drops.
+	 */
+	private terminateBotGatewaySessions(applicationId: ApplicationID): void {
+		const botUserId = applicationIdToUserId(applicationId);
+		void this.gatewayService.terminateAllSessionsRevoked({userId: botUserId}).catch((error) => {
+			Logger.warn(
+				{error, applicationId: applicationId.toString(), botUserId: botUserId.toString()},
+				'Failed to terminate gateway sessions after bot token revocation; sessions will drop on next reconnect',
+			);
+		});
 	}
 }

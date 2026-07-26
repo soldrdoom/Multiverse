@@ -30,7 +30,8 @@
     lookup_async/2,
     start_or_lookup/1,
     dispatch_to_user/3,
-    terminate_all_sessions/1
+    terminate_all_sessions/1,
+    terminate_all_sessions_revoked/1
 ]).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
 
@@ -108,6 +109,13 @@ lookup_and_cast(UserId, Message) ->
 terminate_all_sessions(UserId) ->
     call_shard(UserId, {terminate_all_sessions, UserId}, ?DEFAULT_GEN_SERVER_TIMEOUT).
 
+%% Terminate every session for a user because the credential that opened them
+%% was revoked. Sessions stop immediately (not resumable) and each connected
+%% socket is closed with close code 4014 (session_revoked).
+-spec terminate_all_sessions_revoked(user_id()) -> ok | {error, term()}.
+terminate_all_sessions_revoked(UserId) ->
+    call_shard(UserId, {terminate_all_sessions_revoked, UserId}, ?DEFAULT_GEN_SERVER_TIMEOUT).
+
 -spec dispatch_to_user(user_id(), event_type(), term()) -> ok | {error, not_found}.
 dispatch_to_user(UserId, Event, Data) ->
     case call_shard(UserId, {dispatch, UserId, Event, Data}, ?DEFAULT_GEN_SERVER_TIMEOUT) of
@@ -150,6 +158,9 @@ handle_call({dispatch, UserId, Event, Data}, _From, State) ->
     {reply, Reply, NewState};
 handle_call({terminate_all_sessions, UserId}, _From, State) ->
     {Reply, NewState} = forward_call(UserId, {terminate_all_sessions, UserId}, State),
+    {reply, Reply, NewState};
+handle_call({terminate_all_sessions_revoked, UserId}, _From, State) ->
+    {Reply, NewState} = forward_call(UserId, {terminate_all_sessions_revoked, UserId}, State),
     {reply, Reply, NewState};
 handle_call({start_or_lookup, _} = Request, _From, State) ->
     Key = extract_user_id(Request),

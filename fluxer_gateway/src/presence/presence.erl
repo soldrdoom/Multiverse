@@ -250,6 +250,20 @@ handle_cast({terminate_all_sessions}, State) ->
         SessionPids
     ),
     {noreply, State};
+handle_cast({terminate_all_sessions_revoked}, State) ->
+    %% Like terminate_all_sessions, but for credential revocation: each session
+    %% closes its socket with the fatal session_revoked close code instead of
+    %% silently stopping (which would leave the socket open awaiting a
+    %% re-IDENTIFY that can only fail).
+    Sessions = maps:get(sessions, State),
+    SessionPids = [maps:get(pid, S) || S <- maps:values(Sessions)],
+    lists:foreach(
+        fun(Pid) when is_pid(Pid) ->
+            gen_server:cast(Pid, {terminate_revoked})
+        end,
+        SessionPids
+    ),
+    {noreply, State};
 handle_cast({sync_friends, FriendIds}, State) ->
     NewState = sync_friend_subscriptions(FriendIds, State),
     {noreply, NewState};
@@ -1097,6 +1111,29 @@ gdm_subscription_add_remove_test() ->
 map_from_ids_test() ->
     ?assertEqual(#{}, map_from_ids([])),
     ?assertEqual(#{1 => true, 2 => true}, map_from_ids([1, 2])).
+
+terminate_all_sessions_revoked_casts_to_each_session_test() ->
+    State = #{
+        sessions => #{
+            <<"s1">> => #{pid => self()},
+            <<"s2">> => #{pid => self()}
+        }
+    },
+    ?assertEqual({noreply, State}, handle_cast({terminate_all_sessions_revoked}, State)),
+    receive
+        {'$gen_cast', {terminate_revoked}} -> ok
+    after 100 ->
+        ?assert(false)
+    end,
+    receive
+        {'$gen_cast', {terminate_revoked}} -> ok
+    after 100 ->
+        ?assert(false)
+    end.
+
+terminate_all_sessions_revoked_no_sessions_test() ->
+    State = #{sessions => #{}},
+    ?assertEqual({noreply, State}, handle_cast({terminate_all_sessions_revoked}, State)).
 
 has_subscription_test() ->
     ?assertEqual(false, has_subscription(#{friend => false, gdm_channels => #{}})),

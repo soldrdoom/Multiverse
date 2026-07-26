@@ -18,12 +18,32 @@
  */
 
 import {createTestAccount} from '@fluxer/api/src/auth/tests/AuthTestUtils';
+import type {UserID} from '@fluxer/api/src/BrandedTypes';
+import {setInjectedGatewayService} from '@fluxer/api/src/middleware/ServiceRegistry';
 import {hashBotTokenSecret, parseBotToken} from '@fluxer/api/src/oauth/BotTokenService';
 import {createOAuth2Application, createUniqueApplicationName} from '@fluxer/api/src/oauth/tests/OAuth2TestUtils';
 import {type ApiTestHarness, createApiTestHarness} from '@fluxer/api/src/test/ApiTestHarness';
+import {NoopGatewayService} from '@fluxer/api/src/test/NoopGatewayService';
 import {HTTP_STATUS} from '@fluxer/api/src/test/TestConstants';
 import {createBuilder, createBuilderWithoutAuth} from '@fluxer/api/src/test/TestRequestBuilder';
 import {beforeEach, describe, expect, test} from 'vitest';
+
+/**
+ * Records which users had their gateway sessions terminated via the
+ * credential-revocation path, without needing a live gateway.
+ */
+class RecordingGatewayService extends NoopGatewayService {
+	readonly revokedTerminationUserIds: Array<string> = [];
+	failNextRevokedTermination = false;
+
+	override async terminateAllSessionsRevoked(params: {userId: UserID}): Promise<void> {
+		if (this.failNextRevokedTermination) {
+			this.failNextRevokedTermination = false;
+			throw new Error('gateway unavailable');
+		}
+		this.revokedTerminationUserIds.push(params.userId.toString());
+	}
+}
 
 interface BotTokenBody {
 	id: string;
@@ -195,6 +215,68 @@ describe('Bot token lifecycle', () => {
 			.body({password: account.password})
 			.expect(HTTP_STATUS.NO_CONTENT)
 			.execute();
+		expect(await botTokenAuthenticates(harness, disposable.token!)).toBe(false);
+	});
+
+	test('revoking a token terminates the bot user gateway sessions', async () => {
+		const gateway = new RecordingGatewayService();
+		setInjectedGatewayService(gateway);
+
+		const account = await createTestAccount(harness);
+		const created = await createOAuth2Application(harness, account.token, {
+			name: createUniqueApplicationName(),
+		});
+		const disposable = await mintToken(harness, account.token, created.application.id, 'doomed', account.password);
+
+		await createBuilder(harness, account.token)
+			.delete(`/oauth2/applications/${created.application.id}/bot/tokens/${disposable.id}`)
+			.body({password: account.password})
+			.expect(HTTP_STATUS.NO_CONTENT)
+			.execute();
+
+		// The bot user id is derived from the application id, and the kill is
+		// keyed by user — revoking ONE token drops sessions opened with the
+		// application's other tokens too (accepted M1 semantics).
+		expect(gateway.revokedTerminationUserIds).toContain(created.application.id);
+	});
+
+	test('rotating via reset-token terminates the bot user gateway sessions', async () => {
+		const gateway = new RecordingGatewayService();
+		setInjectedGatewayService(gateway);
+
+		const account = await createTestAccount(harness);
+		const created = await createOAuth2Application(harness, account.token, {
+			name: createUniqueApplicationName(),
+		});
+
+		await createBuilder(harness, account.token)
+			.post(`/oauth2/applications/${created.application.id}/bot/reset-token`)
+			.body({password: account.password})
+			.expect(HTTP_STATUS.OK)
+			.execute();
+
+		expect(gateway.revokedTerminationUserIds).toContain(created.application.id);
+	});
+
+	test('revocation still succeeds when the gateway notification fails', async () => {
+		const gateway = new RecordingGatewayService();
+		setInjectedGatewayService(gateway);
+
+		const account = await createTestAccount(harness);
+		const created = await createOAuth2Application(harness, account.token, {
+			name: createUniqueApplicationName(),
+		});
+		const disposable = await mintToken(harness, account.token, created.application.id, 'doomed', account.password);
+
+		// The DB delete is the source of truth; a briefly unavailable gateway
+		// must not fail the revoke.
+		gateway.failNextRevokedTermination = true;
+		await createBuilder(harness, account.token)
+			.delete(`/oauth2/applications/${created.application.id}/bot/tokens/${disposable.id}`)
+			.body({password: account.password})
+			.expect(HTTP_STATUS.NO_CONTENT)
+			.execute();
+
 		expect(await botTokenAuthenticates(harness, disposable.token!)).toBe(false);
 	});
 

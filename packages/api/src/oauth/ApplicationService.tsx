@@ -519,12 +519,8 @@ export class ApplicationService {
 		await this.deps.applicationRepository.upsertApplication(updatedRow);
 		Logger.info({applicationId: applicationId.toString()}, 'Successfully rotated bot token');
 
-		const botUserId = application.getBotUserId();
-		if (botUserId !== null) {
-			await this.deps.gatewayService.terminateAllSessionsForUser({
-				userId: botUserId,
-			});
-		}
+		// Live gateway sessions are terminated by revokeAllTokens above (close
+		// code 4014, SESSION_REVOKED) — no separate terminate call is needed here.
 
 		return {token, preview: row.preview};
 	}

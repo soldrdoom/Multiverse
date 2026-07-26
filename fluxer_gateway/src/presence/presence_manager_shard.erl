@@ -83,7 +83,12 @@ handle_call({dispatch, UserId, Event, Data}, _From, State) ->
 handle_call({start_or_lookup, Request}, _From, State) ->
     do_start_or_lookup(Request, State);
 handle_call({terminate_all_sessions, UserId}, _From, State) ->
-    case terminate_sessions_for_user(UserId, State) of
+    case terminate_sessions_for_user(UserId, {terminate_all_sessions}, State) of
+        {Result, NewState} ->
+            {reply, Result, NewState}
+    end;
+handle_call({terminate_all_sessions_revoked, UserId}, _From, State) ->
+    case terminate_sessions_for_user(UserId, {terminate_all_sessions_revoked}, State) of
         {Result, NewState} ->
             {reply, Result, NewState}
     end;
@@ -213,12 +218,12 @@ lookup_presence(UserId, State) ->
             end
     end.
 
--spec terminate_sessions_for_user(user_id(), state()) -> {ok, state()}.
-terminate_sessions_for_user(UserId, State) ->
+-spec terminate_sessions_for_user(user_id(), term(), state()) -> {ok, state()}.
+terminate_sessions_for_user(UserId, TerminateMsg, State) ->
     Presences = maps:get(presences, State),
     case maps:get(UserId, Presences, undefined) of
         {Pid, _Ref} ->
-            gen_server:cast(Pid, {terminate_all_sessions}),
+            gen_server:cast(Pid, TerminateMsg),
             {ok, State};
         undefined ->
             PresenceName = process_registry:build_process_name(presence, UserId),
@@ -227,7 +232,7 @@ terminate_sessions_for_user(UserId, State) ->
                     CleanPresences = maps:remove(PresenceName, NewPresences0),
                     FinalPresences = maps:put(UserId, {Pid, Ref}, CleanPresences),
                     update_cache(UserId, Pid),
-                    gen_server:cast(Pid, {terminate_all_sessions}),
+                    gen_server:cast(Pid, TerminateMsg),
                     {ok, State#{presences := FinalPresences}};
                 {error, not_found} ->
                     {ok, State}

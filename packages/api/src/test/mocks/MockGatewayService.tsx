@@ -223,6 +223,7 @@ export class MockGatewayService implements IGatewayService {
 	async leaveGuild(_params: unknown): Promise<void> {}
 	async terminateSession(_params: unknown): Promise<void> {}
 	async terminateAllSessionsForUser(_params: unknown): Promise<void> {}
+	async terminateAllSessionsRevoked(_params: unknown): Promise<void> {}
 	async disconnectAllVoiceUsersInChannel(_params: unknown): Promise<{success: boolean; disconnectedCount: number}> {
 		return {success: true, disconnectedCount: 0};
 	}

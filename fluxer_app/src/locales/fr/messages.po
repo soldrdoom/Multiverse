@@ -1041,7 +1041,7 @@ msgid "<0>{seconds} seconds</0>"
 msgstr "<0>{seconds} secondes</0>"
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:120
-msgid "<0>{tokenName}</0> will stop working immediately for API requests. If the bot has a live gateway connection opened with this token, it stays connected until it next disconnects — restart the bot to drop it sooner."
+msgid "<0>{tokenName}</0> will stop working immediately for API requests. Revoking it also disconnects <1>all</1> of this bot's active gateway sessions — including ones opened with the application's other tokens. Sessions using a still-valid token can reconnect right away."
 msgstr ""
 
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:480

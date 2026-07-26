@@ -168,6 +168,11 @@ websocket_info({dispatch, Event, Data, Seq}, State) ->
     handle_dispatch(Event, Data, Seq, State);
 websocket_info({session_backpressure_error, Details}, State) ->
     handle_session_backpressure_error(Details, State);
+websocket_info({session_revoked}, State) ->
+    %% The session's credential (e.g. a bot token) was revoked while this
+    %% socket was connected. Close with the fatal session_revoked code so the
+    %% client knows not to resume or retry with the same token.
+    close_with_reason(session_revoked, <<"Authentication revoked">>, State);
 websocket_info({'DOWN', _, process, Pid, _}, State = #{session_pid := Pid}) ->
     handle_session_down(State);
 websocket_info(

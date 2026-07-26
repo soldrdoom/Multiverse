@@ -127,6 +127,19 @@ const GatewayCloseCodes = [
 		reconnect: false,
 	},
 	{code: 4012, name: 'INVALID_API_VERSION', description: 'Sent an invalid gateway version', reconnect: false},
+	{
+		code: 4013,
+		name: 'ACK_BACKPRESSURE',
+		description: 'Client fell too far behind acknowledging dispatched events',
+		reconnect: true,
+	},
+	{
+		code: 4014,
+		name: 'SESSION_REVOKED',
+		description:
+			'The credential that opened the session was revoked (e.g. a bot token was revoked or rotated); the session cannot be resumed. Do not reconnect with the same token',
+		reconnect: false,
+	},
 ];
 
 /**

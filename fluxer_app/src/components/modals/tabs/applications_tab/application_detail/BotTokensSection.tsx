@@ -118,9 +118,9 @@ export const BotTokensSection: React.FC<BotTokensSectionProps> = observer(({appl
 						title={t`Revoke bot token?`}
 						description={
 							<Trans>
-								<strong>{tokenName}</strong> will stop working immediately for API requests. If the bot has a live
-								gateway connection opened with this token, it stays connected until it next disconnects — restart
-								the bot to drop it sooner.
+								<strong>{tokenName}</strong> will stop working immediately for API requests. Revoking it also
+								disconnects <strong>all</strong> of this bot's active gateway sessions — including ones opened with
+								the application's other tokens. Sessions using a still-valid token can reconnect right away.
 							</Trans>
 						}
 						primaryText={t`Revoke`}

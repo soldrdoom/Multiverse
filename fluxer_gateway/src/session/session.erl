@@ -231,6 +231,7 @@ handle_call(_, _From, State) ->
         | {guild_leave, guild_id(), forced_unavailable}
         | {terminate, [binary()]}
         | {terminate_force}
+        | {terminate_revoked}
         | {call_monitor, channel_id(), pid()}
         | {call_unmonitor, channel_id()}
         | {call_force_disconnect, channel_id(), binary() | undefined}
@@ -313,6 +314,14 @@ handle_cast({terminate, SessionIdHashes}, State) ->
         false -> {noreply, State}
     end;
 handle_cast({terminate_force}, State) ->
+    {stop, normal, State};
+handle_cast({terminate_revoked}, State) ->
+    %% The credential behind this session was revoked. Tell the socket to
+    %% close with a fatal close code before this process stops, so the client
+    %% learns it must not resume or re-identify with the same token. Stopping
+    %% here (rather than waiting for the socket) also guarantees the session
+    %% cannot be resumed: RESUME requires this process to still be alive.
+    notify_socket_revoked(maps:get(socket_pid, State, undefined)),
     {stop, normal, State};
 handle_cast({call_monitor, ChannelId, CallPid}, State) ->
     Calls = maps:get(calls, State, #{}),
@@ -547,8 +556,39 @@ ensure_bot_ready_map(Ready) when is_map(Ready) ->
 ensure_bot_ready_map(_) ->
     #{<<"guilds">> => []}.
 
+-spec notify_socket_revoked(pid() | undefined) -> ok.
+notify_socket_revoked(SocketPid) when is_pid(SocketPid) ->
+    SocketPid ! {session_revoked},
+    ok;
+notify_socket_revoked(_) ->
+    ok.
+
 -ifdef(TEST).
 -include_lib("eunit/include/eunit.hrl").
+
+terminate_revoked_notifies_socket_and_stops_test() ->
+    State = #{socket_pid => self()},
+    ?assertEqual({stop, normal, State}, handle_cast({terminate_revoked}, State)),
+    receive
+        {session_revoked} -> ok
+    after 100 ->
+        ?assert(false)
+    end.
+
+terminate_revoked_without_socket_still_stops_test() ->
+    %% A session inside the resume window has no live socket; revocation must
+    %% still stop the process so the session cannot be resumed.
+    State = #{socket_pid => undefined},
+    ?assertEqual({stop, normal, State}, handle_cast({terminate_revoked}, State)),
+    receive
+        {session_revoked} -> ?assert(false)
+    after 50 ->
+        ok
+    end.
+
+notify_socket_revoked_ignores_non_pid_test() ->
+    ?assertEqual(ok, notify_socket_revoked(undefined)),
+    ?assertEqual(ok, notify_socket_revoked(null)).
 
 build_ignored_events_map_test() ->
     ?assertEqual(#{}, build_ignored_events_map([])),

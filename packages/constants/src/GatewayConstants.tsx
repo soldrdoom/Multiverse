@@ -56,6 +56,13 @@ export const GatewayCloseCodes = {
 	INVALID_SHARD: 4010,
 	SHARDING_REQUIRED: 4011,
 	INVALID_API_VERSION: 4012,
+	ACK_BACKPRESSURE: 4013,
+	/**
+	 * The credential that opened the session was revoked (e.g. a bot token was
+	 * revoked or rotated). Fatal: do not resume and do not reconnect with the
+	 * same token.
+	 */
+	SESSION_REVOKED: 4014,
 } as const;
 
 export const GatewayErrorCodes = {

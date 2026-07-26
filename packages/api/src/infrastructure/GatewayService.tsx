@@ -978,6 +978,12 @@ export class GatewayService {
 		});
 	}
 
+	async terminateAllSessionsRevoked({userId}: TerminateAllSessionsParams): Promise<void> {
+		await this.call('presence.terminate_all_sessions_revoked', {
+			user_id: userId.toString(),
+		});
+	}
+
 	async updateMemberVoice({guildId, userId, mute, deaf}: UpdateMemberVoiceParams): Promise<{success: boolean}> {
 		const result = await this.call<{success: boolean}>('guild.update_member_voice', {
 			guild_id: guildId.toString(),

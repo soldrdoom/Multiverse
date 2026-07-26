@@ -40823,7 +40823,7 @@
             "title": "Revoke bot token"
           }
         },
-        "description": "Revokes a single bot token, leaving the application's other tokens working. Requires sudo mode authentication. Revocation takes effect immediately for REST requests. Gateway sessions already connected with the revoked token are not disconnected: they remain active until they next drop, after which the token can no longer open or resume a session (beyond the gateway's ~10-second resume window). Restart the bot process to terminate its sessions sooner.",
+        "description": "Revokes a single bot token. The application's other tokens keep working for REST requests, but revocation disconnects ALL of the bot's active gateway sessions — including sessions opened with the application's other tokens — with close code 4014 (SESSION_REVOKED); those sessions cannot be resumed. Sessions opened with a still-valid token can simply reconnect. Revocation takes effect immediately for REST requests. Requires sudo mode authentication.",
         "security": [
           {
             "sessionToken": []

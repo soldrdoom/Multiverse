@@ -698,7 +698,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	const adminApiKeyService = new AdminApiKeyService(adminApiKeyRepository, snowflakeService);
 
 	const botTokenRepository = new BotTokenRepository();
-	const botTokenService = new BotTokenService(botTokenRepository, snowflakeService);
+	const botTokenService = new BotTokenService(botTokenRepository, snowflakeService, gatewayService);
 	const teamRepository = new TeamRepository();
 	const applicationAccessService = new ApplicationAccessService(applicationRepository, teamRepository);
 	const botAuthService = new BotAuthService(applicationRepository, botTokenService);

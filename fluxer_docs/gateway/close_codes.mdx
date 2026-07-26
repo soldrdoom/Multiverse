@@ -21,3 +21,5 @@ When the gateway closes a connection, it sends a close code indicating why. Some
 | `4010` | `INVALID_SHARD` | Sent an invalid shard when identifying | No |
 | `4011` | `SHARDING_REQUIRED` | Session would have handled too many guilds; sharding is required | No |
 | `4012` | `INVALID_API_VERSION` | Sent an invalid gateway version | No |
+| `4013` | `ACK_BACKPRESSURE` | Client fell too far behind acknowledging dispatched events | Yes |
+| `4014` | `SESSION_REVOKED` | The credential that opened the session was revoked (e.g. a bot token was revoked or rotated); the session cannot be resumed. Do not reconnect with the same token | No |
