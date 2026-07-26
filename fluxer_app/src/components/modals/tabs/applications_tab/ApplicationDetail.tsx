@@ -30,6 +30,8 @@ import type {ApplicationDetailFormValues} from '@app/components/modals/tabs/appl
 import {ApplicationHeader} from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationHeader';
 import {ApplicationIconSection} from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationIconSection';
 import {ApplicationInfoSection} from '@app/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection';
+import {buildAuthorizeUrl} from '@app/components/modals/tabs/applications_tab/application_detail/AuthorizeUrlUtils';
+import {BotInviteSection} from '@app/components/modals/tabs/applications_tab/application_detail/BotInviteSection';
 import {BotProfileSection} from '@app/components/modals/tabs/applications_tab/application_detail/BotProfileSection';
 import {BotTokensSection} from '@app/components/modals/tabs/applications_tab/application_detail/BotTokensSection';
 import {OAuthBuilderSection} from '@app/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection';
@@ -617,38 +619,28 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 
 		const builderUrl = useMemo(() => {
 			if (!application) return '';
-			const authorizeUrl = new URL(Endpoints.OAUTH_AUTHORIZE, window.location.origin);
-			authorizeUrl.searchParams.set('client_id', application.id);
+			if (builderScopeList.length === 0) return '';
 
-			if (builderScopeList.length > 0) {
-				authorizeUrl.searchParams.set('scope', builderScopeList.join(' '));
-			}
-
+			// These guards are builder-UI validation, not URL assembly, so they stay
+			// here rather than moving into buildAuthorizeUrl.
 			const isBotOnly = builderScopeList.length === 1 && builderScopeList[0] === 'bot';
-			const requireRedirectUri = builderScopeList.length > 0 && (!isBotOnly || botRequireCodeGrant);
-
-			const botPerms = Object.entries(builderPermissions)
-				.filter(([, enabled]) => enabled)
-				.map(([perm]) => perm);
-			if (builderScopeList.includes('bot') && botPerms.length > 0) {
-				authorizeUrl.searchParams.set('permissions', formatBotPermissionsQuery(botPerms));
-			}
-
+			const requireRedirectUri = !isBotOnly || botRequireCodeGrant;
 			const redirect = builderRedirectUri?.trim();
 			if (requireRedirectUri && !redirect) {
 				return '';
 			}
 
-			if (redirect) {
-				authorizeUrl.searchParams.set('redirect_uri', redirect);
-				authorizeUrl.searchParams.set('response_type', 'code');
-			}
+			const botPerms = Object.entries(builderPermissions)
+				.filter(([, enabled]) => enabled)
+				.map(([perm]) => perm);
 
-			if (builderScopeList.length === 0) {
-				return '';
-			}
-
-			return authorizeUrl.toString();
+			return buildAuthorizeUrl({
+				clientId: application.id,
+				scopes: builderScopeList,
+				permissions:
+					builderScopeList.includes('bot') && botPerms.length > 0 ? formatBotPermissionsQuery(botPerms) : null,
+				redirectUri: redirect || null,
+			});
 		}, [application, builderScopeList, builderPermissions, builderRedirectUri, botRequireCodeGrant]);
 
 		const redirectOptions = useMemo(() => {
@@ -761,6 +753,18 @@ export const ApplicationDetail: React.FC<ApplicationDetailProps> = observer(
 
 					<div className={styles.detailGrid}>
 						<div className={styles.columnStack}>
+							{application.bot && (
+								<>
+									<BotInviteSection
+										sectionId="app-bot-invite"
+										applicationId={application.id}
+										botIsPublic={application.bot_public}
+										botRequireCodeGrant={application.bot_require_code_grant}
+									/>
+									<div className={styles.sectionSpacer} aria-hidden="true" />
+								</>
+							)}
+
 							<SecretsSection
 								sectionId="app-secrets"
 								clientSecret={clientSecret}
