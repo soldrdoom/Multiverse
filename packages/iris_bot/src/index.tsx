@@ -18,50 +18,72 @@
  */
 
 import {createServer} from 'node:http';
+import {createClient, FluxerApiError} from '@fluxer/bot_sdk/src/index';
 import pino from 'pino';
 import {loadConfig} from './Config';
-import {GatewayClient} from './GatewayClient';
 import {IRIS_SYSTEM_PROMPT} from './LlmClient';
-import {MessageHandler} from './MessageHandler';
+import {MessageHandler, type MessageSender} from './MessageHandler';
 import {OllamaLlmClient} from './OllamaLlmClient';
-import {RestClient} from './RestClient';
 
 async function main(): Promise<void> {
 	const log = pino({level: process.env.LOG_LEVEL ?? 'info'});
 	const config = loadConfig();
 
-	const restClient = new RestClient(config.instanceBaseUrl, config.authToken, log);
-	const wellKnown = await restClient.fetchWellKnown();
-	log.info({endpoints: wellKnown.endpoints}, 'Resolved instance endpoints');
+	// I.R.I.S. is a regular user account (not an OAuth2 bot application), so its
+	// token is a plain session token — tokenType 'session' sends it on
+	// Authorization with no "Bot " scheme prefix, exactly as before.
+	const client = createClient({
+		token: config.authToken,
+		instanceBaseUrl: config.instanceBaseUrl,
+		tokenType: 'session',
+		logger: log,
+		properties: {os: 'linux', browser: 'iris_bot', device: 'iris_bot'},
+	});
 
 	const llmClient = new OllamaLlmClient(config.ollamaBaseUrl, config.ollamaModel, IRIS_SYSTEM_PROMPT);
+
+	// Preserves the deleted local RestClient.sendMessage contract byte-for-byte:
+	// an HTTP failure is logged and swallowed (the reply is dropped, never
+	// duplicated), while network errors propagate to the handler's catch. The
+	// SDK never blind-retries this POST; its rate limiter only re-executes
+	// requests the server rejected with 429 (i.e. never ran).
+	const messageSender: MessageSender = {
+		async sendMessage(_apiBaseUrl, channelId, content) {
+			try {
+				await client.api.sendMessage(channelId, content);
+			} catch (err) {
+				if (err instanceof FluxerApiError) {
+					log.error({channelId, status: err.status, body: err.raw}, 'Failed to send message');
+					return;
+				}
+				throw err;
+			}
+		},
+	};
 
 	let botUserId: string | null = null;
 	let handler: MessageHandler | null = null;
 
-	const gateway = new GatewayClient(
-		wellKnown.endpoints.gateway,
-		config.authToken,
-		(eventType, data) => {
-			if (eventType === 'READY') {
-				const ready = data as {user: {id: string}};
-				botUserId = ready.user.id;
-				handler = new MessageHandler(
-					botUserId,
-					wellKnown.endpoints.api,
-					restClient,
-					llmClient,
-					log,
-				);
-				log.info({botUserId}, 'I.R.I.S. ready');
-				return;
-			}
-			handler?.handleDispatch(eventType, data);
-		},
-		log,
-	);
+	client.on('dispatch', ({t, d}) => {
+		if (t === 'READY') {
+			const ready = d as {user: {id: string}};
+			botUserId = ready.user.id;
+			handler = new MessageHandler(botUserId, client.rest.baseUrl, messageSender, llmClient, log);
+			log.info({botUserId}, 'I.R.I.S. ready');
+			return;
+		}
+		// A RESUMED reconnect deliberately keeps the existing handler (and its
+		// conversation state); only a fresh READY rebuilds it, as before.
+		handler?.handleDispatch(t, d);
+	});
 
-	gateway.connect();
+	client.on('error', (err) => {
+		// Fatal gateway close (e.g. revoked token): the SDK has classified the
+		// close code and stopped reconnecting. Exit so the container restart
+		// policy takes over instead of hot-looping a dead credential.
+		log.error({err}, 'Gateway connection fatally closed; exiting');
+		process.exit(1);
+	});
 
 	const healthServer = createServer((req, res) => {
 		if (req.url === '/_health') {
@@ -78,12 +100,14 @@ async function main(): Promise<void> {
 
 	const shutdown = () => {
 		log.info('Shutting down');
-		gateway.disconnect();
+		client.disconnect();
 		healthServer.close();
 		process.exit(0);
 	};
 	process.on('SIGTERM', shutdown);
 	process.on('SIGINT', shutdown);
+
+	await client.connect();
 }
 
 main().catch((err) => {

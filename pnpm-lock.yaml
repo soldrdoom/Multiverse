@@ -1136,28 +1136,19 @@ importers:
 
   packages/iris_bot:
     dependencies:
-      '@fluxer/constants':
+      '@fluxer/bot_sdk':
         specifier: workspace:*
-        version: link:../constants
+        version: link:../bot_sdk
       pino:
         specifier: 'catalog:'
         version: 10.3.0
       tsx:
         specifier: 'catalog:'
         version: 4.21.0
-      ws:
-        specifier: 'catalog:'
-        version: 8.19.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
-      yaml:
-        specifier: 'catalog:'
-        version: 2.8.2
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
         version: 25.2.2
-      '@types/ws':
-        specifier: 'catalog:'
-        version: 8.18.1
       '@typescript/native-preview':
         specifier: 'catalog:'
         version: 7.0.0-dev.20260209.1

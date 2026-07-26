@@ -20,7 +20,15 @@
 import type {Logger} from 'pino';
 import {ConversationStore} from './ConversationStore';
 import type {LlmClient} from './LlmClient';
-import type {RestClient} from './RestClient';
+
+/**
+ * The message-sending contract this handler was written against (the deleted
+ * local RestClient's `sendMessage`). index.tsx adapts @fluxer/bot_sdk to this
+ * interface so the handler's logic stays untouched.
+ */
+export interface MessageSender {
+	sendMessage(apiBaseUrl: string, channelId: string, content: string): Promise<void>;
+}
 
 interface MessageCreatePayload {
 	channel_id: string;
@@ -71,7 +79,7 @@ export class MessageHandler {
 	constructor(
 		private readonly botUserId: string,
 		private readonly apiBaseUrl: string,
-		private readonly restClient: RestClient,
+		private readonly restClient: MessageSender,
 		private readonly llmClient: LlmClient,
 		private readonly log: Logger,
 	) {}

@@ -31,9 +31,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN corepack enable && corepack prepare pnpm@10.29.3 --activate
 
-# Copy node_modules from deps stage
+# Copy node_modules from deps stage. bot_sdk's own node_modules must come too:
+# it holds the pnpm symlinks for the SDK's dependencies (@fluxer/constants, ws),
+# without which the container crash-loops with ERR_MODULE_NOT_FOUND at runtime.
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/packages/iris_bot/node_modules ./packages/iris_bot/node_modules
+COPY --from=deps /app/packages/bot_sdk/node_modules ./packages/bot_sdk/node_modules
 
 # Copy source
 COPY packages/constants/package.json ./packages/constants/
@@ -42,11 +45,6 @@ COPY packages/bot_sdk/package.json ./packages/bot_sdk/
 COPY packages/bot_sdk/src ./packages/bot_sdk/src
 COPY packages/iris_bot/package.json packages/iris_bot/tsconfig.json ./packages/iris_bot/
 COPY packages/iris_bot/src ./packages/iris_bot/src
-
-# Knowledge base: read directly from the marketing package's own source files, at the
-# same relative path KnowledgeBase.tsx expects in local dev, so there's no duplicate copy.
-COPY packages/marketing/src/content/whitepaper.md ./packages/marketing/src/content/whitepaper.md
-COPY packages/marketing/src/marketing_i18n/locales/messages.yaml ./packages/marketing/src/marketing_i18n/locales/messages.yaml
 
 RUN mkdir -p /app/.cache/corepack && chown -R nobody:nogroup /app
 
