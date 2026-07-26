@@ -1079,6 +1079,14 @@ msgstr "<0>ลบ</0> ชื่อเล่น {0}"
 msgid "<0>Removed</0> the vanity URL."
 msgstr "<0>ลบ</0> URL ส่วนตัว"
 
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:95
+msgid "<0>This bot is private.</0> Only you and your team can use this link. Turn on <1>Public Bot</1> in Application Information if you want anyone else to be able to add it."
+msgstr ""
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:104
+msgid "<0>This bot requires OAuth2 code grant.</0> This link will be rejected on its own — use the OAuth2 URL Builder to add a redirect URI."
+msgstr ""
+
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:484
 msgid "<0>Undeafened</0> the member."
 msgstr "<0>เปิดเสียง</0> สมาชิกนี้"
@@ -1599,7 +1607,7 @@ msgstr "การเข้าถึง"
 msgid "Accessibility"
 msgstr "การเข้าถึง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "account"
 msgstr "บัญชี"
 
@@ -1613,7 +1621,7 @@ msgstr "บัญชี"
 #: src/components/modals/tabs/developer_options_tab/index.tsx:49
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:48
 #: src/components/modals/utils/SettingsConstants.tsx:306
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:746
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:764
 msgid "Account & Premium"
 msgstr "บัญชีและพรีเมียม"
 
@@ -1677,7 +1685,7 @@ msgstr "ในทุกข้อความส่วนตัวที่เค
 msgid "Across all DMs you've ever been in only"
 msgstr "เฉพาะในทุกข้อความส่วนตัวที่คุณเคยอยู่"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "action"
 msgstr "การกระทำ"
 
@@ -1815,6 +1823,10 @@ msgstr "เพิ่มรีแอคชั่นอีกอัน"
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:298
 msgid "Add Bluesky connection"
 msgstr "เพิ่มการเชื่อมต่อ Bluesky"
+
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:627
+msgid "add bot"
+msgstr ""
 
 #: src/components/pages/OAuthAuthorizePage.tsx:834
 msgid "Add bot to a community"
@@ -1989,6 +2001,10 @@ msgstr "เพิ่มไปยังกลุ่ม"
 msgid "Add to Saved Media"
 msgstr "เพิ่มในสื่อที่บันทึกไว้"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:628
+msgid "add to server"
+msgstr ""
+
 #. placeholder {0}: renderInline(joinLabels(addedLabels), i18n)
 #. placeholder {1}: renderInline(joinLabels(removedLabels), i18n)
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:513
@@ -2087,7 +2103,7 @@ msgstr ""
 msgid "Adjust the spacing between groups of messages."
 msgstr "ปรับระยะห่างระหว่างกลุ่มข้อความ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:719
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:737
 msgid "admin"
 msgstr ""
 
@@ -2682,7 +2698,7 @@ msgstr ""
 msgid "api"
 msgstr "api"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:635
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:653
 msgid "api key"
 msgstr ""
 
@@ -2718,7 +2734,7 @@ msgstr "เพิ่ม ¯\\_(ツ)_/¯ ลงในข้อความขอ�
 msgid "Appends ┬─┬ ノ( ゜-゜ノ) to your message."
 msgstr "เพิ่ม ┬─┬ ノ( ゜-゜ノ) ลงในข้อความของคุณ."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:649
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:667
 msgid "application"
 msgstr ""
 
@@ -2730,7 +2746,7 @@ msgstr "แอปพลิเคชัน"
 msgid "Application created, but transferring it to the team failed. You can transfer it from its Team section."
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "application icon"
 msgstr ""
 
@@ -2739,7 +2755,7 @@ msgid "Application icon"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationIconSection.tsx:52
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:663
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
 msgid "Application Icon"
 msgstr ""
 
@@ -2748,7 +2764,7 @@ msgid "Application ID"
 msgstr "รหัสแอปพลิเคชัน"
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:646
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:664
 msgid "Application Information"
 msgstr "ข้อมูลแอปพลิเคชัน"
 
@@ -2773,7 +2789,7 @@ msgstr ""
 msgid "Application transferred"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:398
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:400
 msgid "Application updated successfully"
 msgstr "อัปเดตแอปพลิเคชันเรียบร้อยแล้ว"
 
@@ -2914,7 +2930,7 @@ msgid "Are you sure you want to delete #{channelName}? This cannot be undone."
 msgstr "คุณแน่ใจหรือว่าต้องการลบ #{channelName}? การดำเนินการนี้ไม่สามารถย้อนกลับได้."
 
 #. placeholder {0}: application.name
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:525
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:527
 msgid "Are you sure you want to delete <0>{0}</0>?"
 msgstr "แน่ใจไหมว่าต้องการลบ <0>{0}</0>?"
 
@@ -3288,7 +3304,8 @@ msgstr "การอนุญาตล้มเหลว โปรดลอง�
 msgid "Authorization request"
 msgstr "คำขออนุญาต"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:629
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "authorize"
 msgstr ""
 
@@ -3415,7 +3432,7 @@ msgid "Autostart is coming soon for Windows and Linux. For now, it is only avail
 msgstr "การเริ่มต้นอัตโนมัติมาเร็ว ๆ นี้สำหรับ Windows และ Linux ตอนนี้มีให้บริการเฉพาะบน macOS เท่านั้น."
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:50
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "avatar"
 msgstr "อวตาร์"
 
@@ -3444,7 +3461,7 @@ msgstr "ชุดอวาตาร์"
 msgid "Avatar, tag, and rich profile details for your bot."
 msgstr "อวาตาร์ แท็ก และรายละเอียดโปรไฟล์ที่สมบูรณ์สำหรับบอทของคุณ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:672
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:690
 msgid "Avatar, tag, bio, and banner for your bot."
 msgstr ""
 
@@ -3474,7 +3491,7 @@ msgstr "กลับไปยังแอปพลิเคชัน"
 msgid "Back to call"
 msgstr "กลับไปที่การโทร"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:707
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:278
 msgid "Back to list"
 msgstr "กลับไปยังรายการ"
@@ -3570,7 +3587,7 @@ msgid "Backup codes regenerated"
 msgstr "สร้างรหัสสำรองใหม่แล้ว"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:92
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "badge"
 msgstr "ป้าย"
 
@@ -3659,8 +3676,8 @@ msgid "Banned Users"
 msgstr "ผู้ใช้ที่ถูกแบน"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:57
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "banner"
 msgstr "แบนเนอร์"
 
@@ -3747,7 +3764,7 @@ msgid "Between 1 and 32 characters"
 msgstr "ระหว่าง 1 ถึง 32 ตัวอักษร"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:71
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "bio"
 msgstr "ข้อมูลส่วนตัว"
 
@@ -3898,8 +3915,8 @@ msgstr "บุ๊กมาร์ก"
 msgid "Bookworms Anonymous"
 msgstr "คลับคนรักหนังสือ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:639
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:657
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 #: src/utils/SearchUtils.tsx:298
 msgid "bot"
 msgstr "บอท"
@@ -3932,6 +3949,10 @@ msgstr "ประวัติบอท"
 msgid "Bot Direct Messages"
 msgstr "ข้อความตรงจากบอท"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:626
+msgid "bot invite"
+msgstr ""
+
 #: src/components/channel/GuildMembersPage.tsx:250
 msgid "Bot Invite"
 msgstr "เชิญบอท"
@@ -3939,6 +3960,11 @@ msgstr "เชิญบอท"
 #: src/components/pages/OAuthAuthorizePage.tsx:732
 msgid "Bot invite (no external redirect)"
 msgstr "คำเชิญบอท (ไม่เปลี่ยนเส้นทางภายนอก)"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:75
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:621
+msgid "Bot Invite Link"
+msgstr ""
 
 #: src/components/pages/OAuthAuthorizePage.tsx:470
 msgid "Bot is already in this community."
@@ -3948,12 +3974,12 @@ msgstr "บอทอยู่ในชุมชนนี้แล้ว."
 msgid "Bot permissions"
 msgstr "สิทธิ์บอท"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "bot profile"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:70
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:671
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
 msgid "Bot Profile"
 msgstr "โปรไฟล์บอท"
 
@@ -3961,7 +3987,7 @@ msgstr "โปรไฟล์บอท"
 msgid "Bot scope requested"
 msgstr "สโคปบอทที่ขอ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:632
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:650
 msgid "bot token"
 msgstr ""
 
@@ -3974,7 +4000,7 @@ msgid "Bot token revoked"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:150
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:629
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:647
 msgid "Bot Tokens"
 msgstr ""
 
@@ -4030,7 +4056,7 @@ msgstr "บัลแกเรีย"
 msgid "Bundle your favorite stickers into a pack you can distribute."
 msgstr "รวบรวมสติกเกอร์ที่ชอบไว้ในชุดที่คุณสามารถแจกจ่ายได้"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "button"
 msgstr "ปุ่ม"
 
@@ -4046,14 +4072,14 @@ msgstr "แบบปุ่ม"
 msgid "Button with Context Menu"
 msgstr "ปุ่มพร้อมเมนูบริบท"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "buttons"
 msgstr "ปุ่มต่างๆ"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:177
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:172
 #: src/components/modals/utils/SettingsConstants.tsx:312
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:782
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:800
 msgid "Buttons"
 msgstr "ปุ่ม"
 
@@ -4783,7 +4809,7 @@ msgstr "แชนแนล"
 msgid "Charged up on 1.21 gigawatts, ready to talk"
 msgstr "ชาร์จเต็ม 1.21 กิกะวัตต์ พร้อมคุยแล้ว"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "chat"
 msgstr "แชท"
 
@@ -4830,7 +4856,7 @@ msgstr "ตรวจสอบอีเมลของคุณ"
 msgid "Check your inbox at <0>{0}</0> for a verification email."
 msgstr "ตรวจสอบกล่องจดหมายที่ <0>{0}</0> เพื่อดูอีเมลยืนยัน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "checkbox"
 msgstr "ช่องทำเครื่องหมาย"
 
@@ -5159,7 +5185,7 @@ msgstr "ล้างหัวข้อแล้ว"
 msgid "Clearing subscriptions ensures the gateway stops sending messages to this installation."
 msgstr "การล้างการสมัครสมาชิกจะทำให้ช่องทางหยุดส่งข้อความไปยังการติดตั้งนี้"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "click"
 msgstr "คลิก"
 
@@ -5256,7 +5282,7 @@ msgstr "คลิกเพื่อเปิดเผยสปอยล์"
 msgid "Click to view all reactions"
 msgstr "คลิกเพื่อดูการตอบสนองทั้งหมด"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "client secret"
 msgstr ""
 
@@ -5265,11 +5291,11 @@ msgid "Client secret"
 msgstr "รหัสลับไคลเอนต์"
 
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:63
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:621
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:639
 msgid "Client Secret"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:570
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:572
 msgid "Client secret regenerated. Update any code that uses the old secret."
 msgstr "รหัสลับไคลเอนต์ได้รับการสร้างใหม่ ปรับปรุงโค้ดที่ใช้รหัสเก่า"
 
@@ -5949,7 +5975,7 @@ msgid "Consent Required"
 msgstr "ต้องการความยินยอม"
 
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:73
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:688
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
 msgid "Construct an authorize URL with scopes and permissions."
 msgstr "สร้าง URL อนุญาตด้วยขอบเขตและสิทธิ์"
 
@@ -5980,7 +6006,7 @@ msgstr "เนื้อหาที่ส่งเสริมการทำร
 msgid "Content sexualizing or endangering minors"
 msgstr "เนื้อหาที่ทำให้เด็กถูกเซ็กซ์หรืออันตราย"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "context menu"
 msgstr "เมนูบริบท"
 
@@ -6121,6 +6147,7 @@ msgid "Converts incoming content to speech, regardless of whether it came from /
 msgstr "แปลงเนื้อหาที่เข้ามาเป็นเสียง ไม่ว่าจะมาจาก /tts หรือไม่ก็ตาม。"
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationHeader.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:81
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:169
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:311
 msgid "Copied"
@@ -6130,11 +6157,15 @@ msgstr "คัดลอกแล้ว"
 msgid "Copied client secret to clipboard"
 msgstr ""
 
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:68
+msgid "Copied invite link to clipboard"
+msgstr ""
+
 #: src/actions/TextCopyActionCreators.tsx:66
 msgid "Copied to clipboard"
 msgstr "คัดลอกไปยังคลิปบอร์ดแล้ว"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:685
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:677
 msgid "Copied URL to clipboard"
 msgstr "คัดลอก URL ไปยังคลิปบอร์ดแล้ว"
 
@@ -6152,6 +6183,7 @@ msgstr "คัดลอกแล้ว!"
 #: src/components/channel/textarea/TextareaContextMenu.tsx:124
 #: src/components/modals/BackupCodesModal.tsx:86
 #: src/components/modals/shared/CopyLinkSection.tsx:52
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:81
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:169
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:153
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:84
@@ -6323,6 +6355,10 @@ msgstr "คัดลอก ID ข้อความที่เลือกไ�
 msgid "Copy the focused message text to the clipboard"
 msgstr "คัดลอกข้อความที่เลือกไปยังคลิปบอร์ด"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:622
+msgid "Copy the ready-to-use link that adds this bot to a server."
+msgstr ""
+
 #: src/components/bottomsheets/ChannelDetailsBottomSheet.tsx:1349
 #: src/components/channel/direct_message/DMList.tsx:851
 #: src/components/modals/guild_tabs/BannedUserActionsSheet.tsx:74
@@ -6489,7 +6525,7 @@ msgstr "สร้างบัญชี"
 msgid "Create and manage applications and bots for your account."
 msgstr "สร้างและจัดการแอปและบอทสำหรับบัญชีของคุณ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:630
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:648
 msgid "Create and revoke named bot tokens."
 msgstr ""
 
@@ -6742,8 +6778,8 @@ msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:108
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:511
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:636
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:654
 msgid "credentials"
 msgstr "ข้อมูลรับรอง"
 
@@ -7029,8 +7065,8 @@ msgstr "เช็ก"
 msgid "Czech Republic"
 msgstr "สาธารณรัฐเช็ก"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "danger"
 msgstr ""
 
@@ -7056,11 +7092,11 @@ msgstr "กดปุ่มรองอันตรายแล้ว!"
 
 #: src/components/modals/tabs/account_security_tab/Inline.tsx:100
 #: src/components/modals/tabs/AccountSecurityTab.tsx:112
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:850
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:854
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:466
 #: src/components/modals/utils/SettingsConstants.tsx:303
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:532
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:695
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:713
 msgid "Danger Zone"
 msgstr "โซนอันตราย"
 
@@ -7206,7 +7242,7 @@ msgid "Deauthorize Application"
 msgstr "เพิกถอนสิทธิ์แอปพลิเคชัน"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:216
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "debug"
 msgstr "ดีบัก"
 
@@ -7245,7 +7281,7 @@ msgstr "ดีบักสมาชิก"
 msgid "Debug Message"
 msgstr "ดีบักข้อความ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "debug tools"
 msgstr "เครื่องมือดีบัก"
 
@@ -7322,8 +7358,8 @@ msgstr "ค่าเริ่มต้นปิดใช้งานบนมื
 #: src/components/modals/utils/SettingsSearchIndex.tsx:149
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:484
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:533
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "delete"
 msgstr "ลบ"
 
@@ -7351,7 +7387,7 @@ msgstr "ลบ"
 msgid "Delete {channelType}"
 msgstr "ลบ {channelType}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:731
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:749
 msgid "Delete a team that no longer owns applications."
 msgstr ""
 
@@ -7384,13 +7420,13 @@ msgstr "ฟอร์มลบข้อความทั้งหมด"
 msgid "Delete all my messages"
 msgstr "ลบข้อความทั้งหมดของฉัน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
 msgid "delete application"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:536
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:865
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:524
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:538
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:869
 msgid "Delete Application"
 msgstr "ลบแอปพลิเคชัน"
 
@@ -7521,18 +7557,18 @@ msgstr "ลบสื่อที่บันทึกไว้"
 msgid "Delete Sticker"
 msgstr "ลบสติกเกอร์"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "delete team"
 msgstr ""
 
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:235
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:242
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:481
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:730
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:748
 msgid "Delete Team"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:696
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:714
 msgid "Delete this application and its bot."
 msgstr ""
 
@@ -7628,7 +7664,7 @@ msgid "Describe your cosmetic…"
 msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:71
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:651
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:669
 msgid "description"
 msgstr "คำอธิบาย"
 
@@ -7714,15 +7750,15 @@ msgstr "นักพัฒนา"
 msgid "Dev Den"
 msgstr "ถ้ำพัฒนา"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "dev tools"
 msgstr "เครื่องมือสำหรับนักพัฒนา"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:216
 #: src/components/modals/utils/SettingsSearchIndex.tsx:278
 #: src/components/modals/utils/SettingsSearchIndex.tsx:289
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:720
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:738
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "developer"
 msgstr "นักพัฒนา"
 
@@ -7751,7 +7787,7 @@ msgstr "โหมดนักพัฒนา"
 msgid "Developer Options"
 msgstr "ตัวเลือกนักพัฒนา"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "developer team"
 msgstr ""
 
@@ -7768,6 +7804,10 @@ msgstr ""
 #: src/components/modals/utils/SettingsConstants.tsx:241
 msgid "Developer Tools"
 msgstr "เครื่องมือนักพัฒนา"
+
+#: src/components/auth/AuthTopNav.tsx:48
+msgid "Developers"
+msgstr ""
 
 #: src/components/modals/DeviceRevokeModal.tsx:71
 #: src/components/modals/DeviceRevokeModal.tsx:72
@@ -8423,11 +8463,11 @@ msgstr "ลากเพื่อปรับตำแหน่งพื้นห
 msgid "Drop to upload background"
 msgstr "ปล่อยเพื่ออัปโหลดพื้นหลัง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "dropdown"
 msgstr "รายการแบบเลื่อนลง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "dropdown menu"
 msgstr "เมนูแบบเลื่อนลง"
 
@@ -8883,7 +8923,7 @@ msgstr "อีโมจิ"
 msgid "Empty favorites"
 msgstr "รายการโปรดว่างเปล่า"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "empty state"
 msgstr "สถานะว่าง"
 
@@ -9276,7 +9316,7 @@ msgstr "แสดงเนื้อหาไม่สำเร็จ"
 msgid "Error rendering LaTeX: {0}"
 msgstr "แสดง LaTeX ไม่สำเร็จ: {0}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "error state"
 msgstr "สถานะข้อผิดพลาด"
 
@@ -9635,7 +9675,7 @@ msgstr "ครอปไอคอนไม่สำเร็จ โปรดล�
 msgid "Failed to decline invite. Please try again."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:547
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:549
 msgid "Failed to delete application. Please try again."
 msgstr "ลบแอปพลิเคชันไม่สำเร็จ โปรดลองอีกครั้ง"
 
@@ -9901,7 +9941,7 @@ msgstr ""
 msgid "Failed to Revoke Invite"
 msgstr "เพิกถอนคำเชิญไม่สำเร็จ"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:576
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:578
 msgid "Failed to rotate. Please try again."
 msgstr "หมุนไม่สำเร็จ โปรดลองอีกครั้ง"
 
@@ -10076,7 +10116,7 @@ msgstr "ไม่สามารถตรวจสอบการเชื่อ
 msgid "Failed to withdraw application. Please try again."
 msgstr "ไม่สามารถถอนใบสมัครได้ กรุณาลองอีกครั้ง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "fake"
 msgstr "ปลอม"
 
@@ -10330,7 +10370,7 @@ msgid "Font Weights"
 msgstr "น้ำหนักแบบอักษร"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:101
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "fonts"
 msgstr "ฟอนต์"
 
@@ -10485,7 +10525,7 @@ msgstr "ลืมรหัสผ่าน"
 msgid "Forgot your password?"
 msgstr "ลืมรหัสผ่านของคุณ?"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "form"
 msgstr "ฟอร์ม"
 
@@ -10493,7 +10533,7 @@ msgstr "ฟอร์ม"
 msgid "format"
 msgstr "รูปแบบ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "formatting"
 msgstr "การจัดรูปแบบ"
 
@@ -10615,7 +10655,7 @@ msgstr "คำขอเป็นเพื่อน"
 msgid "Friend's MultiverseTag"
 msgstr "MultiverseTag ของเพื่อน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "friendly bot"
 msgstr ""
 
@@ -10734,7 +10774,7 @@ msgstr "ทั่วไป"
 #: src/components/modals/utils/ChannelSettingsConstants.tsx:56
 #: src/components/modals/utils/GuildSettingsConstants.tsx:96
 #: src/components/modals/utils/SettingsConstants.tsx:305
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:739
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:757
 msgid "General"
 msgstr "ทั่วไป"
 
@@ -11120,6 +11160,10 @@ msgstr "สมาชิกกิลด์"
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:369
 msgid "guild sidebar"
 msgstr "แถบด้านข้างของกิลด์"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:87
+msgid "Hand this link to anyone who wants your bot in their server. They pick a server they can manage, confirm, and the bot joins — the link grants no permissions on its own."
+msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
 msgid "handle"
@@ -11595,7 +11639,7 @@ msgstr "ฉันบันทึกรหัสไว้แล้ว"
 msgid "I understand"
 msgstr "เข้าใจแล้ว"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "icon"
 msgstr ""
 
@@ -11677,7 +11721,7 @@ msgid "Illegal Activity"
 msgstr "กิจกรรมผิดกฎหมาย"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:50
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 #: src/utils/SearchUtils.tsx:214
 #: src/utils/SearchUtils.tsx:230
 msgid "image"
@@ -11917,14 +11961,14 @@ msgstr "กำลังจัดทำดัชนี..."
 msgid "indicator"
 msgstr "ตัวบ่งชี้"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "indicators"
 msgstr "ตัวชี้วัด"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:242
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:237
 #: src/components/modals/utils/SettingsConstants.tsx:316
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:810
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:828
 msgid "Indicators & Status"
 msgstr "ตัวชี้วัดและสถานะ"
 
@@ -11966,7 +12010,7 @@ msgstr "อินพุต"
 msgid "Input Device"
 msgstr "อุปกรณ์อินพุต"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "input field"
 msgstr "ช่องกรอกข้อมูล"
 
@@ -11998,14 +12042,14 @@ msgstr "สถานะอินพุต"
 msgid "Input Volume"
 msgstr "ระดับเสียงอินพุต"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "inputs"
 msgstr "ข้อมูลนำเข้า"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:181
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:176
 #: src/components/modals/utils/SettingsConstants.tsx:313
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:789
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:807
 msgid "Inputs & Text"
 msgstr "อินพุตและข้อความ"
 
@@ -12132,8 +12176,9 @@ msgid "Invisible"
 msgstr "มองไม่เห็น"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:290
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:717
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:624
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:735
 msgid "invite"
 msgstr ""
 
@@ -12183,7 +12228,7 @@ msgstr ""
 msgid "Invite Deleted"
 msgstr "ลบคำเชิญแล้ว"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:713
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:731
 msgid "Invite developers, change roles, and remove members."
 msgstr ""
 
@@ -12196,7 +12241,12 @@ msgstr "เชิญเพื่อน"
 msgid "Invite friends to {0}"
 msgstr "เชิญเพื่อนไปที่ {0}"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:625
+msgid "invite link"
+msgstr ""
+
 #: src/components/modals/InviteModal.tsx:308
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:78
 msgid "Invite link"
 msgstr "ลิงก์เชิญ"
 
@@ -12893,7 +12943,7 @@ msgstr "เว้นว่างไว้สำหรับค่าจริง
 msgid "Leave Group"
 msgstr "ออกจากกลุ่ม"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:723
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:741
 msgid "leave team"
 msgstr ""
 
@@ -13011,6 +13061,7 @@ msgstr "ขีดจำกัด"
 msgid "Limits Config"
 msgstr "การกำหนดค่าขีดจำกัด"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:632
 #: src/utils/SearchUtils.tsx:211
 #: src/utils/SearchUtils.tsx:227
 msgid "link"
@@ -13149,7 +13200,7 @@ msgstr "โหลดเพิ่ม"
 msgid "Load More"
 msgstr "โหลดเพิ่มเติม"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "loading"
 msgstr "กำลังโหลด"
 
@@ -13330,7 +13381,7 @@ msgstr "เข้าสู่ระบบ"
 msgid "Login code"
 msgstr "รหัสเข้าสู่ระบบ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "logo"
 msgstr ""
 
@@ -13580,13 +13631,13 @@ msgstr "ทำเครื่องหมายแชนแนลบนสุด
 msgid "Mark Unread"
 msgstr "ทำเครื่องหมายยังไม่ได้อ่าน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "markdown"
 msgstr "มาร์กดาวน์"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:274
 #: src/components/modals/utils/SettingsConstants.tsx:317
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:824
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:842
 #: src/utils/AttachmentPreviewUtils.tsx:194
 msgid "Markdown"
 msgstr "มาร์กดาวน์"
@@ -13673,7 +13724,7 @@ msgstr "คุณภาพสูงสุด ต้องการการเ�
 msgid "Maybe Later"
 msgstr "ไว้ทีหลัง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "md"
 msgstr "md"
 
@@ -13823,7 +13874,7 @@ msgstr "ระดับการยืนยันตัวสมาชิก"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:291
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:176
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:716
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:734
 msgid "members"
 msgstr "สมาชิก"
 
@@ -13947,7 +13998,7 @@ msgstr "เฉพาะการกล่าวถึง"
 msgid "mentions:"
 msgstr "การกล่าวถึง:"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "menus"
 msgstr "เมนู"
 
@@ -13995,7 +14046,7 @@ msgstr "ข้อความ AST"
 msgid "Message character limit"
 msgstr "ขีดจำกัดตัวอักษรข้อความ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "message component"
 msgstr "ส่วนประกอบข้อความ"
 
@@ -14013,7 +14064,7 @@ msgstr "ดีบักข้อความ"
 msgid "Message Deleted"
 msgstr "ข้อความถูกลบ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "message display"
 msgstr "การแสดงข้อความ"
 
@@ -14106,7 +14157,7 @@ msgid "Message: {0}."
 msgstr "ข้อความ: {0}."
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:138
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "messages"
 msgstr "ข้อความ"
 
@@ -14116,7 +14167,7 @@ msgstr "ข้อความ"
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:278
 #: src/components/modals/utils/SettingsConstants.tsx:280
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:135
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:831
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:849
 msgid "Messages"
 msgstr "ข้อความ"
 
@@ -14179,7 +14230,7 @@ msgstr "ต้องการสิทธิ์ไมโครโฟน"
 msgid "Minimize window"
 msgstr "ย่อหน้าต่าง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:638
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:656
 msgid "mint"
 msgstr ""
 
@@ -14218,7 +14269,7 @@ msgstr "สถานะออนไลน์มือถือบนภาพป
 msgid "Mobile Push Notifications"
 msgstr "การแจ้งเตือนแบบพุชบนมือถือ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "mock"
 msgstr "จำลอง"
 
@@ -14278,18 +14329,18 @@ msgstr "ตัวแปรจำลอง"
 msgid "Mock Verification Barrier"
 msgstr "กำแพงยืนยันตัวตนจำลอง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "mocking"
 msgstr "การจำลอง"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:53
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:51
 #: src/components/modals/utils/SettingsConstants.tsx:307
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:753
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:771
 msgid "Mocking"
 msgstr "กำลังจำลอง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "modal"
 msgstr "โมดัล"
 
@@ -14784,23 +14835,23 @@ msgstr "ซูเปอร์แพ็คของฉัน"
 msgid "My Team"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "nagbar"
 msgstr "แถบแจ้งเตือน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "nagbars"
 msgstr "แถบแจ้งเตือน"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:57
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:54
 #: src/components/modals/utils/SettingsConstants.tsx:308
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:760
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:778
 msgid "Nagbars"
 msgstr "แถบเตือน"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:650
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:668
 msgid "name"
 msgstr "ชื่อ"
 
@@ -14845,7 +14896,7 @@ msgstr "ตั้งชื่อกุญแจผ่าน"
 msgid "Name passkey form"
 msgstr "แบบฟอร์มตั้งชื่อกุญแจผ่าน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:647
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
 msgid "Name, description, tags, policy URLs, and redirect URIs."
 msgstr ""
 
@@ -14912,6 +14963,10 @@ msgstr "การนำทาง"
 #: src/components/auth/AuthBottomLink.tsx:33
 msgid "Need an account?"
 msgstr "ต้องการบัญชีไหม"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:112
+msgid "Need specific permissions or extra scopes? Build a custom link with the OAuth2 URL Builder on this page."
+msgstr ""
 
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
@@ -15181,7 +15236,7 @@ msgstr "ไม่พบกล้อง"
 msgid "No Category"
 msgstr "ไม่มีหมวดหมู่"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:385
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:387
 msgid "No changes to save"
 msgstr "ไม่มีการเปลี่ยนแปลงให้บันทึก"
 
@@ -15642,7 +15697,7 @@ msgstr "ไม่มีอะไร"
 msgid "Notification badges showing unread mention counts in different sizes."
 msgstr "แถบแจ้งเตือนแสดงจำนวนการถูกพูดถึงที่ยังไม่อ่านในขนาดต่างๆ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "notification bar"
 msgstr "แถบการแจ้งเตือน"
 
@@ -15745,17 +15800,18 @@ msgstr "หมายเลข"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:254
 #: src/components/modals/utils/SettingsSearchIndex.tsx:278
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:630
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "oauth"
 msgstr "oauth"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "oauth2"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:72
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:687
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:705
 msgid "OAuth2 URL Builder"
 msgstr "ตัวสร้าง URL OAuth2"
 
@@ -15818,7 +15874,7 @@ msgstr "เมื่อคลิก"
 msgid "on:"
 msgstr "เปิด:"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:859
 msgid "Once deleted, the application and its credentials are permanently removed."
 msgstr "เมื่อถูกลบ แอปและข้อมูลประจำตัวจะถูกลบอย่างถาวร"
 
@@ -16317,14 +16373,14 @@ msgstr "ระดับเสียงเอาต์พุต"
 msgid "Overlapping avatar groups showing multiple users with automatic overflow counts."
 msgstr "กลุ่มอวาตาร์ทับซ้อนแสดงผู้ใช้หลายคนพร้อมนับล้นอัตโนมัติ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "overlays"
 msgstr "เลเยอร์ทับ"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:238
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:233
 #: src/components/modals/utils/SettingsConstants.tsx:315
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:803
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:821
 msgid "Overlays & Menus"
 msgstr "โอเวอร์เลย์และเมนู"
 
@@ -16376,7 +16432,7 @@ msgstr "ที่เป็นของคุณ"
 msgid "Owner"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "ownership"
 msgstr ""
 
@@ -16636,7 +16692,7 @@ msgid "Permanently delete your account and all associated data. This action cann
 msgstr "ลบบัญชีผู้ใช้และข้อมูลที่เกี่ยวข้องทั้งหมดอย่างถาวร การกระทำนี้ไม่สามารถย้อนกลับได้"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:254
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "permissions"
 msgstr "สิทธิ์"
 
@@ -16845,7 +16901,7 @@ msgstr "ปักหมุด:"
 msgid "Pins"
 msgstr "หมุด"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "placeholder"
 msgstr "ตัวอย่าง"
 
@@ -16942,7 +16998,7 @@ msgstr "โปรดระบุที่อยู่อีเมล"
 msgid "Please request a verification code first."
 msgstr "กรุณาขอรหัสยืนยันก่อน"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:691
 msgid "Please retry or go back to the applications list."
 msgstr "โปรดลองอีกครั้งหรือกลับไปที่รายการแอปพลิเคชัน"
 
@@ -17006,7 +17062,7 @@ msgid "Popouts"
 msgstr "หน้าต่างแยก"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:545
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "popup"
 msgstr "ป๊อปอัพ"
 
@@ -17027,7 +17083,7 @@ msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "ต้องการใช้ SSO หรือไม่? ดำเนินการต่อด้วย {ssoDisplayName}."
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:262
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "premium"
 msgstr "พรีเมียม"
 
@@ -17212,7 +17268,7 @@ msgstr "ความเป็นส่วนตัว"
 msgid "Privacy Dashboard"
 msgstr "แผงควบคุมความเป็นส่วนตัว"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:653
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:671
 msgid "privacy policy"
 msgstr ""
 
@@ -17309,7 +17365,7 @@ msgstr "ประเภทโปรไฟล์"
 msgid "Profile updated"
 msgstr "อัปเดตโปรไฟล์แล้ว"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "progress"
 msgstr "ความก้าวหน้า"
 
@@ -17475,7 +17531,7 @@ msgstr "อ้างอิง"
 msgid "quotes"
 msgstr "อ้างอิง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "radio"
 msgstr "วิทยุ"
 
@@ -17547,7 +17603,7 @@ msgstr "อ่านข้อความย้อนหลัง"
 msgid "read messages"
 msgstr "อ่านข้อความ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:721
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:739
 msgid "read only"
 msgstr ""
 
@@ -17659,11 +17715,11 @@ msgstr "การบันทึกล้มเหลว กรุณาลอ�
 msgid "recovery"
 msgstr "การกู้คืน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:656
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:674
 msgid "redirect"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:655
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
 msgid "redirect uri"
 msgstr ""
 
@@ -17713,13 +17769,13 @@ msgstr ""
 msgid "Refresh push subscription"
 msgstr "รีเฟรชการสมัครแจ้งเตือนแบบผลัก"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "regenerate"
 msgstr ""
 
 #: src/components/modals/BackupCodesModal.tsx:94
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:87
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:672
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:664
 msgid "Regenerate"
 msgstr "สร้างใหม่"
 
@@ -17727,11 +17783,11 @@ msgstr "สร้างใหม่"
 msgid "Regenerate Backup Codes"
 msgstr "สร้างรหัสสำรองใหม่"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:668
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:660
 msgid "Regenerate client secret?"
 msgstr "ต้องการสร้างความลับของไคลเอนต์ใหม่?"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:670
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:662
 msgid "Regenerating will invalidate the current secret. Update any code that uses the old value."
 msgstr "การสร้างใหม่จะทำให้ความลับปัจจุบันใช้ไม่ได้ อัปเดตโค้ดที่ใช้ค่าเก่าด้วย"
 
@@ -17809,7 +17865,7 @@ msgstr "อย่าลืมดาวน์โหลดไฟล์แนบก
 #: src/components/modals/utils/SettingsSearchIndex.tsx:149
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:484
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:533
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
 msgid "remove"
 msgstr "ลบ"
 
@@ -17991,7 +18047,7 @@ msgstr ""
 msgid "Remove Icon"
 msgstr "ลบไอคอน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:722
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
 msgid "remove member"
 msgstr ""
 
@@ -18179,7 +18235,7 @@ msgstr "การลบชุดจะถอนการติดตั้งอ
 msgid "Removing the timeout will allow <0>{0}</0> to send messages, react, and join voice channels again."
 msgstr "การลบการจำกัดเวลาจะอนุญาตให้ <0>{0}</0> ส่งข้อความ ตอบสนอง และเข้าร่วมแชนแนลเสียงได้อีกครั้ง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
 msgid "rename"
 msgstr ""
 
@@ -18208,7 +18264,7 @@ msgstr "ฟอร์มเปลี่ยนชื่อแชนแนล"
 msgid "Rename Emoji"
 msgstr "เปลี่ยนชื่ออีโมจิ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:705
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:723
 msgid "Rename your developer team."
 msgstr ""
 
@@ -18613,7 +18669,7 @@ msgstr "กู้คืนหน้าต่าง"
 #: src/components/modals/guild_tabs/GuildStickersTab.tsx:234
 #: src/components/modals/guild_tabs/GuildWebhooksTab.tsx:138
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:184
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:703
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:695
 #: src/components/modals/tabs/applications_tab/index.tsx:113
 #: src/components/modals/tabs/AuthorizedAppsTab.tsx:119
 #: src/components/modals/tabs/developer_teams_tab/index.tsx:161
@@ -18661,7 +18717,7 @@ msgstr "ตรวจสอบที่แอปขออนุญาตก่อ
 msgid "Reviewed"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:637
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:655
 msgid "revoke"
 msgstr ""
 
@@ -18718,7 +18774,7 @@ msgstr "ฝังเนื้อหาที่มีความมั่งค
 msgid "Rich embeds with actual CDN thumbnails."
 msgstr "การฝังที่มีความสมบูรณ์พร้อมกับภาพขนาดย่อ CDN จริง."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "rich text"
 msgstr "ข้อความที่มีรูปแบบ"
 
@@ -18813,7 +18869,7 @@ msgstr "อัปเดตบทบาทแล้ว"
 msgid "Role: {0}."
 msgstr "บทบาท: {0}."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:718
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:736
 msgid "roles"
 msgstr ""
 
@@ -18846,7 +18902,7 @@ msgstr "โรมาเนีย"
 msgid "Romanian"
 msgstr "โรมาเนีย"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "rotate"
 msgstr ""
 
@@ -19061,7 +19117,7 @@ msgstr "วิทยาศาสตร์และเทคโนโลยี"
 msgid "Scope"
 msgstr "ขอบเขต"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "scopes"
 msgstr ""
 
@@ -19355,7 +19411,7 @@ msgstr "ปุ่มรองถูกคลิกแล้ว!"
 msgid "Seconds"
 msgstr "วินาที"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "secret"
 msgstr ""
 
@@ -19409,11 +19465,11 @@ msgstr "ดูอุปกรณ์ทั้งหมดที่เข้าส
 msgid "See how your invite looks to visitors."
 msgstr "ดูว่าคำเชิญของคุณแสดงอย่างไรให้ผู้เยี่ยมชม"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:680
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:698
 msgid "See which team owns this application and transfer it."
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "select"
 msgstr "เลือก"
 
@@ -19548,14 +19604,14 @@ msgstr "เลือกประเทศที่คุณอาศัยอย
 msgid "Select..."
 msgstr "เลือก..."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "selections"
 msgstr "การเลือก"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:208
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:203
 #: src/components/modals/utils/SettingsConstants.tsx:314
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:796
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:814
 msgid "Selections"
 msgstr "การเลือก"
 
@@ -20024,6 +20080,10 @@ msgstr "หลายคนกำลังพิมพ์..."
 msgid "Sexual content in non-NSFW spaces or without consent"
 msgstr "เนื้อหาเกี่ยวกับเพศในพื้นที่ที่ไม่ใช่ NSFW หรือโดยไม่มีความยินยอม"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:631
+msgid "share"
+msgstr ""
+
 #: src/components/modals/tabs/component_gallery_tab/ButtonsTab.tsx:163
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:98
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:93
@@ -20054,6 +20114,10 @@ msgstr "แชร์เสียงสตรีม"
 #: src/components/modals/PackInviteModal.tsx:143
 msgid "Share this link"
 msgstr "แชร์ลิงก์นี้"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:75
+msgid "Share this link to add your bot to a server."
+msgstr ""
 
 #: src/components/modals/tabs/appearance_tab/ThemeTab.tsx:549
 msgid "Share this theme"
@@ -20517,7 +20581,7 @@ msgstr "การโทรที่เงียบ"
 msgid "Silent calls from everyone"
 msgstr "ปิดเสียงการโทรจากทุกคน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "simulate"
 msgstr "จำลอง"
 
@@ -20954,7 +21018,7 @@ msgstr "การสังเคราะห์เสียงไม่สาม
 msgid "Spellcheck"
 msgstr "ตรวจคำสะกด"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "spinner"
 msgstr "สปินเนอร์"
 
@@ -21112,7 +21176,7 @@ msgid "Stats update every second"
 msgstr "สถิติอัปเดตทุกวินาที"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:431
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "status"
 msgstr "สถานะ"
 
@@ -21120,12 +21184,12 @@ msgstr "สถานะ"
 msgid "Status Indicators"
 msgstr "ตัวบ่งชี้สถานะ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "status slate"
 msgstr "สถานะกระดาน"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:248
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:817
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:835
 msgid "Status Slate"
 msgstr "แผ่นสถานะ"
 
@@ -21378,7 +21442,7 @@ msgstr "ส่งรายงาน"
 msgid "Submitting"
 msgstr "กำลังส่ง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "subscription"
 msgstr "การสมัครสมาชิก"
 
@@ -21495,7 +21559,7 @@ msgstr "สวีเดน"
 msgid "Swedish"
 msgstr "ภาษาสวีเดน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "switch"
 msgstr "สวิตช์"
 
@@ -21649,7 +21713,7 @@ msgstr "แท็บ"
 msgid "tag"
 msgstr "แท็ก"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:652
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:670
 msgid "tags"
 msgstr ""
 
@@ -21681,15 +21745,15 @@ msgid "Targeted attacks, threats, or sustained harassment"
 msgstr "การโจมตีตามเป้าหมาย ข่มขู่ หรือการคุกคามต่อเนื่อง"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:288
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:733
 msgid "team"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:134
 #: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:202
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:679
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
 msgid "Team"
 msgstr ""
 
@@ -21701,11 +21765,11 @@ msgstr "ทีมอัลฟ่า"
 msgid "Team ID"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:712
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:730
 msgid "Team Members"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
 msgid "team name"
 msgstr ""
 
@@ -21715,7 +21779,7 @@ msgid "Team Name"
 msgstr ""
 
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:319
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:704
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:722
 msgid "Team Profile"
 msgstr ""
 
@@ -21748,7 +21812,7 @@ msgstr "ปิดใช้งานบัญชีของคุณชั่ว
 msgid "Temporarily disable your account. You can reactivate it later by signing back in."
 msgstr "ปิดใช้งานบัญชีผู้ใช้ชั่วคราว คุณสามารถเปิดใช้งานอีกครั้งได้โดยการเข้าสู่ระบบอีกครั้ง"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:654
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:672
 msgid "terms of service"
 msgstr ""
 
@@ -21772,11 +21836,11 @@ msgid "Test Subscription State"
 msgstr "ทดสอบสถานะการสมัครสมาชิก"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:302
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "testing"
 msgstr "การทดสอบ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "text"
 msgstr "ข้อความ"
 
@@ -21808,7 +21872,7 @@ msgstr "ชื่อช่องข้อความ"
 msgid "Text channels"
 msgstr "ช่องข้อความ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "text field"
 msgstr "ช่องข้อความ"
 
@@ -21820,7 +21884,7 @@ msgstr "การจัดรูปแบบข้อความ"
 msgid "text size"
 msgstr "ขนาดข้อความ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "text styles"
 msgstr "รูปแบบข้อความ"
 
@@ -22103,7 +22167,7 @@ msgstr "ตัวเลือกที่สาม"
 msgid "third party"
 msgstr "บุคคลที่สาม"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:530
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:532
 msgid "This action cannot be undone. All associated data, including the bot user, will be permanently deleted."
 msgstr "การกระทำนี้ไม่สามารถย้อนกลับได้ ข้อมูลทั้งหมดที่เกี่ยวข้องรวมถึงผู้ใช้บอทจะถูกลบถาวร"
 
@@ -22126,7 +22190,7 @@ msgstr "ไฟล์แนบนี้หมดอายุแล้ว"
 msgid "This bot is requesting the Administrator permission. We do not recommend granting this to production apps unless you fully trust the developer. Consider asking them to request a reduced set of permissions. Close this page if you are unsure."
 msgstr "บอทนี้ขอสิทธิ์ผู้ดูแลระบบ เราไม่แนะนำให้ยอมให้สิทธิ์นี้กับแอปที่ใช้งานจริงเว้นแต่คุณจะเชื่อใจผู้พัฒนาเต็มที่ ลองขอให้พวกเขาขอสิทธิ์ที่ลดลง หากไม่แน่ใจให้ปิดหน้านี้"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:851
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
 msgid "This cannot be undone. Removing the application also deletes its bot."
 msgstr "ไม่สามารถย้อนกลับได้ การลบแอปจะลบบอทของมันด้วย"
 
@@ -22656,7 +22720,7 @@ msgstr "วันนี้"
 msgid "Today at {timeString}"
 msgstr "วันนี้ เวลา {timeString}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "toggle"
 msgstr "สลับ"
 
@@ -22748,7 +22812,7 @@ msgstr "สลับธีม"
 msgid "Toggle unique invite"
 msgstr "สลับคำเชิญเฉพาะตัว"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:633
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:651
 msgid "token"
 msgstr ""
 
@@ -22781,7 +22845,7 @@ msgstr ""
 msgid "Token Gating"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:634
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:652
 msgid "tokens"
 msgstr ""
 
@@ -22820,15 +22884,15 @@ msgstr "เบาจนเกินไป"
 msgid "Took the DeLorean out, but I'll be back in time"
 msgstr "เอา DeLorean ออกไป แต่จะกลับมาทันเวลา"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "tools"
 msgstr "เครื่องมือ"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:61
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:57
 #: src/components/modals/utils/SettingsConstants.tsx:309
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:767
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:785
 msgid "Tools"
 msgstr "เครื่องมือ"
 
@@ -22865,7 +22929,7 @@ msgstr "totp"
 msgid "Track moderator actions across the community."
 msgstr "ติดตามการทำงานของผู้ดูแลทั่วทั้งชุมชน"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "transfer"
 msgstr ""
 
@@ -23187,14 +23251,14 @@ msgstr "สถานะการพิมพ์"
 msgid "typing status"
 msgstr "สถานะการพิมพ์"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "typography"
 msgstr "การพิมพ์"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:65
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:60
 #: src/components/modals/utils/SettingsConstants.tsx:310
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:774
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:792
 msgid "Typography"
 msgstr "ตัวพิมพ์"
 
@@ -23903,7 +23967,7 @@ msgstr "อัปเกรดเป็น Plutonium"
 msgid "Upgrade to store up to 15 custom backgrounds and unlock HD video quality, higher frame rates, and more."
 msgstr "อัปเกรดเพื่อเก็บพื้นหลังแบบกำหนดเองได้ถึง 15 แบบ และปลดล็อกวิดีโอคุณภาพ HD อัตราเฟรมสูงขึ้น และอื่นๆ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "upload"
 msgstr ""
 
@@ -23931,7 +23995,7 @@ msgstr "อัปโหลดเสียงแบบกำหนดเองท
 msgid "Upload a File"
 msgstr "อัปโหลดไฟล์"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:664
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:682
 msgid "Upload an icon for your application, independent of its bot's avatar."
 msgstr ""
 
@@ -24038,7 +24102,7 @@ msgstr ""
 msgid "URL"
 msgstr "URL"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "url builder"
 msgstr ""
 
@@ -24305,7 +24369,7 @@ msgid "user, bot or webhook"
 msgstr "ผู้ใช้, บอท หรือเว็บฮุค"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "username"
 msgstr "ชื่อผู้ใช้"
 
@@ -24408,7 +24472,7 @@ msgstr "ใช้สถานะการตรวจสอบจริง"
 msgid "utc"
 msgstr "UTC"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "utilities"
 msgstr "ยูทิลิตี้"
 
@@ -24825,7 +24889,7 @@ msgstr "ดูบัญชีที่เชื่อมต่อของคุ
 msgid "View your email address"
 msgstr "ดูที่อยู่อีเมลของคุณ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:622
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:640
 msgid "View, copy, and regenerate your application's client secret."
 msgstr ""
 
@@ -25148,7 +25212,7 @@ msgstr "เราไม่สามารถเข้าร่วมชุมช
 msgid "We couldn't load the invites at this time."
 msgstr "เราไม่สามารถโหลดคำเชิญได้ในขณะนี้"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:698
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:690
 msgid "We couldn't load this application"
 msgstr "เราไม่สามารถโหลดแอปพลิเคชันนี้ได้"
 

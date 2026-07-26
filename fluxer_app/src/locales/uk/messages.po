@@ -1079,6 +1079,14 @@ msgstr "<0>Видалено</0> прізвисько {0}."
 msgid "<0>Removed</0> the vanity URL."
 msgstr "<0>Видалено</0> унікальне посилання."
 
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:95
+msgid "<0>This bot is private.</0> Only you and your team can use this link. Turn on <1>Public Bot</1> in Application Information if you want anyone else to be able to add it."
+msgstr ""
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:104
+msgid "<0>This bot requires OAuth2 code grant.</0> This link will be rejected on its own — use the OAuth2 URL Builder to add a redirect URI."
+msgstr ""
+
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:484
 msgid "<0>Undeafened</0> the member."
 msgstr "<0>Зняв заглушення</0> з учасника."
@@ -1599,7 +1607,7 @@ msgstr "доступність"
 msgid "Accessibility"
 msgstr "Доступність"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "account"
 msgstr "акаунт"
 
@@ -1613,7 +1621,7 @@ msgstr "Обліковий запис"
 #: src/components/modals/tabs/developer_options_tab/index.tsx:49
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:48
 #: src/components/modals/utils/SettingsConstants.tsx:306
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:746
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:764
 msgid "Account & Premium"
 msgstr "Обліковий запис і преміум"
 
@@ -1677,7 +1685,7 @@ msgstr "У всіх приватних чатах, в яких ти коли-н�
 msgid "Across all DMs you've ever been in only"
 msgstr "Лише в усіх приватних чатах, в яких ти коли-небудь був"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "action"
 msgstr "дія"
 
@@ -1815,6 +1823,10 @@ msgstr "Додати ще одну реакцію"
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:298
 msgid "Add Bluesky connection"
 msgstr "Додати підключення до Bluesky"
+
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:627
+msgid "add bot"
+msgstr ""
 
 #: src/components/pages/OAuthAuthorizePage.tsx:834
 msgid "Add bot to a community"
@@ -1989,6 +2001,10 @@ msgstr "додати до групи"
 msgid "Add to Saved Media"
 msgstr "Додати до збережених медіа"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:628
+msgid "add to server"
+msgstr ""
+
 #. placeholder {0}: renderInline(joinLabels(addedLabels), i18n)
 #. placeholder {1}: renderInline(joinLabels(removedLabels), i18n)
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:513
@@ -2087,7 +2103,7 @@ msgstr ""
 msgid "Adjust the spacing between groups of messages."
 msgstr "Налаштуй відступи між групами повідомлень."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:719
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:737
 msgid "admin"
 msgstr ""
 
@@ -2682,7 +2698,7 @@ msgstr ""
 msgid "api"
 msgstr "api"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:635
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:653
 msgid "api key"
 msgstr ""
 
@@ -2718,7 +2734,7 @@ msgstr "Додає ¯\\_(ツ)_/¯ до вашого повідомлення."
 msgid "Appends ┬─┬ ノ( ゜-゜ノ) to your message."
 msgstr "Додає ┬─┬ ノ( ゜-゜ノ) до вашого повідомлення."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:649
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:667
 msgid "application"
 msgstr ""
 
@@ -2730,7 +2746,7 @@ msgstr "Застосунок"
 msgid "Application created, but transferring it to the team failed. You can transfer it from its Team section."
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "application icon"
 msgstr ""
 
@@ -2739,7 +2755,7 @@ msgid "Application icon"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationIconSection.tsx:52
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:663
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
 msgid "Application Icon"
 msgstr ""
 
@@ -2748,7 +2764,7 @@ msgid "Application ID"
 msgstr "Ідентифікатор застосунку"
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:646
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:664
 msgid "Application Information"
 msgstr "Інформація про додаток"
 
@@ -2773,7 +2789,7 @@ msgstr ""
 msgid "Application transferred"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:398
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:400
 msgid "Application updated successfully"
 msgstr "Застосунок успішно оновлено"
 
@@ -2914,7 +2930,7 @@ msgid "Are you sure you want to delete #{channelName}? This cannot be undone."
 msgstr "Ви впевнені, що хочете видалити #{channelName}? Це не можна скасувати."
 
 #. placeholder {0}: application.name
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:525
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:527
 msgid "Are you sure you want to delete <0>{0}</0>?"
 msgstr "Ти впевнений, що хочеш видалити <0>{0}</0>?"
 
@@ -3288,7 +3304,8 @@ msgstr "Авторизація не вдалася. Повтори спробу.
 msgid "Authorization request"
 msgstr "Запит авторизації"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:629
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "authorize"
 msgstr ""
 
@@ -3415,7 +3432,7 @@ msgid "Autostart is coming soon for Windows and Linux. For now, it is only avail
 msgstr "Автозапуск скоро з'явиться для Windows та Linux. На даний момент він доступний лише на macOS."
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:50
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "avatar"
 msgstr "аватар"
 
@@ -3444,7 +3461,7 @@ msgstr "Стеки аватарів"
 msgid "Avatar, tag, and rich profile details for your bot."
 msgstr "Аватар, тег і додаткові дані профілю для твого бота."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:672
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:690
 msgid "Avatar, tag, bio, and banner for your bot."
 msgstr ""
 
@@ -3474,7 +3491,7 @@ msgstr "Назад до застосунків"
 msgid "Back to call"
 msgstr "Назад до дзвінка"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:707
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:278
 msgid "Back to list"
 msgstr "Назад до списку"
@@ -3570,7 +3587,7 @@ msgid "Backup codes regenerated"
 msgstr "Резервні коди згенеровано заново"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:92
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "badge"
 msgstr "значок"
 
@@ -3659,8 +3676,8 @@ msgid "Banned Users"
 msgstr "Забанені користувачі"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:57
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "banner"
 msgstr "банер"
 
@@ -3747,7 +3764,7 @@ msgid "Between 1 and 32 characters"
 msgstr "Від 1 до 32 символів"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:71
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "bio"
 msgstr "біо"
 
@@ -3898,8 +3915,8 @@ msgstr "Закладки"
 msgid "Bookworms Anonymous"
 msgstr "Анонімні книголюби"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:639
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:657
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 #: src/utils/SearchUtils.tsx:298
 msgid "bot"
 msgstr "бот"
@@ -3932,6 +3949,10 @@ msgstr "Біографія бота"
 msgid "Bot Direct Messages"
 msgstr "Прямі повідомлення від ботів"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:626
+msgid "bot invite"
+msgstr ""
+
 #: src/components/channel/GuildMembersPage.tsx:250
 msgid "Bot Invite"
 msgstr "Запрошення бота"
@@ -3939,6 +3960,11 @@ msgstr "Запрошення бота"
 #: src/components/pages/OAuthAuthorizePage.tsx:732
 msgid "Bot invite (no external redirect)"
 msgstr "Запрошення бота (без зовнішнього перенаправлення)"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:75
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:621
+msgid "Bot Invite Link"
+msgstr ""
 
 #: src/components/pages/OAuthAuthorizePage.tsx:470
 msgid "Bot is already in this community."
@@ -3948,12 +3974,12 @@ msgstr "Бот вже в цій спільноті."
 msgid "Bot permissions"
 msgstr "Дозволи бота"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "bot profile"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:70
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:671
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
 msgid "Bot Profile"
 msgstr "Профіль бота"
 
@@ -3961,7 +3987,7 @@ msgstr "Профіль бота"
 msgid "Bot scope requested"
 msgstr "Запитана область дій бота"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:632
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:650
 msgid "bot token"
 msgstr ""
 
@@ -3974,7 +4000,7 @@ msgid "Bot token revoked"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:150
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:629
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:647
 msgid "Bot Tokens"
 msgstr ""
 
@@ -4030,7 +4056,7 @@ msgstr "Болгарська"
 msgid "Bundle your favorite stickers into a pack you can distribute."
 msgstr "Зберіть улюблені стікери в пакет, який можна розповсюджувати."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "button"
 msgstr "кнопка"
 
@@ -4046,14 +4072,14 @@ msgstr "Варіанти кнопок"
 msgid "Button with Context Menu"
 msgstr "Кнопка з контекстним меню"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "buttons"
 msgstr "кнопки"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:177
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:172
 #: src/components/modals/utils/SettingsConstants.tsx:312
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:782
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:800
 msgid "Buttons"
 msgstr "Кнопки"
 
@@ -4783,7 +4809,7 @@ msgstr "Канали"
 msgid "Charged up on 1.21 gigawatts, ready to talk"
 msgstr "Підзаряджено на 1,21 гігаватт, готовий до розмови"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "chat"
 msgstr "чат"
 
@@ -4830,7 +4856,7 @@ msgstr "Перевірте пошту"
 msgid "Check your inbox at <0>{0}</0> for a verification email."
 msgstr "Перевірте поштову скриньку за адресою <0>{0}</0> для листа з підтвердженням."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "checkbox"
 msgstr "прапорець"
 
@@ -5159,7 +5185,7 @@ msgstr "Тему очищено."
 msgid "Clearing subscriptions ensures the gateway stops sending messages to this installation."
 msgstr "Очищення підписок гарантує, що шлюз припинить надсилати повідомлення на цю установку."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "click"
 msgstr "натисніть"
 
@@ -5256,7 +5282,7 @@ msgstr "Натисніть, щоб показати спойлер"
 msgid "Click to view all reactions"
 msgstr "Натисніть, щоб переглянути всі реакції"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "client secret"
 msgstr ""
 
@@ -5265,11 +5291,11 @@ msgid "Client secret"
 msgstr "Секрет клієнта"
 
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:63
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:621
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:639
 msgid "Client Secret"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:570
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:572
 msgid "Client secret regenerated. Update any code that uses the old secret."
 msgstr "Секрет клієнта перегенеровано. Оновіть код, що використовує старий секрет."
 
@@ -5949,7 +5975,7 @@ msgid "Consent Required"
 msgstr "Потрібна згода"
 
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:73
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:688
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
 msgid "Construct an authorize URL with scopes and permissions."
 msgstr "Створіть URL авторизації з областями та дозволами."
 
@@ -5980,7 +6006,7 @@ msgstr "Контент, що пропагує самопошкодження а�
 msgid "Content sexualizing or endangering minors"
 msgstr "Контент, що сексуалізує або ставить під загрозу неповнолітніх"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "context menu"
 msgstr "контекстне меню"
 
@@ -6121,6 +6147,7 @@ msgid "Converts incoming content to speech, regardless of whether it came from /
 msgstr "Перетворює вхідний контент в мовлення, незалежно від того, чи надійшов він з /tts."
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationHeader.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:81
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:169
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:311
 msgid "Copied"
@@ -6130,11 +6157,15 @@ msgstr "Скопійовано"
 msgid "Copied client secret to clipboard"
 msgstr ""
 
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:68
+msgid "Copied invite link to clipboard"
+msgstr ""
+
 #: src/actions/TextCopyActionCreators.tsx:66
 msgid "Copied to clipboard"
 msgstr "Скопійовано в буфер"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:685
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:677
 msgid "Copied URL to clipboard"
 msgstr "URL скопійовано в буфер"
 
@@ -6152,6 +6183,7 @@ msgstr "Скопійовано!"
 #: src/components/channel/textarea/TextareaContextMenu.tsx:124
 #: src/components/modals/BackupCodesModal.tsx:86
 #: src/components/modals/shared/CopyLinkSection.tsx:52
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:81
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:169
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:153
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:84
@@ -6323,6 +6355,10 @@ msgstr "Скопіювати ID виділеного повідомлення в
 msgid "Copy the focused message text to the clipboard"
 msgstr "Скопіювати текст виділеного повідомлення в буфер обміну"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:622
+msgid "Copy the ready-to-use link that adds this bot to a server."
+msgstr ""
+
 #: src/components/bottomsheets/ChannelDetailsBottomSheet.tsx:1349
 #: src/components/channel/direct_message/DMList.tsx:851
 #: src/components/modals/guild_tabs/BannedUserActionsSheet.tsx:74
@@ -6489,7 +6525,7 @@ msgstr "Створити акаунт"
 msgid "Create and manage applications and bots for your account."
 msgstr "Створюйте й керуйте додатками та ботами для свого акаунта."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:630
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:648
 msgid "Create and revoke named bot tokens."
 msgstr ""
 
@@ -6742,8 +6778,8 @@ msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:108
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:511
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:636
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:654
 msgid "credentials"
 msgstr "облікові дані"
 
@@ -7029,8 +7065,8 @@ msgstr "Чеська"
 msgid "Czech Republic"
 msgstr "Чехія"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "danger"
 msgstr ""
 
@@ -7056,11 +7092,11 @@ msgstr "Додаткову небезпеку натиснуто!"
 
 #: src/components/modals/tabs/account_security_tab/Inline.tsx:100
 #: src/components/modals/tabs/AccountSecurityTab.tsx:112
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:850
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:854
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:466
 #: src/components/modals/utils/SettingsConstants.tsx:303
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:532
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:695
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:713
 msgid "Danger Zone"
 msgstr "Зона небезпеки"
 
@@ -7206,7 +7242,7 @@ msgid "Deauthorize Application"
 msgstr "Відкликати доступ додатку"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:216
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "debug"
 msgstr "відлагодження"
 
@@ -7245,7 +7281,7 @@ msgstr "Учасник налагодження"
 msgid "Debug Message"
 msgstr "Повідомлення налагодження"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "debug tools"
 msgstr "інструменти налагодження"
 
@@ -7322,8 +7358,8 @@ msgstr "За замовчуванням вимкнено на мобільних
 #: src/components/modals/utils/SettingsSearchIndex.tsx:149
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:484
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:533
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "delete"
 msgstr "видалити"
 
@@ -7351,7 +7387,7 @@ msgstr "Видалити"
 msgid "Delete {channelType}"
 msgstr "Видалити {channelType}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:731
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:749
 msgid "Delete a team that no longer owns applications."
 msgstr ""
 
@@ -7384,13 +7420,13 @@ msgstr "Форма видалення всіх повідомлень"
 msgid "Delete all my messages"
 msgstr "Видалити всі мої повідомлення"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
 msgid "delete application"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:536
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:865
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:524
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:538
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:869
 msgid "Delete Application"
 msgstr "Видалити додаток"
 
@@ -7521,18 +7557,18 @@ msgstr "Видалити збережене медіа"
 msgid "Delete Sticker"
 msgstr "Видалити стікер"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "delete team"
 msgstr ""
 
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:235
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:242
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:481
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:730
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:748
 msgid "Delete Team"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:696
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:714
 msgid "Delete this application and its bot."
 msgstr ""
 
@@ -7628,7 +7664,7 @@ msgid "Describe your cosmetic…"
 msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:71
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:651
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:669
 msgid "description"
 msgstr "опис"
 
@@ -7714,15 +7750,15 @@ msgstr "розробник"
 msgid "Dev Den"
 msgstr "Прихисток розробників"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "dev tools"
 msgstr "інструменти розробника"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:216
 #: src/components/modals/utils/SettingsSearchIndex.tsx:278
 #: src/components/modals/utils/SettingsSearchIndex.tsx:289
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:720
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:738
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "developer"
 msgstr "розробник"
 
@@ -7751,7 +7787,7 @@ msgstr "Режим розробника"
 msgid "Developer Options"
 msgstr "Опції розробника"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "developer team"
 msgstr ""
 
@@ -7768,6 +7804,10 @@ msgstr ""
 #: src/components/modals/utils/SettingsConstants.tsx:241
 msgid "Developer Tools"
 msgstr "Інструменти розробника"
+
+#: src/components/auth/AuthTopNav.tsx:48
+msgid "Developers"
+msgstr ""
 
 #: src/components/modals/DeviceRevokeModal.tsx:71
 #: src/components/modals/DeviceRevokeModal.tsx:72
@@ -8423,11 +8463,11 @@ msgstr "Перетягни, щоб змінити позицію фону зап
 msgid "Drop to upload background"
 msgstr "Відпустіть, щоб завантажити фон"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "dropdown"
 msgstr "випадний список"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "dropdown menu"
 msgstr "випадне меню"
 
@@ -8883,7 +8923,7 @@ msgstr "Емодзі"
 msgid "Empty favorites"
 msgstr "Порожні улюблені"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "empty state"
 msgstr "порожній стан"
 
@@ -9276,7 +9316,7 @@ msgstr "Помилка під час відтворення вмісту"
 msgid "Error rendering LaTeX: {0}"
 msgstr "Помилка рендерингу LaTeX: {0}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "error state"
 msgstr "стан помилки"
 
@@ -9635,7 +9675,7 @@ msgstr "Не вдалося обрізати іконку. Спробуй ще �
 msgid "Failed to decline invite. Please try again."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:547
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:549
 msgid "Failed to delete application. Please try again."
 msgstr "Не вдалося видалити застосунок. Спробуй ще раз."
 
@@ -9901,7 +9941,7 @@ msgstr ""
 msgid "Failed to Revoke Invite"
 msgstr "Не вдалося відкликати запрошення"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:576
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:578
 msgid "Failed to rotate. Please try again."
 msgstr "Не вдалося повернути. Спробуй ще раз."
 
@@ -10076,7 +10116,7 @@ msgstr "Не вдалося перевірити підключення"
 msgid "Failed to withdraw application. Please try again."
 msgstr "Не вдалося відкликати заявку. Будь ласка, спробуйте ще раз."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "fake"
 msgstr "фейковий"
 
@@ -10330,7 +10370,7 @@ msgid "Font Weights"
 msgstr "Насиченість шрифту"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:101
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "fonts"
 msgstr "шрифти"
 
@@ -10485,7 +10525,7 @@ msgstr "Забули пароль"
 msgid "Forgot your password?"
 msgstr "Забули пароль?"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "form"
 msgstr "форма"
 
@@ -10493,7 +10533,7 @@ msgstr "форма"
 msgid "format"
 msgstr "формат"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "formatting"
 msgstr "форматування"
 
@@ -10615,7 +10655,7 @@ msgstr "Запити у друзі"
 msgid "Friend's MultiverseTag"
 msgstr "MultiverseTag друга"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "friendly bot"
 msgstr ""
 
@@ -10734,7 +10774,7 @@ msgstr "загальний"
 #: src/components/modals/utils/ChannelSettingsConstants.tsx:56
 #: src/components/modals/utils/GuildSettingsConstants.tsx:96
 #: src/components/modals/utils/SettingsConstants.tsx:305
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:739
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:757
 msgid "General"
 msgstr "Загальний"
 
@@ -11120,6 +11160,10 @@ msgstr "учасники гільдії"
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:369
 msgid "guild sidebar"
 msgstr "бокова панель гільдії"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:87
+msgid "Hand this link to anyone who wants your bot in their server. They pick a server they can manage, confirm, and the bot joins — the link grants no permissions on its own."
+msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
 msgid "handle"
@@ -11595,7 +11639,7 @@ msgstr "Я зберіг коди"
 msgid "I understand"
 msgstr "Я розумію"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "icon"
 msgstr ""
 
@@ -11677,7 +11721,7 @@ msgid "Illegal Activity"
 msgstr "Незаконна діяльність"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:50
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 #: src/utils/SearchUtils.tsx:214
 #: src/utils/SearchUtils.tsx:230
 msgid "image"
@@ -11917,14 +11961,14 @@ msgstr "Індексація..."
 msgid "indicator"
 msgstr "індикатор"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "indicators"
 msgstr "індикатори"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:242
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:237
 #: src/components/modals/utils/SettingsConstants.tsx:316
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:810
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:828
 msgid "Indicators & Status"
 msgstr "Індикатори та статус"
 
@@ -11966,7 +12010,7 @@ msgstr "Введення"
 msgid "Input Device"
 msgstr "Пристрій введення"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "input field"
 msgstr "поле вводу"
 
@@ -11998,14 +12042,14 @@ msgstr "Стани вводу"
 msgid "Input Volume"
 msgstr "Гучність вводу"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "inputs"
 msgstr "входи"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:181
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:176
 #: src/components/modals/utils/SettingsConstants.tsx:313
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:789
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:807
 msgid "Inputs & Text"
 msgstr "Введення та текст"
 
@@ -12132,8 +12176,9 @@ msgid "Invisible"
 msgstr "Невидимий"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:290
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:717
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:624
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:735
 msgid "invite"
 msgstr ""
 
@@ -12183,7 +12228,7 @@ msgstr ""
 msgid "Invite Deleted"
 msgstr "Запрошення видалено"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:713
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:731
 msgid "Invite developers, change roles, and remove members."
 msgstr ""
 
@@ -12196,7 +12241,12 @@ msgstr "Запросити друзів"
 msgid "Invite friends to {0}"
 msgstr "Запросити друзів до {0}"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:625
+msgid "invite link"
+msgstr ""
+
 #: src/components/modals/InviteModal.tsx:308
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:78
 msgid "Invite link"
 msgstr "Посилання-запрошення"
 
@@ -12893,7 +12943,7 @@ msgstr "Залиште порожнім для фактичного значен
 msgid "Leave Group"
 msgstr "Покинути групу"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:723
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:741
 msgid "leave team"
 msgstr ""
 
@@ -13011,6 +13061,7 @@ msgstr "обмеження"
 msgid "Limits Config"
 msgstr "Налаштування обмежень"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:632
 #: src/utils/SearchUtils.tsx:211
 #: src/utils/SearchUtils.tsx:227
 msgid "link"
@@ -13149,7 +13200,7 @@ msgstr "Завантажити ще"
 msgid "Load More"
 msgstr "Завантажити більше"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "loading"
 msgstr "завантаження"
 
@@ -13330,7 +13381,7 @@ msgstr "вхід"
 msgid "Login code"
 msgstr "Код входу"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "logo"
 msgstr ""
 
@@ -13580,13 +13631,13 @@ msgstr "Позначити верхній канал у вхідних як пр
 msgid "Mark Unread"
 msgstr "Позначити як непрочитане"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "markdown"
 msgstr "markdown"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:274
 #: src/components/modals/utils/SettingsConstants.tsx:317
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:824
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:842
 #: src/utils/AttachmentPreviewUtils.tsx:194
 msgid "Markdown"
 msgstr "Markdown"
@@ -13673,7 +13724,7 @@ msgstr "Максимальна якість, потрібне дуже швид�
 msgid "Maybe Later"
 msgstr "Можливо пізніше"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "md"
 msgstr "md"
 
@@ -13823,7 +13874,7 @@ msgstr "Рівень верифікації учасника"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:291
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:176
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:716
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:734
 msgid "members"
 msgstr "учасники"
 
@@ -13947,7 +13998,7 @@ msgstr "Тільки згадки"
 msgid "mentions:"
 msgstr "згадки:"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "menus"
 msgstr "меню"
 
@@ -13995,7 +14046,7 @@ msgstr "AST повідомлення"
 msgid "Message character limit"
 msgstr "Обмеження символів повідомлення"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "message component"
 msgstr "компонент повідомлення"
 
@@ -14013,7 +14064,7 @@ msgstr "Налагодження повідомлення"
 msgid "Message Deleted"
 msgstr "Повідомлення видалено"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "message display"
 msgstr "відображення повідомлення"
 
@@ -14106,7 +14157,7 @@ msgid "Message: {0}."
 msgstr "Повідомлення: {0}."
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:138
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "messages"
 msgstr "повідомлення"
 
@@ -14116,7 +14167,7 @@ msgstr "повідомлення"
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:278
 #: src/components/modals/utils/SettingsConstants.tsx:280
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:135
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:831
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:849
 msgid "Messages"
 msgstr "Повідомлення"
 
@@ -14179,7 +14230,7 @@ msgstr "Потрібен доступ до мікрофона"
 msgid "Minimize window"
 msgstr "Згорнути вікно"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:638
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:656
 msgid "mint"
 msgstr ""
 
@@ -14218,7 +14269,7 @@ msgstr "Онлайн-статус на аватарах для мобільни�
 msgid "Mobile Push Notifications"
 msgstr "Мобільні пуш-сповіщення"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "mock"
 msgstr "макет"
 
@@ -14278,18 +14329,18 @@ msgstr "Мок-варіант"
 msgid "Mock Verification Barrier"
 msgstr "Мок-перевірочний бар'єр"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "mocking"
 msgstr "макетування"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:53
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:51
 #: src/components/modals/utils/SettingsConstants.tsx:307
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:753
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:771
 msgid "Mocking"
 msgstr "Мокування"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "modal"
 msgstr "модальне вікно"
 
@@ -14784,23 +14835,23 @@ msgstr "Мій суперпак"
 msgid "My Team"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "nagbar"
 msgstr "nagbar"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "nagbars"
 msgstr "nagbars"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:57
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:54
 #: src/components/modals/utils/SettingsConstants.tsx:308
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:760
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:778
 msgid "Nagbars"
 msgstr "Нагбари"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:650
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:668
 msgid "name"
 msgstr "ім'я"
 
@@ -14845,7 +14896,7 @@ msgstr "Іменний ключ доступу"
 msgid "Name passkey form"
 msgstr "Форма іменного ключа доступу"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:647
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
 msgid "Name, description, tags, policy URLs, and redirect URIs."
 msgstr ""
 
@@ -14912,6 +14963,10 @@ msgstr "Навігація"
 #: src/components/auth/AuthBottomLink.tsx:33
 msgid "Need an account?"
 msgstr "Потрібен акаунт?"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:112
+msgid "Need specific permissions or extra scopes? Build a custom link with the OAuth2 URL Builder on this page."
+msgstr ""
 
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
@@ -15181,7 +15236,7 @@ msgstr "Камери не виявлено"
 msgid "No Category"
 msgstr "Категорії немає"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:385
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:387
 msgid "No changes to save"
 msgstr "Змін зберігати нема"
 
@@ -15642,7 +15697,7 @@ msgstr "Нічого"
 msgid "Notification badges showing unread mention counts in different sizes."
 msgstr "Значки сповіщень з кількістю непрочитаних згадувань у різних розмірах."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "notification bar"
 msgstr "панель сповіщень"
 
@@ -15745,17 +15800,18 @@ msgstr "номер"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:254
 #: src/components/modals/utils/SettingsSearchIndex.tsx:278
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:630
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "oauth"
 msgstr "oauth"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "oauth2"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:72
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:687
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:705
 msgid "OAuth2 URL Builder"
 msgstr "Конструктор URL OAuth2"
 
@@ -15818,7 +15874,7 @@ msgstr "При натисканні"
 msgid "on:"
 msgstr "увімкнено:"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:859
 msgid "Once deleted, the application and its credentials are permanently removed."
 msgstr "Після видалення застосунок і його облікові дані зникають назавжди."
 
@@ -16317,14 +16373,14 @@ msgstr "Гучність виведення"
 msgid "Overlapping avatar groups showing multiple users with automatic overflow counts."
 msgstr "Перекриваються групи аватарів, що показують кількох користувачів з автоматичним лічильником надлишку."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "overlays"
 msgstr "накладки"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:238
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:233
 #: src/components/modals/utils/SettingsConstants.tsx:315
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:803
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:821
 msgid "Overlays & Menus"
 msgstr "Накладення та меню"
 
@@ -16376,7 +16432,7 @@ msgstr "У власності"
 msgid "Owner"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "ownership"
 msgstr ""
 
@@ -16636,7 +16692,7 @@ msgid "Permanently delete your account and all associated data. This action cann
 msgstr "Назавжди видалити ваш обліковий запис та всі пов'язані дані. Цю дію неможливо скасувати."
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:254
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "permissions"
 msgstr "дозволи"
 
@@ -16845,7 +16901,7 @@ msgstr "закріплене:"
 msgid "Pins"
 msgstr "Закріплення"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "placeholder"
 msgstr "текст-заповнювач"
 
@@ -16942,7 +16998,7 @@ msgstr "Вкажи електронну адресу."
 msgid "Please request a verification code first."
 msgstr "Спочатку запросіть код підтвердження."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:691
 msgid "Please retry or go back to the applications list."
 msgstr "Спробуй ще раз або повернись до списку програм."
 
@@ -17006,7 +17062,7 @@ msgid "Popouts"
 msgstr "Виноски"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:545
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "popup"
 msgstr "вікно сповіщення"
 
@@ -17027,7 +17083,7 @@ msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "Віддаєш перевагу використанню SSO? Продовжити з {ssoDisplayName}."
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:262
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "premium"
 msgstr "преміум"
 
@@ -17212,7 +17268,7 @@ msgstr "конфіденційність"
 msgid "Privacy Dashboard"
 msgstr "Панель конфіденційності"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:653
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:671
 msgid "privacy policy"
 msgstr ""
 
@@ -17309,7 +17365,7 @@ msgstr "Тип профілю"
 msgid "Profile updated"
 msgstr "Профіль оновлено"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "progress"
 msgstr "прогрес"
 
@@ -17475,7 +17531,7 @@ msgstr "цитата"
 msgid "quotes"
 msgstr "Цитати"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "radio"
 msgstr "радіо"
 
@@ -17547,7 +17603,7 @@ msgstr "Читати історію повідомлень"
 msgid "read messages"
 msgstr "читати повідомлення"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:721
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:739
 msgid "read only"
 msgstr ""
 
@@ -17659,11 +17715,11 @@ msgstr "Запис не вдався. Будь ласка, спробуйте з
 msgid "recovery"
 msgstr "відновлення"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:656
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:674
 msgid "redirect"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:655
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
 msgid "redirect uri"
 msgstr ""
 
@@ -17713,13 +17769,13 @@ msgstr ""
 msgid "Refresh push subscription"
 msgstr "Оновити підписку на пуші"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "regenerate"
 msgstr ""
 
 #: src/components/modals/BackupCodesModal.tsx:94
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:87
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:672
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:664
 msgid "Regenerate"
 msgstr "Створити заново"
 
@@ -17727,11 +17783,11 @@ msgstr "Створити заново"
 msgid "Regenerate Backup Codes"
 msgstr "Згенерувати резервні коди"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:668
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:660
 msgid "Regenerate client secret?"
 msgstr "Перегенерувати секрет клієнта?"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:670
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:662
 msgid "Regenerating will invalidate the current secret. Update any code that uses the old value."
 msgstr "Перегенерація анулює поточний секрет. Онови код, що використовує старе значення."
 
@@ -17809,7 +17865,7 @@ msgstr "Пам'ятай завантажити вкладення перед в�
 #: src/components/modals/utils/SettingsSearchIndex.tsx:149
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:484
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:533
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
 msgid "remove"
 msgstr "видалити"
 
@@ -17991,7 +18047,7 @@ msgstr ""
 msgid "Remove Icon"
 msgstr "Видалити іконку"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:722
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
 msgid "remove member"
 msgstr ""
 
@@ -18179,7 +18235,7 @@ msgstr "Видалення пакета призведе до його деін�
 msgid "Removing the timeout will allow <0>{0}</0> to send messages, react, and join voice channels again."
 msgstr "Видалення тайм-ауту дозволить <0>{0}</0> знову надсилати повідомлення, реагувати та приєднуватися до голосових каналів."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
 msgid "rename"
 msgstr ""
 
@@ -18208,7 +18264,7 @@ msgstr "Форма перейменування каналу"
 msgid "Rename Emoji"
 msgstr "Перейменувати емодзі"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:705
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:723
 msgid "Rename your developer team."
 msgstr ""
 
@@ -18613,7 +18669,7 @@ msgstr "Відновити вікно"
 #: src/components/modals/guild_tabs/GuildStickersTab.tsx:234
 #: src/components/modals/guild_tabs/GuildWebhooksTab.tsx:138
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:184
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:703
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:695
 #: src/components/modals/tabs/applications_tab/index.tsx:113
 #: src/components/modals/tabs/AuthorizedAppsTab.tsx:119
 #: src/components/modals/tabs/developer_teams_tab/index.tsx:161
@@ -18661,7 +18717,7 @@ msgstr "Перевір, що просить цей застосунок, пер�
 msgid "Reviewed"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:637
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:655
 msgid "revoke"
 msgstr ""
 
@@ -18718,7 +18774,7 @@ msgstr "Багатий вбудований контент"
 msgid "Rich embeds with actual CDN thumbnails."
 msgstr "Багаті вбудовування з фактичними ескізами CDN."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "rich text"
 msgstr "багатий текст"
 
@@ -18813,7 +18869,7 @@ msgstr "Роль оновлено"
 msgid "Role: {0}."
 msgstr "Роль: {0}."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:718
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:736
 msgid "roles"
 msgstr ""
 
@@ -18846,7 +18902,7 @@ msgstr "Румунія"
 msgid "Romanian"
 msgstr "румунська"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "rotate"
 msgstr ""
 
@@ -19061,7 +19117,7 @@ msgstr "Наука та технології"
 msgid "Scope"
 msgstr "Область доступу"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "scopes"
 msgstr ""
 
@@ -19355,7 +19411,7 @@ msgstr "Натиснуто допоміжну кнопку!"
 msgid "Seconds"
 msgstr "Секунди"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "secret"
 msgstr ""
 
@@ -19409,11 +19465,11 @@ msgstr "Перегляньте всі пристрої, які наразі вв
 msgid "See how your invite looks to visitors."
 msgstr "Подивіться, як ваш запрошення виглядає для відвідувачів."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:680
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:698
 msgid "See which team owns this application and transfer it."
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "select"
 msgstr "вибрати"
 
@@ -19548,14 +19604,14 @@ msgstr "Виберіть країну проживання."
 msgid "Select..."
 msgstr "Вибрати..."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "selections"
 msgstr "вибори"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:208
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:203
 #: src/components/modals/utils/SettingsConstants.tsx:314
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:796
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:814
 msgid "Selections"
 msgstr "Вибрані"
 
@@ -20024,6 +20080,10 @@ msgstr "Декілька людей набирають текст..."
 msgid "Sexual content in non-NSFW spaces or without consent"
 msgstr "Сексуальний контент у не-NSFW-просторах або без згоди"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:631
+msgid "share"
+msgstr ""
+
 #: src/components/modals/tabs/component_gallery_tab/ButtonsTab.tsx:163
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:98
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:93
@@ -20054,6 +20114,10 @@ msgstr "Поділитися аудіо потоку"
 #: src/components/modals/PackInviteModal.tsx:143
 msgid "Share this link"
 msgstr "Поділитися цим посиланням"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:75
+msgid "Share this link to add your bot to a server."
+msgstr ""
 
 #: src/components/modals/tabs/appearance_tab/ThemeTab.tsx:549
 msgid "Share this theme"
@@ -20517,7 +20581,7 @@ msgstr "тихі дзвінки"
 msgid "Silent calls from everyone"
 msgstr "Тихі дзвінки від усіх"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "simulate"
 msgstr "імітувати"
 
@@ -20954,7 +21018,7 @@ msgstr "Синтез мови недоступний у вашому брауз�
 msgid "Spellcheck"
 msgstr "Перевірка орфографії"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "spinner"
 msgstr "індикатор завантаження"
 
@@ -21112,7 +21176,7 @@ msgid "Stats update every second"
 msgstr "Статистика оновлюється щосекунди"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:431
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "status"
 msgstr "статус"
 
@@ -21120,12 +21184,12 @@ msgstr "статус"
 msgid "Status Indicators"
 msgstr "Індикатори статусу"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "status slate"
 msgstr "статусний слайд"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:248
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:817
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:835
 msgid "Status Slate"
 msgstr "Панель статусу"
 
@@ -21378,7 +21442,7 @@ msgstr "Надіслати звіт"
 msgid "Submitting"
 msgstr "Надсилається"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "subscription"
 msgstr "підписка"
 
@@ -21495,7 +21559,7 @@ msgstr "Швеція"
 msgid "Swedish"
 msgstr "Шведська"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "switch"
 msgstr "перемикач"
 
@@ -21649,7 +21713,7 @@ msgstr "вкладка"
 msgid "tag"
 msgstr "тег"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:652
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:670
 msgid "tags"
 msgstr ""
 
@@ -21681,15 +21745,15 @@ msgid "Targeted attacks, threats, or sustained harassment"
 msgstr "Цілеспрямовані напади, погрози або систематичне переслідування"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:288
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:733
 msgid "team"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:134
 #: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:202
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:679
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
 msgid "Team"
 msgstr ""
 
@@ -21701,11 +21765,11 @@ msgstr "Команда Альфа"
 msgid "Team ID"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:712
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:730
 msgid "Team Members"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
 msgid "team name"
 msgstr ""
 
@@ -21715,7 +21779,7 @@ msgid "Team Name"
 msgstr ""
 
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:319
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:704
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:722
 msgid "Team Profile"
 msgstr ""
 
@@ -21748,7 +21812,7 @@ msgstr "Тимчасово вимкнути твій обліковий запи
 msgid "Temporarily disable your account. You can reactivate it later by signing back in."
 msgstr "Тимчасово вимкнути твій обліковий запис. Ти зможеш активувати його знову, увійшовши в систему."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:654
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:672
 msgid "terms of service"
 msgstr ""
 
@@ -21772,11 +21836,11 @@ msgid "Test Subscription State"
 msgstr "Перевірити стан підписки"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:302
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "testing"
 msgstr "тестування"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "text"
 msgstr "текст"
 
@@ -21808,7 +21872,7 @@ msgstr "Назви текстових каналів"
 msgid "Text channels"
 msgstr "Текстові канали"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "text field"
 msgstr "текстове поле"
 
@@ -21820,7 +21884,7 @@ msgstr "Форматування тексту"
 msgid "text size"
 msgstr "розмір тексту"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "text styles"
 msgstr "стилі тексту"
 
@@ -22103,7 +22167,7 @@ msgstr "Третій варіант"
 msgid "third party"
 msgstr "третя сторона"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:530
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:532
 msgid "This action cannot be undone. All associated data, including the bot user, will be permanently deleted."
 msgstr "Цю дію не можна скасувати. Всі пов'язані дані, включно з ботом, буде назавжди видалено."
 
@@ -22126,7 +22190,7 @@ msgstr "Це вкладення більше не дійсне"
 msgid "This bot is requesting the Administrator permission. We do not recommend granting this to production apps unless you fully trust the developer. Consider asking them to request a reduced set of permissions. Close this page if you are unsure."
 msgstr "Цей бот запитує дозвіл Адміністратора. Не рекомендуємо надавати його продуктивним додаткам, якщо ви повністю не довіряєте розробнику. Попросіть запросити обмеженіший набір дозволів. Якщо не впевнені, закрийте цю сторінку."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:851
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
 msgid "This cannot be undone. Removing the application also deletes its bot."
 msgstr "Цього не можна скасувати. Видалення додатка також видаляє його бота."
 
@@ -22656,7 +22720,7 @@ msgstr "Сьогодні"
 msgid "Today at {timeString}"
 msgstr "Сьогодні о {timeString}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "toggle"
 msgstr "перемикач"
 
@@ -22748,7 +22812,7 @@ msgstr "Змінити тему"
 msgid "Toggle unique invite"
 msgstr "Перемкнути унікальне запрошення"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:633
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:651
 msgid "token"
 msgstr ""
 
@@ -22781,7 +22845,7 @@ msgstr ""
 msgid "Token Gating"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:634
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:652
 msgid "tokens"
 msgstr ""
 
@@ -22820,15 +22884,15 @@ msgstr "Занадто тихо"
 msgid "Took the DeLorean out, but I'll be back in time"
 msgstr "Взяв Делоріан, але встигну повернутися вчасно"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "tools"
 msgstr "інструменти"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:61
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:57
 #: src/components/modals/utils/SettingsConstants.tsx:309
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:767
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:785
 msgid "Tools"
 msgstr "Інструменти"
 
@@ -22865,7 +22929,7 @@ msgstr "totp"
 msgid "Track moderator actions across the community."
 msgstr "Відстежуй дії модераторів у спільноті."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "transfer"
 msgstr ""
 
@@ -23187,14 +23251,14 @@ msgstr "Стан набору"
 msgid "typing status"
 msgstr "статус набору"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "typography"
 msgstr "типографіка"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:65
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:60
 #: src/components/modals/utils/SettingsConstants.tsx:310
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:774
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:792
 msgid "Typography"
 msgstr "Типографіка"
 
@@ -23903,7 +23967,7 @@ msgstr "Перейти на Plutonium"
 msgid "Upgrade to store up to 15 custom backgrounds and unlock HD video quality, higher frame rates, and more."
 msgstr "Підвищіть рівень, щоб зберігати до 15 власних фонових зображень і розблокувати HD-якість відео, вищу швидкість кадрів і більше можливостей."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "upload"
 msgstr ""
 
@@ -23931,7 +23995,7 @@ msgstr "Завантажте власний звук, що відтворюєт�
 msgid "Upload a File"
 msgstr "Завантажити файл"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:664
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:682
 msgid "Upload an icon for your application, independent of its bot's avatar."
 msgstr ""
 
@@ -24038,7 +24102,7 @@ msgstr ""
 msgid "URL"
 msgstr "URL"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "url builder"
 msgstr ""
 
@@ -24305,7 +24369,7 @@ msgid "user, bot or webhook"
 msgstr "користувач, бот або вебхук"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "username"
 msgstr "ім'я користувача"
 
@@ -24408,7 +24472,7 @@ msgstr "Використовується фактичний стан вериф�
 msgid "utc"
 msgstr "UTC"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "utilities"
 msgstr "утиліти"
 
@@ -24825,7 +24889,7 @@ msgstr "Перегляньте свої підключені акаунти"
 msgid "View your email address"
 msgstr "Переглянути вашу електронну адресу"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:622
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:640
 msgid "View, copy, and regenerate your application's client secret."
 msgstr ""
 
@@ -25148,7 +25212,7 @@ msgstr "Не вдалося приєднатися до цієї спільно�
 msgid "We couldn't load the invites at this time."
 msgstr "Наразі ми не можемо завантажити запрошення."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:698
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:690
 msgid "We couldn't load this application"
 msgstr "Не вдалося завантажити цей застосунок"
 

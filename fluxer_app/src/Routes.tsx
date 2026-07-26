@@ -62,6 +62,7 @@ export const Routes = {
 	support: () => marketingUrl('support'),
 	roadmap: () => marketingUrl('roadmap'),
 	whitepaper: () => marketingUrl('whitepaper'),
+	developers: () => marketingUrl('developers'),
 
 	dmChannel: (channelId: string) => `/channels/@me/${channelId}`,
 	favoritesChannel: (channelId: string) => `/channels/@favorites/${channelId}`,

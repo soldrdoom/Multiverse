@@ -1079,6 +1079,14 @@ msgstr "<0>Retiré</0> le surnom {0}."
 msgid "<0>Removed</0> the vanity URL."
 msgstr "<0>Retiré</0> l'URL personnalisée."
 
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:95
+msgid "<0>This bot is private.</0> Only you and your team can use this link. Turn on <1>Public Bot</1> in Application Information if you want anyone else to be able to add it."
+msgstr ""
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:104
+msgid "<0>This bot requires OAuth2 code grant.</0> This link will be rejected on its own — use the OAuth2 URL Builder to add a redirect URI."
+msgstr ""
+
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:484
 msgid "<0>Undeafened</0> the member."
 msgstr "<0>Rétabli</0> l'audition du membre."
@@ -1599,7 +1607,7 @@ msgstr "accessibilité"
 msgid "Accessibility"
 msgstr "Accessibilité"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "account"
 msgstr "compte"
 
@@ -1613,7 +1621,7 @@ msgstr "Compte"
 #: src/components/modals/tabs/developer_options_tab/index.tsx:49
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:48
 #: src/components/modals/utils/SettingsConstants.tsx:306
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:746
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:764
 msgid "Account & Premium"
 msgstr "Compte et Premium"
 
@@ -1677,7 +1685,7 @@ msgstr "Dans tous les MD où tu as déjà été + toutes les communautés où tu
 msgid "Across all DMs you've ever been in only"
 msgstr "Uniquement dans tous les MD où tu as déjà été"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "action"
 msgstr "action"
 
@@ -1815,6 +1823,10 @@ msgstr "Ajouter une autre réaction"
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:298
 msgid "Add Bluesky connection"
 msgstr "Ajouter une connexion Bluesky"
+
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:627
+msgid "add bot"
+msgstr ""
 
 #: src/components/pages/OAuthAuthorizePage.tsx:834
 msgid "Add bot to a community"
@@ -1989,6 +2001,10 @@ msgstr "ajouter au groupe"
 msgid "Add to Saved Media"
 msgstr "Ajouter aux médias enregistrés"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:628
+msgid "add to server"
+msgstr ""
+
 #. placeholder {0}: renderInline(joinLabels(addedLabels), i18n)
 #. placeholder {1}: renderInline(joinLabels(removedLabels), i18n)
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:513
@@ -2087,7 +2103,7 @@ msgstr ""
 msgid "Adjust the spacing between groups of messages."
 msgstr "Ajuster l'espacement entre les groupes de messages."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:719
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:737
 msgid "admin"
 msgstr ""
 
@@ -2682,7 +2698,7 @@ msgstr ""
 msgid "api"
 msgstr "api"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:635
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:653
 msgid "api key"
 msgstr ""
 
@@ -2718,7 +2734,7 @@ msgstr "Ajoute ¯\\_(ツ)_/¯ à votre message."
 msgid "Appends ┬─┬ ノ( ゜-゜ノ) to your message."
 msgstr "Ajoute ┬─┬ ノ( ゜-゜ノ) à votre message."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:649
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:667
 msgid "application"
 msgstr ""
 
@@ -2730,7 +2746,7 @@ msgstr "Application"
 msgid "Application created, but transferring it to the team failed. You can transfer it from its Team section."
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "application icon"
 msgstr ""
 
@@ -2739,7 +2755,7 @@ msgid "Application icon"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationIconSection.tsx:52
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:663
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
 msgid "Application Icon"
 msgstr ""
 
@@ -2748,7 +2764,7 @@ msgid "Application ID"
 msgstr "ID de l'application"
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:646
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:664
 msgid "Application Information"
 msgstr "Informations sur l'application"
 
@@ -2773,7 +2789,7 @@ msgstr ""
 msgid "Application transferred"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:398
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:400
 msgid "Application updated successfully"
 msgstr "Application mise à jour avec succès"
 
@@ -2914,7 +2930,7 @@ msgid "Are you sure you want to delete #{channelName}? This cannot be undone."
 msgstr "Êtes-vous sûr de vouloir supprimer #{channelName} ? Cela ne peut pas être annulé."
 
 #. placeholder {0}: application.name
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:525
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:527
 msgid "Are you sure you want to delete <0>{0}</0>?"
 msgstr "Es-tu sûr de vouloir supprimer <0>{0}</0> ?"
 
@@ -3288,7 +3304,8 @@ msgstr "L'autorisation a échoué. Merci de réessayer."
 msgid "Authorization request"
 msgstr "Demande d'autorisation"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:629
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "authorize"
 msgstr ""
 
@@ -3415,7 +3432,7 @@ msgid "Autostart is coming soon for Windows and Linux. For now, it is only avail
 msgstr "Le démarrage automatique arrive bientôt pour Windows et Linux. Pour l'instant, il n'est disponible que sur macOS."
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:50
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "avatar"
 msgstr "avatar"
 
@@ -3444,7 +3461,7 @@ msgstr "Piles d'avatars"
 msgid "Avatar, tag, and rich profile details for your bot."
 msgstr "Détails d'avatar, de tag et de profil enrichi pour ton bot."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:672
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:690
 msgid "Avatar, tag, bio, and banner for your bot."
 msgstr ""
 
@@ -3474,7 +3491,7 @@ msgstr "Retour aux applications"
 msgid "Back to call"
 msgstr "Retour à l'appel"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:707
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:278
 msgid "Back to list"
 msgstr "Retour à la liste"
@@ -3570,7 +3587,7 @@ msgid "Backup codes regenerated"
 msgstr "Codes de secours régénérés"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:92
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "badge"
 msgstr "badge"
 
@@ -3659,8 +3676,8 @@ msgid "Banned Users"
 msgstr "Utilisateurs bannis"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:57
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "banner"
 msgstr "bannière"
 
@@ -3747,7 +3764,7 @@ msgid "Between 1 and 32 characters"
 msgstr "Entre 1 et 32 caractères"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:71
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "bio"
 msgstr "bio"
 
@@ -3898,8 +3915,8 @@ msgstr "Marque-pages"
 msgid "Bookworms Anonymous"
 msgstr "Lecteurs anonymes"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:639
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:657
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 #: src/utils/SearchUtils.tsx:298
 msgid "bot"
 msgstr "bot"
@@ -3932,6 +3949,10 @@ msgstr "Bio du bot"
 msgid "Bot Direct Messages"
 msgstr "Messages directs des bots"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:626
+msgid "bot invite"
+msgstr ""
+
 #: src/components/channel/GuildMembersPage.tsx:250
 msgid "Bot Invite"
 msgstr "Invitation de bot"
@@ -3939,6 +3960,11 @@ msgstr "Invitation de bot"
 #: src/components/pages/OAuthAuthorizePage.tsx:732
 msgid "Bot invite (no external redirect)"
 msgstr "Invitation du bot (pas de redirection externe)"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:75
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:621
+msgid "Bot Invite Link"
+msgstr ""
 
 #: src/components/pages/OAuthAuthorizePage.tsx:470
 msgid "Bot is already in this community."
@@ -3948,12 +3974,12 @@ msgstr "Le bot est déjà dans cette communauté."
 msgid "Bot permissions"
 msgstr "Autorisations du bot"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "bot profile"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:70
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:671
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
 msgid "Bot Profile"
 msgstr "Profil du Bot"
 
@@ -3961,7 +3987,7 @@ msgstr "Profil du Bot"
 msgid "Bot scope requested"
 msgstr "Portée demandée pour le bot"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:632
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:650
 msgid "bot token"
 msgstr ""
 
@@ -3974,7 +4000,7 @@ msgid "Bot token revoked"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:150
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:629
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:647
 msgid "Bot Tokens"
 msgstr ""
 
@@ -4030,7 +4056,7 @@ msgstr "Bulgare"
 msgid "Bundle your favorite stickers into a pack you can distribute."
 msgstr "Rassemble tes autocollants préférés dans un pack à partager."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "button"
 msgstr "bouton"
 
@@ -4046,14 +4072,14 @@ msgstr "Variantes de boutons"
 msgid "Button with Context Menu"
 msgstr "Bouton avec menu contextuel"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "buttons"
 msgstr "boutons"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:177
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:172
 #: src/components/modals/utils/SettingsConstants.tsx:312
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:782
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:800
 msgid "Buttons"
 msgstr "Boutons"
 
@@ -4783,7 +4809,7 @@ msgstr "Salons"
 msgid "Charged up on 1.21 gigawatts, ready to talk"
 msgstr "Chargé à 1,21 gigawatt, prêt à discuter"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "chat"
 msgstr "discussion"
 
@@ -4830,7 +4856,7 @@ msgstr "Consulte ton e-mail"
 msgid "Check your inbox at <0>{0}</0> for a verification email."
 msgstr "Vérifie ta boîte de réception à <0>{0}</0> pour l'e-mail de vérification."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "checkbox"
 msgstr "case à cocher"
 
@@ -5159,7 +5185,7 @@ msgstr "Sujet effacé."
 msgid "Clearing subscriptions ensures the gateway stops sending messages to this installation."
 msgstr "Effacer les abonnements garantit que le point d'accès arrête d'envoyer des messages à cette installation."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "click"
 msgstr "cliquez"
 
@@ -5256,7 +5282,7 @@ msgstr "Clique pour révéler le spoiler"
 msgid "Click to view all reactions"
 msgstr "Clique pour voir toutes les réactions"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "client secret"
 msgstr ""
 
@@ -5265,11 +5291,11 @@ msgid "Client secret"
 msgstr "Secret client"
 
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:63
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:621
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:639
 msgid "Client Secret"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:570
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:572
 msgid "Client secret regenerated. Update any code that uses the old secret."
 msgstr "Secret client régénéré. Mets à jour tout code utilisant l'ancien secret."
 
@@ -5949,7 +5975,7 @@ msgid "Consent Required"
 msgstr "Consentement requis"
 
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:73
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:688
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
 msgid "Construct an authorize URL with scopes and permissions."
 msgstr "Construis une URL d'autorisation avec des portées et des permissions."
 
@@ -5980,7 +6006,7 @@ msgstr "Contenu incitant à l'automutilation ou au suicide"
 msgid "Content sexualizing or endangering minors"
 msgstr "Contenu sexualisant ou mettant en danger les mineurs"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "context menu"
 msgstr "menu contextuel"
 
@@ -6121,6 +6147,7 @@ msgid "Converts incoming content to speech, regardless of whether it came from /
 msgstr "Convertit le contenu entrant en parole, peu importe s'il provient de /tts."
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationHeader.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:81
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:169
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:311
 msgid "Copied"
@@ -6130,11 +6157,15 @@ msgstr "Copié"
 msgid "Copied client secret to clipboard"
 msgstr ""
 
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:68
+msgid "Copied invite link to clipboard"
+msgstr ""
+
 #: src/actions/TextCopyActionCreators.tsx:66
 msgid "Copied to clipboard"
 msgstr "Copié dans le presse-papiers"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:685
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:677
 msgid "Copied URL to clipboard"
 msgstr "URL copiée dans le presse-papiers"
 
@@ -6152,6 +6183,7 @@ msgstr "Copié !"
 #: src/components/channel/textarea/TextareaContextMenu.tsx:124
 #: src/components/modals/BackupCodesModal.tsx:86
 #: src/components/modals/shared/CopyLinkSection.tsx:52
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:81
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:169
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:153
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:84
@@ -6323,6 +6355,10 @@ msgstr "Copier l'ID du message ciblé dans le presse-papiers"
 msgid "Copy the focused message text to the clipboard"
 msgstr "Copier le texte du message ciblé dans le presse-papiers"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:622
+msgid "Copy the ready-to-use link that adds this bot to a server."
+msgstr ""
+
 #: src/components/bottomsheets/ChannelDetailsBottomSheet.tsx:1349
 #: src/components/channel/direct_message/DMList.tsx:851
 #: src/components/modals/guild_tabs/BannedUserActionsSheet.tsx:74
@@ -6489,7 +6525,7 @@ msgstr "Créer un compte"
 msgid "Create and manage applications and bots for your account."
 msgstr "Crée et gère des applications et bots pour ton compte."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:630
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:648
 msgid "Create and revoke named bot tokens."
 msgstr ""
 
@@ -6742,8 +6778,8 @@ msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:108
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:511
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:636
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:654
 msgid "credentials"
 msgstr "identifiants"
 
@@ -7029,8 +7065,8 @@ msgstr "Tchèque"
 msgid "Czech Republic"
 msgstr "République tchèque"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "danger"
 msgstr ""
 
@@ -7056,11 +7092,11 @@ msgstr "Danger secondaire cliqué !"
 
 #: src/components/modals/tabs/account_security_tab/Inline.tsx:100
 #: src/components/modals/tabs/AccountSecurityTab.tsx:112
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:850
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:854
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:466
 #: src/components/modals/utils/SettingsConstants.tsx:303
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:532
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:695
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:713
 msgid "Danger Zone"
 msgstr "Zone dangereuse"
 
@@ -7206,7 +7242,7 @@ msgid "Deauthorize Application"
 msgstr "Révoquer l'autorisation de l'application"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:216
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "debug"
 msgstr "déboguer"
 
@@ -7245,7 +7281,7 @@ msgstr "Membre de débogage"
 msgid "Debug Message"
 msgstr "Message de débogage"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "debug tools"
 msgstr "outils de débogage"
 
@@ -7322,8 +7358,8 @@ msgstr "Désactivé par défaut sur mobile pour préserver la batterie et les do
 #: src/components/modals/utils/SettingsSearchIndex.tsx:149
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:484
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:533
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "delete"
 msgstr "supprimer"
 
@@ -7351,7 +7387,7 @@ msgstr "Supprimer"
 msgid "Delete {channelType}"
 msgstr "Supprimer {channelType}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:731
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:749
 msgid "Delete a team that no longer owns applications."
 msgstr ""
 
@@ -7384,13 +7420,13 @@ msgstr "Formulaire de suppression de tous les messages"
 msgid "Delete all my messages"
 msgstr "Supprimer tous mes messages"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
 msgid "delete application"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:536
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:865
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:524
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:538
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:869
 msgid "Delete Application"
 msgstr "Supprimer l'application"
 
@@ -7521,18 +7557,18 @@ msgstr "Supprimer les médias enregistrés"
 msgid "Delete Sticker"
 msgstr "Supprimer l'autocollant"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "delete team"
 msgstr ""
 
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:235
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:242
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:481
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:730
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:748
 msgid "Delete Team"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:696
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:714
 msgid "Delete this application and its bot."
 msgstr ""
 
@@ -7628,7 +7664,7 @@ msgid "Describe your cosmetic…"
 msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:71
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:651
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:669
 msgid "description"
 msgstr "description"
 
@@ -7714,15 +7750,15 @@ msgstr "développeur"
 msgid "Dev Den"
 msgstr "Repaire des dev"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "dev tools"
 msgstr "outils de développement"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:216
 #: src/components/modals/utils/SettingsSearchIndex.tsx:278
 #: src/components/modals/utils/SettingsSearchIndex.tsx:289
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:720
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:738
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "developer"
 msgstr "développeur"
 
@@ -7751,7 +7787,7 @@ msgstr "Mode développeur"
 msgid "Developer Options"
 msgstr "Options développeur"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "developer team"
 msgstr ""
 
@@ -7768,6 +7804,10 @@ msgstr ""
 #: src/components/modals/utils/SettingsConstants.tsx:241
 msgid "Developer Tools"
 msgstr "Outils développeur"
+
+#: src/components/auth/AuthTopNav.tsx:48
+msgid "Developers"
+msgstr ""
 
 #: src/components/modals/DeviceRevokeModal.tsx:71
 #: src/components/modals/DeviceRevokeModal.tsx:72
@@ -8423,11 +8463,11 @@ msgstr "Fais glisser pour repositionner le fond de ton invitation et utilise la 
 msgid "Drop to upload background"
 msgstr "Déposer pour télécharger l'arrière-plan"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "dropdown"
 msgstr "liste déroulante"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "dropdown menu"
 msgstr "menu déroulant"
 
@@ -8883,7 +8923,7 @@ msgstr "Emojis"
 msgid "Empty favorites"
 msgstr "Favoris vides"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "empty state"
 msgstr "état vide"
 
@@ -9276,7 +9316,7 @@ msgstr "Erreur lors du rendu du contenu"
 msgid "Error rendering LaTeX: {0}"
 msgstr "Erreur lors du rendu de LaTeX : {0}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "error state"
 msgstr "état d'erreur"
 
@@ -9635,7 +9675,7 @@ msgstr "Impossible de rogner l'icône. Réessaie."
 msgid "Failed to decline invite. Please try again."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:547
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:549
 msgid "Failed to delete application. Please try again."
 msgstr "Impossible de supprimer l'application. Réessaie."
 
@@ -9901,7 +9941,7 @@ msgstr ""
 msgid "Failed to Revoke Invite"
 msgstr "Échec de la révocation de l'invitation"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:576
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:578
 msgid "Failed to rotate. Please try again."
 msgstr "Impossible de faire pivoter. Réessaie."
 
@@ -10076,7 +10116,7 @@ msgstr "Échec de la vérification de la connexion"
 msgid "Failed to withdraw application. Please try again."
 msgstr "Échec du retrait de la demande. Veuillez réessayer."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "fake"
 msgstr "faux"
 
@@ -10330,7 +10370,7 @@ msgid "Font Weights"
 msgstr "Graisses de police"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:101
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "fonts"
 msgstr "polices"
 
@@ -10485,7 +10525,7 @@ msgstr "Mot de passe oublié"
 msgid "Forgot your password?"
 msgstr "Tu as oublié ton mot de passe ?"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "form"
 msgstr "formulaire"
 
@@ -10493,7 +10533,7 @@ msgstr "formulaire"
 msgid "format"
 msgstr "format"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "formatting"
 msgstr "formatage"
 
@@ -10615,7 +10655,7 @@ msgstr "Demandes d'ami"
 msgid "Friend's MultiverseTag"
 msgstr "MultiverseTag de l'ami"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "friendly bot"
 msgstr ""
 
@@ -10734,7 +10774,7 @@ msgstr "général"
 #: src/components/modals/utils/ChannelSettingsConstants.tsx:56
 #: src/components/modals/utils/GuildSettingsConstants.tsx:96
 #: src/components/modals/utils/SettingsConstants.tsx:305
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:739
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:757
 msgid "General"
 msgstr "Général"
 
@@ -11120,6 +11160,10 @@ msgstr "membres de la guilde"
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:369
 msgid "guild sidebar"
 msgstr "barre latérale de guilde"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:87
+msgid "Hand this link to anyone who wants your bot in their server. They pick a server they can manage, confirm, and the bot joins — the link grants no permissions on its own."
+msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
 msgid "handle"
@@ -11595,7 +11639,7 @@ msgstr "J'ai sauvegardé les codes"
 msgid "I understand"
 msgstr "J'ai compris"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "icon"
 msgstr ""
 
@@ -11677,7 +11721,7 @@ msgid "Illegal Activity"
 msgstr "Activité illégale"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:50
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 #: src/utils/SearchUtils.tsx:214
 #: src/utils/SearchUtils.tsx:230
 msgid "image"
@@ -11917,14 +11961,14 @@ msgstr "Indexation..."
 msgid "indicator"
 msgstr "indicateur"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "indicators"
 msgstr "indicateurs"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:242
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:237
 #: src/components/modals/utils/SettingsConstants.tsx:316
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:810
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:828
 msgid "Indicators & Status"
 msgstr "Indicateurs et statut"
 
@@ -11966,7 +12010,7 @@ msgstr "Entrée"
 msgid "Input Device"
 msgstr "Périphérique d'entrée"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "input field"
 msgstr "champ de saisie"
 
@@ -11998,14 +12042,14 @@ msgstr "États d'entrée"
 msgid "Input Volume"
 msgstr "Volume d'entrée"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "inputs"
 msgstr "entrées"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:181
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:176
 #: src/components/modals/utils/SettingsConstants.tsx:313
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:789
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:807
 msgid "Inputs & Text"
 msgstr "Entrées et texte"
 
@@ -12132,8 +12176,9 @@ msgid "Invisible"
 msgstr "Invisible"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:290
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:717
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:624
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:735
 msgid "invite"
 msgstr ""
 
@@ -12183,7 +12228,7 @@ msgstr ""
 msgid "Invite Deleted"
 msgstr "Invitation supprimée"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:713
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:731
 msgid "Invite developers, change roles, and remove members."
 msgstr ""
 
@@ -12196,7 +12241,12 @@ msgstr "Inviter des amis"
 msgid "Invite friends to {0}"
 msgstr "Inviter des amis sur {0}"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:625
+msgid "invite link"
+msgstr ""
+
 #: src/components/modals/InviteModal.tsx:308
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:78
 msgid "Invite link"
 msgstr "Lien d'invitation"
 
@@ -12893,7 +12943,7 @@ msgstr "Laissez vide pour la valeur réelle"
 msgid "Leave Group"
 msgstr "Quitter le groupe"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:723
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:741
 msgid "leave team"
 msgstr ""
 
@@ -13011,6 +13061,7 @@ msgstr "limites"
 msgid "Limits Config"
 msgstr "Configuration des limites"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:632
 #: src/utils/SearchUtils.tsx:211
 #: src/utils/SearchUtils.tsx:227
 msgid "link"
@@ -13149,7 +13200,7 @@ msgstr "Charger plus"
 msgid "Load More"
 msgstr "Charger plus"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "loading"
 msgstr "chargement"
 
@@ -13330,7 +13381,7 @@ msgstr "connexion"
 msgid "Login code"
 msgstr "Code de connexion"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "logo"
 msgstr ""
 
@@ -13580,13 +13631,13 @@ msgstr "Marquer le salon en haut de ta boîte de réception comme lu"
 msgid "Mark Unread"
 msgstr "Marquer comme non lu"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "markdown"
 msgstr "markdown"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:274
 #: src/components/modals/utils/SettingsConstants.tsx:317
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:824
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:842
 #: src/utils/AttachmentPreviewUtils.tsx:194
 msgid "Markdown"
 msgstr "Markdown"
@@ -13673,7 +13724,7 @@ msgstr "Qualité maximale, nécessite une connexion très rapide"
 msgid "Maybe Later"
 msgstr "Peut-être plus tard"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "md"
 msgstr "md"
 
@@ -13823,7 +13874,7 @@ msgstr "Niveau de vérification des membres"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:291
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:176
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:716
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:734
 msgid "members"
 msgstr "membres"
 
@@ -13947,7 +13998,7 @@ msgstr "Mentions uniquement"
 msgid "mentions:"
 msgstr "mentions :"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "menus"
 msgstr "menus"
 
@@ -13995,7 +14046,7 @@ msgstr "Message AST"
 msgid "Message character limit"
 msgstr "Limite de caractères du message"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "message component"
 msgstr "composant de message"
 
@@ -14013,7 +14064,7 @@ msgstr "Débogage du message"
 msgid "Message Deleted"
 msgstr "Message supprimé"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "message display"
 msgstr "affichage de message"
 
@@ -14106,7 +14157,7 @@ msgid "Message: {0}."
 msgstr "Message : {0}."
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:138
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "messages"
 msgstr "messages"
 
@@ -14116,7 +14167,7 @@ msgstr "messages"
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:278
 #: src/components/modals/utils/SettingsConstants.tsx:280
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:135
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:831
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:849
 msgid "Messages"
 msgstr "Messages"
 
@@ -14179,7 +14230,7 @@ msgstr "Autorisation du microphone requise"
 msgid "Minimize window"
 msgstr "Réduire la fenêtre"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:638
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:656
 msgid "mint"
 msgstr ""
 
@@ -14218,7 +14269,7 @@ msgstr "Statut en ligne mobile sur les avatars"
 msgid "Mobile Push Notifications"
 msgstr "Notifications push mobiles"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "mock"
 msgstr "simulation"
 
@@ -14278,18 +14329,18 @@ msgstr "Variante factice"
 msgid "Mock Verification Barrier"
 msgstr "Barrière de vérification factice"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "mocking"
 msgstr "simulation"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:53
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:51
 #: src/components/modals/utils/SettingsConstants.tsx:307
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:753
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:771
 msgid "Mocking"
 msgstr "Simulation"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "modal"
 msgstr "modal"
 
@@ -14784,23 +14835,23 @@ msgstr "Mon super pack"
 msgid "My Team"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "nagbar"
 msgstr "barre de rappel"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "nagbars"
 msgstr "barres de rappel"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:57
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:54
 #: src/components/modals/utils/SettingsConstants.tsx:308
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:760
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:778
 msgid "Nagbars"
 msgstr "Barres de rappel"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:650
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:668
 msgid "name"
 msgstr "nom"
 
@@ -14845,7 +14896,7 @@ msgstr "Clé d'accès nommée"
 msgid "Name passkey form"
 msgstr "Formulaire de clé d'accès nommée"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:647
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
 msgid "Name, description, tags, policy URLs, and redirect URIs."
 msgstr ""
 
@@ -14912,6 +14963,10 @@ msgstr "Navigation"
 #: src/components/auth/AuthBottomLink.tsx:33
 msgid "Need an account?"
 msgstr "Besoin d'un compte ?"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:112
+msgid "Need specific permissions or extra scopes? Build a custom link with the OAuth2 URL Builder on this page."
+msgstr ""
 
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
@@ -15181,7 +15236,7 @@ msgstr "Aucune caméra détectée"
 msgid "No Category"
 msgstr "Aucune catégorie"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:385
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:387
 msgid "No changes to save"
 msgstr "Aucun changement à enregistrer"
 
@@ -15642,7 +15697,7 @@ msgstr "Rien"
 msgid "Notification badges showing unread mention counts in different sizes."
 msgstr "Badges de notification montrant le nombre de mentions non lues selon différentes tailles."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "notification bar"
 msgstr "barre de notification"
 
@@ -15745,17 +15800,18 @@ msgstr "numéro"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:254
 #: src/components/modals/utils/SettingsSearchIndex.tsx:278
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:630
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "oauth"
 msgstr "oauth"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "oauth2"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:72
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:687
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:705
 msgid "OAuth2 URL Builder"
 msgstr "Générateur d'URL OAuth2"
 
@@ -15818,7 +15874,7 @@ msgstr "Au clic"
 msgid "on:"
 msgstr "sur :"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:859
 msgid "Once deleted, the application and its credentials are permanently removed."
 msgstr "Une fois supprimée, l'application et ses identifiants sont définitivement supprimés."
 
@@ -16317,14 +16373,14 @@ msgstr "Volume de sortie"
 msgid "Overlapping avatar groups showing multiple users with automatic overflow counts."
 msgstr "Groupes d'avatars superposés affichant plusieurs utilisateurs avec comptes de dépassement automatiques."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "overlays"
 msgstr "superpositions"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:238
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:233
 #: src/components/modals/utils/SettingsConstants.tsx:315
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:803
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:821
 msgid "Overlays & Menus"
 msgstr "Superpositions et menus"
 
@@ -16376,7 +16432,7 @@ msgstr "Possédé"
 msgid "Owner"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "ownership"
 msgstr ""
 
@@ -16636,7 +16692,7 @@ msgid "Permanently delete your account and all associated data. This action cann
 msgstr "Supprimer définitivement votre compte et toutes les données associées. Cette action est irréversible."
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:254
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "permissions"
 msgstr "permissions"
 
@@ -16845,7 +16901,7 @@ msgstr "épinglé :"
 msgid "Pins"
 msgstr "Épingles"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "placeholder"
 msgstr "espace réservé"
 
@@ -16942,7 +16998,7 @@ msgstr "Fournis une adresse e-mail."
 msgid "Please request a verification code first."
 msgstr "Veuillez d'abord demander un code de vérification."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:691
 msgid "Please retry or go back to the applications list."
 msgstr "Réessaie ou retourne à la liste des applications."
 
@@ -17006,7 +17062,7 @@ msgid "Popouts"
 msgstr "Fenêtres émergentes"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:545
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "popup"
 msgstr "popup"
 
@@ -17027,7 +17083,7 @@ msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "Tu préfères utiliser SSO ? Continue avec {ssoDisplayName}."
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:262
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "premium"
 msgstr "premium"
 
@@ -17212,7 +17268,7 @@ msgstr "vie privée"
 msgid "Privacy Dashboard"
 msgstr "Tableau de bord confidentialité"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:653
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:671
 msgid "privacy policy"
 msgstr ""
 
@@ -17309,7 +17365,7 @@ msgstr "Type de profil"
 msgid "Profile updated"
 msgstr "Profil mis à jour"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "progress"
 msgstr "progression"
 
@@ -17475,7 +17531,7 @@ msgstr "citer"
 msgid "quotes"
 msgstr "Citations"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "radio"
 msgstr "radio"
 
@@ -17547,7 +17603,7 @@ msgstr "Lire l'historique des messages"
 msgid "read messages"
 msgstr "lire les messages"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:721
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:739
 msgid "read only"
 msgstr ""
 
@@ -17659,11 +17715,11 @@ msgstr "Échec de l'enregistrement. Veuillez réessayer."
 msgid "recovery"
 msgstr "récupération"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:656
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:674
 msgid "redirect"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:655
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
 msgid "redirect uri"
 msgstr ""
 
@@ -17713,13 +17769,13 @@ msgstr ""
 msgid "Refresh push subscription"
 msgstr "Actualiser l'abonnement push"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "regenerate"
 msgstr ""
 
 #: src/components/modals/BackupCodesModal.tsx:94
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:87
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:672
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:664
 msgid "Regenerate"
 msgstr "Régénérer"
 
@@ -17727,11 +17783,11 @@ msgstr "Régénérer"
 msgid "Regenerate Backup Codes"
 msgstr "Régénérer les codes de sauvegarde"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:668
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:660
 msgid "Regenerate client secret?"
 msgstr "Régénérer le secret client ?"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:670
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:662
 msgid "Regenerating will invalidate the current secret. Update any code that uses the old value."
 msgstr "La régénération invalidera le secret actuel. Mets à jour tout code utilisant l'ancienne valeur."
 
@@ -17809,7 +17865,7 @@ msgstr "N'oublie pas de télécharger tes pièces jointes avant de supprimer un 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:149
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:484
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:533
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
 msgid "remove"
 msgstr "supprimer"
 
@@ -17991,7 +18047,7 @@ msgstr ""
 msgid "Remove Icon"
 msgstr "Supprimer l'icône"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:722
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
 msgid "remove member"
 msgstr ""
 
@@ -18179,7 +18235,7 @@ msgstr "Supprimer le pack le désinstallera de ton compte."
 msgid "Removing the timeout will allow <0>{0}</0> to send messages, react, and join voice channels again."
 msgstr "Supprimer le timeout permettra à <0>{0}</0> d'envoyer des messages, de réagir et de rejoindre les salons vocaux."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
 msgid "rename"
 msgstr ""
 
@@ -18208,7 +18264,7 @@ msgstr "Formulaire de renommage de salon"
 msgid "Rename Emoji"
 msgstr "Renommer l'emoji"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:705
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:723
 msgid "Rename your developer team."
 msgstr ""
 
@@ -18613,7 +18669,7 @@ msgstr "Restaurer la fenêtre"
 #: src/components/modals/guild_tabs/GuildStickersTab.tsx:234
 #: src/components/modals/guild_tabs/GuildWebhooksTab.tsx:138
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:184
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:703
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:695
 #: src/components/modals/tabs/applications_tab/index.tsx:113
 #: src/components/modals/tabs/AuthorizedAppsTab.tsx:119
 #: src/components/modals/tabs/developer_teams_tab/index.tsx:161
@@ -18661,7 +18717,7 @@ msgstr "Vérifie ce que cette appli demande avant de continuer."
 msgid "Reviewed"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:637
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:655
 msgid "revoke"
 msgstr ""
 
@@ -18718,7 +18774,7 @@ msgstr "Intégration riche"
 msgid "Rich embeds with actual CDN thumbnails."
 msgstr "Intégrations riches avec de véritables vignettes CDN."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "rich text"
 msgstr "texte enrichi"
 
@@ -18813,7 +18869,7 @@ msgstr "Rôle mis à jour"
 msgid "Role: {0}."
 msgstr "Rôle : {0}."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:718
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:736
 msgid "roles"
 msgstr ""
 
@@ -18846,7 +18902,7 @@ msgstr "Roumanie"
 msgid "Romanian"
 msgstr "Roumain"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "rotate"
 msgstr ""
 
@@ -19061,7 +19117,7 @@ msgstr "Science & Technologie"
 msgid "Scope"
 msgstr "Portée"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "scopes"
 msgstr ""
 
@@ -19355,7 +19411,7 @@ msgstr "Bouton secondaire cliqué !"
 msgid "Seconds"
 msgstr "Secondes"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "secret"
 msgstr ""
 
@@ -19409,11 +19465,11 @@ msgstr "Vois tous les appareils connectés à ton compte. Révoque les sessions 
 msgid "See how your invite looks to visitors."
 msgstr "Vois à quoi ressemble ton invitation pour les visiteurs."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:680
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:698
 msgid "See which team owns this application and transfer it."
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "select"
 msgstr "sélectionner"
 
@@ -19548,14 +19604,14 @@ msgstr "Sélectionne ton pays de résidence."
 msgid "Select..."
 msgstr "Sélectionner..."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "selections"
 msgstr "sélections"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:208
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:203
 #: src/components/modals/utils/SettingsConstants.tsx:314
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:796
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:814
 msgid "Selections"
 msgstr "Sélections"
 
@@ -20024,6 +20080,10 @@ msgstr "Plusieurs personnes tapent..."
 msgid "Sexual content in non-NSFW spaces or without consent"
 msgstr "Contenu sexuel dans des espaces non NSFW ou sans consentement"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:631
+msgid "share"
+msgstr ""
+
 #: src/components/modals/tabs/component_gallery_tab/ButtonsTab.tsx:163
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:98
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:93
@@ -20054,6 +20114,10 @@ msgstr "Partager l'audio du flux"
 #: src/components/modals/PackInviteModal.tsx:143
 msgid "Share this link"
 msgstr "Partage ce lien"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:75
+msgid "Share this link to add your bot to a server."
+msgstr ""
 
 #: src/components/modals/tabs/appearance_tab/ThemeTab.tsx:549
 msgid "Share this theme"
@@ -20517,7 +20581,7 @@ msgstr "appels silencieux"
 msgid "Silent calls from everyone"
 msgstr "Appels silencieux de tous"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "simulate"
 msgstr "simuler"
 
@@ -20954,7 +21018,7 @@ msgstr "La synthèse vocale n'est pas disponible dans votre navigateur."
 msgid "Spellcheck"
 msgstr "Vérification orthographique"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "spinner"
 msgstr "indicateur de chargement"
 
@@ -21112,7 +21176,7 @@ msgid "Stats update every second"
 msgstr "Les statistiques se mettent à jour chaque seconde"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:431
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "status"
 msgstr "statut"
 
@@ -21120,12 +21184,12 @@ msgstr "statut"
 msgid "Status Indicators"
 msgstr "Indicateurs de statut"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "status slate"
 msgstr "tableau d'état"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:248
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:817
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:835
 msgid "Status Slate"
 msgstr "Ardoise de statut"
 
@@ -21378,7 +21442,7 @@ msgstr "Soumettre le rapport"
 msgid "Submitting"
 msgstr "Envoi en cours"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "subscription"
 msgstr "abonnement"
 
@@ -21495,7 +21559,7 @@ msgstr "Suède"
 msgid "Swedish"
 msgstr "Suédois"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "switch"
 msgstr "interrupteur"
 
@@ -21649,7 +21713,7 @@ msgstr "onglet"
 msgid "tag"
 msgstr "étiquette"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:652
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:670
 msgid "tags"
 msgstr ""
 
@@ -21681,15 +21745,15 @@ msgid "Targeted attacks, threats, or sustained harassment"
 msgstr "Attaques ciblées, menaces ou harcèlement prolongé"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:288
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:733
 msgid "team"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:134
 #: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:202
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:679
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
 msgid "Team"
 msgstr ""
 
@@ -21701,11 +21765,11 @@ msgstr "Équipe Alpha"
 msgid "Team ID"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:712
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:730
 msgid "Team Members"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
 msgid "team name"
 msgstr ""
 
@@ -21715,7 +21779,7 @@ msgid "Team Name"
 msgstr ""
 
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:319
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:704
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:722
 msgid "Team Profile"
 msgstr ""
 
@@ -21748,7 +21812,7 @@ msgstr "Désactiver temporairement ton compte"
 msgid "Temporarily disable your account. You can reactivate it later by signing back in."
 msgstr "Désactiver temporairement ton compte. Tu pourras le réactiver plus tard en te reconnectant."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:654
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:672
 msgid "terms of service"
 msgstr ""
 
@@ -21772,11 +21836,11 @@ msgid "Test Subscription State"
 msgstr "Tester l'état de l'abonnement"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:302
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "testing"
 msgstr "test"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "text"
 msgstr "texte"
 
@@ -21808,7 +21872,7 @@ msgstr "Noms des salons textuels"
 msgid "Text channels"
 msgstr "Salons textuels"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "text field"
 msgstr "champ de texte"
 
@@ -21820,7 +21884,7 @@ msgstr "Mise en forme du texte"
 msgid "text size"
 msgstr "taille du texte"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "text styles"
 msgstr "styles de texte"
 
@@ -22103,7 +22167,7 @@ msgstr "Troisième option"
 msgid "third party"
 msgstr "tiers"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:530
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:532
 msgid "This action cannot be undone. All associated data, including the bot user, will be permanently deleted."
 msgstr "Cette action est irréversible. Toutes les données associées, y compris le bot, seront définitivement supprimées."
 
@@ -22126,7 +22190,7 @@ msgstr "Cette pièce jointe a expiré"
 msgid "This bot is requesting the Administrator permission. We do not recommend granting this to production apps unless you fully trust the developer. Consider asking them to request a reduced set of permissions. Close this page if you are unsure."
 msgstr "Ce bot demande la permission d'administrateur. Nous ne recommandons pas de l'accorder aux applications en production à moins de faire entièrement confiance au développeur. Demande-lui plutôt de demander un ensemble de permissions réduit. Ferme cette page si tu n'es pas sûr."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:851
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
 msgid "This cannot be undone. Removing the application also deletes its bot."
 msgstr "Ceci ne peut pas être annulé. Supprimer l'application supprime aussi son bot."
 
@@ -22656,7 +22720,7 @@ msgstr "Aujourd'hui"
 msgid "Today at {timeString}"
 msgstr "Aujourd'hui à {timeString}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "toggle"
 msgstr "basculer"
 
@@ -22748,7 +22812,7 @@ msgstr "Activer/désactiver le thème"
 msgid "Toggle unique invite"
 msgstr "Activer/désactiver invitation unique"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:633
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:651
 msgid "token"
 msgstr ""
 
@@ -22781,7 +22845,7 @@ msgstr ""
 msgid "Token Gating"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:634
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:652
 msgid "tokens"
 msgstr ""
 
@@ -22820,15 +22884,15 @@ msgstr "Trop calme"
 msgid "Took the DeLorean out, but I'll be back in time"
 msgstr "J'ai sorti la DeLorean, je serai de retour à temps"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "tools"
 msgstr "outils"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:61
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:57
 #: src/components/modals/utils/SettingsConstants.tsx:309
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:767
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:785
 msgid "Tools"
 msgstr "Outils"
 
@@ -22865,7 +22929,7 @@ msgstr "totp"
 msgid "Track moderator actions across the community."
 msgstr "Suivre les actions des modérateurs dans la communauté."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "transfer"
 msgstr ""
 
@@ -23187,14 +23251,14 @@ msgstr "État de saisie"
 msgid "typing status"
 msgstr "statut de saisie"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "typography"
 msgstr "typographie"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:65
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:60
 #: src/components/modals/utils/SettingsConstants.tsx:310
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:774
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:792
 msgid "Typography"
 msgstr "Typographie"
 
@@ -23903,7 +23967,7 @@ msgstr "Passer à Plutonium"
 msgid "Upgrade to store up to 15 custom backgrounds and unlock HD video quality, higher frame rates, and more."
 msgstr "Passe à Plutonium pour stocker jusqu'à 15 fonds personnalisés et débloquer la vidéo HD, des fréquences d'images plus élevées, et plus encore."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "upload"
 msgstr ""
 
@@ -23931,7 +23995,7 @@ msgstr "Télécharge un son personnalisé qui se joue quand tu rejoins un canal 
 msgid "Upload a File"
 msgstr "Télécharger un fichier"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:664
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:682
 msgid "Upload an icon for your application, independent of its bot's avatar."
 msgstr ""
 
@@ -24038,7 +24102,7 @@ msgstr ""
 msgid "URL"
 msgstr "URL"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "url builder"
 msgstr ""
 
@@ -24305,7 +24369,7 @@ msgid "user, bot or webhook"
 msgstr "utilisateur, bot ou webhook"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "username"
 msgstr "nom d'utilisateur"
 
@@ -24408,7 +24472,7 @@ msgstr "Utilisation de l'état de vérification réel"
 msgid "utc"
 msgstr "utc"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "utilities"
 msgstr "outils"
 
@@ -24825,7 +24889,7 @@ msgstr "Voir vos comptes connectés"
 msgid "View your email address"
 msgstr "Afficher ton adresse e-mail"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:622
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:640
 msgid "View, copy, and regenerate your application's client secret."
 msgstr ""
 
@@ -25148,7 +25212,7 @@ msgstr "Nous n'avons pas pu rejoindre cette communauté pour le moment."
 msgid "We couldn't load the invites at this time."
 msgstr "Nous n'avons pas pu charger les invitations pour le moment."
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:698
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:690
 msgid "We couldn't load this application"
 msgstr "Nous n'avons pas pu charger cette application"
 

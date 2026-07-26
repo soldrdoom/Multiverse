@@ -18,7 +18,19 @@
  */
 
 import KeybindStore, {type KeybindCommand, type KeyCombo} from '@app/stores/KeybindStore';
-import {type KeyboardEvent, useEffect} from 'react';
+import {useEffect} from 'react';
+
+/**
+ * Structural subset shared by native KeyboardEvent and React.KeyboardEvent, so
+ * doesEventMatchShortcut works with document-level listeners and JSX handlers alike.
+ */
+interface KeyboardEventLike {
+	key: string;
+	ctrlKey: boolean;
+	metaKey: boolean;
+	altKey: boolean;
+	shiftKey: boolean;
+}
 
 interface FormattingShortcut {
 	combo: Partial<KeyCombo>;
@@ -77,7 +89,7 @@ const doesStoredComboMatchShortcut = (combo: KeyCombo, target: Partial<KeyCombo>
 	);
 };
 
-export const doesEventMatchShortcut = (event: KeyboardEvent, target: Partial<KeyCombo>): boolean => {
+export const doesEventMatchShortcut = (event: KeyboardEventLike, target: Partial<KeyCombo>): boolean => {
 	const eventKey = event.key ? event.key.toLowerCase() : '';
 	const targetKey = normalizeKeyName(target.key, target.code);
 	if (!eventKey || (targetKey && targetKey !== eventKey)) {

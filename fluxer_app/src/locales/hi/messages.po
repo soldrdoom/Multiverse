@@ -1079,6 +1079,14 @@ msgstr "<0>उपनाम {0} हटाया</0>।"
 msgid "<0>Removed</0> the vanity URL."
 msgstr "<0>वैनीटी URL हटाया</0>।"
 
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:95
+msgid "<0>This bot is private.</0> Only you and your team can use this link. Turn on <1>Public Bot</1> in Application Information if you want anyone else to be able to add it."
+msgstr ""
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:104
+msgid "<0>This bot requires OAuth2 code grant.</0> This link will be rejected on its own — use the OAuth2 URL Builder to add a redirect URI."
+msgstr ""
+
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:484
 msgid "<0>Undeafened</0> the member."
 msgstr "<0>सदस्य को सुनने योग्य</0> बनाया।"
@@ -1599,7 +1607,7 @@ msgstr "सुगम्यता"
 msgid "Accessibility"
 msgstr "सुलभता"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "account"
 msgstr "खाता"
 
@@ -1613,7 +1621,7 @@ msgstr "खाता"
 #: src/components/modals/tabs/developer_options_tab/index.tsx:49
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:48
 #: src/components/modals/utils/SettingsConstants.tsx:306
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:746
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:764
 msgid "Account & Premium"
 msgstr "खाता और प्रीमियम"
 
@@ -1677,7 +1685,7 @@ msgstr "जो भी डीएम आप कभी रहे हैं + वर
 msgid "Across all DMs you've ever been in only"
 msgstr "केवल जो भी डीएम आप कभी रहे हैं"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "action"
 msgstr "क्रिया"
 
@@ -1815,6 +1823,10 @@ msgstr "एक और प्रतिक्रिया जोड़ें"
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:298
 msgid "Add Bluesky connection"
 msgstr "ब्लूस्काई कनेक्शन जोड़ें"
+
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:627
+msgid "add bot"
+msgstr ""
 
 #: src/components/pages/OAuthAuthorizePage.tsx:834
 msgid "Add bot to a community"
@@ -1989,6 +2001,10 @@ msgstr "समूह में जोड़ें"
 msgid "Add to Saved Media"
 msgstr "सहेजी गई मीडिया में जोड़ें"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:628
+msgid "add to server"
+msgstr ""
+
 #. placeholder {0}: renderInline(joinLabels(addedLabels), i18n)
 #. placeholder {1}: renderInline(joinLabels(removedLabels), i18n)
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:513
@@ -2087,7 +2103,7 @@ msgstr ""
 msgid "Adjust the spacing between groups of messages."
 msgstr "संदेश समूहों के बीच दूरी समायोजित करें।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:719
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:737
 msgid "admin"
 msgstr ""
 
@@ -2682,7 +2698,7 @@ msgstr ""
 msgid "api"
 msgstr "एपीआई"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:635
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:653
 msgid "api key"
 msgstr ""
 
@@ -2718,7 +2734,7 @@ msgstr "आपके संदेश में ¯\\_(ツ)_/¯ जोड़ा �
 msgid "Appends ┬─┬ ノ( ゜-゜ノ) to your message."
 msgstr "आपके संदेश में ┬─┬ ノ( ゜-゜ノ) जोड़ा गया।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:649
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:667
 msgid "application"
 msgstr ""
 
@@ -2730,7 +2746,7 @@ msgstr "एप्लिकेशन"
 msgid "Application created, but transferring it to the team failed. You can transfer it from its Team section."
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "application icon"
 msgstr ""
 
@@ -2739,7 +2755,7 @@ msgid "Application icon"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationIconSection.tsx:52
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:663
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
 msgid "Application Icon"
 msgstr ""
 
@@ -2748,7 +2764,7 @@ msgid "Application ID"
 msgstr "एप्लिकेशन आईडी"
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationInfoSection.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:646
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:664
 msgid "Application Information"
 msgstr "ऐप्लिकेशन जानकारी"
 
@@ -2773,7 +2789,7 @@ msgstr ""
 msgid "Application transferred"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:398
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:400
 msgid "Application updated successfully"
 msgstr "एप्लिकेशन सफलतापूर्वक अपडेट हो गया"
 
@@ -2914,7 +2930,7 @@ msgid "Are you sure you want to delete #{channelName}? This cannot be undone."
 msgstr "क्या आप सुनिश्चित हैं कि आप #{channelName} हटाना चाहते हैं? यह पूर्ववत नहीं किया जा सकता।"
 
 #. placeholder {0}: application.name
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:525
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:527
 msgid "Are you sure you want to delete <0>{0}</0>?"
 msgstr "क्या तुम वाकई <0>{0}</0> को हटाना चाहते हो?"
 
@@ -3288,7 +3304,8 @@ msgstr "प्राधिकरण विफल। कृपया पुनः
 msgid "Authorization request"
 msgstr "प्राधिकरण अनुरोध"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:629
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "authorize"
 msgstr ""
 
@@ -3415,7 +3432,7 @@ msgid "Autostart is coming soon for Windows and Linux. For now, it is only avail
 msgstr "ऑटोस्टार्ट जल्द ही विंडोज और लिनक्स के लिए आ रहा है। फिलहाल, यह केवल macOS पर उपलब्ध है।"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:50
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "avatar"
 msgstr "अवतार"
 
@@ -3444,7 +3461,7 @@ msgstr "अवतार स्टैक"
 msgid "Avatar, tag, and rich profile details for your bot."
 msgstr "आपके बॉट के लिए अवतार, टैग और समृद्ध प्रोफ़ाइल विवरण।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:672
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:690
 msgid "Avatar, tag, bio, and banner for your bot."
 msgstr ""
 
@@ -3474,7 +3491,7 @@ msgstr "एप्लिकेशन पर वापस"
 msgid "Back to call"
 msgstr "कॉल पर वापस जाएं"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:707
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:278
 msgid "Back to list"
 msgstr "सूची पर वापस"
@@ -3570,7 +3587,7 @@ msgid "Backup codes regenerated"
 msgstr "बैकअप कोड पुनः बनाए गए"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:92
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "badge"
 msgstr "बैज"
 
@@ -3659,8 +3676,8 @@ msgid "Banned Users"
 msgstr "प्रतिबंधित उपयोगकर्ता"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:57
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "banner"
 msgstr "बैनर"
 
@@ -3747,7 +3764,7 @@ msgid "Between 1 and 32 characters"
 msgstr "1 से 32 वर्णों के बीच"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:71
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "bio"
 msgstr "जैव"
 
@@ -3898,8 +3915,8 @@ msgstr "बुकमार्क"
 msgid "Bookworms Anonymous"
 msgstr "बुकवर्म्स अनोनिमस"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:639
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:657
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 #: src/utils/SearchUtils.tsx:298
 msgid "bot"
 msgstr "बॉट"
@@ -3932,6 +3949,10 @@ msgstr "बॉट परिचय"
 msgid "Bot Direct Messages"
 msgstr "बॉट के सीधे संदेश"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:626
+msgid "bot invite"
+msgstr ""
+
 #: src/components/channel/GuildMembersPage.tsx:250
 msgid "Bot Invite"
 msgstr "बॉट निमंत्रण"
@@ -3939,6 +3960,11 @@ msgstr "बॉट निमंत्रण"
 #: src/components/pages/OAuthAuthorizePage.tsx:732
 msgid "Bot invite (no external redirect)"
 msgstr "बॉट निमंत्रण (कोई बाहरी रीडायरेक्ट नहीं)"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:75
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:621
+msgid "Bot Invite Link"
+msgstr ""
 
 #: src/components/pages/OAuthAuthorizePage.tsx:470
 msgid "Bot is already in this community."
@@ -3948,12 +3974,12 @@ msgstr "बॉट पहले से ही इस समुदाय में
 msgid "Bot permissions"
 msgstr "बॉट अनुमतियाँ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "bot profile"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx:70
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:671
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
 msgid "Bot Profile"
 msgstr "बॉट प्रोफ़ाइल"
 
@@ -3961,7 +3987,7 @@ msgstr "बॉट प्रोफ़ाइल"
 msgid "Bot scope requested"
 msgstr "बॉट स्कोप अनुरोधित"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:632
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:650
 msgid "bot token"
 msgstr ""
 
@@ -3974,7 +4000,7 @@ msgid "Bot token revoked"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:150
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:629
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:647
 msgid "Bot Tokens"
 msgstr ""
 
@@ -4030,7 +4056,7 @@ msgstr "बुल्गेरियाई"
 msgid "Bundle your favorite stickers into a pack you can distribute."
 msgstr "अपने पसंदीदा स्टिकर को एक पैक में बंडल करें जिसे आप वितरित कर सकते हैं।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "button"
 msgstr "बटन"
 
@@ -4046,14 +4072,14 @@ msgstr "बटन प्रकार"
 msgid "Button with Context Menu"
 msgstr "कंटेक्स्ट मेन्यू वाला बटन"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "buttons"
 msgstr "बटन"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:177
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:172
 #: src/components/modals/utils/SettingsConstants.tsx:312
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:782
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:800
 msgid "Buttons"
 msgstr "बटन"
 
@@ -4783,7 +4809,7 @@ msgstr "चैनल"
 msgid "Charged up on 1.21 gigawatts, ready to talk"
 msgstr "1.21 गीगावाट पर चार्ज, बात करने के लिए तैयार"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "chat"
 msgstr "चैट"
 
@@ -4830,7 +4856,7 @@ msgstr "अपने ईमेल की जाँच करें"
 msgid "Check your inbox at <0>{0}</0> for a verification email."
 msgstr "सत्यापन ईमेल के लिए <0>{0}</0> में अपने इनबॉक्स की जाँच करें।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "checkbox"
 msgstr "चेकबॉक्स"
 
@@ -5159,7 +5185,7 @@ msgstr "विषय साफ़ किया गया।"
 msgid "Clearing subscriptions ensures the gateway stops sending messages to this installation."
 msgstr "सदस्यताओं को साफ़ करने से गेटवे इस इंस्टॉलेशन को संदेश भेजना बंद कर देता है।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:783
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:801
 msgid "click"
 msgstr "क्लिक करें"
 
@@ -5256,7 +5282,7 @@ msgstr "स्पॉइलर दिखाने के लिए क्लि�
 msgid "Click to view all reactions"
 msgstr "सभी प्रतिक्रियाएँ देखने के लिए क्लिक करें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "client secret"
 msgstr ""
 
@@ -5265,11 +5291,11 @@ msgid "Client secret"
 msgstr "क्लाइंट सीक्रेट"
 
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:63
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:621
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:639
 msgid "Client Secret"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:570
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:572
 msgid "Client secret regenerated. Update any code that uses the old secret."
 msgstr "क्लाइंट सीक्रेट फिर से बनाया गया है। जो कोड पुराने सीक्रेट का उपयोग करते हैं, उन्हें अपडेट करें।"
 
@@ -5949,7 +5975,7 @@ msgid "Consent Required"
 msgstr "स्वीकृति आवश्यक"
 
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:73
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:688
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
 msgid "Construct an authorize URL with scopes and permissions."
 msgstr "स्कोप और अनुमतियों के साथ एक ऑथराइज़ URL बनाएं।"
 
@@ -5980,7 +6006,7 @@ msgstr "आत्म-हानि या आत्महत्या को ब�
 msgid "Content sexualizing or endangering minors"
 msgstr "नाबालिगों को यौन रूप से प्रदर्शित या खतरे में डालने वाली सामग्री"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "context menu"
 msgstr "संदर्भ मेनू"
 
@@ -6121,6 +6147,7 @@ msgid "Converts incoming content to speech, regardless of whether it came from /
 msgstr "/tts से आने वाले सामग्री को भाषण में परिवर्तित करता है, चाहे वह कहाँ से आया हो।"
 
 #: src/components/modals/tabs/applications_tab/application_detail/ApplicationHeader.tsx:68
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:81
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:169
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:311
 msgid "Copied"
@@ -6130,11 +6157,15 @@ msgstr "कॉपी किया गया"
 msgid "Copied client secret to clipboard"
 msgstr ""
 
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:68
+msgid "Copied invite link to clipboard"
+msgstr ""
+
 #: src/actions/TextCopyActionCreators.tsx:66
 msgid "Copied to clipboard"
 msgstr "क्लिपबोर्ड में कॉपी किया गया"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:685
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:677
 msgid "Copied URL to clipboard"
 msgstr "URL क्लिपबोर्ड में कॉपी किया गया"
 
@@ -6152,6 +6183,7 @@ msgstr "कॉपी किया गया!"
 #: src/components/channel/textarea/TextareaContextMenu.tsx:124
 #: src/components/modals/BackupCodesModal.tsx:86
 #: src/components/modals/shared/CopyLinkSection.tsx:52
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:81
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:169
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:153
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:84
@@ -6323,6 +6355,10 @@ msgstr "फोकस किए गए संदेश की आईडी क्
 msgid "Copy the focused message text to the clipboard"
 msgstr "फोकस किए गए संदेश का पाठ क्लिपबोर्ड पर कॉपी करें।"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:622
+msgid "Copy the ready-to-use link that adds this bot to a server."
+msgstr ""
+
 #: src/components/bottomsheets/ChannelDetailsBottomSheet.tsx:1349
 #: src/components/channel/direct_message/DMList.tsx:851
 #: src/components/modals/guild_tabs/BannedUserActionsSheet.tsx:74
@@ -6489,7 +6525,7 @@ msgstr "एक खाता बनाओ"
 msgid "Create and manage applications and bots for your account."
 msgstr "अपने खाते के लिए एप्लिकेशन और बॉट बनाओ और प्रबंधित करो।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:630
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:648
 msgid "Create and revoke named bot tokens."
 msgstr ""
 
@@ -6742,8 +6778,8 @@ msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:108
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:511
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:636
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:654
 msgid "credentials"
 msgstr "प्रमाणपत्र"
 
@@ -7029,8 +7065,8 @@ msgstr "चेक"
 msgid "Czech Republic"
 msgstr "चेक गणराज्य"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "danger"
 msgstr ""
 
@@ -7056,11 +7092,11 @@ msgstr "माध्यमिक खतरे पर क्लिक किय�
 
 #: src/components/modals/tabs/account_security_tab/Inline.tsx:100
 #: src/components/modals/tabs/AccountSecurityTab.tsx:112
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:850
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:854
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:466
 #: src/components/modals/utils/SettingsConstants.tsx:303
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:532
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:695
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:713
 msgid "Danger Zone"
 msgstr "खतरे का क्षेत्र"
 
@@ -7206,7 +7242,7 @@ msgid "Deauthorize Application"
 msgstr "एप्लिकेशन के अधिकार रद्द करें"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:216
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "debug"
 msgstr "डिबग"
 
@@ -7245,7 +7281,7 @@ msgstr "डिबग सदस्य"
 msgid "Debug Message"
 msgstr "डिबग संदेश"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "debug tools"
 msgstr "डिबग टूल"
 
@@ -7322,8 +7358,8 @@ msgstr "बैटरी लाइफ और डेटा उपयोग बच�
 #: src/components/modals/utils/SettingsSearchIndex.tsx:149
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:484
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:533
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "delete"
 msgstr "हटाएं"
 
@@ -7351,7 +7387,7 @@ msgstr "हटाएँ"
 msgid "Delete {channelType}"
 msgstr "{channelType} हटाएँ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:731
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:749
 msgid "Delete a team that no longer owns applications."
 msgstr ""
 
@@ -7384,13 +7420,13 @@ msgstr "सभी संदेश हटाने का फ़ॉर्म"
 msgid "Delete all my messages"
 msgstr "मेरे सभी संदेश हटाएँ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
 msgid "delete application"
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:522
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:536
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:865
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:524
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:538
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:869
 msgid "Delete Application"
 msgstr "एप्लिकेशन हटाएँ"
 
@@ -7521,18 +7557,18 @@ msgstr "सहेजे गए मीडिया हटाएँ"
 msgid "Delete Sticker"
 msgstr "स्टिकर हटाएँ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:732
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:750
 msgid "delete team"
 msgstr ""
 
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:235
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:242
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:481
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:730
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:748
 msgid "Delete Team"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:696
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:714
 msgid "Delete this application and its bot."
 msgstr ""
 
@@ -7628,7 +7664,7 @@ msgid "Describe your cosmetic…"
 msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:71
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:651
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:669
 msgid "description"
 msgstr "विवरण"
 
@@ -7714,15 +7750,15 @@ msgstr "डेव"
 msgid "Dev Den"
 msgstr "डेव डेन"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "dev tools"
 msgstr "डेव टूल्स"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:216
 #: src/components/modals/utils/SettingsSearchIndex.tsx:278
 #: src/components/modals/utils/SettingsSearchIndex.tsx:289
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:720
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:738
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "developer"
 msgstr "डेवलपर"
 
@@ -7751,7 +7787,7 @@ msgstr "डेवलपर मोड"
 msgid "Developer Options"
 msgstr "डेवलपर विकल्प"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "developer team"
 msgstr ""
 
@@ -7768,6 +7804,10 @@ msgstr ""
 #: src/components/modals/utils/SettingsConstants.tsx:241
 msgid "Developer Tools"
 msgstr "डेवलपर टूल्स"
+
+#: src/components/auth/AuthTopNav.tsx:48
+msgid "Developers"
+msgstr ""
 
 #: src/components/modals/DeviceRevokeModal.tsx:71
 #: src/components/modals/DeviceRevokeModal.tsx:72
@@ -8423,11 +8463,11 @@ msgstr "अपने निमंत्रण बैकग्राउंड क
 msgid "Drop to upload background"
 msgstr "बैकग्राउंड अपलोड करने के लिए ड्रॉप करें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "dropdown"
 msgstr "ड्रॉपडाउन"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "dropdown menu"
 msgstr "ड्रॉपडाउन मेनू"
 
@@ -8883,7 +8923,7 @@ msgstr "इमोजी"
 msgid "Empty favorites"
 msgstr "खाली पसंदीदा"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "empty state"
 msgstr "खाली स्थिति"
 
@@ -9276,7 +9316,7 @@ msgstr "सामग्री दिखाने में त्रुटि"
 msgid "Error rendering LaTeX: {0}"
 msgstr "LaTeX दिखाने में त्रुटि: {0}"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "error state"
 msgstr "त्रुटि स्थिति"
 
@@ -9635,7 +9675,7 @@ msgstr "आइकन क्रॉप करने में विफल। क�
 msgid "Failed to decline invite. Please try again."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:547
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:549
 msgid "Failed to delete application. Please try again."
 msgstr "एप्लिकेशन हटाने में विफल। कृपया पुनः प्रयास करें।"
 
@@ -9901,7 +9941,7 @@ msgstr ""
 msgid "Failed to Revoke Invite"
 msgstr "निमंत्रण रद्द करने में विफल"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:576
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:578
 msgid "Failed to rotate. Please try again."
 msgstr "घुमाने में विफल। कृपया पुनः प्रयास करें।"
 
@@ -10076,7 +10116,7 @@ msgstr "कनेक्शन सत्यापित करने में �
 msgid "Failed to withdraw application. Please try again."
 msgstr "आवेदन वापस लेने में विफल। कृपया फिर से प्रयास करें।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "fake"
 msgstr "नकली"
 
@@ -10330,7 +10370,7 @@ msgid "Font Weights"
 msgstr "फ़ॉन्ट वेट्स"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:101
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "fonts"
 msgstr "फॉन्ट्स"
 
@@ -10485,7 +10525,7 @@ msgstr "पासवर्ड भूल गए"
 msgid "Forgot your password?"
 msgstr "अपना पासवर्ड भूल गए?"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "form"
 msgstr "फॉर्म"
 
@@ -10493,7 +10533,7 @@ msgstr "फॉर्म"
 msgid "format"
 msgstr "फॉर्मेट"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "formatting"
 msgstr "फॉर्मेटिंग"
 
@@ -10615,7 +10655,7 @@ msgstr "मित्र अनुरोध"
 msgid "Friend's MultiverseTag"
 msgstr "मित्र का MultiverseTag"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "friendly bot"
 msgstr ""
 
@@ -10734,7 +10774,7 @@ msgstr "जनरल"
 #: src/components/modals/utils/ChannelSettingsConstants.tsx:56
 #: src/components/modals/utils/GuildSettingsConstants.tsx:96
 #: src/components/modals/utils/SettingsConstants.tsx:305
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:739
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:757
 msgid "General"
 msgstr "सामान्य"
 
@@ -11120,6 +11160,10 @@ msgstr "गिल्ड सदस्य"
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:369
 msgid "guild sidebar"
 msgstr "गिल्ड साइडबार"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:87
+msgid "Hand this link to anyone who wants your bot in their server. They pick a server they can manage, confirm, and the bot joins — the link grants no permissions on its own."
+msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
 msgid "handle"
@@ -11595,7 +11639,7 @@ msgstr "मैंने कोड सुरक्षित कर लिए ह�
 msgid "I understand"
 msgstr "मैं समझ गया"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "icon"
 msgstr ""
 
@@ -11677,7 +11721,7 @@ msgid "Illegal Activity"
 msgstr "अवैध गतिविधि"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:50
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 #: src/utils/SearchUtils.tsx:214
 #: src/utils/SearchUtils.tsx:230
 msgid "image"
@@ -11917,14 +11961,14 @@ msgstr "सूचकांक निर्माण हो रहा है..."
 msgid "indicator"
 msgstr "संकेतक"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "indicators"
 msgstr "संकेतक"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:242
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:237
 #: src/components/modals/utils/SettingsConstants.tsx:316
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:810
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:828
 msgid "Indicators & Status"
 msgstr "सूचक और स्थिति"
 
@@ -11966,7 +12010,7 @@ msgstr "इनपुट"
 msgid "Input Device"
 msgstr "इनपुट डिवाइस"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "input field"
 msgstr "इनपुट फ़ील्ड"
 
@@ -11998,14 +12042,14 @@ msgstr "इनपुट स्थितियाँ"
 msgid "Input Volume"
 msgstr "इनपुट वॉल्यूम"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "inputs"
 msgstr "इनपुट्स"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:181
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:176
 #: src/components/modals/utils/SettingsConstants.tsx:313
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:789
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:807
 msgid "Inputs & Text"
 msgstr "इनपुट और टेक्स्ट"
 
@@ -12132,8 +12176,9 @@ msgid "Invisible"
 msgstr "अदृश्य"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:290
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:717
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:624
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:735
 msgid "invite"
 msgstr ""
 
@@ -12183,7 +12228,7 @@ msgstr ""
 msgid "Invite Deleted"
 msgstr "निमंत्रण मिटाया गया"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:713
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:731
 msgid "Invite developers, change roles, and remove members."
 msgstr ""
 
@@ -12196,7 +12241,12 @@ msgstr "मित्रों को आमंत्रित करें"
 msgid "Invite friends to {0}"
 msgstr "{0} में दोस्तों को निमंत्रण दें"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:625
+msgid "invite link"
+msgstr ""
+
 #: src/components/modals/InviteModal.tsx:308
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:78
 msgid "Invite link"
 msgstr "निमंत्रण लिंक"
 
@@ -12893,7 +12943,7 @@ msgstr "वास्तविक मान के लिए खाली छो�
 msgid "Leave Group"
 msgstr "ग्रुप छोड़ें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:723
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:741
 msgid "leave team"
 msgstr ""
 
@@ -13011,6 +13061,7 @@ msgstr "सीमाएँ"
 msgid "Limits Config"
 msgstr "सीमाएँ कॉन्फ़िगर करें"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:632
 #: src/utils/SearchUtils.tsx:211
 #: src/utils/SearchUtils.tsx:227
 msgid "link"
@@ -13149,7 +13200,7 @@ msgstr "और लोड करें"
 msgid "Load More"
 msgstr "और अधिक लोड करें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "loading"
 msgstr "लोड हो रहा है"
 
@@ -13330,7 +13381,7 @@ msgstr "लॉगिन"
 msgid "Login code"
 msgstr "लॉगिन कोड"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "logo"
 msgstr ""
 
@@ -13580,13 +13631,13 @@ msgstr "इनबॉक्स का शीर्ष चैनल पढ़ा �
 msgid "Mark Unread"
 msgstr "अनपढ़ चिह्नित करें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "markdown"
 msgstr "मार्कडाउन"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:274
 #: src/components/modals/utils/SettingsConstants.tsx:317
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:824
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:842
 #: src/utils/AttachmentPreviewUtils.tsx:194
 msgid "Markdown"
 msgstr "Markdown"
@@ -13673,7 +13724,7 @@ msgstr "अधिकतम गुणवत्ता, बहुत तेज़ �
 msgid "Maybe Later"
 msgstr "शायद बाद में"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "md"
 msgstr "md"
 
@@ -13823,7 +13874,7 @@ msgstr "सदस्य सत्यापन स्तर"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:291
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:176
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:716
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:734
 msgid "members"
 msgstr "सदस्य"
 
@@ -13947,7 +13998,7 @@ msgstr "केवल उल्लेख"
 msgid "mentions:"
 msgstr "उल्लेख:"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "menus"
 msgstr "मेनू"
 
@@ -13995,7 +14046,7 @@ msgstr "संदेश AST"
 msgid "Message character limit"
 msgstr "संदेश वर्ण सीमा"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "message component"
 msgstr "संदेश घटक"
 
@@ -14013,7 +14064,7 @@ msgstr "संदेश डिबग"
 msgid "Message Deleted"
 msgstr "संदेश हटाया गया"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "message display"
 msgstr "संदेश प्रदर्शन"
 
@@ -14106,7 +14157,7 @@ msgid "Message: {0}."
 msgstr "संदेश: {0}."
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:138
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:832
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:850
 msgid "messages"
 msgstr "संदेश"
 
@@ -14116,7 +14167,7 @@ msgstr "संदेश"
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:278
 #: src/components/modals/utils/SettingsConstants.tsx:280
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:135
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:831
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:849
 msgid "Messages"
 msgstr "संदेश"
 
@@ -14179,7 +14230,7 @@ msgstr "माइक्रोफ़ोन की अनुमति आवश्
 msgid "Minimize window"
 msgstr "खिड़की को छोटा करें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:638
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:656
 msgid "mint"
 msgstr ""
 
@@ -14218,7 +14269,7 @@ msgstr "अवतार पर मोबाइल ऑनलाइन स्थ�
 msgid "Mobile Push Notifications"
 msgstr "मोबाइल पुश नोटिफिकेशन्स"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "mock"
 msgstr "मॉक"
 
@@ -14278,18 +14329,18 @@ msgstr "नकली वेरिएंट"
 msgid "Mock Verification Barrier"
 msgstr "नकली सत्यापन अवरोध"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "mocking"
 msgstr "मॉकिंग"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:53
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:51
 #: src/components/modals/utils/SettingsConstants.tsx:307
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:753
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:771
 msgid "Mocking"
 msgstr "नकल करना"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "modal"
 msgstr "मोडल"
 
@@ -14784,23 +14835,23 @@ msgstr "मेरा सुपर पैक"
 msgid "My Team"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "nagbar"
 msgstr "नैगबार"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "nagbars"
 msgstr "नैगबार्स"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:57
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:54
 #: src/components/modals/utils/SettingsConstants.tsx:308
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:760
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:778
 msgid "Nagbars"
 msgstr "नैगबार्स"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:650
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:668
 msgid "name"
 msgstr "नाम"
 
@@ -14845,7 +14896,7 @@ msgstr "नाम पासकी"
 msgid "Name passkey form"
 msgstr "नाम पासकी फॉर्म"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:647
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
 msgid "Name, description, tags, policy URLs, and redirect URIs."
 msgstr ""
 
@@ -14912,6 +14963,10 @@ msgstr "नेविगेशन"
 #: src/components/auth/AuthBottomLink.tsx:33
 msgid "Need an account?"
 msgstr "खाता चाहिए?"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:112
+msgid "Need specific permissions or extra scopes? Build a custom link with the OAuth2 URL Builder on this page."
+msgstr ""
 
 #: src/components/modals/AddGuildModal.tsx:162
 msgid "Neighborhood Watch"
@@ -15181,7 +15236,7 @@ msgstr "कोई कैमरा नहीं मिला"
 msgid "No Category"
 msgstr "कोई श्रेणी नहीं"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:385
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:387
 msgid "No changes to save"
 msgstr "सहेजने के लिए कोई परिवर्तन नहीं"
 
@@ -15642,7 +15697,7 @@ msgstr "कुछ भी नहीं"
 msgid "Notification badges showing unread mention counts in different sizes."
 msgstr "अनपढ़े उल्लेखों की संख्या विभिन्न आकारों में दिखाने वाले नोटिफिकेशन बैज।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:761
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:779
 msgid "notification bar"
 msgstr "सूचना बार"
 
@@ -15745,17 +15800,18 @@ msgstr "संख्या"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:254
 #: src/components/modals/utils/SettingsSearchIndex.tsx:278
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:630
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "oauth"
 msgstr "ओऑथ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "oauth2"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:72
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:687
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:705
 msgid "OAuth2 URL Builder"
 msgstr "OAuth2 URL बिल्डर"
 
@@ -15818,7 +15874,7 @@ msgstr "क्लिक पर"
 msgid "on:"
 msgstr "पर:"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:859
 msgid "Once deleted, the application and its credentials are permanently removed."
 msgstr "एक बार हटाए जाने पर, एप्लिकेशन और इसकी प्रमाणपत्र स्थायी रूप से हटा दिए जाते हैं।"
 
@@ -16317,14 +16373,14 @@ msgstr "आउटपुट मात्रा"
 msgid "Overlapping avatar groups showing multiple users with automatic overflow counts."
 msgstr "ओवरलैपिंग अवतार समूह जो कई उपयोगकर्ताओं को स्वतः ओवरफ़्लो गिनती के साथ दिखाते हैं।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "overlays"
 msgstr "ओवरले"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:238
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:233
 #: src/components/modals/utils/SettingsConstants.tsx:315
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:803
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:821
 msgid "Overlays & Menus"
 msgstr "ओवरले और मेनू"
 
@@ -16376,7 +16432,7 @@ msgstr "स्वामित्व"
 msgid "Owner"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "ownership"
 msgstr ""
 
@@ -16636,7 +16692,7 @@ msgid "Permanently delete your account and all associated data. This action cann
 msgstr "अपना खाता और सभी संबद्ध डेटा स्थायी रूप से हटाएं। इस क्रिया को पूर्ववत नहीं किया जा सकता।"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:254
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "permissions"
 msgstr "अनुमतियाँ"
 
@@ -16845,7 +16901,7 @@ msgstr "पिन किया गया:"
 msgid "Pins"
 msgstr "पिन"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "placeholder"
 msgstr "प्लेसहोल्डर"
 
@@ -16942,7 +16998,7 @@ msgstr "कृपया एक ईमेल पता दें।"
 msgid "Please request a verification code first."
 msgstr "कृपया पहले सत्यापन कोड का अनुरोध करें।"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:699
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:691
 msgid "Please retry or go back to the applications list."
 msgstr "कृपया पुनः प्रयास करें या एप्लिकेशन सूची पर वापस जाएँ।"
 
@@ -17006,7 +17062,7 @@ msgid "Popouts"
 msgstr "पॉपआउट"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:545
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:804
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:822
 msgid "popup"
 msgstr "पॉपअप"
 
@@ -17027,7 +17083,7 @@ msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "क्या आप SSO का उपयोग करना पसंद करते हैं? {ssoDisplayName} के साथ जारी रखें।"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:262
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "premium"
 msgstr "प्रीमियम"
 
@@ -17212,7 +17268,7 @@ msgstr "गोपनीयता"
 msgid "Privacy Dashboard"
 msgstr "गोपनीयता डैशबोर्ड"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:653
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:671
 msgid "privacy policy"
 msgstr ""
 
@@ -17309,7 +17365,7 @@ msgstr "प्रोफ़ाइल प्रकार"
 msgid "Profile updated"
 msgstr "प्रोफ़ाइल अपडेट हो गई"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "progress"
 msgstr "प्रगति"
 
@@ -17475,7 +17531,7 @@ msgstr "उद्धरण"
 msgid "quotes"
 msgstr "उद्धरण"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "radio"
 msgstr "रेडियो"
 
@@ -17547,7 +17603,7 @@ msgstr "संदेश इतिहास पढ़ें"
 msgid "read messages"
 msgstr "संदेश पढ़ें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:721
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:739
 msgid "read only"
 msgstr ""
 
@@ -17659,11 +17715,11 @@ msgstr "रिकॉर्डिंग विफल। कृपया फिर
 msgid "recovery"
 msgstr "पुनर्प्राप्ति"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:656
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:674
 msgid "redirect"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:655
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
 msgid "redirect uri"
 msgstr ""
 
@@ -17713,13 +17769,13 @@ msgstr ""
 msgid "Refresh push subscription"
 msgstr "पुश सब्सक्रिप्शन ताज़ा करें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "regenerate"
 msgstr ""
 
 #: src/components/modals/BackupCodesModal.tsx:94
 #: src/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:87
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:672
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:664
 msgid "Regenerate"
 msgstr "पुनः उत्पन्न करें"
 
@@ -17727,11 +17783,11 @@ msgstr "पुनः उत्पन्न करें"
 msgid "Regenerate Backup Codes"
 msgstr "बैकअप कोड फिर से उत्पन्न करें"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:668
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:660
 msgid "Regenerate client secret?"
 msgstr "क्लाइंट सीक्रेट पुनः उत्पन्न करें?"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:670
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:662
 msgid "Regenerating will invalidate the current secret. Update any code that uses the old value."
 msgstr "पुनः उत्पन्न करने से वर्तमान सीक्रेट अमान्य हो जाएगा। कोई भी कोड जो पुराने मान का उपयोग करता है उसे अपडेट करें।"
 
@@ -17809,7 +17865,7 @@ msgstr "किसी संदेश को हटाने से पहले 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:149
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:484
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:533
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
 msgid "remove"
 msgstr "हटाएँ"
 
@@ -17991,7 +18047,7 @@ msgstr ""
 msgid "Remove Icon"
 msgstr "आइकन हटाएँ"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:722
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
 msgid "remove member"
 msgstr ""
 
@@ -18179,7 +18235,7 @@ msgstr "पैक हटाने से यह आपके खाते से
 msgid "Removing the timeout will allow <0>{0}</0> to send messages, react, and join voice channels again."
 msgstr "टाइमआउट हटाने से <0>{0}</0> फिर से संदेश भेज सकेगा, प्रतिक्रिया दे सकेगा, और वॉइस चैनलों में शामिल हो सकेगा।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
 msgid "rename"
 msgstr ""
 
@@ -18208,7 +18264,7 @@ msgstr "चैनल नाम बदलने का फ़ॉर्म"
 msgid "Rename Emoji"
 msgstr "इमोजी का नाम बदलें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:705
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:723
 msgid "Rename your developer team."
 msgstr ""
 
@@ -18613,7 +18669,7 @@ msgstr "विंडो पुनर्स्थापित करें"
 #: src/components/modals/guild_tabs/GuildStickersTab.tsx:234
 #: src/components/modals/guild_tabs/GuildWebhooksTab.tsx:138
 #: src/components/modals/tabs/applications_tab/application_detail/BotTokensSection.tsx:184
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:703
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:695
 #: src/components/modals/tabs/applications_tab/index.tsx:113
 #: src/components/modals/tabs/AuthorizedAppsTab.tsx:119
 #: src/components/modals/tabs/developer_teams_tab/index.tsx:161
@@ -18661,7 +18717,7 @@ msgstr "जारी रखने से पहले देखें कि य
 msgid "Reviewed"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:637
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:655
 msgid "revoke"
 msgstr ""
 
@@ -18718,7 +18774,7 @@ msgstr "समृद्ध एम्बेड"
 msgid "Rich embeds with actual CDN thumbnails."
 msgstr "वास्तविक CDN थंबनेल के साथ समृद्ध एम्बेड्स।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:825
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:843
 msgid "rich text"
 msgstr "धनात्मक पाठ"
 
@@ -18813,7 +18869,7 @@ msgstr "भूमिका अपडेट की गई"
 msgid "Role: {0}."
 msgstr "भूमिका: {0}."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:718
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:736
 msgid "roles"
 msgstr ""
 
@@ -18846,7 +18902,7 @@ msgstr "रोमानिया"
 msgid "Romanian"
 msgstr "रोमानियाई"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "rotate"
 msgstr ""
 
@@ -19061,7 +19117,7 @@ msgstr "विज्ञान और प्रौद्योगिकी"
 msgid "Scope"
 msgstr "स्कोप"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "scopes"
 msgstr ""
 
@@ -19355,7 +19411,7 @@ msgstr "माध्यमिक बटन पर क्लिक हुआ!"
 msgid "Seconds"
 msgstr "सेकंड"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:623
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:641
 msgid "secret"
 msgstr ""
 
@@ -19409,11 +19465,11 @@ msgstr "अपने खाते में वर्तमान में ल�
 msgid "See how your invite looks to visitors."
 msgstr "देखें कि आपका निमंत्रण आगंतुकों को कैसा दिखता है।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:680
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:698
 msgid "See which team owns this application and transfer it."
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "select"
 msgstr "चुनें"
 
@@ -19548,14 +19604,14 @@ msgstr "अपना निवास देश चुनें।"
 msgid "Select..."
 msgstr "चुनें..."
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "selections"
 msgstr "चुनाव"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:208
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:203
 #: src/components/modals/utils/SettingsConstants.tsx:314
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:796
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:814
 msgid "Selections"
 msgstr "चयन"
 
@@ -20024,6 +20080,10 @@ msgstr "कई लोग टाइप कर रहे हैं..."
 msgid "Sexual content in non-NSFW spaces or without consent"
 msgstr "गैर-NSFW जगहों पर या बिना सहमति के यौन सामग्री"
 
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:631
+msgid "share"
+msgstr ""
+
 #: src/components/modals/tabs/component_gallery_tab/ButtonsTab.tsx:163
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:98
 #: src/components/modals/tabs/component_gallery_tab/Inline.tsx:93
@@ -20054,6 +20114,10 @@ msgstr "स्ट्रीम ऑडियो साझा करें"
 #: src/components/modals/PackInviteModal.tsx:143
 msgid "Share this link"
 msgstr "यह लिंक साझा करें"
+
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:75
+msgid "Share this link to add your bot to a server."
+msgstr ""
 
 #: src/components/modals/tabs/appearance_tab/ThemeTab.tsx:549
 msgid "Share this theme"
@@ -20517,7 +20581,7 @@ msgstr "चुप कॉल"
 msgid "Silent calls from everyone"
 msgstr "सभी से मूक कॉल"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:754
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:772
 msgid "simulate"
 msgstr "अनुकरण करें"
 
@@ -20954,7 +21018,7 @@ msgstr "आपके ब्राउज़र में भाषण संश�
 msgid "Spellcheck"
 msgstr "वर्तनी जांच"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "spinner"
 msgstr "स्पिनर"
 
@@ -21112,7 +21176,7 @@ msgid "Stats update every second"
 msgstr "स्टैट्स हर सेकंड अपडेट होते हैं"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:431
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:811
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:829
 msgid "status"
 msgstr "स्थिति"
 
@@ -21120,12 +21184,12 @@ msgstr "स्थिति"
 msgid "Status Indicators"
 msgstr "स्थिति संकेतक"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:818
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "status slate"
 msgstr "स्थिति स्लेट"
 
 #: src/components/modals/tabs/component_gallery_tab/index.tsx:248
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:817
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:835
 msgid "Status Slate"
 msgstr "स्थिति स्लेट"
 
@@ -21378,7 +21442,7 @@ msgstr "रिपोर्ट जमा करें"
 msgid "Submitting"
 msgstr "जमा हो रहा है"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:747
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:765
 msgid "subscription"
 msgstr "सदस्यता"
 
@@ -21495,7 +21559,7 @@ msgstr "स्वीडन"
 msgid "Swedish"
 msgstr "स्वीडिश"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "switch"
 msgstr "स्विच"
 
@@ -21649,7 +21713,7 @@ msgstr "टैब"
 msgid "tag"
 msgstr "टैग"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:652
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:670
 msgid "tags"
 msgstr ""
 
@@ -21681,15 +21745,15 @@ msgid "Targeted attacks, threats, or sustained harassment"
 msgstr "लक्षित हमले, धमकियाँ या लगातार उत्पीड़न"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:288
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:715
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:733
 msgid "team"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:134
 #: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:202
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:679
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:697
 msgid "Team"
 msgstr ""
 
@@ -21701,11 +21765,11 @@ msgstr "टीम अल्फा"
 msgid "Team ID"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:712
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:730
 msgid "Team Members"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:706
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:724
 msgid "team name"
 msgstr ""
 
@@ -21715,7 +21779,7 @@ msgid "Team Name"
 msgstr ""
 
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:319
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:704
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:722
 msgid "Team Profile"
 msgstr ""
 
@@ -21748,7 +21812,7 @@ msgstr "अपना खाता अस्थायी रूप से अक�
 msgid "Temporarily disable your account. You can reactivate it later by signing back in."
 msgstr "अपना खाता अस्थायी रूप से अक्षम करें। आप बाद में फिर से साइन इन करके इसे पुनः सक्रिय कर सकते हैं।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:654
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:672
 msgid "terms of service"
 msgstr ""
 
@@ -21772,11 +21836,11 @@ msgid "Test Subscription State"
 msgstr "सदस्यता स्थिति टेस्ट"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:302
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
 msgid "testing"
 msgstr "परीक्षण"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "text"
 msgstr "पाठ"
 
@@ -21808,7 +21872,7 @@ msgstr "टेक्स्ट चैनल नाम"
 msgid "Text channels"
 msgstr "टेक्स्ट चैनल"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:790
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:808
 msgid "text field"
 msgstr "पाठ क्षेत्र"
 
@@ -21820,7 +21884,7 @@ msgstr "पाठ प्रारूपण"
 msgid "text size"
 msgstr "पाठ आकार"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "text styles"
 msgstr "पाठ शैलियाँ"
 
@@ -22103,7 +22167,7 @@ msgstr "तीसरा विकल्प"
 msgid "third party"
 msgstr "तीसरा पक्ष"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:530
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:532
 msgid "This action cannot be undone. All associated data, including the bot user, will be permanently deleted."
 msgstr "यह कार्रवाई वापस नहीं की जा सकती। सभी संबंधित डेटा, बॉट यूज़र सहित, स्थायी रूप से हटाया जाएगा।"
 
@@ -22126,7 +22190,7 @@ msgstr "यह अटैचमेंट समाप्त हो चुका �
 msgid "This bot is requesting the Administrator permission. We do not recommend granting this to production apps unless you fully trust the developer. Consider asking them to request a reduced set of permissions. Close this page if you are unsure."
 msgstr "यह बॉट एडमिनिस्ट्रेटर अनुमति मांग रहा है। यदि आप डेवलपर पर पूरी तरह भरोसा नहीं करते तो प्रोडक्शन एप्स को यह अनुमति देने की सलाह नहीं है। उनसे कम अनुमतियों का अनुरोध करने को कहें। यदि आप अनिश्चित हैं तो इस पेज को बंद करें।"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:851
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:855
 msgid "This cannot be undone. Removing the application also deletes its bot."
 msgstr "यह उल्टा नहीं किया जा सकता। एप्लिकेशन को हटाने पर उसका बॉट भी हट जाएगा।"
 
@@ -22656,7 +22720,7 @@ msgstr "आज"
 msgid "Today at {timeString}"
 msgstr "आज {timeString} को"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:797
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:815
 msgid "toggle"
 msgstr "टॉगल"
 
@@ -22748,7 +22812,7 @@ msgstr "थीम बदलें"
 msgid "Toggle unique invite"
 msgstr "विशिष्ट इनवाइट चालू/बंद करें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:633
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:651
 msgid "token"
 msgstr ""
 
@@ -22781,7 +22845,7 @@ msgstr ""
 msgid "Token Gating"
 msgstr ""
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:634
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:652
 msgid "tokens"
 msgstr ""
 
@@ -22820,15 +22884,15 @@ msgstr "बहुत शांत"
 msgid "Took the DeLorean out, but I'll be back in time"
 msgstr "DeLorean निकाल लिया है, लेकिन समय पर वापस आऊंगा"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:740
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:758
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "tools"
 msgstr "उपकरण"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:61
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:57
 #: src/components/modals/utils/SettingsConstants.tsx:309
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:767
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:785
 msgid "Tools"
 msgstr "उपकरण"
 
@@ -22865,7 +22929,7 @@ msgstr "टोटप"
 msgid "Track moderator actions across the community."
 msgstr "पूरी कम्युनिटी में मॉडरेटर क्रियाओं पर नज़र रखें।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:681
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:699
 msgid "transfer"
 msgstr ""
 
@@ -23187,14 +23251,14 @@ msgstr "टाइपिंग स्थिति"
 msgid "typing status"
 msgstr "टाइपिंग स्थिति"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:775
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:793
 msgid "typography"
 msgstr "टाइपोग्राफी"
 
 #: src/components/modals/tabs/developer_options_tab/index.tsx:65
 #: src/components/modals/tabs/developer_options_tab/Inline.tsx:60
 #: src/components/modals/utils/SettingsConstants.tsx:310
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:774
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:792
 msgid "Typography"
 msgstr "टाइपोग्राफी"
 
@@ -23903,7 +23967,7 @@ msgstr "Plutonium में अपग्रेड करें"
 msgid "Upgrade to store up to 15 custom backgrounds and unlock HD video quality, higher frame rates, and more."
 msgstr "15 कस्टम बैकग्राउंड तक रखने और HD वीडियो क्वालिटी, उच्च फ्रेम रेट और अधिक अनलॉक करने के लिए अपग्रेड करें।"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:665
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:683
 msgid "upload"
 msgstr ""
 
@@ -23931,7 +23995,7 @@ msgstr "एक कस्टम साउंड अपलोड करें ज�
 msgid "Upload a File"
 msgstr "एक फ़ाइल अपलोड करें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:664
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:682
 msgid "Upload an icon for your application, independent of its bot's avatar."
 msgstr ""
 
@@ -24038,7 +24102,7 @@ msgstr ""
 msgid "URL"
 msgstr "URL"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:689
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:707
 msgid "url builder"
 msgstr ""
 
@@ -24305,7 +24369,7 @@ msgid "user, bot or webhook"
 msgstr "उपयोगकर्ता, बॉट या वेबहुक"
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:64
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:673
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:691
 msgid "username"
 msgstr "उपयोगकर्ता नाम"
 
@@ -24408,7 +24472,7 @@ msgstr "वास्तविक सत्यापन स्थिति का
 msgid "utc"
 msgstr "यूटीसी"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:768
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:786
 msgid "utilities"
 msgstr "उपकरण"
 
@@ -24825,7 +24889,7 @@ msgstr "अपने जुड़े हुए खातों को देख�
 msgid "View your email address"
 msgstr "अपना ईमेल पता देखें"
 
-#: src/components/modals/utils/SettingsSectionRegistry.tsx:622
+#: src/components/modals/utils/SettingsSectionRegistry.tsx:640
 msgid "View, copy, and regenerate your application's client secret."
 msgstr ""
 
@@ -25148,7 +25212,7 @@ msgstr "हम अभी इस समुदाय में शामिल न
 msgid "We couldn't load the invites at this time."
 msgstr "हम इस समय आमंत्रण लोड नहीं कर सके।"
 
-#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:698
+#: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:690
 msgid "We couldn't load this application"
 msgstr "हम इस एप्लिकेशन को लोड नहीं कर पाए"
 

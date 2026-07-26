@@ -44,6 +44,9 @@ export function AuthTopNav() {
 					<ExternalLink href={Routes.whitepaper()} className={styles.link}>
 						<Trans>Whitepaper</Trans>
 					</ExternalLink>
+					<ExternalLink href={Routes.developers()} className={styles.link}>
+						<Trans>Developers</Trans>
+					</ExternalLink>
 				</div>
 			</div>
 		</nav>
