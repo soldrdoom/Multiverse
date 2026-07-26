@@ -28,6 +28,14 @@ export interface MessageSender {
 	sendMessage(apiBaseUrl: string, channelId: string, content: string): Promise<void>;
 }
 
+/**
+ * Resolves a channel's numeric type. index.tsx adapts the SDK's getChannel;
+ * implementations should throw on failure so the handler can fail closed.
+ */
+export interface ChannelTypeResolver {
+	getChannelType(channelId: string): Promise<number>;
+}
+
 interface MessageCreatePayload {
 	channel_id: string;
 	guild_id?: string;
@@ -36,12 +44,10 @@ interface MessageCreatePayload {
 	encrypted_content?: string | null;
 }
 
-const BOT_TEASE_INTERVAL = 5;
-const BOT_TEASE_LINES = [
-	'(psst — bots are coming soon to Multiverse 🤖)',
-	'(small teaser: a public bot API is on the way for Multiverse)',
-	'(bot support is coming soon, by the way)',
-];
+// ChannelTypes.DM in packages/constants/src/ChannelConstants.tsx. Kept as a
+// local constant so iris_bot doesn't re-grow a @fluxer/constants dependency
+// (dropped in the 1.6a transport swap) for a single value.
+const DM_CHANNEL_TYPE = 1;
 
 // I.R.I.S. doesn't discuss the platform beyond this canned deflection — with
 // no model behind it there is nothing to hallucinate, but the deflection stays
@@ -57,7 +63,6 @@ const PLATFORM_KEYWORDS = [
 	'tokenomics',
 	'plutonium',
 	'identity vault',
-	'bot api',
 	'agplv3',
 	'agpl',
 	'csam',
@@ -66,8 +71,8 @@ const PLATFORM_DEFLECTION =
 	"I can't get into that right now — ask my creator directly! Happy to chat about anything else though.";
 
 // The LLM was removed for now (2026-07-26): every non-platform DM gets this
-// fixed line instead of a generated reply. Guild messages get no reply at all —
-// a canned bot answering every public message would be noise.
+// fixed line instead of a generated reply. Guild and group-DM messages get no
+// reply at all — a canned bot answering shared channels would be noise.
 const LIGHTWEIGHT_REPLY =
 	"I'm running in lightweight mode right now, so I can't hold a real conversation — but I'm still here, and smarter days are coming!";
 
@@ -77,12 +82,13 @@ function mentionsPlatform(content: string): boolean {
 }
 
 export class MessageHandler {
-	private readonly replyCounts = new Map<string, number>();
+	private readonly channelTypes = new Map<string, number>();
 
 	constructor(
 		private readonly botUserId: string,
 		private readonly apiBaseUrl: string,
 		private readonly restClient: MessageSender,
+		private readonly channelResolver: ChannelTypeResolver,
 		private readonly log: Logger,
 	) {}
 
@@ -97,8 +103,7 @@ export class MessageHandler {
 		if (message.author.id === this.botUserId) return;
 		if (message.author.bot) return;
 
-		// DM-only while in lightweight mode: guild traffic is read but never
-		// answered.
+		// Guild traffic is read but never answered.
 		if (message.guild_id) return;
 
 		if (!message.content) {
@@ -108,22 +113,28 @@ export class MessageHandler {
 			return;
 		}
 
+		// Strictly 1:1 DMs: the absence of guild_id alone also matches group
+		// DMs (they ride the presence dispatch path), so resolve the channel
+		// type and fail closed if it can't be determined.
+		if (!(await this.isDirectMessageChannel(message.channel_id))) return;
+
 		this.log.info({channelId: message.channel_id}, 'Replying to message');
 
-		let reply = mentionsPlatform(message.content) ? PLATFORM_DEFLECTION : LIGHTWEIGHT_REPLY;
-		reply = this.maybeAppendBotTease(message.channel_id, reply);
-
+		const reply = mentionsPlatform(message.content) ? PLATFORM_DEFLECTION : LIGHTWEIGHT_REPLY;
 		await this.restClient.sendMessage(this.apiBaseUrl, message.channel_id, reply);
 	}
 
-	private maybeAppendBotTease(channelId: string, reply: string): string {
-		const count = (this.replyCounts.get(channelId) ?? 0) + 1;
-		this.replyCounts.set(channelId, count);
+	private async isDirectMessageChannel(channelId: string): Promise<boolean> {
+		const cached = this.channelTypes.get(channelId);
+		if (cached !== undefined) return cached === DM_CHANNEL_TYPE;
 
-		if (count % BOT_TEASE_INTERVAL !== 0) return reply;
-		if (reply.toLowerCase().includes('bot')) return reply;
-
-		const tease = BOT_TEASE_LINES[Math.floor(Math.random() * BOT_TEASE_LINES.length)];
-		return `${reply}\n\n${tease}`;
+		try {
+			const type = await this.channelResolver.getChannelType(channelId);
+			this.channelTypes.set(channelId, type);
+			return type === DM_CHANNEL_TYPE;
+		} catch (err) {
+			this.log.warn({err, channelId}, 'Could not resolve channel type; not replying');
+			return false;
+		}
 	}
 }

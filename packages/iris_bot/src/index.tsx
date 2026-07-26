@@ -21,7 +21,7 @@ import {createServer} from 'node:http';
 import {createClient, FluxerApiError} from '@fluxer/bot_sdk/src/index';
 import pino from 'pino';
 import {loadConfig} from './Config';
-import {MessageHandler, type MessageSender} from './MessageHandler';
+import {type ChannelTypeResolver, MessageHandler, type MessageSender} from './MessageHandler';
 
 async function main(): Promise<void> {
 	const log = pino({level: process.env.LOG_LEVEL ?? 'info'});
@@ -57,6 +57,14 @@ async function main(): Promise<void> {
 		},
 	};
 
+	// Throws on failure so the handler's strict-DM gate fails closed.
+	const channelResolver: ChannelTypeResolver = {
+		async getChannelType(channelId) {
+			const channel = await client.api.getChannel(channelId);
+			return channel.type;
+		},
+	};
+
 	let botUserId: string | null = null;
 	let handler: MessageHandler | null = null;
 
@@ -64,7 +72,7 @@ async function main(): Promise<void> {
 		if (t === 'READY') {
 			const ready = d as {user: {id: string}};
 			botUserId = ready.user.id;
-			handler = new MessageHandler(botUserId, client.rest.baseUrl, messageSender, log);
+			handler = new MessageHandler(botUserId, client.rest.baseUrl, messageSender, channelResolver, log);
 			log.info({botUserId}, 'I.R.I.S. ready');
 			return;
 		}
