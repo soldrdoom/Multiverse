@@ -1080,10 +1080,10 @@ msgid "<0>Removed</0> the vanity URL."
 msgstr "<0>Usunięto</0> spersonalizowany URL."
 
 #: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:95
-msgid "<0>This bot is private.</0> Only you and your team can use this link. Turn on <1>Public Bot</1> in Application Information if you want anyone else to be able to add it."
+msgid "<0>This bot is private.</0> Only you and team members with the developer or admin role can use this link. Turn on <1>Public Bot</1> in Application Information if you want anyone else to be able to add it."
 msgstr ""
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:104
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:105
 msgid "<0>This bot requires OAuth2 code grant.</0> This link will be rejected on its own — use the OAuth2 URL Builder to add a redirect URI."
 msgstr ""
 
@@ -14964,7 +14964,7 @@ msgstr "Nawigacja"
 msgid "Need an account?"
 msgstr "Potrzebujesz konta?"
 
-#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:112
+#: src/components/modals/tabs/applications_tab/application_detail/BotInviteSection.tsx:113
 msgid "Need specific permissions or extra scopes? Build a custom link with the OAuth2 URL Builder on this page."
 msgstr ""
 

@@ -17,7 +17,7 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Endpoints} from '@app/Endpoints';
+import {Routes} from '@app/Routes';
 
 /**
  * The scope list for a plain "add this bot to a server" invite. Kept as a
@@ -46,7 +46,10 @@ export interface AuthorizeUrlParams {
  * UI affordances, not properties of the URL.
  */
 export function buildAuthorizeUrl({clientId, scopes, permissions, redirectUri}: AuthorizeUrlParams): string {
-	const authorizeUrl = new URL(Endpoints.OAUTH_AUTHORIZE, window.location.origin);
+	// Routes, not Endpoints: this URL is handed to third parties and must point
+	// at the client route that renders the consent page, not the API path that
+	// happens to match it today.
+	const authorizeUrl = new URL(Routes.OAUTH_AUTHORIZE, window.location.origin);
 	authorizeUrl.searchParams.set('client_id', clientId);
 
 	if (scopes.length > 0) {

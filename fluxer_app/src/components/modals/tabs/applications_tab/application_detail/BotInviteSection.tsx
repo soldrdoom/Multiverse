@@ -93,8 +93,9 @@ export const BotInviteSection: React.FC<BotInviteSectionProps> = ({
 				{!botIsPublic && (
 					<p className={styles.helperText}>
 						<Trans>
-							<strong>This bot is private.</strong> Only you and your team can use this link. Turn on{' '}
-							<strong>Public Bot</strong> in Application Information if you want anyone else to be able to add it.
+							<strong>This bot is private.</strong> Only you and team members with the developer or admin role can use
+							this link. Turn on <strong>Public Bot</strong> in Application Information if you want anyone else to be
+							able to add it.
 						</Trans>
 					</p>
 				)}
