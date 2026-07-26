@@ -65,7 +65,7 @@ Currently, revoking *any* one of an application's tokens disconnects **all** of 
 
 Many endpoints reject bot tokens **by design** — they're user-client-only (settings, billing, account management, most of the client-facing surface) and return `403` for a bot credential. This is intentional, not a bug to work around.
 
-The [API reference](/api-reference/introduction) is the source of truth here: each operation's security requirements list exactly which credential types it accepts. If an operation doesn't list `botToken`, a bot token will be rejected. The spec is generated from the actual route middleware, so it reflects enforcement, not aspiration.
+The [API reference](/api-reference/introduction) is the source of truth here: each operation's security requirements list exactly which credential types it accepts. If an operation doesn't list `botToken`, a bot token will be rejected. The spec is kept in sync with the actual route middleware, and each declared credential type is enforced at runtime.
 
 ## OAuth2 access tokens (`Bearer`)
 
