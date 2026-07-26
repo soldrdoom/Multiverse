@@ -79,10 +79,11 @@ async function transferApplication(
 	token: string,
 	applicationId: string,
 	teamId: string | null,
+	password: string,
 ): Promise<ApplicationBody> {
 	return createBuilder<ApplicationBody>(harness, token)
 		.patch(`/oauth2/applications/${applicationId}/team`)
-		.body({team_id: teamId})
+		.body({team_id: teamId, password})
 		.expect(HTTP_STATUS.OK)
 		.execute();
 }
@@ -102,7 +103,7 @@ async function setupTeamApplication(
 	const created = await createOAuth2Application(harness, owner.token, {
 		name: createUniqueApplicationName(),
 	});
-	await transferApplication(harness, owner.token, created.application.id, team.id);
+	await transferApplication(harness, owner.token, created.application.id, team.id, owner.password);
 	await inviteMember(harness, owner.token, team.id, member.userId, role);
 	if (options?.accept !== false) {
 		await acceptInvite(harness, member.token, team.id);
@@ -124,7 +125,7 @@ describe('Team membership', () => {
 		const created = await createOAuth2Application(harness, owner.token, {
 			name: createUniqueApplicationName(),
 		});
-		await transferApplication(harness, owner.token, created.application.id, team.id);
+		await transferApplication(harness, owner.token, created.application.id, team.id, owner.password);
 
 		await createBuilder(harness, stranger.token).get(`/teams/${team.id}`).expect(HTTP_STATUS.FORBIDDEN).execute();
 		await createBuilder(harness, stranger.token)
@@ -164,7 +165,7 @@ describe('Team membership', () => {
 
 		await createBuilder(harness, member.token)
 			.post(`/oauth2/applications/${applicationId}/bot/tokens`)
-			.body({name: 'sneaky'})
+			.body({name: 'sneaky', password: member.password})
 			.expect(HTTP_STATUS.FORBIDDEN)
 			.execute();
 	});
@@ -180,7 +181,7 @@ describe('Team membership', () => {
 
 		await createBuilder(harness, member.token)
 			.post(`/oauth2/applications/${applicationId}/bot/tokens`)
-			.body({name: 'ci'})
+			.body({name: 'ci', password: member.password})
 			.expect(HTTP_STATUS.FORBIDDEN)
 			.execute();
 
@@ -196,7 +197,7 @@ describe('Team membership', () => {
 
 		const minted = await createBuilder<{token?: string}>(harness, member.token)
 			.post(`/oauth2/applications/${applicationId}/bot/tokens`)
-			.body({name: 'admin-minted'})
+			.body({name: 'admin-minted', password: member.password})
 			.expect(HTTP_STATUS.OK)
 			.execute();
 		expect(minted.token).toBeTruthy();
@@ -233,7 +234,7 @@ describe('Team membership', () => {
 			.execute();
 		await createBuilder(harness, member.token)
 			.post(`/oauth2/applications/${applicationId}/bot/tokens`)
-			.body({name: 'nope'})
+			.body({name: 'nope', password: member.password})
 			.expect(HTTP_STATUS.FORBIDDEN)
 			.execute();
 
@@ -284,14 +285,14 @@ describe('Team membership', () => {
 		expect(created.application.team_id ?? null).toBeNull();
 
 		// ...and transfers it to the team, which rewrites the owner.
-		const transferred = await transferApplication(harness, admin.token, created.application.id, team.id);
+		const transferred = await transferApplication(harness, admin.token, created.application.id, team.id, admin.password);
 		expect(transferred.team_id).toBe(team.id);
 
 		// The former owner is no longer the owner, so a second transfer (an
 		// owner-only operation) is refused...
 		await createBuilder(harness, admin.token)
 			.patch(`/oauth2/applications/${created.application.id}/team`)
-			.body({team_id: null})
+			.body({team_id: null, password: admin.password})
 			.expect(HTTP_STATUS.FORBIDDEN)
 			.execute();
 
@@ -302,7 +303,7 @@ describe('Team membership', () => {
 			.execute();
 		expect(ownerApps.some((entry) => entry.id === created.application.id)).toBe(true);
 
-		const detached = await transferApplication(harness, owner.token, created.application.id, null);
+		const detached = await transferApplication(harness, owner.token, created.application.id, null, owner.password);
 		expect(detached.team_id).toBeNull();
 
 		// After detaching, the application belongs personally to the team owner;
@@ -324,25 +325,83 @@ describe('Team membership', () => {
 
 		await createBuilder(harness, outsider.token)
 			.patch(`/oauth2/applications/${created.application.id}/team`)
-			.body({team_id: team.id})
+			.body({team_id: team.id, password: outsider.password})
 			.expect(HTTP_STATUS.FORBIDDEN)
 			.execute();
+	});
+
+	test('transferring an application requires sudo verification', async () => {
+		const owner = await createTestAccount(harness);
+		const team = await createTeam(harness, owner.token, 'sudo-transfer-team');
+		const created = await createOAuth2Application(harness, owner.token, {
+			name: createUniqueApplicationName(),
+		});
+
+		await createBuilder(harness, owner.token)
+			.patch(`/oauth2/applications/${created.application.id}/team`)
+			.body({team_id: team.id})
+			.expect(HTTP_STATUS.FORBIDDEN, 'SUDO_MODE_REQUIRED')
+			.execute();
+
+		// With the password supplied, the same transfer succeeds.
+		const transferred = await transferApplication(
+			harness,
+			owner.token,
+			created.application.id,
+			team.id,
+			owner.password,
+		);
+		expect(transferred.team_id).toBe(team.id);
 	});
 
 	test('team deletion is owner-only and refused while the team owns applications', async () => {
 		const {owner, member, teamId, applicationId} = await setupTeamApplication(harness, 'admin');
 
 		// Admins cannot delete the team.
-		await createBuilder(harness, member.token).delete(`/teams/${teamId}`).expect(HTTP_STATUS.FORBIDDEN).execute();
+		await createBuilder(harness, member.token)
+			.delete(`/teams/${teamId}`)
+			.body({password: member.password})
+			.expect(HTTP_STATUS.FORBIDDEN)
+			.execute();
 
 		// The owner cannot either while it still owns an application.
-		await createBuilder(harness, owner.token).delete(`/teams/${teamId}`).expect(HTTP_STATUS.BAD_REQUEST).execute();
+		await createBuilder(harness, owner.token)
+			.delete(`/teams/${teamId}`)
+			.body({password: owner.password})
+			.expect(HTTP_STATUS.BAD_REQUEST)
+			.execute();
 
-		await transferApplication(harness, owner.token, applicationId, null);
+		await transferApplication(harness, owner.token, applicationId, null, owner.password);
 
-		await createBuilder(harness, owner.token).delete(`/teams/${teamId}`).expect(HTTP_STATUS.NO_CONTENT).execute();
+		await createBuilder(harness, owner.token)
+			.delete(`/teams/${teamId}`)
+			.body({password: owner.password})
+			.expect(HTTP_STATUS.NO_CONTENT)
+			.execute();
 
 		await createBuilder(harness, owner.token).get(`/teams/${teamId}`).expect(HTTP_STATUS.NOT_FOUND).execute();
+	});
+
+	test('team deletion requires sudo verification', async () => {
+		const owner = await createTestAccount(harness);
+		const team = await createTeam(harness, owner.token, 'sudo-delete-team');
+
+		// No body at all — the shape a client's first attempt takes before its
+		// sudo-retry flow kicks in.
+		await createBuilder(harness, owner.token)
+			.delete(`/teams/${team.id}`)
+			.expect(HTTP_STATUS.FORBIDDEN, 'SUDO_MODE_REQUIRED')
+			.execute();
+
+		// The team survived the refused attempt...
+		await createBuilder(harness, owner.token).get(`/teams/${team.id}`).expect(HTTP_STATUS.OK).execute();
+
+		// ...and deleting with the password supplied succeeds.
+		await createBuilder(harness, owner.token)
+			.delete(`/teams/${team.id}`)
+			.body({password: owner.password})
+			.expect(HTTP_STATUS.NO_CONTENT)
+			.execute();
 	});
 
 	test('members can be invited by username and discriminator', async () => {
@@ -433,7 +492,7 @@ describe('Team membership', () => {
 			redirect_uris: ['https://example.com/callback'],
 			bot_public: false,
 		});
-		await transferApplication(harness, owner.token, created.application.id, team.id);
+		await transferApplication(harness, owner.token, created.application.id, team.id, owner.password);
 		await inviteMember(harness, owner.token, team.id, readOnly.userId, 'read_only');
 		await acceptInvite(harness, readOnly.token, team.id);
 		await inviteMember(harness, owner.token, team.id, developer.userId, 'developer');

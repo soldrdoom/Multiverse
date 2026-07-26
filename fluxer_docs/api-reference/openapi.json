@@ -40848,7 +40848,17 @@
             },
             "description": "The token id"
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SudoVerificationSchema"
+              }
+            }
+          }
+        }
       }
     },
     "/oauth2/applications/{client_id}/team": {
@@ -47487,7 +47497,17 @@
             },
             "description": "The team id"
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SudoVerificationSchema"
+              }
+            }
+          }
+        }
       }
     },
     "/teams/{team_id}/members": {
@@ -83315,11 +83335,116 @@
           "name": {
             "type": "string",
             "description": "A label identifying where this token is used"
+          },
+          "password": {
+            "$ref": "#/components/schemas/PasswordType"
+          },
+          "mfa_method": {
+            "type": "string",
+            "enum": [
+              "totp",
+              "sms",
+              "webauthn"
+            ],
+            "x-enumNames": [
+              "TOTP",
+              "SMS",
+              "WebAuthn"
+            ],
+            "x-enumDescriptions": [
+              "Time-based one-time password authentication via authenticator app",
+              "One-time password sent via text message",
+              "Security key or biometric authentication"
+            ],
+            "description": "MFA method to use for verification"
+          },
+          "mfa_code": {
+            "type": "string",
+            "description": "MFA verification code from authenticator app or SMS"
+          },
+          "webauthn_response": {
+            "type": "object",
+            "description": "WebAuthn authentication response"
+          },
+          "webauthn_challenge": {
+            "type": "string",
+            "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         },
         "required": [
           "name"
         ]
+      },
+      "SudoVerificationSchema": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "$ref": "#/components/schemas/PasswordType"
+          },
+          "mfa_method": {
+            "type": "string",
+            "enum": [
+              "totp",
+              "sms",
+              "webauthn"
+            ],
+            "x-enumNames": [
+              "TOTP",
+              "SMS",
+              "WebAuthn"
+            ],
+            "x-enumDescriptions": [
+              "Time-based one-time password authentication via authenticator app",
+              "One-time password sent via text message",
+              "Security key or biometric authentication"
+            ],
+            "description": "MFA method to use for verification"
+          },
+          "mfa_code": {
+            "type": "string",
+            "description": "MFA verification code from authenticator app or SMS"
+          },
+          "webauthn_response": {
+            "type": "object",
+            "description": "WebAuthn authentication response"
+          },
+          "webauthn_challenge": {
+            "type": "string",
+            "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
+          }
+        }
       },
       "ApplicationTeamTransferRequest": {
         "type": "object",
@@ -83334,6 +83459,56 @@
               }
             ],
             "description": "The team to transfer the application to, or null to detach it"
+          },
+          "password": {
+            "$ref": "#/components/schemas/PasswordType"
+          },
+          "mfa_method": {
+            "type": "string",
+            "enum": [
+              "totp",
+              "sms",
+              "webauthn"
+            ],
+            "x-enumNames": [
+              "TOTP",
+              "SMS",
+              "WebAuthn"
+            ],
+            "x-enumDescriptions": [
+              "Time-based one-time password authentication via authenticator app",
+              "One-time password sent via text message",
+              "Security key or biometric authentication"
+            ],
+            "description": "MFA method to use for verification"
+          },
+          "mfa_code": {
+            "type": "string",
+            "description": "MFA verification code from authenticator app or SMS"
+          },
+          "webauthn_response": {
+            "type": "object",
+            "description": "WebAuthn authentication response"
+          },
+          "webauthn_challenge": {
+            "type": "string",
+            "description": "WebAuthn challenge string"
+          },
+          "solana_address": {
+            "type": "string",
+            "description": "Solana wallet address for sudo verification"
+          },
+          "solana_signature": {
+            "type": "string",
+            "description": "Solana wallet signature for sudo verification"
+          },
+          "solana_nonce": {
+            "type": "string",
+            "description": "Solana nonce for sudo verification"
+          },
+          "solana_signed_message": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
           }
         },
         "required": [
@@ -83463,61 +83638,6 @@
       },
       "OAuth2RedirectURIUpdateType": {
         "type": "string"
-      },
-      "SudoVerificationSchema": {
-        "type": "object",
-        "properties": {
-          "password": {
-            "$ref": "#/components/schemas/PasswordType"
-          },
-          "mfa_method": {
-            "type": "string",
-            "enum": [
-              "totp",
-              "sms",
-              "webauthn"
-            ],
-            "x-enumNames": [
-              "TOTP",
-              "SMS",
-              "WebAuthn"
-            ],
-            "x-enumDescriptions": [
-              "Time-based one-time password authentication via authenticator app",
-              "One-time password sent via text message",
-              "Security key or biometric authentication"
-            ],
-            "description": "MFA method to use for verification"
-          },
-          "mfa_code": {
-            "type": "string",
-            "description": "MFA verification code from authenticator app or SMS"
-          },
-          "webauthn_response": {
-            "type": "object",
-            "description": "WebAuthn authentication response"
-          },
-          "webauthn_challenge": {
-            "type": "string",
-            "description": "WebAuthn challenge string"
-          },
-          "solana_address": {
-            "type": "string",
-            "description": "Solana wallet address for sudo verification"
-          },
-          "solana_signature": {
-            "type": "string",
-            "description": "Solana wallet signature for sudo verification"
-          },
-          "solana_nonce": {
-            "type": "string",
-            "description": "Solana nonce for sudo verification"
-          },
-          "solana_signed_message": {
-            "type": "string",
-            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet"
-          }
-        }
       },
       "BotProfileResponse": {
         "type": "object",

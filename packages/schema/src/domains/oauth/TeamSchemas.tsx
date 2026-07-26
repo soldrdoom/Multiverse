@@ -17,6 +17,7 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {SudoVerificationSchema} from '@fluxer/schema/src/domains/auth/AuthSchemas';
 import {UserPartialResponse} from '@fluxer/schema/src/domains/user/UserResponseSchemas';
 import {
 	createNamedStringLiteralUnion,
@@ -123,8 +124,10 @@ export const TeamMemberUpdateRequest = z.object({
 
 export type TeamMemberUpdateRequest = z.infer<typeof TeamMemberUpdateRequest>;
 
-export const ApplicationTeamTransferRequest = z.object({
-	team_id: SnowflakeType.nullable().describe('The team to transfer the application to, or null to detach it'),
-});
+export const ApplicationTeamTransferRequest = z
+	.object({
+		team_id: SnowflakeType.nullable().describe('The team to transfer the application to, or null to detach it'),
+	})
+	.merge(SudoVerificationSchema);
 
 export type ApplicationTeamTransferRequest = z.infer<typeof ApplicationTeamTransferRequest>;

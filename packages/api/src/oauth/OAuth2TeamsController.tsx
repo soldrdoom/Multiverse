@@ -24,6 +24,7 @@ import {SudoModeMiddleware} from '@fluxer/api/src/middleware/SudoModeMiddleware'
 import {RateLimitConfigs} from '@fluxer/api/src/RateLimitConfig';
 import type {HonoApp} from '@fluxer/api/src/types/HonoEnv';
 import {Validator} from '@fluxer/api/src/Validator';
+import {SudoVerificationSchema} from '@fluxer/schema/src/domains/auth/AuthSchemas';
 import {TeamIdParam, TeamIdUserIdParam} from '@fluxer/schema/src/domains/common/CommonParamSchemas';
 import {
 	TeamCreateRequest,
@@ -144,6 +145,7 @@ export function OAuth2TeamsController(app: HonoApp) {
 		DefaultUserOnly,
 		SudoModeMiddleware,
 		Validator('param', TeamIdParam),
+		Validator('json', SudoVerificationSchema),
 		OpenAPI({
 			operationId: 'delete_team',
 			summary: 'Delete team',
@@ -155,8 +157,14 @@ export function OAuth2TeamsController(app: HonoApp) {
 				'Deletes a team. Owner only, requires sudo mode, and refused while the team still owns applications — transfer them away first.',
 		}),
 		async (ctx) => {
-			const userId = ctx.get('user').id;
-			await ctx.get('oauth2TeamsRequestService').deleteTeam(userId, ctx.req.valid('param').team_id);
+			const user = ctx.get('user');
+			const body = ctx.req.valid('json');
+			await ctx.get('oauth2TeamsRequestService').deleteTeam({
+				ctx,
+				userId: user.id,
+				body,
+				teamId: ctx.req.valid('param').team_id,
+			});
 			return ctx.body(null, 204);
 		},
 	);

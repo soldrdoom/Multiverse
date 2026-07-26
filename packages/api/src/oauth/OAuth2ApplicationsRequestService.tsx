@@ -49,6 +49,7 @@ import type {
 	BotTokenCreateResponse,
 	BotTokenListResponse,
 } from '@fluxer/schema/src/domains/oauth/OAuthSchemas';
+import type {ApplicationTeamTransferRequest} from '@fluxer/schema/src/domains/oauth/TeamSchemas';
 import type {Context} from 'hono';
 
 export class OAuth2ApplicationsRequestService {
@@ -123,14 +124,17 @@ export class OAuth2ApplicationsRequestService {
 		return rows.map(mapBotTokenToResponse);
 	}
 
-	async createBotToken(
-		userId: UserID,
-		applicationId: bigint,
-		body: BotTokenCreateRequest,
-	): Promise<BotTokenCreateResponse> {
+	async createBotToken(params: {
+		ctx: Context;
+		userId: UserID;
+		body: BotTokenCreateRequest;
+		applicationId: bigint;
+	}): Promise<BotTokenCreateResponse> {
+		await requireSudoMode(params.ctx, params.ctx.get('user'), params.body, this.authService, this.authMfaService);
+
 		const application = await this.applicationAccessService.requireAccess(
-			userId,
-			createApplicationID(applicationId),
+			params.userId,
+			createApplicationID(params.applicationId),
 			'manage_tokens',
 		);
 		if (!application.hasBotUser()) {
@@ -138,9 +142,9 @@ export class OAuth2ApplicationsRequestService {
 		}
 
 		const {token, row} = await this.botTokenService.createToken({
-			applicationId: createApplicationID(applicationId),
-			createdByUserId: userId,
-			name: body.name,
+			applicationId: createApplicationID(params.applicationId),
+			createdByUserId: params.userId,
+			name: params.body.name,
 		});
 
 		// The secret is returned exactly once, here. Nothing stores it in a form
@@ -148,16 +152,39 @@ export class OAuth2ApplicationsRequestService {
 		return {...mapBotTokenToResponse(row), token};
 	}
 
-	async revokeBotToken(userId: UserID, applicationId: bigint, tokenId: bigint): Promise<void> {
-		await this.applicationAccessService.requireAccess(userId, createApplicationID(applicationId), 'manage_tokens');
-		const revoked = await this.botTokenService.revokeToken(createApplicationID(applicationId), tokenId);
+	async revokeBotToken(params: {
+		ctx: Context;
+		userId: UserID;
+		body: SudoVerificationBody;
+		applicationId: bigint;
+		tokenId: bigint;
+	}): Promise<void> {
+		await requireSudoMode(params.ctx, params.ctx.get('user'), params.body, this.authService, this.authMfaService);
+
+		await this.applicationAccessService.requireAccess(
+			params.userId,
+			createApplicationID(params.applicationId),
+			'manage_tokens',
+		);
+		const revoked = await this.botTokenService.revokeToken(createApplicationID(params.applicationId), params.tokenId);
 		if (!revoked) {
 			throw new UnknownApplicationError();
 		}
 	}
 
-	async transferApplicationToTeam(userId: UserID, applicationId: bigint, teamId: bigint | null) {
-		const updated = await this.teamService.transferApplication(userId, createApplicationID(applicationId), teamId);
+	async transferApplicationToTeam(params: {
+		ctx: Context;
+		userId: UserID;
+		body: ApplicationTeamTransferRequest;
+		applicationId: bigint;
+	}) {
+		await requireSudoMode(params.ctx, params.ctx.get('user'), params.body, this.authService, this.authMfaService);
+
+		const updated = await this.teamService.transferApplication(
+			params.userId,
+			createApplicationID(params.applicationId),
+			params.body.team_id,
+		);
 
 		let botUser = null;
 		if (updated.hasBotUser()) {

@@ -34,6 +34,7 @@ import {
 	UserAuthenticatorTypes,
 	UserAuthenticatorTypesDescriptions,
 } from '@fluxer/constants/src/UserConstants';
+import {SudoVerificationSchema} from '@fluxer/schema/src/domains/auth/AuthSchemas';
 import {createBase64StringType} from '@fluxer/schema/src/primitives/FileValidators';
 import {
 	createBitflagInt32Type,
@@ -482,9 +483,11 @@ export const BotTokenListResponse = z.array(BotTokenResponse);
 
 export type BotTokenListResponse = z.infer<typeof BotTokenListResponse>;
 
-export const BotTokenCreateRequest = z.object({
-	name: createStringType(1, 64).describe('A label identifying where this token is used'),
-});
+export const BotTokenCreateRequest = z
+	.object({
+		name: createStringType(1, 64).describe('A label identifying where this token is used'),
+	})
+	.merge(SudoVerificationSchema);
 
 export type BotTokenCreateRequest = z.infer<typeof BotTokenCreateRequest>;
 

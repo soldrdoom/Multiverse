@@ -33,10 +33,10 @@ interface BotTokenBody {
 	token?: string;
 }
 
-async function mintToken(harness: ApiTestHarness, token: string, applicationId: string, name: string) {
+async function mintToken(harness: ApiTestHarness, token: string, applicationId: string, name: string, password: string) {
 	return createBuilder<BotTokenBody>(harness, token)
 		.post(`/oauth2/applications/${applicationId}/bot/tokens`)
-		.body({name})
+		.body({name, password})
 		.expect(HTTP_STATUS.OK)
 		.execute();
 }
@@ -91,7 +91,7 @@ describe('Bot token lifecycle', () => {
 		});
 		const first = created.application.bot!.token!;
 
-		const second = await mintToken(harness, account.token, created.application.id, 'ci');
+		const second = await mintToken(harness, account.token, created.application.id, 'ci', account.password);
 
 		expect(await botTokenAuthenticates(harness, first)).toBe(true);
 		expect(await botTokenAuthenticates(harness, second.token!)).toBe(true);
@@ -104,11 +104,12 @@ describe('Bot token lifecycle', () => {
 		});
 		const keep = created.application.bot!.token!;
 
-		const disposable = await mintToken(harness, account.token, created.application.id, 'staging');
+		const disposable = await mintToken(harness, account.token, created.application.id, 'staging', account.password);
 		expect(await botTokenAuthenticates(harness, disposable.token!)).toBe(true);
 
 		await createBuilder(harness, account.token)
 			.delete(`/oauth2/applications/${created.application.id}/bot/tokens/${disposable.id}`)
+			.body({password: account.password})
 			.expect(HTTP_STATUS.NO_CONTENT)
 			.execute();
 
@@ -123,7 +124,7 @@ describe('Bot token lifecycle', () => {
 		const created = await createOAuth2Application(harness, account.token, {
 			name: createUniqueApplicationName(),
 		});
-		await mintToken(harness, account.token, created.application.id, 'prod-eu');
+		await mintToken(harness, account.token, created.application.id, 'prod-eu', account.password);
 
 		const tokens = await createBuilder<Array<BotTokenBody>>(harness, account.token)
 			.get(`/oauth2/applications/${created.application.id}/bot/tokens`)
@@ -152,9 +153,49 @@ describe('Bot token lifecycle', () => {
 
 		await createBuilder(harness, stranger.token)
 			.post(`/oauth2/applications/${created.application.id}/bot/tokens`)
-			.body({name: 'stolen'})
+			.body({name: 'stolen', password: stranger.password})
 			.expect(HTTP_STATUS.FORBIDDEN)
 			.execute();
+	});
+
+	test('minting requires sudo verification', async () => {
+		const account = await createTestAccount(harness);
+		const created = await createOAuth2Application(harness, account.token, {
+			name: createUniqueApplicationName(),
+		});
+
+		await createBuilder(harness, account.token)
+			.post(`/oauth2/applications/${created.application.id}/bot/tokens`)
+			.body({name: 'no-sudo'})
+			.expect(HTTP_STATUS.FORBIDDEN, 'SUDO_MODE_REQUIRED')
+			.execute();
+
+		// With the password supplied, the same request succeeds.
+		const minted = await mintToken(harness, account.token, created.application.id, 'with-sudo', account.password);
+		expect(minted.token).toBeTruthy();
+	});
+
+	test('revoking requires sudo verification', async () => {
+		const account = await createTestAccount(harness);
+		const created = await createOAuth2Application(harness, account.token, {
+			name: createUniqueApplicationName(),
+		});
+		const disposable = await mintToken(harness, account.token, created.application.id, 'doomed', account.password);
+
+		// No body at all — the shape a client's first attempt takes before its
+		// sudo-retry flow kicks in.
+		await createBuilder(harness, account.token)
+			.delete(`/oauth2/applications/${created.application.id}/bot/tokens/${disposable.id}`)
+			.expect(HTTP_STATUS.FORBIDDEN, 'SUDO_MODE_REQUIRED')
+			.execute();
+		expect(await botTokenAuthenticates(harness, disposable.token!)).toBe(true);
+
+		await createBuilder(harness, account.token)
+			.delete(`/oauth2/applications/${created.application.id}/bot/tokens/${disposable.id}`)
+			.body({password: account.password})
+			.expect(HTTP_STATUS.NO_CONTENT)
+			.execute();
+		expect(await botTokenAuthenticates(harness, disposable.token!)).toBe(false);
 	});
 
 	test('a garbage token does not authenticate', async () => {

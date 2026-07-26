@@ -136,7 +136,16 @@ Type: [ApplicationResponse](#applicationresponse)[]
 
 | Field | Type | Description |
 |-------|------|-------------|
+| mfa_code? | string | MFA verification code from authenticator app or SMS |
+| mfa_method? | [GuildUpdateRequestMfaMethod](#guildupdaterequestmfamethod) | MFA method to use for verification |
+| password? | [PasswordType](#passwordtype) |  |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
 | team_id | ?[SnowflakeType](#snowflaketype) | The team to transfer the application to, or null to detach it |
+| webauthn_challenge? | string | WebAuthn challenge string |
+| webauthn_response? | JSON value | WebAuthn authentication response |
 
 <a id="applicationupdaterequest"></a>
 
@@ -235,7 +244,16 @@ Type: Bitflags32
 
 | Field | Type | Description |
 |-------|------|-------------|
+| mfa_code? | string | MFA verification code from authenticator app or SMS |
+| mfa_method? | [GuildUpdateRequestMfaMethod](#guildupdaterequestmfamethod) | MFA method to use for verification |
 | name | string | A label identifying where this token is used |
+| password? | [PasswordType](#passwordtype) |  |
+| solana_address? | string | Solana wallet address for sudo verification |
+| solana_nonce? | string | Solana nonce for sudo verification |
+| solana_signature? | string | Solana wallet signature for sudo verification |
+| solana_signed_message? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard wallet |
+| webauthn_challenge? | string | WebAuthn challenge string |
+| webauthn_response? | JSON value | WebAuthn authentication response |
 
 <a id="bottokencreateresponse"></a>
 

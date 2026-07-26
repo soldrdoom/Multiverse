@@ -862,7 +862,12 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		applicationAccessService,
 		teamService,
 	);
-	const oauth2TeamsRequestService = new OAuth2TeamsRequestService(teamService, userRepository);
+	const oauth2TeamsRequestService = new OAuth2TeamsRequestService(
+		teamService,
+		userRepository,
+		authService,
+		authMfaService,
+	);
 
 	const searchService = new SearchService({
 		channelRepository,

@@ -239,10 +239,14 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 				'Issues an additional named bot token for an application. Requires sudo mode authentication. The secret is returned once in this response and cannot be retrieved again. Existing tokens continue to work.',
 		}),
 		async (ctx) => {
-			const userId = ctx.get('user').id;
-			const response = await ctx
-				.get('oauth2ApplicationsRequestService')
-				.createBotToken(userId, ctx.req.valid('param').client_id, ctx.req.valid('json'));
+			const user = ctx.get('user');
+			const body = ctx.req.valid('json');
+			const response = await ctx.get('oauth2ApplicationsRequestService').createBotToken({
+				ctx,
+				userId: user.id,
+				body,
+				applicationId: ctx.req.valid('param').client_id,
+			});
 			return ctx.json(response);
 		},
 	);
@@ -254,6 +258,7 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 		DefaultUserOnly,
 		SudoModeMiddleware,
 		Validator('param', ClientIdTokenIdParam),
+		Validator('json', SudoVerificationSchema),
 		OpenAPI({
 			operationId: 'revoke_bot_token',
 			summary: 'Revoke bot token',
@@ -265,9 +270,16 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 				"Revokes a single bot token, leaving the application's other tokens working. Requires sudo mode authentication. Note that this disconnects all of the bot's active gateway sessions, not only those opened with the revoked token.",
 		}),
 		async (ctx) => {
-			const userId = ctx.get('user').id;
+			const user = ctx.get('user');
 			const params = ctx.req.valid('param');
-			await ctx.get('oauth2ApplicationsRequestService').revokeBotToken(userId, params.client_id, params.token_id);
+			const body = ctx.req.valid('json');
+			await ctx.get('oauth2ApplicationsRequestService').revokeBotToken({
+				ctx,
+				userId: user.id,
+				body,
+				applicationId: params.client_id,
+				tokenId: params.token_id,
+			});
 			return ctx.body(null, 204);
 		},
 	);
@@ -291,11 +303,14 @@ export function OAuth2ApplicationsController(app: HonoApp) {
 				"Transfers an application to a developer team (or detaches it with a null team_id). Owner only, requires sudo mode, and requires admin rights on the destination team. The application's owner becomes the team's owner; it is never null.",
 		}),
 		async (ctx) => {
-			const userId = ctx.get('user').id;
+			const user = ctx.get('user');
 			const body = ctx.req.valid('json');
-			const response = await ctx
-				.get('oauth2ApplicationsRequestService')
-				.transferApplicationToTeam(userId, ctx.req.valid('param').client_id, body.team_id);
+			const response = await ctx.get('oauth2ApplicationsRequestService').transferApplicationToTeam({
+				ctx,
+				userId: user.id,
+				body,
+				applicationId: ctx.req.valid('param').client_id,
+			});
 			return ctx.json(response);
 		},
 	);

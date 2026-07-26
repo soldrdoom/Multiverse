@@ -17,6 +17,10 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import type {AuthService} from '@fluxer/api/src/auth/AuthService';
+import type {AuthMfaService} from '@fluxer/api/src/auth/services/AuthMfaService';
+import type {SudoVerificationBody} from '@fluxer/api/src/auth/services/SudoVerificationService';
+import {requireSudoMode} from '@fluxer/api/src/auth/services/SudoVerificationService';
 import {createUserID, type UserID} from '@fluxer/api/src/BrandedTypes';
 import type {ApplicationTeamMemberRow} from '@fluxer/api/src/database/types/OAuth2Types';
 import {
@@ -36,11 +40,14 @@ import type {
 	TeamResponse,
 	TeamUpdateRequest,
 } from '@fluxer/schema/src/domains/oauth/TeamSchemas';
+import type {Context} from 'hono';
 
 export class OAuth2TeamsRequestService {
 	constructor(
 		private readonly teamService: TeamService,
 		private readonly userRepository: IUserRepository,
+		private readonly authService: AuthService,
+		private readonly authMfaService: AuthMfaService,
 	) {}
 
 	async listTeams(userId: UserID): Promise<TeamListResponse> {
@@ -63,8 +70,10 @@ export class OAuth2TeamsRequestService {
 		return mapTeamToResponse(team);
 	}
 
-	async deleteTeam(userId: UserID, teamId: bigint): Promise<void> {
-		await this.teamService.deleteTeam(userId, teamId);
+	async deleteTeam(params: {ctx: Context; userId: UserID; body: SudoVerificationBody; teamId: bigint}): Promise<void> {
+		await requireSudoMode(params.ctx, params.ctx.get('user'), params.body, this.authService, this.authMfaService);
+
+		await this.teamService.deleteTeam(params.userId, params.teamId);
 	}
 
 	async listMembers(userId: UserID, teamId: bigint): Promise<TeamMemberListResponse> {
