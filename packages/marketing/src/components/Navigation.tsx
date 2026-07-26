@@ -110,6 +110,9 @@ export function Navigation(props: NavigationProps): JSX.Element {
 								<a href={href(ctx, '/whitepaper')} class={linkClass}>
 									{ctx.i18n.getMessage('company_and_resources.support.whitepaper', ctx.locale)}
 								</a>
+								<a href={href(ctx, '/developers')} class={linkClass}>
+									{ctx.i18n.getMessage('company_and_resources.support.developers', ctx.locale)}
+								</a>
 								<a href="https://docs.fluxer.app" class={linkClass}>
 									{ctx.i18n.getMessage('company_and_resources.docs', ctx.locale)}
 								</a>
@@ -225,6 +228,9 @@ export function Navigation(props: NavigationProps): JSX.Element {
 									</a>
 									<a href={href(ctx, '/whitepaper')} class={drawerLinkClass}>
 										{ctx.i18n.getMessage('company_and_resources.support.whitepaper', ctx.locale)}
+									</a>
+									<a href={href(ctx, '/developers')} class={drawerLinkClass}>
+										{ctx.i18n.getMessage('company_and_resources.support.developers', ctx.locale)}
 									</a>
 									<a href="https://docs.fluxer.app" class={drawerLinkClass}>
 										{ctx.i18n.getMessage('company_and_resources.docs', ctx.locale)}

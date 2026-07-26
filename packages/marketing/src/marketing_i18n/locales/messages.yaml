@@ -120,6 +120,36 @@ roadmap_page.read_the_whitepaper: Read more in the whitepaper.
 roadmap_page.disclaimer: These are directional statements about where Multiverse is headed, not commitments to specific dates or features. Plans may change as the platform develops.
 company_and_resources.support.whitepaper: Whitepaper
 company_and_resources.support.whitepaper_description: A deeper look at how Multiverse works under the hood.
+company_and_resources.support.developers: Developers
+company_and_resources.support.developers_description: Build bots for Multiverse with self-serve applications, named bot tokens, teams, and a typed SDK.
+developers_page.hero.title: Build bots for Multiverse
+developers_page.hero.description: Create an application, mint a bot token, and connect to the gateway — all self-serve, from any claimed account. No waitlist, no approval queue.
+developers_page.hero.create_app: Create your first app
+developers_page.hero.create_app_hint: Open Multiverse and head to Settings → Applications — any claimed account can create one.
+developers_page.hero.read_the_docs: Read the developer docs
+developers_page.today.title: What exists today
+developers_page.today.applications.title: Self-serve applications
+developers_page.today.applications.description: Create an OAuth2 application from Settings → Applications. Give it a name, description, icon, and tags — application identity lives on the application, not its bot's avatar.
+developers_page.today.tokens.title: Named bot tokens
+developers_page.today.tokens.description: Mint multiple named tokens per bot, like prod-eu or ci. Each secret is shown exactly once and can be revoked individually, so you can rotate credentials without downtime.
+developers_page.today.teams.title: Developer teams
+developers_page.today.teams.description: Collaborate through invite-based teams with admin, developer, and read-only roles. Nobody is added to a team without accepting, and every application keeps a human owner.
+developers_page.today.portal.title: In-app developer portal
+developers_page.today.portal.description: Manage applications, tokens, and teams from Settings inside Multiverse — there's no separate portal to sign into.
+developers_page.today.sdk.title: A typed SDK
+developers_page.today.sdk.description: "@fluxer/bot_sdk is a thin TypeScript client for REST and the gateway, with reconnect, resume, rate-limit handling, and typed errors built in. It's young — expect rough edges and fast iteration."
+developers_page.today.compatibility.title: Familiar semantics
+developers_page.today.compatibility.description: The gateway speaks HELLO, HEARTBEAT, IDENTIFY, and RESUME; REST uses the Bot authorization scheme and snowflake IDs. If you've built for Discord, you'll feel at home.
+developers_page.not_yet.title: What's not built yet
+developers_page.not_yet.description: We'd rather tell you now than have you find out mid-project.
+developers_page.not_yet.interactions.title: Interactions
+developers_page.not_yet.interactions.description: No slash commands, buttons, or modals yet. Today, bots read and send messages.
+developers_page.not_yet.sharding.title: Sharding
+developers_page.not_yet.sharding.description: The gateway tells you how many shards to use, and the answer is currently always one. Read it, don't assume it.
+developers_page.not_yet.intents.title: Intents
+developers_page.not_yet.intents.description: There's no intents bitfield. A named event-subscriptions model is planned instead.
+developers_page.not_yet.directory.title: Bot directory
+developers_page.not_yet.directory.description: No public bot listing yet — you invite your bot to servers with an OAuth2 link.
 donations.business: Business
 donations.donate.action: Donate
 donations.donate.label: Donate to Multiverse
