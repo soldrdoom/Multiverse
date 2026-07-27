@@ -67,27 +67,33 @@ services:
       start_period: 15s
     logging: *default-logging
 
-  fluxer_gateway:
-    image: fluxer-gateway:local
-    container_name: fluxer_gateway
-    restart: unless-stopped
-    network_mode: "service:fluxer_server"
-    environment:
-      FLUXER_CONFIG: /usr/src/app/config/config.json
-    volumes:
-      - ./config:/usr/src/app/config:ro
-    depends_on:
-      nats:
-        condition: service_healthy
-      fluxer_server:
-        condition: service_healthy
-    healthcheck:
-      test: ['CMD-SHELL', 'curl -fsS http://127.0.0.1:8082/_health || exit 1']
-      interval: 15s
-      timeout: 5s
-      retries: 5
-      start_period: 15s
-    logging: *default-logging
+  # There is deliberately no `fluxer_gateway` service here (removed 2026-07-27).
+  #
+  # The Erlang gateway release is bundled INTO the multiverse-server image and
+  # spawned as a child of the node process — see
+  # fluxer_server/src/utils/GatewayProcessManager.tsx (GATEWAY_PATH
+  # /opt/fluxer_gateway/bin/fluxer_gateway), gated on
+  # `config.services.gateway && (env === 'production' || dev.test_mode_enabled)`.
+  # It binds :8082 inside fluxer_server's network namespace.
+  #
+  # A standalone gateway container used `network_mode: service:fluxer_server`,
+  # i.e. it joined that SAME namespace, found :8082 already taken, and died on
+  # {badmatch,{error,eaddrinuse}} at fluxer_gateway_app.erl:37. Structural, not
+  # a timing race — it could never win. It sat Exited(1) from 2026-07-21 with
+  # nothing degraded, because the in-server gateway is the real one.
+  #
+  # It was removed rather than left disabled because its image (fluxer-gateway
+  # :local) was built 2026-04-19 while the gateway source keeps changing (e.g.
+  # 12527d7d, close code 4014). Had anything ever freed :8082 — services.gateway
+  # false, or a split onto its own host — that container would have STARTED and
+  # silently served months-old gateway code, looking like a healthy deploy.
+  # The image was deleted for the same reason.
+  #
+  # fluxer_gateway/ source and its Dockerfile are untouched and still required:
+  # the server image compiles the release from them. To genuinely split the
+  # gateway out later, reintroduce a service here WITHOUT network_mode sharing,
+  # set services.gateway=false so the server stops spawning its own, and build
+  # a fresh image as part of that work.
 
   # Idle since 2026-07-26: I.R.I.S. runs without an LLM for now, and nothing
   # else consumes ollama. Definition and the ollama_data volume (with the
