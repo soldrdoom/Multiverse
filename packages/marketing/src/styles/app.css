@@ -856,12 +856,16 @@ footer * {
   overflow-x: clip;
 }
 
-.mv-home a {
+/* :where() keeps this a true fallback (zero specificity) so every component's own
+   color rule (.mv-launch, .mv-nav-link, .mv-footer-link, etc.) always wins, rather
+   than racing it on specificity — a plain ".mv-home a" tied several of them and won
+   on the element-selector tiebreak, silently overriding their intended colors. */
+:where(.mv-home) a {
   color: #14f195;
   text-decoration: none;
 }
 
-.mv-home a:hover {
+:where(.mv-home) a:hover {
   color: #9dffd6;
 }
 
