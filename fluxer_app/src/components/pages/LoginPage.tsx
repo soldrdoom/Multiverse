@@ -23,6 +23,7 @@ import {AuthRouterLink} from '@app/components/auth/AuthRouterLink';
 import {useDesktopHandoffFlow} from '@app/components/auth/auth_login_core/useDesktopHandoffFlow';
 import {HandoffCodeDisplay} from '@app/components/auth/HandoffCodeDisplay';
 import MfaScreen from '@app/components/auth/MfaScreen';
+import {useAuthLayoutContext} from '@app/contexts/AuthLayoutContext';
 import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
 import {useLocation} from '@app/lib/router/React';
 import AccountManager from '@app/stores/AccountManager';
@@ -31,7 +32,7 @@ import * as RouterUtils from '@app/utils/RouterUtils';
 import type {LoginSuccessPayload} from '@app/viewmodels/auth/AuthFlow';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
-import {useCallback, useMemo} from 'react';
+import {useCallback, useLayoutEffect, useMemo} from 'react';
 
 const LoginPage = observer(function LoginPage() {
 	const location = useLocation();
@@ -125,8 +126,17 @@ const LoginPageMFA = observer(function LoginPageMFA() {
 const LoginPageContainer = observer(() => {
 	const {t} = useLingui();
 	const loginState = AuthenticationStore.loginState;
+	const {setShowLogoSide} = useAuthLayoutContext();
 
 	useMultiverseDocumentTitle(t`Log in`);
+
+	// The Solana sign-in card design has no logo/wordmark panel — a single
+	// centered card. Scoped to /login only; other auth screens (register,
+	// invite, SSO) keep the shared two-panel logo layout.
+	useLayoutEffect(() => {
+		setShowLogoSide(false);
+		return () => setShowLogoSide(true);
+	}, [setShowLogoSide]);
 
 	switch (loginState) {
 		case 'default':

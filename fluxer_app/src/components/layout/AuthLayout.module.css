@@ -35,18 +35,14 @@
 	position: fixed;
 	inset: 0;
 	display: flex;
-	background-color: var(--background-secondary);
+	background-color: #08080b;
 }
 
 .container {
 	position: relative;
 	min-height: 100svh;
 	width: 100%;
-	background: radial-gradient(
-		circle at center,
-		color-mix(in srgb, var(--brand-secondary) 10%, #1a202c) 0%,
-		#0b0e14 100%
-	);
+	background: radial-gradient(120% 90% at 50% 0%, #16121f 0%, #0a0a0e 55%, #06060a 100%);
 }
 
 :global(.auth-page),
@@ -243,7 +239,7 @@
 		var(--brand-secondary)
 	);
 	filter: blur(38px);
-	opacity: 0.55;
+	opacity: 0;
 	pointer-events: none;
 	animation: cardRingSpin 6s linear infinite;
 }
@@ -420,7 +416,7 @@
 :global(html.auth-page),
 :global(html.auth-page body) {
 	height: 100%;
-	background-color: var(--background-secondary);
+	background-color: #08080b;
 }
 
 @supports (padding: env(safe-area-inset-top)) {

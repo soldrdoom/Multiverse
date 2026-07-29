@@ -50,7 +50,7 @@
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
-	filter: drop-shadow(0 2px 10px rgba(153, 69, 255, 0.28));
+	filter: drop-shadow(0 2px 10px rgba(153, 69, 255, 0.15));
 }
 
 /* Fallback for browsers without background-clip: text support — without
