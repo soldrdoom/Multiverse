@@ -44,6 +44,7 @@ import {renderWhitepaperPage} from '@fluxer/marketing/src/pages/WhitepaperPage';
 import {sanitizeInternalRedirectPath} from '@fluxer/marketing/src/RedirectPathUtils';
 import type {MarketingRouteHandler} from '@fluxer/marketing/src/routes/RouteTypes';
 import {generateSitemap} from '@fluxer/marketing/src/Sitemap';
+import {getSolanaStats, parseSolanaChartRange} from '@fluxer/marketing/src/solana/SolanaLiveStats';
 import {prependBasePath} from '@fluxer/marketing/src/UrlUtils';
 import type {Hono} from 'hono';
 import {setCookie} from 'hono/cookie';
@@ -124,6 +125,14 @@ function registerExternalRedirects(app: Hono): void {
 
 function registerSystemContentRoutes(app: Hono, contextFactory: MarketingContextFactory): void {
 	app.get('/_health', (c) => c.json({status: 'ok'}));
+
+	app.get('/_solana', async (c) => {
+		const range = parseSolanaChartRange(c.req.query('range'));
+		const payload = await getSolanaStats(range);
+		// The marketing cache middleware marks JSON responses as immutable; live stats must never be cached.
+		c.header(Headers.CACHE_CONTROL, 'no-store');
+		return c.json(payload);
+	});
 
 	app.get('/robots.txt', (c) => {
 		return c.text('User-agent: *\nAllow: /\n');

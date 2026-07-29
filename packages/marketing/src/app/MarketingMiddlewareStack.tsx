@@ -55,7 +55,7 @@ export function applyMarketingMiddlewareStack(options: ApplyMarketingMiddlewareS
 			? {
 					enabled: true,
 					collector: options.metricsCollector,
-					skipPaths: ['/_health', '/static'],
+					skipPaths: ['/_health', '/_solana', '/static'],
 				}
 			: undefined,
 		logger: {
@@ -70,7 +70,7 @@ export function applyMarketingMiddlewareStack(options: ApplyMarketingMiddlewareS
 					'Request completed',
 				);
 			},
-			skip: ['/_health', '/static'],
+			skip: ['/_health', '/_solana', '/static'],
 		},
 		rateLimit: options.config.rateLimit
 			? {
@@ -78,7 +78,7 @@ export function applyMarketingMiddlewareStack(options: ApplyMarketingMiddlewareS
 					service: options.rateLimitService ?? undefined,
 					maxAttempts: options.config.rateLimit.limit,
 					windowMs: options.config.rateLimit.windowMs,
-					skipPaths: ['/_health', '/static'],
+					skipPaths: ['/_health', '/_solana', '/static'],
 					keyGenerator: (req) => extractClientIp(req) ?? 'unknown',
 				}
 			: undefined,

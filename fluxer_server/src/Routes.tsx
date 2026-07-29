@@ -618,11 +618,12 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 					rateLimit: null,
 				},
 				logger: marketingLogger,
-				mountHome: false,
+				// Marketing owns the apex front page; the SPA (mounted after) keeps /login, /channels, etc.
+				mountHome: true,
 				mountNotFound: false,
 			});
 			app.route('/', marketingResult.app);
-			logger.info('Marketing pages mounted at / (help, terms, support, etc.)');
+			logger.info('Marketing pages mounted at / (home, help, terms, support, etc.)');
 		}
 
 		if (services.appServer !== undefined) {

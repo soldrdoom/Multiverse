@@ -232,6 +232,31 @@ general.made_in_sweden: Made in Sweden
 general.not_available: Not available
 general.or: or
 general.tagline: A chat app that puts you first
+home.footer.copyright: © 2026 MULTIVERSE · OPEN SOURCE
+home.footer.github: GitHub
+home.footer.privacy: Privacy
+home.hero.create_identity: Create an identity
+home.hero.feature_keys.description: DMs encrypted with keys derived from your wallet.
+home.hero.feature_keys.title: Your keys, your messages
+home.hero.feature_passwordless.description: Connect your Solana wallet for instant access.
+home.hero.feature_passwordless.title: No passwords
+home.hero.feature_voice.description: Crystal-clear calls and screen share, no plugins.
+home.hero.feature_voice.title: Voice & video built in
+home.hero.headline_highlight: you first
+home.hero.headline_prefix: A chat app that puts
+home.hero.new_here: New here?
+home.hero.recover: Recover
+home.hero.sign_in_with_solana: Sign In with Solana
+home.hero.subtitle: Free, open source, end-to-end encrypted — on Solana.
+home.hero.welcome_back: WELCOME BACK
+home.launch_app: Launch App
+home.nav.home: Home
+home.network.description: Every message, call, and identity on Multiverse settles on Solana — sub-second finality at a fraction of a cent.
+home.network.heading: Built on the fastest chain in crypto
+home.news.all_news: All news
+home.news.next_stories: Next stories
+home.news.previous_stories: Previous stories
+home.news.whats_new: WHAT'S NEW
 languages.change_language: Change language
 languages.choose_your_language: Choose your language
 languages.language_label: Language
