@@ -176,6 +176,119 @@
 	box-sizing: border-box;
 }
 
+/* ── Auth card ring — Solana-style spinning conic-gradient border ──────
+ * `.cardRing` is a wrapper around `.card` (see AuthCardContainer.tsx) that
+ * owns the whole-card glow + spinning border and the gentle float
+ * animation. It exists as a separate element from `.card` because `.card`
+ * needs `overflow: hidden` to clip its own rounded corners (logoSide /
+ * formSide), which would also clip a glow/ring meant to bleed outside the
+ * card's edge. `.cardRing` carries the max-width previously set on `.card`
+ * so the two boxes stay pixel-identical (the ring pseudo-elements use
+ * `inset: 0` against `.cardRing`, which exactly matches `.card`'s edge
+ * since `.card` fills `.cardRing` with no extra padding/margin).
+ *
+ * Reuses the same `@property` custom-ident + spin pattern as the Solana
+ * sign-in button's ring (`LoginPage.module.css` `--solana-ring-angle` /
+ * `solanaRingSpin`), namespaced separately (`--card-ring-angle` /
+ * `cardRingSpin`) so the two independently-animated rings don't collide.
+ */
+@property --card-ring-angle {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false;
+}
+
+@keyframes cardRingSpin {
+	to {
+		--card-ring-angle: 360deg;
+	}
+}
+
+@keyframes cardFloat {
+	0%,
+	100% {
+		transform: translate3d(0, 0, 0);
+	}
+	50% {
+		transform: translate3d(0, -6px, 0);
+	}
+}
+
+.cardRing {
+	position: relative;
+	isolation: isolate;
+	width: 100%;
+	max-width: 46rem;
+	border-radius: 1rem;
+	animation: cardFloat 7s ease-in-out infinite;
+}
+
+.cardRingSingle {
+	max-width: 38rem;
+}
+
+/* Soft blurred aura behind the whole card, spinning in sync with the ring. */
+.cardRing::before {
+	content: '';
+	position: absolute;
+	inset: -14px;
+	z-index: -1;
+	border-radius: 1.75rem;
+	background: conic-gradient(
+		from var(--card-ring-angle),
+		var(--brand-secondary),
+		var(--brand-primary),
+		var(--brand-secondary),
+		var(--brand-primary),
+		var(--brand-secondary)
+	);
+	filter: blur(38px);
+	opacity: 0.55;
+	pointer-events: none;
+	animation: cardRingSpin 6s linear infinite;
+}
+
+/* Thin spinning conic-gradient ring drawn as a gradient donut via mask,
+ * sitting flush against `.card`'s own edge (same technique as the Solana
+ * button ring below). */
+.cardRing::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	padding: 1.5px;
+	border-radius: 1rem;
+	background: conic-gradient(
+		from var(--card-ring-angle),
+		var(--brand-secondary),
+		var(--brand-primary),
+		var(--brand-secondary),
+		var(--brand-primary),
+		var(--brand-secondary)
+	);
+	-webkit-mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	pointer-events: none;
+	animation: cardRingSpin 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cardRing {
+		animation: none;
+	}
+
+	.cardRing::before,
+	.cardRing::after {
+		animation: none;
+	}
+}
+
 .card {
 	position: relative;
 	margin: 0;
@@ -183,7 +296,6 @@
 	height: auto;
 	min-height: 420px;
 	width: 100%;
-	max-width: 46rem;
 	overflow: hidden;
 	border-radius: 1rem;
 	background-color: rgba(11, 14, 20, 0.82);
@@ -195,20 +307,8 @@
 		0 0 60px var(--vanguard-glass-glow-a);
 }
 
-.card::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: 2px;
-	background: var(--gradient-brand);
-	z-index: 1;
-}
-
-.cardSingle {
-	max-width: 38rem;
-}
+/* .card's single-column max-width now lives on .cardRingSingle so the
+   ring's box matches .card's box exactly (see .cardRing above). */
 
 .logoSide {
 	display: flex;

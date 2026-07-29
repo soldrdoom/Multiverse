@@ -18,9 +18,6 @@
  */
 
 import * as AuthenticationActionCreators from '@app/actions/AuthenticationActionCreators';
-import {initializeVault, loadPrivateKey} from '@app/services/vault/VaultService';
-import SolanaWalletStore from '@app/stores/SolanaWalletStore';
-import VaultStore from '@app/stores/VaultStore';
 import {AccountSelector} from '@app/components/accounts/AccountSelector';
 import {AuthRouterLink} from '@app/components/auth/AuthRouterLink';
 import AuthLoginEmailPasswordForm from '@app/components/auth/auth_login_core/AuthLoginEmailPasswordForm';
@@ -34,13 +31,17 @@ import {Button} from '@app/components/uikit/button/Button';
 import {useLoginFormController} from '@app/hooks/useLoginFlow';
 import {IS_DEV} from '@app/lib/Env';
 import {type Account, SessionExpiredError} from '@app/lib/SessionManager';
+import {Routes} from '@app/Routes';
+import {initializeVault, loadPrivateKey} from '@app/services/vault/VaultService';
 import AccountManager from '@app/stores/AccountManager';
 import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
+import SolanaWalletStore from '@app/stores/SolanaWalletStore';
+import VaultStore from '@app/stores/VaultStore';
 import {isDesktop} from '@app/utils/NativeUtils';
-import {Routes} from '@app/Routes';
 import * as RouterUtils from '@app/utils/RouterUtils';
 import {type IpAuthorizationChallenge, type LoginSuccessPayload, startSsoLogin} from '@app/viewmodels/auth/AuthFlow';
 import {Trans, useLingui} from '@lingui/react/macro';
+import clsx from 'clsx';
 import {observer} from 'mobx-react-lite';
 import {type ReactElement, type ReactNode, useCallback, useEffect, useState} from 'react';
 
@@ -215,27 +216,27 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 						bubbles: false,
 						cancelable: false,
 						composed: false,
-						detail: Object.freeze({ register: (w: any) => registered.push(w) }),
-					})
+						detail: Object.freeze({register: (w: any) => registered.push(w)}),
+					}),
 				);
 				// Prefer Jupiter by name; fall back to the first registered Solana wallet
 				const wallet =
-					registered.find(w => w.name === 'Jupiter' && w.chains?.some((c: string) => c.startsWith('solana:'))) ??
-					registered.find(w => w.chains?.some((c: string) => c.startsWith('solana:')));
+					registered.find((w) => w.name === 'Jupiter' && w.chains?.some((c: string) => c.startsWith('solana:'))) ??
+					registered.find((w) => w.chains?.some((c: string) => c.startsWith('solana:')));
 				if (!wallet) return null;
 
 				let account: any = null;
 				const provider: any = {
 					connect: async () => {
-						const { accounts } = await wallet.features['standard:connect'].connect();
+						const {accounts} = await wallet.features['standard:connect'].connect();
 						account = accounts[0];
 						if (!account) throw new Error('No accounts returned from wallet');
 					},
 					signIn: wallet.features['standard:signIn']
 						? async (input: any) => {
-							const [result] = await wallet.features['standard:signIn'].signIn(input);
-							return result;
-						}
+								const [result] = await wallet.features['standard:signIn'].signIn(input);
+								return result;
+							}
 						: undefined,
 					signMessage: async (messageBytes: Uint8Array) => {
 						const [result] = await wallet.features['solana:signMessage'].signMessage({
@@ -243,11 +244,11 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 							message: messageBytes,
 						});
 						// signedMessage contains the exact bytes the wallet signed (may include prefix)
-						return { signature: result.signature, signedMessage: result.signedMessage };
+						return {signature: result.signature, signedMessage: result.signedMessage};
 					},
 				};
 				Object.defineProperty(provider, 'publicKey', {
-					get: () => account ? { toBase58: () => account.address } : null,
+					get: () => (account ? {toBase58: () => account.address} : null),
 				});
 				return provider;
 			} catch {
@@ -262,10 +263,12 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 			(window as any).coinbaseSolana ??
 			(window as any).backpack?.solana ??
 			(window as any).magicEden?.solana ??
-			(window as any).station ??         // Jupiter Station mobile in-app browser
+			(window as any).station ?? // Jupiter Station mobile in-app browser
 			getWalletStandardProvider();
 		if (!sol) {
-			setSwitchError(t`No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps.`);
+			setSwitchError(
+				t`No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps.`,
+			);
 			return;
 		}
 		setIsSolanaLoading(true);
@@ -428,7 +431,9 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 		<>
 			{extraTopContent}
 
-			{showTitle ? <h1 className={styles.title}>{title ?? <Trans>Welcome back</Trans>}</h1> : null}
+			{showTitle ? (
+				<h1 className={clsx(styles.title, styles.titleGradient)}>{title ?? <Trans>Welcome back</Trans>}</h1>
+			) : null}
 
 			{!showAccountSelector && switchError ? <div className={styles.loginNotice}>{switchError}</div> : null}
 
@@ -448,9 +453,9 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 			) : null}
 
 			<div className={styles.solanaButtonWrapper}>
-			<Button fitContainer onClick={handleSolanaLogin} submitting={isSolanaLoading} type="button">
-				<Trans>Sign In with Solana</Trans>
-			</Button>
+				<Button fitContainer onClick={handleSolanaLogin} submitting={isSolanaLoading} type="button">
+					<Trans>Sign In with Solana</Trans>
+				</Button>
 			</div>
 
 			{IS_DEV ? (

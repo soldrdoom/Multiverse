@@ -26,6 +26,41 @@
 	color: var(--text-primary);
 }
 
+/* ── "Welcome back" headline — Solana gradient text ─────────────────────
+ * Scoped modifier for the login card's headline only (composed with
+ * `.title` on the element in AuthLoginLayout.tsx, not applied to `.title`
+ * globally) — `.title` is shared with the SSO-enforced heading and the
+ * SSO-callback processing/error headings (SsoCallbackPage.tsx), where a
+ * decorative brand gradient doesn't fit ("SSO Sign-in Failed" reading as
+ * a celebratory gradient would be a bad signal). This is an intentional
+ * exception to the "gradients on chrome, not reading text" rule in
+ * multiverse-theme.css: this is a single large decorative headline, not
+ * body copy, and the user's own design explicitly calls for gradient text
+ * here. Verified against the card background (rgba(11,14,20,0.82) glass
+ * over the auth page's dark radial gradient) — the lightest gradient stop
+ * (#7fd8e8) still reads clearly at this size/weight against that backdrop.
+ */
+.titleGradient {
+	font-family: 'Manrope', var(--font-sans);
+	font-size: clamp(1.75rem, 4vw, 2.5rem);
+	font-weight: 800;
+	line-height: 1.05;
+	letter-spacing: -0.025em;
+	background: linear-gradient(96deg, var(--brand-secondary) 0%, #b57bff 34%, #7fd8e8 68%, var(--brand-primary) 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	filter: drop-shadow(0 2px 10px rgba(153, 69, 255, 0.28));
+}
+
+/* Fallback for browsers without background-clip: text support — without
+   this, .titleGradient's `color: transparent` would render invisible text. */
+@supports not (background-clip: text) {
+	.titleGradient {
+		color: var(--text-primary);
+	}
+}
+
 .loginContainer {
 	max-width: 420px;
 	margin: 3rem auto;

@@ -19,9 +19,9 @@
 
 import styles from '@app/components/auth/AuthCardContainer.module.css';
 import authLayoutStyles from '@app/components/layout/AuthLayout.module.css';
-import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 import clsx from 'clsx';
 import type {ReactNode} from 'react';
+import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 
 interface AuthCardContainerProps {
 	showLogoSide?: boolean;
@@ -33,19 +33,17 @@ interface AuthCardContainerProps {
 export function AuthCardContainer({showLogoSide = true, children, isInert = false, className}: AuthCardContainerProps) {
 	return (
 		<div className={clsx(authLayoutStyles.cardContainer, className)}>
-			<div className={clsx(authLayoutStyles.card, !showLogoSide && authLayoutStyles.cardSingle)}>
-				{showLogoSide && (
-					<div className={authLayoutStyles.logoSide}>
-						<img
-							src={multiverseOfficialLogo}
-							alt="Multiverse"
-							className={authLayoutStyles.logo}
-						/>
-						<span className={authLayoutStyles.wordmark}>Multiverse</span>
+			<div className={clsx(authLayoutStyles.cardRing, !showLogoSide && authLayoutStyles.cardRingSingle)}>
+				<div className={authLayoutStyles.card}>
+					{showLogoSide && (
+						<div className={authLayoutStyles.logoSide}>
+							<img src={multiverseOfficialLogo} alt="Multiverse" className={authLayoutStyles.logo} />
+							<span className={authLayoutStyles.wordmark}>Multiverse</span>
+						</div>
+					)}
+					<div className={clsx(authLayoutStyles.formSide, !showLogoSide && authLayoutStyles.formSideSingle)}>
+						{isInert ? <div className={styles.inertOverlay}>{children}</div> : children}
 					</div>
-				)}
-				<div className={clsx(authLayoutStyles.formSide, !showLogoSide && authLayoutStyles.formSideSingle)}>
-					{isInert ? <div className={styles.inertOverlay}>{children}</div> : children}
 				</div>
 			</div>
 		</div>
