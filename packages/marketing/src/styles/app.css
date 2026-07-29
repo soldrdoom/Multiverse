@@ -1425,6 +1425,69 @@ footer * {
   color: rgba(255, 255, 255, 0.5);
 }
 
+.mv-page-head {
+  margin: 40px 0 28px;
+}
+
+.mv-page-kicker {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 14px;
+}
+
+.mv-page-title {
+  margin: 0 0 10px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.mv-page-subtitle {
+  margin: 0;
+  max-width: 560px;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.mv-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.mv-news-grid .mv-story {
+  min-width: 0;
+}
+
+.mv-news-empty {
+  margin-top: 8px;
+  padding: 48px 24px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+}
+
+.mv-back-link {
+  display: inline-flex;
+  margin: 32px 0 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mv-back-link:hover {
+  color: #14f195;
+}
+
 .mv-dots {
   display: flex;
   align-items: center;

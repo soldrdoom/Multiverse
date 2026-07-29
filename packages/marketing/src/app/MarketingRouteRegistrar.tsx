@@ -33,6 +33,7 @@ import {renderDownloadPage} from '@fluxer/marketing/src/pages/DownloadPage';
 import {renderHelpArticlePage} from '@fluxer/marketing/src/pages/HelpArticlePage';
 import {renderHelpIndexPage} from '@fluxer/marketing/src/pages/HelpIndexPage';
 import {renderHomePage} from '@fluxer/marketing/src/pages/HomePage';
+import {renderNewsPage} from '@fluxer/marketing/src/pages/NewsPage';
 import {renderNotFoundPage} from '@fluxer/marketing/src/pages/NotFoundPage';
 import {renderPartnersPage} from '@fluxer/marketing/src/pages/PartnersPage';
 import {renderPlutoniumPage} from '@fluxer/marketing/src/pages/PlutoniumPage';
@@ -81,6 +82,7 @@ const PAGE_ROUTE_DEFINITIONS: ReadonlyArray<{
 	{path: '/', handler: renderHomePage},
 	{path: '/developers', handler: renderDevelopersPage},
 	{path: '/download', handler: renderDownloadPage},
+	{path: '/news', handler: renderNewsPage},
 	{path: '/plutonium', handler: renderPlutoniumPage},
 	{path: '/partners', handler: renderPartnersPage},
 	{path: '/press', handler: renderPressPage},

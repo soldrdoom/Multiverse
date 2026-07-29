@@ -257,6 +257,13 @@ home.news.all_news: All news
 home.news.next_stories: Next stories
 home.news.previous_stories: Previous stories
 home.news.whats_new: WHAT'S NEW
+home.news_page.back_to_home: Back to home
+home.news_page.empty: No stories published yet — check back soon.
+home.news_page.heading: Every update, in one place
+home.news_page.kicker: NEWS
+home.news_page.meta_description: Product releases, network milestones, and announcements from the Multiverse team.
+home.news_page.subtitle: Product releases, network milestones, and everything else the Multiverse team ships.
+home.news_page.title: News
 languages.change_language: Change language
 languages.choose_your_language: Choose your language
 languages.language_label: Language

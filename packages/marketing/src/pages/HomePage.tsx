@@ -20,8 +20,11 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource hono/jsx */
 
+import {HomeFooter} from '@fluxer/marketing/src/components/HomeFooter';
+import {HomeHeader} from '@fluxer/marketing/src/components/HomeHeader';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
-import {readMarketingResponseAsText, sendMarketingRequest} from '@fluxer/marketing/src/MarketingHttpClient';
+import type {NewsStoryDisplay} from '@fluxer/marketing/src/news/NewsStories';
+import {fetchPublishedNewsStories} from '@fluxer/marketing/src/news/NewsStories';
 import {homePageScript} from '@fluxer/marketing/src/pages/home/HomePageScript';
 import {buildIconLinks} from '@fluxer/marketing/src/pages/layout/Icons';
 import {buildMetaTags, defaultPageMeta} from '@fluxer/marketing/src/pages/layout/Meta';
@@ -33,7 +36,6 @@ import type {Context} from 'hono';
 const GOOGLE_FONTS_URL =
 	'https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Space+Grotesk:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap';
 
-const NEWS_FETCH_TIMEOUT_MS = 5_000;
 const STORIES_PER_PAGE_DESKTOP = 3;
 const CHART_W = 620;
 const CHART_H = 150;
@@ -93,13 +95,6 @@ const BAR_GRADIENTS: ReadonlyArray<readonly [string, string]> = [
 	['#14f195', 'rgba(20,241,149,.25)'],
 ];
 
-interface HomeNewsStory {
-	title: string;
-	blurb: string;
-	imageUrl: string | null;
-	dateLabel: string;
-}
-
 interface NetworkDisplay {
 	live: boolean;
 	price: string;
@@ -138,49 +133,6 @@ function formatEta(seconds: number): string {
 	if (days > 0) return `${days}d ${hours}h`;
 	if (hours > 0) return `${hours}h ${minutes}m`;
 	return `${minutes}m`;
-}
-
-function formatStoryDate(iso: string): string {
-	const date = new Date(iso);
-	if (Number.isNaN(date.getTime())) return '';
-	return date.toLocaleDateString('en-US', {month: 'short', day: '2-digit', year: 'numeric'}).toUpperCase();
-}
-
-async function fetchHomeNewsStories(ctx: MarketingContext): Promise<ReadonlyArray<HomeNewsStory>> {
-	try {
-		const response = await sendMarketingRequest({
-			url: `${ctx.apiEndpoint}/news`,
-			method: 'GET',
-			timeout: NEWS_FETCH_TIMEOUT_MS,
-			serviceName: 'marketing_home_news',
-		});
-		const text = await readMarketingResponseAsText(response.stream);
-		if (response.status < 200 || response.status >= 300) return [];
-
-		const payload: unknown = JSON.parse(text);
-		if (typeof payload !== 'object' || payload === null) return [];
-		const storiesValue = (payload as Record<string, unknown>)['stories'];
-		if (!Array.isArray(storiesValue)) return [];
-
-		const stories: Array<HomeNewsStory> = [];
-		for (const entry of storiesValue) {
-			if (typeof entry !== 'object' || entry === null) continue;
-			const record = entry as Record<string, unknown>;
-			const title = typeof record['title'] === 'string' ? record['title'] : null;
-			const body = typeof record['body'] === 'string' ? record['body'] : null;
-			const publishedAt = typeof record['published_at'] === 'string' ? record['published_at'] : null;
-			if (title === null || body === null || publishedAt === null) continue;
-			stories.push({
-				title,
-				blurb: body,
-				imageUrl: typeof record['image_url'] === 'string' ? record['image_url'] : null,
-				dateLabel: formatStoryDate(publishedAt),
-			});
-		}
-		return stories;
-	} catch {
-		return [];
-	}
 }
 
 function buildChartGeometry(series: ReadonlyArray<number>): {
@@ -272,41 +224,6 @@ interface SectionProps {
 	ctx: MarketingContext;
 }
 
-function HomeHeader({ctx}: SectionProps): JSX.Element {
-	const t = (key: Parameters<MarketingContext['i18n']['getMessage']>[0]) => ctx.i18n.getMessage(key, ctx.locale);
-
-	return (
-		<header class="mv-header">
-			<div class="mv-header-inner">
-				<a href={href(ctx, '/')} class="mv-brand" aria-label={t('navigation.go_home')}>
-					<img src={`${ctx.staticCdnEndpoint}/images/multiverse-mark.png`} alt="" class="mv-brand-logo" />
-					<span class="mv-brand-text">MULTIVERSE</span>
-				</a>
-				<nav class="mv-nav">
-					<a href={href(ctx, '/')} class="mv-nav-link is-active">
-						{t('home.nav.home')}
-					</a>
-					<a href={href(ctx, '/support')} class="mv-nav-link">
-						{t('company_and_resources.support.label')}
-					</a>
-					<a href={href(ctx, '/roadmap')} class="mv-nav-link">
-						{t('company_and_resources.support.roadmap')}
-					</a>
-					<a href={href(ctx, '/whitepaper')} class="mv-nav-link">
-						{t('company_and_resources.support.whitepaper')}
-					</a>
-					<a href={href(ctx, '/developers')} class="mv-nav-link">
-						{t('company_and_resources.support.developers')}
-					</a>
-				</nav>
-				<a href={`${ctx.appEndpoint}/channels/@me`} class="mv-launch">
-					{t('home.launch_app')}
-				</a>
-			</div>
-		</header>
-	);
-}
-
 function HomeHero({ctx}: SectionProps): JSX.Element {
 	const t = (key: Parameters<MarketingContext['i18n']['getMessage']>[0]) => ctx.i18n.getMessage(key, ctx.locale);
 
@@ -375,7 +292,7 @@ function HomeHero({ctx}: SectionProps): JSX.Element {
 
 interface HomeNewsSectionProps {
 	ctx: MarketingContext;
-	stories: ReadonlyArray<HomeNewsStory>;
+	stories: ReadonlyArray<NewsStoryDisplay>;
 }
 
 function HomeNewsSection({ctx, stories}: HomeNewsSectionProps): JSX.Element {
@@ -398,7 +315,7 @@ function HomeNewsSection({ctx, stories}: HomeNewsSectionProps): JSX.Element {
 					<button type="button" id="mv-next" class="mv-arrow-btn" aria-label={t('home.news.next_stories')}>
 						→
 					</button>
-					<a href={href(ctx, '/blog')} class="mv-allnews">
+					<a href={href(ctx, '/news')} class="mv-allnews">
 						{t('home.news.all_news')}
 					</a>
 				</div>
@@ -645,32 +562,14 @@ function HomeNetworkSection({ctx, display}: HomeNetworkSectionProps): JSX.Elemen
 	);
 }
 
-function HomeFooter({ctx}: SectionProps): JSX.Element {
-	const t = (key: Parameters<MarketingContext['i18n']['getMessage']>[0]) => ctx.i18n.getMessage(key, ctx.locale);
-
-	return (
-		<footer class="mv-footer">
-			<span class="mv-footer-copy">{t('home.footer.copyright')}</span>
-			<div class="mv-footer-links">
-				<a href="https://github.com/fluxerapp/fluxer" class="mv-footer-link">
-					{t('home.footer.github')}
-				</a>
-				<a href="https://docs.fluxer.app" class="mv-footer-link">
-					{t('company_and_resources.docs')}
-				</a>
-				<a href={href(ctx, '/privacy')} class="mv-footer-link">
-					{t('home.footer.privacy')}
-				</a>
-			</div>
-		</footer>
-	);
-}
-
 export async function renderHomePage(c: Context, ctx: MarketingContext): Promise<Response> {
 	const pageMeta = defaultPageMeta();
 	const pageUrl = ctx.baseUrl;
 
-	const [stories, statsResult] = await Promise.all([fetchHomeNewsStories(ctx), getSolanaStats('7').catch(() => null)]);
+	const [stories, statsResult] = await Promise.all([
+		fetchPublishedNewsStories(ctx),
+		getSolanaStats('7').catch(() => null),
+	]);
 	const display = buildNetworkDisplay(
 		statsResult ?? {
 			live: false,
@@ -704,7 +603,7 @@ export async function renderHomePage(c: Context, ctx: MarketingContext): Promise
 				<div class="mv-home">
 					<div class="mv-glow" />
 					<div class="mv-grid-overlay" />
-					<HomeHeader ctx={ctx} />
+					<HomeHeader ctx={ctx} active="home" />
 					<main class="mv-main">
 						<HomeHero ctx={ctx} />
 						<HomeNewsSection ctx={ctx} stories={stories} />
