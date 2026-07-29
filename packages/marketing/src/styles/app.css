@@ -977,12 +977,12 @@ footer * {
 .mv-nav-link.is-active {
   padding: 7px 14px;
   font-size: 13.5px;
-  color: #14f195;
+  color: #fff;
   background: rgba(20, 241, 149, 0.14);
 }
 
 .mv-nav-link.is-active:hover {
-  color: #14f195;
+  color: #fff;
   background: rgba(20, 241, 149, 0.2);
 }
 
@@ -995,7 +995,7 @@ footer * {
   border-radius: 999px;
   font-size: 13.5px;
   font-weight: 500;
-  color: #08080a;
+  color: #fff;
   white-space: nowrap;
   background: linear-gradient(90deg, #7c4dff, #48c9d9, #14f195, #7c4dff);
   background-size: 200% 100%;
@@ -1003,7 +1003,7 @@ footer * {
 }
 
 .mv-launch:hover {
-  color: #08080a;
+  color: #fff;
   filter: brightness(1.08);
 }
 
