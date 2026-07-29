@@ -425,24 +425,126 @@
 	margin-bottom: 1.5rem;
 }
 
-/* ── Solana Login Button — Solana gradient ── */
+/* ── Solana Login Button — Solana gradient pill with spinning ring ──────
+ * Custom property registered so the conic-gradient angle animates smoothly
+ * (animating a plain --var with `animation` doesn't interpolate without
+ * @property). Scoped to this one button; no other component in the repo
+ * currently registers a custom @property, so this name is deliberately
+ * namespaced to avoid clashing with a future one.
+ */
+@property --solana-ring-angle {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false;
+}
+
+@keyframes solanaRingSpin {
+	to {
+		--solana-ring-angle: 360deg;
+	}
+}
+
+.solanaButtonWrapper {
+	position: relative;
+	isolation: isolate;
+}
+
+/* Soft blurred aura behind the ring, spinning in sync with it. */
+.solanaButtonWrapper::before {
+	content: '';
+	position: absolute;
+	inset: -14px;
+	z-index: 0;
+	border-radius: 999px;
+	background: conic-gradient(
+		from var(--solana-ring-angle),
+		var(--brand-secondary),
+		var(--brand-primary),
+		var(--brand-secondary)
+	);
+	filter: blur(20px);
+	opacity: 0.5;
+	pointer-events: none;
+	animation: solanaRingSpin 6s linear infinite;
+}
+
+/* Thin spinning conic-gradient ring, drawn as a gradient donut via mask
+ * (padding sets the ring thickness, mask-composite cuts out the center). */
+.solanaButtonWrapper::after {
+	content: '';
+	position: absolute;
+	inset: -4px;
+	z-index: 1;
+	padding: 2px;
+	border-radius: 999px;
+	background: conic-gradient(
+		from var(--solana-ring-angle),
+		var(--brand-secondary),
+		var(--brand-primary),
+		var(--brand-secondary)
+	);
+	-webkit-mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	pointer-events: none;
+	animation: solanaRingSpin 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.solanaButtonWrapper::before,
+	.solanaButtonWrapper::after {
+		animation: none;
+	}
+}
+
 .solanaButtonWrapper button,
 .solanaButtonWrapper [role='button'] {
+	position: relative;
+	z-index: 2;
+	height: 52px;
+	min-height: 52px;
+	border-radius: 999px !important;
 	background: var(--gradient-brand) !important;
 	color: var(--button-primary-text) !important;
+	font-family: 'Manrope', var(--font-sans) !important;
 	font-weight: 700 !important;
+	letter-spacing: -0.005em !important;
 	box-shadow:
-		0 0 10px color-mix(in srgb, var(--brand-secondary) 40%, transparent),
-		0 0 10px color-mix(in srgb, var(--brand-primary) 40%, transparent) !important;
+		0 1px 0 rgba(255, 255, 255, 0.35) inset,
+		0 -6px 14px rgba(0, 0, 0, 0.22) inset,
+		0 14px 30px -12px rgba(0, 0, 0, 0.75) !important;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.18) !important;
 	transition:
+		transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1),
 		filter 0.15s ease,
 		box-shadow 0.15s ease !important;
 }
 
 .solanaButtonWrapper button:hover:not(:disabled),
 .solanaButtonWrapper [role='button']:hover:not(:disabled) {
+	transform: translateY(-2px);
 	filter: brightness(1.12) !important;
 	box-shadow:
-		0 0 18px color-mix(in srgb, var(--brand-secondary) 60%, transparent),
-		0 0 18px color-mix(in srgb, var(--brand-primary) 60%, transparent) !important;
+		0 1px 0 rgba(255, 255, 255, 0.4) inset,
+		0 -6px 14px rgba(0, 0, 0, 0.22) inset,
+		0 22px 40px -14px rgba(0, 0, 0, 0.85) !important;
+}
+
+.solanaButtonWrapper button:active:not(:disabled),
+.solanaButtonWrapper [role='button']:active:not(:disabled) {
+	transform: translateY(0) scale(0.99);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.solanaButtonWrapper button,
+	.solanaButtonWrapper [role='button'] {
+		transition:
+			filter 0.15s ease,
+			box-shadow 0.15s ease !important;
+	}
 }
