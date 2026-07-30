@@ -148,7 +148,10 @@ const loginRoute = createRoute({
 
 		const redirectTo = qp.get('redirect_to');
 		if (isAuthenticated) {
-			return new Redirect(redirectTo || Routes.ME);
+			// Sanitized on this branch too. It used to hand the raw param straight to Redirect, which
+			// only failed closed because history.replaceState throws SecurityError on a cross-origin
+			// URL — a browser guarantee, not one this code was making.
+			return new Redirect(RouterUtils.sanitizeSameOriginPath(redirectTo) ?? Routes.ME);
 		}
 
 		RouterUtils.redirectToMarketingSignIn(redirectTo);

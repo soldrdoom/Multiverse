@@ -359,6 +359,15 @@ export const RootComponent: React.FC<{children?: React.ReactNode}> = observer(({
 		return <SplashScreen />;
 	}
 
+	// Signed out on a protected route, with a full-document navigation to the sign-in page already
+	// in flight. `window.location.assign` is asynchronous, so without this the app subtree keeps
+	// rendering until it commits — a network round-trip, or indefinitely if the user is offline.
+	// That is fine on a cold load (empty stores) but not on mid-session invalidation, where already
+	// -loaded messages and member lists would stay on screen after the session ended.
+	if (!isAuthenticated && SessionManager.isInitialized && !isStandaloneRoute && !AccountManager.isSwitching) {
+		return <SplashScreen />;
+	}
+
 	return (
 		<>
 			<KeyboardModeListener />

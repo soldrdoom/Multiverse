@@ -62,7 +62,12 @@ export function redirectToMarketingSignIn(redirectTo?: string | null): void {
 	window.location.assign(url);
 }
 
-function sanitizeSameOriginPath(rawPath: string | null | undefined): string | null {
+/**
+ * The single validator for any attacker-supplied `redirect_to`. Exported so every consumer shares
+ * it — the alternative is what this codebase already grew twice: a per-call-site check that drifts.
+ * Returns null for anything that isn't a plain same-origin path, so callers can fall back.
+ */
+export function sanitizeSameOriginPath(rawPath: string | null | undefined): string | null {
 	if (!rawPath) return null;
 	// Reject anything that could leave the origin: absolute URLs, protocol-relative `//evil.com`,
 	// and backslash variants that some browsers normalise into a host.

@@ -27,11 +27,12 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 
 const SSO_TIMEOUT_MS = 30_000;
 
+// Delegates to the shared validator rather than re-checking by hand. The previous local version
+// tested only the raw string, so '/..//evil.example.com' passed — URL() normalises it to the
+// protocol-relative '//evil.example.com'. Unreachable today (no SSO configured on this instance),
+// which is exactly how it would have been re-enabled with the gap still in it.
 const sanitizeRedirectTo = (redirectTo: string | undefined | null): string => {
-	if (!redirectTo) return '/';
-	const trimmed = redirectTo.trim();
-	if (!trimmed.startsWith('/') || trimmed.startsWith('//')) return '/';
-	return trimmed;
+	return RouterUtils.sanitizeSameOriginPath(redirectTo) ?? '/';
 };
 
 const SsoCallbackPage = observer(function SsoCallbackPage() {
