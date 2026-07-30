@@ -22,37 +22,54 @@
 
 import {HomeFooter} from '@fluxer/marketing/src/components/HomeFooter';
 import {HomeHeader} from '@fluxer/marketing/src/components/HomeHeader';
+import {NewsStoryCard} from '@fluxer/marketing/src/components/NewsStoryCard';
+import {NewsStoryPopup} from '@fluxer/marketing/src/components/NewsStoryPopup';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
-import type {NewsStoryDisplay} from '@fluxer/marketing/src/news/NewsStories';
 import {fetchPublishedNewsStories} from '@fluxer/marketing/src/news/NewsStories';
+import {newsPopupScript} from '@fluxer/marketing/src/pages/home/NewsPopupScript';
+import {siwsConnectScript} from '@fluxer/marketing/src/pages/home/SiwsConnectScript';
 import {buildIconLinks} from '@fluxer/marketing/src/pages/layout/Icons';
-import {buildMetaTags, pageMeta} from '@fluxer/marketing/src/pages/layout/Meta';
+import {
+	articlePageMeta,
+	buildMetaTags,
+	pageMeta,
+	withOgImage,
+	withPublishedTime,
+} from '@fluxer/marketing/src/pages/layout/Meta';
+import {renderNotFoundPage} from '@fluxer/marketing/src/pages/NotFoundPage';
 import {cacheBustedAsset, href} from '@fluxer/marketing/src/UrlUtils';
 import type {Context} from 'hono';
 
 const GOOGLE_FONTS_URL =
 	'https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Space+Grotesk:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap';
 
-function NewsStoryCard({story}: {story: NewsStoryDisplay}): JSX.Element {
-	return (
-		<article class="mv-story">
-			<div class="mv-story-media">
-				{story.imageUrl ? <img src={story.imageUrl} alt={story.title} class="mv-story-img" /> : null}
-			</div>
-			<div class="mv-story-body">
-				<span class="mv-story-date">{story.dateLabel}</span>
-				<h2 class="mv-story-title">{story.title}</h2>
-				<p class="mv-story-blurb">{story.blurb}</p>
-			</div>
-		</article>
-	);
-}
-
-export async function renderNewsPage(c: Context, ctx: MarketingContext): Promise<Response> {
+/**
+ * Serves both `/news` and `/news/:story_id`. The single-story route renders the same index page
+ * with story-specific meta tags and the popup already open — that way a shared link lands on real,
+ * crawlable content instead of a client-only state, and closing the panel leaves you on the index.
+ */
+export async function renderNewsPage(c: Context, ctx: MarketingContext, storyId?: string): Promise<Response> {
 	const t = (key: Parameters<MarketingContext['i18n']['getMessage']>[0]) => ctx.i18n.getMessage(key, ctx.locale);
-	const meta = pageMeta(`Multiverse | ${t('home.news_page.title')}`, t('home.news_page.meta_description'), 'website');
-	const pageUrl = `${ctx.baseUrl}${href(ctx, '/news')}`;
 	const stories = await fetchPublishedNewsStories(ctx);
+	const story = storyId === undefined ? null : (stories.find((entry) => entry.storyId === storyId) ?? null);
+
+	if (storyId !== undefined && story === null) {
+		return await renderNotFoundPage(c, ctx);
+	}
+
+	const indexMeta = pageMeta(
+		`Multiverse | ${t('home.news_page.title')}`,
+		t('home.news_page.meta_description'),
+		'website',
+	);
+	const meta =
+		story === null
+			? indexMeta
+			: (() => {
+					const base = withPublishedTime(articlePageMeta(story.title, story.preview), story.publishedAt);
+					return story.imageUrl === null ? base : withOgImage(base, story.imageUrl);
+				})();
+	const pageUrl = `${ctx.baseUrl}${href(ctx, story === null ? '/news' : `/news/${story.storyId}`)}`;
 
 	const html = (
 		<html lang={ctx.locale}>
@@ -66,6 +83,8 @@ export async function renderNewsPage(c: Context, ctx: MarketingContext): Promise
 				<link rel="stylesheet" href={GOOGLE_FONTS_URL} />
 				<link rel="stylesheet" href={cacheBustedAsset(ctx, '/static/app.css')} />
 				{buildIconLinks(ctx.staticCdnEndpoint)}
+				{newsPopupScript(ctx.apiEndpoint, href(ctx, '/news'), story === null ? null : story.storyId)}
+				{siwsConnectScript(ctx.apiEndpoint, ctx.appEndpoint, `${ctx.staticCdnEndpoint}/images/multiverse-mark.png`)}
 			</head>
 			<body class="bg-[#08080a]">
 				<div class="mv-home">
@@ -85,8 +104,8 @@ export async function renderNewsPage(c: Context, ctx: MarketingContext): Promise
 
 						{stories.length > 0 ? (
 							<div class="mv-news-grid">
-								{stories.map((story) => (
-									<NewsStoryCard story={story} />
+								{stories.map((entry) => (
+									<NewsStoryCard ctx={ctx} story={entry} headingLevel="h2" />
 								))}
 							</div>
 						) : (
@@ -98,6 +117,7 @@ export async function renderNewsPage(c: Context, ctx: MarketingContext): Promise
 						</a>
 					</main>
 					<HomeFooter ctx={ctx} />
+					<NewsStoryPopup stories={stories} />
 				</div>
 			</body>
 		</html>

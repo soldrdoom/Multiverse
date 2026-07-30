@@ -2909,6 +2909,37 @@ export function TestHarnessController(app: HonoApp) {
 		});
 	});
 
+	// Links (or unlinks, with `solana_address: null`) a wallet without going through the SIWS
+	// signature flow. Wallet-gated features — news voting, the creator program — read
+	// `user.solanaAddress` directly, and forging a real Ed25519 challenge in every test that needs a
+	// linked wallet is pure ceremony.
+	app.post('/test/users/:userId/set-solana-address', async (ctx) => {
+		ensureHarnessAccess(ctx);
+
+		const params = ctx.req.param() as {userId?: string};
+		const userIdParam = params.userId;
+		if (!userIdParam) {
+			throw new Error('Missing userId parameter');
+		}
+		const userId = createUserID(BigInt(userIdParam));
+		const body = await ctx.req.json();
+		const {solana_address: solanaAddress} = body as {solana_address?: string | null};
+
+		if (solanaAddress !== null && typeof solanaAddress !== 'string') {
+			throw new Error('solana_address must be a string or null');
+		}
+
+		const userRepository = new UserRepository();
+		const user = await userRepository.findUnique(userId);
+		if (!user) {
+			throw new UnknownUserError();
+		}
+
+		await userRepository.patchUpsert(userId, {solana_address: solanaAddress}, user.toRow());
+
+		return ctx.json({success: true, userId: userId.toString(), solana_address: solanaAddress});
+	});
+
 	app.post('/test/cache-clear', async (ctx) => {
 		ensureHarnessAccess(ctx);
 		const cacheService = ctx.get('cacheService');

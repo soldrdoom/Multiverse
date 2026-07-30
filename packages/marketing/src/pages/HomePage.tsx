@@ -22,10 +22,14 @@
 
 import {HomeFooter} from '@fluxer/marketing/src/components/HomeFooter';
 import {HomeHeader} from '@fluxer/marketing/src/components/HomeHeader';
+import {NewsStoryCard} from '@fluxer/marketing/src/components/NewsStoryCard';
+import {NewsStoryPopup} from '@fluxer/marketing/src/components/NewsStoryPopup';
 import type {MarketingContext} from '@fluxer/marketing/src/MarketingContext';
 import type {NewsStoryDisplay} from '@fluxer/marketing/src/news/NewsStories';
 import {fetchPublishedNewsStories} from '@fluxer/marketing/src/news/NewsStories';
 import {homePageScript} from '@fluxer/marketing/src/pages/home/HomePageScript';
+import {newsPopupScript} from '@fluxer/marketing/src/pages/home/NewsPopupScript';
+import {siwsConnectScript} from '@fluxer/marketing/src/pages/home/SiwsConnectScript';
 import {buildIconLinks} from '@fluxer/marketing/src/pages/layout/Icons';
 import {buildMetaTags, defaultPageMeta} from '@fluxer/marketing/src/pages/layout/Meta';
 import type {SolanaStatsPayload} from '@fluxer/marketing/src/solana/SolanaLiveStats';
@@ -267,9 +271,14 @@ function HomeHero({ctx}: SectionProps): JSX.Element {
 						<div class="mv-card-topglow" />
 						<div class="mv-card-content">
 							<h2 class="mv-welcome">{t('home.hero.welcome_back')}</h2>
-							<a href={`${ctx.appEndpoint}/login`} class="mv-signin">
-								<span class="mv-signin-inner">{t('home.hero.sign_in_with_solana')}</span>
-							</a>
+							<button
+								type="button"
+								id="mv-wallet-connect-hero"
+								class="mv-signin mv-wallet-trigger"
+								data-default-label={t('home.hero.sign_in_with_solana')}
+							>
+								<span class="mv-signin-inner mv-wallet-trigger-label">{t('home.hero.sign_in_with_solana')}</span>
+							</button>
 							<div class="mv-card-links">
 								<span>
 									{t('home.hero.new_here')}{' '}
@@ -323,16 +332,7 @@ function HomeNewsSection({ctx, stories}: HomeNewsSectionProps): JSX.Element {
 
 			<div id="mv-rail" class="mv-rail">
 				{stories.map((story) => (
-					<article class="mv-story">
-						<div class="mv-story-media">
-							{story.imageUrl ? <img src={story.imageUrl} alt={story.title} class="mv-story-img" /> : null}
-						</div>
-						<div class="mv-story-body">
-							<span class="mv-story-date">{story.dateLabel}</span>
-							<h3 class="mv-story-title">{story.title}</h3>
-							<p class="mv-story-blurb">{story.blurb}</p>
-						</div>
-					</article>
+					<NewsStoryCard ctx={ctx} story={story} headingLevel="h3" />
 				))}
 			</div>
 
@@ -598,6 +598,8 @@ export async function renderHomePage(c: Context, ctx: MarketingContext): Promise
 				<link rel="stylesheet" href={cacheBustedAsset(ctx, '/static/app.css')} />
 				{buildIconLinks(ctx.staticCdnEndpoint)}
 				{homePageScript(href(ctx, '/_solana'))}
+				{newsPopupScript(ctx.apiEndpoint, href(ctx, '/news'))}
+				{siwsConnectScript(ctx.apiEndpoint, ctx.appEndpoint, `${ctx.staticCdnEndpoint}/images/multiverse-mark.png`)}
 			</head>
 			<body class="bg-[#08080a]">
 				<div class="mv-home">
@@ -610,6 +612,7 @@ export async function renderHomePage(c: Context, ctx: MarketingContext): Promise
 						<HomeNetworkSection ctx={ctx} display={display} />
 						<HomeFooter ctx={ctx} />
 					</main>
+					<NewsStoryPopup stories={stories} />
 				</div>
 			</body>
 		</html>

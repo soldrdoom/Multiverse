@@ -657,7 +657,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		reportSearchService,
 	);
 	const reportRequestService = new ReportRequestService(reportService);
-	const newsService = new NewsService(newsRepository);
+	const newsService = new NewsService(newsRepository, cacheService);
 
 	const adminService = new AdminService(
 		userRepository,

@@ -22,19 +22,68 @@ import {readMarketingResponseAsText, sendMarketingRequest} from '@fluxer/marketi
 
 const NEWS_FETCH_TIMEOUT_MS = 5_000;
 
+export type NewsVoteDirection = 'up' | 'down';
+
 export interface NewsStoryDisplay {
 	storyId: string;
 	title: string;
-	blurb: string;
+	/** Full story text. Only the popup renders it (via `paragraphs`); cards render `preview`. */
+	body: string;
+	/**
+	 * Short card blurb. Cards used to print the entire body, which is why long stories made the rail
+	 * uneven and unreadable — the popup is the place to read the rest now, so the card gets a
+	 * server-side excerpt and the full text ships exactly once per page.
+	 */
+	preview: string;
+	/**
+	 * `body` split into display paragraphs, so the popup renders server-escaped markup instead of
+	 * assigning a string into the DOM client-side. When the admin News editor grows rich text, this
+	 * is the seam that becomes sanitized HTML — the popup script never touches story text either way.
+	 */
+	paragraphs: ReadonlyArray<string>;
 	imageUrl: string | null;
 	dateLabel: string;
 	publishedAt: string;
+	upVotes: number;
+	downVotes: number;
+	/**
+	 * Always `null` from SSR: the marketing server fetches `/news` without the visitor's token, so
+	 * the API cannot know who is asking. The browser re-fetches with the token to hydrate this.
+	 */
+	myVote: NewsVoteDirection | null;
 }
 
 export function formatStoryDate(iso: string): string {
 	const date = new Date(iso);
 	if (Number.isNaN(date.getTime())) return '';
 	return date.toLocaleDateString('en-US', {month: 'short', day: '2-digit', year: 'numeric'}).toUpperCase();
+}
+
+export function splitStoryParagraphs(body: string): Array<string> {
+	const paragraphs = body
+		.split(/\r?\n\s*\r?\n/)
+		.map((paragraph) => paragraph.trim())
+		.filter((paragraph) => paragraph.length > 0);
+	return paragraphs.length > 0 ? paragraphs : [body.trim()].filter((paragraph) => paragraph.length > 0);
+}
+
+const PREVIEW_MAX_LENGTH = 220;
+
+export function buildStoryPreview(body: string): string {
+	const collapsed = body.replace(/\s+/g, ' ').trim();
+	if (collapsed.length <= PREVIEW_MAX_LENGTH) return collapsed;
+	// Cut on a word boundary so the ellipsis never lands mid-word.
+	const clipped = collapsed.slice(0, PREVIEW_MAX_LENGTH);
+	const lastSpace = clipped.lastIndexOf(' ');
+	return `${(lastSpace > PREVIEW_MAX_LENGTH * 0.6 ? clipped.slice(0, lastSpace) : clipped).trimEnd()}…`;
+}
+
+function readVoteCount(value: unknown): number {
+	return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.floor(value) : 0;
+}
+
+function readMyVote(value: unknown): NewsVoteDirection | null {
+	return value === 'up' || value === 'down' ? value : null;
 }
 
 // Story images come from the news API, which is editable by anyone with news-publish
@@ -78,10 +127,15 @@ export async function fetchPublishedNewsStories(ctx: MarketingContext): Promise<
 			stories.push({
 				storyId,
 				title,
-				blurb: body,
+				body,
+				preview: buildStoryPreview(body),
+				paragraphs: splitStoryParagraphs(body),
 				imageUrl: sanitizeImageUrl(record['image_url']),
 				dateLabel: formatStoryDate(publishedAt),
 				publishedAt,
+				upVotes: readVoteCount(record['up_votes']),
+				downVotes: readVoteCount(record['down_votes']),
+				myVote: readMyVote(record['my_vote']),
 			});
 		}
 		return stories;

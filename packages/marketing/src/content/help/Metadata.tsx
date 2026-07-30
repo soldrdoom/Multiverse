@@ -47,7 +47,8 @@ export const HELP_ARTICLE_METADATA: ReadonlyArray<HelpArticleMetadata> = [
 	{
 		slug: 'delete-account',
 		title: 'How to delete or disable your account',
-		description: 'How to permanently delete or temporarily disable your Multiverse account, and what happens to your data.',
+		description:
+			'How to permanently delete or temporarily disable your Multiverse account, and what happens to your data.',
 		category: 'Account',
 		lastUpdated: '2026-02-16',
 	},

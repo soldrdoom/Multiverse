@@ -78,3 +78,30 @@ export const NEWS_STORY_BY_STATUS_COLUMNS = [
 	'updated_at',
 	'published_at',
 ] as const satisfies ReadonlyArray<keyof NewsStoryByStatusRow>;
+
+export const NewsVoteDirections = {
+	UP: 'up',
+	DOWN: 'down',
+} as const;
+
+export type NewsVoteDirection = (typeof NewsVoteDirections)[keyof typeof NewsVoteDirections];
+
+// One row per (story, wallet). The voter's identity is their linked Solana wallet address rather
+// than their user ID, so the vote survives account changes and is meaningful on public surfaces.
+// Totals are derived by scanning the story partition (see NewsRepository.listVotes) rather than
+// kept in counter columns — a denormalized total would need read-modify-write and would race.
+export interface NewsStoryVoteRow {
+	story_id: NewsStoryID;
+	voter_address: string;
+	direction: NewsVoteDirection;
+	created_at: Date;
+	updated_at: Date;
+}
+
+export const NEWS_STORY_VOTE_COLUMNS = [
+	'story_id',
+	'voter_address',
+	'direction',
+	'created_at',
+	'updated_at',
+] as const satisfies ReadonlyArray<keyof NewsStoryVoteRow>;

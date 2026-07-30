@@ -39734,8 +39734,159 @@
           "metadata": {
             "title": "List published news stories"
           }
+        }
+      }
+    },
+    "/news/{story_id}/vote": {
+      "post": {
+        "operationId": "vote_news_story",
+        "summary": "Vote on a news story",
+        "tags": [
+          "News"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStoryVoteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
         },
-        "description": "Returns published news stories for display on public surfaces such as the login page. No authentication required."
+        "x-mint": {
+          "metadata": {
+            "title": "Vote on a news story"
+          }
+        },
+        "security": [
+          {
+            "sessionToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "story_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The story id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewsStoryVoteRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/oauth2/@me": {
@@ -82732,6 +82883,31 @@
           "published_at": {
             "type": "string",
             "description": "When this story was published, ISO 8601"
+          },
+          "up_votes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "format": "int64",
+            "description": "Number of distinct wallets that voted this story up"
+          },
+          "down_votes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "format": "int64",
+            "description": "Number of distinct wallets that voted this story down"
+          },
+          "my_vote": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NewsVoteDirectionType"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The requesting wallet's vote on this story, or null when the caller is unauthenticated, has no linked Solana wallet, or has not voted"
           }
         },
         "required": [
@@ -82739,7 +82915,81 @@
           "title",
           "body",
           "image_url",
-          "published_at"
+          "published_at",
+          "up_votes",
+          "down_votes",
+          "my_vote"
+        ]
+      },
+      "NewsVoteDirectionType": {
+        "enum": [
+          "up",
+          "down"
+        ],
+        "type": "string",
+        "x-enumNames": [
+          "up",
+          "down"
+        ]
+      },
+      "NewsStoryVoteResponse": {
+        "type": "object",
+        "properties": {
+          "story_id": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)$",
+            "description": "Unique identifier for the news story that was voted on"
+          },
+          "up_votes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "format": "int64",
+            "description": "Number of distinct wallets that voted this story up"
+          },
+          "down_votes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "format": "int64",
+            "description": "Number of distinct wallets that voted this story down"
+          },
+          "my_vote": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NewsVoteDirectionType"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The requesting wallet's vote after applying this request"
+          }
+        },
+        "required": [
+          "story_id",
+          "up_votes",
+          "down_votes",
+          "my_vote"
+        ]
+      },
+      "NewsStoryVoteRequest": {
+        "type": "object",
+        "properties": {
+          "direction": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NewsVoteDirectionType"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The vote to cast, or null to clear the existing vote"
+          }
+        },
+        "required": [
+          "direction"
         ]
       },
       "OAuth2MeResponse": {

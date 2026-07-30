@@ -163,8 +163,10 @@ import {
 import {
 	NEWS_STORY_BY_STATUS_COLUMNS,
 	NEWS_STORY_COLUMNS,
+	NEWS_STORY_VOTE_COLUMNS,
 	type NewsStoryByStatusRow,
 	type NewsStoryRow,
+	type NewsStoryVoteRow,
 } from '@fluxer/api/src/database/types/NewsTypes';
 import {
 	APPLICATION_BOT_TOKEN_BY_APPLICATION_COLUMNS,
@@ -702,6 +704,15 @@ export const NewsStoriesByStatus = defineTable<NewsStoryByStatusRow, 'status' | 
 	columns: NEWS_STORY_BY_STATUS_COLUMNS,
 	primaryKey: ['status', 'created_at', 'story_id'],
 	partitionKey: ['status'],
+});
+
+// Partitioned by story so a story's totals are one partition scan. Clustered by voter_address so
+// a wallet's existing vote is a single-row read/overwrite/delete, giving idempotent toggling.
+export const NewsStoryVotes = defineTable<NewsStoryVoteRow, 'story_id' | 'voter_address', 'story_id'>({
+	name: 'news_story_votes',
+	columns: NEWS_STORY_VOTE_COLUMNS,
+	primaryKey: ['story_id', 'voter_address'],
+	partitionKey: ['story_id'],
 });
 
 export const DSAReportEmailVerifications = defineTable<DSAReportEmailVerificationRow, 'email_lower'>({

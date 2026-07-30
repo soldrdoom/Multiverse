@@ -56,9 +56,20 @@ export function HomeHeader({ctx, active}: HomeHeaderProps): JSX.Element {
 						{t('company_and_resources.support.developers')}
 					</a>
 				</nav>
-				<a href={`${ctx.appEndpoint}/channels/@me`} class="mv-launch">
-					{t('home.launch_app')}
-				</a>
+				<div class="mv-header-actions">
+					<button
+						type="button"
+						id="mv-wallet-connect"
+						class="mv-wallet-connect mv-wallet-trigger"
+						data-default-label={t('home.hero.sign_in_with_solana')}
+					>
+						<span class="mv-wallet-trigger-label">{t('home.hero.sign_in_with_solana')}</span>
+					</button>
+					<div id="mv-wallet-error" class="mv-wallet-error" role="alert" style="display:none" />
+					<a href={`${ctx.appEndpoint}/channels/@me`} class="mv-launch">
+						{t('home.launch_app')}
+					</a>
+				</div>
 			</div>
 		</header>
 	);

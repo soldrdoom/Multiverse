@@ -403,10 +403,13 @@ Type: string (int64)
 | Field | Type | Description |
 |-------|------|-------------|
 | body | string | Body content of the news story |
+| down_votes | integer (int64) | Number of distinct wallets that voted this story down |
 | image_url | ?string | URL of the story image shown at the top of the news card, if any |
+| my_vote | ?[NewsVoteDirectionType](#newsvotedirectiontype) | The requesting wallet's vote on this story, or null when the caller is unauthenticated, has no linked Solana wallet, or has not voted |
 | published_at | string | When this story was published, ISO 8601 |
 | story_id | [SnowflakeType](#snowflaketype) | Unique identifier for this news story |
 | title | string | Title of the news story |
+| up_votes | integer (int64) | Number of distinct wallets that voted this story up |
 
 <a id="newsstorystatusschema"></a>
 
@@ -416,6 +419,42 @@ Type: string (int64)
 |-------|-------------|
 | `draft` | - |
 | `published` | - |
+
+<a id="newsstoryvoterequest"></a>
+
+## NewsStoryVoteRequest
+
+**Related endpoints**
+
+- [`POST /news/{story_id}/vote`](/api-reference/news/vote-on-a-news-story)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| direction | ?[NewsVoteDirectionType](#newsvotedirectiontype) | The vote to cast, or null to clear the existing vote |
+
+<a id="newsstoryvoteresponse"></a>
+
+## NewsStoryVoteResponse
+
+**Related endpoints**
+
+- [`POST /news/{story_id}/vote`](/api-reference/news/vote-on-a-news-story)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| down_votes | integer (int64) | Number of distinct wallets that voted this story down |
+| my_vote | ?[NewsVoteDirectionType](#newsvotedirectiontype) | The requesting wallet's vote after applying this request |
+| story_id | [SnowflakeType](#snowflaketype) | Unique identifier for the news story that was voted on |
+| up_votes | integer (int64) | Number of distinct wallets that voted this story up |
+
+<a id="newsvotedirectiontype"></a>
+
+## NewsVoteDirectionType
+
+| Value | Description |
+|-------|-------------|
+| `up` | - |
+| `down` | - |
 
 <a id="passwordtype"></a>
 

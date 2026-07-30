@@ -97,6 +97,7 @@ export function registerMarketingRoutes(options: RegisterMarketingRoutesOptions)
 	registerExternalRedirects(options.app);
 	registerSystemContentRoutes(options.app, options.contextFactory);
 	registerHelpRoutes(options.app, options.contextFactory);
+	registerNewsRoutes(options.app, options.contextFactory);
 	registerPolicyRoutes(options.app, options.contextFactory);
 	registerPageRoutes(options.app, options.contextFactory, {mountHome});
 	registerPressDownloadRoute(options.app);
@@ -168,6 +169,14 @@ function registerHelpRoutes(app: Hono, contextFactory: MarketingContextFactory):
 	registerContextRoute(app, '/help/:slug', contextFactory, async (c, ctx) => {
 		const slug = c.req.param('slug');
 		return await renderHelpArticlePage(c, ctx, slug);
+	});
+}
+
+function registerNewsRoutes(app: Hono, contextFactory: MarketingContextFactory): void {
+	// Shareable per-story permalink. renderNewsPage 404s when the id isn't a published story, so an
+	// unpublished or bogus id can't be used to probe what exists.
+	registerContextRoute(app, '/news/:story_id', contextFactory, async (c, ctx) => {
+		return await renderNewsPage(c, ctx, c.req.param('story_id'));
 	});
 }
 

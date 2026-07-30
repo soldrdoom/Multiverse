@@ -31,6 +31,15 @@ export const MiscRateLimitConfigs = {
 		config: {limit: 60, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
 
+	// Votes are keyed by the caller's Solana wallet, but the rate-limit bucket is not:
+	// getClientIdentifier buckets authenticated requests by `user:<id>`, so this is a per-account
+	// budget across every story, not a per-wallet or per-story one. That's intentional — one account
+	// has exactly one linked wallet, and a global-per-account cap is the thing worth limiting.
+	NEWS_VOTE: {
+		bucket: 'news:vote',
+		config: {limit: 30, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+
 	DOWNLOAD_DESKTOP_LATEST: {
 		bucket: 'download:desktop:latest',
 		config: {limit: 60, windowMs: ms('1 minute')},

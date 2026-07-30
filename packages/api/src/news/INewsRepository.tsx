@@ -18,7 +18,12 @@
  */
 
 import type {NewsStoryID} from '@fluxer/api/src/BrandedTypes';
-import type {NewsStoryByStatusRow, NewsStoryRow, NewsStoryStatus} from '@fluxer/api/src/database/types/NewsTypes';
+import type {
+	NewsStoryByStatusRow,
+	NewsStoryRow,
+	NewsStoryStatus,
+	NewsStoryVoteRow,
+} from '@fluxer/api/src/database/types/NewsTypes';
 
 export abstract class INewsRepository {
 	abstract findById(storyId: NewsStoryID): Promise<NewsStoryRow | null>;
@@ -27,4 +32,10 @@ export abstract class INewsRepository {
 	abstract update(row: NewsStoryRow): Promise<void>;
 	abstract setStatus(oldStatus: NewsStoryStatus, oldCreatedAt: Date, updatedRow: NewsStoryRow): Promise<void>;
 	abstract delete(storyId: NewsStoryID, status: NewsStoryStatus, createdAt: Date): Promise<void>;
+
+	/** Every vote row in a story's partition. Capped — see NewsRepository.MAX_VOTES_SCAN. */
+	abstract listVotes(storyId: NewsStoryID): Promise<Array<NewsStoryVoteRow>>;
+	abstract findVote(storyId: NewsStoryID, voterAddress: string): Promise<NewsStoryVoteRow | null>;
+	abstract upsertVote(row: NewsStoryVoteRow): Promise<void>;
+	abstract deleteVote(storyId: NewsStoryID, voterAddress: string): Promise<void>;
 }
