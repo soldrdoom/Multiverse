@@ -2112,8 +2112,19 @@ footer * {
   display: flex;
   justify-content: flex-end;
   background: rgba(4, 4, 7, 0.28);
-  backdrop-filter: blur(2px);
   animation: mv-popup-fade 250ms ease;
+}
+
+/* The overlay's light blur lives on a pseudo-element rather than on .mv-popup itself. An element
+   with backdrop-filter becomes a backdrop root for its DESCENDANTS, so putting it on the parent
+   left the panel's blur(44px) with nothing to sample — the page read straight through the panel.
+   As a sibling painted underneath, it blurs the page and the panel still blurs the result. */
+.mv-popup::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(2px);
+  pointer-events: none;
 }
 
 .mv-popup[hidden] {

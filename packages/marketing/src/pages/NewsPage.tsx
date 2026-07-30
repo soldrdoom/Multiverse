@@ -50,10 +50,14 @@ const GOOGLE_FONTS_URL =
  */
 export async function renderNewsPage(c: Context, ctx: MarketingContext, storyId?: string): Promise<Response> {
 	const t = (key: Parameters<MarketingContext['i18n']['getMessage']>[0]) => ctx.i18n.getMessage(key, ctx.locale);
-	const stories = await fetchPublishedNewsStories(ctx);
+	const {stories, degraded} = await fetchPublishedNewsStories(ctx);
 	const story = storyId === undefined ? null : (stories.find((entry) => entry.storyId === storyId) ?? null);
 
-	if (storyId !== undefined && story === null) {
+	// Only claim the story doesn't exist when we have a current list to say that from. While degraded
+	// we can't tell "deleted" from "couldn't reach the API", and a 404 there would tell crawlers that
+	// every shared permalink is permanently gone. Fall through to the index with a 503 instead.
+	const storyUnavailable = storyId !== undefined && story === null && degraded;
+	if (storyId !== undefined && story === null && !degraded) {
 		return await renderNotFoundPage(c, ctx);
 	}
 
@@ -123,5 +127,8 @@ export async function renderNewsPage(c: Context, ctx: MarketingContext, storyId?
 		</html>
 	);
 
+	if (storyUnavailable) {
+		return c.html(html, 503, {'Retry-After': '30'});
+	}
 	return c.html(html);
 }

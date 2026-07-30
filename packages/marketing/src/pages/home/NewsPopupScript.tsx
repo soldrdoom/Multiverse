@@ -233,8 +233,8 @@ function buildNewsPopupScript(apiEndpoint: string, newsBasePath: string, initial
     // their token), so my_vote arrives here on a second, authenticated pass.
     function hydrateMyVotes() {
       var token = getToken();
-      if (!token) return;
-      fetch(API_ENDPOINT + '/news', {headers: {Authorization: token}, cache: 'no-store'})
+      if (!token) return Promise.resolve();
+      return fetch(API_ENDPOINT + '/news', {headers: {Authorization: token}, cache: 'no-store'})
         .then(function(response) {
           if (!response.ok) throw new Error('HTTP ' + response.status);
           return response.json();
@@ -249,13 +249,50 @@ function buildNewsPopupScript(apiEndpoint: string, newsBasePath: string, initial
         });
     }
 
+    // Voting while signed out starts the wallet flow in place and then casts the vote the visitor
+    // already asked for. Signing in used to navigate to the chat app, which made voting effectively
+    // impossible: you'd approve a signature and land somewhere else with the story gone.
     function sendVote(direction) {
       if (!activeId || pending) return;
+
       var token = getToken();
-      if (!token) {
+      if (token) {
+        castVote(direction, token);
+        return;
+      }
+
+      var siws = window.mvSiws;
+      if (!siws || typeof siws.signIn !== 'function') {
         showToast('Connect your Solana wallet to vote');
         return;
       }
+
+      var intendedDirection = direction;
+      pending = true;
+      if (typeof siws.hasWallet !== 'function' || siws.hasWallet()) {
+        showToast('Approve the signature in your wallet to vote');
+      }
+
+      siws
+        .signIn()
+        .then(function(session) {
+          pending = false;
+          renderFooter();
+          // Pull this wallet's existing votes first so the optimistic update below starts from the
+          // real server state rather than from the zeros the signed-out page was rendered with.
+          return hydrateMyVotes().then(function() {
+            castVote(intendedDirection, session.token);
+          });
+        })
+        .catch(function(err) {
+          pending = false;
+          renderFooter();
+          showToast(err && err.message ? err.message : 'Solana sign-in failed. Please try again.');
+        });
+    }
+
+    function castVote(direction, token) {
+      if (!activeId || pending) return;
 
       var state = votes[activeId];
       if (!state) return;
@@ -358,6 +395,13 @@ function buildNewsPopupScript(apiEndpoint: string, newsBasePath: string, initial
 
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape' && !popup.hidden) close(true);
+    });
+
+    // Signing in from the header/hero while the panel is open must unlock the pills immediately,
+    // not on the next page load — there isn't one any more.
+    window.addEventListener('mv-siws-signed-in', function() {
+      renderFooter();
+      hydrateMyVotes();
     });
 
     window.addEventListener('popstate', function() {

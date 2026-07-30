@@ -99,7 +99,65 @@ function sanitizeImageUrl(value: unknown): string | null {
 	}
 }
 
-export async function fetchPublishedNewsStories(ctx: MarketingContext): Promise<ReadonlyArray<NewsStoryDisplay>> {
+export interface NewsFetchResult {
+	stories: ReadonlyArray<NewsStoryDisplay>;
+	/**
+	 * True when the API call failed and `stories` is stale or empty rather than current. Callers
+	 * that would otherwise report "this story does not exist" must not do so while degraded — the
+	 * story may exist perfectly well and simply not be in hand.
+	 */
+	degraded: boolean;
+}
+
+/**
+ * Every marketing render fetches the story list over the public API, which means all of them share
+ * one `ip:<container>` rate-limit bucket (NEWS_LIST, 60/min) — page views, not API clients, are what
+ * consume it. Without this cache roughly a request per second to the front page starves every other
+ * visitor's render, and since a missing story list makes /news/:story_id 404, the permalinks the
+ * share button hands out would break under nothing more than ordinary traffic.
+ *
+ * So: one upstream call per TTL no matter the traffic, single-flighted so a cold cache under
+ * concurrent renders doesn't stampede, and the last good response is retained as a fallback so a
+ * brief API blip degrades to slightly stale news instead of an empty page.
+ */
+const NEWS_CACHE_TTL_MS = 30_000;
+const NEWS_STALE_FALLBACK_MS = 10 * 60_000;
+
+let cachedStories: ReadonlyArray<NewsStoryDisplay> | null = null;
+let cachedAt = 0;
+let inFlight: Promise<ReadonlyArray<NewsStoryDisplay> | null> | null = null;
+
+export function resetNewsStoriesCacheForTests(): void {
+	cachedStories = null;
+	cachedAt = 0;
+	inFlight = null;
+}
+
+export async function fetchPublishedNewsStories(ctx: MarketingContext): Promise<NewsFetchResult> {
+	const now = Date.now();
+	if (cachedStories !== null && now - cachedAt < NEWS_CACHE_TTL_MS) {
+		return {stories: cachedStories, degraded: false};
+	}
+
+	inFlight ??= requestPublishedNewsStories(ctx).finally(() => {
+		inFlight = null;
+	});
+	const fresh = await inFlight;
+
+	if (fresh !== null) {
+		cachedStories = fresh;
+		cachedAt = Date.now();
+		return {stories: fresh, degraded: false};
+	}
+
+	if (cachedStories !== null && Date.now() - cachedAt < NEWS_STALE_FALLBACK_MS) {
+		return {stories: cachedStories, degraded: true};
+	}
+	return {stories: [], degraded: true};
+}
+
+/** Resolves to null when the story list could not be retrieved, distinct from "no stories". */
+async function requestPublishedNewsStories(ctx: MarketingContext): Promise<ReadonlyArray<NewsStoryDisplay> | null> {
 	try {
 		const response = await sendMarketingRequest({
 			url: `${ctx.apiEndpoint}/news`,
@@ -108,12 +166,12 @@ export async function fetchPublishedNewsStories(ctx: MarketingContext): Promise<
 			serviceName: 'marketing_news',
 		});
 		const text = await readMarketingResponseAsText(response.stream);
-		if (response.status < 200 || response.status >= 300) return [];
+		if (response.status < 200 || response.status >= 300) return null;
 
 		const payload: unknown = JSON.parse(text);
-		if (typeof payload !== 'object' || payload === null) return [];
+		if (typeof payload !== 'object' || payload === null) return null;
 		const storiesValue = (payload as Record<string, unknown>)['stories'];
-		if (!Array.isArray(storiesValue)) return [];
+		if (!Array.isArray(storiesValue)) return null;
 
 		const stories: Array<NewsStoryDisplay> = [];
 		for (const entry of storiesValue) {
@@ -140,6 +198,6 @@ export async function fetchPublishedNewsStories(ctx: MarketingContext): Promise<
 		}
 		return stories;
 	} catch {
-		return [];
+		return null;
 	}
 }

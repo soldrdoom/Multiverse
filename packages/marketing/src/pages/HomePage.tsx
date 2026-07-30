@@ -566,10 +566,11 @@ export async function renderHomePage(c: Context, ctx: MarketingContext): Promise
 	const pageMeta = defaultPageMeta();
 	const pageUrl = ctx.baseUrl;
 
-	const [stories, statsResult] = await Promise.all([
+	const [newsResult, statsResult] = await Promise.all([
 		fetchPublishedNewsStories(ctx),
 		getSolanaStats('7').catch(() => null),
 	]);
+	const stories = newsResult.stories;
 	const display = buildNetworkDisplay(
 		statsResult ?? {
 			live: false,

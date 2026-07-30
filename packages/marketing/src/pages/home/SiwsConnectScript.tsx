@@ -39,6 +39,9 @@ function buildSiwsConnectScript(apiEndpoint: string, appEndpoint: string, iconUr
   var APP_ENDPOINT = ${JSON.stringify(appEndpoint)};
   var ONBOARDING_PATH = ${JSON.stringify(SOLANA_ONBOARDING_PATH)};
   var ICON_URL = ${JSON.stringify(iconUrl)};
+  // Cosmetic only — lets a returning visitor see which wallet they're connected as without
+  // re-prompting. Never read for authorization; the token is the credential.
+  var WALLET_ADDRESS_KEY = 'mv_wallet_address';
 
   function byId(id) {
     return document.getElementById(id);
@@ -145,153 +148,214 @@ function buildSiwsConnectScript(apiEndpoint: string, appEndpoint: string, iconUr
     );
   }
 
+  var busy = false;
+
+  function currentToken() {
+    try {
+      return window.localStorage.getItem('token');
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function storedAddress() {
+    try {
+      return window.localStorage.getItem(WALLET_ADDRESS_KEY);
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function labelEl(trigger) {
+    return trigger.querySelector('.mv-wallet-trigger-label');
+  }
+
+  function setState(state, text) {
+    var triggers = document.querySelectorAll('.mv-wallet-trigger');
+    for (var i = 0; i < triggers.length; i++) {
+      var trigger = triggers[i];
+      var label = labelEl(trigger);
+      if (state === 'connecting') {
+        trigger.disabled = true;
+        trigger.classList.add('is-loading');
+        trigger.classList.remove('is-connected');
+        if (label) label.textContent = 'Connecting\\u2026';
+      } else if (state === 'connected') {
+        trigger.disabled = true;
+        trigger.classList.remove('is-loading');
+        trigger.classList.add('is-connected');
+        if (label) label.textContent = text || 'Wallet connected';
+      } else {
+        trigger.disabled = false;
+        trigger.classList.remove('is-loading', 'is-connected');
+        if (label) label.textContent = trigger.getAttribute('data-default-label') || '';
+      }
+    }
+  }
+
+  function showError(message) {
+    var errorEl = byId('mv-wallet-error');
+    if (!errorEl) return;
+    errorEl.textContent = message;
+    errorEl.style.display = 'block';
+  }
+
+  function clearError() {
+    var errorEl = byId('mv-wallet-error');
+    if (!errorEl) return;
+    errorEl.style.display = 'none';
+    errorEl.textContent = '';
+  }
+
+  // Signing in does NOT navigate away. The front page has things to do once you're authenticated
+  // (voting on news stories), and bouncing to /channels/@me made those unreachable — you'd land in
+  // the chat app having lost the story you were reading. "Launch App" in the header is the way in.
+  //
+  // The one unavoidable redirect is a wallet with no Multiverse account: needsOnboarding means
+  // there is no identity to act as until a username is picked, so that still goes to onboarding.
+  function performSignIn() {
+    if (busy) return Promise.reject(new Error('Sign-in already in progress'));
+
+    var sol = getWalletProvider();
+    if (!sol) {
+      return Promise.reject(
+        new Error(
+          'No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps.'
+        )
+      );
+    }
+
+    busy = true;
+    setState('connecting', null);
+
+    return Promise.resolve()
+      .then(function() {
+        return sol.connect();
+      })
+      .then(function() {
+        var address = sol.publicKey.toBase58();
+
+        return fetch(API_ENDPOINT + '/auth/solana/nonce', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({address: address}),
+        })
+          .then(function(res) {
+            if (!res.ok) throw new Error('Could not start sign-in. Please try again.');
+            return res.json();
+          })
+          .then(function(nonceData) {
+            var nonce = nonceData.nonce;
+            var message = nonceData.message;
+
+            var signPromise;
+            if (typeof sol.signIn === 'function') {
+              var signInInput = {
+                domain: window.location.host,
+                address: address,
+                statement: 'Sign in to Multiverse',
+                uri: window.location.origin,
+                version: '1',
+                nonce: nonce,
+                issuedAt: new Date().toISOString(),
+                icon: ICON_URL,
+              };
+              signPromise = Promise.resolve(sol.signIn(signInInput)).then(function(result) {
+                return {
+                  sig64: u8ToBase64(new Uint8Array(result.signature)),
+                  signedMessageB64: u8ToBase64(new Uint8Array(result.signedMessage)),
+                };
+              });
+            } else {
+              var msgBytes = new TextEncoder().encode(message);
+              signPromise = Promise.resolve(sol.signMessage(msgBytes)).then(function(result) {
+                var out = {sig64: u8ToBase64(new Uint8Array(result.signature)), signedMessageB64: undefined};
+                if (result.signedMessage) {
+                  out.signedMessageB64 = u8ToBase64(new Uint8Array(result.signedMessage));
+                }
+                return out;
+              });
+            }
+
+            return signPromise.then(function(signed) {
+              return fetch(API_ENDPOINT + '/auth/solana/verify', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                  address: address,
+                  signature: signed.sig64,
+                  nonce: nonce,
+                  signedMessage: signed.signedMessageB64,
+                }),
+              })
+                .then(function(res) {
+                  return res.json().then(function(body) {
+                    if (!res.ok) throw new Error(body.error || 'Verification failed');
+                    return body;
+                  });
+                })
+                .then(function(result) {
+                  if (result.needsOnboarding) {
+                    sessionStorage.setItem('solana_temp_token', result.tempToken);
+                    setState('connected', truncateAddress(address));
+                    window.location.href = APP_ENDPOINT + ONBOARDING_PATH;
+                    // Deliberately never resolves: the page is navigating away.
+                    return new Promise(function() {});
+                  }
+
+                  localStorage.setItem('token', result.token);
+                  localStorage.setItem('userId', String(result.user_id));
+                  try {
+                    localStorage.setItem(WALLET_ADDRESS_KEY, address);
+                  } catch (err) {
+                    /* Address display is cosmetic; a storage failure must not fail the sign-in. */
+                  }
+
+                  busy = false;
+                  setState('connected', truncateAddress(address));
+                  window.dispatchEvent(new CustomEvent('mv-siws-signed-in', {detail: {address: address}}));
+                  return {token: result.token, userId: String(result.user_id), address: address};
+                });
+            });
+          });
+      })
+      .catch(function(err) {
+        busy = false;
+        setState(currentToken() ? 'connected' : 'disconnected', truncateAddress(storedAddress()));
+        throw err;
+      });
+  }
+
+  // Exposed synchronously (not inside DOMContentLoaded) so NewsPopupScript can call it on a vote
+  // click regardless of which inline script the browser evaluates first.
+  window.mvSiws = {
+    signIn: performSignIn,
+    isSignedIn: function() {
+      return !!currentToken();
+    },
+    getToken: currentToken,
+    // Lets callers skip an "approve the signature" prompt they know will never appear, so a visitor
+    // with no wallet installed sees only the install message instead of it flashing past first.
+    hasWallet: function() {
+      return !!getWalletProvider();
+    },
+  };
+
   function initSiwsConnect() {
     var triggers = document.querySelectorAll('.mv-wallet-trigger');
     if (!triggers.length) return;
 
-    var errorEl = byId('mv-wallet-error');
-    var busy = false;
-
-    function labelEl(trigger) {
-      return trigger.querySelector('.mv-wallet-trigger-label');
-    }
-
-    function setState(state, text) {
-      for (var i = 0; i < triggers.length; i++) {
-        var trigger = triggers[i];
-        var label = labelEl(trigger);
-        if (state === 'connecting') {
-          trigger.disabled = true;
-          trigger.classList.add('is-loading');
-          trigger.classList.remove('is-connected');
-          if (label) label.textContent = 'Connecting\\u2026';
-        } else if (state === 'connected') {
-          trigger.disabled = true;
-          trigger.classList.remove('is-loading');
-          trigger.classList.add('is-connected');
-          if (label) label.textContent = text || trigger.getAttribute('data-default-label') || '';
-        } else {
-          trigger.disabled = false;
-          trigger.classList.remove('is-loading', 'is-connected');
-          if (label) label.textContent = trigger.getAttribute('data-default-label') || '';
-        }
-      }
-    }
-
-    function showError(message) {
-      if (!errorEl) return;
-      errorEl.textContent = message;
-      errorEl.style.display = 'block';
-    }
-
-    function clearError() {
-      if (!errorEl) return;
-      errorEl.style.display = 'none';
-      errorEl.textContent = '';
+    // Reflect an existing session on load — otherwise a returning visitor sees "Sign In with Solana"
+    // while already authenticated, and clicking it would pointlessly re-run the whole flow.
+    if (currentToken()) {
+      setState('connected', truncateAddress(storedAddress()));
     }
 
     function handleConnect() {
-      if (busy) return;
       clearError();
-
-      var sol = getWalletProvider();
-      if (!sol) {
-        showError(
-          'No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps.'
-        );
-        return;
-      }
-
-      busy = true;
-      setState('connecting', null);
-
-      Promise.resolve()
-        .then(function() {
-          return sol.connect();
-        })
-        .then(function() {
-          var address = sol.publicKey.toBase58();
-
-          return fetch(API_ENDPOINT + '/auth/solana/nonce', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({address: address}),
-          })
-            .then(function(res) {
-              if (!res.ok) throw new Error('Could not start sign-in. Please try again.');
-              return res.json();
-            })
-            .then(function(nonceData) {
-              var nonce = nonceData.nonce;
-              var message = nonceData.message;
-
-              var signPromise;
-              if (typeof sol.signIn === 'function') {
-                var signInInput = {
-                  domain: window.location.host,
-                  address: address,
-                  statement: 'Sign in to Multiverse',
-                  uri: window.location.origin,
-                  version: '1',
-                  nonce: nonce,
-                  issuedAt: new Date().toISOString(),
-                  icon: ICON_URL,
-                };
-                signPromise = Promise.resolve(sol.signIn(signInInput)).then(function(result) {
-                  return {
-                    sig64: u8ToBase64(new Uint8Array(result.signature)),
-                    signedMessageB64: u8ToBase64(new Uint8Array(result.signedMessage)),
-                  };
-                });
-              } else {
-                var msgBytes = new TextEncoder().encode(message);
-                signPromise = Promise.resolve(sol.signMessage(msgBytes)).then(function(result) {
-                  var out = {sig64: u8ToBase64(new Uint8Array(result.signature)), signedMessageB64: undefined};
-                  if (result.signedMessage) {
-                    out.signedMessageB64 = u8ToBase64(new Uint8Array(result.signedMessage));
-                  }
-                  return out;
-                });
-              }
-
-              return signPromise.then(function(signed) {
-                return fetch(API_ENDPOINT + '/auth/solana/verify', {
-                  method: 'POST',
-                  headers: {'Content-Type': 'application/json'},
-                  body: JSON.stringify({
-                    address: address,
-                    signature: signed.sig64,
-                    nonce: nonce,
-                    signedMessage: signed.signedMessageB64,
-                  }),
-                })
-                  .then(function(res) {
-                    return res.json().then(function(body) {
-                      if (!res.ok) throw new Error(body.error || 'Verification failed');
-                      return body;
-                    });
-                  })
-                  .then(function(result) {
-                    if (result.needsOnboarding) {
-                      sessionStorage.setItem('solana_temp_token', result.tempToken);
-                      setState('connected', truncateAddress(address));
-                      window.location.href = APP_ENDPOINT + ONBOARDING_PATH;
-                      return;
-                    }
-                    localStorage.setItem('token', result.token);
-                    localStorage.setItem('userId', String(result.user_id));
-                    setState('connected', truncateAddress(address));
-                    window.location.href = APP_ENDPOINT + '/channels/@me';
-                  });
-              });
-            });
-        })
-        .catch(function(err) {
-          busy = false;
-          setState('disconnected', null);
-          var message = err && err.message ? err.message : 'Solana sign-in failed. Please try again.';
-          showError(message);
-        });
+      performSignIn().catch(function(err) {
+        showError(err && err.message ? err.message : 'Solana sign-in failed. Please try again.');
+      });
     }
 
     for (var i = 0; i < triggers.length; i++) {
