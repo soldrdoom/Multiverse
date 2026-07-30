@@ -37,7 +37,6 @@ import UserStore from '@app/stores/UserStore';
 import {navigateToWithMobileHistory} from '@app/utils/MobileNavigation';
 import {isInstalledPwa} from '@app/utils/PwaUtils';
 import * as RouterUtils from '@app/utils/RouterUtils';
-import {setPathQueryParams} from '@app/utils/UrlUtils';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
@@ -123,11 +122,14 @@ export const RootComponent: React.FC<{children?: React.ReactNode}> = observer(({
 		}
 
 		if (!isAuth) {
+			// `pendingRedirectRef` used to be latched here and only ever cleared in the authenticated
+			// effect below, so once a signed-out visitor tripped it every later navigation was rewritten
+			// back to that same stale destination — that's what made `/login?redirect_to=/channels/@me`
+			// keep reappearing no matter where you tried to go. Sign-in is a full handoff to marketing
+			// now, so the destination travels in the URL and nothing needs to be latched here.
 			const current = pathname + window.location.search;
-			if (!pendingRedirectRef.current) {
-				pendingRedirectRef.current = current;
-			}
-			RouterUtils.replaceWith(setPathQueryParams(Routes.LOGIN, {redirect_to: pendingRedirectRef.current}));
+			pendingRedirectRef.current = null;
+			RouterUtils.redirectToMarketingSignIn(current);
 			return;
 		}
 

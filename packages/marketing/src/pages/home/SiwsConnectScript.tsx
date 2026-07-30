@@ -166,6 +166,34 @@ function buildSiwsConnectScript(apiEndpoint: string, appEndpoint: string, iconUr
     }
   }
 
+  // Where to send the visitor after a successful sign-in, or null to stay on this page.
+  // Only same-origin absolute paths are accepted — never a full URL, never protocol-relative — so a
+  // crafted ?redirect_to= can't turn the sign-in button into an open redirect. Destinations that
+  // point back at the sign-in surface itself are dropped, since that would just be a loop.
+  function pendingDestination() {
+    var raw = null;
+    try {
+      raw = new URLSearchParams(window.location.search).get('redirect_to');
+    } catch (err) {
+      return null;
+    }
+    if (!raw) return null;
+    if (raw.charAt(0) !== '/' || raw.charAt(1) === '/' || raw.charAt(1) === '\\\\') return null;
+    var parsed;
+    try {
+      parsed = new URL(raw, window.location.origin);
+    } catch (err) {
+      return null;
+    }
+    if (parsed.origin !== window.location.origin) return null;
+    // Re-check AFTER normalisation, not just on the raw string: '/..//evil.example.com' survives the
+    // charAt test above but URL() resolves it to the protocol-relative '//evil.example.com'. That is
+    // only inert today because APP_ENDPOINT prefixes a scheme and host.
+    if (parsed.pathname.charAt(1) === '/') return null;
+    if (parsed.pathname === '/' || parsed.pathname === '/login' || parsed.pathname === '/register') return null;
+    return parsed.pathname + parsed.search + parsed.hash;
+  }
+
   function labelEl(trigger) {
     return trigger.querySelector('.mv-wallet-trigger-label');
   }
@@ -314,6 +342,16 @@ function buildSiwsConnectScript(apiEndpoint: string, appEndpoint: string, iconUr
                   busy = false;
                   setState('connected', truncateAddress(address));
                   window.dispatchEvent(new CustomEvent('mv-siws-signed-in', {detail: {address: address}}));
+
+                  // The app hands off here with ?redirect_to=<path> when a signed-out visitor tried to
+                  // reach somewhere in the client. Honour it so they land where they were going; with
+                  // no destination we stay put, which is what makes voting in place work.
+                  var destination = pendingDestination();
+                  if (destination) {
+                    window.location.href = APP_ENDPOINT + destination;
+                    return new Promise(function() {});
+                  }
+
                   return {token: result.token, userId: String(result.user_id), address: address};
                 });
             });
@@ -343,7 +381,10 @@ function buildSiwsConnectScript(apiEndpoint: string, appEndpoint: string, iconUr
 
   function initSiwsConnect() {
     var triggers = document.querySelectorAll('.mv-wallet-trigger');
-    if (!triggers.length) return;
+    // Secondary entry points that start the same flow but must keep their own label — setState()
+    // rewrites the text of every .mv-wallet-trigger, which would clobber "Create an identity".
+    var signInLinks = document.querySelectorAll('.mv-wallet-signin-link');
+    if (!triggers.length && !signInLinks.length) return;
 
     // Reflect an existing session on load — otherwise a returning visitor sees "Sign In with Solana"
     // while already authenticated, and clicking it would pointlessly re-run the whole flow.
@@ -360,6 +401,9 @@ function buildSiwsConnectScript(apiEndpoint: string, appEndpoint: string, iconUr
 
     for (var i = 0; i < triggers.length; i++) {
       triggers[i].addEventListener('click', handleConnect);
+    }
+    for (var j = 0; j < signInLinks.length; j++) {
+      signInLinks[j].addEventListener('click', handleConnect);
     }
   }
 

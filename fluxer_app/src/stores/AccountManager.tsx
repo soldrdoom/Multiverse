@@ -158,7 +158,10 @@ class AccountManager {
 		// would otherwise survive and could be misread as "connected" for whichever account
 		// logs in next in this tab.
 		SolanaWalletStore.disconnect();
-		RouterUtils.replaceWith('/login');
+		// Full document navigation to the marketing front page. A router transition to '/login' left
+		// the SPA mounted, and its own guards immediately re-appended a redirect_to pointing back at
+		// the app the user had just signed out of.
+		RouterUtils.redirectToMarketingSignIn();
 	}
 }
 

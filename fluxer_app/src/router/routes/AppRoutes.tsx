@@ -42,7 +42,7 @@ import AuthenticationStore from '@app/stores/AuthenticationStore';
 import ChannelStore from '@app/stores/ChannelStore';
 import MobileLayoutStore from '@app/stores/MobileLayoutStore';
 import SelectedChannelStore from '@app/stores/SelectedChannelStore';
-import {setPathQueryParams} from '@app/utils/UrlUtils';
+import * as RouterUtils from '@app/utils/RouterUtils';
 import {ME} from '@fluxer/constants/src/AppConstants';
 import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
 import {observer} from 'mobx-react-lite';
@@ -69,8 +69,11 @@ const appLayoutRoute = createRoute({
 			return undefined;
 		}
 		if (!AuthenticationStore.isAuthenticated) {
+			// Sign-in lives on the marketing front page now, not the in-app /login screen. The path
+			// they were reaching for rides along so they land there after authenticating.
 			const current = window.location.pathname + window.location.search;
-			return new Redirect(setPathQueryParams(Routes.LOGIN, {redirect_to: current}));
+			RouterUtils.redirectToMarketingSignIn(current);
+			return undefined;
 		}
 		return undefined;
 	},

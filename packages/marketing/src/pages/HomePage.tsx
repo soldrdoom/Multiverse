@@ -282,9 +282,12 @@ function HomeHero({ctx}: SectionProps): JSX.Element {
 							<div class="mv-card-links">
 								<span>
 									{t('home.hero.new_here')}{' '}
-									<a href={`${ctx.appEndpoint}/register`} class="mv-create-link">
+									{/* Registration on this instance is wallet sign-in: a new wallet verifies, returns
+									    needsOnboarding, and picks a username there. Linking to /register would now
+									    bounce straight back to this page, so it runs the same flow in place. */}
+									<button type="button" class="mv-create-link mv-wallet-signin-link">
 										{t('home.hero.create_identity')}
-									</a>
+									</button>
 								</span>
 								<span class="mv-card-links-divider" />
 								<a href={`${ctx.appEndpoint}/forgot`} class="mv-recover-link">

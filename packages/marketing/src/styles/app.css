@@ -1314,8 +1314,22 @@ footer * {
   color: rgba(255, 255, 255, 0.42);
 }
 
+/* Rendered as a <button> because it triggers the wallet flow in place rather than navigating, but
+   it must stay visually identical to the sibling .mv-recover-link anchor. */
 .mv-create-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #14f195;
+  font-family: inherit;
+  font-size: inherit;
   font-weight: 500;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+.mv-create-link:hover {
+  color: #9dffd6;
 }
 
 .mv-card-links-divider {

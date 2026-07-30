@@ -34,6 +34,7 @@ import SsoCallbackPage from '@app/components/pages/SsoCallbackPage';
 import ThemeLoginPage from '@app/components/pages/ThemeLoginPage';
 import ThemeRegisterPage from '@app/components/pages/ThemeRegisterPage';
 import VerifyEmailPage from '@app/components/pages/VerifyEmailPage';
+import {IS_DEV} from '@app/lib/Env';
 import {createRoute} from '@app/lib/router/Builder';
 import type {RouteContext} from '@app/lib/router/RouterTypes';
 import {Redirect} from '@app/lib/router/RouterTypes';
@@ -73,6 +74,29 @@ const resolveToPath = (to: Redirect['to']): string => {
 
 type AuthRedirectHandler = (ctx: RouteContext) => Redirect | undefined;
 
+/**
+ * Like `whenAuthenticated`, but the handler runs in both states once the session is known. Needed
+ * for routes that have to act on *unauthenticated* visitors too: on a cold page load
+ * `SessionManager.isInitialized` is false, and a guard that only fires for authenticated users would
+ * silently fall through and render the page for exactly the visitors it was meant to redirect.
+ */
+const whenSessionResolved = (handler: (isAuthenticated: boolean) => Redirect | undefined) => {
+	return (): Redirect | undefined => {
+		if (SessionManager.isInitialized) {
+			return handler(AuthenticationStore.isAuthenticated);
+		}
+
+		void SessionManager.initialize().then(() => {
+			const result = handler(AuthenticationStore.isAuthenticated);
+			if (result instanceof Redirect) {
+				RouterUtils.replaceWith(resolveToPath(result.to));
+			}
+		});
+
+		return undefined;
+	};
+};
+
 const whenAuthenticated = (handler: AuthRedirectHandler) => {
 	return (ctx: RouteContext): Redirect | undefined => {
 		const execute = (): Redirect | undefined => handler(ctx);
@@ -104,15 +128,31 @@ const loginRoute = createRoute({
 	getParentRoute: () => authLayoutRoute,
 	id: 'login',
 	path: '/login',
-	onEnter: whenAuthenticated(() => {
-		const search = window.location.search;
-		const qp = new URLSearchParams(search);
-		const isDesktopHandoff = qp.get('desktop_handoff') === '1';
-		if (isDesktopHandoff) {
+	// This page is retired as a destination. In production it rendered nothing but a "Sign In with
+	// Solana" button — the email/password form and passkey actions are `IS_DEV`-gated in
+	// AuthLoginLayout — so it was a strictly worse copy of the marketing front page, which offers the
+	// same wallet sign-in plus account creation and recovery. Signed-out visitors go there instead.
+	//
+	// Two cases still need the component and are deliberately exempt:
+	//   - `desktop_handoff=1`, which renders the handoff code display rather than a login form.
+	//   - an in-flight MFA challenge, which flips `loginState` without changing route; guarding on it
+	//     keeps a client-side re-entry from throwing the challenge away.
+	onEnter: whenSessionResolved((isAuthenticated) => {
+		const qp = new URLSearchParams(window.location.search);
+		// IS_DEV: the email/password form and passkey actions only render in development
+		// (AuthLoginLayout), and marketing usually isn't running locally — redirecting would leave a
+		// developer with no way to sign in at all.
+		if (IS_DEV || qp.get('desktop_handoff') === '1' || AuthenticationStore.loginState === 'mfa') {
 			return undefined;
 		}
+
 		const redirectTo = qp.get('redirect_to');
-		return new Redirect(redirectTo || Routes.ME);
+		if (isAuthenticated) {
+			return new Redirect(redirectTo || Routes.ME);
+		}
+
+		RouterUtils.redirectToMarketingSignIn(redirectTo);
+		return undefined;
 	}),
 	component: () => <LoginPage />,
 });
@@ -149,7 +189,19 @@ const registerRoute = createRoute({
 	getParentRoute: () => authLayoutRoute,
 	id: 'register',
 	path: '/register',
-	onEnter: () => new Redirect(Routes.LOGIN),
+	// Registration on this instance *is* wallet sign-in — a new wallet verifies, comes back
+	// `needsOnboarding`, and picks a username. This used to bounce to /login; going straight to the
+	// marketing front page skips a hop that would now just bounce again.
+	onEnter: whenSessionResolved((isAuthenticated) => {
+		if (isAuthenticated) {
+			return new Redirect(Routes.ME);
+		}
+		if (IS_DEV) {
+			return new Redirect(Routes.LOGIN);
+		}
+		RouterUtils.redirectToMarketingSignIn();
+		return undefined;
+	}),
 	component: () => <LoginPage />,
 });
 
