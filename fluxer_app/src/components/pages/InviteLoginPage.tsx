@@ -57,7 +57,11 @@ const InviteLoginPage = observer(function InviteLoginPage({code, invite}: Invite
 	const location = useLocation();
 	const params = useMemo(() => new URLSearchParams(location.search), [location.search]);
 
-	const rawRedirect = params['get']('redirect_to');
+	// Sanitised at the read so both the navigation target and any re-propagation into a link
+	// are covered. These previously reached window.history.replaceState raw and failed closed
+	// only because the browser throws SecurityError cross-origin — an enforcement this repo
+	// was relying on without stating.
+	const rawRedirect = RouterUtils.sanitizeSameOriginPath(params['get']('redirect_to'));
 	const isDesktopHandoff = params['get']('desktop_handoff') === '1';
 	const registerSearch = rawRedirect ? {redirect_to: rawRedirect} : undefined;
 	const redirectPath = useMemo(() => {
@@ -90,7 +94,11 @@ const InviteLoginPageMFA = observer(function InviteLoginPageMFA() {
 	const params = useMemo(() => new URLSearchParams(location.search), [location.search]);
 
 	const isDesktopHandoff = params['get']('desktop_handoff') === '1';
-	const rawRedirect = params['get']('redirect_to');
+	// Sanitised at the read so both the navigation target and any re-propagation into a link
+	// are covered. These previously reached window.history.replaceState raw and failed closed
+	// only because the browser throws SecurityError cross-origin — an enforcement this repo
+	// was relying on without stating.
+	const rawRedirect = RouterUtils.sanitizeSameOriginPath(params['get']('redirect_to'));
 	const redirectTo = isDesktopHandoff ? undefined : rawRedirect || '/';
 
 	const mfaTicket = AuthenticationStore.currentMfaTicket;

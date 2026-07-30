@@ -22,6 +22,7 @@ import sharedStyles from '@app/components/auth/AuthPageStyles.module.css';
 import {AuthRegisterFormCore} from '@app/components/auth/AuthRegisterFormCore';
 import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
 import {useLocation} from '@app/lib/router/React';
+import * as RouterUtils from '@app/utils/RouterUtils';
 import {setPathQueryParams} from '@app/utils/UrlUtils';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
@@ -29,7 +30,11 @@ import {observer} from 'mobx-react-lite';
 const RegisterPageContent = observer(function RegisterPageContent() {
 	const location = useLocation();
 	const params = new URLSearchParams(location.search);
-	const rawRedirect = params['get']('redirect_to');
+	// Sanitised at the read so both the navigation target and any re-propagation into a link
+	// are covered. These previously reached window.history.replaceState raw and failed closed
+	// only because the browser throws SecurityError cross-origin — an enforcement this repo
+	// was relying on without stating.
+	const rawRedirect = RouterUtils.sanitizeSameOriginPath(params['get']('redirect_to'));
 	const redirectTo = rawRedirect || '/';
 	const loginPath = rawRedirect ? setPathQueryParams('/login', {redirect_to: rawRedirect}) : '/login';
 

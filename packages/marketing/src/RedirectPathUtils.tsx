@@ -35,6 +35,14 @@ export function sanitizeInternalRedirectPath(rawPath: string): string {
 			return '/';
 		}
 
+		// Recheck after normalisation. '/..//evil.example.com' resolves to an origin-matching URL whose
+		// pathname is the protocol-relative '//evil.example.com', which passes both checks above and
+		// then reaches c.redirect() as `Location: //evil.example.com`. CSRF happens to gate the only
+		// caller today; this closes it at the validator instead of relying on that.
+		if (resolvedUrl.pathname.charAt(1) === '/') {
+			return '/';
+		}
+
 		return `${resolvedUrl.pathname}${resolvedUrl.search}${resolvedUrl.hash}`;
 	} catch {
 		return '/';

@@ -37,10 +37,12 @@ import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle'
 import http from '@app/lib/HttpClient';
 import {HttpError} from '@app/lib/HttpError';
 import {Logger} from '@app/lib/Logger';
+import {Routes} from '@app/Routes';
 import UserStore from '@app/stores/UserStore';
 import {getApiErrorCode, getApiErrorMessage} from '@app/utils/ApiErrorUtils';
 import * as AvatarUtils from '@app/utils/AvatarUtils';
 import {formatBotPermissionsQuery, getAllBotPermissions} from '@app/utils/PermissionUtils';
+import * as RouterUtils from '@app/utils/RouterUtils';
 import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
 import type {OAuth2Scope} from '@fluxer/constants/src/OAuth2Constants';
@@ -52,6 +54,25 @@ import type React from 'react';
 import {useCallback, useEffect, useLayoutEffect, useMemo, useState} from 'react';
 
 const logger = new Logger('OAuthAuthorizePage');
+
+/**
+ * Mirrors the server's allowlist exactly: `OAuth2Service.validateRedirectUri`
+ * (`packages/api/src/oauth/OAuth2Service.tsx:97-102`) rejects everything when the
+ * application registered no URIs, and otherwise does a single `Set.has` — an exact,
+ * byte-for-byte string comparison with no normalisation of scheme, host case, port,
+ * trailing slash, query or fragment. `redirect_uris` here is the same list, straight
+ * from `Array.from(application.oauth2RedirectUris)`.
+ *
+ * Do not loosen this. Anything the client accepts but the server rejects turns an
+ * Authorize click into a confusing 400; anything the client accepts that the server
+ * never sees at all — which is the case for Cancel, since it navigates client-side
+ * without a request — is an open redirect.
+ */
+function isRegisteredRedirectUri(uri: string | null | undefined, registeredUris: Array<string> | undefined): boolean {
+	if (!uri) return false;
+	if (!registeredUris || registeredUris.length === 0) return false;
+	return registeredUris.includes(uri);
+}
 
 interface AuthorizeParams {
 	clientId: string;
@@ -336,36 +357,45 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 
 	const selectedScopeList = useMemo(() => Array.from(selectedScopes ?? []), [selectedScopes]);
 
+	/**
+	 * The only `redirect_uri` any navigation sink in this component is allowed to see. It is null
+	 * unless the raw query param exactly matches one of the application's registered URIs, so an
+	 * attacker-supplied value never reaches `window.location.href` even if the `validationError`
+	 * gate below is later loosened or bypassed.
+	 */
+	const safeRedirectUri = useMemo(() => {
+		if (!authParams?.redirectUri) return null;
+		return isRegisteredRedirectUri(authParams.redirectUri, publicApp?.redirect_uris) ? authParams.redirectUri : null;
+	}, [authParams?.redirectUri, publicApp?.redirect_uris]);
+
 	const validationError = useMemo(() => {
 		if (!authParams) return null;
 		if (!isBotOnly && !authParams.redirectUri) {
 			return t`A redirect_uri is required when the bot scope is not the only scope.`;
 		}
-		if (!isBotOnly && publicApp && authParams.redirectUri) {
-			const allowed = publicApp.redirect_uris?.includes(authParams.redirectUri);
-			if (!allowed) {
-				return t`The provided redirect_uri is not registered for this application.`;
-			}
+		// Validated for every scope combination, bot-only included. This check used to be skipped
+		// when `scope=bot` was the only scope, which left the Cancel button navigating to a raw,
+		// attacker-controlled `redirect_uri` — Cancel never contacts the server, so the server-side
+		// allowlist that covers Authorize does not cover it.
+		if (publicApp && authParams.redirectUri && !safeRedirectUri) {
+			return t`The provided redirect_uri is not registered for this application.`;
 		}
 		return null;
-	}, [authParams, isBotOnly, publicApp]);
+	}, [authParams, isBotOnly, publicApp, safeRedirectUri]);
 
 	const currentUser = UserStore.currentUser;
 
 	const redirectHostname = useMemo(() => {
-		if (!authParams?.redirectUri) return null;
+		if (!safeRedirectUri) return null;
 		try {
-			return new URL(authParams.redirectUri).hostname;
+			return new URL(safeRedirectUri).hostname;
 		} catch (err) {
 			logger.warn('Invalid redirect_uri for authorize request', err);
 			return null;
 		}
-	}, [authParams?.redirectUri]);
+	}, [safeRedirectUri]);
 
-	const botInviteWithoutRedirect = useMemo(
-		() => hasBotScope && !authParams?.redirectUri,
-		[authParams?.redirectUri, hasBotScope],
-	);
+	const botInviteWithoutRedirect = useMemo(() => hasBotScope && !safeRedirectUri, [hasBotScope, safeRedirectUri]);
 
 	const appName = publicApp?.name?.trim();
 	const clientLabel = appName || t`This application`;
@@ -432,7 +462,10 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 				scope: scopeToSend || authParams.scope,
 			};
 
-			if (authParams.redirectUri) body.redirect_uri = authParams.redirectUri;
+			// Only ever forward a redirect_uri the application actually registered. The server
+			// re-checks this against the same allowlist and 400s otherwise, so this is defence in
+			// depth rather than the primary control.
+			if (safeRedirectUri) body.redirect_uri = safeRedirectUri;
 			if (authParams.state) body.state = authParams.state;
 			if (authParams.codeChallenge) body.code_challenge = authParams.codeChallenge;
 			if (authParams.codeChallengeMethod) body.code_challenge_method = authParams.codeChallengeMethod;
@@ -479,6 +512,7 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 		formattedPermissions,
 		guildLabelMap,
 		hasBotScope,
+		safeRedirectUri,
 		scopes,
 		selectedGuildId,
 		selectedScopeList,
@@ -488,25 +522,39 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 		if (!authParams) return;
 		setSubmitting('deny');
 
+		// Cancel is entirely client-side — it never reaches the server, so the OAuth2 allowlist that
+		// guards Authorize does not guard this. With no registered redirect_uri to return the denial
+		// to (a bot invite typically has none), stay inside the app instead of navigating to whatever
+		// the query string asked for.
+		if (!safeRedirectUri) {
+			RouterUtils.replaceWith(Routes.ME);
+			return;
+		}
+
 		try {
-			const url = new URL(authParams.redirectUri ?? '/');
+			const url = new URL(safeRedirectUri, window.location.origin);
 			url.searchParams.set('error', 'access_denied');
 			if (authParams.state) {
 				url.searchParams.set('state', authParams.state);
 			}
 			window.location.href = url.toString();
 		} catch (err) {
+			// Unreachable for a registered URI, but a malformed registration must not strand the user
+			// on a dead consent screen.
 			logger.error('Failed to redirect on cancel', err);
 			setSubmitting(null);
-			setError(t`Invalid redirect_uri`);
+			RouterUtils.replaceWith(Routes.ME);
 		}
-	}, [authParams]);
+	}, [authParams, safeRedirectUri]);
 
 	useEffect(() => {
-		if (!loading && authParams?.prompt === 'none' && !submitting && !successState) {
+		// `validationError` is checked here and not only at render time: with `prompt=none` this
+		// effect fires before the user sees anything, so a request whose redirect_uri the page has
+		// already rejected must not be sent at all.
+		if (!loading && !validationError && authParams?.prompt === 'none' && !submitting && !successState) {
 			void onAuthorize();
 		}
-	}, [authParams?.prompt, loading, onAuthorize, submitting, successState]);
+	}, [authParams?.prompt, loading, onAuthorize, submitting, successState, validationError]);
 
 	if (loading) {
 		return (
@@ -668,7 +716,7 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 						<p className={styles.footerText}>
 							<Trans>
 								You will be taken to{' '}
-								<Tooltip text={authParams.redirectUri ?? ''} maxWidth="xl">
+								<Tooltip text={safeRedirectUri ?? ''} maxWidth="xl">
 									<strong>{redirectHostname}</strong>
 								</Tooltip>{' '}
 								after authorizing.
@@ -723,7 +771,7 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 
 					<div className={styles.chipRow}>
 						{redirectHostname ? (
-							<Tooltip text={authParams.redirectUri ?? ''} maxWidth="xl">
+							<Tooltip text={safeRedirectUri ?? ''} maxWidth="xl">
 								<span className={styles.chip}>
 									<Trans>Will send you back to</Trans> {redirectHostname}
 								</span>
@@ -918,7 +966,7 @@ const OAuthAuthorizePage: React.FC = observer(() => {
 					<p className={styles.footerText}>
 						<Trans>
 							You will be taken to{' '}
-							<Tooltip text={authParams.redirectUri ?? ''} maxWidth="xl">
+							<Tooltip text={safeRedirectUri ?? ''} maxWidth="xl">
 								<strong>{redirectHostname}</strong>
 							</Tooltip>{' '}
 							after authorizing.

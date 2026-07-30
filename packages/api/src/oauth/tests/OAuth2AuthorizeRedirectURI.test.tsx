@@ -19,6 +19,10 @@
 
 import {createTestAccount} from '@fluxer/api/src/auth/tests/AuthTestUtils';
 import {
+	createOAuth2Application as createOAuth2ApplicationWithOptions,
+	createUniqueApplicationName,
+} from '@fluxer/api/src/oauth/tests/OAuth2TestUtils';
+import {
 	authorizeOAuth2,
 	createOAuth2Application,
 	exchangeOAuth2AuthorizationCode,
@@ -137,5 +141,59 @@ describe('OAuth2 authorize redirect URI validation', () => {
 				.expect(HTTP_STATUS.BAD_REQUEST)
 				.execute();
 		}
+	});
+
+	// `scope=bot` is the one case where redirect_uri is optional, which made it easy to assume it is
+	// also unvalidated. It is not: `OAuth2Service.authorizeAndConsent` allowlists any redirect_uri it
+	// is given regardless of scope. The consent screen's Cancel button used to skip this check for
+	// bot-only consent and navigate client-side to the raw parameter, which was an open redirect; the
+	// fix relies on the server staying strict here, so pin that down.
+	it('verifies that a bot-only authorization still rejects an unregistered redirect URI', async () => {
+		const appOwner = await createTestAccount(harness);
+		const endUser = await createTestAccount(harness);
+
+		const registeredURI = 'https://example.com/callback';
+
+		const app = await createOAuth2ApplicationWithOptions(harness, appOwner.token, {
+			name: createUniqueApplicationName(),
+			redirect_uris: [registeredURI],
+			bot_public: true,
+		});
+
+		// Asserted on the body, not just the status: a 400 raised for some unrelated reason would
+		// otherwise let a genuine regression here pass unnoticed.
+		const {response, json} = await createBuilder<{error: string; error_description: string}>(harness, endUser.token)
+			.post('/oauth2/authorize/consent')
+			.body({
+				client_id: app.application.id,
+				redirect_uri: 'https://evil.example.com',
+				scope: 'bot',
+				permissions: '0',
+			})
+			.executeRaw();
+
+		expect(response.status).toBe(HTTP_STATUS.BAD_REQUEST);
+		expect(json.error_description).toBe('Invalid redirect_uri');
+	});
+
+	it('verifies that a bot-only authorization succeeds without any redirect URI', async () => {
+		const appOwner = await createTestAccount(harness);
+		const endUser = await createTestAccount(harness);
+
+		const app = await createOAuth2ApplicationWithOptions(harness, appOwner.token, {
+			name: createUniqueApplicationName(),
+			redirect_uris: ['https://example.com/callback'],
+			bot_public: true,
+		});
+
+		await createBuilder(harness, endUser.token)
+			.post('/oauth2/authorize/consent')
+			.body({
+				client_id: app.application.id,
+				scope: 'bot',
+				permissions: '0',
+			})
+			.expect(HTTP_STATUS.OK)
+			.execute();
 	});
 });

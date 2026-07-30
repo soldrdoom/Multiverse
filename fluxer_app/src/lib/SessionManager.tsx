@@ -104,7 +104,10 @@ const VALID_TRANSITIONS: Array<StateTransition> = [
 	},
 	{from: SessionState.LoggingOut, event: SessionEvent.LogoutComplete, to: SessionState.Idle},
 	{
-		from: [SessionState.Authenticated, SessionState.Connected, SessionState.Connecting],
+		// Switching is included so a session invalidated mid-account-switch still transitions. Without
+		// it the machine stays at Switching, which satisfies the !isSwitching clause of the anonymous
+		// render gate in RootComponent and leaves the previous account's content on screen.
+		from: [SessionState.Authenticated, SessionState.Connected, SessionState.Connecting, SessionState.Switching],
 		event: SessionEvent.SessionInvalidated,
 		to: SessionState.Idle,
 	},

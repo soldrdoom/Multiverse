@@ -49,7 +49,11 @@ const ThemeLoginPage = observer(function ThemeLoginPage() {
 	const location = useLocation();
 	const params = useMemo(() => new URLSearchParams(location.search), [location.search]);
 
-	const rawRedirect = params['get']('redirect_to');
+	// Sanitised at the read so both the navigation target and any re-propagation into a link
+	// are covered. These previously reached window.history.replaceState raw and failed closed
+	// only because the browser throws SecurityError cross-origin — an enforcement this repo
+	// was relying on without stating.
+	const rawRedirect = RouterUtils.sanitizeSameOriginPath(params['get']('redirect_to'));
 	const isDesktopHandoff = params['get']('desktop_handoff') === '1';
 	const registerSearch = rawRedirect ? {redirect_to: rawRedirect} : undefined;
 	const redirectPath = useMemo(() => {
@@ -100,7 +104,11 @@ const ThemeLoginPageMFA = observer(function ThemeLoginPageMFA() {
 	const params = useMemo(() => new URLSearchParams(location.search), [location.search]);
 
 	const isDesktopHandoff = params['get']('desktop_handoff') === '1';
-	const rawRedirect = params['get']('redirect_to');
+	// Sanitised at the read so both the navigation target and any re-propagation into a link
+	// are covered. These previously reached window.history.replaceState raw and failed closed
+	// only because the browser throws SecurityError cross-origin — an enforcement this repo
+	// was relying on without stating.
+	const rawRedirect = RouterUtils.sanitizeSameOriginPath(params['get']('redirect_to'));
 	const redirectTo = isDesktopHandoff ? undefined : rawRedirect || Routes.theme(themeId);
 
 	const mfaTicket = AuthenticationStore.currentMfaTicket;

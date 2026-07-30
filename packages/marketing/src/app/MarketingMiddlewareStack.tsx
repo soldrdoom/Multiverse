@@ -33,6 +33,7 @@ import type {LoggerInterface} from '@fluxer/logger/src/LoggerInterface';
 import type {MarketingConfig} from '@fluxer/marketing/src/MarketingConfig';
 import {cacheHeadersMiddleware} from '@fluxer/marketing/src/middleware/CacheHeadersMiddleware';
 import {marketingCsrfMiddleware} from '@fluxer/marketing/src/middleware/Csrf';
+import {securityHeadersMiddleware} from '@fluxer/marketing/src/middleware/SecurityHeadersMiddleware';
 import type {IRateLimitService} from '@fluxer/rate_limit/src/IRateLimitService';
 import {captureException} from '@fluxer/sentry/src/Sentry';
 import {ErrorPage} from '@fluxer/ui/src/pages/ErrorPage';
@@ -82,7 +83,7 @@ export function applyMarketingMiddlewareStack(options: ApplyMarketingMiddlewareS
 					keyGenerator: (req) => extractClientIp(req) ?? 'unknown',
 				}
 			: undefined,
-		customMiddleware: [cacheHeadersMiddleware(), marketingCsrfMiddleware],
+		customMiddleware: [securityHeadersMiddleware(), cacheHeadersMiddleware(), marketingCsrfMiddleware],
 		skipErrorHandler: true,
 	});
 

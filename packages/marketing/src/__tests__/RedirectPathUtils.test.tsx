@@ -33,6 +33,22 @@ describe('sanitizeInternalRedirectPath', () => {
 		expect(sanitizeInternalRedirectPath('javascript:alert(1)')).toBe('/');
 	});
 
+	test('rejects dot-segment paths that normalise into protocol-relative URLs', () => {
+		// These pass an origin check and a startsWith('/') check, because URL() only collapses the
+		// dot segments afterwards — leaving a pathname of '//evil.example', which reaches c.redirect()
+		// as a protocol-relative Location header and leaves the site.
+		expect(sanitizeInternalRedirectPath('/..//evil.example')).toBe('/');
+		expect(sanitizeInternalRedirectPath('/../..//evil.example')).toBe('/');
+		expect(sanitizeInternalRedirectPath('/./..//evil.example')).toBe('/');
+		expect(sanitizeInternalRedirectPath('/x/..//evil.example')).toBe('/');
+		expect(sanitizeInternalRedirectPath('/..///evil.example')).toBe('/');
+	});
+
+	test('still allows dot segments that normalise to an ordinary internal path', () => {
+		expect(sanitizeInternalRedirectPath('/x/../partners')).toBe('/partners');
+		expect(sanitizeInternalRedirectPath('/./download')).toBe('/download');
+	});
+
 	test('normalises blank and relative values to internal paths', () => {
 		expect(sanitizeInternalRedirectPath('')).toBe('/');
 		expect(sanitizeInternalRedirectPath('   ')).toBe('/');
