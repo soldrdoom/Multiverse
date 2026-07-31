@@ -17,17 +17,24 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
 import {Config} from '@fluxer/api/src/Config';
+import {IpBanMiddleware, ipBanCache} from '@fluxer/api/src/middleware/IpBanMiddleware';
 import {RequireXForwardedForMiddleware} from '@fluxer/api/src/middleware/RequireXForwardedForMiddleware';
 import type {HonoEnv} from '@fluxer/api/src/types/HonoEnv';
 import {Hono} from 'hono';
-import {describe, expect, it} from 'vitest';
+import {afterEach, describe, expect, it, vi} from 'vitest';
 
 function createApp(options: Parameters<typeof RequireXForwardedForMiddleware>[0] = {}): Hono<HonoEnv> {
 	const app = new Hono<HonoEnv>();
 	app.use('*', RequireXForwardedForMiddleware(options));
 	app.get('/users/@me', async (ctx) => ctx.text('ok'));
 	app.get('/_health', async (ctx) => ctx.text('ok'));
+	app.get('/test/reset', async (ctx) => ctx.text('ok'));
+	app.get('/testfoo', async (ctx) => ctx.text('ok'));
+	app.get('/webhooks/livekit', async (ctx) => ctx.text('ok'));
+	app.get('/webhooks/livekit-impostor', async (ctx) => ctx.text('ok'));
 	return app;
 }
 
@@ -110,5 +117,157 @@ describe('RequireXForwardedForMiddleware', () => {
 			const response = await request(app, '/users/@me');
 			expect(response.status).toBe(200);
 		});
+
+		// Regression guards for the unbounded-prefix match: `path.startsWith('/test')` also exempted
+		// `/testfoo`, so any future route whose name merely begins with an exempt entry would have
+		// silently opted out of the guard.
+		describe('exempt paths match on segment boundaries, not bare prefixes', () => {
+			it('still exempts a child of an exempt directory', async () => {
+				const response = await request(createApp(enforcing), '/test/reset');
+				expect(response.status).toBe(200);
+			});
+
+			it('does not exempt a sibling that merely shares the prefix', async () => {
+				const response = await request(createApp(enforcing), '/testfoo');
+				expect(response.status).toBe(403);
+			});
+
+			it('still exempts the exact webhook path', async () => {
+				const response = await request(createApp(enforcing), '/webhooks/livekit');
+				expect(response.status).toBe(200);
+			});
+
+			it('does not exempt a look-alike of the exact webhook path', async () => {
+				const response = await request(createApp(enforcing), '/webhooks/livekit-impostor');
+				expect(response.status).toBe(403);
+			});
+		});
+	});
+});
+
+/**
+ * The guard sits immediately ahead of IpBanMiddleware, which fails open when no client IP resolves.
+ * These tests pin that relationship, and — more importantly for a production that runs with the flag
+ * OFF — pin that the reorder is inert in that state.
+ */
+describe('ordering against IpBanMiddleware', () => {
+	afterEach(() => {
+		vi.restoreAllMocks();
+	});
+
+	interface PipelineResult {
+		status: number;
+		order: Array<string>;
+	}
+
+	// Mirrors packages/api/src/app/MiddlewarePipeline.tsx. `guardFirst: false` reconstructs the
+	// pre-fix registration order so the two can be compared directly.
+	async function runPipeline(
+		guardFirst: boolean,
+		options: Parameters<typeof RequireXForwardedForMiddleware>[0],
+		headers: Record<string, string> = {},
+	): Promise<PipelineResult> {
+		const order: Array<string> = [];
+		const app = new Hono<HonoEnv>();
+		const record = (name: string) => async (_ctx: unknown, next: () => Promise<void>) => {
+			order.push(name);
+			await next();
+		};
+
+		const guard = RequireXForwardedForMiddleware(options);
+		if (guardFirst) {
+			app.use('*', record('guard'), guard);
+		}
+		app.use('*', record('ipBan'), IpBanMiddleware);
+		app.use('*', record('concurrency'));
+		app.use('*', record('metrics'));
+		app.use('*', record('auditLog'));
+		if (!guardFirst) {
+			app.use('*', record('guard'), guard);
+		}
+		app.get('/users/@me', async (ctx) => {
+			order.push('handler');
+			return ctx.text('ok');
+		});
+
+		const response = await app.fetch(new Request('https://api.fluxer.app/users/@me', {headers}));
+		return {status: response.status, order};
+	}
+
+	describe('with proxy.require_forwarded_for OFF (the production default)', () => {
+		const off = {isEnforced: () => false};
+
+		it('traverses every middleware in the same order as before the reorder, with no header', async () => {
+			const before = await runPipeline(false, off);
+			const after = await runPipeline(true, off);
+
+			expect(after.status).toBe(200);
+			expect(before.status).toBe(after.status);
+			expect(before.order.filter((name) => name !== 'guard')).toEqual(after.order.filter((name) => name !== 'guard'));
+			expect(after.order.filter((name) => name !== 'guard')).toEqual([
+				'ipBan',
+				'concurrency',
+				'metrics',
+				'auditLog',
+				'handler',
+			]);
+			expect(after.order).toContain('guard');
+		});
+
+		it('traverses identically for a request that does carry a client IP header', async () => {
+			const headers = {'x-forwarded-for': '203.0.113.7'};
+			const before = await runPipeline(false, off, headers);
+			const after = await runPipeline(true, off, headers);
+
+			expect(after.status).toBe(200);
+			expect(before.status).toBe(after.status);
+			expect(before.order.filter((name) => name !== 'guard')).toEqual(after.order.filter((name) => name !== 'guard'));
+		});
+
+		it('leaves the IP ban check reachable, i.e. the fail-open path is untouched', async () => {
+			const isBanned = vi.spyOn(ipBanCache, 'isBanned');
+			const result = await runPipeline(true, off, {'x-forwarded-for': '203.0.113.7'});
+
+			expect(result.status).toBe(200);
+			expect(isBanned).toHaveBeenCalledWith('203.0.113.7');
+		});
+	});
+
+	describe('with proxy.require_forwarded_for ON', () => {
+		it('rejects before IpBanMiddleware gets a chance to fail open', async () => {
+			const isBanned = vi.spyOn(ipBanCache, 'isBanned');
+			const result = await runPipeline(true, enforcing);
+
+			expect(result.status).toBe(403);
+			expect(result.order).toEqual(['guard']);
+			expect(isBanned).not.toHaveBeenCalled();
+		});
+
+		it('under the old order the ban check ran first and saw no IP — the defect being fixed', async () => {
+			const result = await runPipeline(false, enforcing);
+
+			expect(result.status).toBe(403);
+			expect(result.order).toEqual(['ipBan', 'concurrency', 'metrics', 'auditLog', 'guard']);
+		});
+
+		it('still reaches the ban check when a client IP is resolvable', async () => {
+			const isBanned = vi.spyOn(ipBanCache, 'isBanned');
+			const result = await runPipeline(true, enforcing, {'x-forwarded-for': '203.0.113.7'});
+
+			expect(result.status).toBe(200);
+			expect(isBanned).toHaveBeenCalledWith('203.0.113.7');
+		});
+	});
+
+	// The real pipeline cannot be instantiated here — ServiceMiddleware and friends need a database
+	// and Valkey — so the registration order in the shipped file is asserted at the source level.
+	it('registers the guard above IpBanMiddleware in MiddlewarePipeline.tsx', () => {
+		const source = readFileSync(fileURLToPath(new URL('../../app/MiddlewarePipeline.tsx', import.meta.url)), 'utf8');
+		const guardIndex = source.indexOf('routes.use(RequireXForwardedForMiddleware());');
+		const ipBanIndex = source.indexOf('routes.use(IpBanMiddleware);');
+
+		expect(guardIndex).toBeGreaterThan(-1);
+		expect(ipBanIndex).toBeGreaterThan(-1);
+		expect(guardIndex).toBeLessThan(ipBanIndex);
 	});
 });

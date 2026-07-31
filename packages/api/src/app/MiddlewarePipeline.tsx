@@ -104,11 +104,25 @@ export function configureMiddleware(routes: HonoApp, options: MiddlewarePipeline
 		});
 	}
 
+	// ORDER IS LOAD-BEARING: RequireXForwardedForMiddleware must stay above IpBanMiddleware.
+	//
+	// IpBanMiddleware fails open when no client IP can be resolved (`if (clientIp && ...)`), so if the
+	// guard ran after it, a request with no proxy-set client IP header would skip the ban check
+	// entirely and only afterwards be rejected. With `proxy.require_forwarded_for` on, an operator
+	// would reasonably expect header-less traffic to be rejected *before* anything makes an IP-keyed
+	// decision; running the guard first makes that true. The other middlewares below do not read the
+	// client IP, so this is the only pair whose relative order matters for that reason.
+	//
+	// This costs a guard-rejected request its MetricsMiddleware counters (it 403s before reaching
+	// them). The outer stack applied above still logs the completed request and records it via the
+	// telemetry collector, and the guard emits its own warn line, so nothing goes fully unobserved.
+	// The guard early-returns when `proxy.require_forwarded_for` is off — which is the production
+	// default and the state of the live config — so with the flag off the traversal is unchanged.
+	routes.use(RequireXForwardedForMiddleware());
 	routes.use(IpBanMiddleware);
 	routes.use(ConcurrencyLimitMiddleware);
 	routes.use(MetricsMiddleware);
 	routes.use(AuditLogMiddleware);
-	routes.use(RequireXForwardedForMiddleware());
 	routes.use(RequestCacheMiddleware);
 	routes.use(ServiceMiddleware);
 	routes.use(UserMiddleware);

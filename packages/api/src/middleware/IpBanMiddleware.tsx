@@ -212,6 +212,33 @@ class IpBanCache {
 
 export const ipBanCache = new IpBanCache();
 
+/**
+ * Deliberately fails OPEN when no client IP can be resolved, and that is not an oversight.
+ *
+ * `extractClientIp` is headers-only (`packages/ip_utils/src/ClientIp.tsx` — X-Real-IP, then the
+ * rightmost X-Forwarded-For entry, then CF-Connecting-IP if trusted); there is no socket-peer
+ * fallback. So callers that legitimately reach this process without going through nginx resolve to
+ * `null` — for example this app's own health route (`MiddlewarePipeline.tsx`, reachable as
+ * `/api/_health`), which sets none of those headers and returns 200 today.
+ *
+ * Note the container health check is NOT such a caller, despite the obvious guess: `compose.yaml`'s
+ * `curl -fsS http://127.0.0.1:8080/_health` hits the health route on the OUTER server app
+ * (`fluxer_server/src/Routes.tsx`), which is not this pipeline — the API app is mounted under `/api`
+ * only, and this middleware has exactly one registration site. The two are distinct handlers: the
+ * outer one returns a JSON document, `/api/_health` returns plain `OK`.
+ *
+ * The load-bearing argument is not any single caller but that `routes.use(IpBanMiddleware)` is bare:
+ * no exempt-path list, no config flag. Turning this into a hard failure would drop header-less
+ * traffic unconditionally, in every deployment — including `devenv up` with no proxy in front.
+ *
+ * Presence of a client IP is therefore enforced in exactly one place, `RequireXForwardedForMiddleware`,
+ * which has both (an exempt list covering `/_health`, and `proxy.require_forwarded_for`, off by
+ * default). That middleware is registered immediately ahead of this one in
+ * `packages/api/src/app/MiddlewarePipeline.tsx`, so when the flag IS on, an unresolvable IP is
+ * rejected before this check is reached and the fail-open branch below is unreachable. When the flag
+ * is off, fail-open is the intended behaviour: an operator who has not opted in must not have
+ * header-less traffic dropped.
+ */
 export const IpBanMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => {
 	const clientIp = extractClientIp(ctx.req.raw, {trustCfConnectingIp: Config.proxy.trust_cf_connecting_ip});
 

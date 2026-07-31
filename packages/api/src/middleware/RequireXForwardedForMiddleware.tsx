@@ -55,6 +55,9 @@ const defaultExemptPaths: Array<string> = [
  * Off unless `proxy.require_forwarded_for` is explicitly enabled — see the schema description in
  * `packages/config/src/schema/defs/instance.json`. When it is off this middleware is a no-op and the
  * only thing keeping the app from seeing header-less traffic is the network path to its port.
+ *
+ * Registered ahead of `IpBanMiddleware` in `packages/api/src/app/MiddlewarePipeline.tsx`, because that
+ * middleware fails open on an unresolvable IP; see the comment there.
  */
 export function RequireXForwardedForMiddleware({
 	exemptPaths = defaultExemptPaths,
@@ -68,14 +71,29 @@ export function RequireXForwardedForMiddleware({
 		}
 
 		const path = stripApiPrefix(ctx.req.path);
-		if (exemptPaths.some((prefix) => path === prefix || path.startsWith(prefix))) {
+		// Segment-bounded, not a bare prefix: `/test` must exempt `/test/reset` but NOT `/testfoo`.
+		// Every current entry is either an exact path (`/webhooks/livekit`, the bluesky documents) or a
+		// real directory (`/test/...`), so this is strictly a tightening.
+		if (exemptPaths.some((prefix) => path === prefix || path.startsWith(`${prefix}/`))) {
 			await next();
 			return;
 		}
 
 		const extracted = extractClientIpDetails(ctx.req.raw, {trustCfConnectingIp: trustCfConnectingIp()});
 		if (extracted === null) {
-			Logger.warn({path}, 'Rejected request without a proxy-set client IP header');
+			// This is the only record of the rejection that carries request detail: the guard now runs
+			// ahead of MetricsMiddleware (see MiddlewarePipeline), so a rejected request never reaches
+			// those counters. Header presence is logged as booleans rather than values — the values are
+			// caller-controlled and may be personal data.
+			Logger.warn(
+				{
+					method: ctx.req.method,
+					path,
+					hasForwardedFor: ctx.req.header('x-forwarded-for') !== undefined,
+					hasRealIp: ctx.req.header('x-real-ip') !== undefined,
+				},
+				'Rejected request without a proxy-set client IP header',
+			);
 			throw new HTTPException(403, {message: 'Forbidden'});
 		}
 
