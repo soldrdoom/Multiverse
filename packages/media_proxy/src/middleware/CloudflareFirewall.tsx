@@ -17,6 +17,7 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {extractClientIp} from '@fluxer/ip_utils/src/ClientIp';
 import type {LoggerInterface} from '@fluxer/logger/src/LoggerInterface';
 import type {CloudflareEdgeIPService} from '@fluxer/media_proxy/src/lib/CloudflareEdgeIPService';
 import type {HonoEnv} from '@fluxer/media_proxy/src/types/HonoEnv';
@@ -45,13 +46,22 @@ export function createCloudflareFirewall(
 			return;
 		}
 
-		const xff = ctx.req.header('x-forwarded-for');
-		if (!xff) {
-			logger.warn({path}, 'Rejected request without X-Forwarded-For header');
+		// This check needs the address of the peer that connected to us, so that it can be compared
+		// against Cloudflare's published edge ranges. That is NOT the leftmost X-Forwarded-For entry:
+		// XFF is append-only, so its leftmost entry is whatever the caller chose to send, and keying a
+		// firewall decision off it let anyone through by prefixing a Cloudflare edge address.
+		//
+		// `extractClientIp` prefers X-Real-IP (which a reverse proxy REPLACES rather than
+		// appends, so the caller cannot influence it) and otherwise walks X-Forwarded-For from the
+		// right, which is the entry our own proxy appended. CF-Connecting-IP is deliberately not
+		// trusted here even when it is present: it carries the end user's address, which is precisely
+		// the value that must not be matched against edge ranges.
+		const connectingIP = extractClientIp(ctx.req.raw);
+		if (!connectingIP) {
+			logger.warn({path}, 'Rejected request without a proxy-set client IP header');
 			throw new HTTPException(403, {message: 'Forbidden'});
 		}
-		const connectingIP = xff.split(',')[0]?.trim();
-		if (!connectingIP || !ipService.isFromCloudflareEdge(connectingIP)) {
+		if (!ipService.isFromCloudflareEdge(connectingIP)) {
 			logger.warn({connectingIP, path}, 'Rejected request from non-Cloudflare edge IP');
 			throw new HTTPException(403, {message: 'Forbidden'});
 		}

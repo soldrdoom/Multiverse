@@ -38,6 +38,7 @@ export const Config = {
 	},
 	proxy: {
 		trust_cf_connecting_ip: master.proxy.trust_cf_connecting_ip,
+		require_forwarded_for: master.proxy.require_forwarded_for,
 	},
 };
 

@@ -1347,6 +1347,9 @@ importers:
       '@fluxer/http_client':
         specifier: workspace:*
         version: link:../http_client
+      '@fluxer/ip_utils':
+        specifier: workspace:*
+        version: link:../ip_utils
       '@fluxer/logger':
         specifier: workspace:*
         version: link:../logger

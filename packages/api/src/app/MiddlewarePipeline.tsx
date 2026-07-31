@@ -26,6 +26,7 @@ import {LocaleMiddleware} from '@fluxer/api/src/middleware/LocaleMiddleware';
 import {MetricsMiddleware} from '@fluxer/api/src/middleware/MetricsMiddleware';
 import {RequestCacheMiddleware} from '@fluxer/api/src/middleware/RequestCacheMiddleware';
 import {RequireXForwardedForMiddleware} from '@fluxer/api/src/middleware/RequireXForwardedForMiddleware';
+import {SentryUserMiddleware} from '@fluxer/api/src/middleware/SentryUserMiddleware';
 import {ServiceMiddleware} from '@fluxer/api/src/middleware/ServiceMiddleware';
 import {UserMiddleware} from '@fluxer/api/src/middleware/UserMiddleware';
 import type {HonoApp, HonoEnv} from '@fluxer/api/src/types/HonoEnv';
@@ -120,19 +121,7 @@ export function configureMiddleware(routes: HonoApp, options: MiddlewarePipeline
 	});
 
 	if (setSentryUser) {
-		routes.use('*', async (ctx, next) => {
-			const user = ctx.get('user');
-			const clientIp = ctx.req.header('X-Forwarded-For')?.split(',')[0]?.trim();
-
-			setSentryUser({
-				id: user?.id.toString(),
-				username: user?.username,
-				email: user?.email ?? undefined,
-				ip_address: clientIp,
-			});
-
-			return next();
-		});
+		routes.use('*', SentryUserMiddleware(setSentryUser));
 	}
 
 	routes.get('/_health', async (ctx) => ctx.text('OK'));

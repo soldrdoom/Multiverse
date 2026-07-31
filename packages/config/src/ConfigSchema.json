@@ -873,6 +873,11 @@
 					"type": "boolean",
 					"default": false,
 					"description": "Trust Cloudflare's CF-Connecting-IP header."
+				},
+				"require_forwarded_for": {
+					"type": "boolean",
+					"default": false,
+					"description": "Reject API requests that arrive without a proxy-set client IP header (X-Real-IP, X-Forwarded-For, or CF-Connecting-IP when trust_cf_connecting_ip is on). Defaults to false because it must only be enabled when EVERY path to the API passes through a reverse proxy that sets one of those headers; a deployment reached directly on its port (including `devenv up`) rejects every request with 403 when this is on. The official deployment's nginx sets X-Real-IP and X-Forwarded-For on all proxied locations, so it can turn this on for defence in depth against requests that reach the app port without going through nginx."
 				}
 			}
 		},

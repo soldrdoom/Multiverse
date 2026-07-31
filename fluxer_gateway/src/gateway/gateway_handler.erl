@@ -638,13 +638,35 @@ check_opcode_rate_limit(_, RateLimitState, _Now) ->
 
 -spec extract_client_ip(cowboy_req:req()) -> binary().
 extract_client_ip(Req) ->
-    case cowboy_req:header(<<"x-forwarded-for">>, Req) of
-        undefined ->
-            peer_ip_to_binary(cowboy_req:peer(Req));
-        ForwardedFor ->
-            case parse_forwarded_for(ForwardedFor) of
-                <<>> -> peer_ip_to_binary(cowboy_req:peer(Req));
-                IP -> IP
+    RealIPHeader = cowboy_req:header(<<"x-real-ip">>, Req),
+    ForwardedForHeader = cowboy_req:header(<<"x-forwarded-for">>, Req),
+    case select_client_ip(RealIPHeader, ForwardedForHeader) of
+        {ok, IP} -> IP;
+        error -> peer_ip_to_binary(cowboy_req:peer(Req))
+    end.
+
+%% Mirrors packages/ip_utils/src/ClientIp.tsx so the gateway and the TypeScript
+%% services agree on what the client IP is.
+%%
+%% X-Real-IP is preferred because it cannot be forged: nginx sets
+%% `proxy_set_header X-Real-IP $remote_addr` on every proxied location, and
+%% proxy_set_header REPLACES the value rather than appending, so whatever a
+%% client sends is discarded.
+%%
+%% X-Forwarded-For is only a fallback for proxies that do not set X-Real-IP, and
+%% is scanned RIGHTMOST-inward: the header is append-only and nginx uses
+%% `proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for`, which expands
+%% to `<whatever the client sent>, $remote_addr`. The leftmost entry is
+%% therefore always attacker-chosen; the rightmost is the one nginx appended.
+-spec select_client_ip(binary() | undefined, binary() | undefined) -> {ok, binary()} | error.
+select_client_ip(RealIPHeader, ForwardedForHeader) ->
+    case parse_real_ip(RealIPHeader) of
+        {ok, IP} ->
+            {ok, IP};
+        error ->
+            case parse_forwarded_for(ForwardedForHeader) of
+                <<>> -> error;
+                IP -> {ok, IP}
             end
     end.
 
@@ -652,20 +674,34 @@ extract_client_ip(Req) ->
 peer_ip_to_binary({PeerIP, _Port}) ->
     list_to_binary(inet:ntoa(PeerIP)).
 
--spec parse_forwarded_for(binary()) -> binary().
+-spec parse_real_ip(binary() | undefined) -> {ok, binary()} | error.
+parse_real_ip(undefined) ->
+    error;
+parse_real_ip(HeaderValue) ->
+    normalize_client_ip(HeaderValue).
+
+%% Entries that do not parse as an IP address are skipped rather than treated as
+%% a failure: fluxer_relay rewrites X-Forwarded-For to an instance identifier
+%% (fluxer_relay/src/relay/fluxer_relay_http_handler.erl), so a non-IP entry is
+%% an expected shape here.
+-spec parse_forwarded_for(binary() | undefined) -> binary().
+parse_forwarded_for(undefined) ->
+    <<>>;
 parse_forwarded_for(HeaderValue) ->
-    case binary:split(HeaderValue, <<",">>) of
-        [First | _] ->
-            case normalize_forwarded_ip(First) of
-                {ok, IP} -> IP;
-                error -> <<>>
-            end;
-        [] ->
-            <<>>
+    Candidates = binary:split(HeaderValue, <<",">>, [global]),
+    first_valid_ip(lists:reverse(Candidates)).
+
+-spec first_valid_ip([binary()]) -> binary().
+first_valid_ip([]) ->
+    <<>>;
+first_valid_ip([Candidate | Rest]) ->
+    case normalize_client_ip(Candidate) of
+        {ok, IP} -> IP;
+        error -> first_valid_ip(Rest)
     end.
 
--spec normalize_forwarded_ip(binary()) -> {ok, binary()} | error.
-normalize_forwarded_ip(Value) ->
+-spec normalize_client_ip(binary()) -> {ok, binary()} | error.
+normalize_client_ip(Value) ->
     Trimmed = string:trim(Value),
     case Trimmed of
         <<>> ->
@@ -955,7 +991,95 @@ parse_forwarded_for_ipv4_with_port_test() ->
 
 parse_forwarded_for_ipv4_with_port_and_extra_entries_test() ->
     Header = <<" 203.0.113.7:8080 , 10.0.0.1">>,
+    ?assertEqual(<<"10.0.0.1">>, parse_forwarded_for(Header)).
+
+parse_forwarded_for_undefined_test() ->
+    ?assertEqual(<<>>, parse_forwarded_for(undefined)).
+
+%% The leftmost entry is client-controlled; nginx appends the real peer on the
+%% right, so the spoofed prefix must never win.
+parse_forwarded_for_ignores_leftmost_spoof_test() ->
+    Header = <<"1.2.3.4, 203.0.113.7">>,
     ?assertEqual(<<"203.0.113.7">>, parse_forwarded_for(Header)).
+
+parse_forwarded_for_ignores_multiple_spoofed_entries_test() ->
+    Header = <<"1.2.3.4, 5.6.7.8, 9.10.11.12, 203.0.113.7">>,
+    ?assertEqual(<<"203.0.113.7">>, parse_forwarded_for(Header)).
+
+parse_forwarded_for_no_space_after_comma_test() ->
+    ?assertEqual(<<"203.0.113.7">>, parse_forwarded_for(<<"1.2.3.4,203.0.113.7">>)).
+
+parse_forwarded_for_extra_whitespace_test() ->
+    Header = <<"  1.2.3.4  ,\t203.0.113.7   ">>,
+    ?assertEqual(<<"203.0.113.7">>, parse_forwarded_for(Header)).
+
+%% fluxer_relay rewrites x-forwarded-for to an instance identifier, so the
+%% rightmost entry is not always parseable as an IP.
+parse_forwarded_for_skips_unparseable_rightmost_entry_test() ->
+    Header = <<"203.0.113.7, relay-instance-abc123">>,
+    ?assertEqual(<<"203.0.113.7">>, parse_forwarded_for(Header)).
+
+parse_forwarded_for_skips_multiple_unparseable_entries_test() ->
+    Header = <<"203.0.113.7, unknown, 203.0.113.300, _hidden_, ">>,
+    ?assertEqual(<<"203.0.113.7">>, parse_forwarded_for(Header)).
+
+parse_forwarded_for_all_entries_unparseable_test() ->
+    ?assertEqual(<<>>, parse_forwarded_for(<<"relay-instance-abc123, unknown">>)).
+
+parse_forwarded_for_rightmost_ipv6_test() ->
+    Header = <<"1.2.3.4, [2001:db8::1]:443">>,
+    ?assertEqual(<<"2001:db8::1">>, parse_forwarded_for(Header)).
+
+parse_forwarded_for_empty_header_test() ->
+    ?assertEqual(<<>>, parse_forwarded_for(<<>>)).
+
+parse_real_ip_ipv4_test() ->
+    ?assertEqual({ok, <<"203.0.113.7">>}, parse_real_ip(<<"203.0.113.7">>)).
+
+parse_real_ip_ipv6_test() ->
+    ?assertEqual({ok, <<"2001:db8::1">>}, parse_real_ip(<<"[2001:db8::1]">>)).
+
+parse_real_ip_whitespace_test() ->
+    ?assertEqual({ok, <<"203.0.113.7">>}, parse_real_ip(<<"  203.0.113.7  ">>)).
+
+parse_real_ip_undefined_test() ->
+    ?assertEqual(error, parse_real_ip(undefined)).
+
+parse_real_ip_invalid_test() ->
+    ?assertEqual(error, parse_real_ip(<<"not_an_ip">>)).
+
+%% x-real-ip is set by nginx with proxy_set_header, which replaces rather than
+%% appends, so it cannot be forged and wins over x-forwarded-for.
+select_client_ip_prefers_real_ip_test() ->
+    ?assertEqual(
+        {ok, <<"203.0.113.7">>},
+        select_client_ip(<<"203.0.113.7">>, <<"1.2.3.4, 198.51.100.9">>)
+    ).
+
+select_client_ip_real_ip_only_test() ->
+    ?assertEqual({ok, <<"203.0.113.7">>}, select_client_ip(<<"203.0.113.7">>, undefined)).
+
+select_client_ip_falls_back_to_forwarded_for_test() ->
+    ?assertEqual(
+        {ok, <<"198.51.100.9">>},
+        select_client_ip(undefined, <<"1.2.3.4, 198.51.100.9">>)
+    ).
+
+select_client_ip_invalid_real_ip_falls_back_test() ->
+    ?assertEqual(
+        {ok, <<"198.51.100.9">>},
+        select_client_ip(<<"not_an_ip">>, <<"1.2.3.4, 198.51.100.9">>)
+    ).
+
+select_client_ip_single_entry_unchanged_test() ->
+    ?assertEqual({ok, <<"203.0.113.7">>}, select_client_ip(undefined, <<"203.0.113.7">>)),
+    ?assertEqual({ok, <<"2001:db8::1">>}, select_client_ip(undefined, <<"2001:db8::1">>)).
+
+select_client_ip_no_headers_test() ->
+    ?assertEqual(error, select_client_ip(undefined, undefined)).
+
+select_client_ip_all_unparseable_test() ->
+    ?assertEqual(error, select_client_ip(<<"nope">>, <<"relay-instance-abc123">>)).
 
 parse_forwarded_for_ipv6_test() ->
     ?assertEqual(<<"2001:db8::1">>, parse_forwarded_for(<<"2001:db8::1">>)).

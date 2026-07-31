@@ -21,11 +21,18 @@ import {Config} from '@fluxer/api/src/Config';
 import {Logger} from '@fluxer/api/src/Logger';
 import type {HonoEnv} from '@fluxer/api/src/types/HonoEnv';
 import {stripApiPrefix} from '@fluxer/api/src/utils/RequestPathUtils';
+import {extractClientIpDetails} from '@fluxer/ip_utils/src/ClientIp';
 import {createMiddleware} from 'hono/factory';
 import {HTTPException} from 'hono/http-exception';
 
 interface RequireXForwardedForOptions {
 	exemptPaths?: Array<string>;
+	/**
+	 * Injected so the enforcing branch is reachable from tests without mocking the Config module.
+	 * Both default to reading Config lazily, i.e. at request time, not at middleware construction.
+	 */
+	isEnforced?: () => boolean;
+	trustCfConnectingIp?: () => boolean;
 }
 
 const defaultExemptPaths: Array<string> = [
@@ -36,9 +43,26 @@ const defaultExemptPaths: Array<string> = [
 	'/connections/bluesky/jwks.json',
 ];
 
-export function RequireXForwardedForMiddleware({exemptPaths = defaultExemptPaths}: RequireXForwardedForOptions = {}) {
+/**
+ * Rejects requests that did not arrive through the reverse proxy.
+ *
+ * The guard is "can we determine a client IP the same way every IP-keyed control does", not "is the
+ * literal X-Forwarded-For header present". Those differ: `extractClientIpDetails` prefers `X-Real-IP`
+ * (unforgeable, because `proxy_set_header` REPLACES) and only falls back to the rightmost
+ * `X-Forwarded-For` entry, so a proxy that sets X-Real-IP and nothing else is legitimate and must
+ * pass, while a syntactically present but unparseable header must not.
+ *
+ * Off unless `proxy.require_forwarded_for` is explicitly enabled — see the schema description in
+ * `packages/config/src/schema/defs/instance.json`. When it is off this middleware is a no-op and the
+ * only thing keeping the app from seeing header-less traffic is the network path to its port.
+ */
+export function RequireXForwardedForMiddleware({
+	exemptPaths = defaultExemptPaths,
+	isEnforced = () => !Config.dev.testModeEnabled && Config.proxy.require_forwarded_for,
+	trustCfConnectingIp = () => Config.proxy.trust_cf_connecting_ip,
+}: RequireXForwardedForOptions = {}) {
 	return createMiddleware<HonoEnv>(async (ctx, next) => {
-		if (Config.dev.testModeEnabled || !Config.proxy.require_forwarded_for) {
+		if (!isEnforced()) {
 			await next();
 			return;
 		}
@@ -49,9 +73,9 @@ export function RequireXForwardedForMiddleware({exemptPaths = defaultExemptPaths
 			return;
 		}
 
-		const headerValue = ctx.req.header('x-forwarded-for');
-		if (!headerValue || headerValue.trim() === '') {
-			Logger.warn({path}, 'Rejected request without X-Forwarded-For header');
+		const extracted = extractClientIpDetails(ctx.req.raw, {trustCfConnectingIp: trustCfConnectingIp()});
+		if (extracted === null) {
+			Logger.warn({path}, 'Rejected request without a proxy-set client IP header');
 			throw new HTTPException(403, {message: 'Forbidden'});
 		}
 

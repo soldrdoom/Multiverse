@@ -22,6 +22,7 @@
 		"@fluxer/hono": "workspace:*",
 		"@fluxer/hono_types": "workspace:*",
 		"@fluxer/http_client": "workspace:*",
+		"@fluxer/ip_utils": "workspace:*",
 		"@fluxer/logger": "workspace:*",
 		"@fluxer/media_proxy_utils": "workspace:*",
 		"@fluxer/mime_utils": "workspace:*",

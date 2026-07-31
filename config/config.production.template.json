@@ -46,6 +46,9 @@
 			"auth_token": "GENERATE_A_NATS_AUTH_TOKEN"
 		}
 	},
+	"proxy": {
+		"require_forwarded_for": true
+	},
 	"auth": {
 		"sudo_mode_secret": "GENERATE_A_64_CHAR_HEX_SECRET",
 		"connection_initiation_secret": "GENERATE_A_64_CHAR_HEX_SECRET",

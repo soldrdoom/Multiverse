@@ -59,6 +59,7 @@ export interface APIConfig {
 
 	proxy: {
 		trust_cf_connecting_ip: boolean;
+		require_forwarded_for: boolean;
 	};
 
 	endpoints: {
