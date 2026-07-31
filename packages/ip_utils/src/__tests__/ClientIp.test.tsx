@@ -28,12 +28,56 @@ import {
 import {describe, expect, it} from 'vitest';
 
 describe('extractClientIp', () => {
-	it('extracts first x-forwarded-for entry', () => {
+	// This previously asserted the LEFTMOST entry, which is the half of X-Forwarded-For the client
+	// controls. nginx appends the real peer via $proxy_add_x_forwarded_for, so the rightmost entry is
+	// the trustworthy one and everything IP-keyed (rate limits, IP bans, captcha, login throttling)
+	// depends on picking it.
+	it('extracts the last x-forwarded-for entry, which is the one the proxy appended', () => {
 		const request = new Request('http://example.com', {
 			headers: {'X-Forwarded-For': '192.168.1.1, 10.0.0.1'},
 		});
 
-		expect(extractClientIp(request)).toBe('192.168.1.1');
+		expect(extractClientIp(request)).toBe('10.0.0.1');
+	});
+
+	it('ignores a spoofed x-forwarded-for prefix supplied by the caller', () => {
+		// What an attacker sends as X-Forwarded-For ends up to the LEFT of the peer nginx appends.
+		const request = new Request('http://example.com', {
+			headers: {'X-Forwarded-For': '203.0.113.7, 198.51.100.9, 10.0.0.1'},
+		});
+
+		expect(extractClientIp(request)).toBe('10.0.0.1');
+	});
+
+	it('prefers x-real-ip over x-forwarded-for, because proxy_set_header replaces rather than appends', () => {
+		const request = new Request('http://example.com', {
+			headers: {'X-Real-IP': '10.0.0.1', 'X-Forwarded-For': '203.0.113.7'},
+		});
+
+		const details = extractClientIpDetails(request);
+		expect(details?.ip).toBe('10.0.0.1');
+		expect(details?.source).toBe('x-real-ip');
+	});
+
+	it('falls back to x-forwarded-for when x-real-ip is absent or unparseable', () => {
+		expect(extractClientIp(new Request('http://example.com', {headers: {'X-Forwarded-For': '10.0.0.1'}}))).toBe(
+			'10.0.0.1',
+		);
+		expect(
+			extractClientIp(
+				new Request('http://example.com', {
+					headers: {'X-Real-IP': 'not-an-ip', 'X-Forwarded-For': '10.0.0.1'},
+				}),
+			),
+		).toBe('10.0.0.1');
+	});
+
+	it('keeps cf-connecting-ip ahead of x-real-ip when it is trusted', () => {
+		const request = new Request('http://example.com', {
+			headers: {'CF-Connecting-IP': '203.0.113.50', 'X-Real-IP': '10.0.0.1'},
+		});
+
+		expect(extractClientIp(request, {trustCfConnectingIp: true})).toBe('203.0.113.50');
 	});
 
 	it('normalizes bracketed and zoned ipv6 from x-forwarded-for', () => {
@@ -79,13 +123,6 @@ describe('extractClientIp', () => {
 		expect(
 			extractClientIp(
 				new Request('http://example.com', {
-					headers: {'X-Forwarded-For': ',192.168.1.1'},
-				}),
-			),
-		).toBeNull();
-		expect(
-			extractClientIp(
-				new Request('http://example.com', {
 					headers: {'X-Forwarded-For': 'not-an-ip'},
 				}),
 			),
@@ -119,12 +156,17 @@ describe('extractClientIpDetails', () => {
 });
 
 describe('extractClientIpFromHeaders', () => {
-	it('extracts from node-style headers', () => {
+	it('extracts from node-style headers, taking the proxy-appended entry', () => {
 		const headers = {
 			'x-forwarded-for': '192.168.1.1, 10.0.0.1',
 		};
 
-		expect(extractClientIpFromHeaders(headers)).toBe('192.168.1.1');
+		expect(extractClientIpFromHeaders(headers)).toBe('10.0.0.1');
+	});
+
+	it('skips a blank leading entry rather than treating the whole header as invalid', () => {
+		// A leading empty element used to null the whole lookup, discarding a perfectly good peer.
+		expect(extractClientIpFromHeaders({'x-forwarded-for': ',192.168.1.1'})).toBe('192.168.1.1');
 	});
 
 	it('supports case-insensitive keys and array values', () => {

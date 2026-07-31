@@ -23,7 +23,7 @@ export interface ClientIpExtractionOptions {
 	trustCfConnectingIp?: boolean;
 }
 
-export type ClientIpSource = 'cf-connecting-ip' | 'x-forwarded-for';
+export type ClientIpSource = 'cf-connecting-ip' | 'x-real-ip' | 'x-forwarded-for';
 
 export interface ExtractedClientIp {
 	ip: string;
@@ -67,17 +67,34 @@ function parseSingleIpHeader(value: string | null): string | null {
 	return parsed?.normalized ?? null;
 }
 
+/**
+ * Takes the RIGHTMOST entry, not the leftmost.
+ *
+ * `X-Forwarded-For` is append-only and the client controls what it sends, so the leftmost entry is
+ * attacker-chosen. Our nginx uses `proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for`,
+ * which expands to `<whatever the client sent>, $remote_addr` — so the rightmost entry is the one
+ * value nginx itself appended, i.e. the real peer.
+ *
+ * Reading the leftmost entry meant every IP-keyed control in the product — rate limits, the IP ban
+ * list, captcha triggers, login/registration/password-reset throttling, new-location detection, and
+ * the IP recorded on session rows — was keyed off a value the caller could set to anything. Rotating
+ * one header defeated all of them; reusing someone else's IP poisoned their bucket and their audit
+ * trail.
+ */
 function parseForwardedForHeader(value: string | null): string | null {
 	if (value === null) {
 		return null;
 	}
 
-	const [firstCandidate] = value.split(',', 1);
-	if (!firstCandidate) {
-		return null;
+	const candidates = value.split(',');
+	for (let index = candidates.length - 1; index >= 0; index--) {
+		const parsed = parseSingleIpHeader(candidates[index] ?? null);
+		if (parsed !== null) {
+			return parsed;
+		}
 	}
 
-	return parseSingleIpHeader(firstCandidate);
+	return null;
 }
 
 function createRequestHeaderReader(request: Request): HeaderReader {
@@ -126,6 +143,21 @@ function extractClientIpDetailsFromReader(
 		}
 	}
 
+	// Preferred over X-Forwarded-For because it cannot be forged. Our nginx sets
+	// `proxy_set_header X-Real-IP $remote_addr` on every proxied location, and proxy_set_header
+	// REPLACES the value rather than appending — so whatever a client sends in X-Real-IP is
+	// discarded and the app only ever sees the true peer. X-Forwarded-For, by contrast, is appended
+	// to, so it always carries an attacker-controlled prefix.
+	const xRealIp = parseSingleIpHeader(headerReader.get('x-real-ip'));
+	if (xRealIp) {
+		return {
+			ip: xRealIp,
+			source: 'x-real-ip',
+		};
+	}
+
+	// Fallback for deployments whose proxy doesn't set X-Real-IP. Unreachable behind our own nginx,
+	// which always sets it.
 	const xForwardedFor = parseForwardedForHeader(headerReader.get('x-forwarded-for'));
 	if (xForwardedFor) {
 		return {
