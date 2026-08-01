@@ -29,8 +29,16 @@
 	background-color: var(--brand-primary);
 }
 
+/*
+ * Light theme fills this badge with --brand-primary, which the theme layer
+ * resolves to hsl(155 80% 30%) = #0f8a57 under .theme-light. White on that is
+ * 4.38:1; --brand-primary-fill (#0b0e14) is 4.41:1 — effectively a wash on
+ * its own, changed for consistency with how every other on-brand glyph in
+ * the app is painted (and so the badge stays correct if the light brand stop
+ * is ever darkened further).
+ */
 :global(.theme-light) .channelBadgeSelectedIcon {
-	color: #fff;
+	color: var(--brand-primary-fill);
 }
 
 .notFoundItem {

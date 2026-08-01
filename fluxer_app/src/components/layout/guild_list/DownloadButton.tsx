@@ -56,7 +56,7 @@ export const DownloadButton = observer(() => {
 					>
 						<motion.div
 							ref={iconRef}
-							className={guildStyles.addGuildButtonIcon}
+							className={guildStyles.railUtilityButtonIcon}
 							animate={{borderRadius: isHovering ? '30%' : '50%'}}
 							initial={{borderRadius: isHovering ? '30%' : '50%'}}
 							transition={{duration: AccessibilityStore.useReducedMotion ? 0 : 0.07, ease: 'easeOut'}}

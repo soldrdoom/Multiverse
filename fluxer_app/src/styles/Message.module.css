@@ -371,10 +371,17 @@
 		'gutter-left timestamp gutter-right container';
 }
 
+/*
+ * Usernames use the display face at a fixed *em* ratio (reference: 15px at
+ * the 16px default) so they keep tracking the user's chat font-size setting.
+ * Solid colour only — role colours are applied inline; never a gradient.
+ */
 .messageUsername {
 	display: inline-block;
 	position: relative;
 	cursor: pointer;
+	font-family: var(--font-display);
+	font-size: 0.9375em;
 	font-weight: 600;
 	color: var(--text-primary);
 	line-height: var(--message-line-height);
@@ -420,11 +427,18 @@
 	}
 }
 
+/*
+ * Timestamps take the mono data face. Colour/opacity are deliberately left
+ * at --message-timestamp-color @ 0.6 (4.58:1 over the chat obsidian) rather
+ * than the reference's rgba(255,255,255,0.35), which only measures 3.13:1.
+ */
 .messageTimestamp,
 .messageTimestampCompact {
 	cursor: default;
 	vertical-align: baseline;
+	font-family: var(--font-mono);
 	font-weight: 400;
+	letter-spacing: 0.01em;
 	color: var(--message-timestamp-color);
 	line-height: var(--message-line-height);
 }
@@ -476,6 +490,7 @@
 .messageTimestampHover,
 .messageTimestampCompactHover {
 	color: var(--message-timestamp-color);
+	font-family: var(--font-mono);
 	font-size: var(--message-timestamp-compact-font-size);
 	font-weight: 500;
 	line-height: var(--message-line-height);
@@ -690,7 +705,7 @@
 	margin-inline-end: var(--reply-spacing);
 	margin-block-start: calc(-0.5 * var(--spine-width));
 	margin-inline-start: calc(-0.5 * var(--spine-width));
-	border-color: var(--text-chat-muted);
+	border-color: var(--brand-secondary);
 	border-width: var(--spine-width) 0 0 var(--spine-width);
 	border-style: solid;
 	border-top-left-radius: var(--message-reply-spine-radius);
@@ -717,7 +732,7 @@
 	right: calc(100% - var(--avatar-size) / 2 + var(--spine-gap) + var(--message-reply-spine-width));
 	margin-block-start: calc(-0.5 * var(--spine-width));
 	margin-inline-start: calc(-0.5 * var(--spine-width));
-	border-color: var(--text-chat-muted);
+	border-color: var(--brand-secondary);
 	border-width: var(--spine-width) 0 0 var(--spine-width);
 	border-style: solid;
 	border-top-left-radius: var(--message-reply-spine-radius);
@@ -756,6 +771,8 @@
 	-webkit-user-select: none;
 }
 
+/* Reply strip corner glyph — purple, matching the spine (4.27:1 as a
+ * non-text graphical element, well over the 3:1 requirement). */
 .repliedIconContainer {
 	margin-inline-end: var(--message-container-gap);
 	display: flex;
@@ -765,8 +782,8 @@
 	justify-content: center;
 	flex-shrink: 0;
 	border-radius: 50%;
-	background-color: var(--background-primary);
-	color: var(--text-primary);
+	background-color: transparent;
+	color: var(--brand-secondary);
 }
 
 .repliedIcon {
@@ -1081,9 +1098,10 @@
 	gap: var(--message-typing-pill-gap);
 	min-height: var(--typing-pill-height);
 	padding: 0 var(--message-typing-pill-padding);
-	border-radius: var(--radius-2xl);
-	background-color: var(--background-tertiary);
-	border: 1px solid color-mix(in srgb, var(--background-modifier-accent) 80%, transparent);
+	border-radius: var(--mv-radius-pill);
+	background-color: color-mix(in srgb, var(--mv-surface-rail) 70%, transparent);
+	border: 1px solid var(--mv-hairline);
+	--typing-indicator-color: var(--brand-primary);
 	pointer-events: auto;
 	grid-column: 1 / -1;
 	justify-self: flex-start;
@@ -1091,11 +1109,42 @@
 	transform: translateY(calc(50% + var(--typing-floating-offset, 0px)));
 }
 
+/*
+ * Light theme: same neutral treatment as dark, re-expressed on the light
+ * surface tokens. This used to fill the pill with --brand-primary, but
+ * .typingText carries its own `color: var(--text-primary-muted)` and so beat
+ * the pill's inherited on-brand colour — muted grey on the brand fill
+ * measured 1.6:1. A card-tone pill keeps --text-primary-muted at 4.6:1 and
+ * the brand-coloured dots at 3.9:1 as a graphic.
+ */
 :global(.theme-light) .typingPill {
-	background-color: var(--brand-primary);
-	border: none;
-	color: var(--text-on-brand-primary);
-	--typing-indicator-color: var(--text-on-brand-primary);
+	background-color: color-mix(in srgb, var(--mv-surface-card) 92%, transparent);
+	border: 1px solid var(--mv-hairline);
+}
+
+/*
+ * --text-primary-muted measures 3.83:1 on that pill at 11px; --text-secondary
+ * measures 5.2:1. Dark theme keeps the muted stop (11.8:1 there).
+ */
+:global(.theme-light) .typingPill .typingText {
+	color: var(--text-secondary);
+}
+
+/*
+ * Mobile (reference §2b): the composer carries no bottom margin there, so the
+ * floating typing pill lands directly on top of the last message rather than
+ * in a gap below it. At 70%/92% fill the message text read straight through
+ * the pill's own label, so the fill goes fully opaque under 768px. Desktop
+ * (§1a) keeps the translucent float.
+ */
+@media (max-width: 767px) {
+	.typingPill {
+		background-color: var(--mv-surface-rail);
+	}
+
+	:global(.theme-light) .typingPill {
+		background-color: var(--mv-surface-card);
+	}
 }
 
 .typingIndicator {
@@ -1118,7 +1167,9 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	font-family: var(--font-mono);
 	font-size: var(--message-typing-text-font-size);
+	color: var(--text-primary-muted);
 }
 
 .compactContentWrapper {

@@ -70,7 +70,9 @@
 	display: inline-block;
 	/* 700 rather than 600: at 0.625rem the uppercase label needs the extra
 	 * stroke weight to stay crisp on a saturated gradient. */
+	font-family: var(--font-mono);
 	font-weight: 700;
+	letter-spacing: 0.1em;
 	pointer-events: none;
 	line-height: var(--user-tag-line-height, 1);
 }

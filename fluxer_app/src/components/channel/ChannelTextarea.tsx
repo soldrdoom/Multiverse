@@ -890,6 +890,7 @@ const ChannelTextareaContent = observer(
 							wrapperStyles.wrapperSides,
 							styles.textareaOuter,
 							mobileLayout.enabled && styles.textareaOuterMobile,
+							mobileLayout.enabled && wrapperStyles.boxMobile,
 							hasStackedSections ? wrapperStyles.roundedBottom : wrapperStyles.roundedAll,
 							wrapperStyles.bottomSpacing,
 							disabled && wrapperStyles.disabled,

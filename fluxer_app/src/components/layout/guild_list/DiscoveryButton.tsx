@@ -58,14 +58,14 @@ export const DiscoveryButton = observer(() => {
 					>
 						<motion.div
 							ref={iconRef}
-							className={guildStyles.addGuildButtonIcon}
+							className={guildStyles.railUtilityButtonIcon}
 							animate={{borderRadius: isHovering ? '30%' : '50%'}}
 							initial={{borderRadius: isHovering ? '30%' : '50%'}}
 							transition={{duration: AccessibilityStore.useReducedMotion ? 0 : 0.07, ease: 'easeOut'}}
 							whileHover={AccessibilityStore.useReducedMotion ? undefined : {borderRadius: '30%'}}
 						>
 							<CompassIcon weight="fill" className={styles.iconText} />
-						<span className={styles.iconLabel}>Explore</span>
+							<span className={styles.iconLabel}>Explore</span>
 						</motion.div>
 					</button>
 				</FocusRing>

@@ -54,7 +54,8 @@
 }
 
 .partnerIcon {
-	color: white;
+	/* Sits on a --brand-primary disc: white is 1.50:1, fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 	width: 62.5%;
 	height: 62.5%;
 }

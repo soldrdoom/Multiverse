@@ -18,7 +18,8 @@
  */
 
 .channelListScroller {
-	background-color: var(--background-secondary);
+	/* Sidebar tone by name — see GuildNavbar.module.css. */
+	background-color: var(--mv-surface-sidebar);
 }
 
 .channelListScrollerWrapper {

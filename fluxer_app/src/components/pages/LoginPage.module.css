@@ -544,7 +544,11 @@
 	height: 52px;
 	min-height: 52px;
 	border-radius: 999px !important;
-	background: var(--gradient-brand) !important;
+	/* !important here overrides the theme layer's legible ramp, so it has to
+	   carry the legible ramp itself: the raw purple stop is 4.28:1 against
+	   --button-primary-text, under the 4.5:1 floor for this bold ~15px label.
+	   --gradient-brand-legible is 5.59:1 at its worst stop. */
+	background: var(--gradient-brand-legible) !important;
 	color: var(--button-primary-text) !important;
 	font-family: 'Manrope', var(--font-sans) !important;
 	font-weight: 700 !important;

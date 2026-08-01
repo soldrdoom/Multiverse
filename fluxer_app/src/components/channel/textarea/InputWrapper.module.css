@@ -25,10 +25,30 @@
 	box-sizing: border-box;
 }
 
+/*
+ * Desktop composer floats as an inset pill over the chat obsidian
+ * (reference §1a), so the horizontal inset moves from padding on
+ * .textareaOuter to a margin on the box itself. Mobile keeps the existing
+ * edge-to-edge geometry — §2b is out of scope for this pass.
+ */
+@media (min-width: 768px) {
+	.wrapperSides {
+		margin-left: var(--textarea-horizontal-padding);
+		margin-right: var(--textarea-horizontal-padding);
+		width: auto;
+	}
+}
+
+/*
+ * Composer surface: #1a202c field, 14px radius, purple hairline and a soft
+ * ambient purple halo. Text inside stays on --text-chat over the solid
+ * field colour — the halo is outside the box, so it never sits under copy.
+ */
 .box {
 	position: relative;
-	background-color: var(--background-secondary-lighter);
-	border: none;
+	background-color: var(--background-textarea);
+	border: 1px solid var(--mv-border-composer);
+	box-shadow: var(--glow-composer);
 	transition: border-color 0.2s ease;
 	margin-bottom: 0;
 	max-width: 100%;
@@ -45,33 +65,62 @@
 }
 
 .stackSection + .stackSection {
-	border-top: 1px solid var(--user-area-divider-color);
-}
-
-.box:focus-within {
-	border-top: none;
+	border-top: 1px solid var(--mv-hairline);
 }
 
 .roundedAll {
-	border-radius: 0;
+	border-radius: var(--mv-radius-tile);
 }
 
 .roundedTop {
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-}
-
-.roundedBottom {
+	border-top-left-radius: var(--mv-radius-tile);
+	border-top-right-radius: var(--mv-radius-tile);
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 }
 
+.roundedBottom {
+	border-bottom-left-radius: var(--mv-radius-tile);
+	border-bottom-right-radius: var(--mv-radius-tile);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+/*
+ * Mobile (reference §2b): the composer is a full-bleed bar, not a floating
+ * card — the purple hairline and the composer surface move inward onto the
+ * input pill and the circular buttons (MobileTextareaLayout.module.css), and
+ * the bar itself keeps only a top hairline over the chat obsidian.
+ *
+ * Applied by class from ChannelTextarea (`mobileLayout.enabled`) rather than
+ * by @media, because MobileLayoutStore switches on a 640/768 hysteresis pair
+ * plus a mobile-browser force flag, so no single width query matches it.
+ * Declared after .roundedAll/.roundedTop/.roundedBottom so it wins the
+ * border-radius at equal specificity without !important.
+ */
+.boxMobile {
+	background-color: var(--mv-surface-chat);
+	border: none;
+	border-top: 1px solid var(--mv-hairline);
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* Reply / edit / scheduled bars stack directly on top of the composer; they
+ * share its border but must not each contribute their own halo. */
 .noBottomBorder {
 	border-bottom-width: 0;
+	box-shadow: none;
 }
 
 .bottomSpacing {
 	margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+	.bottomSpacing {
+		margin-bottom: var(--spacing-4);
+	}
 }
 
 .disabled {

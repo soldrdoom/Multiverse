@@ -78,7 +78,9 @@
 .checkIcon {
 	height: 10px;
 	width: 10px;
-	color: white;
+	/* Sits on .checkboxChecked's --brand-primary fill: white is 1.50:1,
+	   --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 }
 
 .code {

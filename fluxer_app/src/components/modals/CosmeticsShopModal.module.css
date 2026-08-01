@@ -32,7 +32,9 @@
 	font-weight: 500;
 	color: var(--text-secondary);
 	background-color: var(--background-secondary);
-	transition: background-color 0.1s, color 0.1s;
+	transition:
+		background-color 0.1s,
+		color 0.1s;
 }
 
 .filterTab:hover {
@@ -174,7 +176,8 @@
 	font-size: 0.8125rem;
 	font-weight: 600;
 	background-color: var(--brand-primary);
-	color: white;
+	/* White on #14f195 measures 1.50:1; --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 	transition: opacity 0.1s;
 }
 
@@ -462,7 +465,9 @@
 	font-size: 0.8125rem;
 	font-weight: 600;
 	background: var(--brand-primary);
-	color: white;
+	/* White is 1.50:1 on #14f195 and 1.25:1 on the --brand-primary-light hover;
+	   --brand-primary-fill is 12.92:1 / 15.42:1. */
+	color: var(--brand-primary-fill);
 	transition: background 120ms ease;
 	align-self: flex-start;
 }
@@ -646,7 +651,9 @@
 	border-radius: var(--radius-md);
 	border: none;
 	background: var(--brand-primary);
-	color: white;
+	/* White is 1.50:1 on #14f195 and 1.25:1 on the --brand-primary-light hover;
+	   --brand-primary-fill is 12.92:1 / 15.42:1. */
+	color: var(--brand-primary-fill);
 	font-size: 0.8125rem;
 	font-weight: 600;
 	cursor: pointer;

@@ -23,20 +23,50 @@
 	}
 }
 
+/*
+ * Declared locally rather than reusing the global mv-sheen block in
+ * multiverse-theme.css: every other keyframe in this codebase is defined in
+ * the module that consumes it, because rspack's CSS-module pipeline
+ * localises animation-name idents.
+ */
+@keyframes mv-typing-bounce {
+	0%,
+	60%,
+	100% {
+		transform: translateY(0);
+	}
+	30% {
+		transform: translateY(-3px);
+	}
+}
+
+/*
+ * Reference §1a: three green dots on a staggered 1.2s bounce
+ * (0 / 0.15s / 0.3s) instead of the old opacity blink.
+ */
 .dot {
-	animation: 1s blink infinite;
-	color: var(--text-chat);
+	animation: mv-typing-bounce 1.2s ease-in-out infinite;
+	transform-box: fill-box;
+	transform-origin: center;
+	color: var(--typing-indicator-color, var(--brand-primary));
 }
 
 .dot:nth-child(2) {
-	animation-delay: 250ms;
+	animation-delay: 150ms;
 }
 
 .dot:nth-child(3) {
-	animation-delay: 500ms;
+	animation-delay: 300ms;
 }
 
 :global(html:not(.window-focused)) .dot {
 	animation-play-state: paused;
+	opacity: 1;
+}
+
+/* Static dots under reduced motion (no bounce, no residual offset). */
+:global(html.reduced-motion) .dot {
+	animation: none;
+	transform: none;
 	opacity: 1;
 }

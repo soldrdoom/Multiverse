@@ -24,12 +24,14 @@
 	max-inline-size: 100%;
 	max-width: 100%;
 	box-sizing: border-box;
-	border-radius: 8px;
+	border-radius: 10px;
 }
 
+/* Reference §1a: card surface + hairline. The left spine stays the
+ * data-driven embed accent colour set inline by Embed.tsx. */
 .embedFull {
-	background: var(--background-primary);
-	border: 1px solid var(--background-modifier-accent);
+	background: var(--mv-surface-card);
+	border: 1px solid var(--mv-hairline-soft);
 }
 
 .gridContainer {
@@ -74,7 +76,10 @@
 }
 
 .embedProvider {
-	font-size: 0.75rem;
+	font-family: var(--font-mono);
+	font-size: 0.625rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
 	line-height: 1rem;
 	grid-column: 1 / 1;
 	font-weight: 500;
@@ -98,6 +103,7 @@
 }
 
 .embedAuthorName {
+	font-family: var(--font-display);
 	font-size: 0.875rem;
 	font-weight: 600;
 	color: var(--text-primary);
@@ -122,19 +128,25 @@
 }
 
 .embedTitle {
-	font-size: 1rem;
+	font-family: var(--font-display);
+	font-size: 0.90625rem;
 	font-weight: 600;
 	display: inline-block;
 	grid-column: 1 / 1;
 	color: var(--text-primary);
 }
 
+/* Linked titles take the brand green (12.5:1 on the card surface). */
+.embedTitle .embedLink {
+	color: var(--text-link);
+}
+
 .embedDescription {
-	font-size: 0.875rem;
-	line-height: 1.125rem;
+	font-size: 0.8125rem;
+	line-height: 1.45;
 	white-space: pre-line;
 	grid-column: 1 / 1;
-	color: var(--text-primary);
+	color: var(--text-chat-muted);
 }
 
 .embedFields {

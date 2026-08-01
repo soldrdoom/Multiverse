@@ -17,11 +17,21 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * Mobile composer — reference §2b.
+ *
+ * Every control in this row is 44x44 rather than the reference's 34/36/38px
+ * circles: the handoff's own "touch targets >= 44px" rule wins over its
+ * sketched pixel sizes. The row therefore stands 44 + 2*8 = 60px tall.
+ * --mv-control-touch is local to this module so the four controls and the
+ * input pill cannot drift apart.
+ */
 .mobileTextareaWrapper {
+	--mv-control-touch: 44px;
 	display: flex;
 	align-items: flex-end;
-	gap: 6px;
-	padding: 8px;
+	gap: 9px;
+	padding: 8px 12px;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -30,22 +40,40 @@
 	display: flex;
 	align-items: flex-end;
 	flex-shrink: 0;
-	height: 36px;
+	height: var(--mv-control-touch, 44px);
 }
 
+/*
+ * Quiet circle on the composer surface with the same purple hairline the
+ * input pill and the desktop composer carry (--mv-border-composer).
+ */
 .mobilePlusButton {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 36px;
-	height: 36px;
+	width: var(--mv-control-touch, 44px);
+	height: var(--mv-control-touch, 44px);
 	border-radius: 50%;
-	background-color: var(--background-tertiary);
-	color: var(--text-primary);
-	border: none;
+	background-color: var(--mv-surface-composer);
+	color: var(--mv-glyph-muted);
+	border: 1px solid var(--mv-border-composer);
 	cursor: pointer;
 	flex-shrink: 0;
 	padding: 0;
+	transition:
+		color var(--transition-fast),
+		background-color var(--transition-fast);
+}
+
+.mobilePlusButton:active {
+	color: var(--brand-primary);
+	background-color: var(--mv-surface-raised);
+}
+
+@media (hover: hover) {
+	.mobilePlusButton:hover {
+		color: var(--brand-primary);
+	}
 }
 
 .mobilePlusButtonIcon {
@@ -58,19 +86,27 @@
 	min-width: 0;
 	display: flex;
 	align-items: flex-end;
-	gap: 6px;
+	gap: 9px;
 }
 
+/*
+ * Input pill: --mv-surface-composer (#1a202c) behind a purple hairline, same
+ * pairing as the desktop composer box. Radius is half the resting height
+ * rather than --mv-radius-pill so a grown, multi-line field degrades into a
+ * rounded rect instead of a stadium; at rest the two are identical.
+ */
 .mobileInputContainer {
 	flex: 1;
 	min-width: 0;
 	display: flex;
 	align-items: flex-end;
-	background-color: var(--background-tertiary);
-	border-radius: 18px;
+	background-color: var(--mv-surface-composer);
+	border: 1px solid var(--mv-border-composer);
+	border-radius: calc(var(--mv-control-touch, 44px) / 2);
 	padding: 0;
 	position: relative;
-	min-height: 36px;
+	min-height: var(--mv-control-touch, 44px);
+	box-sizing: border-box;
 }
 
 .mobileInputContent {
@@ -83,10 +119,15 @@
 	font-size: 0.9375rem;
 }
 
+/*
+ * Offset by the pill's 1px hairline so the transparent 44px circle is
+ * centred on the pill's border box rather than its content box — a 42px
+ * button would sit 2px under the touch-target floor.
+ */
 .mobileEmojiButtonContainer {
 	position: absolute;
-	right: 4px;
-	bottom: 2px;
+	right: -1px;
+	bottom: -1px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -97,15 +138,25 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 32px;
-	height: 32px;
+	width: var(--mv-control-touch, 44px);
+	height: var(--mv-control-touch, 44px);
 	border-radius: 50%;
 	background-color: transparent;
-	color: var(--text-primary-muted);
+	color: var(--mv-glyph-muted);
 	border: none;
 	cursor: pointer;
 	flex-shrink: 0;
 	padding: 0;
+}
+
+.mobileEmojiButton:active {
+	color: var(--brand-primary);
+}
+
+@media (hover: hover) {
+	.mobileEmojiButton:hover {
+		color: var(--brand-primary);
+	}
 }
 
 .mobileEmojiButtonIcon {
@@ -117,21 +168,30 @@
 	flex-shrink: 0;
 	display: flex;
 	align-items: flex-end;
-	height: 36px;
+	height: var(--mv-control-touch, 44px);
 }
 
+/*
+ * Send: circular sheen CTA. The animated --gradient-sheen fill, the pill
+ * radius and --glow-brand come from the shared
+ * `[aria-label='Send Message']:not(:disabled)` rule in multiverse-theme.css
+ * (which also parks the animation under html.reduced-motion), so no local
+ * mv-sheen keyframes are needed here. The flat --brand-primary below is the
+ * disabled/fallback fill. Dark ink on it, never white (1.50:1 vs 12.92:1).
+ */
 .mobileSendButton {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 36px;
-	height: 36px;
+	width: var(--mv-control-touch, 44px);
+	height: var(--mv-control-touch, 44px);
 	border-radius: 50%;
 	background-color: var(--brand-primary);
-	color: white;
+	color: var(--brand-primary-fill);
 	border: none;
 	cursor: pointer;
 	flex-shrink: 0;
+	padding: 0;
 }
 
 .mobileSendButton:disabled {
@@ -143,12 +203,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 36px;
-	height: 36px;
+	width: var(--mv-control-touch, 44px);
+	height: var(--mv-control-touch, 44px);
 	border-radius: 50%;
-	background-color: var(--background-tertiary);
-	color: var(--text-primary);
-	border: none;
+	background-color: var(--mv-surface-composer);
+	border: 1px solid var(--mv-border-composer);
+	color: var(--mv-glyph-muted);
 	cursor: pointer;
 	flex-shrink: 0;
 	touch-action: none;

@@ -31,7 +31,15 @@
 	user-select: none;
 	-webkit-user-select: none;
 	overflow: hidden;
-	background-color: var(--background-secondary);
+	/*
+	 * Channel sidebar — the darker of the two chrome tones, named explicitly.
+	 * --background-secondary is the card tone (and is read by 143 files, most
+	 * of them nowhere near the sidebar), so the sidebar asks for the surface
+	 * it actually wants rather than repointing a global token.
+	 */
+	background-color: var(--mv-surface-sidebar);
+	border-right: 1px solid var(--mv-hairline-soft);
+	box-sizing: border-box;
 	position: relative;
 }
 

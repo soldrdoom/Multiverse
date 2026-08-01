@@ -1378,7 +1378,11 @@ export const DMList = observer(() => {
 									<Trans>Friends</Trans>
 								</span>
 							</div>
-							<MentionBadge mentionCount={pendingCount} />
+							{/* Wrapper only exists so the selected (gradient) row can invert
+							    the badge — see .navBadge in DMList.module.css. */}
+							<span className={styles.navBadge}>
+								<MentionBadge mentionCount={pendingCount} />
+							</span>
 						</div>
 					</ClickableItem>
 

@@ -135,7 +135,9 @@
 	font-size: 0.75rem;
 	line-height: 1rem;
 	font-weight: 500;
-	color: white;
+	/* White on the --brand-primary badge measures 1.50:1;
+	   --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 }
 
 .stepText {

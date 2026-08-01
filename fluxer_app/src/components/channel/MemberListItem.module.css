@@ -22,7 +22,7 @@
 	padding-top: 4px;
 	padding-bottom: 4px;
 	cursor: pointer;
-	border-radius: 0.375rem;
+	border-radius: 10px;
 	color: var(--text-chat);
 	display: block;
 	width: 100%;
@@ -30,19 +30,24 @@
 }
 
 .button:hover {
-	background-color: var(--background-modifier-hover);
+	background-color: var(--mv-hover-fill);
 	color: var(--text-primary);
 	opacity: 1;
 }
 
 .button[aria-expanded='true'] {
-	background-color: var(--background-modifier-selected);
+	background-color: var(--mv-hover-fill-strong);
 	color: var(--text-primary);
 	opacity: 1;
 }
 
+/*
+ * Reference §1a dims non-online rows to 0.55. Raised from the previous 0.3:
+ * --text-chat at 0.3 alpha over the sidebar surface measures 2.0:1, well
+ * under AA for 14px names; 0.55 lands at 5.2:1 and hover restores full.
+ */
 .buttonOffline {
-	opacity: 0.3;
+	opacity: 0.55;
 }
 
 .buttonContextMenuOpen {
@@ -52,7 +57,7 @@
 }
 
 .memberFocusRing {
-	border-radius: 0.375rem;
+	border-radius: 10px;
 }
 
 .grid {
@@ -96,6 +101,9 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	font-family: var(--font-display);
+	font-size: 0.875rem;
+	font-weight: 500;
 	line-height: 1.25rem;
 	max-height: 1.25rem;
 }

@@ -412,12 +412,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: linear-gradient(
-		135deg,
-		color-mix(in srgb, var(--brand-primary) 90%, transparent),
-		color-mix(in srgb, var(--brand-secondary) 85%, transparent)
-	);
-	color: white;
+	/* Was a 90%/85% green->purple wash: the white initials measured 1.81:1 on
+	   the green end, and dark text would have been 3.44:1 on the purple end.
+	   The legible ramp with a dark glyph clears AA across every stop
+	   (5.59:1 worst). */
+	background: var(--gradient-brand-legible);
+	color: var(--brand-primary-fill);
 	font-weight: 800;
 	font-size: 1.85rem;
 }

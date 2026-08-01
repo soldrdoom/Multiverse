@@ -27,18 +27,23 @@
 	padding: 0;
 }
 
+/* Both inherit the rail tile's neutral glyph colour (55% white -> white on
+   hover) from GuildsLayout's .railUtilityButtonIcon. The previous #0B0E14
+   was the foreground for the old gradient-filled tile and is invisible on
+   the neutral card surface. */
 .iconText {
 	height: 1rem;
 	width: 1rem;
-	color: #0B0E14;
+	color: inherit;
 }
 
 .iconLabel {
 	display: block;
+	font-family: var(--font-mono);
 	font-size: 0.4rem;
-	font-weight: 700;
-	color: #0B0E14;
-	letter-spacing: 0.05em;
+	font-weight: 600;
+	color: inherit;
+	letter-spacing: 0.1em;
 	line-height: 1;
 	margin-top: 4px;
 	padding-bottom: 2px;

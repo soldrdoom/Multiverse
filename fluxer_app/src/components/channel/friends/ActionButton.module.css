@@ -17,14 +17,23 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * Reference §2a: 34px circles. `transition: colors` was never a real
+ * property — the affordances animate background/border/colour now.
+ */
 .button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 2.25rem;
-	height: 2.25rem;
+	box-sizing: border-box;
+	width: 2.125rem;
+	height: 2.125rem;
 	border-radius: 50%;
-	transition: colors 0.2s ease;
+	transition:
+		background-color 0.15s ease,
+		border-color 0.15s ease,
+		color 0.15s ease,
+		filter 0.15s ease;
 }
 
 .danger {

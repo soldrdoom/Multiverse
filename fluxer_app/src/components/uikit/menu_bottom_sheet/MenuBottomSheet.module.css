@@ -109,7 +109,9 @@
 .checkIcon {
 	height: 0.75rem;
 	width: 0.75rem;
-	color: white;
+	/* Only rendered inside .checkbox.checked, which is a --brand-primary fill:
+	   white is 1.50:1, --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 }
 
 .radioContainer {

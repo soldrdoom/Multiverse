@@ -119,7 +119,7 @@ export const FavoritesButton = observer(({className}: FavoritesButtonProps = {})
 					<div className={styles.relative}>
 						<motion.div
 							ref={iconRef}
-							className={clsx(styles.multiverseButtonIcon, isSelected && styles.multiverseButtonIconSelected)}
+							className={clsx(styles.railUtilityButtonIcon, isSelected && styles.railUtilityButtonIconSelected)}
 							animate={{borderRadius: isActive ? '30%' : '50%'}}
 							initial={false}
 							transition={{duration: 0.07, ease: 'easeOut'}}

@@ -22,13 +22,14 @@
 	flex-direction: column;
 	gap: 0;
 	width: 100%;
-	background-color: var(--panel-control-bg);
+	background-color: color-mix(in srgb, var(--mv-surface-rail) 85%, transparent);
+	border-top: 1px solid var(--mv-hairline);
 	position: relative;
 }
 
 .separator {
 	height: 1px;
-	background-color: var(--user-area-divider-color);
+	background-color: var(--mv-hairline);
 }
 
 .userAreaContainer {
@@ -98,8 +99,9 @@
 }
 
 .userName {
-	font-weight: 500;
-	font-size: 0.875rem;
+	font-family: var(--font-display);
+	font-weight: 600;
+	font-size: 0.84375rem;
 	line-height: 1.125rem;
 	color: var(--text-primary);
 	white-space: nowrap;
@@ -108,17 +110,33 @@
 	max-width: 100%;
 }
 
+/*
+ * Second line is the reference's mono sub-label. Kept on
+ * --text-primary-muted (5.65:1 over the rail surface) rather than the
+ * reference's rgba(255,255,255,0.4), which only measures 3.5:1 at 10px.
+ */
 .userStatus {
-	font-size: 0.6875rem;
+	font-family: var(--font-mono);
+	font-size: 0.625rem;
+	letter-spacing: 0.02em;
 	line-height: 1rem;
 	color: var(--text-primary-muted);
-	font-weight: 500;
+	font-weight: 400;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	max-width: 100%;
 	margin-top: -0.0625rem;
-	opacity: 0.85;
+	opacity: 1;
+}
+
+/*
+ * Light theme: --text-primary-muted at 10px over the translucent rail mix
+ * measures 3.57:1. --text-secondary takes it to 5.2:1. Dark keeps the muted
+ * stop (11.95:1 there), so this is a light-only correction.
+ */
+:global(.theme-light) .userStatus {
+	color: var(--text-secondary);
 }
 
 .userStatusLabel {
@@ -217,7 +235,7 @@
 
 .controlButton:hover,
 .controlButton.contextMenuHover:not(.active):not(.disabled) {
-	background-color: color-mix(in srgb, var(--control-button-normal-text) 10%, transparent);
+	background-color: var(--mv-hover-fill-strong);
 	color: var(--control-button-hover-text);
 }
 

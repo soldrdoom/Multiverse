@@ -17,6 +17,17 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * Mobile bottom nav — reference §2b.
+ *
+ * Sits on the rail obsidian (--mv-surface-rail, the same tone as the desktop
+ * guild rail) under a hairline, with the active tab as a gradient pill in
+ * dark ink and a decorative gradient home indicator along the bottom edge.
+ *
+ * The 60px --mobile-bottom-nav-height is unchanged: it is also what
+ * GuildNavbar/GuildsLayout reserve for this bar, so it is budgeted here
+ * instead of grown — 3px top + 44px tab + 5px gap + 8px indicator strip.
+ */
 .container {
 	position: fixed;
 	left: 0;
@@ -27,44 +38,111 @@
 	height: var(--mobile-bottom-nav-height);
 	align-items: center;
 	justify-content: space-around;
-	border-top: 1px solid var(--background-header-secondary);
-	background-color: var(--background-secondary);
+	gap: 4px;
+	padding: 3px 8px 11px;
+	box-sizing: border-box;
+	border-top: 1px solid var(--mv-hairline);
+	background-color: var(--mv-surface-rail);
 }
 
-:global(.theme-light) .container {
-	background-color: var(--background-primary);
+/*
+ * Home indicator. Pure chrome (no text ever sits on it), so it takes the raw
+ * --gradient-brand rather than the legible ramp.
+ */
+.container::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	bottom: 3px;
+	transform: translateX(-50%);
+	width: 120px;
+	height: 4px;
+	border-radius: var(--mv-radius-pill);
+	background: var(--gradient-brand);
+	opacity: 0.5;
+	pointer-events: none;
 }
 
 .navButton {
 	display: flex;
 	flex: 1;
+	min-width: 0;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 0.25rem;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
+	gap: 3px;
+	/* Touch target floor; the tab renders 44-46px tall inside the 49px row. */
+	min-height: 44px;
+	padding: 3px 2px;
+	border-radius: var(--mv-radius-pill);
+	box-sizing: border-box;
 	cursor: pointer;
+	transition:
+		color var(--transition-fast),
+		background-color var(--transition-fast);
 }
 
+/*
+ * Active tab: gradient pill in dark ink. --gradient-brand-legible, not
+ * --gradient-brand — the label sits ON the fill, and the raw ramp's purple
+ * stop is only 4.28:1 against --brand-primary-fill where the legible ramp is
+ * 5.59:1.
+ */
 .navButtonActive {
-	color: var(--text-primary);
+	background: var(--gradient-brand-legible);
+	color: var(--brand-primary-fill);
 }
 
+.navButtonActive .label {
+	font-weight: 700;
+}
+
+/*
+ * Inactive ink. The reference calls for rgba(255,255,255,0.45), which
+ * measures 3.9:1 on the rail obsidian — under AA for a 10px label.
+ * --mv-glyph-muted (0.55 white on dark, --text-secondary on light) is the
+ * rail's own glyph token and measures 5.5:1.
+ */
 .navButtonInactive {
-	color: var(--text-primary-muted);
+	color: var(--mv-glyph-muted);
+}
+
+.navButtonInactive:active {
+	background-color: var(--mv-hover-fill-strong);
+	color: var(--mv-glyph-strong);
+}
+
+.navButtonActive:active {
+	filter: brightness(0.94);
+}
+
+@media (hover: hover) {
+	.navButtonInactive:hover {
+		background-color: var(--mv-hover-fill);
+		color: var(--mv-glyph-strong);
+	}
+
+	.navButtonActive:hover {
+		filter: brightness(1.1);
+	}
 }
 
 .voiceButton {
-	color: var(--status-online);
+	color: var(--brand-primary);
 }
 
 .icon {
-	height: 1.5rem;
-	width: 1.5rem;
+	height: 1.375rem;
+	width: 1.375rem;
 }
 
 .label {
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-family: var(--font-display);
 	font-weight: 600;
 	font-size: 10px;
+	letter-spacing: 0.01em;
 }

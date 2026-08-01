@@ -197,13 +197,17 @@
 	align-items: center;
 	justify-content: center;
 	border-radius: 9999px;
-	background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark, #4752c4) 100%);
+	/* Was green -> #4752c4 (an undefined --brand-primary-dark falling back to
+	   pre-Solana blurple), which left the white icon at 1.50:1 on the green
+	   half. The legible brand ramp with a dark glyph is 5.59:1 at its worst
+	   stop. */
+	background: var(--gradient-brand-legible);
 }
 
 .themeIcon {
 	height: 2.5rem;
 	width: 2.5rem;
-	color: white;
+	color: var(--brand-primary-fill);
 }
 
 .form {

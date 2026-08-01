@@ -598,7 +598,9 @@
 }
 
 .newGroupIconWhite {
-	color: white;
+	/* Sits on .newGroupIconContainer's --brand-primary disc: white is 1.50:1,
+	   --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 }
 
 .newGroupContent {
@@ -786,7 +788,9 @@
 
 .quickActionButtonActive {
 	background-color: var(--brand-primary);
-	color: white;
+	/* White is 1.50:1 on #14f195 and 1.25:1 on the --brand-primary-light hover;
+	   --brand-primary-fill is 12.92:1 / 15.42:1. */
+	color: var(--brand-primary-fill);
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -31,7 +31,14 @@
 	width: 100%;
 	min-width: 0;
 	max-width: 100%;
-	background-color: var(--background-secondary);
+	/*
+	 * App shell behind the rail, the channel sidebar and the user area — it
+	 * shows through the translucent .userAreaWrapper and through the rounded
+	 * top-left corner of .contentContainerRounded, so it takes the sidebar
+	 * tone by name rather than riding on --background-secondary (which is the
+	 * card tone and has 143 unrelated consumers).
+	 */
+	background-color: var(--mv-surface-sidebar);
 }
 
 .guildsLayoutReserveSpace {
@@ -45,7 +52,7 @@
 .guildsLayoutContainerMobile {
 	composes: guildsLayoutContainer;
 	grid-template-columns: 1fr;
-	background-color: var(--background-secondary);
+	background-color: var(--mv-surface-sidebar);
 }
 
 .guildListScrollerWrapper {
@@ -59,7 +66,9 @@
 	);
 	width: var(--layout-guild-list-width);
 	min-width: 0;
-	background-color: var(--background-secondary);
+	background-color: var(--mv-surface-rail);
+	border-right: 1px solid var(--mv-hairline-soft);
+	box-sizing: border-box;
 	position: relative;
 	z-index: var(--z-index-elevated-1);
 }
@@ -68,8 +77,8 @@
 	height: 100%;
 	width: 100%;
 	min-width: 0;
-	background-color: var(--background-secondary);
-	--guild-badge-surface: var(--background-secondary);
+	background-color: var(--mv-surface-rail);
+	--guild-badge-surface: var(--mv-surface-rail);
 	padding-top: var(--spacing-1);
 	padding-bottom: var(--spacing-2);
 }
@@ -127,7 +136,8 @@
 	grid-template-rows: minmax(0, 1fr);
 	min-height: 0;
 	min-width: 0;
-	background-color: var(--background-secondary);
+	/* Backs the channel sidebar + chat column; sidebar tone by name. */
+	background-color: var(--mv-surface-sidebar);
 	position: relative;
 	height: calc(100% - var(--layout-mobile-bottom-nav-reserved-height, 0px));
 	max-height: calc(100% - var(--layout-mobile-bottom-nav-reserved-height, 0px));
@@ -151,7 +161,7 @@
 	max-height: 100%;
 	width: 100%;
 	min-width: 0;
-	background-color: var(--background-secondary);
+	background-color: var(--mv-surface-sidebar);
 }
 
 .nagbarStack {
@@ -211,14 +221,14 @@
 }
 
 .guildIconSelected:not(.guildIconNoImage) {
-	border-radius: 30%;
+	border-radius: var(--mv-radius-tile);
 }
 
 @media (hover: hover) and (pointer: fine) {
 	.guildListItem:hover .guildIcon:not(.guildIconNoImage),
 	.guildIcon:hover:not(.guildIconNoImage),
 	.guildListItem.contextMenuHover .guildIcon:not(.guildIconNoImage) {
-		border-radius: 30%;
+		border-radius: var(--mv-radius-tile);
 	}
 }
 
@@ -226,23 +236,40 @@
 	transition-property: background-color, color, border-radius;
 	transition-duration: 70ms;
 	transition-timing-function: ease-out;
-	background-color: var(--guilds-layout-item-bg, var(--guild-list-foreground));
+	/*
+	 * Inactive rail tile. The dark-theme fill is named directly
+	 * (--mv-surface-card) instead of repointing the global
+	 * --guild-list-foreground: that token is also read by the DM sidebar chips
+	 * and the channel/favorites welcome icons, and forcing it dark in :root
+	 * dropped those to 1.15:1 under the light theme's dark --text-primary.
+	 * Light theme still supplies --guilds-layout-item-bg below, so it never
+	 * reaches this fallback.
+	 */
+	background-color: var(--guilds-layout-item-bg, var(--mv-surface-card));
+	font-family: var(--font-display);
 	cursor: pointer;
 }
 
+/*
+ * Selected/hovered initials tiles keep the dark card surface and morph
+ * circle -> rounded square; the selected state is carried by the gradient
+ * side pill plus the ring/glow from the theme layer. (Previously these were
+ * filled with --brand-primary and lettered in white, which measured 1.4:1 —
+ * the initials were effectively invisible.)
+ */
 .guildIconSelected.guildIconNoImage {
-	border-radius: 30%;
-	background-color: var(--brand-primary);
-	color: white;
+	border-radius: var(--mv-radius-tile);
+	background-color: var(--mv-surface-card);
+	color: var(--text-primary);
 }
 
 @media (hover: hover) and (pointer: fine) {
 	.guildListItem:hover .guildIconNoImage,
 	.guildIconNoImage:hover,
 	.guildListItem.contextMenuHover .guildIconNoImage {
-		border-radius: 30%;
-		background-color: var(--brand-primary);
-		color: white;
+		border-radius: var(--mv-radius-tile);
+		background-color: var(--mv-surface-raised);
+		color: var(--text-primary);
 	}
 }
 
@@ -285,9 +312,9 @@
 
 .guildIndicatorBar {
 	display: block;
-	width: 0.35rem;
-	border-radius: 0 var(--radius-full) var(--radius-full) 0;
-	background-color: var(--text-primary);
+	width: 0.25rem;
+	border-radius: 0 4px 4px 0;
+	background: var(--gradient-brand-vertical);
 }
 
 .guildBadge {
@@ -373,11 +400,25 @@
 	composes: guildListItem;
 }
 
+/*
+ * Home button — the rail's brand tile, and the ONLY rail tile that carries
+ * the gradient. Gradient fill + drop glow, glyph in --brand-primary-fill
+ * (dark on gradient, never white). Every other rail utility button uses the
+ * neutral .railUtilityButtonIcon treatment below.
+ *
+ * framer-motion writes an inline `border-radius` on this element (50% idle /
+ * 30% hover), so the tile radius needs !important to win — the brand mark is
+ * a static tile in the reference, it does not morph with hover like a guild
+ * icon does.
+ */
 .multiverseButtonIcon {
 	composes: guildIcon;
-	background-color: var(--guilds-layout-item-bg, var(--guild-list-foreground));
-	color: var(--text-primary);
-	transition-property: background-color, color, border-radius;
+	background: var(--gradient-brand-legible);
+	color: var(--brand-primary-fill);
+	font-family: var(--font-brand-glyph);
+	border-radius: var(--mv-radius-tile) !important;
+	box-shadow: var(--glow-purple);
+	transition-property: filter, box-shadow, border-radius;
 	transition-duration: 70ms;
 	transition-timing-function: ease-out;
 	padding: 0;
@@ -385,16 +426,16 @@
 }
 
 .multiverseButtonIconSelected {
-	background-color: var(--brand-primary);
-	color: white;
+	box-shadow:
+		var(--glow-purple),
+		0 0 0 2px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.35);
 }
 
 @media (hover: hover) and (pointer: fine) {
 	.multiverseButton:hover .multiverseButtonIcon,
 	.multiverseButtonIcon:hover,
 	.multiverseButton.contextMenuHover .multiverseButtonIcon {
-		background-color: var(--brand-primary);
-		color: white;
+		filter: brightness(1.1);
 	}
 }
 
@@ -404,7 +445,7 @@
 
 .identityVaultButtonIcon {
 	composes: guildIcon;
-	background-color: var(--guilds-layout-item-bg, var(--guild-list-foreground));
+	background-color: var(--guilds-layout-item-bg, var(--mv-surface-card));
 	color: var(--text-primary);
 	transition-property: background-color, color, border-radius;
 	transition-duration: 70ms;
@@ -417,8 +458,9 @@
 	.identityVaultButton:hover .identityVaultButtonIcon,
 	.identityVaultButtonIcon:hover,
 	.identityVaultButton.contextMenuHover .identityVaultButtonIcon {
-		background-color: var(--brand-primary);
-		color: white;
+		border-radius: var(--mv-radius-tile);
+		background-color: var(--mv-surface-raised);
+		color: var(--brand-primary);
 	}
 }
 
@@ -426,6 +468,66 @@
 	composes: guildListItem;
 }
 
+/*
+ * Neutral rail utility tile — discovery, shop, help, download, web3 and
+ * favorites. Same inactive treatment as an unselected guild icon: card
+ * surface circle that morphs to a rounded tile on hover, glyph rising from
+ * 55% white to full white. Sized off --guild-icon-size like every other rail
+ * tile (44px here; the reference sheet's 46px is drawn at its own scale).
+ *
+ * Deliberately NOT the dashed-green .addGuildButtonIcon below (reserved for
+ * "add a community") and NOT the gradient .multiverseButtonIcon above
+ * (reserved for home) — both of those are single-purpose affordances and
+ * stop reading as such the moment six buttons share them.
+ */
+.railUtilityButtonIcon {
+	composes: guildIcon;
+	/* Column layout so the buttons that pair a glyph with a micro-label
+	   (discovery's "EXPLORE") stack like the add tile does. */
+	flex-direction: column;
+	gap: 2px;
+	background-color: var(--mv-surface-card);
+	/* Theme-aware glyph ink — white alpha is 1.13:1 on the light rail. */
+	color: var(--mv-glyph-muted);
+	transition-property: background-color, color, border-radius;
+	transition-duration: 70ms;
+	transition-timing-function: ease-out;
+	padding: 0;
+	overflow: clip;
+}
+
+/*
+ * Selected state (favorites is the only utility button with one). The glow
+ * ring itself comes from the theme layer's [aria-pressed='true']
+ * [class*='guildIcon'] rule, which also forces the tile radius.
+ */
+.railUtilityButtonIconSelected {
+	background-color: var(--mv-surface-raised);
+	color: var(--brand-primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.addGuildButton:hover .railUtilityButtonIcon,
+	.multiverseButton:hover .railUtilityButtonIcon,
+	.railUtilityButtonIcon:hover,
+	.addGuildButton.contextMenuHover .railUtilityButtonIcon,
+	.multiverseButton.contextMenuHover .railUtilityButtonIcon {
+		/*
+		 * framer-motion writes an inline border-radius (50% idle / 30% hover)
+		 * on these tiles; the inline style would otherwise beat this rule, so
+		 * the morph target is marked !important to actually win.
+		 */
+		border-radius: var(--mv-radius-tile) !important;
+		background-color: var(--mv-surface-raised);
+		color: var(--mv-glyph-strong);
+	}
+}
+
+/*
+ * Add-guild tile — the rail's one dashed-green "add" affordance. Outline
+ * rather than a fill, so the gradient stays reserved for the home tile and
+ * the active-guild pill. Green glyph on the rail surface measures 13.6:1.
+ */
 .addGuildButtonIcon {
 	display: flex;
 	flex-direction: column;
@@ -437,10 +539,10 @@
 	flex-shrink: 0;
 	cursor: pointer;
 	border-radius: var(--radius-full);
-	border: none;
-	background: var(--gradient-brand);
-	color: var(--button-primary-text);
-	transition-property: border-radius, filter;
+	border: 1px dashed hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.4);
+	background: transparent;
+	color: var(--brand-primary);
+	transition-property: border-radius, background-color, border-color;
 	transition-duration: 70ms;
 	transition-timing-function: ease-out;
 }
@@ -449,7 +551,10 @@
 	.addGuildButton:hover .addGuildButtonIcon,
 	.addGuildButtonIcon:hover,
 	.addGuildButton.contextMenuHover .addGuildButtonIcon {
-		filter: brightness(1.12);
+		/* Beats framer-motion's inline border-radius, as above. */
+		border-radius: var(--mv-radius-tile) !important;
+		border-color: var(--brand-primary);
+		background-color: hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.12);
 	}
 }
 

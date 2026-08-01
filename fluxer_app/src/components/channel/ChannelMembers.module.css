@@ -22,14 +22,73 @@
 	flex-direction: column;
 }
 
+/*
+ * Reference §1a: mono kicker ("ONLINE — 7") preceded by a small glowing
+ * green square. The dot is a pseudo-element, so it is decorative only and
+ * never exposed to assistive tech.
+ *
+ * The dot is status-coded — see .groupHeaderIdle / .groupHeaderOffline
+ * below. The default (green square) covers the "present" groups: `online`
+ * and every hoisted-role group (CORE, MODS, …), which by definition only
+ * contain online members.
+ */
 .groupHeader {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
 	padding-top: 0.75rem;
 	padding-bottom: 0.25rem;
 	padding-left: 0.5rem;
 	padding-right: 0.5rem;
-	font-weight: 600;
-	font-size: 0.875rem;
-	color: var(--text-primary-muted);
+	font-family: var(--font-mono);
+	font-weight: 500;
+	font-size: 0.65625rem;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--text-tertiary);
+}
+
+.groupHeader::before {
+	content: '';
+	flex: none;
+	width: 7px;
+	height: 7px;
+	border-radius: 2px;
+	background-color: var(--brand-primary);
+	box-shadow: 0 0 8px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.4);
+}
+
+/*
+ * Idle — hollow neutral ring (reference §1a), not the solid green square.
+ * Green is reserved for "actually online"; an away roster must not read as
+ * present at a glance. Only the decorative dot changes: the label keeps
+ * --text-tertiary in every variant, so contrast is identical across groups.
+ */
+.groupHeaderIdle::before {
+	width: 8px;
+	height: 8px;
+	border-radius: var(--radius-full);
+	border: 1.5px solid rgba(255, 255, 255, 0.35);
+	background-color: transparent;
+	box-shadow: none;
+}
+
+/*
+ * Offline — small filled neutral dot, no glow. Quietest of the three by
+ * size/shape rather than by fading it out: at 6px it reads lighter than the
+ * 8px idle ring while still holding 3.2:1 against the member-list surface
+ * (the 3:1 floor for non-text UI), so it does not vanish on dim displays.
+ */
+.groupHeaderOffline::before {
+	width: 6px;
+	height: 6px;
+	border-radius: var(--radius-full);
+	background-color: rgba(255, 255, 255, 0.35);
+	box-shadow: none;
+}
+
+.skeletonHeader::before {
+	display: none;
 }
 
 .membersList {
@@ -56,19 +115,35 @@
 	min-height: 42px;
 }
 
+/* Kept in sync with .groupHeader above (this variant is currently unused by
+ * any component, but the two are the same kicker treatment). */
 .virtualGroupRow {
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
 	gap: 0.375rem;
 	padding-left: 0.5rem;
 	padding-right: 0.5rem;
 	padding-top: 0;
 	padding-bottom: 2px;
 	box-sizing: border-box;
-	color: var(--text-primary-muted);
-	font-size: 0.8125rem;
-	font-weight: 600;
+	color: var(--text-tertiary);
+	font-family: var(--font-mono);
+	font-size: 0.65625rem;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	font-weight: 500;
 	line-height: 1rem;
+}
+
+.virtualGroupRow::before {
+	content: '';
+	flex: none;
+	width: 7px;
+	height: 7px;
+	border-radius: 2px;
+	margin-right: 0.125rem;
+	background-color: var(--brand-primary);
+	box-shadow: 0 0 8px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.4);
 }
 
 .virtualGroupLabel {

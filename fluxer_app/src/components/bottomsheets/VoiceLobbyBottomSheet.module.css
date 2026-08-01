@@ -68,15 +68,21 @@
 	padding: 12px 16px;
 	border-radius: 8px;
 	background-color: var(--brand-primary);
-	color: white;
+	/* White on #14f195 measures 1.50:1; --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 	font-weight: 500;
-	transition: background-color 0.2s ease;
+	transition:
+		filter 0.2s ease,
+		background-color 0.2s ease;
 	cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
 	.brandButton:hover {
-		background-color: #2563eb;
+		/* Was #2563eb, a pre-Solana blurple that turned this green button blue
+		   on hover. Brightening the brand fill matches how the reskin handles
+		   gradient/brand hovers elsewhere and keeps the dark label at 14.60:1. */
+		filter: brightness(1.1);
 	}
 }
 

@@ -185,10 +185,16 @@
 	background-color: var(--brand-primary);
 }
 
+/*
+ * .audioIcon / .audioDuration / .audioFilename / .audioBadge all sit directly
+ * on .audioCard, which is filled with --brand-primary. White on neon green is
+ * 1.50:1 (0.9-alpha white is worse); --brand-primary-fill is 12.92:1, and
+ * 8.4:1 through the badge's own rgba(0,0,0,0.2) scrim.
+ */
 .audioIcon {
 	height: 3rem;
 	width: 3rem;
-	color: white;
+	color: var(--brand-primary-fill);
 	flex-shrink: 0;
 }
 
@@ -203,7 +209,7 @@
 .audioDuration {
 	font-family: var(--font-mono);
 	font-size: 1.125rem;
-	color: white;
+	color: var(--brand-primary-fill);
 }
 
 .audioFilename {
@@ -214,7 +220,7 @@
 	text-align: center;
 	font-weight: 600;
 	font-size: 0.875rem;
-	color: rgba(255, 255, 255, 0.9);
+	color: var(--brand-primary-fill);
 }
 
 .audioBadge {
@@ -223,7 +229,7 @@
 	background-color: rgba(0, 0, 0, 0.2);
 	font-weight: 700;
 	font-size: 0.75rem;
-	color: white;
+	color: var(--brand-primary-fill);
 }
 
 .actionBar {

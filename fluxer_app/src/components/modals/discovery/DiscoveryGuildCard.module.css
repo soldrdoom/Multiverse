@@ -114,7 +114,10 @@
 
 .joinButton {
 	width: 100%;
-	background: var(--gradient-brand) !important;
+	/* Small uppercase/letter-spaced label — 4.5:1 floor. The raw ramp's purple
+	   stop is 4.28:1 against --button-primary-text; the legible ramp is
+	   5.59:1. */
+	background: var(--gradient-brand-legible) !important;
 	color: var(--button-primary-text) !important;
 	font-weight: 700 !important;
 	text-transform: uppercase;

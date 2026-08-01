@@ -328,7 +328,9 @@
 }
 
 .selectedIcon {
-	color: white;
+	/* Sits on .selectedBadge's --brand-primary disc: white is 1.50:1,
+	   --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 }
 
 .fileInput {

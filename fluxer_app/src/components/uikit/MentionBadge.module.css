@@ -17,16 +17,22 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * Mention count — gradient pill with dark mono digits (reference §1a). Uses
+ * --gradient-brand-legible so the 11px count clears AA at every stop
+ * (5.61:1 worst case) instead of the raw ramp's 4.27:1.
+ */
 .badge {
 	display: flex;
 	flex-shrink: 0;
 	align-items: center;
 	justify-content: center;
-	border-radius: 0.375rem;
-	background-color: var(--status-danger);
+	border-radius: var(--mv-radius-pill);
+	background: var(--gradient-brand-legible);
 	text-align: center;
+	font-family: var(--font-mono);
 	font-weight: 600;
-	color: white;
+	color: var(--brand-primary-fill);
 	pointer-events: none;
 	box-shadow:
 		0 4px 6px -1px rgb(0 0 0 / 0.1),

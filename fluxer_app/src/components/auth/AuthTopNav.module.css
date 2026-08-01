@@ -107,7 +107,10 @@
 
 @supports (background-clip: text) or (-webkit-background-clip: text) {
 	.links .link:hover {
-		background: var(--gradient-brand);
+		/* 13.6px/600 — small text, 4.5:1 floor. The raw ramp's purple stop is
+		   4.28:1, which made hovering *lower* contrast than the resting
+		   rgba(255,255,255,0.72) state; the legible ramp is 5.59:1. */
+		background: var(--gradient-brand-legible);
 		background-clip: text;
 		-webkit-background-clip: text;
 		color: transparent;

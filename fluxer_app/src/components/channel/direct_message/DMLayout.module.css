@@ -25,13 +25,13 @@
 	min-height: 0;
 	width: 100%;
 	min-width: 0;
-	background-color: var(--background-secondary);
+	background-color: var(--mv-surface-sidebar);
 }
 
 .dmLayoutContainerMobile {
 	composes: dmLayoutContainer;
 	grid-template-columns: 1fr;
-	background-color: var(--background-secondary);
+	background-color: var(--mv-surface-sidebar);
 }
 
 .dmListColumn {
@@ -41,16 +41,22 @@
 	width: 100%;
 	min-width: 0;
 	flex-direction: column;
-	background-color: var(--background-secondary);
+	background-color: var(--mv-surface-sidebar);
 }
 
+/*
+ * Everything to the right of the DM sidebar is a reading surface (friends
+ * list, DM stream, saved messages), so it takes the chat obsidian by name
+ * instead of the tertiary/sidebar tones it used to flash before its child
+ * painted.
+ */
 .contentColumn {
 	display: grid;
 	height: 100%;
 	min-height: 0;
 	width: 100%;
 	min-width: 0;
-	background-color: var(--background-tertiary);
+	background-color: var(--mv-surface-chat);
 }
 
 .contentInner {
@@ -58,5 +64,5 @@
 	min-height: 0;
 	width: 100%;
 	min-width: 0;
-	background-color: var(--background-secondary);
+	background-color: var(--mv-surface-chat);
 }

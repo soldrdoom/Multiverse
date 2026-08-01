@@ -76,5 +76,6 @@
 .audioIcon {
 	height: 16px;
 	width: 16px;
-	color: white;
+	/* White on the neon-green --brand-primary is 1.50:1; --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 }

@@ -1,6 +1,7 @@
 /*
  * Multiverse Theme — Global CSS Override
  * Palette: Obsidian / Steel Charcoal / Solana Gradient (Purple → Green)
+ * Direction: "Neon Terminal" (design handoff §1a — desktop chat)
  *
  * Accent gradient stops sampled from the brand palette upload
  * (assets/brand/solana-color-palette.jpg): #9945FF -> #5799CB -> #3BBEB6 -> #14F195.
@@ -8,6 +9,11 @@
  * green endpoint alone for legibility; the full 4-stop gradient is reserved for
  * chrome (CTA buttons, active-state pills, header wash, glow rings) per the
  * "gradients on chrome, not on reading text" rule.
+ *
+ * Every accent below is written as hsl()/hsla() with the generated colour
+ * system's `--saturation-factor` multiplier baked in, so the accessibility
+ * desaturation slider keeps working on the brand layer too. The literal hex
+ * each stop was derived from is kept in a trailing comment.
  */
 
 /* ── Inter Font — Self-hosted (no external CDN) ──────────────────────── */
@@ -136,24 +142,275 @@
 		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* ── Space Grotesk — Self-hosted (display / chrome face) ──────────────
+   Guild + channel names, usernames, buttons, member names. Variable weight
+   axis 500–700 in a single file per subset, matching the Inter convention
+   above. ───────────────────────────────────────────────────────────── */
+@font-face {
+	font-family: 'Space Grotesk';
+	font-style: normal;
+	font-weight: 500 700;
+	font-display: swap;
+	src: url('../../assets/fonts/spacegrotesk-vietnamese.woff2') format('woff2');
+	unicode-range:
+		U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+		U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+	font-family: 'Space Grotesk';
+	font-style: normal;
+	font-weight: 500 700;
+	font-display: swap;
+	src: url('../../assets/fonts/spacegrotesk-latin-ext.woff2') format('woff2');
+	unicode-range:
+		U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+		U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+		U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: 'Space Grotesk';
+	font-style: normal;
+	font-weight: 500 700;
+	font-display: swap;
+	src: url('../../assets/fonts/spacegrotesk-latin.woff2') format('woff2');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ── DM Sans — Self-hosted (body / reading face) ──────────────────────
+   Message text, previews, descriptions, inputs. ───────────────────── */
+@font-face {
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 400 700;
+	font-display: swap;
+	src: url('../../assets/fonts/dmsans-latin-ext.woff2') format('woff2');
+	unicode-range:
+		U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+		U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+		U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 400 700;
+	font-display: swap;
+	src: url('../../assets/fonts/dmsans-latin.woff2') format('woff2');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ── IBM Plex Mono — Self-hosted (labels / data face) ─────────────────
+   Timestamps, category labels, kickers, badges, counts, code blocks.
+   Static weights (400/500/600) rather than a variable axis. ───────── */
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-400-cyrillic-ext.woff2') format('woff2');
+	unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-400-cyrillic.woff2') format('woff2');
+	unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-400-vietnamese.woff2') format('woff2');
+	unicode-range:
+		U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+		U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-400-latin-ext.woff2') format('woff2');
+	unicode-range:
+		U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+		U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+		U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-400-latin.woff2') format('woff2');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-500-cyrillic-ext.woff2') format('woff2');
+	unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-500-cyrillic.woff2') format('woff2');
+	unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-500-vietnamese.woff2') format('woff2');
+	unicode-range:
+		U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+		U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-500-latin-ext.woff2') format('woff2');
+	unicode-range:
+		U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+		U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+		U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-500-latin.woff2') format('woff2');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-600-cyrillic-ext.woff2') format('woff2');
+	unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-600-cyrillic.woff2') format('woff2');
+	unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-600-vietnamese.woff2') format('woff2');
+	unicode-range:
+		U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+		U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-600-latin-ext.woff2') format('woff2');
+	unicode-range:
+		U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+		U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+		U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: 'IBM Plex Mono';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('../../assets/fonts/ibmplexmono-600-latin.woff2') format('woff2');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ── Orbitron — Self-hosted (brand glyph only) ────────────────────────
+   Reserved for the brand mark glyph via --font-brand-glyph. Never used as
+   a UI/reading face. ──────────────────────────────────────────────── */
+@font-face {
+	font-family: 'Orbitron';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('../../assets/fonts/orbitron-700-latin.woff2') format('woff2');
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ── CSS Variable Overrides ──────────────────────────────────────────── */
 :root {
-	/* Core backgrounds — Obsidian / Steel Charcoal */
-	--background-primary: #0b0e14;
-	--background-secondary: #151921;
-	--background-secondary-lighter: #1a202c;
-	--background-secondary-alt: #151921;
-	--background-tertiary: #111520;
-	--background-channel-header: #151921;
-	--background-header-primary: #151921;
-	--background-header-secondary: #0d1018;
-	--background-textarea: #1a202c;
-	--background-header-primary-hover: #1e2530;
+	/* ── Accent stops (saturation-factor aware) ───────────────────────── */
+	--mv-purple: hsl(267, calc(100% * var(--saturation-factor)), 63.5%); /* #9945ff */
+	--mv-blue: hsl(206, calc(53% * var(--saturation-factor)), 56.9%); /* #5799cb */
+	--mv-teal: hsl(176, calc(53% * var(--saturation-factor)), 48.8%); /* #3bbeb6 */
+	--mv-green: hsl(155, calc(89% * var(--saturation-factor)), 51.2%); /* #14f195 */
+	--mv-green-light: hsl(155, calc(100% * var(--saturation-factor)), 71.8%); /* #6fffc2 */
+	--mv-cyan: hsl(187, calc(66% * var(--saturation-factor)), 56.7%); /* #48c9d9 */
+	--mv-lilac: hsl(266, calc(100% * var(--saturation-factor)), 74.1%); /* #b57bff */
+	/*
+	 * Bare `H S L` triplets for the two brand endpoints, so translucent
+	 * variants can be built inline as `hsl(var(--mv-purple-hsl) / 0.05)`
+	 * without restating the saturation-factor arithmetic at every stop.
+	 * Used by the chat-stream bloom, which needs ~8 alpha steps per hue.
+	 */
+	--mv-purple-hsl: 267 calc(100% * var(--saturation-factor)) 63.5%;
+	--mv-green-hsl: 155 calc(89% * var(--saturation-factor)) 51.2%;
+	/*
+	 * Text-safe purple. The raw #9945ff stop only reaches 4.27:1 against
+	 * --brand-primary-fill, which is under AA for the 13–15px bold labels the
+	 * gradient pills carry (WCAG "large text" starts at 18.66px bold). Lifting
+	 * lightness 63.5% -> 70% takes it to 5.61:1 while staying on-hue.
+	 */
+	--mv-purple-legible: hsl(267, calc(100% * var(--saturation-factor)), 70%);
+	--mv-violet-legible: hsl(256, calc(100% * var(--saturation-factor)), 70%); /* ~#7c4dff, lifted */
+
+	--mv-radius-pill: 999px;
+	--mv-radius-tile: 14px;
+
+	/*
+	 * NOTE: the surface ramp (--mv-surface-*), the hairline/hover fills and the
+	 * generated-token background repoints they drive are NOT defined here —
+	 * they are per-theme and live in the three theme blocks further down
+	 * (":root:not(.theme-light):not(.theme-coal)", ".theme-coal",
+	 * ".theme-light"). This block is only for tokens that are correct in every
+	 * theme: accent stops, gradients, glows, type, radii.
+	 *
+	 * This split is deliberate. multiverse-theme.css is imported after
+	 * color-system.css (src/index.tsx:30 vs :28) and ":root" has the same
+	 * (0,1,0) specificity as ".theme-light"/".theme-coal" on the same <html>
+	 * element, so anything repointed in a bare ":root" here silently beats the
+	 * generated light/coal themes and leaves them with dark backgrounds under
+	 * their own dark text.
+	 */
 
 	/* Brand accent — Solana purple→green */
-	--brand-primary: #14f195;
-	--brand-secondary: #9945ff;
-	--brand-primary-light: #6fffc2;
+	--brand-primary: var(--mv-green);
+	--brand-secondary: var(--mv-purple);
+	--brand-primary-light: var(--mv-green-light);
 	/*
 	 * Foreground for content sitting ON --brand-primary, not a fill/tint —
 	 * every consumer uses it as `color:`. It was briefly a translucent green
@@ -164,42 +421,320 @@
 	 * when a translucent green surface is what's wanted.
 	 */
 	--brand-primary-fill: #0b0e14;
-	--brand-primary-tint: rgba(20, 241, 149, 0.15);
+	--brand-primary-tint: hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.15);
 
 	/* Accent aliases */
-	--accent-primary: #14f195;
-	--accent-primary-strong: #6fffc2;
+	--accent-primary: var(--mv-green);
+	--accent-primary-strong: var(--mv-green-light);
 
-	/* Full gradient — chrome only (buttons, active pills, header wash, glow) */
-	--gradient-brand: linear-gradient(90deg, #9945ff 0%, #5799cb 33%, #3bbeb6 66%, #14f195 100%);
+	/*
+	 * Full 4-stop gradient — decorative chrome only (spines, indicator bars,
+	 * hairlines, glow rings). Never carries text.
+	 */
+	--gradient-brand: linear-gradient(
+		90deg,
+		var(--mv-purple) 0%,
+		var(--mv-blue) 33%,
+		var(--mv-teal) 66%,
+		var(--mv-green) 100%
+	);
+	--gradient-brand-vertical: linear-gradient(180deg, var(--mv-purple) 0%, var(--mv-green) 100%);
+	/*
+	 * Text-bearing gradient — active channel pills, mention/unread badges, BOT
+	 * tags, primary buttons. Same hues, purple stop lifted for contrast.
+	 * Measured against --brand-primary-fill: 5.61:1 purple, 6.29:1 blue,
+	 * 8.51:1 teal, 12.95:1 green — clears AA across the whole ramp.
+	 */
+	--gradient-brand-legible: linear-gradient(
+		90deg,
+		var(--mv-purple-legible) 0%,
+		var(--mv-blue) 33%,
+		var(--mv-teal) 66%,
+		var(--mv-green) 100%
+	);
+	/* Animated CTA sheen — pair with `background-size: 200% 100%` + mv-sheen. */
+	--gradient-sheen: linear-gradient(
+		90deg,
+		var(--mv-violet-legible),
+		var(--mv-cyan),
+		var(--mv-green),
+		var(--mv-violet-legible)
+	);
+	/*
+	 * Header wash — translucent, always layered over a solid surface so text
+	 * contrast is set by that surface, not the wash. Over --mv-surface-chat:
+	 * --text-primary 16.3:1, --text-tertiary 6.9:1 (purple end) / 6.6:1
+	 * (green end).
+	 */
+	--header-wash: linear-gradient(
+		90deg,
+		hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.12),
+		hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.08)
+	);
+	--header-wash-strong: linear-gradient(
+		90deg,
+		hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.14),
+		hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.09)
+	);
+	--glow-brand:
+		0 0 12px hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.25),
+		0 0 15px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.25);
+	--glow-brand-strong:
+		0 0 16px hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.38),
+		0 0 20px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.38);
+	--glow-purple: 0 0 18px hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.35);
+	--glow-green-dot: 0 0 6px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.5);
+	/* Ambient purple halo behind the composer pill. */
+	--glow-composer: 0 0 24px hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.08);
+	--mv-border-composer: hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.3);
 
 	/* Glass-card accents (vanguard-card, auth card) */
 	--vanguard-glass-border: rgba(130, 130, 220, 0.16);
-	--vanguard-glass-glow-a: rgba(153, 69, 255, 0.06);
-	--vanguard-glass-glow-b: rgba(20, 241, 149, 0.05);
+	--vanguard-glass-glow-a: hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.06);
+	--vanguard-glass-glow-b: hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.05);
 
 	/* Buttons */
-	--button-primary-fill: #14f195;
-	--button-primary-active-fill: #0fd684;
+	--button-primary-fill: var(--mv-green);
+	--button-primary-active-fill: hsl(155, calc(89% * var(--saturation-factor)), 44%);
 	--button-primary-text: #0b0e14;
 
 	/* Focus ring — brand green (kept flat/single-hue for clear a11y focus indication) */
-	--focus-primary: #14f195;
+	--focus-primary: var(--mv-green);
 
-	/* Typography — Inter Vanguard */
-	--font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	/* Status — reference amber for idle (#e8a33d) */
+	--status-idle: hsl(36, calc(79% * var(--saturation-factor)), 57.5%);
+
+	/*
+	 * Typography — "Neon Terminal" stack.
+	 * DM Sans reads long-form message text; Space Grotesk carries chrome
+	 * (names, buttons, headers); IBM Plex Mono carries labels/data/code;
+	 * Orbitron is reserved for the brand glyph only.
+	 *
+	 * 'Inter' sits in every chain as the script-coverage fallback: the shipped
+	 * Space Grotesk subsets are latin/latin-ext/vietnamese and DM Sans is
+	 * latin/latin-ext only, so Cyrillic and Greek would otherwise fall through
+	 * to system-ui — and the app ships ru/uk/bg/el among its 34 locales while
+	 * this file forces --font-display with !important on submit/primary/brand
+	 * buttons. Inter is self-hosted above with cyrillic, cyrillic-ext, greek,
+	 * greek-ext, vietnamese and latin subsets, so it covers all of them.
+	 * (DM Sans has no Vietnamese subset upstream, so Vietnamese resolving to
+	 * Inter through --font-sans is expected.)
+	 */
+	--font-sans: 'DM Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--font-display: 'Space Grotesk', 'DM Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	/*
+	 * Inter is placed after the monospace candidates so it only ever wins for
+	 * codepoints no mono face on the platform covers (IBM Plex Mono ships no
+	 * Greek subset here), never for ordinary latin timestamps/labels.
+	 */
+	--font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Inter', monospace;
+	--font-brand-glyph: 'Orbitron', 'Space Grotesk', sans-serif;
 
 	/* Border radius — polished 8px */
 	--radius-sm: 4px;
 	--radius-md: 8px;
 	--radius-lg: 8px;
 	--radius-xl: 10px;
-	--media-border-radius: 8px;
+	--media-border-radius: 10px;
 
 	/* Scrollbars — brand-green-tinted minimal */
-	--scrollbar-thumb-bg: rgba(20, 241, 149, 0.25);
-	--scrollbar-thumb-bg-hover: rgba(20, 241, 149, 0.5);
+	--scrollbar-thumb-bg: hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.25);
+	--scrollbar-thumb-bg-hover: hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.5);
 	--scrollbar-track-bg: transparent;
+}
+
+/*
+ * ── Surface ramp — dark themes (default + .theme-dark) ────────────────
+ *
+ * `:root:not(.theme-light):not(.theme-coal)` rather than `.theme-dark` so the
+ * pre-hydration document (no theme class on <html> yet, e.g. the splash) still
+ * gets the obsidian surfaces instead of momentarily unstyled backgrounds.
+ *
+ * --background-secondary is deliberately the CARD tone (#151921) and NOT the
+ * sidebar tone (#0d1018). This codebase uses --background-header-secondary as
+ * its hairline-border colour in ~95 `border: 1px solid
+ * var(--background-header-secondary)` declarations, so pointing
+ * --background-secondary (143 consumers) at the same value erases the only
+ * visible edge on modals, the settings sidebar/content split, the mobile
+ * bottom nav, the voice elevation ramp and every settings card that is the
+ * same fill as its parent. Surfaces that genuinely want the darker sidebar
+ * tone ask for --mv-surface-sidebar by name.
+ */
+:root:not(.theme-light):not(.theme-coal) {
+	/* ── Neon-terminal surfaces ───────────────────────────────────────── */
+	--mv-surface-rail: hsl(240, calc(11% * var(--saturation-factor)), 3.5%); /* #08080a */
+	--mv-surface-sidebar: hsl(222, calc(30% * var(--saturation-factor)), 7.3%); /* #0d1018 */
+	--mv-surface-chat: hsl(220, calc(29% * var(--saturation-factor)), 6.1%); /* #0b0e14 */
+	--mv-surface-card: hsl(220, calc(22% * var(--saturation-factor)), 10.6%); /* #151921 */
+	--mv-surface-raised: hsl(217, calc(23% * var(--saturation-factor)), 15.3%); /* #1e2530 */
+	--mv-surface-composer: hsl(220, calc(26% * var(--saturation-factor)), 13.7%); /* #1a202c */
+
+	/* ── Hairlines / hover fills ──────────────────────────────────────── */
+	--mv-hairline: rgba(255, 255, 255, 0.07);
+	--mv-hairline-soft: rgba(255, 255, 255, 0.06);
+	--mv-hover-fill: rgba(255, 255, 255, 0.05);
+	--mv-hover-fill-strong: rgba(255, 255, 255, 0.08);
+	/*
+	 * Rail/utility glyph ink. Kept as literal white alpha here (rather than
+	 * --text-primary*) so the dark rail renders byte-identical to the design
+	 * hand-off; .theme-light/.theme-coal re-point it at the theme's own ink
+	 * below, because white glyphs on a light rail measure 1.13:1.
+	 */
+	--mv-glyph-muted: rgba(255, 255, 255, 0.55);
+	--mv-glyph-strong: #fff;
+	/*
+	 * Soft rose used only as the HOVER ink of quiet destructive circles
+	 * (decline / cancel a friend request — reference §2a). Not a replacement
+	 * for --status-danger: that stays the fill of loud danger surfaces. This
+	 * is a foreground on a dark, near-transparent circle, so it is tuned for
+	 * legibility on the obsidian surfaces (6.4:1 over --mv-surface-chat)
+	 * rather than for white text sitting on top of it.
+	 */
+	--mv-danger-soft: hsl(349, calc(100% * var(--saturation-factor)), 68%); /* ~#ff5d78 */
+
+	/*
+	 * Quiet ink ramp for mono kickers, list sub-lines, previews and
+	 * timestamps. Named per theme because the generated --text-tertiary*
+	 * stops are NOT symmetric: on the dark sidebar --text-tertiary is 7.3:1
+	 * and --text-tertiary-muted 5.4:1, but the light theme's equivalents land
+	 * at 3.7:1 and 2.6:1 — well under AA for 10–11.5px copy. Dark resolves to
+	 * exactly the tokens it always used, so this is a light-theme fix with no
+	 * dark-theme pixel change.
+	 */
+	--mv-ink-quiet: var(--text-tertiary);
+	--mv-ink-quieter: var(--text-tertiary-muted);
+
+	/* Core backgrounds — Obsidian / Steel Charcoal */
+	--background-primary: var(--mv-surface-chat);
+	--background-secondary: var(--mv-surface-card);
+	--background-secondary-lighter: var(--mv-surface-composer);
+	--background-secondary-alt: var(--mv-surface-card);
+	--background-tertiary: #111520;
+	--background-channel-header: var(--mv-surface-card);
+	--background-header-primary: var(--mv-surface-card);
+	--background-header-secondary: var(--mv-surface-sidebar);
+	--background-textarea: var(--mv-surface-composer);
+	--background-header-primary-hover: var(--mv-surface-raised);
+
+	/* Link colour — brand green (12.4:1 over --mv-surface-chat) */
+	--text-link: var(--mv-green);
+	--text-link-hover: var(--mv-green-light);
+}
+
+/*
+ * ── Surface ramp — .theme-coal ─────────────────────────────────────────
+ * Coal is the generated "even darker" dark theme; it keeps its own generated
+ * background ramp and the shared dark --text-* set. All it needs from this
+ * layer is the --mv-* surface aliases, so components that name them resolve
+ * to something sane, plus the same white-alpha hairlines and green link.
+ */
+.theme-coal {
+	--mv-surface-rail: hsl(220, calc(13% * var(--saturation-factor)), 0%);
+	--mv-surface-sidebar: var(--background-primary);
+	--mv-surface-chat: var(--background-primary);
+	--mv-surface-card: var(--background-secondary-alt);
+	--mv-surface-raised: var(--background-header-primary-hover);
+	--mv-surface-composer: var(--background-textarea);
+
+	--mv-hairline: rgba(255, 255, 255, 0.07);
+	--mv-hairline-soft: rgba(255, 255, 255, 0.06);
+	--mv-hover-fill: rgba(255, 255, 255, 0.05);
+	--mv-hover-fill-strong: rgba(255, 255, 255, 0.08);
+	--mv-glyph-muted: rgba(255, 255, 255, 0.55);
+	--mv-glyph-strong: #fff;
+	--mv-danger-soft: hsl(349, calc(100% * var(--saturation-factor)), 68%);
+	--mv-ink-quiet: var(--text-tertiary);
+	--mv-ink-quieter: var(--text-tertiary-muted);
+
+	--text-link: var(--mv-green);
+	--text-link-hover: var(--mv-green-light);
+}
+
+/*
+ * ── Surface ramp — .theme-light ────────────────────────────────────────
+ * The light theme keeps its generated backgrounds AND its generated dark
+ * --text-* set; this layer only re-expresses the --mv-* aliases in light
+ * terms and swaps the accents that are used as foreground colour for
+ * darkened Solana-green stops. Neon #14f195 as text measures 1.53:1 on the
+ * light --background-primary — it can stay as a FILL (chips/badges/buttons
+ * paired with the dark --brand-primary-fill) but never as ink.
+ */
+.theme-light {
+	--mv-surface-rail: var(--background-header-secondary);
+	--mv-surface-sidebar: var(--background-secondary);
+	--mv-surface-chat: var(--background-primary);
+	--mv-surface-card: var(--background-secondary-alt);
+	--mv-surface-raised: var(--background-tertiary);
+	--mv-surface-composer: var(--background-textarea);
+
+	/* Dark-on-light hairlines — white alpha is invisible on these surfaces. */
+	--mv-hairline: rgba(0, 0, 0, 0.11);
+	--mv-hairline-soft: rgba(0, 0, 0, 0.08);
+	--mv-hover-fill: rgba(0, 0, 0, 0.05);
+	--mv-hover-fill-strong: rgba(0, 0, 0, 0.08);
+	/* --text-secondary, not --text-primary-muted: the muted stop only reaches
+	 * 3.54:1 on the light rail tile, --text-secondary reaches 5.2:1. */
+	--mv-glyph-muted: var(--text-secondary);
+	--mv-glyph-strong: var(--text-primary);
+	/*
+	 * The dark theme's soft rose is 2.7:1 on the light surfaces — under the
+	 * 3:1 floor for a hover icon. Light keeps the generated danger red.
+	 */
+	--mv-danger-soft: var(--status-danger);
+	/*
+	 * Quiet ink, light edition. --text-tertiary/-muted are 3.7:1 and 2.6:1
+	 * here; --text-secondary reaches 5.6:1 on the light sidebar tone, and the
+	 * 42% stop below (same hue/sat as the generated ramp, one step darker
+	 * than --text-primary-muted, which is only 4.0:1) reaches 4.8:1.
+	 */
+	--mv-ink-quiet: var(--text-secondary);
+	--mv-ink-quieter: hsl(220, calc(10% * var(--saturation-factor)), 42%);
+
+	/*
+	 * Foreground-safe green. hsl(155 80% 30%) = #0f8a57: 4.23:1 against the
+	 * light --background-primary as ink, and 4.41:1 the other way round when
+	 * --brand-primary-fill (#0b0e14) sits on it as a fill. Both directions
+	 * clear AA for large/bold text and AA non-text; the pairing is symmetric
+	 * on purpose because --brand-primary is used both ways across the app.
+	 */
+	--brand-primary: hsl(155, calc(80% * var(--saturation-factor)), 30%);
+	--brand-primary-light: hsl(155, calc(75% * var(--saturation-factor)), 35%);
+	--brand-primary-tint: hsla(155, calc(80% * var(--saturation-factor)), 30%, 0.12);
+	--accent-primary: var(--brand-primary);
+	--accent-primary-strong: var(--brand-primary-light);
+	--button-primary-fill: var(--brand-primary);
+	--button-primary-active-fill: hsl(155, calc(85% * var(--saturation-factor)), 25%);
+	--focus-primary: hsl(155, calc(85% * var(--saturation-factor)), 28%);
+	/* 5.71:1 on --background-primary, 5.05:1 on --background-secondary. */
+	--text-link: hsl(155, calc(88% * var(--saturation-factor)), 24%);
+	--text-link-hover: hsl(155, calc(90% * var(--saturation-factor)), 20%);
+
+	/* Scrollbars need to darken, not lighten, against light surfaces. */
+	--scrollbar-thumb-bg: hsla(155, calc(70% * var(--saturation-factor)), 26%, 0.35);
+	--scrollbar-thumb-bg-hover: hsla(155, calc(70% * var(--saturation-factor)), 26%, 0.6);
+}
+
+/* ── Sheen keyframes (global) ────────────────────────────────────────── */
+@keyframes mv-sheen {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 200% 50%;
+	}
+}
+
+/*
+ * Reduced motion: freeze the sheen. global.css already clamps every
+ * animation to 0.01ms under html.reduced-motion, but an explicit
+ * `animation: none` avoids a one-frame jump and parks the sheen gradient at
+ * its start position. The typing-dot bounce is disabled in the same way
+ * inside styles/Typing.module.css.
+ */
+html.reduced-motion .mv-sheen,
+html.reduced-motion [aria-label='Send Message']:not(:disabled) {
+	animation: none !important;
+	background-position: 0% 50% !important;
 }
 
 /* ── Thin Dark Scrollbars ────────────────────────────────────────────── */
@@ -222,34 +757,63 @@
 	background: var(--scrollbar-thumb-bg-hover);
 }
 
-/* ── Header gradient — subtle purple→green wash over Steel Charcoal ──── */
+/* ── Header wash — translucent purple→green over the chat obsidian ───── */
 [class*='headerWrapper']:not([class*='CallActive']) {
-	background: linear-gradient(
-		90deg,
-		color-mix(in srgb, #9945ff 8%, #151921) 0%,
-		color-mix(in srgb, #14f195 8%, #1a202c) 100%
-	) !important;
+	background-color: var(--mv-surface-chat) !important;
+	background-image: var(--header-wash) !important;
 }
 
-/* ── Active server icon — purple→green glow ring ──────────────────────── */
-[aria-pressed='true'] [class*='guildIcon'] {
+/*
+ * ── Active server icon — purple→green glow ring ────────────────────────
+ * The `[class*='guildIcon']` substring match also catches the initials
+ * <span> inside an image-less tile (`guildIconInitials`), which drew a
+ * second ring around the letters of every selected community. Excluded
+ * explicitly — the ring belongs to the 44px tile only.
+ */
+[aria-pressed='true'] [class*='guildIcon']:not([class*='guildIconInitials']) {
+	border-radius: var(--mv-radius-tile) !important;
 	box-shadow:
-		0 0 15px rgba(153, 69, 255, 0.25),
-		0 0 15px rgba(20, 241, 149, 0.25),
-		0 0 0 2px rgba(20, 241, 149, 0.25) !important;
+		0 0 14px hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.3),
+		0 0 14px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.3),
+		0 0 0 2px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.35) !important;
 }
 
-/* ── Send button glow — purple→green ─────────────────────────────────── */
+/*
+ * ── Send button — the screen's single sheen CTA ──────────────────────
+ * Gradient pill + animated sheen + brand glow. This is one of at most two
+ * sheened elements on any screen (the other being a primary CTA in an
+ * overlay); the sheen is deliberately not applied to any list/nav chrome.
+ * The icon is painted in --button-primary-text (#0b0e14) — dark on gradient,
+ * never white — and the sheen ramp's darkest stop clears 5:1 against it.
+ */
 [aria-label='Send Message']:not(:disabled) {
-	box-shadow:
-		0 0 12px rgba(153, 69, 255, 0.18),
-		0 0 15px rgba(20, 241, 149, 0.2);
-	transition: box-shadow 0.2s ease;
+	background: var(--gradient-sheen) !important;
+	background-size: 200% 100% !important;
+	animation: mv-sheen 7s linear infinite;
+	color: var(--button-primary-text) !important;
+	border-radius: var(--mv-radius-pill) !important;
+	box-shadow: var(--glow-brand);
+	transition:
+		box-shadow 0.2s ease,
+		filter 0.2s ease;
+}
+/*
+ * Inline padding belongs to the DESKTOP pill only. The mobile composer's send
+ * control (reference §2b) is a fixed 44px circle, and 0.75rem of border-box
+ * padding on each side leaves a 20px content box that the 20px icon only just
+ * survives — one icon-size change away from a clipped glyph. Excluded by the
+ * same [class*='…'] substring idiom this file already uses for headerWrapper
+ * and guildIcon.
+ */
+[aria-label='Send Message']:not(:disabled):not([class*='mobileSendButton']) {
+	padding-inline: 0.75rem !important;
 }
 [aria-label='Send Message']:not(:disabled):hover {
-	box-shadow:
-		0 0 16px rgba(153, 69, 255, 0.28),
-		0 0 20px rgba(20, 241, 149, 0.3);
+	filter: brightness(1.1);
+	box-shadow: var(--glow-brand-strong);
+}
+[aria-label='Send Message']:not(:disabled):active {
+	filter: brightness(0.94);
 }
 
 /* ── Vanguard Card — Glassmorphism utility ───────────────────────────── */
@@ -272,8 +836,9 @@
 button[type='submit'],
 [class*='primaryButton'],
 [class*='lookFilled'][class*='colorBrand'] {
-	background: var(--gradient-brand) !important;
+	background: var(--gradient-brand-legible) !important;
 	color: var(--button-primary-text) !important;
+	font-family: var(--font-display) !important;
 	font-weight: 700 !important;
 }
 button[type='submit']:hover:not(:disabled),
@@ -288,14 +853,8 @@ textarea:focus,
 [class*='input']:focus,
 [class*='input']:focus-within {
 	outline: none !important;
-	border-color: #14f195 !important;
-	box-shadow: 0 0 0 2px rgba(20, 241, 149, 0.3) !important;
-}
-
-/* ── Link colour — brand green ───────────────────────────────────────── */
-:root {
-	--text-link: #14f195;
-	--text-link-hover: #6fffc2;
+	border-color: var(--focus-primary) !important;
+	box-shadow: 0 0 0 2px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.3) !important;
 }
 
 /* ── Loading / splash variable lock — brand green fallbacks ──────────── */

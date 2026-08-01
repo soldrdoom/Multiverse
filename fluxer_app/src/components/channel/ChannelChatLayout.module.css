@@ -26,7 +26,7 @@
 	max-width: 100%;
 	min-width: 0;
 	overflow: hidden;
-	background-color: var(--background-secondary-lighter);
+	background-color: var(--mv-surface-chat);
 	contain: layout style;
 }
 
@@ -38,6 +38,91 @@
 	position: relative;
 	overflow: hidden;
 	contain: strict;
+}
+
+/*
+ * Two decorative, non-interactive wash layers behind the message stream
+ * (reference §1a): a 56px terminal grid faded out by a radial mask, and a
+ * purple->green bloom hanging off the top edge. Both are pure chrome — the
+ * reading surface underneath stays --mv-surface-chat, so message body text
+ * keeps its full contrast.
+ */
+.messagesArea::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	background-image:
+		linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+	background-size: 56px 56px;
+	mask-image: radial-gradient(70% 45% at 50% 0%, #000 0%, transparent 100%);
+	-webkit-mask-image: radial-gradient(70% 45% at 50% 0%, #000 0%, transparent 100%);
+}
+
+/*
+ * Top bloom. Built as two independent single-hue radials rather than the
+ * reference's one multi-hue ramp, for three measured reasons:
+ *
+ *  1. Interpolating #9945ff -> #14f195 inside a single gradient passes through
+ *     a desaturated steel blue (~rgb(86,155,202)). At these alphas over a
+ *     near-black surface that lands as a colourless smudge: the previous
+ *     version measured +14R/+15G/+23B at its core, i.e. R and G rising
+ *     together, which the eye reads as grey rather than as purple light.
+ *     Two layers whose hues never interpolate through each other keep the
+ *     core purple (R well above G) and the haze green.
+ *  2. Every stop terminates at alpha 0 of its OWN hue instead of the
+ *     `transparent` keyword. `transparent` is rgba(0,0,0,0), so a ramp ending
+ *     there can drift toward black/grey as it fades.
+ *  3. No `filter: blur()`. A large blur over a near-black gradient smears the
+ *     falloff into a visibly dirty edge, and costs a full-size offscreen
+ *     buffer on every paint of a scrolling surface.
+ *
+ * Peak amplitude is roughly a third of the previous version (~+12 blue levels
+ * instead of +34) and the falloff runs the full height with ~8 stops per hue,
+ * so there is no plateau to read as a hard blotch boundary. The green layer
+ * peaks lower than the purple one so the two never sum at full strength.
+ *
+ * mix-blend-mode is deliberately not used: .messagesArea's `contain: strict`
+ * already forms a stacking context with a transparent backdrop, so `screen`
+ * there would resolve to plain source-over anyway.
+ */
+.messagesArea::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 420px;
+	pointer-events: none;
+	z-index: 0;
+	background-image:
+		radial-gradient(
+			62% 100% at 50% -6%,
+			hsl(var(--mv-purple-hsl) / 0.05) 0%,
+			hsl(var(--mv-purple-hsl) / 0.043) 14%,
+			hsl(var(--mv-purple-hsl) / 0.033) 28%,
+			hsl(var(--mv-purple-hsl) / 0.023) 42%,
+			hsl(var(--mv-purple-hsl) / 0.014) 56%,
+			hsl(var(--mv-purple-hsl) / 0.007) 70%,
+			hsl(var(--mv-purple-hsl) / 0.002) 85%,
+			hsl(var(--mv-purple-hsl) / 0) 100%
+		),
+		radial-gradient(
+			42% 46% at 50% 66%,
+			hsl(var(--mv-green-hsl) / 0.022) 0%,
+			hsl(var(--mv-green-hsl) / 0.018) 18%,
+			hsl(var(--mv-green-hsl) / 0.012) 36%,
+			hsl(var(--mv-green-hsl) / 0.006) 54%,
+			hsl(var(--mv-green-hsl) / 0.002) 72%,
+			hsl(var(--mv-green-hsl) / 0) 100%
+		);
+}
+
+:global(.theme-light) .messagesArea::before,
+:global(.theme-light) .messagesArea::after {
+	display: none;
 }
 
 .typingArea {
@@ -90,7 +175,7 @@
 	position: relative;
 	padding: 0;
 	overflow: hidden;
-	background-color: var(--background-secondary-lighter);
+	background-color: var(--mv-surface-chat);
 	width: 100%;
 	max-width: 100%;
 	box-sizing: border-box;

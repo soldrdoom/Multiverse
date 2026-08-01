@@ -53,7 +53,8 @@
 	padding: 0.375rem 0.75rem;
 	border-radius: 9999px;
 	background-color: var(--brand-primary);
-	color: white;
+	/* White on #14f195 measures 1.50:1; --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 	font-size: 0.875rem;
 }
 

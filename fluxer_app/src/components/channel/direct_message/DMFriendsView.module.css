@@ -23,10 +23,12 @@
 	min-height: 0;
 	width: 100%;
 	min-width: 0;
-	background-color: var(--background-secondary-lighter);
+	/* Reading surface = the chat obsidian, same as the message stream. */
+	background-color: var(--mv-surface-chat);
 }
 
 .mainColumn {
+	position: relative;
 	display: grid;
 	grid-template-rows: 3.5rem 1fr;
 	flex: 1;
@@ -34,7 +36,63 @@
 	min-height: 0;
 }
 
+/*
+ * The same two decorative wash layers the message stream carries in §1a (see
+ * ChannelChatLayout.module.css): a 56px terminal grid faded by a radial mask
+ * and a purple->green bloom hanging off the top edge. Pure chrome — the
+ * surface underneath stays --mv-surface-chat, so the friends rows keep full
+ * text contrast. Both are pointer-events:none and sit under .content, which
+ * is raised to z-index 1 below.
+ */
+.mainColumn::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	background-image:
+		linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+	background-size: 56px 56px;
+	mask-image: radial-gradient(70% 45% at 50% 0%, #000 0%, transparent 100%);
+	-webkit-mask-image: radial-gradient(70% 45% at 50% 0%, #000 0%, transparent 100%);
+}
+
+.mainColumn::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 340px;
+	pointer-events: none;
+	z-index: 0;
+	background-image:
+		radial-gradient(
+			62% 100% at 50% -6%,
+			hsl(var(--mv-purple-hsl) / 0.05) 0%,
+			hsl(var(--mv-purple-hsl) / 0.033) 28%,
+			hsl(var(--mv-purple-hsl) / 0.014) 56%,
+			hsl(var(--mv-purple-hsl) / 0.002) 85%,
+			hsl(var(--mv-purple-hsl) / 0) 100%
+		),
+		radial-gradient(
+			42% 46% at 50% 66%,
+			hsl(var(--mv-green-hsl) / 0.022) 0%,
+			hsl(var(--mv-green-hsl) / 0.012) 36%,
+			hsl(var(--mv-green-hsl) / 0.002) 72%,
+			hsl(var(--mv-green-hsl) / 0) 100%
+		);
+}
+
+:global(.theme-light) .mainColumn::before,
+:global(.theme-light) .mainColumn::after {
+	display: none;
+}
+
 .content {
+	position: relative;
+	z-index: 1;
 	flex: 1;
 	display: flex;
 	flex-direction: column;
@@ -75,20 +133,25 @@
 	-webkit-app-region: no-drag;
 }
 
+/* The one green accent in the header, matching §1a's channel glyph. */
 .titleIcon {
-	height: 1.5rem;
-	width: 1.5rem;
+	height: 1.125rem;
+	width: 1.125rem;
+	color: var(--brand-primary);
 }
 
 .titleText {
-	font-weight: 600;
+	font-family: var(--font-display);
+	font-size: 1rem;
+	font-weight: 700;
+	letter-spacing: -0.01em;
 	white-space: nowrap;
 }
 
 .divider {
-	height: 1.5rem;
+	height: 1.125rem;
 	width: 1px;
-	background-color: var(--background-modifier-accent);
+	background-color: var(--mv-hover-fill-strong);
 	flex-shrink: 0;
 	-webkit-app-region: no-drag;
 }
@@ -107,21 +170,23 @@
 
 .tabsInner {
 	display: flex;
-	gap: 0.5rem;
+	gap: 0.3125rem;
 	align-items: center;
 	padding: 4px;
 }
 
+/* Reference §2a: tab pills — display face, pill radius, quiet resting ink. */
 .tabButton {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
-	padding: 0.25rem 0.75rem;
-	border-radius: 0.375rem;
-	font-weight: 600;
-	font-size: 1rem;
-	line-height: 1.5rem;
-	color: var(--text-primary-muted);
+	padding: 0.3125rem 0.875rem;
+	border-radius: var(--mv-radius-pill);
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 0.78125rem;
+	line-height: 1.25rem;
+	color: var(--mv-glyph-muted);
 	background: transparent;
 	border: none;
 	cursor: pointer;
@@ -133,30 +198,90 @@
 }
 
 .tabButton:hover {
-	background-color: var(--background-modifier-hover);
-	color: var(--text-primary);
+	background-color: var(--mv-hover-fill);
+	color: var(--mv-glyph-strong);
 }
 
+/*
+ * Active tab = gradient pill with dark ink. Legible ramp, not the raw one:
+ * the label is 12.5px/700, i.e. normal-size text for WCAG.
+ */
 .tabButton.active {
-	background-color: var(--background-modifier-selected);
-	color: var(--text-primary);
+	background: var(--gradient-brand-legible);
+	color: var(--brand-primary-fill);
 }
 
+.tabButton.active:hover {
+	background: var(--gradient-brand-legible);
+	color: var(--brand-primary-fill);
+	filter: brightness(1.08);
+}
+
+/*
+ * ADD FRIEND — this screen's single sheen CTA (the §1a budget is at most two
+ * per screen, and nothing else here sheens). Dark ink on the animated ramp,
+ * never white: the sheen's darkest stop is --mv-violet-legible at 5.6:1
+ * against --brand-primary-fill.
+ */
 .tabButton.primary {
-	background-color: var(--brand-primary);
-	color: #000000;
-	font-weight: 700;
-	font-size: 0.8rem;
+	background: var(--gradient-sheen);
+	background-size: 200% 100%;
+	animation: mv-sheen 7s linear infinite;
+	color: var(--brand-primary-fill);
+	box-shadow: var(--glow-brand);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 0.375rem 1.0625rem;
 }
 
 .tabButton.primary:hover {
-	background-color: var(--accent-primary-strong);
-	color: #000000;
+	background: var(--gradient-sheen);
+	background-size: 200% 100%;
+	color: var(--brand-primary-fill);
+	box-shadow: var(--glow-brand-strong);
+	filter: brightness(1.1);
 	opacity: 1;
+}
+
+/*
+ * Keyframes are declared locally (the codebase convention — every
+ * .module.css that animates owns its keyframes) so the name survives CSS
+ * Modules scoping. Identical to the global mv-sheen in multiverse-theme.css.
+ */
+@keyframes mv-sheen {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 200% 50%;
+	}
+}
+
+/* Same reduced-motion contract as the send button: freeze, don't drift. */
+:global(html.reduced-motion) .tabButton.primary {
+	animation: none;
+	background-position: 0% 50%;
 }
 
 .tabContent {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
+}
+
+/*
+ * Inverted count on the active tab — a gradient MentionBadge on a gradient
+ * pill would vanish. Dark capsule + neon mono digits: 12.92:1, and both
+ * stops are theme-independent because the pill under them is too.
+ */
+.tabBadge {
+	display: flex;
+	align-items: center;
+	flex: none;
+}
+
+.tabButton.active .tabBadge > div {
+	background: var(--brand-primary-fill);
+	color: var(--mv-green);
+	box-shadow: none;
 }

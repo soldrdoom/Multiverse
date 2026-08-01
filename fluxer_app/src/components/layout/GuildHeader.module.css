@@ -21,6 +21,12 @@
 	min-width: 0;
 }
 
+/*
+ * The purple->green wash lives on .headerWrapper (theme layer), so the
+ * container itself stays transparent when there is no banner and lets it
+ * through. The wash is translucent over --mv-surface-chat, which keeps
+ * --text-primary at 16.3:1 here.
+ */
 .headerContainer {
 	position: relative;
 	display: flex;
@@ -28,8 +34,8 @@
 	overflow: hidden;
 	min-height: var(--layout-header-height);
 	min-width: 0;
-	border-bottom: 1px solid var(--user-area-divider-color);
-	background-color: var(--background-secondary);
+	border-bottom: 1px solid var(--mv-hairline);
+	background-color: transparent;
 	transition: background-color var(--transition-normal);
 }
 
@@ -39,7 +45,7 @@
 
 .headerContainerNoBanner:hover,
 .headerContainerActive {
-	background-color: var(--background-modifier-hover);
+	background-color: var(--mv-hover-fill);
 }
 
 .bannerBackground {
@@ -107,7 +113,10 @@
 .guildName {
 	flex: 1;
 	min-width: 0;
-	font-weight: 600;
+	font-family: var(--font-display);
+	font-size: 1.03125rem;
+	font-weight: 700;
+	letter-spacing: -0.01em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;

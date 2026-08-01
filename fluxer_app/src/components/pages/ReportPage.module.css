@@ -103,7 +103,9 @@
 
 .breadcrumbActive .breadcrumbNumber {
 	background: var(--brand-primary);
-	color: white;
+	/* White on #14f195 measures 1.50:1 — the current step's number was
+	   effectively invisible; --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 }
 
 .breadcrumbLabel {

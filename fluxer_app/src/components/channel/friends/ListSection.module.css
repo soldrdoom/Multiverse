@@ -17,13 +17,34 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * Reference §2a: mono kicker ("ONLINE — 3") with a small glowing green
+ * square, matching the member-list group headers and the channel-list
+ * category labels from §1a. The square is a pseudo-element, so it stays
+ * decorative and is never announced.
+ */
 .sectionTitle {
-	margin-bottom: 1rem;
-	font-weight: 600;
-	font-size: 0.75rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 0.75rem;
+	font-family: var(--font-mono);
+	font-weight: 500;
+	font-size: 0.65625rem;
+	letter-spacing: 0.2em;
 	line-height: 1rem;
 	text-transform: uppercase;
-	color: var(--text-primary-muted);
+	color: var(--mv-ink-quiet);
+}
+
+.sectionTitle::before {
+	content: '';
+	flex: none;
+	width: 7px;
+	height: 7px;
+	border-radius: 2px;
+	background-color: var(--brand-primary);
+	box-shadow: 0 0 8px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.4);
 }
 
 .sectionContent {

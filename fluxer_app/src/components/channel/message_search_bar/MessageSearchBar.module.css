@@ -25,9 +25,9 @@
 }
 
 .inputContainer {
-	--search-input-border-color: var(--background-modifier-accent);
-	--search-input-border-focus-color: var(--background-modifier-accent-focus);
-	--search-input-background: var(--background-textarea);
+	--search-input-border-color: rgba(255, 255, 255, 0.1);
+	--search-input-border-focus-color: var(--focus-primary);
+	--search-input-background: color-mix(in srgb, var(--mv-surface-rail) 50%, transparent);
 	--search-icon-color: var(--text-tertiary);
 	--search-icon-hover-color: var(--text-primary);
 	--search-scope-badge-background: var(--background-secondary);
@@ -47,10 +47,13 @@
 	padding-left: var(--input-container-padding);
 	padding-right: var(--input-container-padding);
 	min-height: 36px;
-	border-radius: var(--radius-xl);
+	border-radius: var(--mv-radius-pill);
 	border: 1px solid var(--search-input-border-color);
 	background-color: var(--search-input-background);
 	transition: border-color 0.1s ease;
+	font-family: var(--font-mono);
+	font-size: 0.71875rem;
+	letter-spacing: 0.04em;
 }
 
 .inputContainer:focus-within {

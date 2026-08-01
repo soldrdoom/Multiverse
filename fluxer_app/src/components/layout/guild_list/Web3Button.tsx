@@ -17,8 +17,8 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {modal} from '@app/actions/ModalActionCreators';
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
+import {modal} from '@app/actions/ModalActionCreators';
 import guildStyles from '@app/components/layout/GuildsLayout.module.css';
 import styles from '@app/components/layout/guild_list/Web3Button.module.css';
 import {Web3Modal} from '@app/components/modals/Web3Modal';
@@ -58,7 +58,7 @@ export const Web3Button = observer(() => {
 					>
 						<motion.div
 							ref={iconRef}
-							className={guildStyles.addGuildButtonIcon}
+							className={guildStyles.railUtilityButtonIcon}
 							animate={{borderRadius: isHovering ? '30%' : '50%'}}
 							initial={{borderRadius: isHovering ? '30%' : '50%'}}
 							transition={{duration: AccessibilityStore.useReducedMotion ? 0 : 0.07, ease: 'easeOut'}}

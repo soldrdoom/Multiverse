@@ -54,6 +54,23 @@ const MEMBER_ITEM_HEIGHT = 42;
 const INITIAL_MEMBER_RANGE: [number, number] = [0, 99];
 const SCROLL_BUFFER = 50;
 
+/*
+ * Member-list group headers carry a status-coded dot. Group ids are `online`,
+ * `offline`, or a hoisted role id (and `idle`, which the design calls for and
+ * the presence pipeline already normalizes). Role groups only ever contain
+ * online members, so they fall through to the default green square.
+ */
+function getGroupHeaderClassName(groupId: string): string {
+	switch (groupId) {
+		case 'idle':
+			return clsx(styles.groupHeader, styles.groupHeaderIdle);
+		case 'offline':
+			return clsx(styles.groupHeader, styles.groupHeaderOffline);
+		default:
+			return styles.groupHeader;
+	}
+}
+
 function getSeededRandom(seed: number): number {
 	const x = Math.sin(seed) * 10000;
 	return x - Math.floor(x);
@@ -85,7 +102,7 @@ interface GroupDMMemberListGroupProps {
 
 const GroupDMMemberListGroup = observer(({group, channelId, ownerId}: GroupDMMemberListGroupProps) => (
 	<div className={styles.groupContainer}>
-		<div className={styles.groupHeader}>
+		<div className={getGroupHeaderClassName(group.id)}>
 			{group.displayName} {'\u2014'} {group.count}
 		</div>
 		<div className={styles.membersList}>
@@ -127,7 +144,7 @@ const LazyMemberListGroup = observer(({guild, group, groupCount, channelId, memb
 
 	return (
 		<div className={styles.groupContainer}>
-			<div className={styles.groupHeader}>
+			<div className={getGroupHeaderClassName(group.id)}>
 				{groupName} {'\u2014'} {groupCount}
 			</div>
 			<div className={styles.membersList}>

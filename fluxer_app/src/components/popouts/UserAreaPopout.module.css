@@ -265,7 +265,8 @@
 	height: 1.25rem;
 	background-color: var(--brand-primary);
 	border-radius: 50%;
-	color: white;
+	/* White on #14f195 measures 1.50:1; --brand-primary-fill is 12.92:1. */
+	color: var(--brand-primary-fill);
 }
 
 .statusMenuRow {

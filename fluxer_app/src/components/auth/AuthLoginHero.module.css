@@ -39,7 +39,10 @@
 
 @supports (background-clip: text) or (-webkit-background-clip: text) {
 	.eyebrow {
-		background: var(--gradient-brand);
+		/* 11.2px/700 is below the 18.66px-bold large-text threshold, so the
+		   4.5:1 floor applies. The raw ramp's purple stop is 4.28:1 on
+		   --background-primary; --gradient-brand-legible lifts it to 5.59:1. */
+		background: var(--gradient-brand-legible);
 		background-clip: text;
 		-webkit-background-clip: text;
 		color: transparent;

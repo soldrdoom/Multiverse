@@ -100,7 +100,9 @@
 
 .categoryChipActive {
 	composes: categoryChip;
-	background: var(--gradient-brand);
+	/* 13px/700 label — small text, 4.5:1 floor. The raw ramp's purple stop is
+	   4.28:1 against --button-primary-text; the legible ramp is 5.59:1. */
+	background: var(--gradient-brand-legible);
 	border-color: transparent;
 	color: var(--button-primary-text);
 	font-weight: 700;

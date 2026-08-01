@@ -122,6 +122,32 @@
 	);
 }
 
+/*
+ * Dark-theme elevation ramp, restated on the "Neon Terminal" surface tokens.
+ *
+ * The generated background tokens this ramp is built from are not monotonic
+ * under the brand theme: --background-secondary and --background-secondary-alt
+ * are the same card tone, and --background-header-secondary (level 4, which
+ * every control-bar button rests on) is darker than --background-tertiary
+ * (level 3) and barely distinguishable from level 0. That flattens levels
+ * 1/2 and inverts 3/4 across ~43 declarations, so a control-bar button sat
+ * almost exactly on its own backdrop.
+ *
+ * Naming the six --mv-surface-* steps directly gives a strictly increasing
+ * ramp (#0b0e14 -> #0d1018 -> #151921 -> #1a202c -> #1e2530 -> #27303e), so
+ * "rest at level 4, hover at level 5" reads as a lift again. Scoped to
+ * .theme-dark so the generated light/coal ramps keep their own ordering
+ * (elevation runs the other way there).
+ */
+:global(.theme-dark) {
+	--voice-surface-0: var(--mv-surface-chat);
+	--voice-surface-1: var(--mv-surface-sidebar);
+	--voice-surface-2: var(--mv-surface-card);
+	--voice-surface-3: var(--mv-surface-composer);
+	--voice-surface-4: var(--mv-surface-raised);
+	--voice-surface-5: hsl(217, calc(23% * var(--saturation-factor)), 20%);
+}
+
 .lkParticipantTile {
 	--speaking-indicator-width: 3.5px;
 	position: relative;

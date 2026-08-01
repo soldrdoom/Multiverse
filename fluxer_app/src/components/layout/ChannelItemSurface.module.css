@@ -18,10 +18,17 @@
  */
 
 .channelItemSurface {
-	--channel-item-hover-background: var(--surface-interactive-hover-bg);
+	--channel-item-hover-background: var(--mv-hover-fill);
 	--channel-item-selected-background: var(--surface-interactive-selected-bg);
 	--background-modifier-hover: var(--channel-item-hover-background);
 	--background-modifier-selected: var(--channel-item-selected-background);
+	/*
+	 * The selected channel row is a full gradient pill, so everything inside
+	 * it (label, channel icon, affordances) has to flip to the dark
+	 * on-gradient foreground rather than --text-primary. Scoped here so both
+	 * ChannelItemSurface and ChannelItemIcon pick it up by inheritance.
+	 */
+	--surface-interactive-selected-color: var(--brand-primary-fill);
 }
 
 .channelItemSurfaceSelected {

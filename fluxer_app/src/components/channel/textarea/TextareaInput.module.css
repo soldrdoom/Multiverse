@@ -44,12 +44,14 @@
 	position: relative;
 	margin-top: 0.5rem;
 	background-color: var(--background-textarea);
-	border-radius: var(--radius-xl);
+	border-radius: var(--mv-radius-tile);
 	transition: box-shadow 0.15s ease;
 }
 
+/* Flat green focus ring (--focus-primary), never a gradient. Replaces a
+ * stale literal rgba(0, 200, 100, …) from the previous neon-green theme. */
 .textareaContainer:focus-within {
-	box-shadow: 0 0 0 1px rgba(0, 200, 100, 0.3);
+	box-shadow: 0 0 0 1px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.3);
 }
 
 .textareaWrapper {
@@ -186,7 +188,6 @@
 	padding-left: var(--textarea-horizontal-padding);
 	padding-right: var(--textarea-horizontal-padding);
 	box-sizing: border-box;
-	box-shadow: inset 0 1px 0 var(--user-area-divider-color);
 	width: 100%;
 	max-width: 100%;
 	min-width: 0;
@@ -194,12 +195,50 @@
 	overflow: hidden;
 }
 
+/*
+ * Desktop: the inset comes from .wrapperSides' margin instead, and the old
+ * full-bleed top hairline is dropped now that the composer reads as a
+ * floating pill.
+ */
+@media (min-width: 768px) {
+	.textareaOuter {
+		padding-inline: 0.625rem;
+		/*
+		 * The desktop inset is a margin on .wrapperSides (InputWrapper), but
+		 * this element also carries .textareaOuter's `width: 100%`. Those live
+		 * in different modules at equal specificity, so whichever bundles last
+		 * wins — with `width: 100%` winning, the box overflowed the chat column
+		 * by the margin and .textareaArea's `overflow: hidden` sheared off the
+		 * send button. Resetting it here (same file, later in source) makes the
+		 * result independent of module order.
+		 */
+		width: auto;
+		max-width: none;
+	}
+}
+
 .textareaOuterMobile {
 	padding: 0;
 }
 
+/*
+ * Mobile-only (MobileTextareaLayout). Block padding centres one 22px line
+ * inside the 44px input pill minus its 1px hairline (10 + 22 + 10 = 42);
+ * the inline-end gutter clears the 42px emoji circle overlaid on the pill.
+ */
 .textareaMobile {
-	padding: 7px 48px 7px 12px;
+	padding: 10px 48px 10px 16px;
+}
+
+/*
+ * The shared ::placeholder ink (--text-primary-muted) measures only 4.39:1 on
+ * the light theme's --background-textarea — under AA for the 15px hint.
+ * --mv-ink-quiet is the per-theme quiet-ink token: --text-secondary on light
+ * (6.4:1) and --text-tertiary on dark (5.5:1), so both stay over the floor.
+ * Scoped to the mobile field; the desktop composer keeps the shared ink.
+ */
+.textareaMobile::placeholder {
+	color: var(--mv-ink-quiet);
 }
 
 .mainWrapperDense {
@@ -217,7 +256,7 @@
 }
 
 .textareaFocusRing {
-	border-radius: var(--radius-xl);
+	border-radius: var(--mv-radius-tile);
 }
 
 .mainWrapperEditing {

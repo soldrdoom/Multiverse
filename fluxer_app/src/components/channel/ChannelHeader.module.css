@@ -21,9 +21,9 @@
 	--channel-header-text-primary: var(--text-primary);
 	--channel-header-text-muted: var(--text-primary-muted);
 	--channel-header-text-tertiary: var(--text-tertiary);
-	--channel-header-divider-color: var(--background-modifier-hover);
-	--channel-header-hover-background: color-mix(in srgb, var(--white) 6%, transparent);
-	--channel-header-update-icon-color: #22c55e;
+	--channel-header-divider-color: var(--mv-hairline-soft);
+	--channel-header-hover-background: var(--mv-hover-fill-strong);
+	--channel-header-update-icon-color: var(--brand-primary);
 	--voice-call-header-text: var(--text-primary);
 	z-index: 3;
 	display: grid;
@@ -32,14 +32,20 @@
 	gap: var(--spacing-4);
 	height: var(--layout-header-height);
 	min-height: var(--layout-header-height);
-	border-bottom: 1px solid var(--user-area-divider-color);
-	background-color: var(--background-secondary-lighter);
+	border-bottom: 1px solid var(--mv-hairline);
+	background-color: transparent;
 	padding: 0 var(--spacing-4);
 	color: var(--channel-header-text-primary);
 }
 
+/*
+ * Base surface for the header; the purple->green --header-wash is layered on
+ * top by the theme layer's [class*='headerWrapper'] rule. The wash is
+ * translucent, so contrast is governed by this solid colour:
+ * --text-primary 16.3:1, --text-tertiary (topic) 6.9:1.
+ */
 .headerWrapper {
-	--channel-header-background: var(--background-secondary-lighter);
+	--channel-header-background: var(--mv-surface-chat);
 	background-color: var(--channel-header-background);
 	display: flex;
 	flex-direction: column;
@@ -329,7 +335,10 @@
 	margin-left: var(--spacing-3);
 	min-width: 0;
 	flex-shrink: 1;
-	font-weight: 500;
+	font-family: var(--font-display);
+	font-size: 1rem;
+	font-weight: 700;
+	letter-spacing: -0.01em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -354,10 +363,15 @@
 	margin-left: 0.25rem;
 }
 
+/* Reference §1a: the leading channel glyph is the header's one green accent. */
 .channelIcon {
 	height: 1.5rem;
 	width: 1.5rem;
 	flex-shrink: 0;
+	color: var(--brand-primary);
+}
+
+.headerContainerCallActive .channelIcon {
 	color: var(--channel-header-text-muted);
 }
 
@@ -503,10 +517,15 @@
 	color: var(--channel-header-text-primary);
 }
 
+/* Members toggle etc. read green while their panel is open (reference §1a). */
 .iconButtonSelected {
 	composes: iconButton;
-	color: var(--channel-header-text-primary);
+	color: var(--brand-primary);
 	background-color: transparent;
+}
+
+.headerContainerCallActive .iconButtonSelected {
+	color: var(--channel-header-text-primary);
 }
 
 .updateIconButton {
@@ -598,4 +617,102 @@
 	background-color: var(--status-danger);
 	box-shadow: 0 0 0 0.08rem var(--channel-header-background);
 	pointer-events: none;
+}
+
+/*
+ * ── Mobile channel view (reference §2b) ──────────────────────────────
+ * Placed at the end of the file on purpose: every rule below overrides a
+ * base declaration that appears later in source order than the header-height
+ * media block above, and CSS modules resolve equal-specificity ties by
+ * source order.
+ */
+@media (max-width: 767px) {
+	/*
+	 * Reference §2b: a soft purple bloom hangs behind the mobile header,
+	 * above the stream's own bloom (ChannelChatLayout .messagesArea::after).
+	 * Drawn as a pseudo-element because the theme layer owns .headerWrapper's
+	 * background-image (--header-wash) with !important.
+	 *
+	 * The ellipse is anchored off the top edge and reaches alpha 0 inside the
+	 * header's own box, so nothing spills into the message stream and no
+	 * overflow clipping is needed. Every stop terminates at alpha 0 of its
+	 * own hue rather than the `transparent` keyword, which is rgba(0,0,0,0)
+	 * and would drift the falloff toward grey.
+	 */
+	.headerWrapper {
+		position: relative;
+	}
+
+	/*
+	 * z-index 0 on the bloom + position/z-index 1 on the content row rather
+	 * than a negative z-index on the pseudo: .headerWrapper paints its own
+	 * (theme-layer, !important) --header-wash background, and anything at
+	 * z-index -1 would land behind that and never be seen.
+	 */
+	.headerContainer {
+		position: relative;
+		z-index: 1;
+	}
+
+	.headerWrapper::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background-image: radial-gradient(
+			110% 190% at 50% -46%,
+			hsl(var(--mv-purple-hsl) / 0.14) 0%,
+			hsl(var(--mv-purple-hsl) / 0.08) 34%,
+			hsl(var(--mv-green-hsl) / 0.035) 64%,
+			hsl(var(--mv-green-hsl) / 0) 100%
+		);
+	}
+
+	:global(.theme-light) .headerWrapper::before {
+		display: none;
+	}
+
+	/* Touch target: 2rem is 32px, under the 44px floor. */
+	.backButton {
+		height: 2.75rem;
+		width: 2.75rem;
+		margin-right: var(--spacing-1);
+	}
+
+	/*
+	 * The channel-name row opens the details sheet, so it is a tap target in
+	 * its own right; its content (24px glyph row / 32px avatar row) leaves it
+	 * short of 44px on its own.
+	 */
+	.mobileButton {
+		min-height: 2.75rem;
+	}
+
+	/* Reference §2b sizes the mobile channel name at 15.5px. */
+	.channelName {
+		font-size: 0.96875rem;
+	}
+
+	/*
+	 * Utility icons read as bare glyphs over the wash rather than filled
+	 * --background-tertiary discs, and grow from 2.5rem (40px) to the 44px
+	 * touch floor.
+	 */
+	.iconButtonMobile {
+		height: 2.75rem;
+		width: 2.75rem;
+		background-color: transparent;
+		color: var(--channel-header-text-muted);
+	}
+
+	.iconButtonMobile:active {
+		background-color: var(--channel-header-hover-background);
+		color: var(--channel-header-text-primary);
+	}
+
+	.buttonIconMobile {
+		height: 1.375rem;
+		width: 1.375rem;
+	}
 }

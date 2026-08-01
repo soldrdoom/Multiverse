@@ -30,5 +30,7 @@
 .iconText {
 	height: 1.25rem;
 	width: 1.25rem;
-	color: var(--text-primary);
+	/* Inherits the rail tile's neutral glyph colour (55% white -> white on
+	   hover) from GuildsLayout's .railUtilityButtonIcon. */
+	color: inherit;
 }

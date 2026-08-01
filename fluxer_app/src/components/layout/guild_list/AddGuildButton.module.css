@@ -30,15 +30,16 @@
 .iconText {
 	height: 1rem;
 	width: 1rem;
-	color: #0B0E14;
+	color: inherit;
 }
 
 .iconLabel {
 	display: block;
+	font-family: var(--font-mono);
 	font-size: 0.4rem;
-	font-weight: 700;
-	color: #0B0E14;
-	letter-spacing: 0.05em;
+	font-weight: 600;
+	color: inherit;
+	letter-spacing: 0.1em;
 	line-height: 1;
 	margin-top: 4px;
 	padding-bottom: 2px;

@@ -72,7 +72,13 @@ const TabButton = observer(
 					>
 						<div className={styles.tabContent}>
 							{label}
-							{badge !== undefined && badge > 0 && <MentionBadge mentionCount={badge} />}
+							{badge !== undefined && badge > 0 && (
+								/* Wrapper only exists so the active (gradient) tab can invert
+								   the badge — see .tabBadge in DMFriendsView.module.css. */
+								<span className={styles.tabBadge}>
+									<MentionBadge mentionCount={badge} />
+								</span>
+							)}
 						</div>
 					</button>
 				</FocusRing>
