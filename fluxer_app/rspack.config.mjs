@@ -266,7 +266,11 @@ export default () => {
 			clean: true,
 		},
 
-		devtool: 'source-map',
+		// Production uses 'hidden-source-map': maps are still emitted as build
+		// artifacts (so a future Sentry upload pipeline can symbolicate), but no
+		// //# sourceMappingURL= comment advertises them. The maps are not served --
+		// the serving layer blocks them outright (see app_proxy SourceMapGuard).
+		devtool: isProduction ? 'hidden-source-map' : 'source-map',
 
 		target: ['web', 'browserslist'],
 

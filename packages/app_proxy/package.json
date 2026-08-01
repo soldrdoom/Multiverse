@@ -5,6 +5,10 @@
 	"exports": {
 		"./*": "./*"
 	},
+	"scripts": {
+		"test": "vitest run",
+		"typecheck": "tsgo --noEmit"
+	},
 	"dependencies": {
 		"@fluxer/config": "workspace:*",
 		"@fluxer/constants": "workspace:*",
@@ -15,6 +19,9 @@
 		"hono": "catalog:"
 	},
 	"devDependencies": {
-		"@types/node": "catalog:"
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"vite-tsconfig-paths": "catalog:",
+		"vitest": "catalog:"
 	}
 }

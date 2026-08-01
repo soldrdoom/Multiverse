@@ -18,6 +18,7 @@
  */
 
 import type {HonoEnv} from '@fluxer/app_proxy/src/AppServerTypes';
+import {applySourceMapGuard} from '@fluxer/app_proxy/src/app_server/middleware/SourceMapGuard';
 import {createSpaIndexRoute} from '@fluxer/app_proxy/src/app_server/routes/SpaIndexRoute';
 import {createSpaRoute} from '@fluxer/app_proxy/src/app_server/routes/SpaRoute';
 import type {CSPOptions} from '@fluxer/app_proxy/src/app_server/utils/CSP';
@@ -34,6 +35,9 @@ interface RegisterAppServerRoutesOptions {
 
 export function registerAppServerRoutes(options: RegisterAppServerRoutesOptions): void {
 	const {app, assetVersion, cspDirectives, logger, staticDir} = options;
+
+	// Must stay first: every route below can reach the static directory.
+	applySourceMapGuard(app);
 
 	app.get('/_health', (c) => c.text('OK'));
 

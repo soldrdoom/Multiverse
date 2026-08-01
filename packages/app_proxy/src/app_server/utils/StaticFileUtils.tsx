@@ -21,7 +21,7 @@ import {existsSync, readFileSync} from 'node:fs';
 import {join} from 'node:path';
 import type {CSPOptions} from '@fluxer/app_proxy/src/app_server/utils/CSP';
 import {buildCSP, generateNonce} from '@fluxer/app_proxy/src/app_server/utils/CSP';
-import {getMimeType, isHashedAsset} from '@fluxer/app_proxy/src/app_server/utils/Mime';
+import {getMimeType, isHashedAsset, isSourceMapPath} from '@fluxer/app_proxy/src/app_server/utils/Mime';
 import type {Logger} from '@fluxer/logger/src/Logger';
 import type {Context} from 'hono';
 
@@ -42,6 +42,12 @@ export type ServeStaticFileResult =
 export function serveStaticFile(options: ServeStaticFileOptions): ServeStaticFileResult {
 	const {requestPath, resolvedStaticDir, logger} = options;
 	const filePath = join(resolvedStaticDir, requestPath);
+
+	// Checked against the resolved path, not the URL, so whatever join() would
+	// actually open is what gets vetted. Source maps are never served.
+	if (isSourceMapPath(filePath) || isSourceMapPath(requestPath)) {
+		return {success: false};
+	}
 
 	if (!isPathSafe(filePath, resolvedStaticDir)) {
 		logger.warn({requestPath, filePath}, 'directory traversal attempt blocked');

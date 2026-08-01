@@ -20,6 +20,7 @@
 import {resolve} from 'node:path';
 import type {AppProxyHonoEnv} from '@fluxer/app_proxy/src/AppProxyTypes';
 import {proxyAssets} from '@fluxer/app_proxy/src/app_proxy/proxy/AssetsProxy';
+import {applySourceMapGuard} from '@fluxer/app_proxy/src/app_server/middleware/SourceMapGuard';
 import {createSpaIndexRoute} from '@fluxer/app_proxy/src/app_server/routes/SpaIndexRoute';
 import type {CSPOptions} from '@fluxer/app_proxy/src/app_server/utils/CSP';
 import type {Logger} from '@fluxer/logger/src/Logger';
@@ -36,6 +37,10 @@ interface RegisterAppProxyRoutesOptions {
 
 export function registerAppProxyRoutes(options: RegisterAppProxyRoutesOptions): void {
 	const {app, assetsPath, cspDirectives, logger, staticCDNEndpoint, staticDir} = options;
+
+	// Must stay first: both the CDN asset proxy and the SPA catch-all below can
+	// otherwise hand back a source map.
+	applySourceMapGuard(app);
 
 	app.get('/_health', (c) => c.text('OK'));
 

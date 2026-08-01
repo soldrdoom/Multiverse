@@ -61,15 +61,8 @@ export function createSpaRoute<E extends Env>(app: Hono<E>, options: SpaRouteOpt
 		return c.body(serviceWorkerContent);
 	});
 
-	app.get('/sw.js.map', (c) => {
-		const sourceMapContent = readStaticTextFile(staticDir, 'sw.js.map');
-		if (!sourceMapContent) {
-			return c.notFound();
-		}
-		c.header('Content-Type', 'application/json');
-		c.header('Cache-Control', 'no-cache');
-		return c.body(sourceMapContent);
-	});
+	// There is deliberately no /sw.js.map route: source maps embed full
+	// `sourcesContent` and are blocked by applySourceMapGuard.
 }
 
 function readStaticTextFile(staticDir: string, filename: string): string | null {

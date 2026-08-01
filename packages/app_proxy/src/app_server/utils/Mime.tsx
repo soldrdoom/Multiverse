@@ -55,10 +55,56 @@ const MIME_TYPES: Record<string, string> = {
 
 	'.webmanifest': 'application/manifest+json',
 
-	'.map': 'application/json',
+	// '.map' is deliberately absent: source maps embed unminified `sourcesContent`
+	// and are never served. See isSourceMapPath / createSourceMapGuard.
 
 	'.wasm': 'application/wasm',
 };
+
+const SOURCE_MAP_EXTENSION = '.map';
+
+/**
+ * Reduces a request path to the form that actually decides which file is opened,
+ * so a suffix check cannot be dodged with encoding or trailing noise.
+ */
+function normalizeForExtensionCheck(value: string): string {
+	let candidate = value;
+
+	// Hono already decodes most percent-escapes into `c.req.path`, but it leaves
+	// `%2f`/`%5c` intact, and a client can double-encode. Decode to a fixed point.
+	for (let iteration = 0; iteration < 3; iteration += 1) {
+		let decoded: string;
+		try {
+			decoded = decodeURIComponent(candidate);
+		} catch {
+			// Malformed percent-encoding: keep the best form we already have.
+			break;
+		}
+		if (decoded === candidate) {
+			break;
+		}
+		candidate = decoded;
+	}
+
+	// Poison null byte: path handling truncates at NUL, so test the truncated form too.
+	const nulIndex = candidate.indexOf('\0');
+	if (nulIndex >= 0) {
+		candidate = candidate.slice(0, nulIndex);
+	}
+
+	// Trailing separators/whitespace do not change which file a path resolves to.
+	return candidate.replace(/[\s/\\]+$/, '').toLowerCase();
+}
+
+/**
+ * True if the path addresses a source map, under any encoding or casing.
+ * Checks the raw form as well so NUL truncation cannot open a hole.
+ */
+export function isSourceMapPath(path: string): boolean {
+	return (
+		normalizeForExtensionCheck(path).endsWith(SOURCE_MAP_EXTENSION) || path.toLowerCase().endsWith(SOURCE_MAP_EXTENSION)
+	);
+}
 
 export function getMimeType(path: string): string {
 	const ext = path.slice(path.lastIndexOf('.')).toLowerCase();
