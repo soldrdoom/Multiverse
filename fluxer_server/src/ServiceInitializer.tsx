@@ -36,6 +36,7 @@ import {JetStreamWorkerQueue} from '@fluxer/api/src/worker/JetStreamWorkerQueue'
 import {WorkerService} from '@fluxer/api/src/worker/WorkerService';
 import {createAppServer} from '@fluxer/app_proxy/src/AppServer';
 import type {AppServerResult} from '@fluxer/app_proxy/src/AppServerTypes';
+import {buildFluxerServerCSPOptions} from '@fluxer/app_proxy/src/app_server/utils/CSP';
 import {getBuildMetadata} from '@fluxer/config/src/BuildMetadata';
 import {ADMIN_OAUTH2_APPLICATION_ID} from '@fluxer/constants/src/Core';
 import {createServiceTelemetry} from '@fluxer/hono/src/middleware/TelemetryAdapters';
@@ -285,22 +286,14 @@ function createAppServerInitializer(context: ServiceInitializationContext): Serv
 			metricsCollector: telemetry.metricsCollector,
 			tracing: telemetry.tracing,
 		},
-		// CSP is intentionally restricted to this instance's own origins only.
-		// External CDN sources (e.g. fluxerstatic.com) have been removed.
-		// All scripts, styles, fonts, and images are served from this instance.
-		// frame-src is empty (resolves to 'self' only) — 'none' alongside other sources is invalid.
-		// NFT sticker images are externally-hosted (IPFS, Arweave, arbitrary CDNs), so https: is
-		// required in imgSrc — there is no practical alternative without a full image proxy.
-		cspDirectives: {
-			defaultSrc: ["'self'"],
-			scriptSrc: ["'self'", "'unsafe-inline'"],
-			styleSrc: ["'self'", "'unsafe-inline'"],
-			imgSrc: ["'self'", 'data:', 'blob:', 'https:', publicUrlHost, mediaUrlHost],
-			connectSrc: ["'self'", 'wss:', 'ws:', publicUrlHost, 'https://ip.fluxer.workers.dev', 'https://mainnet.helius-rpc.com', 'https://api.mainnet-beta.solana.com', 'https://devnet.helius-rpc.com', 'https://api.devnet.solana.com', 'https://rpc.ankr.com'],
-			fontSrc: ["'self'"],
-			mediaSrc: ["'self'", 'blob:', mediaUrlHost],
-			frameSrc: [],
-		},
+		// The served policy is defined in buildFluxerServerCSPOptions (packages/app_proxy CSP.tsx),
+		// alongside the standalone app_proxy policy (buildMultiverseCSPOptions) so the two do not
+		// drift unnoticed. The Sentry ingest origin is derived from app_public.sentry_dsn.
+		cspDirectives: buildFluxerServerCSPOptions({
+			publicUrlHost,
+			mediaUrlHost,
+			sentryDsn: config.app_public.sentry_dsn,
+		}),
 	});
 
 	return {

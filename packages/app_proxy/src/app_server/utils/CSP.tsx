@@ -156,6 +156,16 @@ export function buildCSP(nonce: string, options?: CSPOptions): string {
 	return directives.join('; ');
 }
 
+/**
+ * CSP for the standalone `fluxer_app_proxy` deployment, built from the static
+ * `CSP_HOSTS` allowlists above.
+ *
+ * NOTE: this is NOT the policy served by the official multiverse.forum
+ * deployment. That one is `buildFluxerServerCSPOptions` below, which the
+ * `fluxer_server` umbrella passes to `createAppServer`. The two intentionally
+ * differ (scheme-wide `wss:`/`ws:`/`https:` sources, dynamic
+ * `publicUrlHost`/`mediaUrlHost`); keep both in mind when editing either.
+ */
 export function buildMultiverseCSPOptions(config: SentryCSPConfig): CSPOptions {
 	const reportURI = buildSentryReportURI(config);
 	const sentry = parseSentryDSN(config.sentryDsn);
@@ -180,4 +190,65 @@ export function buildMultiverseCSPOptions(config: SentryCSPConfig): CSPOptions {
 
 export function buildMultiverseCSP(nonce: string, config: SentryCSPConfig): string {
 	return buildCSP(nonce, buildMultiverseCSPOptions(config));
+}
+
+export interface FluxerServerCSPConfig {
+	publicUrlHost: string;
+	mediaUrlHost: string;
+	sentryDsn?: string;
+}
+
+/**
+ * CSP actually served by the `fluxer_server` umbrella deployment (see
+ * `fluxer_server/src/ServiceInitializer.tsx`, `createAppServerInitializer`).
+ *
+ * Intentionally restricted to this instance's own origins plus the few external
+ * hosts the client genuinely talks to. External CDN sources (e.g.
+ * fluxerstatic.com) have been removed — all scripts, styles, fonts, and images
+ * are served from this instance.
+ *
+ * frame-src is empty (resolves to 'self' only) — 'none' alongside other sources
+ * is invalid.
+ *
+ * NFT sticker images are externally-hosted (IPFS, Arweave, arbitrary CDNs), so
+ * `https:` is required in imgSrc — there is no practical alternative without a
+ * full image proxy.
+ *
+ * The Sentry ingest origin is derived from the configured frontend DSN
+ * (`app_public.sentry_dsn`) rather than hardcoded. When no DSN is configured the
+ * returned directives are byte-identical to the pre-Sentry policy.
+ */
+export function buildFluxerServerCSPOptions(config: FluxerServerCSPConfig): CSPOptions {
+	const {publicUrlHost, mediaUrlHost, sentryDsn} = config;
+
+	const connectSrc: Array<string> = [
+		"'self'",
+		'wss:',
+		'ws:',
+		publicUrlHost,
+		'https://ip.fluxer.workers.dev',
+		'https://mainnet.helius-rpc.com',
+		'https://api.mainnet-beta.solana.com',
+		'https://devnet.helius-rpc.com',
+		'https://api.devnet.solana.com',
+		'https://rpc.ankr.com',
+	];
+
+	// Browser error reporting POSTs to the Sentry ingest origin; without it in
+	// connect-src the SDK initializes fine and every event is silently blocked.
+	const sentry = parseSentryDSN(sentryDsn);
+	if (sentry && !connectSrc.includes(sentry.targetUrl)) {
+		connectSrc.push(sentry.targetUrl);
+	}
+
+	return {
+		defaultSrc: ["'self'"],
+		scriptSrc: ["'self'", "'unsafe-inline'"],
+		styleSrc: ["'self'", "'unsafe-inline'"],
+		imgSrc: ["'self'", 'data:', 'blob:', 'https:', publicUrlHost, mediaUrlHost],
+		connectSrc,
+		fontSrc: ["'self'"],
+		mediaSrc: ["'self'", 'blob:', mediaUrlHost],
+		frameSrc: [],
+	};
 }
