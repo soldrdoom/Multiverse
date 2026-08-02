@@ -22,10 +22,28 @@ import {fileURLToPath} from 'node:url';
 import {Config} from '@fluxer/api/src/Config';
 import {IpBanMiddleware, ipBanCache} from '@fluxer/api/src/middleware/IpBanMiddleware';
 import {RequireXForwardedForMiddleware} from '@fluxer/api/src/middleware/RequireXForwardedForMiddleware';
+import {attachProductionErrorHandler} from '@fluxer/api/src/test/ProductionErrorHandling';
 import type {HonoEnv} from '@fluxer/api/src/types/HonoEnv';
 import {Hono} from 'hono';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 
+/**
+ * `attachProductionErrorHandler` is not optional garnish — it is the difference between this suite
+ * being a regression signal and being decorative.
+ *
+ * Without it, a bare `new Hono()` falls back to hono's *built-in* handler
+ * (`hono@4.0.0/dist/hono-base.js:35`), which does its own `instanceof HTTPException` against the copy
+ * of hono that `packages/api` resolves. That check disagrees with the one in `AppErrorHandler`
+ * (`packages/errors`, hono@4.11.9) for every error class, in one direction or the other:
+ *
+ *   - a `hono/http-exception` `HTTPException` built here passes the bare-app check (403) and FAILS in
+ *     the assembled server (500) — this is the defect that shipped;
+ *   - a `MultiverseError` (which extends the 4.11.9 `HTTPException`) FAILS the bare-app check (500)
+ *     and passes in the assembled server (403).
+ *
+ * So a bare app cannot tell you the truth about either. Every one of the 403 assertions below passed
+ * against a guard that was returning 500 to production. See ErrorClassification.test.tsx.
+ */
 function createApp(options: Parameters<typeof RequireXForwardedForMiddleware>[0] = {}): Hono<HonoEnv> {
 	const app = new Hono<HonoEnv>();
 	app.use('*', RequireXForwardedForMiddleware(options));
@@ -35,7 +53,7 @@ function createApp(options: Parameters<typeof RequireXForwardedForMiddleware>[0]
 	app.get('/testfoo', async (ctx) => ctx.text('ok'));
 	app.get('/webhooks/livekit', async (ctx) => ctx.text('ok'));
 	app.get('/webhooks/livekit-impostor', async (ctx) => ctx.text('ok'));
-	return app;
+	return attachProductionErrorHandler(app);
 }
 
 async function request(app: Hono<HonoEnv>, path: string, headers: Record<string, string> = {}): Promise<Response> {
@@ -189,6 +207,9 @@ describe('ordering against IpBanMiddleware', () => {
 			order.push('handler');
 			return ctx.text('ok');
 		});
+		// See createApp's comment: production wiring, without which the status assertions below are
+		// measuring hono's built-in fallback rather than this application's error classification.
+		attachProductionErrorHandler(app);
 
 		const response = await app.fetch(new Request('https://api.fluxer.app/users/@me', {headers}));
 		return {status: response.status, order};

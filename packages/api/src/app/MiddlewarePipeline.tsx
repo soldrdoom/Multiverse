@@ -116,8 +116,9 @@ export function configureMiddleware(routes: HonoApp, options: MiddlewarePipeline
 	// This costs a guard-rejected request its MetricsMiddleware counters (it 403s before reaching
 	// them). The outer stack applied above still logs the completed request and records it via the
 	// telemetry collector, and the guard emits its own warn line, so nothing goes fully unobserved.
-	// The guard early-returns when `proxy.require_forwarded_for` is off — which is the production
-	// default and the state of the live config — so with the flag off the traversal is unchanged.
+	// The guard early-returns when `proxy.require_forwarded_for` is off, so with the flag off the
+	// traversal is unchanged. Note the schema *default* is off, but this instance turned it ON in
+	// production on 2026-08-02 — do not read the default as the live state; check `config.json`.
 	routes.use(RequireXForwardedForMiddleware());
 	routes.use(IpBanMiddleware);
 	routes.use(ConcurrencyLimitMiddleware);

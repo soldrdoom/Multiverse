@@ -21,9 +21,9 @@ import {Config} from '@fluxer/api/src/Config';
 import {Logger} from '@fluxer/api/src/Logger';
 import type {HonoEnv} from '@fluxer/api/src/types/HonoEnv';
 import {stripApiPrefix} from '@fluxer/api/src/utils/RequestPathUtils';
+import {ProxyHeadersRequiredError} from '@fluxer/errors/src/domains/core/ProxyHeadersRequiredError';
 import {extractClientIpDetails} from '@fluxer/ip_utils/src/ClientIp';
 import {createMiddleware} from 'hono/factory';
-import {HTTPException} from 'hono/http-exception';
 
 interface RequireXForwardedForOptions {
 	exemptPaths?: Array<string>;
@@ -94,7 +94,12 @@ export function RequireXForwardedForMiddleware({
 				},
 				'Rejected request without a proxy-set client IP header',
 			);
-			throw new HTTPException(403, {message: 'Forbidden'});
+			// A `MultiverseError` subclass, NOT `hono/http-exception`. `packages/api` resolves hono@4.0.0
+			// and `packages/errors` (home of `AppErrorHandler`) resolves hono@4.11.9, so an `HTTPException`
+			// thrown from here is not an `instanceof` the `HTTPException` the handler checks against, and
+			// the rejection rendered as a 500 in the assembled server while unit tests — which build a bare
+			// Hono app with no `onError` — saw a correct 403. See ProxyHeadersRequiredError's doc comment.
+			throw new ProxyHeadersRequiredError();
 		}
 
 		await next();

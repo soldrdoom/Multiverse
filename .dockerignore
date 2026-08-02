@@ -40,6 +40,16 @@
 /fluxer_app/src/data/emojis.json
 /fluxer_app/src/locales/*/messages.js
 dev
+
+# Untracked build-context leftovers that were being baked into every image by the
+# blanket `COPY packages/ ./packages/` and `COPY fluxer_server/ ...` in fluxer_server/Dockerfile.
+# None held a live credential (the stray fluxer_server/config.json is a local-dev file), but
+# shipping stale configs, test reports and database files into a production image is needless
+# surface. Found by the 2026-07-31 post-deploy audit.
+**/test-results.json
+/fluxer_server/config.json
+/fluxer_server/data
+/packages/marketing/site.zip
 !fluxer_app/dist
 !fluxer_app/dist/**
 fluxer_app/dist/**/*.map

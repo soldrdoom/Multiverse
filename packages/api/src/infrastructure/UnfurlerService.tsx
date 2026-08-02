@@ -36,7 +36,6 @@ import * as FetchUtils from '@fluxer/api/src/utils/FetchUtils';
 import type {ICacheService} from '@fluxer/cache/src/ICacheService';
 import {FLUXER_USER_AGENT} from '@fluxer/constants/src/Core';
 import type {MessageEmbedResponse} from '@fluxer/schema/src/domains/message/EmbedSchemas';
-import {HTTPException} from 'hono/http-exception';
 import {ms} from 'itty-time';
 import {filetypemime} from 'magic-bytes.js';
 
@@ -133,9 +132,12 @@ export class UnfurlerService extends IUnfurlerService {
 				if (value) {
 					totalSize += value.length;
 					if (totalSize > MAX_STREAM_BYTES) {
-						throw new HTTPException(413, {
-							message: 'Stream size exceeds maximum allowed for unfurling',
-						});
+						// Internal control flow only: `unfurl()` catches this, logs it, and returns no embeds —
+						// it is never rendered as an HTTP response. It was an `HTTPException(413)`, which was
+						// misleading on two counts: nothing ever sent that status, and an `HTTPException` built
+						// in `packages/api` (hono@4.0.0) is not the one `AppErrorHandler` in `packages/errors`
+						// (hono@4.11.9) `instanceof`-checks, so had it ever escaped it would have rendered 500.
+						throw new Error('Stream size exceeds maximum allowed for unfurling');
 					}
 					chunks.push(value);
 				}
