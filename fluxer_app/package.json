@@ -14,7 +14,7 @@
 		"./src/*": "./src/*"
 	},
 	"scripts": {
-		"build": "pnpm wasm:codegen && pnpm generate:colors && pnpm generate:masks && pnpm generate:css-types && tsgo --noEmit && pnpm lingui:compile && rm -rf dist && rspack build --mode production && pnpm tsx scripts/build-sw.mjs",
+		"build": "pnpm wasm:codegen && pnpm generate:colors && pnpm generate:masks && pnpm generate:css-types && tsgo --noEmit && pnpm lingui:compile && rm -rf dist && rspack build --mode production && pnpm tsx scripts/build-sw.mjs && pnpm sentry:sourcemaps",
 		"dev": "pnpm tsx scripts/DevServer.tsx",
 		"typecheck": "pnpm wasm:codegen && pnpm generate:masks && pnpm generate:css-types && tsgo --noEmit",
 		"typecheck:only": "tsgo --noEmit",
@@ -28,6 +28,7 @@
 		"i18n:extract": "pnpm lingui:extract",
 		"lingui:compile": "lingui compile",
 		"lingui:extract": "lingui extract --clean",
+		"sentry:sourcemaps": "node scripts/upload-sourcemaps.mjs",
 		"test": "pnpm i18n:compile && vitest run",
 		"test:coverage": "vitest run --coverage",
 		"test:debug": "vitest run --no-coverage --inspect-brk --threads=false",

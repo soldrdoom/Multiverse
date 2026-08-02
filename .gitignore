@@ -82,6 +82,7 @@ devenv.local.nix
 /server_data/
 /fluxer_api/data/
 /fluxer_relay_directory/data/
+/fluxer_app/.build-meta.json
 /fluxer_app/src/assets/emoji-sprites/
 /fluxer_app/src/components/uikit/AvatarStatusGeometry.ts
 /fluxer_app/src/components/uikit/SVGMasks.tsx

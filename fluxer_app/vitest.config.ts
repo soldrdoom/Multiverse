@@ -64,7 +64,7 @@ export default defineConfig({
 		},
 		globals: true,
 		css: true,
-		include: ['src/**/*.{test,spec}.{ts,tsx,js,jsx}'],
+		include: ['src/**/*.{test,spec}.{ts,tsx,js,jsx}', 'scripts/**/*.{test,spec}.{ts,tsx,js,jsx,mjs}'],
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'json', 'html'],

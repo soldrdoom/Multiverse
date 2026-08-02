@@ -45,6 +45,7 @@ import KeybindManager from '@app/lib/KeybindManager';
 import {Logger} from '@app/lib/Logger';
 import {startReadStateCleanup} from '@app/lib/ReadStateCleanup';
 import {Outlet, RouterProvider} from '@app/lib/router/React';
+import {buildSentryUser} from '@app/lib/SentryScrubbing';
 import {router} from '@app/Router';
 import AccessibilityStore, {HdrDisplayMode} from '@app/stores/AccessibilityStore';
 import ModalStore from '@app/stores/ModalStore';
@@ -441,11 +442,8 @@ export const App = observer((): React.ReactElement => {
 
 	useEffect(() => {
 		if (currentUser) {
-			Sentry.setUser({
-				id: currentUser.id,
-				username: currentUser.username,
-				email: currentUser.email ?? undefined,
-			});
+			// `buildSentryUser` deliberately omits `email` -- see its doc comment.
+			Sentry.setUser(buildSentryUser(currentUser));
 		} else {
 			Sentry.setUser(null);
 		}

@@ -17,11 +17,11 @@
  * along with Fluxer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {execSync} from 'node:child_process';
 import fs from 'node:fs';
 import path, {dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {CopyRspackPlugin, DefinePlugin, HtmlRspackPlugin, SwcJsMinimizerRspackPlugin} from '@rspack/core';
+import {resolveBuildMetadata, writeBuildMetadataFile} from './scripts/build/BuildMetadata.mjs';
 import {createPoFileRule, getLinguiSwcPluginConfig} from './scripts/build/rspack/lingui.mjs';
 import {staticFilesPlugin} from './scripts/build/rspack/static-files.mjs';
 
@@ -186,37 +186,6 @@ function resolveAppPublic(config) {
 	};
 }
 
-function resolveReleaseChannel() {
-	const raw = asString(process.env.RELEASE_CHANNEL, 'nightly').toLowerCase();
-	if (raw === 'stable' || raw === 'canary') {
-		return raw;
-	}
-	return 'nightly';
-}
-
-function resolveBuildMetadata() {
-	const envBuildSha = asString(process.env.BUILD_SHA);
-	let buildSha = envBuildSha ?? undefined;
-	if (!buildSha) {
-		try {
-			buildSha = execSync('git rev-parse --short HEAD', {cwd: ROOT_DIR, stdio: ['ignore', 'pipe', 'ignore']})
-				.toString()
-				.trim();
-		} catch {
-			buildSha = 'dev';
-		}
-	}
-	const buildNumber = asString(process.env.BUILD_NUMBER, '0');
-	const buildTimestamp = asString(process.env.BUILD_TIMESTAMP, String(Math.floor(Date.now() / 1000)));
-	const releaseChannel = resolveReleaseChannel();
-	return {
-		buildSha,
-		buildNumber,
-		buildTimestamp,
-		releaseChannel,
-	};
-}
-
 function getPublicEnvVar(values, name) {
 	const value = values[name];
 	return value === undefined ? 'undefined' : JSON.stringify(value);
@@ -227,6 +196,18 @@ export default () => {
 	const config = readConfig();
 	const appPublic = resolveAppPublic(config);
 	const buildMetadata = resolveBuildMetadata();
+
+	// Pin the build identity to disk so the post-build Sentry upload uses the
+	// exact sha/build number that got compiled into the bundle. Without this the
+	// upload step would re-run `git rev-parse` in its own process and would
+	// silently disagree with the bundle if HEAD moved mid-build -- which
+	// produces artifacts under a release name nothing ever reports.
+	try {
+		writeBuildMetadataFile(buildMetadata);
+	} catch (error) {
+		console.warn('[build-metadata] failed to write build metadata file:', error);
+	}
+
 	const publicValues = {
 		PUBLIC_BUILD_SHA: buildMetadata.buildSha,
 		PUBLIC_BUILD_NUMBER: buildMetadata.buildNumber,

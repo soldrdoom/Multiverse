@@ -40,6 +40,7 @@ import {initI18n} from '@app/I18n';
 import CaptchaInterceptor from '@app/lib/CaptchaInterceptor';
 import {Logger} from '@app/lib/Logger';
 import {initializeEmojiParser} from '@app/lib/markdown/EmojiProviderSetup';
+import {sentryBeforeSend} from '@app/lib/SentryScrubbing';
 import {registerServiceWorker} from '@app/service_worker/Register';
 import AccountManager from '@app/stores/AccountManager';
 import ChannelDisplayNameStore from '@app/stores/ChannelDisplayNameStore';
@@ -133,24 +134,11 @@ function initSentry(): void {
 		environment: Config.PUBLIC_RELEASE_CHANNEL,
 		release: releaseLabel,
 		dist: buildNumberString,
-		sendDefaultPii: true,
-		beforeSend(event, hint) {
-			const error = hint.originalException;
-			if (error instanceof Error) {
-				if (error.name === 'HTTPResponseError' || error.name === 'TimeoutError') {
-					return null;
-				}
-
-				const isBlobWorkerImportScriptsFailure =
-					error.name === 'NetworkError' &&
-					error.message.includes("Failed to execute 'importScripts' on 'WorkerGlobalScope'") &&
-					error.message.includes('blob:');
-				if (isBlobWorkerImportScriptsFailure) {
-					return null;
-				}
-			}
-			return event;
-		},
+		// Keep this false: it is the only thing that stops Sentry's server from recording the
+		// reporting client's IP (`_metadata.sdk.settings.infer_ip`) and from attaching an auto IP
+		// to release-health sessions.
+		sendDefaultPii: false,
+		beforeSend: sentryBeforeSend,
 		initialScope: (scope: Scope) => {
 			if (Config.PUBLIC_RELEASE_CHANNEL) {
 				scope.setTag('release_channel', Config.PUBLIC_RELEASE_CHANNEL);
