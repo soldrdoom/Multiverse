@@ -67,8 +67,10 @@ export class UserAuthRepository implements IUserAuthRepository {
 	}
 
 	async updateAuthSessionLastUsed(sessionIdHash: Buffer): Promise<void> {
-		const session = await this.getAuthSessionByToken(sessionIdHash);
-		if (!session) return;
+		// No existence pre-check: the write itself is existence-checked
+		// (patchByPkIfExists), which is both cheaper and race-free — a pre-check
+		// followed by a blind upsert can still resurrect a session deleted in
+		// between the two statements.
 		await this.authSessionRepository.updateAuthSessionLastUsed(sessionIdHash);
 	}
 

@@ -28,9 +28,11 @@ import {
 	upsertOne,
 } from '@fluxer/api/src/database/Cassandra';
 import type {UserRow} from '@fluxer/api/src/database/types/UserTypes';
-import {EMPTY_USER_ROW, USER_COLUMNS} from '@fluxer/api/src/database/types/UserTypes';
+import {EMPTY_USER_ROW, isUsableUserRow, USER_COLUMNS} from '@fluxer/api/src/database/types/UserTypes';
+import {Logger} from '@fluxer/api/src/Logger';
 import {User} from '@fluxer/api/src/models/User';
 import {Users} from '@fluxer/api/src/Tables';
+import {recordCounter} from '@fluxer/telemetry/src/Metrics';
 
 const FLUXER_BOT_USER_ID = 0n;
 const DELETED_USER_ID = 1n;
@@ -43,8 +45,6 @@ const FETCH_USER_BY_ID_CQL = Users.selectCql({
 	where: Users.where.eq('user_id'),
 	limit: 1,
 });
-
-const UPDATE_LAST_ACTIVE_CQL = `UPDATE users SET last_active_at = :last_active_at, last_active_ip = :last_active_ip WHERE user_id = :user_id`;
 
 const FETCH_ACTIVITY_TRACKING_CQL = Users.selectCql({
 	columns: ['last_active_at', 'last_active_ip'],
@@ -65,6 +65,30 @@ const createFetchAllUsersPaginatedCql = (limit: number) =>
 type UserPatch = Partial<{
 	[K in Exclude<keyof UserRow, 'user_id'> & string]: DbOp<UserRow[K]>;
 }>;
+
+/**
+ * A `users` row that is missing identity columns is not an account: it is the
+ * residue of a write that landed against a deleted primary key. Surfacing it as
+ * a `User` produces a principal whose `flags` read as zero — i.e. one that every
+ * DELETED/DISABLED guard treats as a live, unflagged account — so it is dropped
+ * here, at the only place rows become models.
+ */
+function reportUnusableUserRow(userId: UserID): void {
+	Logger.warn({userId}, 'Ignoring partial users row with no identity columns');
+	recordCounter({name: 'user.row.partial_ignored', dimensions: {}});
+}
+
+function toUsers(rows: Array<UserRow>): Array<User> {
+	const users: Array<User> = [];
+	for (const row of rows) {
+		if (!isUsableUserRow(row)) {
+			reportUnusableUserRow(row.user_id);
+			continue;
+		}
+		users.push(new User(row));
+	}
+	return users;
+}
 
 export class UserDataRepository {
 	async findUnique(userId: UserID): Promise<User | null> {
@@ -95,6 +119,11 @@ export class UserDataRepository {
 			return null;
 		}
 
+		if (!isUsableUserRow(userRow)) {
+			reportUnusableUserRow(userId);
+			return null;
+		}
+
 		return new User(userRow);
 	}
 
@@ -102,24 +131,62 @@ export class UserDataRepository {
 		return (await this.findUnique(userId))!;
 	}
 
-	async listAllUsersPaginated(limit: number, lastUserId?: UserID): Promise<Array<User>> {
-		let users: Array<UserRow>;
-
+	private async fetchUserRowPage(limit: number, lastUserId?: UserID): Promise<Array<UserRow>> {
 		if (lastUserId) {
-			const cql = createFetchAllUsersPaginatedCql(limit);
-			users = await fetchMany<UserRow>(cql, {last_user_id: lastUserId});
-		} else {
-			const cql = createFetchAllUsersFirstPageCql(limit);
-			users = await fetchMany<UserRow>(cql, {});
+			return fetchMany<UserRow>(createFetchAllUsersPaginatedCql(limit), {last_user_id: lastUserId});
+		}
+		return fetchMany<UserRow>(createFetchAllUsersFirstPageCql(limit), {});
+	}
+
+	/**
+	 * Every caller of this method infers "last page" from the returned length
+	 * (`length === batchSize` or `length === 0 -> break`) and takes its next
+	 * cursor from the last returned user. Dropping unusable rows from a page
+	 * therefore cannot be done naively: a short page would be read as the end of
+	 * the table, and an all-stub page would both terminate the sweep and leave
+	 * the cursor unmoved. That silently truncates the search-index rebuild, the
+	 * activity-tracker rebuild, the inactivity sweep and the account-deletion
+	 * queue rebuild.
+	 *
+	 * So the drop is compensated here rather than pushed onto callers: keep
+	 * reading forward until `limit` usable accounts are assembled or the table is
+	 * genuinely exhausted. The storage cursor advances by the last *raw* row of
+	 * each fetch (stub rows included), while the value returned to the caller
+	 * always ends on a real account, so neither cursor can stall. A returned page
+	 * shorter than `limit` once again means, and only means, "no more rows".
+	 */
+	async listAllUsersPaginated(limit: number, lastUserId?: UserID): Promise<Array<User>> {
+		if (limit <= 0) {
+			return [];
 		}
 
-		return users.map((user) => new User(user));
+		const users: Array<User> = [];
+		let cursor = lastUserId;
+
+		while (users.length < limit) {
+			const remaining = limit - users.length;
+			const rows = await this.fetchUserRowPage(remaining, cursor);
+			if (rows.length === 0) {
+				break;
+			}
+
+			// Advanced past every row read, not just the usable ones: this is what
+			// stops a page that is entirely stubs from re-reading the same offset.
+			cursor = rows[rows.length - 1]!.user_id;
+			users.push(...toUsers(rows));
+
+			if (rows.length < remaining) {
+				break;
+			}
+		}
+
+		return users;
 	}
 
 	async listUsers(userIds: Array<UserID>): Promise<Array<User>> {
 		if (userIds.length === 0) return [];
 		const users = await fetchMany<UserRow>(FETCH_USERS_BY_IDS_CQL, {user_ids: userIds});
-		return users.map((user) => new User(user));
+		return toUsers(users);
 	}
 
 	async upsertUserRow(data: UserRow, oldData?: UserRow | null): Promise<{finalVersion: number | null}> {
@@ -160,15 +227,20 @@ export class UserDataRepository {
 
 	async updateLastActiveAt(params: {userId: UserID; lastActiveAt: Date; lastActiveIp?: string}): Promise<void> {
 		const {userId, lastActiveAt, lastActiveIp} = params;
-		const updateParams: {user_id: UserID; last_active_at: Date; last_active_ip?: string} = {
-			user_id: userId,
-			last_active_at: lastActiveAt,
+		const patch: {last_active_at: DbOp<Date>; last_active_ip?: DbOp<string>} = {
+			last_active_at: Db.set(lastActiveAt),
 		};
 		if (lastActiveIp !== undefined) {
-			updateParams.last_active_ip = lastActiveIp;
+			patch.last_active_ip = Db.set(lastActiveIp);
 		}
 
-		await upsertOne(UPDATE_LAST_ACTIVE_CQL, updateParams);
+		// Existence-checked: this is a fire-and-forget activity write issued from
+		// request middleware, so it can land after the account has been deleted. A
+		// plain upsert would recreate the primary `users` row with only the columns
+		// written here — an unusable stub with no username, no discriminator and no
+		// flags, which no secondary index knows about and which the DELETED-flag
+		// guards therefore read as a live, unflagged account.
+		await upsertOne(Users.patchByPkIfExists({user_id: userId}, patch));
 	}
 
 	async getActivityTracking(

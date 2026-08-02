@@ -81,6 +81,31 @@ export interface UserRow {
 	version: number;
 }
 
+/**
+ * Columns without which a `users` row cannot describe an account.
+ *
+ * `UserRow` types these as non-nullable, but the storage layer cannot enforce
+ * that: any UPDATE is an upsert, so a write against a deleted primary key
+ * creates a row containing only the columns that write touched. Such a stub is
+ * a type lie — `discriminator` is declared `number` and is `undefined` at
+ * runtime — and, worse, an unflagged one: with no `flags` column it reads as a
+ * live account to every DELETED/DISABLED guard.
+ *
+ * Rather than widening the types (which would push `?? fallback` handling into
+ * every consumer and let stubs keep flowing through business logic as
+ * half-users), the invariant is enforced where rows become `User` objects.
+ */
+export const REQUIRED_USER_ROW_COLUMNS = ['user_id', 'username', 'discriminator'] as const;
+
+/**
+ * Returns false for partial `users` rows (see REQUIRED_USER_ROW_COLUMNS).
+ * Callers must treat a false result as "this account does not exist".
+ */
+export function isUsableUserRow(row: Partial<UserRow> | null | undefined): boolean {
+	if (!row) return false;
+	return REQUIRED_USER_ROW_COLUMNS.every((column) => row[column] !== undefined && row[column] !== null);
+}
+
 export const USER_COLUMNS = [
 	'user_id',
 	'username',
@@ -620,7 +645,6 @@ export interface UserBySolanaAddressRow {
 	user_id: UserID;
 }
 
-export const USER_BY_SOLANA_ADDRESS_COLUMNS = [
-	'solana_address',
-	'user_id',
-] as const satisfies ReadonlyArray<keyof UserBySolanaAddressRow>;
+export const USER_BY_SOLANA_ADDRESS_COLUMNS = ['solana_address', 'user_id'] as const satisfies ReadonlyArray<
+	keyof UserBySolanaAddressRow
+>;

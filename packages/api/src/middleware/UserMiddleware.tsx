@@ -19,8 +19,8 @@
 
 import {Config} from '@fluxer/api/src/Config';
 import {getMetricsService} from '@fluxer/api/src/infrastructure/MetricsService';
-import {getTokenActivityRepository} from '@fluxer/api/src/middleware/ServiceMiddleware';
 import {Logger} from '@fluxer/api/src/Logger';
+import {getTokenActivityRepository} from '@fluxer/api/src/middleware/ServiceMiddleware';
 import type {User} from '@fluxer/api/src/models/User';
 import type {HonoEnv} from '@fluxer/api/src/types/HonoEnv';
 import {stripApiPrefix} from '@fluxer/api/src/utils/RequestPathUtils';
@@ -133,7 +133,15 @@ export const UserMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => {
 				}),
 			});
 
-			const user = await ctx.get('userService').findUniqueAssert(authSession.userId);
+			// findUnique, not findUniqueAssert: the account behind a session can be
+			// gone (deletion racing an in-flight request), and asserting would put
+			// `undefined` into the context as if it were a principal.
+			const user = await ctx.get('userService').findUnique(authSession.userId);
+			if (!user) {
+				Logger.warn({userId: authSession.userId}, 'Rejecting auth session whose account no longer exists');
+				await next();
+				return;
+			}
 
 			ctx.set('authSession', authSession);
 			ctx.set('authTokenType', 'session');
@@ -195,7 +203,13 @@ export const UserMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => {
 				}),
 			});
 
-			const user = await ctx.get('userService').findUniqueAssert(authSession.userId);
+			const user = await ctx.get('userService').findUnique(authSession.userId);
+			if (!user) {
+				Logger.warn({userId: authSession.userId}, 'Rejecting auth session whose account no longer exists');
+				await next();
+				return;
+			}
+
 			ctx.set('authSession', authSession);
 			ctx.set('authTokenType', 'session');
 			setUserInContext(ctx, user, true);

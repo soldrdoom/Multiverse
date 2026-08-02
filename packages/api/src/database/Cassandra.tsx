@@ -310,6 +310,15 @@ export interface KvQueryMeta<Row extends object = Record<string, unknown>> {
 	nowColumn?: ColumnName<Row>;
 	condition?: {col: ColumnName<Row>; expectedParam: string; expectedValue: unknown};
 	ifNotExists?: boolean;
+	/**
+	 * When true the write is a no-op unless the row already exists.
+	 *
+	 * Plain CQL UPDATEs are upserts: applying one to a deleted primary key silently
+	 * recreates a partial row. For rows that model identity or credentials, that
+	 * "resurrection" is a correctness/security bug, so those writes must opt in to
+	 * existence-checked semantics (see Table.patchByPkIfExists).
+	 */
+	requireExists?: boolean;
 }
 
 export interface PreparedQuery<P extends CassandraParams = CassandraParams> {
@@ -752,7 +761,11 @@ async function executeQuerySqlite<T = RowObject, P extends CassandraParams = Cas
 		case 'conditionalPatch': {
 			const pk = pkFromParams(meta.table, bound);
 			const key = encodeKey(meta.table.primaryKey.map((c) => pk[c]));
-			const existing = kv.get<RowObject>(meta.table.name, key) ?? {};
+			const existingRow = kv.get<RowObject>(meta.table.name, key);
+			if (meta.requireExists && existingRow === null) {
+				return [];
+			}
+			const existing = existingRow ?? {};
 			if (meta.action === 'conditionalPatch' && meta.condition) {
 				const expected = bound[meta.condition.expectedParam] ?? meta.condition.expectedValue;
 				const actual = existing[meta.condition.col as string];
@@ -1194,6 +1207,21 @@ export interface Table<Row extends object, PK extends ColumnName<Row>, PartKey e
 		patch: Partial<{[K in Exclude<ColumnName<Row>, PK>]: DbOp<RowValue<Row, K>>}>,
 	): PreparedQuery;
 
+	/**
+	 * Like patchByPk(), but never creates the row: if the primary key no longer
+	 * exists the write is dropped.
+	 *
+	 * Use this for background/best-effort writes against rows whose absence is
+	 * meaningful (deleted accounts, revoked sessions). On Cassandra this compiles
+	 * to `IF EXISTS`, which is a lightweight transaction and therefore materially
+	 * more expensive than a blind UPDATE — only use it where resurrecting a deleted
+	 * row would be a correctness or security problem.
+	 */
+	patchByPkIfExists(
+		pk: Pick<Row, PK>,
+		patch: Partial<{[K in Exclude<ColumnName<Row>, PK>]: DbOp<RowValue<Row, K>>}>,
+	): PreparedQuery;
+
 	deleteCql(opts?: {where?: WhereExpr<Row> | ReadonlyArray<WhereExpr<Row>>}): string;
 
 	delete(opts?: {where?: WhereExpr<Row> | ReadonlyArray<WhereExpr<Row>>}): QueryTemplate;
@@ -1451,6 +1479,39 @@ WHERE ${pk.map((k) => `${k} = :${k}`).join(' AND ')};
 			patch: patch as Partial<Record<ColumnName<Row>, DbOp<unknown>>>,
 			patchKeys,
 			pkColumns: pk,
+		};
+
+		return prepared(cql, params, kvMeta as KvQueryMeta<Record<string, unknown>>);
+	}
+
+	function patchByPkIfExists(
+		pkValues: Pick<Row, PK>,
+		patch: Partial<{[K in Exclude<ColumnName<Row>, PK>]: DbOp<RowValue<Row, K>>}>,
+	): PreparedQuery {
+		const patchKeys = Object.keys(patch) as Array<Exclude<ColumnName<Row>, PK>>;
+		if (patchKeys.length === 0) {
+			throw new Error(`Refusing to execute empty PATCH update on table "${def.name}"`);
+		}
+
+		patchKeys.sort((a, b) => columns.indexOf(a) - columns.indexOf(b));
+
+		const cql = `UPDATE ${def.name}
+SET ${patchKeys.map((c) => `${c} = :${c}`).join(', ')}
+WHERE ${pk.map((k) => `${k} = :${k}`).join(' AND ')}
+IF EXISTS;
+`;
+
+		const params: CassandraParams = {};
+		for (const k of pk) params[k] = pkValues[k] as CassandraParam;
+		for (const c of patchKeys) params[c] = opToValue(patch[c] as DbOp<unknown>);
+
+		const kvMeta: KvQueryMeta<Row> = {
+			action: 'patch',
+			table: tableSpec,
+			patch: patch as Partial<Record<ColumnName<Row>, DbOp<unknown>>>,
+			patchKeys,
+			pkColumns: pk,
+			requireExists: true,
 		};
 
 		return prepared(cql, params, kvMeta as KvQueryMeta<Record<string, unknown>>);
@@ -1778,6 +1839,7 @@ IF ${condition.col} = :${condition.expectedParam};
 		},
 
 		patchByPk,
+		patchByPkIfExists,
 
 		deleteCql,
 		delete: del,

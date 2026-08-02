@@ -86,8 +86,11 @@ export class IpAuthorizationRepository {
 
 	async updateUserActivity(userId: UserID, clientIp: string): Promise<void> {
 		const now = new Date();
+		// Existence-checked for the same reason as UserDataRepository.updateLastActiveAt:
+		// this is an unawaited write from request middleware and must never recreate
+		// a deleted account as a partial stub row.
 		await upsertOne(
-			Users.patchByPk(
+			Users.patchByPkIfExists(
 				{user_id: userId},
 				{
 					last_active_at: Db.set(now),
