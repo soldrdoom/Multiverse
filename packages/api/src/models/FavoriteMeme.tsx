@@ -38,6 +38,7 @@ export class FavoriteMeme {
 	readonly duration: number | null;
 	readonly isGifv: boolean;
 	readonly klipySlug: string | null;
+	readonly klipyId: string | null;
 	readonly tenorSlugId: string | null;
 	readonly createdAt: Date;
 	readonly version: number;
@@ -58,6 +59,7 @@ export class FavoriteMeme {
 		this.duration = row.duration ?? null;
 		this.isGifv = row.is_gifv ?? false;
 		this.klipySlug = row.klipy_slug ?? null;
+		this.klipyId = row.klipy_id ?? null;
 		this.tenorSlugId = row.tenor_id_str ?? null;
 		this.createdAt = snowflakeToDate(this.id);
 		this.version = row.version;
@@ -80,6 +82,7 @@ export class FavoriteMeme {
 			duration: this.duration,
 			is_gifv: this.isGifv,
 			klipy_slug: this.klipySlug,
+			klipy_id: this.klipyId,
 			tenor_id_str: this.tenorSlugId,
 			version: this.version,
 		};

@@ -42,6 +42,9 @@ export type CreateFavoriteMemeBodySchema = z.infer<typeof CreateFavoriteMemeBody
 export const CreateFavoriteMemeFromUrlBodySchema = FavoriteMemeBase.extend({
 	url: z.url().describe('URL of the image or video to save as a favorite meme'),
 	klipy_slug: createStringType(1, 100).nullish().describe('Klipy clip slug if the URL is from Klipy'),
+	klipy_id: createStringType(1, 100)
+		.nullish()
+		.describe('Numeric Klipy clip ID, used to re-resolve the clip via the Klipy API when the meme is shared again'),
 	tenor_slug_id: createStringType(1, 300)
 		.nullish()
 		.describe('Tenor view/<slug>-<id> identifier if the URL is from Tenor'),
@@ -80,6 +83,7 @@ export const FavoriteMemeResponse = z.object({
 	url: z.string().describe('CDN URL to access the meme'),
 	is_gifv: z.boolean().default(false).describe('Whether the meme is a video converted from GIF'),
 	klipy_slug: z.string().nullish().describe('Klipy clip slug if the meme was sourced from Klipy'),
+	klipy_id: z.string().nullish().describe('Numeric Klipy clip ID if the meme was sourced from Klipy'),
 	tenor_slug_id: z.string().nullish().describe('Tenor view/<slug>-<id> identifier if the meme was sourced from Tenor'),
 });
 

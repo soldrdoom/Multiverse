@@ -36,6 +36,7 @@ export type FavoriteMeme = Readonly<{
 	is_gifv: boolean;
 	url: string;
 	klipy_slug: string | null;
+	klipy_id: string | null;
 	tenor_slug_id: string | null;
 }>;
 
@@ -56,6 +57,7 @@ export class FavoriteMemeRecord {
 	readonly isGifv: boolean;
 	readonly url: string;
 	readonly klipySlug: string | null;
+	readonly klipyId: string | null;
 	readonly tenorSlugId: string | null;
 
 	constructor(meme: FavoriteMeme) {
@@ -75,6 +77,7 @@ export class FavoriteMemeRecord {
 		this.isGifv = meme.is_gifv;
 		this.url = meme.url;
 		this.klipySlug = meme.klipy_slug;
+		this.klipyId = meme.klipy_id;
 		this.tenorSlugId = meme.tenor_slug_id;
 	}
 
@@ -124,6 +127,7 @@ export class FavoriteMemeRecord {
 			this.isGifv === other.isGifv &&
 			this.url === other.url &&
 			this.klipySlug === other.klipySlug &&
+			this.klipyId === other.klipyId &&
 			this.tenorSlugId === other.tenorSlugId
 		);
 	}
@@ -146,6 +150,7 @@ export class FavoriteMemeRecord {
 			is_gifv: this.isGifv,
 			url: this.url,
 			klipy_slug: this.klipySlug,
+			klipy_id: this.klipyId,
 			tenor_slug_id: this.tenorSlugId,
 		};
 	}

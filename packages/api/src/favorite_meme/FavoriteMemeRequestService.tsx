@@ -79,6 +79,7 @@ export class FavoriteMemeRequestService {
 			altText: data.alt_text ?? undefined,
 			tags: data.tags ?? undefined,
 			klipySlug: data.klipy_slug ?? undefined,
+			klipyId: data.klipy_id ?? undefined,
 			tenorSlugId: data.tenor_slug_id ?? undefined,
 		});
 		return mapFavoriteMemeToResponse(meme);

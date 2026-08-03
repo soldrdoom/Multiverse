@@ -389,6 +389,7 @@ export interface FavoriteMemeRow {
 	duration: Nullish<number>;
 	is_gifv: boolean;
 	klipy_slug: Nullish<string>;
+	klipy_id: Nullish<string>;
 	tenor_id_str: Nullish<string>;
 	version: number;
 }
@@ -409,6 +410,7 @@ export const FAVORITE_MEME_COLUMNS = [
 	'duration',
 	'is_gifv',
 	'klipy_slug',
+	'klipy_id',
 	'tenor_id_str',
 	'version',
 ] as const satisfies ReadonlyArray<keyof FavoriteMemeRow>;

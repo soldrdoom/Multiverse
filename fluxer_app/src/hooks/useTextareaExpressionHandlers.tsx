@@ -92,7 +92,7 @@ export const useTextareaExpressionHandlers = ({
 
 			if (autoSend) {
 				if (meme.klipySlug) {
-					const klipyUrl = KlipyUtils.buildKlipyShareUrl({slug: meme.klipySlug});
+					const klipyUrl = KlipyUtils.buildKlipyShareUrl({slug: meme.klipySlug, klipyId: meme.klipyId ?? undefined});
 					sendOptimisticMessage({content: klipyUrl}, {hasAttachments: false});
 				} else if (meme.tenorSlugId) {
 					const tenorUrl = TenorUtils.buildTenorShareUrl(meme.tenorSlugId);
@@ -118,7 +118,7 @@ export const useTextareaExpressionHandlers = ({
 				}
 			} else {
 				if (meme.klipySlug) {
-					const klipyUrl = KlipyUtils.buildKlipyShareUrl({slug: meme.klipySlug});
+					const klipyUrl = KlipyUtils.buildKlipyShareUrl({slug: meme.klipySlug, klipyId: meme.klipyId ?? undefined});
 					setValue((prevValue) => `${prevValue}${prevValue.length === 0 ? '' : ' '}${klipyUrl} `);
 				} else if (meme.tenorSlugId) {
 					const tenorUrl = TenorUtils.buildTenorShareUrl(meme.tenorSlugId);

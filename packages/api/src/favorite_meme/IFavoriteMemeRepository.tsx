@@ -36,6 +36,7 @@ export interface CreateFavoriteMemeParams {
 	duration?: number | null;
 	is_gifv?: boolean;
 	klipy_slug?: string | null;
+	klipy_id?: string | null;
 	tenor_slug_id?: string | null;
 }
 

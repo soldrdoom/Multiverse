@@ -77,6 +77,7 @@ export class FavoriteMemeRepository extends IFavoriteMemeRepository {
 			duration: data.duration ?? null,
 			is_gifv: data.is_gifv ?? false,
 			klipy_slug: data.klipy_slug ?? null,
+			klipy_id: data.klipy_id ?? null,
 			tenor_id_str: data.tenor_slug_id ?? null,
 			version: 1,
 		};
@@ -111,6 +112,7 @@ export class FavoriteMemeRepository extends IFavoriteMemeRepository {
 			duration: data.duration ?? null,
 			is_gifv: data.is_gifv ?? false,
 			klipy_slug: data.klipy_slug ?? null,
+			klipy_id: data.klipy_id ?? null,
 			tenor_id_str: data.tenor_slug_id ?? null,
 			version: 1,
 		};

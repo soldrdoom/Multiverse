@@ -219,6 +219,7 @@ export class FavoriteMemeService {
 		tags,
 		isGifv = false,
 		klipySlug,
+		klipyId,
 		tenorSlugId,
 	}: {
 		user: User;
@@ -228,6 +229,7 @@ export class FavoriteMemeService {
 		tags?: Array<string>;
 		isGifv?: boolean;
 		klipySlug?: string;
+		klipyId?: string;
 		tenorSlugId?: string;
 	}): Promise<FavoriteMeme> {
 		const count = await this.favoriteMemeRepository.count(user.id);
@@ -255,12 +257,13 @@ export class FavoriteMemeService {
 		let contentHash = metadata.content_hash;
 		const fileData = Buffer.from(metadata.base64 ?? '', 'base64');
 		const normalizedKlipySlug = this.normalizeKlipySlug(klipySlug) ?? this.extractKlipySlugFromUrl(url) ?? undefined;
+		const normalizedKlipyId = klipyId?.trim() || undefined;
 		const normalizedTenorSlugId =
 			this.normalizeTenorSlugId(tenorSlugId) ?? this.extractTenorSlugIdFromUrl(url) ?? undefined;
 
 		if (normalizedKlipySlug) {
 			try {
-				const klipyUrl = this.buildKlipyGifUrl(normalizedKlipySlug);
+				const klipyUrl = this.buildKlipyGifUrl(normalizedKlipySlug, normalizedKlipyId);
 				const unfurled = await this.unfurlerService.unfurl(klipyUrl, true);
 				if (unfurled.length > 0 && unfurled[0].video?.content_hash) {
 					contentHash = unfurled[0].video.content_hash;
@@ -328,6 +331,7 @@ export class FavoriteMemeService {
 			duration: metadata.duration && metadata.duration > 0 ? metadata.duration : null,
 			is_gifv: isGifv,
 			klipy_slug: normalizedKlipySlug ?? null,
+			klipy_id: normalizedKlipyId ?? null,
 			tenor_slug_id: normalizedTenorSlugId ?? null,
 		});
 
@@ -380,6 +384,7 @@ export class FavoriteMemeService {
 			duration: existingMeme.duration,
 			is_gifv: existingMeme.isGifv,
 			klipy_slug: existingMeme.klipySlug,
+			klipy_id: existingMeme.klipyId,
 			tenor_slug_id: existingMeme.tenorSlugId,
 			version: existingMeme.version,
 		};
@@ -470,8 +475,12 @@ export class FavoriteMemeService {
 		}
 	}
 
-	private buildKlipyGifUrl(klipySlug: string): string {
-		return `https://klipy.com/gifs/${encodeURIComponent(klipySlug)}`;
+	private buildKlipyGifUrl(klipySlug: string, klipyId?: string): string {
+		const url = new URL(`https://klipy.com/gifs/${encodeURIComponent(klipySlug)}`);
+		if (klipyId) {
+			url.searchParams.set('kid', klipyId);
+		}
+		return url.href;
 	}
 
 	private normalizeTenorSlugId(tenorSlugId?: string): string | undefined {

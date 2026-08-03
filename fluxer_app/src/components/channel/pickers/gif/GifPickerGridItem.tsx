@@ -281,6 +281,7 @@ export function GifPickerGridItem({
 					url: gif.proxy_src,
 					name: defaultName || gif.title,
 					klipySlug: provider === 'klipy' ? (normalizedKlipySlug ?? undefined) : undefined,
+					klipyId: provider === 'klipy' ? gif.klipy_id : undefined,
 					tenorSlugId: provider === 'tenor' ? (tenorSlugId ?? undefined) : undefined,
 				});
 			}

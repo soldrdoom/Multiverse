@@ -88,6 +88,7 @@ export async function createFavoriteMemeFromUrl(
 		altText,
 		tags,
 		klipySlug,
+		klipyId,
 		tenorSlugId,
 	}: {
 		url: string;
@@ -95,6 +96,7 @@ export async function createFavoriteMemeFromUrl(
 		altText?: string;
 		tags?: Array<string>;
 		klipySlug?: string;
+		klipyId?: string;
 		tenorSlugId?: string;
 	},
 ): Promise<void> {
@@ -105,6 +107,7 @@ export async function createFavoriteMemeFromUrl(
 			alt_text: altText,
 			tags,
 			klipy_slug: klipySlug,
+			klipy_id: klipyId,
 			tenor_slug_id: tenorSlugId,
 		});
 

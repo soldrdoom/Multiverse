@@ -41,6 +41,7 @@ export function mapFavoriteMemeToResponse(meme: FavoriteMeme): FavoriteMemeRespo
 		url,
 		is_gifv: meme.isGifv ?? false,
 		klipy_slug: meme.klipySlug ?? null,
+		klipy_id: meme.klipyId ?? null,
 		tenor_slug_id: meme.tenorSlugId ?? null,
 	};
 }
