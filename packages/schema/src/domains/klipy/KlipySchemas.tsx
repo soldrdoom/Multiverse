@@ -46,6 +46,7 @@ export type KlipyRegisterShareRequest = z.infer<typeof KlipyRegisterShareRequest
 
 export const KlipyGifResponse = z.object({
 	id: z.string().describe('The unique Klipy clip slug'),
+	klipy_id: z.string().describe('The numeric Klipy clip ID, used to look the clip back up via the Klipy API'),
 	title: z.string().describe('The title/description of the clip'),
 	url: z.string().describe('The Klipy page URL for the clip'),
 	src: z.string().describe('Direct URL to the clip media file'),

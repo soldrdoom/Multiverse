@@ -20,6 +20,7 @@
 interface KlipyPath {
 	type: 'gif' | 'clip';
 	slug: string;
+	klipyId?: string;
 }
 
 function parseKlipyPath(url: string): KlipyPath | null {
@@ -43,7 +44,9 @@ function parseKlipyPath(url: string): KlipyPath | null {
 			return null;
 		}
 
-		return {type, slug};
+		const klipyId = parsedUrl.searchParams.get('kid');
+
+		return {type, slug, klipyId: klipyId ?? undefined};
 	} catch {
 		return null;
 	}
@@ -53,30 +56,46 @@ export function extractKlipySlug(url: string): string | null {
 	return parseKlipyPath(url)?.slug ?? null;
 }
 
-export function buildKlipyShareUrl({slug, type = 'gif'}: {slug: string; type?: 'gif' | 'clip'}): string {
+export function buildKlipyShareUrl({
+	slug,
+	type = 'gif',
+	klipyId,
+}: {
+	slug: string;
+	type?: 'gif' | 'clip';
+	klipyId?: string;
+}): string {
 	const normalizedSlug = slug.trim();
 	if (!normalizedSlug) {
 		return 'https://klipy.com/gifs';
 	}
 	const path = type === 'clip' ? 'clips' : 'gifs';
-	return `https://klipy.com/${path}/${encodeURIComponent(normalizedSlug)}`;
+	const shareUrl = `https://klipy.com/${path}/${encodeURIComponent(normalizedSlug)}`;
+	if (!klipyId?.trim()) {
+		return shareUrl;
+	}
+	const withId = new URL(shareUrl);
+	withId.searchParams.set('kid', klipyId.trim());
+	return withId.href;
 }
 
 export function resolveKlipyShareUrl({
 	url,
 	fallbackSlug,
 	fallbackType = 'gif',
+	klipyId,
 }: {
 	url: string;
 	fallbackSlug?: string | null;
 	fallbackType?: 'gif' | 'clip';
+	klipyId?: string;
 }): string {
 	const parsed = parseKlipyPath(url);
 	if (parsed) {
-		return buildKlipyShareUrl(parsed);
+		return buildKlipyShareUrl({...parsed, klipyId: parsed.klipyId ?? klipyId});
 	}
 	if (fallbackSlug?.trim()) {
-		return buildKlipyShareUrl({slug: fallbackSlug, type: fallbackType});
+		return buildKlipyShareUrl({slug: fallbackSlug, type: fallbackType, klipyId});
 	}
 	return url;
 }

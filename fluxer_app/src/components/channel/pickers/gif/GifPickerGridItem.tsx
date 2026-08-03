@@ -156,6 +156,7 @@ export function GifPickerGridItem({
 					? KlipyUtils.resolveKlipyShareUrl({
 							url: gif.url,
 							fallbackSlug: shareId,
+							klipyId: gif.klipy_id,
 						})
 					: gif.url;
 

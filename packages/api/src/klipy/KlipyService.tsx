@@ -327,6 +327,7 @@ export class KlipyService implements IKlipyService {
 
 		return {
 			id: normalizedSlug,
+			klipy_id: input.id,
 			title: input.title,
 			url: normalizedUrl,
 			src: input.media_formats.webm.url,

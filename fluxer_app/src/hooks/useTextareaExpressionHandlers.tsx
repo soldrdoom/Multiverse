@@ -59,7 +59,7 @@ export const useTextareaExpressionHandlers = ({
 		const handleGifSelect = (payload?: unknown) => {
 			const {gif, autoSend} = (payload ?? {}) as {gif?: Gif; autoSend?: boolean};
 			if (!gif) return;
-			const gifUrl = KlipyUtils.resolveKlipyShareUrl({url: gif.url});
+			const gifUrl = KlipyUtils.resolveKlipyShareUrl({url: gif.url, klipyId: gif.klipy_id});
 			if (autoSend) {
 				sendOptimisticMessage({content: gifUrl}, {hasAttachments: false});
 			} else {

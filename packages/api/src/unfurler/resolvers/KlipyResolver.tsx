@@ -17,69 +17,81 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {Config} from '@fluxer/api/src/Config';
 import {Logger} from '@fluxer/api/src/Logger';
 import {BaseResolver} from '@fluxer/api/src/unfurler/resolvers/BaseResolver';
 import {buildEmbedMediaPayload} from '@fluxer/api/src/unfurler/resolvers/media/MediaMetadataHelpers';
 import type {MessageEmbedResponse} from '@fluxer/schema/src/domains/message/EmbedSchemas';
 import {URLType} from '@fluxer/schema/src/primitives/UrlValidators';
 
+const KLIPY_API_BASE_URL = 'https://api.klipy.com/v2';
+const KLIPY_CLIENT_KEY = 'fluxer';
+
 interface KlipyMediaFormat {
 	url?: string;
-	width?: number;
-	height?: number;
+	dims?: [number, number];
 }
 
-interface KlipyFileFormats {
-	gif?: KlipyMediaFormat;
+interface KlipyMediaFormats {
 	webp?: KlipyMediaFormat;
 	mp4?: KlipyMediaFormat;
 }
 
-interface KlipyFile {
-	hd?: KlipyFileFormats;
-	md?: KlipyFileFormats;
-	sm?: KlipyFileFormats;
+interface KlipyPost {
+	id?: string;
+	title?: string;
+	media_formats?: KlipyMediaFormats;
 }
 
-interface KlipyMedia {
-	uuid?: string;
-	slug?: string;
-	description?: string;
-	title?: string;
-	file?: KlipyFile;
-	type?: string;
+interface KlipyPostsResponse {
+	results?: Array<KlipyPost>;
 }
 
 export class KlipyResolver extends BaseResolver {
+	// klipy.com itself is behind a Cloudflare bot challenge (returns 403 to any
+	// non-browser fetch, including ours), so this resolver never scrapes the public
+	// site. It only resolves share links produced by our own GIF picker, which embed
+	// the real numeric Klipy ID as `kid` — that ID is looked up via Klipy's partner
+	// API (the same authenticated API `KlipyService` already uses for search), which
+	// is not behind that challenge.
 	override transformUrl(url: URL): URL | null {
-		if (url.hostname !== 'klipy.com') {
+		const hostname = url.hostname.toLowerCase();
+		if (hostname !== 'klipy.com' && hostname !== 'www.klipy.com') {
 			return null;
 		}
-		const pathMatch = url.pathname.match(/^\/(gif|gifs|clip|clips)\/([^/]+)/);
-		if (!pathMatch) {
+		if (!/^\/(gif|gifs|clip|clips)\/[^/]+/.test(url.pathname)) {
 			return null;
 		}
-		const [, type, slug] = pathMatch;
-		const normalizedType = type.startsWith('clip') ? 'clips' : 'gifs';
-		return new URL(`https://klipy.com/${normalizedType}/${slug}/player`);
+		const klipyId = url.searchParams.get('kid');
+		if (!klipyId || !/^\d+$/.test(klipyId)) {
+			return null;
+		}
+
+		const apiUrl = new URL(`${KLIPY_API_BASE_URL}/posts`);
+		apiUrl.searchParams.set('ids', klipyId);
+		apiUrl.searchParams.set('client_key', KLIPY_CLIENT_KEY);
+		apiUrl.searchParams.set('contentfilter', 'low');
+		apiUrl.searchParams.set('key', Config.klipy.apiKey ?? '');
+		return apiUrl;
 	}
 
-	match(url: URL, mimeType: string, _content: Uint8Array): boolean {
-		return mimeType.startsWith('text/html') && url.hostname === 'klipy.com';
+	// Resolution only ever happens via the `transformUrl` path above, so there is
+	// nothing left for this resolver to match against the original klipy.com URL.
+	match(_url: URL, _mimeType: string, _content: Uint8Array): boolean {
+		return false;
 	}
 
 	async resolve(url: URL, content: Uint8Array, isNSFWAllowed: boolean = false): Promise<Array<MessageEmbedResponse>> {
-		const playerContent = Buffer.from(content).toString('utf-8');
-		const media = this.extractMediaFromPlayerPage(playerContent);
-		if (!media) {
+		const post = this.parsePostsResponse(content);
+		if (!post) {
 			return [];
 		}
-		const {thumbnail: thumbnailFormat, video: videoFormat} = this.extractMediaFormats(media);
-		const thumbnail = thumbnailFormat ? await this.resolveKlipyMedia(url, thumbnailFormat, isNSFWAllowed) : undefined;
-		const video = videoFormat ? await this.resolveKlipyMedia(url, videoFormat, isNSFWAllowed) : undefined;
+		const {thumbnail: thumbnailFormat, video: videoFormat} = this.extractMediaFormats(post);
+		const thumbnail = thumbnailFormat ? await this.resolveKlipyMedia(thumbnailFormat, isNSFWAllowed) : undefined;
+		const video = videoFormat ? await this.resolveKlipyMedia(videoFormat, isNSFWAllowed) : undefined;
 		const embed: MessageEmbedResponse = {
 			type: 'gifv',
-			url: url.href,
+			url: this.stripInternalParams(url),
 			provider: {name: 'KLIPY', url: 'https://klipy.com'},
 			thumbnail: thumbnail ?? undefined,
 			video: video ?? undefined,
@@ -88,26 +100,21 @@ export class KlipyResolver extends BaseResolver {
 	}
 
 	private async resolveKlipyMedia(
-		baseUrl: URL,
 		format: KlipyMediaFormat,
 		isNSFWAllowed: boolean,
 	): Promise<MessageEmbedResponse['image']> {
-		if (!format.url) {
-			return null;
-		}
-		const resolvedUrl = this.resolveRelativeURL(baseUrl.href, format.url);
-		if (!resolvedUrl || !URLType.safeParse(resolvedUrl).success) {
+		if (!format.url || !URLType.safeParse(format.url).success) {
 			return null;
 		}
 		try {
 			const metadata = await this.mediaService.getMetadata({
 				type: 'external',
-				url: resolvedUrl,
+				url: format.url,
 				isNSFWAllowed,
 			});
-			return buildEmbedMediaPayload(resolvedUrl, metadata, {
-				width: format.width,
-				height: format.height,
+			return buildEmbedMediaPayload(format.url, metadata, {
+				width: format.dims?.[0],
+				height: format.dims?.[1],
 			});
 		} catch (error) {
 			Logger.error({error}, 'Failed to resolve Klipy media URL metadata');
@@ -115,56 +122,26 @@ export class KlipyResolver extends BaseResolver {
 		}
 	}
 
-	private extractMediaFromPlayerPage(content: string): KlipyMedia | null {
-		const scriptMatches = content.matchAll(/self\.__next_f\.push\(\[1,"(.*?)"\]\)/gs);
-		for (const match of scriptMatches) {
-			if (!match[1]) {
-				continue;
-			}
-			const media = this.parseNextFlightData(match[1]);
-			if (media?.file) {
-				return media;
-			}
-		}
-		return null;
-	}
-
-	private parseNextFlightData(encodedData: string): KlipyMedia | null {
+	private parsePostsResponse(content: Uint8Array): KlipyPost | null {
 		try {
-			const unescaped = JSON.parse(`"${encodedData}"`) as string;
-			const colonIndex = unescaped.indexOf(':');
-			if (colonIndex === -1) {
-				return null;
-			}
-			const jsonArrayStr = unescaped.slice(colonIndex + 1);
-			const flightArray = JSON.parse(jsonArrayStr) as Array<unknown>;
-			for (const item of flightArray) {
-				if (this.isMediaContainer(item)) {
-					return item.media;
-				}
-			}
-			return null;
-		} catch {
+			const parsed = JSON.parse(Buffer.from(content).toString('utf-8')) as KlipyPostsResponse;
+			return parsed.results?.[0] ?? null;
+		} catch (error) {
+			Logger.error({error}, 'Failed to parse KLIPY posts response');
 			return null;
 		}
 	}
 
-	private isMediaContainer(item: unknown): item is {media: KlipyMedia} {
-		return (
-			typeof item === 'object' &&
-			item !== null &&
-			'media' in item &&
-			typeof (item as {media: unknown}).media === 'object' &&
-			(item as {media: {file?: unknown}}).media !== null &&
-			'file' in ((item as {media: {file?: unknown}}).media ?? {})
-		);
+	private extractMediaFormats(post: KlipyPost): {thumbnail?: KlipyMediaFormat; video?: KlipyMediaFormat} {
+		return {
+			thumbnail: post.media_formats?.webp,
+			video: post.media_formats?.mp4,
+		};
 	}
 
-	private extractMediaFormats(media: KlipyMedia): {thumbnail?: KlipyMediaFormat; video?: KlipyMediaFormat} {
-		const file = media.file;
-		return {
-			thumbnail: file?.hd?.webp,
-			video: file?.hd?.mp4,
-		};
+	private stripInternalParams(url: URL): string {
+		const clean = new URL(url.href);
+		clean.searchParams.delete('kid');
+		return clean.href;
 	}
 }

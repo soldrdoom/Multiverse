@@ -28,6 +28,7 @@ const getLocale = (): string => LocaleUtils.getCurrentLocale();
 
 export interface KlipyGif {
 	id: string;
+	klipy_id: string;
 	title: string;
 	url: string;
 	src: string;
