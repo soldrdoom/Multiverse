@@ -157,6 +157,15 @@ export function createRequestSignal(timeoutMs: number, inputSignal?: AbortSignal
 	};
 }
 
+// Query strings routinely carry API keys/tokens (any resolver's transformUrl can put
+// one there). Error messages and validation-context strings end up in logs, so this
+// strips the query/fragment entirely rather than trying to allowlist which params are
+// safe to keep — origin+path is enough to diagnose a blocked/failed request without
+// risking a credential leak the next time a new caller adds one.
+export function urlWithoutQueryForError(url: URL): string {
+	return `${url.origin}${url.pathname}`;
+}
+
 export function classifyRequestError(error: unknown): ClassifiedRequestError {
 	const message = error instanceof Error ? error.message : 'Request failed';
 	if (error instanceof Error && error.name === 'AbortError') {

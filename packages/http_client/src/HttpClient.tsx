@@ -24,6 +24,7 @@ import {
 	createRequestSignal,
 	resolveRequestBody,
 	statusToMetricLabel,
+	urlWithoutQueryForError,
 } from '@fluxer/http_client/src/HttpClientRequestInternals';
 import type {
 	HttpClientMetrics,
@@ -204,7 +205,7 @@ async function fetchWithRedirects(
 		await validateRequestUrlPolicy(requestUrlPolicy, nextUrl, {
 			phase: 'redirect',
 			redirectCount: nextRedirectCount,
-			previousUrl: previousUrl.href,
+			previousUrl: urlWithoutQueryForError(previousUrl),
 		});
 		currentUrl = nextUrl;
 

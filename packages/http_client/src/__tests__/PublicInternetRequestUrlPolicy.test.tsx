@@ -89,4 +89,37 @@ describe('createPublicInternetRequestUrlPolicy', () => {
 
 		await expect(policy.validate(new URL('https://example.com/image.png'), createContext())).resolves.toBeUndefined();
 	});
+
+	it('never includes the query string (e.g. a secret API key) in a blocked-request error message', async () => {
+		const policy = createPublicInternetRequestUrlPolicy({
+			lookupHost: async () => [],
+		});
+
+		await expect(
+			policy.validate(new URL('https://api.example.com/v2/posts?ids=123&key=SUPER_SECRET_VALUE'), createContext()),
+		).rejects.toSatisfy((error: Error) => {
+			expect(error.message).not.toContain('SUPER_SECRET_VALUE');
+			expect(error.message).not.toContain('?');
+			expect(error.message).toContain('https://api.example.com/v2/posts');
+			return true;
+		});
+	});
+
+	it('never includes the query string from the previous URL in a redirect-blocked error message', async () => {
+		const policy = createPublicInternetRequestUrlPolicy();
+
+		await expect(
+			policy.validate(
+				new URL('http://127.0.0.1/admin'),
+				createContext({
+					phase: 'redirect',
+					redirectCount: 1,
+					previousUrl: 'https://api.example.com/v2/posts?key=SUPER_SECRET_VALUE',
+				}),
+			),
+		).rejects.toSatisfy((error: Error) => {
+			expect(error.message).not.toContain('SUPER_SECRET_VALUE');
+			return true;
+		});
+	});
 });

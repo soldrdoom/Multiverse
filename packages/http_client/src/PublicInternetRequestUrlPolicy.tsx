@@ -19,6 +19,7 @@
 
 import dns from 'node:dns';
 import {BlockList, isIP} from 'node:net';
+import {urlWithoutQueryForError} from '@fluxer/http_client/src/HttpClientRequestInternals';
 import type {RequestUrlPolicy, RequestUrlValidationContext} from '@fluxer/http_client/src/HttpClientTypes';
 import {HttpError} from '@fluxer/http_client/src/HttpError';
 
@@ -163,16 +164,27 @@ function isBlockedIpAddress(address: string): boolean {
 	return true;
 }
 
+// Sanitized again here even though HttpClient.tsx already strips the query string before
+// setting `previousUrl` — this is the shared choke point every RequestUrlPolicy caller
+// goes through, so it shouldn't depend on every caller remembering to sanitize first.
+function sanitizePreviousUrlForError(previousUrl: string): string {
+	try {
+		return urlWithoutQueryForError(new URL(previousUrl));
+	} catch {
+		return 'unknown';
+	}
+}
+
 function getPolicyErrorContext(context: RequestUrlValidationContext): string {
 	if (context.phase === 'redirect') {
-		const previous = context.previousUrl ?? 'unknown';
+		const previous = context.previousUrl ? sanitizePreviousUrlForError(context.previousUrl) : 'unknown';
 		return `redirect #${context.redirectCount} from ${previous}`;
 	}
 	return 'initial request';
 }
 
 function createBlockedRequestError(url: URL, context: RequestUrlValidationContext, reason: string): HttpError {
-	const message = `Blocked outbound ${getPolicyErrorContext(context)} to ${url.href}: ${reason}`;
+	const message = `Blocked outbound ${getPolicyErrorContext(context)} to ${urlWithoutQueryForError(url)}: ${reason}`;
 	return new HttpError(message, undefined, undefined, true, 'network_error');
 }
 
