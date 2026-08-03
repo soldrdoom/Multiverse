@@ -24,6 +24,7 @@ import {afterEach, beforeEach, describe, expect, it} from 'vitest';
 interface KlipyPostData {
 	id?: string;
 	title?: string;
+	itemurl?: string;
 	media_formats?: {
 		webp?: {url?: string; dims?: [number, number]};
 		mp4?: {url?: string; dims?: [number, number]};
@@ -75,16 +76,24 @@ describe('KlipyResolver', () => {
 			expect(result?.searchParams.get('ids')).toBe('123');
 		});
 
-		it('returns null when there is no kid param', () => {
+		it('falls back to a KLIPY search API URL when there is no kid param', () => {
 			const url = new URL('https://klipy.com/gifs/love-ghost-1');
 			const result = resolver.transformUrl(url);
-			expect(result).toBeNull();
+			expect(result?.origin).toBe('https://api.klipy.com');
+			expect(result?.pathname).toBe('/v2/search');
+			expect(result?.searchParams.get('q')).toBe('love ghost');
 		});
 
-		it('returns null when the kid param is not numeric', () => {
+		it('strips a trailing numeric disambiguator from the slug when building the search query', () => {
+			const url = new URL('https://klipy.com/gifs/shocked-cat-12');
+			const result = resolver.transformUrl(url);
+			expect(result?.searchParams.get('q')).toBe('shocked cat');
+		});
+
+		it('falls back to search when the kid param is not numeric', () => {
 			const url = new URL('https://klipy.com/gifs/love-ghost-1?kid=not-a-number');
 			const result = resolver.transformUrl(url);
-			expect(result).toBeNull();
+			expect(result?.pathname).toBe('/v2/search');
 		});
 
 		it('returns null for non-klipy domains', () => {
@@ -266,6 +275,56 @@ describe('KlipyResolver', () => {
 			const embeds = await resolver.resolve(url, createKlipyPostsContent(posts));
 
 			expect(embeds[0].thumbnail?.url).toContain('first/thumb.webp');
+		});
+
+		describe('search fallback (no kid param)', () => {
+			it('resolves the result whose itemurl slug matches the original link', async () => {
+				const posts: Array<KlipyPostData> = [
+					{
+						itemurl: 'https://klipy.com/gifs/some-other-gif',
+						media_formats: {
+							webp: {url: 'https://static.klipy.com/ii/wrong/thumb.webp', dims: [400, 400]},
+							mp4: {url: 'https://static.klipy.com/ii/wrong/video.mp4', dims: [400, 400]},
+						},
+					},
+					{
+						itemurl: 'https://klipy.com/gifs/love-ghost-1',
+						media_formats: {
+							webp: {url: 'https://static.klipy.com/ii/right/thumb.webp', dims: [400, 400]},
+							mp4: {url: 'https://static.klipy.com/ii/right/video.mp4', dims: [400, 400]},
+						},
+					},
+				];
+
+				const url = new URL('https://klipy.com/gifs/love-ghost-1');
+				const embeds = await resolver.resolve(url, createKlipyPostsContent(posts));
+
+				expect(embeds).toHaveLength(1);
+				expect(embeds[0].thumbnail?.url).toContain('right/thumb.webp');
+			});
+
+			it('returns empty array when no search result matches the original slug', async () => {
+				const posts: Array<KlipyPostData> = [
+					{
+						itemurl: 'https://klipy.com/gifs/some-other-gif',
+						media_formats: {
+							webp: {url: 'https://static.klipy.com/ii/wrong/thumb.webp', dims: [400, 400]},
+						},
+					},
+				];
+
+				const url = new URL('https://klipy.com/gifs/love-ghost-1');
+				const embeds = await resolver.resolve(url, createKlipyPostsContent(posts));
+
+				expect(embeds).toHaveLength(0);
+			});
+
+			it('returns empty array when the search response has no results at all', async () => {
+				const url = new URL('https://klipy.com/gifs/love-ghost-1');
+				const embeds = await resolver.resolve(url, createKlipyPostsContent([]));
+
+				expect(embeds).toHaveLength(0);
+			});
 		});
 	});
 });

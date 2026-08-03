@@ -40,6 +40,7 @@ interface KlipyMediaFormats {
 interface KlipyPost {
 	id?: string;
 	title?: string;
+	itemurl?: string;
 	media_formats?: KlipyMediaFormats;
 }
 
@@ -50,27 +51,45 @@ interface KlipyPostsResponse {
 export class KlipyResolver extends BaseResolver {
 	// klipy.com itself is behind a Cloudflare bot challenge (returns 403 to any
 	// non-browser fetch, including ours), so this resolver never scrapes the public
-	// site. It only resolves share links produced by our own GIF picker, which embed
-	// the real numeric Klipy ID as `kid` — that ID is looked up via Klipy's partner
-	// API (the same authenticated API `KlipyService` already uses for search), which
-	// is not behind that challenge.
+	// site. Links our own GIF picker produces embed the real numeric Klipy ID as
+	// `kid`, which is looked up directly via Klipy's partner API (the same
+	// authenticated API `KlipyService` already uses for search, not behind that
+	// challenge). Links without a `kid` — GIFs favorited before this ID was tracked,
+	// or a klipy.com link a user pastes directly — fall back to a best-effort search
+	// using words from the slug, filtered in resolve() to the exact matching slug.
+	// That fallback isn't guaranteed to find the right result, but it beats the
+	// alternative of never resolving those links at all.
 	override transformUrl(url: URL): URL | null {
 		const hostname = url.hostname.toLowerCase();
 		if (hostname !== 'klipy.com' && hostname !== 'www.klipy.com') {
 			return null;
 		}
-		if (!/^\/(gif|gifs|clip|clips)\/[^/]+/.test(url.pathname)) {
-			return null;
-		}
-		const klipyId = url.searchParams.get('kid');
-		if (!klipyId || !/^\d+$/.test(klipyId)) {
+		const slug = this.extractSlug(url);
+		if (!slug) {
 			return null;
 		}
 
-		const apiUrl = new URL(`${KLIPY_API_BASE_URL}/posts`);
-		apiUrl.searchParams.set('ids', klipyId);
+		const klipyId = url.searchParams.get('kid');
+		if (klipyId && /^\d+$/.test(klipyId)) {
+			const apiUrl = new URL(`${KLIPY_API_BASE_URL}/posts`);
+			apiUrl.searchParams.set('ids', klipyId);
+			apiUrl.searchParams.set('client_key', KLIPY_CLIENT_KEY);
+			apiUrl.searchParams.set('contentfilter', 'low');
+			apiUrl.searchParams.set('key', Config.klipy.apiKey ?? '');
+			return apiUrl;
+		}
+
+		const query = slug.replace(/-\d+$/, '').replace(/-/g, ' ').trim();
+		if (!query) {
+			return null;
+		}
+		const apiUrl = new URL(`${KLIPY_API_BASE_URL}/search`);
+		apiUrl.searchParams.set('q', query);
 		apiUrl.searchParams.set('client_key', KLIPY_CLIENT_KEY);
 		apiUrl.searchParams.set('contentfilter', 'low');
+		apiUrl.searchParams.set('country', 'US');
+		apiUrl.searchParams.set('locale', 'en');
+		apiUrl.searchParams.set('limit', '50');
 		apiUrl.searchParams.set('key', Config.klipy.apiKey ?? '');
 		return apiUrl;
 	}
@@ -82,10 +101,20 @@ export class KlipyResolver extends BaseResolver {
 	}
 
 	async resolve(url: URL, content: Uint8Array, isNSFWAllowed: boolean = false): Promise<Array<MessageEmbedResponse>> {
-		const post = this.parsePostsResponse(content);
+		const results = this.parsePostsResponse(content);
+		if (!results.length) {
+			return [];
+		}
+
+		const klipyId = url.searchParams.get('kid');
+		const post =
+			klipyId && /^\d+$/.test(klipyId)
+				? results[0]
+				: results.find((result) => this.extractSlugFromItemUrl(result.itemurl) === this.extractSlug(url));
 		if (!post) {
 			return [];
 		}
+
 		const {thumbnail: thumbnailFormat, video: videoFormat} = this.extractMediaFormats(post);
 		const thumbnail = thumbnailFormat ? await this.resolveKlipyMedia(thumbnailFormat, isNSFWAllowed) : undefined;
 		const video = videoFormat ? await this.resolveKlipyMedia(videoFormat, isNSFWAllowed) : undefined;
@@ -97,6 +126,30 @@ export class KlipyResolver extends BaseResolver {
 			video: video ?? undefined,
 		};
 		return [embed];
+	}
+
+	private extractSlug(url: URL): string | null {
+		const pathMatch = url.pathname.match(/^\/(gif|gifs|clip|clips)\/([^/]+)/);
+		if (!pathMatch?.[2]) {
+			return null;
+		}
+		try {
+			const slug = decodeURIComponent(pathMatch[2]).trim();
+			return slug || null;
+		} catch {
+			return null;
+		}
+	}
+
+	private extractSlugFromItemUrl(itemurl?: string): string | null {
+		if (!itemurl) {
+			return null;
+		}
+		try {
+			return this.extractSlug(new URL(itemurl));
+		} catch {
+			return null;
+		}
 	}
 
 	private async resolveKlipyMedia(
@@ -122,13 +175,13 @@ export class KlipyResolver extends BaseResolver {
 		}
 	}
 
-	private parsePostsResponse(content: Uint8Array): KlipyPost | null {
+	private parsePostsResponse(content: Uint8Array): Array<KlipyPost> {
 		try {
 			const parsed = JSON.parse(Buffer.from(content).toString('utf-8')) as KlipyPostsResponse;
-			return parsed.results?.[0] ?? null;
+			return parsed.results ?? [];
 		} catch (error) {
 			Logger.error({error}, 'Failed to parse KLIPY posts response');
-			return null;
+			return [];
 		}
 	}
 
