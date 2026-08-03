@@ -19,7 +19,6 @@
 
 import {AddRoleButton, RoleList} from '@app/components/guild/RoleManagement';
 import {BlueskyIcon} from '@app/components/icons/BlueskyIcon';
-import {MultiverseIcon} from '@app/components/icons/MultiverseIcon';
 import {UnverifiedConnectionIcon} from '@app/components/icons/UnverifiedConnectionIcon';
 import {VerifiedConnectionIcon} from '@app/components/icons/VerifiedConnectionIcon';
 import {GuildIcon} from '@app/components/popouts/GuildIcon';
@@ -43,6 +42,7 @@ import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import multiverseOfficialLogo from '../../../assets/images/multiverse-official-logo.png';
 
 export const UserProfileBio: React.FC<{
 	profile: ProfileRecord;
@@ -206,7 +206,11 @@ export const UserProfileMembershipInfo: React.FC<{profile: ProfileRecord; user: 
 						<div className={styles.membershipDate}>
 							<Tooltip text={t`Multiverse`}>
 								<div className={styles.membershipIcon}>
-									<MultiverseIcon className={clsx(styles.iconSmall, styles.textChat)} />
+									<img
+										src={multiverseOfficialLogo}
+										alt=""
+										className={clsx(styles.iconSmall, styles.membershipLogoIcon)}
+									/>
 								</div>
 							</Tooltip>
 							<span className={styles.membershipDateText}>{DateUtils.getFormattedShortDate(user.createdAt)}</span>

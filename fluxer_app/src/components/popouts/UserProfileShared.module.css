@@ -112,6 +112,12 @@
 	width: 16px;
 }
 
+.membershipLogoIcon {
+	border-radius: 50%;
+	object-fit: cover;
+	display: block;
+}
+
 .membershipGuildIcon {
 	display: inline-flex;
 	align-items: center;
