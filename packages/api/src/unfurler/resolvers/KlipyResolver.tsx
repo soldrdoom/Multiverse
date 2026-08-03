@@ -26,6 +26,17 @@ import {URLType} from '@fluxer/schema/src/primitives/UrlValidators';
 
 const KLIPY_API_BASE_URL = 'https://api.klipy.com/v2';
 const KLIPY_CLIENT_KEY = 'fluxer';
+// The search fallback below is the only path here reachable with fully
+// attacker-controlled input (any klipy.com link's slug, straight from message
+// text) — unlike the numeric `kid` lookup, a bogus slug that never matches
+// anything still costs one real request to Klipy's rate/cost-limited API. This
+// cache blunts the cheap case (the same fake link posted repeatedly) by
+// short-circuiting known-recent misses without a live call. It's in-memory only
+// (this resolver instance lives for the process's lifetime) rather than backed by
+// the shared cache service — good enough to cut repeat cost, not meant to be a
+// distributed rate limit.
+const SEARCH_FALLBACK_NEGATIVE_CACHE_TTL_MS = 10 * 60 * 1000;
+const SEARCH_FALLBACK_NEGATIVE_CACHE_MAX_SIZE = 5000;
 
 interface KlipyMediaFormat {
 	url?: string;
@@ -49,6 +60,8 @@ interface KlipyPostsResponse {
 }
 
 export class KlipyResolver extends BaseResolver {
+	private readonly searchFallbackNegativeCache = new Map<string, number>();
+
 	// klipy.com itself is behind a Cloudflare bot challenge (returns 403 to any
 	// non-browser fetch, including ours), so this resolver never scrapes the public
 	// site. Links our own GIF picker produces embed the real numeric Klipy ID as
@@ -79,6 +92,9 @@ export class KlipyResolver extends BaseResolver {
 			return apiUrl;
 		}
 
+		if (this.isRecentSearchFallbackMiss(slug)) {
+			return null;
+		}
 		const query = slug.replace(/-\d+$/, '').replace(/-/g, ' ').trim();
 		if (!query) {
 			return null;
@@ -101,17 +117,17 @@ export class KlipyResolver extends BaseResolver {
 	}
 
 	async resolve(url: URL, content: Uint8Array, isNSFWAllowed: boolean = false): Promise<Array<MessageEmbedResponse>> {
-		const results = this.parsePostsResponse(content);
-		if (!results.length) {
-			return [];
-		}
-
 		const klipyId = url.searchParams.get('kid');
-		const post =
-			klipyId && /^\d+$/.test(klipyId)
-				? results[0]
-				: results.find((result) => this.extractSlugFromItemUrl(result.itemurl) === this.extractSlug(url));
+		const isSearchFallback = !(klipyId && /^\d+$/.test(klipyId));
+		const targetSlug = this.extractSlug(url);
+		const results = this.parsePostsResponse(content);
+		const post = isSearchFallback
+			? results.find((result) => this.extractSlugFromItemUrl(result.itemurl) === targetSlug)
+			: results[0];
 		if (!post) {
+			if (isSearchFallback && targetSlug) {
+				this.recordSearchFallbackMiss(targetSlug);
+			}
 			return [];
 		}
 
@@ -126,6 +142,25 @@ export class KlipyResolver extends BaseResolver {
 			video: video ?? undefined,
 		};
 		return [embed];
+	}
+
+	private isRecentSearchFallbackMiss(slug: string): boolean {
+		const recordedAt = this.searchFallbackNegativeCache.get(slug);
+		if (recordedAt === undefined) {
+			return false;
+		}
+		if (Date.now() - recordedAt > SEARCH_FALLBACK_NEGATIVE_CACHE_TTL_MS) {
+			this.searchFallbackNegativeCache.delete(slug);
+			return false;
+		}
+		return true;
+	}
+
+	private recordSearchFallbackMiss(slug: string): void {
+		if (this.searchFallbackNegativeCache.size >= SEARCH_FALLBACK_NEGATIVE_CACHE_MAX_SIZE) {
+			this.searchFallbackNegativeCache.clear();
+		}
+		this.searchFallbackNegativeCache.set(slug, Date.now());
 	}
 
 	private extractSlug(url: URL): string | null {

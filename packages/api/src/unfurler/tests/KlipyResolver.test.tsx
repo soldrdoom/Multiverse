@@ -325,6 +325,28 @@ describe('KlipyResolver', () => {
 
 				expect(embeds).toHaveLength(0);
 			});
+
+			it('caches a miss so a later transformUrl for the same slug skips the search API', async () => {
+				const url = new URL('https://klipy.com/gifs/never-found');
+				await resolver.resolve(url, createKlipyPostsContent([]));
+
+				const result = resolver.transformUrl(url);
+				expect(result).toBeNull();
+			});
+
+			it('does not cache a miss for a different slug', async () => {
+				await resolver.resolve(new URL('https://klipy.com/gifs/never-found'), createKlipyPostsContent([]));
+
+				const result = resolver.transformUrl(new URL('https://klipy.com/gifs/some-other-slug'));
+				expect(result?.pathname).toBe('/v2/search');
+			});
+
+			it('does not let a cached slug miss block a kid-based lookup for the same slug', async () => {
+				await resolver.resolve(new URL('https://klipy.com/gifs/love-ghost-1'), createKlipyPostsContent([]));
+
+				const result = resolver.transformUrl(new URL('https://klipy.com/gifs/love-ghost-1?kid=123'));
+				expect(result?.pathname).toBe('/v2/posts');
+			});
 		});
 	});
 });
