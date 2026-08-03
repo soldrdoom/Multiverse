@@ -42,6 +42,18 @@ import {filetypemime} from 'magic-bytes.js';
 export class UnfurlerService extends IUnfurlerService {
 	private readonly resolvers: Array<BaseResolver>;
 	private static readonly UNFURL_REQUEST_HEADERS = {'User-Agent': FLUXER_USER_AGENT};
+	// Some resolvers' transformUrl (e.g. KlipyResolver) embeds a partner API key in the
+	// fetch URL's query string. Logging that URL verbatim would leak the key the moment
+	// this service's debug logging is ever turned on, so any of these param names get
+	// scrubbed before a fetch URL reaches a log line.
+	private static readonly SENSITIVE_QUERY_PARAM_NAMES = new Set([
+		'key',
+		'api_key',
+		'apikey',
+		'secret',
+		'token',
+		'access_token',
+	]);
 
 	constructor(
 		private cacheService: ICacheService,
@@ -73,13 +85,13 @@ export class UnfurlerService extends IUnfurlerService {
 				headers: UnfurlerService.UNFURL_REQUEST_HEADERS,
 			});
 			if (response.status !== 200) {
-				Logger.debug({url: fetchUrl.href, status: response.status}, 'Non-200 response received');
+				Logger.debug({url: this.redactUrlForLogging(fetchUrl), status: response.status}, 'Non-200 response received');
 				return [];
 			}
 			const contentBuffer = await this.streamToBuffer(response.stream);
 			const mimeType = this.determineMimeType(contentBuffer, response.headers);
 			if (!mimeType) {
-				Logger.error({url: fetchUrl.href}, 'Unable to determine MIME type');
+				Logger.error({url: this.redactUrlForLogging(fetchUrl)}, 'Unable to determine MIME type');
 				return [];
 			}
 			const finalUrl = new URL(response.url);
@@ -103,6 +115,16 @@ export class UnfurlerService extends IUnfurlerService {
 			Logger.error({error, url}, 'Failed to unfurl URL');
 			return [];
 		}
+	}
+
+	private redactUrlForLogging(url: URL): string {
+		const redacted = new URL(url.href);
+		for (const param of Array.from(redacted.searchParams.keys())) {
+			if (UnfurlerService.SENSITIVE_QUERY_PARAM_NAMES.has(param.toLowerCase())) {
+				redacted.searchParams.set(param, '[redacted]');
+			}
+		}
+		return redacted.href;
 	}
 
 	private getUrlToFetch(url: URL): {fetchUrl: URL; matchingResolver: BaseResolver | null} {
