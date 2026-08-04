@@ -195,6 +195,17 @@ export class MockCacheService extends ICacheService {
 		return await this.get<T>(key);
 	}
 
+	async gcraCheckAndSet(
+		_key: string,
+		nowMs: number,
+		_emissionIntervalMs: number,
+		_burstCapacityMs: number,
+		_limit: number,
+		_windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}> {
+		return {allowed: true, tatMs: nowMs};
+	}
+
 	async publish(_channel: string, _message: string): Promise<void> {
 		return;
 	}

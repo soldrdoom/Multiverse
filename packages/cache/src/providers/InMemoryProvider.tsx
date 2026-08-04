@@ -209,6 +209,44 @@ export class InMemoryProvider extends ICacheService {
 		return true;
 	}
 
+	async gcraCheckAndSet(
+		key: string,
+		nowMs: number,
+		emissionIntervalMs: number,
+		burstCapacityMs: number,
+		limit: number,
+		windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}> {
+		const entry = this.cache.get(key);
+		const raw = entry && !this.isExpired(entry) ? entry.value : null;
+
+		let rawTatMs = nowMs;
+		if (raw != null && typeof raw === 'object') {
+			const state = raw as {tat?: unknown; tat_ms?: unknown};
+			const decoded = Number(state.tat_ms ?? state.tat);
+			if (Number.isFinite(decoded)) {
+				rawTatMs = decoded;
+			}
+		}
+
+		const effectiveTatMs = Math.max(rawTatMs, nowMs);
+		const nextTatMs = effectiveTatMs + emissionIntervalMs;
+		const allowAtMs = nextTatMs - burstCapacityMs;
+
+		if (nowMs >= allowAtMs) {
+			const ttlMs = nextTatMs - nowMs;
+			const ttlSeconds = Math.max(1, Math.ceil(ttlMs / 1000));
+			this.evictIfNeeded();
+			this.cache.set(key, {
+				value: {tat: nextTatMs, tat_ms: nextTatMs, limit, window_ms: windowMs},
+				expiresAt: Date.now() + ttlSeconds * 1000,
+			});
+			return {allowed: true, tatMs: nextTatMs};
+		}
+
+		return {allowed: false, tatMs: rawTatMs};
+	}
+
 	async getAndRenewTtl<T>(key: string, newTtlSeconds: number): Promise<T | null> {
 		const value = await this.get<T>(key);
 		if (value !== null) {

@@ -21,4 +21,12 @@ export interface ICacheService {
 	get<T>(key: string): Promise<T | null>;
 	set<T>(key: string, value: T, ttlSeconds?: number): Promise<void>;
 	delete(key: string): Promise<void>;
+	gcraCheckAndSet(
+		key: string,
+		nowMs: number,
+		emissionIntervalMs: number,
+		burstCapacityMs: number,
+		limit: number,
+		windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}>;
 }

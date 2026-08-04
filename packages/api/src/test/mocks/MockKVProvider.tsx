@@ -559,6 +559,45 @@ export class MockKVProvider implements IKVProvider {
 		return true;
 	}
 
+	async gcraCheckAndSet(
+		key: string,
+		nowMs: number,
+		emissionIntervalMs: number,
+		burstCapacityMs: number,
+		limit: number,
+		windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}> {
+		this.evictIfExpired(key);
+		const raw = this.stringStore.get(key) ?? null;
+
+		let rawTatMs = nowMs;
+		if (raw != null) {
+			try {
+				const parsed = JSON.parse(raw) as {tat?: unknown; tat_ms?: unknown};
+				const decoded = Number(parsed.tat_ms ?? parsed.tat);
+				if (Number.isFinite(decoded)) {
+					rawTatMs = decoded;
+				}
+			} catch {
+				// treat unparseable state as absent, matching production Lua behavior
+			}
+		}
+
+		const effectiveTatMs = Math.max(rawTatMs, nowMs);
+		const nextTatMs = effectiveTatMs + emissionIntervalMs;
+		const allowAtMs = nextTatMs - burstCapacityMs;
+
+		if (nowMs >= allowAtMs) {
+			const ttlMs = nextTatMs - nowMs;
+			const ttlSeconds = Math.max(1, Math.ceil(ttlMs / 1000));
+			this.stringStore.set(key, JSON.stringify({tat: nextTatMs, tat_ms: nextTatMs, limit, window_ms: windowMs}));
+			this.expiries.set(key, Date.now() + ttlSeconds * 1000);
+			return {allowed: true, tatMs: nextTatMs};
+		}
+
+		return {allowed: false, tatMs: rawTatMs};
+	}
+
 	async renewSnowflakeNode(key: string, instanceId: string, ttlSeconds: number): Promise<boolean> {
 		this.renewSnowflakeNodeSpy(key, instanceId, ttlSeconds);
 		this.evictIfExpired(key);

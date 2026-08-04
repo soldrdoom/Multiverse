@@ -352,6 +352,17 @@ class MockKVProvider implements IKVProvider {
 		return 0;
 	}
 
+	async gcraCheckAndSet(
+		_key: string,
+		nowMs: number,
+		_emissionIntervalMs: number,
+		_burstCapacityMs: number,
+		_limit: number,
+		_windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}> {
+		return {allowed: true, tatMs: nowMs};
+	}
+
 	async scheduleBulkDeletion(_queueKey: string, _secondaryKey: string, _score: number, _value: string): Promise<void> {}
 
 	async removeBulkDeletion(_queueKey: string, _secondaryKey: string): Promise<boolean> {

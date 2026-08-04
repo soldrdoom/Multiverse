@@ -143,6 +143,17 @@ export class RedisCacheProvider extends ICacheService {
 		throw new Error('releaseLock not implemented for RedisCacheProvider');
 	}
 
+	async gcraCheckAndSet(
+		_key: string,
+		_nowMs: number,
+		_emissionIntervalMs: number,
+		_burstCapacityMs: number,
+		_limit: number,
+		_windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}> {
+		throw new Error('gcraCheckAndSet not implemented for RedisCacheProvider — RedisClient has no eval support');
+	}
+
 	async getAndRenewTtl<T>(key: string, newTtlSeconds: number): Promise<T | null> {
 		const value = await this.client.getex(key, newTtlSeconds);
 		if (value == null) return null;

@@ -17,6 +17,11 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {
+	parseRateLimitCacheState,
+	serializeRateLimitCacheState,
+} from '@fluxer/rate_limit/src/internal/RateLimitCacheState';
+
 interface CacheEntry<T> {
 	value: T;
 	expiresAt: number | null;
@@ -49,5 +54,35 @@ export class InMemoryCacheService {
 
 	async delete(key: string): Promise<void> {
 		this.cache.delete(key);
+	}
+
+	async gcraCheckAndSet(
+		key: string,
+		nowMs: number,
+		emissionIntervalMs: number,
+		burstCapacityMs: number,
+		limit: number,
+		windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}> {
+		const entry = this.cache.get(key);
+		const raw = entry && (!entry.expiresAt || entry.expiresAt >= Date.now()) ? entry.value : null;
+		const state = parseRateLimitCacheState(raw);
+		const rawTatMs = state?.tatMs ?? nowMs;
+
+		const effectiveTatMs = Math.max(rawTatMs, nowMs);
+		const nextTatMs = effectiveTatMs + emissionIntervalMs;
+		const allowAtMs = nextTatMs - burstCapacityMs;
+
+		if (nowMs >= allowAtMs) {
+			const ttlMs = nextTatMs - nowMs;
+			const ttlSeconds = Math.max(1, Math.ceil(ttlMs / 1000));
+			this.cache.set(key, {
+				value: serializeRateLimitCacheState({tatMs: nextTatMs, limit, windowMs}),
+				expiresAt: Date.now() + ttlSeconds * 1000,
+			});
+			return {allowed: true, tatMs: nextTatMs};
+		}
+
+		return {allowed: false, tatMs: rawTatMs};
 	}
 }

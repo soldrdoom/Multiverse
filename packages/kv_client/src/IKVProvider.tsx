@@ -87,6 +87,14 @@ export interface IKVProvider {
 	duplicate(): IKVSubscription;
 
 	releaseLock(key: string, token: string): Promise<boolean>;
+	gcraCheckAndSet(
+		key: string,
+		nowMs: number,
+		emissionIntervalMs: number,
+		burstCapacityMs: number,
+		limit: number,
+		windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}>;
 	renewSnowflakeNode(key: string, instanceId: string, ttlSeconds: number): Promise<boolean>;
 	tryConsumeTokens(
 		key: string,

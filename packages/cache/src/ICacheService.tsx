@@ -36,6 +36,14 @@ export abstract class ICacheService {
 	abstract deletePattern(pattern: string): Promise<number>;
 	abstract acquireLock(key: string, ttlSeconds: number): Promise<string | null>;
 	abstract releaseLock(key: string, token: string): Promise<boolean>;
+	abstract gcraCheckAndSet(
+		key: string,
+		nowMs: number,
+		emissionIntervalMs: number,
+		burstCapacityMs: number,
+		limit: number,
+		windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}>;
 	abstract getAndRenewTtl<T>(key: string, newTtlSeconds: number): Promise<T | null>;
 	abstract publish(channel: string, message: string): Promise<void>;
 	abstract sadd(key: string, member: string, ttlSeconds?: number): Promise<void>;

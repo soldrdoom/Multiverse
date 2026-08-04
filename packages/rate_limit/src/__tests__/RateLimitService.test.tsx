@@ -461,6 +461,37 @@ describe('RateLimitService (GCRA)', () => {
 			expect(allowedCount).toBe(5);
 		});
 
+		it('should never allow more than the limit under concurrent load, even with limit 1', async () => {
+			// Regression test for a GET-then-SET race: a non-atomic read-modify-write lets every
+			// concurrent request observe the same pre-mutation state and all decide "allowed".
+			const config = {
+				identifier: 'edge:concurrent-race',
+				maxAttempts: 1,
+				windowMs: 60000,
+			};
+
+			const results = await Promise.all(Array.from({length: 20}, () => service.checkLimit(config)));
+
+			const allowedCount = results.filter((r) => r.allowed).length;
+			expect(allowedCount).toBe(1);
+		});
+
+		it('should perform the rate-limit check as a single atomic cache call, not a separate read then write', async () => {
+			const getSpy = vi.spyOn(cache, 'get');
+			const setSpy = vi.spyOn(cache, 'set');
+			const gcraSpy = vi.spyOn(cache, 'gcraCheckAndSet');
+
+			await service.checkLimit({
+				identifier: 'edge:atomicity',
+				maxAttempts: 5,
+				windowMs: 5000,
+			});
+
+			expect(gcraSpy).toHaveBeenCalledTimes(1);
+			expect(getSpy).not.toHaveBeenCalled();
+			expect(setSpy).not.toHaveBeenCalled();
+		});
+
 		it('should handle special characters in identifier', async () => {
 			const config = {
 				identifier: 'user:test@example.com:action:post:/api/v1/messages',

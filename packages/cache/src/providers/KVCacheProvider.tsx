@@ -209,6 +209,19 @@ export class KVCacheProvider extends ICacheService {
 		return await this.client.releaseLock(lockKey, token);
 	}
 
+	async gcraCheckAndSet(
+		key: string,
+		nowMs: number,
+		emissionIntervalMs: number,
+		burstCapacityMs: number,
+		limit: number,
+		windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}> {
+		return this.instrumented('gcraCheckAndSet', key, async () =>
+			this.client.gcraCheckAndSet(key, nowMs, emissionIntervalMs, burstCapacityMs, limit, windowMs),
+		);
+	}
+
 	async getAndRenewTtl<T>(key: string, newTtlSeconds: number): Promise<T | null> {
 		const value = await this.client.getex(key, newTtlSeconds);
 		if (value == null) return null;

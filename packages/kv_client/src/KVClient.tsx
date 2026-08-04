@@ -94,6 +94,45 @@ redis.call('SET', key, cjson.encode({tokens = tokens, lastRefill = lastRefill}),
 return consumed
 `;
 
+const GCRA_CHECK_AND_SET_SCRIPT = `
+local key = KEYS[1]
+local now = tonumber(ARGV[1])
+local emissionIntervalMs = tonumber(ARGV[2])
+local burstCapacityMs = tonumber(ARGV[3])
+local limit = tonumber(ARGV[4])
+local windowMs = tonumber(ARGV[5])
+
+local data = redis.call('GET', key)
+local rawTatMs = now
+
+if data then
+	local ok, state = pcall(cjson.decode, data)
+	if ok and state then
+		local decoded = tonumber(state.tat_ms) or tonumber(state.tat)
+		if decoded then
+			rawTatMs = decoded
+		end
+	end
+end
+
+local effectiveTatMs = rawTatMs
+if effectiveTatMs < now then
+	effectiveTatMs = now
+end
+
+local nextTatMs = effectiveTatMs + emissionIntervalMs
+local allowAtMs = nextTatMs - burstCapacityMs
+
+if now >= allowAtMs then
+	local ttlMs = nextTatMs - now
+	local ttlSeconds = math.max(1, math.ceil(ttlMs / 1000))
+	redis.call('SET', key, cjson.encode({tat = nextTatMs, tat_ms = nextTatMs, limit = limit, window_ms = windowMs}), 'EX', ttlSeconds)
+	return {1, tostring(nextTatMs)}
+end
+
+return {0, tostring(rawTatMs)}
+`;
+
 const SCHEDULE_BULK_DELETION_SCRIPT = `
 redis.call('ZADD', KEYS[1], ARGV[1], ARGV[2])
 redis.call('SET', KEYS[2], ARGV[2])
@@ -436,6 +475,21 @@ export class KVClient implements IKVProvider {
 			this.client.eval(TRY_CONSUME_TOKENS_SCRIPT, 1, key, now, requested, maxTokens, refillRate, refillIntervalMs),
 		);
 		return Number(result);
+	}
+
+	async gcraCheckAndSet(
+		key: string,
+		nowMs: number,
+		emissionIntervalMs: number,
+		burstCapacityMs: number,
+		limit: number,
+		windowMs: number,
+	): Promise<{allowed: boolean; tatMs: number}> {
+		const result = await this.execute('gcraCheckAndSet', async () =>
+			this.client.eval(GCRA_CHECK_AND_SET_SCRIPT, 1, key, nowMs, emissionIntervalMs, burstCapacityMs, limit, windowMs),
+		);
+		const [allowedFlag, tatMsRaw] = result as [number, string];
+		return {allowed: Number(allowedFlag) === 1, tatMs: Number(tatMsRaw)};
 	}
 
 	async scheduleBulkDeletion(queueKey: string, secondaryKey: string, score: number, value: string): Promise<void> {

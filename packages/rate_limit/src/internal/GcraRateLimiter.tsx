@@ -19,11 +19,7 @@
 
 import type {ICacheService} from '@fluxer/rate_limit/src/ICacheService';
 import type {RateLimitResult} from '@fluxer/rate_limit/src/IRateLimitService';
-import {
-	parseRateLimitCacheState,
-	type RateLimitCacheState,
-	serializeRateLimitCacheState,
-} from '@fluxer/rate_limit/src/internal/RateLimitCacheState';
+import {parseRateLimitCacheState, type RateLimitCacheState} from '@fluxer/rate_limit/src/internal/RateLimitCacheState';
 import {assertPositiveFiniteNumber} from '@fluxer/rate_limit/src/internal/RateLimitValidation';
 
 export interface GcraRule {
@@ -107,30 +103,26 @@ export class GcraRateLimiter {
 		const emissionIntervalMs = GcraRateLimiter.calculateEmissionIntervalMs(rule);
 		const burstCapacityMs = rule.windowMs;
 
-		const state = await this.getCacheState(key);
-		const currentTatMs = state?.tatMs ?? nowMs;
-		const nextTatMs = Math.max(currentTatMs, nowMs) + emissionIntervalMs;
-		const allowAtMs = nextTatMs - burstCapacityMs;
+		// Read-modify-write must happen as a single atomic cache op (see gcraCheckAndSet):
+		// a separate get()-then-set() here lets concurrent requests read the same stale
+		// state and all decide "allowed", bypassing the limit entirely under concurrency.
+		const {allowed, tatMs} = await this.cacheService.gcraCheckAndSet(
+			key,
+			nowMs,
+			emissionIntervalMs,
+			burstCapacityMs,
+			rule.limit,
+			rule.windowMs,
+		);
 
-		if (nowMs >= allowAtMs) {
-			const ttlMs = nextTatMs - nowMs;
-			const ttlSeconds = Math.max(1, Math.ceil(ttlMs / 1000));
-			await this.cacheService.set(
-				key,
-				serializeRateLimitCacheState({
-					tatMs: nextTatMs,
-					limit: rule.limit,
-					windowMs: rule.windowMs,
-				}),
-				ttlSeconds,
-			);
-
-			const remaining = GcraRateLimiter.calculateRemaining(rule.limit, emissionIntervalMs, nextTatMs, nowMs);
-			return GcraRateLimiter.createAllowedResult(rule.limit, remaining, nextTatMs, options.global);
+		if (allowed) {
+			const remaining = GcraRateLimiter.calculateRemaining(rule.limit, emissionIntervalMs, tatMs, nowMs);
+			return GcraRateLimiter.createAllowedResult(rule.limit, remaining, tatMs, options.global);
 		}
 
+		const allowAtMs = tatMs + emissionIntervalMs - burstCapacityMs;
 		const retryAfterMs = allowAtMs - nowMs;
-		return GcraRateLimiter.createBlockedResult(rule.limit, currentTatMs, retryAfterMs, options.global);
+		return GcraRateLimiter.createBlockedResult(rule.limit, tatMs, retryAfterMs, options.global);
 	}
 
 	async resetLimit(key: string): Promise<void> {
