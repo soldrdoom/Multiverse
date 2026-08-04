@@ -22,7 +22,7 @@ import {modal} from '@app/actions/ModalActionCreators';
 import * as UserGuildSettingsActionCreators from '@app/actions/UserGuildSettingsActionCreators';
 import {CategoryCreateModal} from '@app/components/modals/CategoryCreateModal';
 import {ChannelCreateModal} from '@app/components/modals/ChannelCreateModal';
-import {InviteModal} from '@app/components/modals/InviteModal';
+import {LazyInviteModal as InviteModal} from '@app/components/modals/InviteModal.lazy';
 import {CheckboxItem} from '@app/components/uikit/context_menu/ContextMenu';
 import {CreateCategoryIcon, CreateIcon, InviteIcon} from '@app/components/uikit/context_menu/ContextMenuIcons';
 import {MenuGroup} from '@app/components/uikit/context_menu/MenuGroup';

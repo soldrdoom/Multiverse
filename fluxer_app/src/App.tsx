@@ -17,7 +17,6 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import '@app/components/modals/SudoVerificationModal';
 import 'highlight.js/styles/github-dark.css';
 import 'katex/dist/katex.min.css';
 import styles from '@app/App.module.css';
@@ -28,7 +27,7 @@ import {DndContext} from '@app/components/layout/DndContext';
 import GlobalOverlays from '@app/components/layout/GlobalOverlays';
 import {NativeTitlebar} from '@app/components/layout/NativeTitlebar';
 import {NativeTrafficLightsBackdrop} from '@app/components/layout/NativeTrafficLightsBackdrop';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {QUICK_SWITCHER_PORTAL_ID} from '@app/components/quick_switcher/QuickSwitcherConstants';
 import FocusRingScope from '@app/components/uikit/focus_ring/FocusRingScope';
 import {SVGMasks} from '@app/components/uikit/SVGMasks';

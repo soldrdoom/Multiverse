@@ -25,8 +25,8 @@ import * as UserProfileActionCreators from '@app/actions/UserProfileActionCreato
 import {CustomStatusDisplay} from '@app/components/common/custom_status_display/CustomStatusDisplay';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
 import {TipUserModal} from '@app/components/modals/TipUserModal';
-import {UserProfileModal} from '@app/components/modals/UserProfileModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserProfileModal as UserProfileModal} from '@app/components/modals/UserProfileModal.lazy';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {UserProfileBadges} from '@app/components/popouts/UserProfileBadges';
 import {UserProfileDataWarning} from '@app/components/popouts/UserProfileDataWarning';
 import styles from '@app/components/popouts/UserProfilePopout.module.css';

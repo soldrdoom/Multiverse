@@ -22,7 +22,7 @@ import {modal} from '@app/actions/ModalActionCreators';
 import * as ToastActionCreators from '@app/actions/ToastActionCreators';
 import * as VoiceSettingsActionCreators from '@app/actions/VoiceSettingsActionCreators';
 import {Select} from '@app/components/form/Select';
-import BackgroundImageGalleryModal from '@app/components/modals/BackgroundImageGalleryModal';
+import {LazyBackgroundImageGalleryModal as BackgroundImageGalleryModal} from '@app/components/modals/BackgroundImageGalleryModal.lazy';
 import styles from '@app/components/modals/CameraPreviewModal.module.css';
 import * as Modal from '@app/components/modals/Modal';
 import {Button} from '@app/components/uikit/button/Button';

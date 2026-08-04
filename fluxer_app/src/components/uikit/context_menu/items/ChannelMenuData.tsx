@@ -26,13 +26,13 @@ import * as ReadStateActionCreators from '@app/actions/ReadStateActionCreators';
 import * as TextCopyActionCreators from '@app/actions/TextCopyActionCreators';
 import * as ToastActionCreators from '@app/actions/ToastActionCreators';
 import {ChannelDebugModal} from '@app/components/debug/ChannelDebugModal';
-import {ChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal';
+import {LazyChannelSettingsModal as ChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal.lazy';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
 import {EditGroupModal} from '@app/components/modals/EditGroupModal';
 import {ExternalLinkWarningModal} from '@app/components/modals/ExternalLinkWarningModal';
 import {GroupInvitesModal} from '@app/components/modals/GroupInvitesModal';
-import {GuildNotificationSettingsModal} from '@app/components/modals/GuildNotificationSettingsModal';
-import {InviteModal} from '@app/components/modals/InviteModal';
+import {LazyGuildNotificationSettingsModal as GuildNotificationSettingsModal} from '@app/components/modals/GuildNotificationSettingsModal.lazy';
+import {LazyInviteModal as InviteModal} from '@app/components/modals/InviteModal.lazy';
 import {
 	CloseDMIcon,
 	CopyIdIcon,

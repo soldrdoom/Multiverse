@@ -20,23 +20,33 @@
 import {MediaViewerModal} from '@app/components/modals/MediaViewerModal';
 import styles from '@app/components/modals/Modals.module.css';
 import {UserProfileMobileSheet} from '@app/components/modals/UserProfileMobileSheet';
+import {Spinner} from '@app/components/uikit/Spinner';
 import ModalStore from '@app/stores/ModalStore';
 import {ModalStackContext} from '@app/utils/modals/ModalUtils';
 import {AnimatePresence} from 'framer-motion';
 import {observer} from 'mobx-react-lite';
+import {Suspense} from 'react';
+
+const modalSuspenseFallback = (
+	<div className={styles.lazyModalFallback}>
+		<Spinner size="large" />
+	</div>
+);
 
 export const Modals = observer(() => {
 	const orderedModals = ModalStore.orderedModals;
 
 	return (
 		<div className={styles.modals} data-overlay-pass-through="true">
-			<MediaViewerModal />
-			<UserProfileMobileSheet />
+			<Suspense fallback={modalSuspenseFallback}>
+				<MediaViewerModal />
+				<UserProfileMobileSheet />
+			</Suspense>
 
 			<AnimatePresence>
 				{orderedModals.map(({key, modal, stackIndex, isVisible, needsBackdrop, isTopmost}) => (
 					<ModalStackContext.Provider key={key} value={{stackIndex, isVisible, needsBackdrop, isTopmost}}>
-						{modal()}
+						<Suspense fallback={modalSuspenseFallback}>{modal()}</Suspense>
 					</ModalStackContext.Provider>
 				))}
 			</AnimatePresence>

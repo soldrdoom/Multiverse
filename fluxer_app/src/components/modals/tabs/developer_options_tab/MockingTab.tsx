@@ -22,7 +22,7 @@ import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
 import {Select} from '@app/components/form/Select';
 import {Switch} from '@app/components/form/Switch';
-import RequiredActionModal from '@app/components/modals/RequiredActionModal';
+import {LazyRequiredActionModal as RequiredActionModal} from '@app/components/modals/RequiredActionModal.lazy';
 import {SettingsTabSection} from '@app/components/modals/shared/SettingsTabLayout';
 import styles from '@app/components/modals/tabs/developer_options_tab/MockingTab.module.css';
 import {Button} from '@app/components/uikit/button/Button';

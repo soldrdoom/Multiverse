@@ -40,15 +40,15 @@ import {ChannelDebugModal} from '@app/components/debug/ChannelDebugModal';
 import {UserDebugModal} from '@app/components/debug/UserDebugModal';
 import {LongPressable} from '@app/components/LongPressable';
 import {AddFriendsToGroupModal} from '@app/components/modals/AddFriendsToGroupModal';
-import {ChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal';
+import {LazyChannelSettingsModal as ChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal.lazy';
 import {ChannelTopicModal} from '@app/components/modals/ChannelTopicModal';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
 import {CreateDMModal} from '@app/components/modals/CreateDMModal';
 import {EditGroupModal} from '@app/components/modals/EditGroupModal';
 import {GroupInvitesModal} from '@app/components/modals/GroupInvitesModal';
-import {GuildNotificationSettingsModal} from '@app/components/modals/GuildNotificationSettingsModal';
+import {LazyGuildNotificationSettingsModal as GuildNotificationSettingsModal} from '@app/components/modals/GuildNotificationSettingsModal.lazy';
 import {GuildMemberActionsSheet} from '@app/components/modals/guild_tabs/GuildMemberActionsSheet';
-import {InviteModal} from '@app/components/modals/InviteModal';
+import {LazyInviteModal as InviteModal} from '@app/components/modals/InviteModal.lazy';
 import {ChannelPinsContent} from '@app/components/shared/ChannelPinsContent';
 import {
 	ChevronRightIcon,

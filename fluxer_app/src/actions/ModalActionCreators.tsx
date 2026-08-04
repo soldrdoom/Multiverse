@@ -18,9 +18,9 @@
  */
 
 import type {ModalRender} from '@app/actions/ModalRender';
-import {ChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal';
-import {GuildSettingsModal} from '@app/components/modals/GuildSettingsModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal.lazy';
+import {LazyGuildSettingsModal} from '@app/components/modals/GuildSettingsModal.lazy';
+import {LazyUserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {Logger} from '@app/lib/Logger';
 import ModalStore from '@app/stores/ModalStore';
 import lodash from 'lodash';
@@ -28,7 +28,9 @@ import type React from 'react';
 
 const logger = new Logger('Modal');
 
-const BACKGROUND_MODAL_TYPES = [UserSettingsModal, GuildSettingsModal, ChannelSettingsModal] as const;
+// These reference the shared Lazy* singletons (not the real components) — call sites must
+// push `<LazyUserSettingsModal />` etc. for these referential-equality checks to match.
+const BACKGROUND_MODAL_TYPES = [LazyUserSettingsModal, LazyGuildSettingsModal, LazyChannelSettingsModal] as const;
 
 const isBackgroundModal = (element: React.ReactElement): boolean => {
 	return BACKGROUND_MODAL_TYPES.some((type) => element.type === type);
@@ -42,15 +44,15 @@ export function push(modal: ModalRender): void {
 	const renderedModal = modal();
 	const isBackground = isBackgroundModal(renderedModal);
 
-	if (renderedModal.type === UserSettingsModal && ModalStore.hasModalOfType(UserSettingsModal)) {
+	if (renderedModal.type === LazyUserSettingsModal && ModalStore.hasModalOfType(LazyUserSettingsModal)) {
 		logger.debug('Skipping duplicate UserSettingsModal');
 		return;
 	}
-	if (renderedModal.type === GuildSettingsModal && ModalStore.hasModalOfType(GuildSettingsModal)) {
+	if (renderedModal.type === LazyGuildSettingsModal && ModalStore.hasModalOfType(LazyGuildSettingsModal)) {
 		logger.debug('Skipping duplicate GuildSettingsModal');
 		return;
 	}
-	if (renderedModal.type === ChannelSettingsModal && ModalStore.hasModalOfType(ChannelSettingsModal)) {
+	if (renderedModal.type === LazyChannelSettingsModal && ModalStore.hasModalOfType(LazyChannelSettingsModal)) {
 		logger.debug('Skipping duplicate ChannelSettingsModal');
 		return;
 	}
@@ -64,15 +66,15 @@ export function pushWithKey(modal: ModalRender, key: string): void {
 	const renderedModal = modal();
 	const isBackground = isBackgroundModal(renderedModal);
 
-	if (renderedModal.type === UserSettingsModal && ModalStore.hasModalOfType(UserSettingsModal)) {
+	if (renderedModal.type === LazyUserSettingsModal && ModalStore.hasModalOfType(LazyUserSettingsModal)) {
 		logger.debug('Skipping duplicate UserSettingsModal');
 		return;
 	}
-	if (renderedModal.type === GuildSettingsModal && ModalStore.hasModalOfType(GuildSettingsModal)) {
+	if (renderedModal.type === LazyGuildSettingsModal && ModalStore.hasModalOfType(LazyGuildSettingsModal)) {
 		logger.debug('Skipping duplicate GuildSettingsModal');
 		return;
 	}
-	if (renderedModal.type === ChannelSettingsModal && ModalStore.hasModalOfType(ChannelSettingsModal)) {
+	if (renderedModal.type === LazyChannelSettingsModal && ModalStore.hasModalOfType(LazyChannelSettingsModal)) {
 		logger.debug('Skipping duplicate ChannelSettingsModal');
 		return;
 	}

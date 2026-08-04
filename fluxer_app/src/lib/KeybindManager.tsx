@@ -38,10 +38,10 @@ import {
 	startMessageEdit,
 	triggerAddReaction,
 } from '@app/components/channel/MessageActionUtils';
-import {AddGuildModal} from '@app/components/modals/AddGuildModal';
+import {LazyAddGuildModal as AddGuildModal} from '@app/components/modals/AddGuildModal.lazy';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
 import {CreateDMModal} from '@app/components/modals/CreateDMModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {ComponentDispatch} from '@app/lib/ComponentDispatch';
 import {Logger} from '@app/lib/Logger';
 import {Routes} from '@app/Routes';

@@ -21,7 +21,7 @@ import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
 import * as NavigationActionCreators from '@app/actions/NavigationActionCreators';
 import * as PrivateChannelActionCreators from '@app/actions/PrivateChannelActionCreators';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {Routes} from '@app/Routes';
 import type {QuickSwitcherExecutableResult} from '@app/stores/QuickSwitcherStore';
 import QuickSwitcherStore from '@app/stores/QuickSwitcherStore';

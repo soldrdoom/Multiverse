@@ -24,7 +24,7 @@ import * as SoundActionCreators from '@app/actions/SoundActionCreators';
 import * as TextCopyActionCreators from '@app/actions/TextCopyActionCreators';
 import * as VoiceCallLayoutActionCreators from '@app/actions/VoiceCallLayoutActionCreators';
 import * as VoiceStateActionCreators from '@app/actions/VoiceStateActionCreators';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {CheckboxItem} from '@app/components/uikit/context_menu/ContextMenu';
 import {
 	BulkTurnOffCameraIcon,

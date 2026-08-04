@@ -24,7 +24,7 @@ import styles from '@app/components/layout/AppLayout.module.css';
 import {useAppLayoutState} from '@app/components/layout/app_layout/AppLayoutHooks';
 import {SplashScreen} from '@app/components/layout/SplashScreen';
 import {VaultBootstrap} from '@app/components/layout/VaultBootstrap';
-import RequiredActionModal from '@app/components/modals/RequiredActionModal';
+import {LazyRequiredActionModal as RequiredActionModal} from '@app/components/modals/RequiredActionModal.lazy';
 import {NewDeviceMonitoringManager} from '@app/components/voice/NewDeviceMonitoringManager';
 import {VoiceReconnectionManager} from '@app/components/voice/VoiceReconnectionManager';
 import AccountManager from '@app/stores/AccountManager';

@@ -33,7 +33,7 @@ import type {IARContext} from '@app/components/modals/IARModal';
 import {IARModal} from '@app/components/modals/IARModal';
 import * as Modal from '@app/components/modals/Modal';
 import userProfileModalStyles from '@app/components/modals/UserProfileModal.module.css';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {GuildIcon} from '@app/components/popouts/GuildIcon';
 import {UserProfileBadges} from '@app/components/popouts/UserProfileBadges';
 import {UserProfileDataWarning} from '@app/components/popouts/UserProfileDataWarning';

@@ -21,7 +21,7 @@ import * as InviteActionCreators from '@app/actions/InviteActionCreators';
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
 import * as UserProfileActionCreators from '@app/actions/UserProfileActionCreators';
-import {UserProfileModal} from '@app/components/modals/UserProfileModal';
+import {LazyUserProfileModal as UserProfileModal} from '@app/components/modals/UserProfileModal.lazy';
 import {Logger} from '@app/lib/Logger';
 import {Routes} from '@app/Routes';
 import AuthenticationStore from '@app/stores/AuthenticationStore';

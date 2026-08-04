@@ -42,9 +42,9 @@ import {isCategory, isTextChannel} from '@app/components/layout/utils/ChannelOrg
 import {getChannelUnreadState} from '@app/components/layout/utils/ChannelUnreadState';
 import {VoiceChannelUserCount} from '@app/components/layout/VoiceChannelUserCount';
 import {ChannelCreateModal} from '@app/components/modals/ChannelCreateModal';
-import {ChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal';
+import {LazyChannelSettingsModal as ChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal.lazy';
 import {ExternalLinkWarningModal} from '@app/components/modals/ExternalLinkWarningModal';
-import {InviteModal} from '@app/components/modals/InviteModal';
+import {LazyInviteModal as InviteModal} from '@app/components/modals/InviteModal.lazy';
 import {AvatarStack} from '@app/components/uikit/avatars/AvatarStack';
 import {CategoryContextMenu} from '@app/components/uikit/context_menu/CategoryContextMenu';
 import {ChannelContextMenu} from '@app/components/uikit/context_menu/ChannelContextMenu';

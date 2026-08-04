@@ -17,23 +17,8 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-.modals {
-	background: none;
-	inset: 0;
-	pointer-events: none;
-	position: fixed;
-	z-index: var(--z-index-modal);
-}
+import * as React from 'react';
 
-:global(html.platform-native:not(.platform-macos)) .modals {
-	top: var(--native-titlebar-height);
-}
-
-.lazyModalFallback {
-	align-items: center;
-	display: flex;
-	inset: 0;
-	justify-content: center;
-	pointer-events: none;
-	position: fixed;
-}
+export const LazyAddGuildModal = React.lazy(() =>
+	import('@app/components/modals/AddGuildModal').then((m) => ({default: m.AddGuildModal})),
+);

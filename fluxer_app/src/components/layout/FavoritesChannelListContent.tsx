@@ -33,7 +33,7 @@ import {GenericChannelItem} from '@app/components/layout/GenericChannelItem';
 import {getChannelUnreadState} from '@app/components/layout/utils/ChannelUnreadState';
 import {AddFavoriteChannelModal} from '@app/components/modals/AddFavoriteChannelModal';
 import {ExternalLinkWarningModal} from '@app/components/modals/ExternalLinkWarningModal';
-import {InviteModal} from '@app/components/modals/InviteModal';
+import {LazyInviteModal as InviteModal} from '@app/components/modals/InviteModal.lazy';
 import {FavoritesCategoryContextMenu} from '@app/components/uikit/context_menu/FavoritesCategoryContextMenu';
 import {FavoritesChannelContextMenu} from '@app/components/uikit/context_menu/FavoritesChannelContextMenu';
 import {FavoritesChannelListContextMenu} from '@app/components/uikit/context_menu/FavoritesChannelListContextMenu';

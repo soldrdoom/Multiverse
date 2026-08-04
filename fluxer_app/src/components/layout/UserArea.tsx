@@ -24,7 +24,7 @@ import {modal} from '@app/actions/ModalActionCreators';
 import * as VoiceStateActionCreators from '@app/actions/VoiceStateActionCreators';
 import {CustomStatusDisplay} from '@app/components/common/custom_status_display/CustomStatusDisplay';
 import styles from '@app/components/layout/UserArea.module.css';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {UserAreaPopout} from '@app/components/popouts/UserAreaPopout';
 import {SettingsContextMenu} from '@app/components/uikit/context_menu/SettingsContextMenu';
 import {FocusRingWrapper} from '@app/components/uikit/FocusRingWrapper';

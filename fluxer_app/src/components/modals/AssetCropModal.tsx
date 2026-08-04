@@ -17,7 +17,7 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {ImageCropModal} from '@app/components/modals/ImageCropModal';
+import {LazyImageCropModal as ImageCropModal} from '@app/components/modals/ImageCropModal.lazy';
 import type {ValueOf} from '@fluxer/constants/src/ValueOf';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';

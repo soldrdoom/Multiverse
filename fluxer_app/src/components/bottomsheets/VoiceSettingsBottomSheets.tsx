@@ -24,7 +24,7 @@ import * as VoiceSettingsActionCreators from '@app/actions/VoiceSettingsActionCr
 import * as VoiceStateActionCreators from '@app/actions/VoiceStateActionCreators';
 import sharedStyles from '@app/components/bottomsheets/shared.module.css';
 import {CameraPreviewModalInRoom} from '@app/components/modals/CameraPreviewModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {
 	DeafenIcon,
 	EchoCancellationIcon,

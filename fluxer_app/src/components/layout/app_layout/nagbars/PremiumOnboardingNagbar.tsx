@@ -23,7 +23,7 @@ import * as UserActionCreators from '@app/actions/UserActionCreators';
 import {Nagbar} from '@app/components/layout/Nagbar';
 import {NagbarButton} from '@app/components/layout/NagbarButton';
 import {NagbarContent} from '@app/components/layout/NagbarContent';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {Trans} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 

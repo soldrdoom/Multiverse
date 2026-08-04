@@ -25,7 +25,7 @@ import * as VoiceStateActionCreators from '@app/actions/VoiceStateActionCreators
 import styles from '@app/components/bottomsheets/DirectCallLobbyBottomSheet.module.css';
 import {useCallHeaderState} from '@app/components/channel/channel_view/useCallHeaderState';
 import {CameraPreviewModalInRoom} from '@app/components/modals/CameraPreviewModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {BottomSheet} from '@app/components/uikit/bottom_sheet/BottomSheet';
 import {Button} from '@app/components/uikit/button/Button';
 import {

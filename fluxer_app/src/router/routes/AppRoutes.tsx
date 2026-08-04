@@ -27,9 +27,7 @@ import {FavoritesLayout} from '@app/components/layout/FavoritesLayout';
 import {GuildsLayout} from '@app/components/layout/GuildsLayout';
 import {BookmarksBottomSheet} from '@app/components/modals/BookmarksBottomSheet';
 import {StatusChangeBottomSheet} from '@app/components/modals/StatusChangeBottomSheet';
-import ConnectionCallbackPage from '@app/components/pages/ConnectionCallbackPage';
 import {NotificationsPage} from '@app/components/pages/NotificationsPage';
-import PremiumCallbackPage from '@app/components/pages/PremiumCallbackPage';
 import {YouPage} from '@app/components/pages/YouPage';
 import {createRoute} from '@app/lib/router/Builder';
 import {useParams} from '@app/lib/router/React';
@@ -46,7 +44,14 @@ import * as RouterUtils from '@app/utils/RouterUtils';
 import {ME} from '@fluxer/constants/src/AppConstants';
 import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
 import {observer} from 'mobx-react-lite';
+import * as React from 'react';
 import {useEffect, useState} from 'react';
+
+// Rarely-hit one-shot redirect landing pages (post-payment/post-OAuth callbacks) — unlike the
+// core app shell below, an authenticated user's normal session never touches these, so they're
+// lazy-loaded rather than inline imports like the rest of this file's core layouts/pages.
+const ConnectionCallbackPage = React.lazy(() => import('@app/components/pages/ConnectionCallbackPage'));
+const PremiumCallbackPage = React.lazy(() => import('@app/components/pages/PremiumCallbackPage'));
 
 // ─── DEV AUTH BYPASS — Milestone 0.0.1.5 ─────────────────────────────────────
 // Allows UI inspection when the backend provider is offline.

@@ -22,7 +22,7 @@ import {modal} from '@app/actions/ModalActionCreators';
 import {CustomStatusDisplay} from '@app/components/common/custom_status_display/CustomStatusDisplay';
 import {CosmeticsShopModal} from '@app/components/modals/CosmeticsShopModal';
 import {NoteEditSheet} from '@app/components/modals/NoteEditSheet';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import styles from '@app/components/pages/YouPage.module.css';
 import {UserProfileBadges} from '@app/components/popouts/UserProfileBadges';
 import {UserProfileBio, UserProfileMembershipInfo} from '@app/components/popouts/UserProfileShared';

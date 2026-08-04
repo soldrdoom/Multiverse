@@ -24,7 +24,7 @@ import * as NavigationActionCreators from '@app/actions/NavigationActionCreators
 import * as ThemeActionCreators from '@app/actions/ThemeActionCreators';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
 import {ExternalLinkWarningModal} from '@app/components/modals/ExternalLinkWarningModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {GuildIcon} from '@app/components/popouts/GuildIcon';
 import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
 import {Logger} from '@app/lib/Logger';

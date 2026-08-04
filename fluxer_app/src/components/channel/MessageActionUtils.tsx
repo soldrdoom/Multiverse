@@ -28,7 +28,7 @@ import * as TextCopyActionCreators from '@app/actions/TextCopyActionCreators';
 import * as ToastActionCreators from '@app/actions/ToastActionCreators';
 import {useMaybeMessageViewContext} from '@app/components/channel/MessageViewContext';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
-import {ForwardModal} from '@app/components/modals/ForwardModal';
+import {LazyForwardModal as ForwardModal} from '@app/components/modals/ForwardModal.lazy';
 import {CloudUpload} from '@app/lib/CloudUpload';
 import {ComponentDispatch} from '@app/lib/ComponentDispatch';
 import type {ChannelRecord} from '@app/records/ChannelRecord';

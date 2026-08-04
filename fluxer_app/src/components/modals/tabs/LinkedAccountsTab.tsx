@@ -26,7 +26,7 @@ import {VerifiedConnectionIcon} from '@app/components/icons/VerifiedConnectionIc
 import {computeVerticalDropPosition} from '@app/components/layout/dnd/DndDropPosition';
 import type {ConnectionDragItem} from '@app/components/layout/types/DndTypes';
 import {DND_TYPES} from '@app/components/layout/types/DndTypes';
-import {AddConnectionModal} from '@app/components/modals/AddConnectionModal';
+import {LazyAddConnectionModal as AddConnectionModal} from '@app/components/modals/AddConnectionModal.lazy';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
 import {EditConnectionModal} from '@app/components/modals/EditConnectionModal';
 import {

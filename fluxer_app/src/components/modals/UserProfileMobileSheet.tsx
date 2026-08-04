@@ -32,7 +32,7 @@ import {NoteEditSheet} from '@app/components/modals/NoteEditSheet';
 import {UserProfileActionsSheet} from '@app/components/modals/UserProfileActionsSheet';
 import styles from '@app/components/modals/UserProfileMobileSheet.module.css';
 import {getContrastingNotchColor} from '@app/components/modals/UserProfileUtils';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {UserProfileBadges} from '@app/components/popouts/UserProfileBadges';
 import {
 	UserProfileBio,

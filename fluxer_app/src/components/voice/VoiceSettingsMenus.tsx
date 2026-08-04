@@ -25,7 +25,7 @@ import * as VoiceSettingsActionCreators from '@app/actions/VoiceSettingsActionCr
 import * as VoiceStateActionCreators from '@app/actions/VoiceStateActionCreators';
 import {CameraPreviewModalInRoom} from '@app/components/modals/CameraPreviewModal';
 import {HideOwnCameraConfirmModal} from '@app/components/modals/HideOwnCameraConfirmModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {CheckboxItem} from '@app/components/uikit/context_menu/ContextMenu';
 import {MenuGroup} from '@app/components/uikit/context_menu/MenuGroup';
 import {MenuItem} from '@app/components/uikit/context_menu/MenuItem';

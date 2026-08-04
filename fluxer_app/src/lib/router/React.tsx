@@ -180,6 +180,12 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link
 	);
 });
 
+// Kept dependency-free (no @app/components imports) since this file is generic router
+// infrastructure, not app-specific UI — deliberately minimal rather than a styled spinner.
+const RouteFallback: React.FC = () => (
+	<div style={{alignItems: 'center', display: 'flex', height: '100%', justifyContent: 'center', width: '100%'}} />
+);
+
 export const Outlet: React.FC = () => {
 	const matches = useMatches();
 	const location = useLocation();
@@ -203,11 +209,11 @@ export const Outlet: React.FC = () => {
 			: renderAt(index + 1);
 
 		const Layout = match.route.layout;
-		if (Layout) {
-			return <Layout {...props}>{child}</Layout>;
-		}
+		const content = Layout ? <Layout {...props}>{child}</Layout> : child;
 
-		return child;
+		// Wrapped per-level (not once at the top) so a lazy leaf page suspends inside its
+		// persistent parent layout instead of unmounting the whole layout chrome while it loads.
+		return <React.Suspense fallback={<RouteFallback />}>{content}</React.Suspense>;
 	};
 
 	return <>{renderAt(0)}</>;

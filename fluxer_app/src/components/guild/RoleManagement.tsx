@@ -23,7 +23,7 @@ import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
 import styles from '@app/components/guild/RoleManagement.module.css';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
-import {GuildSettingsModal} from '@app/components/modals/GuildSettingsModal';
+import {LazyGuildSettingsModal as GuildSettingsModal} from '@app/components/modals/GuildSettingsModal.lazy';
 import profileStyles from '@app/components/popouts/UserProfilePopout.module.css';
 import {CheckboxItem} from '@app/components/uikit/context_menu/ContextMenu';
 import itemStyles from '@app/components/uikit/context_menu/items/MenuItems.module.css';

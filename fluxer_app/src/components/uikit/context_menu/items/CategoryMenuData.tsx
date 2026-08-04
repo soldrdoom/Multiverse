@@ -25,7 +25,7 @@ import * as TextCopyActionCreators from '@app/actions/TextCopyActionCreators';
 import * as ToastActionCreators from '@app/actions/ToastActionCreators';
 import * as UserGuildSettingsActionCreators from '@app/actions/UserGuildSettingsActionCreators';
 import {ChannelDebugModal} from '@app/components/debug/ChannelDebugModal';
-import {ChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal';
+import {LazyChannelSettingsModal as ChannelSettingsModal} from '@app/components/modals/ChannelSettingsModal.lazy';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
 import {
 	CollapseCategoryIcon,

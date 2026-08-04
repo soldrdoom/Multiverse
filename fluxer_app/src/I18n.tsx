@@ -20,40 +20,6 @@
 import AppStorage from '@app/lib/AppStorage';
 import {Logger} from '@app/lib/Logger';
 import {getNativeLocaleIdentifier} from '@app/lib/Platform';
-import {messages as messagesAr} from '@app/locales/ar/messages.mjs';
-import {messages as messagesBg} from '@app/locales/bg/messages.mjs';
-import {messages as messagesCs} from '@app/locales/cs/messages.mjs';
-import {messages as messagesDa} from '@app/locales/da/messages.mjs';
-import {messages as messagesDe} from '@app/locales/de/messages.mjs';
-import {messages as messagesEl} from '@app/locales/el/messages.mjs';
-import {messages as messagesEnGB} from '@app/locales/en-GB/messages.mjs';
-import {messages as messagesEnUS} from '@app/locales/en-US/messages.mjs';
-import {messages as messagesEs419} from '@app/locales/es-419/messages.mjs';
-import {messages as messagesEsES} from '@app/locales/es-ES/messages.mjs';
-import {messages as messagesFi} from '@app/locales/fi/messages.mjs';
-import {messages as messagesFr} from '@app/locales/fr/messages.mjs';
-import {messages as messagesHe} from '@app/locales/he/messages.mjs';
-import {messages as messagesHi} from '@app/locales/hi/messages.mjs';
-import {messages as messagesHr} from '@app/locales/hr/messages.mjs';
-import {messages as messagesHu} from '@app/locales/hu/messages.mjs';
-import {messages as messagesId} from '@app/locales/id/messages.mjs';
-import {messages as messagesIt} from '@app/locales/it/messages.mjs';
-import {messages as messagesJa} from '@app/locales/ja/messages.mjs';
-import {messages as messagesKo} from '@app/locales/ko/messages.mjs';
-import {messages as messagesLt} from '@app/locales/lt/messages.mjs';
-import {messages as messagesNl} from '@app/locales/nl/messages.mjs';
-import {messages as messagesNo} from '@app/locales/no/messages.mjs';
-import {messages as messagesPl} from '@app/locales/pl/messages.mjs';
-import {messages as messagesPtBR} from '@app/locales/pt-BR/messages.mjs';
-import {messages as messagesRo} from '@app/locales/ro/messages.mjs';
-import {messages as messagesRu} from '@app/locales/ru/messages.mjs';
-import {messages as messagesSvSE} from '@app/locales/sv-SE/messages.mjs';
-import {messages as messagesTh} from '@app/locales/th/messages.mjs';
-import {messages as messagesTr} from '@app/locales/tr/messages.mjs';
-import {messages as messagesUk} from '@app/locales/uk/messages.mjs';
-import {messages as messagesVi} from '@app/locales/vi/messages.mjs';
-import {messages as messagesZhCN} from '@app/locales/zh-CN/messages.mjs';
-import {messages as messagesZhTW} from '@app/locales/zh-TW/messages.mjs';
 import {i18n, type Messages} from '@lingui/core';
 
 const supportedLocales = [
@@ -103,43 +69,47 @@ const LANGUAGE_OVERRIDES: Record<string, LocaleCode> = {
 	en: 'en-US',
 };
 
-type LocaleLoader = () => {messages: Messages};
+type LocaleLoader = () => Promise<{messages: Messages}>;
 
+// Dynamic imports: previously these were static top-level imports of all 33 catalogs, which
+// meant every visitor's initial bundle shipped every locale's translations (~11MB, by far the
+// single largest contributor to the eager bundle) even though only one is ever active per
+// session. Each entry now becomes its own on-demand chunk, fetched only for the resolved locale.
 const loaders: Record<LocaleCode, LocaleLoader> = {
-	ar: () => ({messages: messagesAr}),
-	bg: () => ({messages: messagesBg}),
-	cs: () => ({messages: messagesCs}),
-	da: () => ({messages: messagesDa}),
-	de: () => ({messages: messagesDe}),
-	el: () => ({messages: messagesEl}),
-	'en-GB': () => ({messages: messagesEnGB}),
-	'en-US': () => ({messages: messagesEnUS}),
-	'es-ES': () => ({messages: messagesEsES}),
-	'es-419': () => ({messages: messagesEs419}),
-	fi: () => ({messages: messagesFi}),
-	fr: () => ({messages: messagesFr}),
-	he: () => ({messages: messagesHe}),
-	hi: () => ({messages: messagesHi}),
-	hr: () => ({messages: messagesHr}),
-	hu: () => ({messages: messagesHu}),
-	id: () => ({messages: messagesId}),
-	it: () => ({messages: messagesIt}),
-	ja: () => ({messages: messagesJa}),
-	ko: () => ({messages: messagesKo}),
-	lt: () => ({messages: messagesLt}),
-	nl: () => ({messages: messagesNl}),
-	no: () => ({messages: messagesNo}),
-	pl: () => ({messages: messagesPl}),
-	'pt-BR': () => ({messages: messagesPtBR}),
-	ro: () => ({messages: messagesRo}),
-	ru: () => ({messages: messagesRu}),
-	'sv-SE': () => ({messages: messagesSvSE}),
-	th: () => ({messages: messagesTh}),
-	tr: () => ({messages: messagesTr}),
-	uk: () => ({messages: messagesUk}),
-	vi: () => ({messages: messagesVi}),
-	'zh-CN': () => ({messages: messagesZhCN}),
-	'zh-TW': () => ({messages: messagesZhTW}),
+	ar: () => import('@app/locales/ar/messages.mjs'),
+	bg: () => import('@app/locales/bg/messages.mjs'),
+	cs: () => import('@app/locales/cs/messages.mjs'),
+	da: () => import('@app/locales/da/messages.mjs'),
+	de: () => import('@app/locales/de/messages.mjs'),
+	el: () => import('@app/locales/el/messages.mjs'),
+	'en-GB': () => import('@app/locales/en-GB/messages.mjs'),
+	'en-US': () => import('@app/locales/en-US/messages.mjs'),
+	'es-ES': () => import('@app/locales/es-ES/messages.mjs'),
+	'es-419': () => import('@app/locales/es-419/messages.mjs'),
+	fi: () => import('@app/locales/fi/messages.mjs'),
+	fr: () => import('@app/locales/fr/messages.mjs'),
+	he: () => import('@app/locales/he/messages.mjs'),
+	hi: () => import('@app/locales/hi/messages.mjs'),
+	hr: () => import('@app/locales/hr/messages.mjs'),
+	hu: () => import('@app/locales/hu/messages.mjs'),
+	id: () => import('@app/locales/id/messages.mjs'),
+	it: () => import('@app/locales/it/messages.mjs'),
+	ja: () => import('@app/locales/ja/messages.mjs'),
+	ko: () => import('@app/locales/ko/messages.mjs'),
+	lt: () => import('@app/locales/lt/messages.mjs'),
+	nl: () => import('@app/locales/nl/messages.mjs'),
+	no: () => import('@app/locales/no/messages.mjs'),
+	pl: () => import('@app/locales/pl/messages.mjs'),
+	'pt-BR': () => import('@app/locales/pt-BR/messages.mjs'),
+	ro: () => import('@app/locales/ro/messages.mjs'),
+	ru: () => import('@app/locales/ru/messages.mjs'),
+	'sv-SE': () => import('@app/locales/sv-SE/messages.mjs'),
+	th: () => import('@app/locales/th/messages.mjs'),
+	tr: () => import('@app/locales/tr/messages.mjs'),
+	uk: () => import('@app/locales/uk/messages.mjs'),
+	vi: () => import('@app/locales/vi/messages.mjs'),
+	'zh-CN': () => import('@app/locales/zh-CN/messages.mjs'),
+	'zh-TW': () => import('@app/locales/zh-TW/messages.mjs'),
 };
 
 function formatLocaleValue(value: string): string {
@@ -229,10 +199,28 @@ function detectPreferredLocale(forceLocale?: string): LocaleCode {
 	return DEFAULT_LOCALE;
 }
 
+async function activateLocaleCatalog(normalized: LocaleCode): Promise<void> {
+	const {messages} = await loaders[normalized]();
+	i18n.loadAndActivate({locale: normalized, messages});
+}
+
+// Synchronous signature preserved for existing callers (UserSettingsStore, LocaleUtils) that
+// assign the returned code immediately without needing the catalog to have finished loading yet
+// — the fetch+activate happens in the background. Prefer `loadLocaleCatalogAsync` when the
+// caller can await (e.g. initial boot, where rendering before the catalog is ready would flash
+// untranslated message IDs).
 export function loadLocaleCatalog(localeCode: string): LocaleCode {
 	const normalized = normalizeLocale(localeCode);
-	const {messages} = loaders[normalized]();
-	i18n.loadAndActivate({locale: normalized, messages});
+	AppStorage.setItem('locale', normalized);
+	void activateLocaleCatalog(normalized).catch((error) => {
+		logger.error(`Failed to load locale catalog for ${normalized}`, error);
+	});
+	return normalized;
+}
+
+export async function loadLocaleCatalogAsync(localeCode: string): Promise<LocaleCode> {
+	const normalized = normalizeLocale(localeCode);
+	await activateLocaleCatalog(normalized);
 	AppStorage.setItem('locale', normalized);
 	return normalized;
 }
@@ -244,10 +232,10 @@ export async function initI18n(forceLocale?: string) {
 		initPromise = (async () => {
 			try {
 				const localeToLoad = detectPreferredLocale(forceLocale);
-				loadLocaleCatalog(localeToLoad);
+				await loadLocaleCatalogAsync(localeToLoad);
 			} catch (error) {
 				logger.error('Failed to initialize i18n, falling back to default locale', error);
-				loadLocaleCatalog(DEFAULT_LOCALE);
+				await loadLocaleCatalogAsync(DEFAULT_LOCALE);
 			}
 
 			return i18n;

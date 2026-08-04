@@ -23,7 +23,7 @@ import {modal} from '@app/actions/ModalActionCreators';
 import * as VoiceStateActionCreators from '@app/actions/VoiceStateActionCreators';
 import styles from '@app/components/bottomsheets/VoiceLobbyBottomSheet.module.css';
 import {CameraPreviewModalInRoom} from '@app/components/modals/CameraPreviewModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {BottomSheet} from '@app/components/uikit/bottom_sheet/BottomSheet';
 import {Button} from '@app/components/uikit/button/Button';
 import {

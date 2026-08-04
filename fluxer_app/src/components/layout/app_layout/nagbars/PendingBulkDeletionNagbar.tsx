@@ -23,7 +23,7 @@ import * as NagbarActionCreators from '@app/actions/NagbarActionCreators';
 import {Nagbar} from '@app/components/layout/Nagbar';
 import {NagbarButton} from '@app/components/layout/NagbarButton';
 import {NagbarContent} from '@app/components/layout/NagbarContent';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import UserStore from '@app/stores/UserStore';
 import * as LocaleUtils from '@app/utils/LocaleUtils';
 import {getFormattedDateTime} from '@fluxer/date_utils/src/DateFormatting';

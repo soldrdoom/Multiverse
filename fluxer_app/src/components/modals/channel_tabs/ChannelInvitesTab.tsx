@@ -27,7 +27,7 @@ import {InviteDateToggle} from '@app/components/invites/InviteDateToggle';
 import {InviteListHeader, InviteListItem} from '@app/components/invites/InviteListItem';
 import {ConfirmModal} from '@app/components/modals/ConfirmModal';
 import styles from '@app/components/modals/channel_tabs/ChannelInvitesTab.module.css';
-import {InviteModal} from '@app/components/modals/InviteModal';
+import {LazyInviteModal as InviteModal} from '@app/components/modals/InviteModal.lazy';
 import {StatusSlate} from '@app/components/modals/shared/StatusSlate';
 import {Button} from '@app/components/uikit/button/Button';
 import {CopyLinkIcon, CopyTextIcon, DeleteIcon} from '@app/components/uikit/context_menu/ContextMenuIcons';

@@ -21,6 +21,7 @@ import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import * as UnsavedChangesActionCreators from '@app/actions/UnsavedChangesActionCreators';
 import {DesktopGuildSettingsView} from '@app/components/modals/components/DesktopGuildSettingsView';
 import {MobileGuildSettingsView} from '@app/components/modals/components/MobileGuildSettingsView';
+import {LazyGuildSettingsModal} from '@app/components/modals/GuildSettingsModal.lazy';
 import {useMobileNavigation} from '@app/components/modals/hooks/useMobileNavigation';
 import * as Modal from '@app/components/modals/Modal';
 import {SettingsModalContainer} from '@app/components/modals/shared/SettingsModalLayout';
@@ -93,7 +94,7 @@ export const GuildSettingsModal: React.FC<GuildSettingsModalProps> = observer(
 
 		useEffect(() => {
 			if (!guild) {
-				ModalActionCreators.popByType(GuildSettingsModal);
+				ModalActionCreators.popByType(LazyGuildSettingsModal);
 			}
 		}, [guild]);
 

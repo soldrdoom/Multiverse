@@ -37,7 +37,7 @@ import {HideOwnScreenShareConfirmModal} from '@app/components/modals/HideOwnScre
 import {KickMemberModal} from '@app/components/modals/KickMemberModal';
 import {RemoveTimeoutModal} from '@app/components/modals/RemoveTimeoutModal';
 import {TimeoutMemberModal} from '@app/components/modals/TimeoutMemberModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {
 	AcceptFriendRequestIcon,
 	AddNoteIcon,

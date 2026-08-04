@@ -17,23 +17,12 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-.modals {
-	background: none;
-	inset: 0;
-	pointer-events: none;
-	position: fixed;
-	z-index: var(--z-index-modal);
-}
+import * as React from 'react';
 
-:global(html.platform-native:not(.platform-macos)) .modals {
-	top: var(--native-titlebar-height);
-}
-
-.lazyModalFallback {
-	align-items: center;
-	display: flex;
-	inset: 0;
-	justify-content: center;
-	pointer-events: none;
-	position: fixed;
-}
+// Single shared lazy reference: every call site (including GuildSettingsModal's own
+// self-close popByType call, and ModalActionCreators' dedup checks) must import this same
+// singleton rather than the real component, or referential-equality checks against the
+// rendered element's `.type` silently stop matching.
+export const LazyGuildSettingsModal = React.lazy(() =>
+	import('@app/components/modals/GuildSettingsModal').then((m) => ({default: m.GuildSettingsModal})),
+);

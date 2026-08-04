@@ -27,7 +27,6 @@ import {deriveDefaultNameFromMessage} from '@app/components/channel/embeds/Embed
 import {AudioPlayer} from '@app/components/media_player/components/AudioPlayer';
 import {VideoPlayer} from '@app/components/media_player/components/VideoPlayer';
 import {AddFavoriteMemeModal} from '@app/components/modals/AddFavoriteMemeModal';
-import {MediaModal} from '@app/components/modals/MediaModal';
 import styles from '@app/components/modals/MediaViewerModal.module.css';
 import {useMediaMenuData} from '@app/components/uikit/context_menu/items/MediaMenuData';
 import {MediaContextMenu} from '@app/components/uikit/context_menu/MediaContextMenu';
@@ -45,7 +44,21 @@ import {openExternalUrl} from '@app/utils/NativeUtils';
 import {useLingui} from '@lingui/react/macro';
 import {TrashIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
-import {type CSSProperties, type FC, type MouseEvent, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {
+	type CSSProperties,
+	type FC,
+	lazy,
+	type MouseEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
+
+// This component is mounted unconditionally (see Modals.tsx), so its own Suspense wrapper
+// there covers this — no additional boundary needed here.
+const MediaModal = lazy(() => import('@app/components/modals/MediaModal').then((m) => ({default: m.MediaModal})));
 
 interface MobileMediaOptionsSheetProps {
 	currentItem: MediaViewerItem;

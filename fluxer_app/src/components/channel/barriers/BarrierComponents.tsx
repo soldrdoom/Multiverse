@@ -24,7 +24,7 @@ import wrapperStyles from '@app/components/channel/textarea/InputWrapper.module.
 import textareaStyles from '@app/components/channel/textarea/TextareaInput.module.css';
 import {openClaimAccountModal} from '@app/components/modals/ClaimAccountModal';
 import {PhoneAddModal} from '@app/components/modals/PhoneAddModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {Button} from '@app/components/uikit/button/Button';
 import {unblockUser} from '@app/utils/RelationshipActionUtils';
 import {Trans, useLingui} from '@lingui/react/macro';

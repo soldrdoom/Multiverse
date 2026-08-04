@@ -19,7 +19,7 @@
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
-import {UserProfileModal} from '@app/components/modals/UserProfileModal';
+import {LazyUserProfileModal as UserProfileModal} from '@app/components/modals/UserProfileModal.lazy';
 import {Endpoints} from '@app/Endpoints';
 import http from '@app/lib/HttpClient';
 import {Logger} from '@app/lib/Logger';

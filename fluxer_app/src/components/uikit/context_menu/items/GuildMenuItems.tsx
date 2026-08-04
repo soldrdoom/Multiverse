@@ -25,11 +25,11 @@ import * as UserGuildSettingsActionCreators from '@app/actions/UserGuildSettings
 import {getMuteDurationOptions} from '@app/components/channel/MuteOptions';
 import {CategoryCreateModal} from '@app/components/modals/CategoryCreateModal';
 import {ChannelCreateModal} from '@app/components/modals/ChannelCreateModal';
-import {GuildNotificationSettingsModal} from '@app/components/modals/GuildNotificationSettingsModal';
+import {LazyGuildNotificationSettingsModal as GuildNotificationSettingsModal} from '@app/components/modals/GuildNotificationSettingsModal.lazy';
 import {GuildPrivacySettingsModal} from '@app/components/modals/GuildPrivacySettingsModal';
-import {GuildSettingsModal} from '@app/components/modals/GuildSettingsModal';
-import {InviteModal} from '@app/components/modals/InviteModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyGuildSettingsModal as GuildSettingsModal} from '@app/components/modals/GuildSettingsModal.lazy';
+import {LazyInviteModal as InviteModal} from '@app/components/modals/InviteModal.lazy';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {type GuildSettingsTab, getGuildSettingsTabs} from '@app/components/modals/utils/GuildSettingsConstants';
 import {CheckboxItem} from '@app/components/uikit/context_menu/ContextMenu';
 import {

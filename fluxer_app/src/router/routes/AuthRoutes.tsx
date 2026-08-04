@@ -20,20 +20,6 @@
 import * as InviteActionCreators from '@app/actions/InviteActionCreators';
 import * as ThemeActionCreators from '@app/actions/ThemeActionCreators';
 import {AuthLayout} from '@app/components/layout/AuthLayout';
-import AuthorizeIPPage from '@app/components/pages/AuthorizeIPPage';
-import EmailRevertPage from '@app/components/pages/EmailRevertPage';
-import ForgotPasswordPage from '@app/components/pages/ForgotPasswordPage';
-import InviteLoginPage from '@app/components/pages/InviteLoginPage';
-import InviteRegisterPage from '@app/components/pages/InviteRegisterPage';
-import LoginPage from '@app/components/pages/LoginPage';
-import OAuthAuthorizePage from '@app/components/pages/OAuthAuthorizePage';
-import {ReportPage} from '@app/components/pages/ReportPage';
-import ResetPasswordPage from '@app/components/pages/ResetPasswordPage';
-import SolanaOnboardingPage from '@app/components/pages/SolanaOnboardingPage';
-import SsoCallbackPage from '@app/components/pages/SsoCallbackPage';
-import ThemeLoginPage from '@app/components/pages/ThemeLoginPage';
-import ThemeRegisterPage from '@app/components/pages/ThemeRegisterPage';
-import VerifyEmailPage from '@app/components/pages/VerifyEmailPage';
 import {IS_DEV} from '@app/lib/Env';
 import {createRoute} from '@app/lib/router/Builder';
 import type {RouteContext} from '@app/lib/router/RouterTypes';
@@ -45,6 +31,24 @@ import AuthenticationStore from '@app/stores/AuthenticationStore';
 import * as RouterUtils from '@app/utils/RouterUtils';
 import {setPathQueryParams} from '@app/utils/UrlUtils';
 import {i18n} from '@lingui/core';
+import * as React from 'react';
+
+// Each auth page is referenced only from this route file, so lazy wrappers live here inline
+// rather than as separate `.lazy.tsx` siblings (no shared-reference/dedup concern like modals).
+const AuthorizeIPPage = React.lazy(() => import('@app/components/pages/AuthorizeIPPage'));
+const EmailRevertPage = React.lazy(() => import('@app/components/pages/EmailRevertPage'));
+const ForgotPasswordPage = React.lazy(() => import('@app/components/pages/ForgotPasswordPage'));
+const InviteLoginPage = React.lazy(() => import('@app/components/pages/InviteLoginPage'));
+const InviteRegisterPage = React.lazy(() => import('@app/components/pages/InviteRegisterPage'));
+const LoginPage = React.lazy(() => import('@app/components/pages/LoginPage'));
+const OAuthAuthorizePage = React.lazy(() => import('@app/components/pages/OAuthAuthorizePage'));
+const ReportPage = React.lazy(() => import('@app/components/pages/ReportPage').then((m) => ({default: m.ReportPage})));
+const ResetPasswordPage = React.lazy(() => import('@app/components/pages/ResetPasswordPage'));
+const SolanaOnboardingPage = React.lazy(() => import('@app/components/pages/SolanaOnboardingPage'));
+const SsoCallbackPage = React.lazy(() => import('@app/components/pages/SsoCallbackPage'));
+const ThemeLoginPage = React.lazy(() => import('@app/components/pages/ThemeLoginPage'));
+const ThemeRegisterPage = React.lazy(() => import('@app/components/pages/ThemeRegisterPage'));
+const VerifyEmailPage = React.lazy(() => import('@app/components/pages/VerifyEmailPage'));
 
 const resolveToPath = (to: Redirect['to']): string => {
 	if (typeof to === 'string') {

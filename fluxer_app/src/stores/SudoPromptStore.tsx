@@ -19,7 +19,7 @@
 
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
-import SudoVerificationModal from '@app/components/modals/SudoVerificationModal';
+import {LazySudoVerificationModal as SudoVerificationModal} from '@app/components/modals/SudoVerificationModal.lazy';
 import {Endpoints} from '@app/Endpoints';
 import HttpClient, {type HttpRequestConfig} from '@app/lib/HttpClient';
 import type {HttpError} from '@app/lib/HttpError';
@@ -61,7 +61,14 @@ class SudoPromptStore {
 	verificationError: string | null = null;
 	rawError: HttpError | null = null;
 	currentRequest: SudoRequestContext | null = null;
-	availableMethods: {password: boolean; totp: boolean; sms: boolean; webauthn: boolean; solana: boolean; has_mfa: boolean} = {
+	availableMethods: {
+		password: boolean;
+		totp: boolean;
+		sms: boolean;
+		webauthn: boolean;
+		solana: boolean;
+		has_mfa: boolean;
+	} = {
 		password: true,
 		totp: false,
 		sms: false,
@@ -138,7 +145,14 @@ class SudoPromptStore {
 		} catch (error) {
 			this.logger.error('Failed to load sudo MFA methods', error);
 			runInAction(() => {
-				this.availableMethods = {password: true, totp: false, sms: false, webauthn: false, solana: true, has_mfa: false};
+				this.availableMethods = {
+					password: true,
+					totp: false,
+					sms: false,
+					webauthn: false,
+					solana: true,
+					has_mfa: false,
+				};
 			});
 		} finally {
 			runInAction(() => {

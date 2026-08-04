@@ -20,7 +20,7 @@
 import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
 import {CustomStatusDisplay} from '@app/components/common/custom_status_display/CustomStatusDisplay';
-import {UserProfileModal} from '@app/components/modals/UserProfileModal';
+import {LazyUserProfileModal as UserProfileModal} from '@app/components/modals/UserProfileModal.lazy';
 import {UserProfileBadges} from '@app/components/popouts/UserProfileBadges';
 import {UserProfileMembershipInfo, UserProfilePreviewBio} from '@app/components/popouts/UserProfileShared';
 import styles from '@app/components/profile/ProfilePreview.module.css';

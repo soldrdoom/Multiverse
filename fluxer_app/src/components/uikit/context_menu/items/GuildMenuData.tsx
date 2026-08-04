@@ -25,13 +25,13 @@ import * as UserGuildSettingsActionCreators from '@app/actions/UserGuildSettings
 import {GuildDebugModal} from '@app/components/debug/GuildDebugModal';
 import {CategoryCreateModal} from '@app/components/modals/CategoryCreateModal';
 import {ChannelCreateModal} from '@app/components/modals/ChannelCreateModal';
-import {GuildNotificationSettingsModal} from '@app/components/modals/GuildNotificationSettingsModal';
+import {LazyGuildNotificationSettingsModal as GuildNotificationSettingsModal} from '@app/components/modals/GuildNotificationSettingsModal.lazy';
 import {GuildPrivacySettingsModal} from '@app/components/modals/GuildPrivacySettingsModal';
-import {GuildSettingsModal} from '@app/components/modals/GuildSettingsModal';
+import {LazyGuildSettingsModal as GuildSettingsModal} from '@app/components/modals/GuildSettingsModal.lazy';
 import type {IARContext} from '@app/components/modals/IARModal';
 import {IARModal} from '@app/components/modals/IARModal';
-import {InviteModal} from '@app/components/modals/InviteModal';
-import {UserSettingsModal} from '@app/components/modals/UserSettingsModal';
+import {LazyInviteModal as InviteModal} from '@app/components/modals/InviteModal.lazy';
+import {LazyUserSettingsModal as UserSettingsModal} from '@app/components/modals/UserSettingsModal.lazy';
 import {getGuildSettingsTabs} from '@app/components/modals/utils/GuildSettingsConstants';
 import {
 	CopyIdIcon,

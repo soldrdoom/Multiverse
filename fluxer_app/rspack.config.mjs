@@ -411,6 +411,13 @@ export default () => {
 				filename: 'index.html',
 				inject: 'body',
 				scriptLoading: 'module',
+				// Without `chunks`, HtmlRspackPlugin injects a <script> tag for every emitted
+				// chunk — including ones only reachable via dynamic import() — which defeats
+				// React.lazy()-based code splitting entirely: the browser fetches and executes
+				// them all on load regardless of whether the JS runtime ever dynamically
+				// requests them. Restricting to the `main` entry's own chunk graph is what
+				// actually keeps lazy-loaded chunks deferred until requested.
+				chunks: ['main'],
 				excludeChunks: ['sw'],
 			}),
 
