@@ -116,6 +116,14 @@
 	border-radius: 50%;
 	object-fit: cover;
 	display: block;
+	/*
+	 * The source PNG (assets/images/multiverse-official-logo.png) has a ~10-12%
+	 * transparent margin baked in around the mark, so at 16px it reads visibly
+	 * smaller than the guild icon next to it, which fills its circle edge-to-edge.
+	 * Scale the rendered glyph up in place (transform doesn't affect the 16px
+	 * layout box, so surrounding gap/spacing is untouched) to match.
+	 */
+	transform: scale(1.3);
 }
 
 .membershipGuildIcon {
