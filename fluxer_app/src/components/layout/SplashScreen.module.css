@@ -89,8 +89,13 @@
 	}
 }
 
-/* Square wrapper — the product mark (assets/brand/new-logo.png) is a 1:1 sphere,
-   unlike the previous wide lockup, so the wrapper is square rather than 280x160. */
+/* Square wrapper — kept square (rather than a wide 280x160 lockup box) so the
+   circular pulsing aura below reads as a clean halo. The product mark itself
+   (assets/images/multiverse-official-logo.png, a wide two-bubble logo on a
+   square transparent canvas) is NOT 1:1 content — .iconLogo below uses
+   object-fit: contain, which centers it and preserves its aspect ratio without
+   cropping, so the non-square artwork just floats in the middle of this
+   square frame/aura with a little extra vertical breathing room. */
 .iconWrapper {
 	position: relative;
 	display: flex;

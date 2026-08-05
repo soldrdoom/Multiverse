@@ -36,7 +36,14 @@ export const MultiverseSymbol = observer(({className}: {className?: string}) => 
 				margin: 0,
 				maxWidth: 'none',
 				maxHeight: 'none',
-				transform: 'scale(1.3)',
+				// The mark (assets/images/multiverse-official-logo.png) is a wide two-bubble
+				// logo with a modest margin baked into its square canvas, unlike the old
+				// circular badge it replaced, so it does not need aggressive zoom to fill this
+				// 54px box (itself already upscaled from the 44px clipped rail tile it
+				// renders inside — see .multiverseButtonIcon in GuildsLayout.module.css).
+				// scale(1.0) keeps both chat-bubble tails visible instead of cropping into
+				// just the center ring.
+				transform: 'scale(1.0)',
 				transformOrigin: 'center',
 				flexShrink: 0,
 			}}

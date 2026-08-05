@@ -143,8 +143,8 @@
 		}
 	},
 	"logo": {
-		"light": "https://multiverse.forum/marketing/branding/logo-color.svg",
-		"dark": "https://multiverse.forum/marketing/branding/logo-white.svg"
+		"light": "logo/light.svg",
+		"dark": "logo/dark.svg"
 	},
 	"footer": {
 		"socials": {

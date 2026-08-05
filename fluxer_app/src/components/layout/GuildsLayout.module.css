@@ -401,10 +401,17 @@
 }
 
 /*
- * Home button — the rail's brand tile, and the ONLY rail tile that carries
- * the gradient. Gradient fill + drop glow, glyph in --brand-primary-fill
- * (dark on gradient, never white). Every other rail utility button uses the
- * neutral .railUtilityButtonIcon treatment below.
+ * Home button — the rail's brand tile. Historically carried the
+ * purple→green gradient fill behind a dark glyph (color/font-family below
+ * are vestigial from that text-glyph era). The current mark
+ * (assets/images/multiverse-official-logo.png, via MultiverseSymbol) is
+ * itself rendered in that same purple→green gradient, so painting it over
+ * a same-hued gradient tile washes it out to near-illegible pastel mush —
+ * swapped the fill to the neutral --mv-surface-card (same dark surface
+ * .identityVaultButtonIcon below already uses) so the gradient mark reads
+ * clearly against a dark backdrop, with --glow-purple still giving it a
+ * neon halo. Every other rail utility button uses the neutral
+ * .railUtilityButtonIcon treatment below.
  *
  * framer-motion writes an inline `border-radius` on this element (50% idle /
  * 30% hover), so the tile radius needs !important to win — the brand mark is
@@ -413,7 +420,7 @@
  */
 .multiverseButtonIcon {
 	composes: guildIcon;
-	background: var(--gradient-brand-legible);
+	background-color: var(--mv-surface-card);
 	color: var(--brand-primary-fill);
 	font-family: var(--font-brand-glyph);
 	border-radius: var(--mv-radius-tile) !important;
