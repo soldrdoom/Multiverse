@@ -117,16 +117,17 @@
 	object-fit: cover;
 	display: block;
 	/*
-	 * The source PNG (assets/images/multiverse-official-logo.png) has a small
-	 * transparent margin baked in around the mark (~8% sides, ~17% top/bottom —
-	 * it's a wide two-bubble logo, not the old circular badge, so the margin
-	 * isn't uniform), so at 16px it reads visibly smaller than the guild icon
-	 * next to it, which fills its circle edge-to-edge. Scale the rendered glyph
-	 * up in place (transform doesn't affect the 16px layout box, so surrounding
-	 * gap/spacing is untouched) to match. Kept modest (1.15, down from the old
-	 * mark's 1.3) so the crop doesn't eat into the bubble tails.
+	 * The source PNG (assets/images/multiverse-official-logo.png) is padded
+	 * so its content stays within the circle inscribed in the square canvas
+	 * (the mark's tails/ring reach toward the corners, which a naive tight
+	 * crop clips once border-radius: 50% is applied). That margin is
+	 * necessarily wider than a plain circular badge would need, so at 16px
+	 * it reads a little smaller than the guild icon next to it, which fills
+	 * its circle edge-to-edge. Scale up only slightly (1.05) to close most
+	 * of that gap without eating back into the safety margin that keeps the
+	 * tails from clipping.
 	 */
-	transform: scale(1.15);
+	transform: scale(1.05);
 }
 
 .membershipGuildIcon {
