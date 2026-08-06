@@ -22,6 +22,7 @@ import {createClient, FluxerApiError} from '@fluxer/bot_sdk/src/index';
 import pino from 'pino';
 import {loadConfig} from './Config';
 import {type ChannelTypeResolver, MessageHandler, type MessageSender} from './MessageHandler';
+import {ApiModerationProvider} from './ModerationService';
 import {CoinGeckoPriceProvider} from './SolPriceService';
 
 async function main(): Promise<void> {
@@ -68,6 +69,7 @@ async function main(): Promise<void> {
 	};
 
 	const priceProvider = new CoinGeckoPriceProvider();
+	const moderationProvider = new ApiModerationProvider(client);
 
 	let botUserId: string | null = null;
 	let handler: MessageHandler | null = null;
@@ -76,7 +78,15 @@ async function main(): Promise<void> {
 		if (t === 'READY') {
 			const ready = d as {user: {id: string}};
 			botUserId = ready.user.id;
-			handler = new MessageHandler(botUserId, client.rest.baseUrl, messageSender, channelResolver, log, priceProvider);
+			handler = new MessageHandler(
+				botUserId,
+				client.rest.baseUrl,
+				messageSender,
+				channelResolver,
+				log,
+				priceProvider,
+				moderationProvider,
+			);
 			log.info({botUserId}, 'I.R.I.S. ready');
 			return;
 		}

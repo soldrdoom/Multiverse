@@ -21,6 +21,9 @@ import type {
 	ApplicationsMeResponse,
 	ChannelResponse,
 	GatewayBotResponse,
+	GuildMemberResponse,
+	GuildResponse,
+	GuildRoleResponse,
 	MessageResponseSchema,
 	UserPrivateResponse,
 } from '../types/Api.generated';
@@ -54,6 +57,50 @@ export class Routes {
 	/** `GET /channels/:channel_id`. */
 	getChannel(channelId: string): Promise<ChannelResponse> {
 		return this.rest.callEndpoint<ChannelResponse>(BotEndpoints.get_channel, {params: {channel_id: channelId}});
+	}
+
+	/** `GET /channels/:channel_id/messages`. */
+	listMessages(
+		channelId: string,
+		options?: {limit?: number; before?: string; after?: string; around?: string},
+	): Promise<Array<MessageResponseSchema>> {
+		return this.rest.callEndpoint<Array<MessageResponseSchema>>(BotEndpoints.list_messages, {
+			params: {channel_id: channelId},
+			query: {limit: options?.limit, before: options?.before, after: options?.after, around: options?.around},
+		});
+	}
+
+	/**
+	 * `POST /channels/:channel_id/messages/bulk-delete`. Destructive and
+	 * non-idempotent — deliberately not `retryable`. A blind retry after an
+	 * ambiguous network failure could re-issue the delete against a
+	 * different message set than intended; silence on ambiguous failure is
+	 * safer than a surprise retry here.
+	 */
+	bulkDeleteMessages(channelId: string, messageIds: Array<string>): Promise<void> {
+		return this.rest.callEndpoint<void>(BotEndpoints.bulk_delete_messages, {
+			params: {channel_id: channelId},
+			body: {message_ids: messageIds},
+		});
+	}
+
+	/** `GET /guilds/:guild_id`. */
+	getGuild(guildId: string): Promise<GuildResponse> {
+		return this.rest.callEndpoint<GuildResponse>(BotEndpoints.get_guild, {params: {guild_id: guildId}});
+	}
+
+	/** `GET /guilds/:guild_id/members/:user_id`. */
+	getGuildMember(guildId: string, userId: string): Promise<GuildMemberResponse> {
+		return this.rest.callEndpoint<GuildMemberResponse>(BotEndpoints.get_guild_member, {
+			params: {guild_id: guildId, user_id: userId},
+		});
+	}
+
+	/** `GET /guilds/:guild_id/roles`. */
+	listGuildRoles(guildId: string): Promise<Array<GuildRoleResponse>> {
+		return this.rest.callEndpoint<Array<GuildRoleResponse>>(BotEndpoints.list_guild_roles, {
+			params: {guild_id: guildId},
+		});
 	}
 
 	/** `GET /users/@me` — the bot's own user. */
