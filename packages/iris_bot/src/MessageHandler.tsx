@@ -93,7 +93,13 @@ const SOL_PRICE_ERROR_REPLY = "Couldn't fetch the SOL price right now — try ag
 // against, so it doesn't need a bypass.
 const MASS_COMMAND_PATTERN = /^\/mass(?:\s+(\d+))?$/i;
 const MASS_FORBIDDEN_REPLY = 'Only server administrators can use /mass.';
-const MASS_ERROR_REPLY = 'Something went wrong deleting those messages — try again in a bit.';
+// Kept distinct from MASS_DELETE_ERROR_REPLY on purpose: a permission-check
+// failure means I.R.I.S. itself couldn't read guild/role data (its own bot
+// role is missing a permission, e.g. Manage Roles), which is a different fix
+// than a delete failure (its bot role is missing Manage Messages/Admin) —
+// collapsing these into one message cost a live-log dive to tell apart once.
+const MASS_PERMISSION_CHECK_ERROR_REPLY = "Couldn't verify your permissions right now — try again in a bit.";
+const MASS_DELETE_ERROR_REPLY = 'Something went wrong deleting those messages — try again in a bit.';
 
 function mentionsPlatform(content: string): boolean {
 	const lower = content.toLowerCase();
@@ -209,7 +215,7 @@ export class MessageHandler {
 			isAdmin = await this.moderationProvider.isGuildAdministrator(guildId, author.id);
 		} catch (err) {
 			this.log.error({err, guildId, channelId, requestedBy: author.id}, 'Failed to verify /mass permission');
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, MASS_ERROR_REPLY);
+			await this.restClient.sendMessage(this.apiBaseUrl, channelId, MASS_PERMISSION_CHECK_ERROR_REPLY);
 			return;
 		}
 		if (!isAdmin) {
@@ -231,7 +237,7 @@ export class MessageHandler {
 			await this.restClient.sendMessage(this.apiBaseUrl, channelId, `🗑️ Deleted up to ${deletedCount} message(s).`);
 		} catch (err) {
 			this.log.error({err, guildId, channelId, requestedBy: author.id}, '/mass failed');
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, MASS_ERROR_REPLY);
+			await this.restClient.sendMessage(this.apiBaseUrl, channelId, MASS_DELETE_ERROR_REPLY);
 		}
 	}
 
