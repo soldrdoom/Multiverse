@@ -18,6 +18,7 @@
  */
 
 import type {Logger} from 'pino';
+import type {PriceProvider} from './SolPriceService';
 
 /**
  * The message-sending contract this handler was written against (the deleted
@@ -76,9 +77,25 @@ const PLATFORM_DEFLECTION =
 const LIGHTWEIGHT_REPLY =
 	"I'm running in lightweight mode right now, so I can't hold a real conversation — but I'm still here, and smarter days are coming!";
 
+// I.R.I.S.'s first real command. Unlike the canned deflection/lightweight
+// replies above, /sol answers in guild channels too, not just DMs — it's a
+// deliberate exception to the "guild traffic is read but never answered"
+// rule below, not a loosening of it.
+const SOL_COMMAND_PATTERN = /^\/sol$/i;
+const SOL_PRICE_ERROR_REPLY = "Couldn't fetch the SOL price right now — try again in a bit.";
+
 function mentionsPlatform(content: string): boolean {
 	const lower = content.toLowerCase();
 	return PLATFORM_KEYWORDS.some((keyword) => lower.includes(keyword));
+}
+
+function isSolCommand(content: string): boolean {
+	return SOL_COMMAND_PATTERN.test(content.trim());
+}
+
+function formatSolPriceReply(usd: number, change24h: number): string {
+	const arrow = change24h >= 0 ? '▲' : '▼';
+	return `SOL is currently $${usd.toFixed(2)} USD (${arrow} ${Math.abs(change24h).toFixed(2)}% 24h)`;
 }
 
 export class MessageHandler {
@@ -90,6 +107,7 @@ export class MessageHandler {
 		private readonly restClient: MessageSender,
 		private readonly channelResolver: ChannelTypeResolver,
 		private readonly log: Logger,
+		private readonly priceProvider: PriceProvider,
 	) {}
 
 	handleDispatch(eventType: string, data: unknown): void {
@@ -103,15 +121,22 @@ export class MessageHandler {
 		if (message.author.id === this.botUserId) return;
 		if (message.author.bot) return;
 
-		// Guild traffic is read but never answered.
-		if (message.guild_id) return;
-
 		if (!message.content) {
 			if (message.encrypted_content) {
 				this.log.info({channelId: message.channel_id}, 'Skipping end-to-end encrypted message, cannot read content');
 			}
 			return;
 		}
+
+		// Checked ahead of the guild gate below: /sol is the one command that
+		// answers in guild channels too, not just DMs.
+		if (isSolCommand(message.content)) {
+			await this.handleSolCommand(message.channel_id);
+			return;
+		}
+
+		// Guild traffic is read but never answered (beyond /sol above).
+		if (message.guild_id) return;
 
 		// Strictly 1:1 DMs: the absence of guild_id alone also matches group
 		// DMs (they ride the presence dispatch path), so resolve the channel
@@ -122,6 +147,17 @@ export class MessageHandler {
 
 		const reply = mentionsPlatform(message.content) ? PLATFORM_DEFLECTION : LIGHTWEIGHT_REPLY;
 		await this.restClient.sendMessage(this.apiBaseUrl, message.channel_id, reply);
+	}
+
+	private async handleSolCommand(channelId: string): Promise<void> {
+		this.log.info({channelId}, 'Handling /sol command');
+		try {
+			const {usd, change24h} = await this.priceProvider.getSolPrice();
+			await this.restClient.sendMessage(this.apiBaseUrl, channelId, formatSolPriceReply(usd, change24h));
+		} catch (err) {
+			this.log.error({err, channelId}, 'Failed to fetch SOL price');
+			await this.restClient.sendMessage(this.apiBaseUrl, channelId, SOL_PRICE_ERROR_REPLY);
+		}
 	}
 
 	private async isDirectMessageChannel(channelId: string): Promise<boolean> {
