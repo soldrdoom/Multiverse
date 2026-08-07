@@ -45,7 +45,27 @@ function getCandidateBotUserIds(channel: ChannelRecord | null): Array<string> {
 }
 
 export function useBotCommands(channel: ChannelRecord | null): Array<BotCommand> {
-	const botUserIds = useMemo(() => getCandidateBotUserIds(channel), [channel]);
+	// Deliberately NOT `useMemo(..., [channel])`: `channel`'s object identity
+	// only changes when the channel record itself is replaced (e.g. a new
+	// message arrives, bumping last_message_id) — not when GuildMemberStore
+	// (guild channels) or UserStore (DMs), which getCandidateBotUserIds reads,
+	// finish an async load *after* this component has already mounted and
+	// rendered once. Caching this behind an unrelated `channel` dependency
+	// silently freezes `botUserIds` at whatever it computed on the very first
+	// render — usually `[]`, since guild member data hasn't hydrated yet — and
+	// it never recomputes again: the enclosing `observer()` (ChannelTextarea)
+	// only re-tracks the MobX observables it actually reads during a given
+	// render, so skipping this read via a stale memo drops GuildMemberStore/
+	// UserStore from that tracking, and future updates to either store stop
+	// triggering re-renders entirely. Confirmed live: opening a channel and
+	// immediately typing `/sol`/`/mass` sent the literal text instead of
+	// firing the interaction, because `GET .../application-commands` never
+	// fired until an unrelated channel-reference change (e.g. the fallback
+	// plain-text message itself arriving) forced a fresh render, by which
+	// point the same keystroke sequence had already submitted. Recomputing on
+	// every render is cheap (a filter over already-loaded arrays) and
+	// restores correct reactivity.
+	const botUserIds = getCandidateBotUserIds(channel);
 	const botUserIdsToken = botUserIds.join(',');
 
 	const version = useSyncExternalStore(BotCommandStore.subscribe.bind(BotCommandStore), () => BotCommandStore.version);
