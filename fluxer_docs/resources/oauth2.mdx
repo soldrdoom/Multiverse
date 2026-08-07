@@ -22,6 +22,74 @@ Detailed bot user metadata
 | token? | string | The bot token for authentication |
 | username | string | The username of the bot |
 
+<a id="applicationcommandlistresponse"></a>
+
+## ApplicationCommandListResponse
+
+**Related endpoints**
+
+- [`GET /users/{user_id}/application-commands`](/api-reference/oauth2/list-a-users-application-commands)
+- [`PUT /applications/@me/commands`](/api-reference/oauth2/bulk-overwrite-application-commands)
+
+Type: [ApplicationCommandResponse](#applicationcommandresponse)[]
+
+<a id="applicationcommandoptionchoiceschema"></a>
+
+## ApplicationCommandOptionChoiceSchema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | The user-facing label for this choice |
+| value | string \| number | The value submitted when this choice is picked |
+
+<a id="applicationcommandoptionschema"></a>
+
+## ApplicationCommandOptionSchema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| choices? | [ApplicationCommandOptionChoiceSchema](#applicationcommandoptionchoiceschema)[] | A closed set of accepted values for this option |
+| description | string | A short description of the option |
+| name | string | The option name, as referenced in the options map |
+| required? | boolean | Whether the option must be supplied to invoke the command |
+| type | [ApplicationCommandOptionTypeSchema](#applicationcommandoptiontypeschema) |  |
+
+<a id="applicationcommandoptiontypeschema"></a>
+
+## ApplicationCommandOptionTypeSchema
+
+The data type of a command option
+
+| Value | Description |
+|-------|-------------|
+| `STRING` | A text value |
+| `INTEGER` | A whole number value |
+| `USER` | A user ID, resolved against who/what is visible in the invoking context |
+| `CHANNEL` | A channel ID, resolved against what is visible in the invoking context |
+| `BOOLEAN` | A true/false value |
+
+<a id="applicationcommandresponse"></a>
+
+## ApplicationCommandResponse
+
+| Field | Type | Description |
+|-------|------|-------------|
+| application_id | [SnowflakeType](#snowflaketype) | The command's owning application |
+| description | string | A short description of what the command does |
+| id | [SnowflakeType](#snowflaketype) | The unique identifier of the command |
+| name | string | The command name, lowercase letters/digits/underscores only |
+| options? | [ApplicationCommandOptionSchema](#applicationcommandoptionschema)[] | The typed options this command accepts |
+
+<a id="applicationcommandschema"></a>
+
+## ApplicationCommandSchema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| description | string | A short description of what the command does |
+| name | string | The command name, lowercase letters/digits/underscores only |
+| options? | [ApplicationCommandOptionSchema](#applicationcommandoptionschema)[] | The typed options this command accepts |
+
 <a id="applicationcreaterequest"></a>
 
 ## ApplicationCreateRequest
@@ -308,6 +376,18 @@ Type: [BotTokenResponse](#bottokenresponse)[]
 | last_used_at | ?string | When the token last authenticated a request, if ever |
 | name | string | The developer-chosen label for this token |
 | preview | string | The first few characters of the secret, to identify it in a list |
+
+<a id="bulkoverwritecommandsrequest"></a>
+
+## BulkOverwriteCommandsRequest
+
+**Related endpoints**
+
+- [`PUT /applications/@me/commands`](/api-reference/oauth2/bulk-overwrite-application-commands)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| commands | [ApplicationCommandSchema](#applicationcommandschema)[] | The full set of global commands to register, replacing any existing set |
 
 <a id="introspectrequestform"></a>
 

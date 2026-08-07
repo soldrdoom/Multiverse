@@ -17,6 +17,7 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {ApplicationCommandInteractionController} from '@fluxer/api/src/channel/controllers/ApplicationCommandInteractionController';
 import {CallController} from '@fluxer/api/src/channel/controllers/CallController';
 import {ChannelController} from '@fluxer/api/src/channel/controllers/ChannelController';
 import {MessageController} from '@fluxer/api/src/channel/controllers/MessageController';
@@ -29,6 +30,7 @@ export function registerChannelControllers(app: HonoApp) {
 	ChannelController(app);
 	MessageInteractionController(app);
 	MessageController(app);
+	ApplicationCommandInteractionController(app);
 	ScheduledMessageController(app);
 	CallController(app);
 	StreamController(app);

@@ -474,6 +474,38 @@ Type: Bitflags32
 | temporary | boolean | Whether the invite grants temporary membership |
 | type | enum&lt;`1`&gt; | The type of invite (group DM) |
 
+<a id="interactioncreaterequest"></a>
+
+## InteractionCreateRequest
+
+**Related endpoints**
+
+- [`POST /channels/{channel_id}/interactions`](/api-reference/channels/invoke-a-bot-application-command)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| bot_user_id | [SnowflakeType](#snowflaketype) |  |
+| command_name | string | The name of the registered command to invoke |
+| options? | ?[InteractionOptionsSchema](#interactionoptionsschema) | The option values to pass to the command |
+
+<a id="interactionresponse"></a>
+
+## InteractionResponse
+
+**Related endpoints**
+
+- [`POST /channels/{channel_id}/interactions`](/api-reference/channels/invoke-a-bot-application-command)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| application_id | [SnowflakeType](#snowflaketype) | The invoked command’s owning application |
+| channel_id | [SnowflakeType](#snowflaketype) | The channel the command was invoked in |
+| command | [GuildEmojiUpdateRequest](#guildemojiupdaterequest) |  |
+| guild_id? | [SnowflakeType](#snowflaketype) |  |
+| id | [SnowflakeType](#snowflaketype) | The unique identifier of this interaction |
+| options | map&lt;string, string \| number \| boolean&gt; | The validated option values the command was invoked with |
+| user | [UserPartialResponse](#userpartialresponse) | The user who invoked the command |
+
 <a id="messageackrequest"></a>
 
 ## MessageAckRequest

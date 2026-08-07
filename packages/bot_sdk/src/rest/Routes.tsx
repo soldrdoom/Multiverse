@@ -18,6 +18,8 @@
  */
 
 import type {
+	ApplicationCommandListResponse,
+	ApplicationCommandSchema,
 	ApplicationsMeResponse,
 	ChannelResponse,
 	GatewayBotResponse,
@@ -111,6 +113,18 @@ export class Routes {
 	/** `GET /applications/@me` — the application this bot token belongs to. */
 	getCurrentApplication(): Promise<ApplicationsMeResponse> {
 		return this.rest.callEndpoint<ApplicationsMeResponse>(BotEndpoints.get_current_user_applications);
+	}
+
+	/**
+	 * `PUT /applications/@me/commands`. Full bulk-overwrite: any command not
+	 * present in `commands` is deleted server-side. The backend diffs against
+	 * the current set before writing, so calling this with an unchanged list
+	 * (e.g. on every process start) is idempotent and cheap.
+	 */
+	bulkOverwriteGlobalCommands(commands: Array<ApplicationCommandSchema>): Promise<ApplicationCommandListResponse> {
+		return this.rest.callEndpoint<ApplicationCommandListResponse>(BotEndpoints.bulk_overwrite_application_commands, {
+			body: {commands},
+		});
 	}
 
 	/**

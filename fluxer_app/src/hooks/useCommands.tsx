@@ -18,6 +18,7 @@
  */
 
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
+import type {ApplicationCommandOption} from '@fluxer/schema/src/domains/oauth/BotCommandSchemas';
 import {useLingui} from '@lingui/react/macro';
 import {useMemo} from 'react';
 
@@ -36,7 +37,15 @@ interface ActionCommand {
 	requiresGuild?: boolean;
 }
 
-export type Command = SimpleCommand | ActionCommand;
+export interface BotCommand {
+	type: 'bot';
+	name: string;
+	description: string;
+	botUserId: string;
+	options: Array<ApplicationCommandOption>;
+}
+
+export type Command = SimpleCommand | ActionCommand | BotCommand;
 
 export function useCommands(): Array<Command> {
 	const {t} = useLingui();

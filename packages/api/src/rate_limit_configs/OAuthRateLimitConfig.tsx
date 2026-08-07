@@ -120,4 +120,17 @@ export const OAuthRateLimitConfigs = {
 		bucket: 'oauth_dev:bot_tokens:revoke',
 		config: {limit: 40, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
+
+	OAUTH_DEV_BOT_COMMANDS_OVERWRITE: {
+		// No route param: PUT /applications/@me/commands has no path segment to
+		// key on, and doesn't need one — RateLimitMiddleware's getClientIdentifier
+		// already buckets bot traffic separately as `bot:${user.id}`.
+		bucket: 'oauth_dev:bot_commands:overwrite',
+		config: {limit: 20, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+
+	OAUTH_DEV_BOT_COMMANDS_LIST: {
+		bucket: 'oauth_dev:bot_commands:list::user_id',
+		config: {limit: 60, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
 } as const;

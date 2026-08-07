@@ -127,10 +127,14 @@ auth_and_registration.password_not_set: Password isn't set.
 bots.bot_application_not_found: Bot application wasn't found.
 bots.bot_discriminator_cannot_be_changed: Bot discriminator can't be changed.
 bots.bot_is_private: This bot is private.
+bots.bot_not_in_channel: This bot isn't present in this channel.
 bots.bot_user_generation_failed: Bot user generation failed.
 bots.bot_user_not_found: Bot user wasn't found.
+bots.invalid_application_command: Invalid application command.
+bots.invalid_interaction_option: Invalid command option.
 bots.invalid_response_type_for_non_bot: Response type must be code for non-bot scopes.
 bots.not_a_bot_application: This application isn't a bot.
+bots.too_many_application_commands: Too many application commands. A bot may register at most 100.
 calls_and_voice.call_already_exists: A call is already in progress in this channel.
 calls_and_voice.cannot_modify_voice_state: You can't modify voice state.
 calls_and_voice.invalid_or_restricted_rtc_region: 'Invalid or restricted RTC region: {region}.'
@@ -468,6 +472,7 @@ tos_and_age.date_of_birth_format_invalid: Invalid date of birth format.
 tos_and_age.must_agree_to_tos_and_privacy: You must agree to the Terms of Service and Privacy Policy.
 tos_and_age.must_be_minimum_age: You must be at least {minAge} {minAge, plural, one {year} other {years}} old to create an account.
 unknown_entities.unknown_application: Application wasn't found.
+unknown_entities.unknown_application_command: Application command wasn't found.
 unknown_entities.unknown_channel: Channel wasn't found.
 unknown_entities.unknown_guild: Guild wasn't found.
 unknown_entities.unknown_invite: Invite wasn't found or is no longer valid.

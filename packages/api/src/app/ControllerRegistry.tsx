@@ -32,6 +32,7 @@ import {InstanceController} from '@fluxer/api/src/instance/InstanceController';
 import {InviteController} from '@fluxer/api/src/invite/InviteController';
 import {KlipyController} from '@fluxer/api/src/klipy/KlipyController';
 import {NewsController} from '@fluxer/api/src/news/NewsController';
+import {BotCommandController} from '@fluxer/api/src/oauth/BotCommandController';
 import {OAuth2ApplicationsController} from '@fluxer/api/src/oauth/OAuth2ApplicationsController';
 import {OAuth2Controller} from '@fluxer/api/src/oauth/OAuth2Controller';
 import {OAuth2TeamsController} from '@fluxer/api/src/oauth/OAuth2TeamsController';
@@ -79,4 +80,5 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	OAuth2Controller(routes);
 	OAuth2ApplicationsController(routes);
 	OAuth2TeamsController(routes);
+	BotCommandController(routes);
 }

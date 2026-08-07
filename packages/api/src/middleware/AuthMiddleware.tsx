@@ -64,3 +64,19 @@ export const DefaultUserOnly = createMiddleware<HonoEnv>(async (ctx, next) => {
 	}
 	await next();
 });
+
+/**
+ * Symmetric to DefaultUserOnly: requires the authenticated caller to be a bot
+ * user (i.e. authenticated with a bot token), rejecting human sessions and
+ * OAuth2 bearer tokens alike.
+ */
+export const BotOnly = createMiddleware<HonoEnv>(async (ctx, next) => {
+	const user = ctx.get('user');
+	if (!user) {
+		throw new UnauthorizedError();
+	}
+	if (!user.isBot) {
+		throw new AccessDeniedError();
+	}
+	await next();
+});

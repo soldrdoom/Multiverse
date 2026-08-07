@@ -35,6 +35,7 @@ import {Config} from '@fluxer/api/src/Config';
 import {ChannelRepository} from '@fluxer/api/src/channel/ChannelRepository';
 import {ChannelRequestService} from '@fluxer/api/src/channel/services/ChannelRequestService';
 import {ChannelService} from '@fluxer/api/src/channel/services/ChannelService';
+import {ApplicationCommandInteractionService} from '@fluxer/api/src/channel/services/interaction/ApplicationCommandInteractionService';
 import {MessageRequestService} from '@fluxer/api/src/channel/services/message/MessageRequestService';
 import {ScheduledMessageService} from '@fluxer/api/src/channel/services/ScheduledMessageService';
 import {StreamPreviewService} from '@fluxer/api/src/channel/services/StreamPreviewService';
@@ -115,12 +116,15 @@ import {NewsService} from '@fluxer/api/src/news/NewsService';
 import {ApplicationAccessService} from '@fluxer/api/src/oauth/ApplicationAccessService';
 import {ApplicationService} from '@fluxer/api/src/oauth/ApplicationService';
 import {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
+import {BotCommandRequestService} from '@fluxer/api/src/oauth/BotCommandRequestService';
+import {BotCommandService} from '@fluxer/api/src/oauth/BotCommandService';
 import {BotMfaMirrorService} from '@fluxer/api/src/oauth/BotMfaMirrorService';
 import {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
 import {OAuth2ApplicationsRequestService} from '@fluxer/api/src/oauth/OAuth2ApplicationsRequestService';
 import {OAuth2RequestService} from '@fluxer/api/src/oauth/OAuth2RequestService';
 import {OAuth2Service} from '@fluxer/api/src/oauth/OAuth2Service';
 import {OAuth2TeamsRequestService} from '@fluxer/api/src/oauth/OAuth2TeamsRequestService';
+import {ApplicationCommandRepository} from '@fluxer/api/src/oauth/repositories/ApplicationCommandRepository';
 import {ApplicationRepository} from '@fluxer/api/src/oauth/repositories/ApplicationRepository';
 import {BotTokenRepository} from '@fluxer/api/src/oauth/repositories/BotTokenRepository';
 import {OAuth2TokenRepository} from '@fluxer/api/src/oauth/repositories/OAuth2TokenRepository';
@@ -370,6 +374,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	const adminArchiveRepository = new AdminArchiveRepository();
 	const voiceRepository = new VoiceRepository();
 	const applicationRepository = new ApplicationRepository();
+	const applicationCommandRepository = new ApplicationCommandRepository();
 	const oauth2TokenRepository = new OAuth2TokenRepository();
 
 	const cacheService = getCacheService();
@@ -461,6 +466,17 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		userRepository,
 		tokenGateCacheService,
 		guildRepository,
+	);
+
+	const applicationCommandInteractionService = new ApplicationCommandInteractionService(
+		channelRepository,
+		userRepository,
+		guildRepository,
+		gatewayService,
+		tokenGateService,
+		applicationCommandRepository,
+		snowflakeService,
+		workerService,
 	);
 
 	const channelService = new ChannelService(
@@ -699,6 +715,8 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 
 	const botTokenRepository = new BotTokenRepository();
 	const botTokenService = new BotTokenService(botTokenRepository, snowflakeService, gatewayService);
+	const botCommandService = new BotCommandService(applicationCommandRepository, snowflakeService);
+	const botCommandRequestService = new BotCommandRequestService(botCommandService);
 	const teamRepository = new TeamRepository();
 	const applicationAccessService = new ApplicationAccessService(applicationRepository, teamRepository);
 	const botAuthService = new BotAuthService(applicationRepository, botTokenService);
@@ -813,6 +831,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 
 	const applicationService = new ApplicationService({
 		applicationRepository,
+		applicationCommandRepository,
 		teamRepository,
 		applicationAccessService,
 		channelRepository,
@@ -909,6 +928,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	ctx.set('channelRequestService', channelRequestService);
 	ctx.set('messageRequestService', messageRequestService);
 	ctx.set('channelRepository', channelRepository);
+	ctx.set('applicationCommandInteractionService', applicationCommandInteractionService);
 	ctx.set('connectionService', connectionService);
 	ctx.set('connectionRequestService', connectionRequestService);
 	ctx.set('blueskyOAuthService', blueskyOAuthService);
@@ -940,6 +960,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	ctx.set('oauth2Service', oauth2Service);
 	ctx.set('oauth2RequestService', oauth2RequestService);
 	ctx.set('oauth2ApplicationsRequestService', oauth2ApplicationsRequestService);
+	ctx.set('botCommandRequestService', botCommandRequestService);
 	ctx.set('oauth2TeamsRequestService', oauth2TeamsRequestService);
 	ctx.set('applicationAccessService', applicationAccessService);
 	ctx.set('teamService', teamService);

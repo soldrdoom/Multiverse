@@ -91,7 +91,13 @@ await client.api.getChannel(channelId);
 await client.api.getCurrentUser();
 await client.api.getCurrentApplication();
 await client.api.getGatewayBot();
+await client.api.bulkOverwriteGlobalCommands([
+  {name: 'ping', description: 'Replies with pong', options: []},
+]); // full replace — commands you omit are deleted; diffed server-side, so
+    // calling it on every process start is a cheap no-op once registered
 ```
+
+Invoking one of your registered commands delivers an `INTERACTION_CREATE` dispatch over the same gateway connection (`client.on('INTERACTION_CREATE', ...)`), typed with the command name, resolved options, and the invoking user; reply with an ordinary `client.api.sendMessage(...)` call.
 
 Everything else in the bot-callable surface is reachable through the generated endpoint map, which is produced from the OpenAPI spec and therefore only contains operations that actually accept bot tokens:
 

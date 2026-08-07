@@ -38,6 +38,10 @@ import {
 	type AdminApiKeyRow,
 } from '@fluxer/api/src/database/types/AdminAuthTypes';
 import {
+	APPLICATION_COMMAND_COLUMNS,
+	type ApplicationCommandRow,
+} from '@fluxer/api/src/database/types/ApplicationCommandTypes';
+import {
 	AUTH_SESSION_COLUMNS,
 	AUTHORIZED_IP_COLUMNS,
 	type AuthorizedIpRow,
@@ -951,6 +955,13 @@ export const ApplicationBotTokensByApplication = defineTable<
 	columns: APPLICATION_BOT_TOKEN_BY_APPLICATION_COLUMNS,
 	primaryKey: ['application_id', 'token_id'],
 	partitionKey: ['application_id'],
+});
+
+export const ApplicationCommands = defineTable<ApplicationCommandRow, 'bot_user_id' | 'name', 'bot_user_id'>({
+	name: 'application_commands',
+	columns: APPLICATION_COMMAND_COLUMNS,
+	primaryKey: ['bot_user_id', 'name'],
+	partitionKey: ['bot_user_id'],
 });
 
 export const ApplicationTeams = defineTable<ApplicationTeamRow, 'team_id'>({

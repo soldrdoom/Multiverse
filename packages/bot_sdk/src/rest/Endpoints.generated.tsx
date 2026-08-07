@@ -127,6 +127,14 @@ export const BotEndpoints = {
 		requestBodySchema: 'BulkDeleteMessagesRequest',
 		responseSchema: null,
 	},
+	bulk_overwrite_application_commands: {
+		method: 'PUT',
+		path: '/applications/@me/commands',
+		pathParams: [],
+		queryParams: [],
+		requestBodySchema: 'BulkOverwriteCommandsRequest',
+		responseSchema: 'ApplicationCommandListResponse',
+	},
 	check_username_tag_availability: {
 		method: 'GET',
 		path: '/users/check-tag',

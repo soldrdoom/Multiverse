@@ -19,6 +19,7 @@
 
 import * as DraftActionCreators from '@app/actions/DraftActionCreators';
 import * as MessageActionCreators from '@app/actions/MessageActionCreators';
+import {useBotCommands} from '@app/hooks/useBotCommands';
 import {Logger} from '@app/lib/Logger';
 import type {MessageRecord} from '@app/records/MessageRecord';
 import AccessibilityStore from '@app/stores/AccessibilityStore';
@@ -29,6 +30,7 @@ import GuildStore from '@app/stores/GuildStore';
 import MessageStore from '@app/stores/MessageStore';
 import PermissionStore from '@app/stores/PermissionStore';
 import PresenceStore from '@app/stores/PresenceStore';
+import {fireInteraction, matchBotCommand} from '@app/utils/BotCommandUtils';
 import * as CommandUtils from '@app/utils/CommandUtils';
 import {checkEmojiAvailabilityWithGuildFallback} from '@app/utils/ExpressionPermissionUtils';
 import * as ReplaceCommandUtils from '@app/utils/ReplaceCommandUtils';
@@ -93,6 +95,9 @@ export const useTextareaSubmit = ({
 	onMentionConfirmationNeeded,
 	i18n,
 }: UseTextareaSubmitOptions) => {
+	const channel = ChannelStore.getChannel(channelId) ?? null;
+	const botCommands = useBotCommands(channel);
+
 	const checkMentionConfirmation = useCallback(
 		(content: string, tts?: boolean): boolean => {
 			if (!guildId || !onMentionConfirmationNeeded) {
@@ -303,6 +308,26 @@ export const useTextareaSubmit = ({
 			return;
 		}
 
+		const botMatch = matchBotCommand(actualContent, botCommands);
+		if (botMatch) {
+			try {
+				await fireInteraction(channelId, botMatch.botCommand, botMatch.options);
+				setValue('');
+				clearSegments();
+				DraftActionCreators.deleteDraft(channelId);
+				TypingUtils.clear(channelId);
+				return;
+			} catch (error) {
+				logger.error('Failed to fire bot command interaction', error);
+				const errorMessage = CommandUtils.createSystemMessage(
+					channelId,
+					`Failed to execute command: ${error instanceof Error ? error.message : 'Unknown error'}`,
+				);
+				MessageActionCreators.createOptimistic(channelId, errorMessage.toJSON());
+				return;
+			}
+		}
+
 		if (CommandUtils.isCommand(actualContent)) {
 			const parsedCommand = CommandUtils.parseCommand(actualContent);
 			if (parsedCommand.type !== 'unknown') {
@@ -371,6 +396,7 @@ export const useTextareaSubmit = ({
 		checkCustomEmojiAvailability,
 		checkMentionConfirmation,
 		ttsCommandEnabled,
+		botCommands,
 	]);
 
 	return {onSubmit};

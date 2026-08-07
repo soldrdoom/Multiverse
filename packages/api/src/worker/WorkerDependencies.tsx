@@ -70,6 +70,7 @@ import {
 	getMediaService,
 	getWorkerService,
 } from '@fluxer/api/src/middleware/ServiceRegistry';
+import {ApplicationCommandRepository} from '@fluxer/api/src/oauth/repositories/ApplicationCommandRepository';
 import {ApplicationRepository} from '@fluxer/api/src/oauth/repositories/ApplicationRepository';
 import {OAuth2TokenRepository} from '@fluxer/api/src/oauth/repositories/OAuth2TokenRepository';
 import {PackRepository} from '@fluxer/api/src/pack/PackRepository';
@@ -115,6 +116,7 @@ export interface WorkerDependencies {
 	guildRepository: GuildRepository;
 	favoriteMemeRepository: FavoriteMemeRepository;
 	applicationRepository: ApplicationRepository;
+	applicationCommandRepository: ApplicationCommandRepository;
 	oauth2TokenRepository: OAuth2TokenRepository;
 	readStateRepository: ReadStateRepository;
 	adminRepository: AdminRepository;
@@ -173,6 +175,7 @@ export async function initializeWorkerDependencies(snowflakeService: SnowflakeSe
 	const guildRepository = new GuildRepository();
 	const favoriteMemeRepository = new FavoriteMemeRepository();
 	const applicationRepository = new ApplicationRepository();
+	const applicationCommandRepository = new ApplicationCommandRepository();
 	const oauth2TokenRepository = new OAuth2TokenRepository();
 	const readStateRepository = new ReadStateRepository();
 	const adminRepository = new AdminRepository();
@@ -354,6 +357,7 @@ export async function initializeWorkerDependencies(snowflakeService: SnowflakeSe
 		guildRepository,
 		favoriteMemeRepository,
 		applicationRepository,
+		applicationCommandRepository,
 		oauth2TokenRepository,
 		readStateRepository,
 		adminRepository,

@@ -31,6 +31,7 @@ import type {IBlueskyOAuthService} from '@fluxer/api/src/bluesky/IBlueskyOAuthSe
 import type {IChannelRepository} from '@fluxer/api/src/channel/IChannelRepository';
 import type {ChannelRequestService} from '@fluxer/api/src/channel/services/ChannelRequestService';
 import type {ChannelService} from '@fluxer/api/src/channel/services/ChannelService';
+import type {ApplicationCommandInteractionService} from '@fluxer/api/src/channel/services/interaction/ApplicationCommandInteractionService';
 import type {MessageRequestService} from '@fluxer/api/src/channel/services/message/MessageRequestService';
 import type {ScheduledMessageService} from '@fluxer/api/src/channel/services/ScheduledMessageService';
 import type {StreamPreviewService} from '@fluxer/api/src/channel/services/StreamPreviewService';
@@ -69,6 +70,7 @@ import type {NewsService} from '@fluxer/api/src/news/NewsService';
 import type {ApplicationAccessService} from '@fluxer/api/src/oauth/ApplicationAccessService';
 import type {ApplicationService} from '@fluxer/api/src/oauth/ApplicationService';
 import type {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
+import type {BotCommandRequestService} from '@fluxer/api/src/oauth/BotCommandRequestService';
 import type {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
 import type {OAuth2ApplicationsRequestService} from '@fluxer/api/src/oauth/OAuth2ApplicationsRequestService';
 import type {OAuth2RequestService} from '@fluxer/api/src/oauth/OAuth2RequestService';
@@ -137,6 +139,7 @@ export interface HonoEnv {
 		channelRequestService: ChannelRequestService;
 		messageRequestService: MessageRequestService;
 		channelRepository: IChannelRepository;
+		applicationCommandInteractionService: ApplicationCommandInteractionService;
 		connectionService: ConnectionService;
 		connectionRequestService: ConnectionRequestService;
 		blueskyOAuthService: IBlueskyOAuthService | null;
@@ -205,6 +208,7 @@ export interface HonoEnv {
 		oauth2TokenRepository: IOAuth2TokenRepository;
 		botAuthService: BotAuthService;
 		botTokenService: BotTokenService;
+		botCommandRequestService: BotCommandRequestService;
 		sudoModeValid: boolean;
 		sudoModeToken: string | null;
 		instanceConfigRepository: InstanceConfigRepository;

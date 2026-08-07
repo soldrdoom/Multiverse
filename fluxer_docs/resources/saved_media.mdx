@@ -30,6 +30,7 @@ description: 'Saved media object schemas from the Fluxer API.'
 | Field | Type | Description |
 |-------|------|-------------|
 | alt_text? | ?string | Alternative text description for accessibility |
+| klipy_id? | ?[SnowflakeType](#snowflaketype) | Numeric Klipy clip ID, used to re-resolve the clip via the Klipy API when the meme is shared again |
 | klipy_slug? | ?string | Klipy clip slug if the URL is from Klipy |
 | name? | ?string | Display name for the meme |
 | tags? | ?string[] | Tags for categorizing and searching the meme |
@@ -68,6 +69,7 @@ Type: [FavoriteMemeResponse](#favoritememeresponse)[]
 | height? | ?integer (int53) | Height of the image or video in pixels |
 | id | [SnowflakeType](#snowflaketype) | Unique identifier for the favorite meme |
 | is_gifv? | boolean | Whether the meme is a video converted from GIF |
+| klipy_id? | ?[SnowflakeType](#snowflaketype) | Numeric Klipy clip ID if the meme was sourced from Klipy |
 | klipy_slug? | ?string | Klipy clip slug if the meme was sourced from Klipy |
 | name | string | Display name of the meme |
 | size | number | File size in bytes |

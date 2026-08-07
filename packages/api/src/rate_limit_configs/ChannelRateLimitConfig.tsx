@@ -96,6 +96,11 @@ export const ChannelRateLimitConfigs = {
 		config: {limit: 20, windowMs: ms('10 seconds')},
 	} as RouteRateLimitConfig,
 
+	CHANNEL_INTERACTION_CREATE: {
+		bucket: 'channel:interactions:create::channel_id',
+		config: {limit: 10, windowMs: ms('10 seconds')},
+	} as RouteRateLimitConfig,
+
 	CHANNEL_PINS: {
 		bucket: 'channel:pins::channel_id',
 		config: {limit: 20, windowMs: ms('10 seconds')},

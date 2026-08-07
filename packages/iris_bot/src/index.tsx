@@ -19,7 +19,9 @@
 
 import {createServer} from 'node:http';
 import {createClient, FluxerApiError} from '@fluxer/bot_sdk/src/index';
+import type {InteractionResponse} from '@fluxer/bot_sdk/src/types/Api.generated';
 import pino from 'pino';
+import {CommandRegistry} from './CommandRegistry';
 import {loadConfig} from './Config';
 import {type ChannelTypeResolver, MessageHandler, type MessageSender} from './MessageHandler';
 import {ApiModerationProvider} from './ModerationService';
@@ -71,6 +73,17 @@ async function main(): Promise<void> {
 	const priceProvider = new CoinGeckoPriceProvider();
 	const moderationProvider = new ApiModerationProvider(client);
 
+	// Unlike MessageHandler, CommandRegistry doesn't depend on the bot's own
+	// user id, so it's constructed once at startup rather than rebuilt on
+	// every READY — registerCommands() is what's re-run per READY below.
+	const commandRegistry = new CommandRegistry(
+		client.rest.baseUrl,
+		messageSender,
+		log,
+		priceProvider,
+		moderationProvider,
+	);
+
 	let botUserId: string | null = null;
 	let handler: MessageHandler | null = null;
 
@@ -78,16 +91,17 @@ async function main(): Promise<void> {
 		if (t === 'READY') {
 			const ready = d as {user: {id: string}};
 			botUserId = ready.user.id;
-			handler = new MessageHandler(
-				botUserId,
-				client.rest.baseUrl,
-				messageSender,
-				channelResolver,
-				log,
-				priceProvider,
-				moderationProvider,
-			);
+			handler = new MessageHandler(botUserId, client.rest.baseUrl, messageSender, channelResolver, log);
 			log.info({botUserId}, 'I.R.I.S. ready');
+			// Idempotent by construction (server-side diff-before-write), safe to
+			// re-run on every READY, including post-reconnect ones.
+			commandRegistry.registerCommands(client).catch((err) => {
+				log.error({err}, 'Failed to register application commands');
+			});
+			return;
+		}
+		if (t === 'INTERACTION_CREATE') {
+			commandRegistry.handleInteraction(d as InteractionResponse);
 			return;
 		}
 		// A RESUMED reconnect deliberately keeps the existing handler (and its

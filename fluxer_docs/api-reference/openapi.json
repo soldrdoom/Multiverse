@@ -19427,6 +19427,128 @@
         ]
       }
     },
+    "/applications/@me/commands": {
+      "put": {
+        "operationId": "bulk_overwrite_application_commands",
+        "summary": "Bulk overwrite application commands",
+        "tags": [
+          "OAuth2"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationCommandListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Bulk overwrite application commands"
+          }
+        },
+        "description": "Replaces the calling bot's full set of global application commands with the given set. Re-registering an identical set is a cheap no-op. Global commands are visible to every guild/DM the bot is present in; there is no per-guild command list.",
+        "security": [
+          {
+            "botToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkOverwriteCommandsRequest"
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/authorize-ip": {
       "post": {
         "operationId": "authorize_ip_address",
@@ -23811,6 +23933,160 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CallRingBodySchema"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/channels/{channel_id}/interactions": {
+      "post": {
+        "operationId": "create_application_command_interaction",
+        "summary": "Invoke a bot application command",
+        "tags": [
+          "Channels",
+          "Bots"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InteractionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Invoke a bot application command"
+          }
+        },
+        "description": "Invokes one of a bot's registered global application commands in a channel. Validates the given options against the command's declared option definitions and delivers an INTERACTION_CREATE dispatch directly to the bot's own gateway session (not a channel/guild broadcast). Returns an acknowledgment of the interaction, not the bot's reply — the bot replies with an ordinary message a moment later.",
+        "security": [
+          {
+            "sessionToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SnowflakeType"
+            },
+            "description": "The ID of the channel"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InteractionCreateRequest"
               }
             }
           }
@@ -62717,6 +62993,149 @@
         ]
       }
     },
+    "/users/{user_id}/application-commands": {
+      "get": {
+        "operationId": "list_user_application_commands",
+        "summary": "List a user’s application commands",
+        "tags": [
+          "OAuth2"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationCommandListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "List a user’s application commands"
+          }
+        },
+        "description": "Lists the global application commands registered by a user's bot. Always returns an empty array — never a 404 — for a non-bot user or a bot with nothing registered.",
+        "security": [
+          {
+            "sessionToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SnowflakeType"
+            },
+            "description": "The ID of the user"
+          }
+        ]
+      }
+    },
     "/vault/keys": {
       "post": {
         "operationId": "vault_register_key",
@@ -64793,6 +65212,7 @@
           "BOT_ALREADY_IN_GUILD",
           "BOT_APPLICATION_NOT_FOUND",
           "BOT_IS_PRIVATE",
+          "BOT_NOT_IN_CHANNEL",
           "BOT_USER_AUTH_ENDPOINT_ACCESS_DENIED",
           "BOT_USER_AUTH_SESSION_CREATION_DENIED",
           "BOT_USER_GENERATION_FAILED",
@@ -64866,7 +65286,9 @@
           "INTERNAL_SERVER_ERROR",
           "INVALID_ACLS_FORMAT",
           "INVALID_API_ORIGIN",
+          "INVALID_APPLICATION_COMMAND",
           "INVALID_AUTH_TOKEN",
+          "INVALID_INTERACTION_OPTION",
           "INVALID_BOT_FLAG",
           "INVALID_CAPTCHA",
           "INVALID_CHANNEL_TYPE_FOR_CALL",
@@ -65011,6 +65433,7 @@
           "TEMPORARY_INVITE_REQUIRES_PRESENCE",
           "TEST_HARNESS_DISABLED",
           "TEST_HARNESS_FORBIDDEN",
+          "TOO_MANY_APPLICATION_COMMANDS",
           "TWO_FA_NOT_ENABLED",
           "TWO_FACTOR_REQUIRED",
           "UNAUTHORIZED",
@@ -65024,6 +65447,7 @@
           "UNCLAIMED_ACCOUNT_CANNOT_SEND_DIRECT_MESSAGES",
           "UNCLAIMED_ACCOUNT_CANNOT_SEND_FRIEND_REQUESTS",
           "UNCLAIMED_ACCOUNT_CANNOT_SEND_MESSAGES",
+          "UNKNOWN_APPLICATION_COMMAND",
           "UNKNOWN_CHANNEL",
           "UNKNOWN_EMOJI",
           "UNKNOWN_FAVORITE_MEME",
@@ -65084,6 +65508,7 @@
           "Bot is already in this guild",
           "Bot application not found",
           "This bot is private and can only be invited by the owner",
+          "This bot is not present in this channel",
           "Bot users cannot access this authentication endpoint",
           "Bot users cannot create authentication sessions",
           "Failed to generate bot user",
@@ -65157,7 +65582,9 @@
           "Internal server error",
           "Invalid access control list format",
           "Invalid API origin",
+          "Invalid application command",
           "Invalid authentication token",
+          "Invalid interaction option",
           "Invalid bot flag",
           "Invalid captcha response",
           "Invalid channel type for call",
@@ -65302,6 +65729,7 @@
           "Temporary invite requires presence tracking",
           "Test harness is disabled",
           "Test harness access is forbidden",
+          "Too many application commands",
           "Two-factor authentication is not enabled",
           "Two-factor authentication is required",
           "Unauthorized",
@@ -65315,6 +65743,7 @@
           "Unclaimed accounts cannot send direct messages",
           "Unclaimed accounts cannot send friend requests",
           "Unclaimed accounts cannot send messages",
+          "Unknown application command",
           "Unknown channel",
           "Unknown emoji",
           "Unknown favourite meme",
@@ -73559,6 +73988,172 @@
         ],
         "description": "The bot user flags"
       },
+      "ApplicationCommandListResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ApplicationCommandResponse"
+        }
+      },
+      "ApplicationCommandResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The command name, lowercase letters/digits/underscores only"
+          },
+          "description": {
+            "type": "string",
+            "description": "A short description of what the command does"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationCommandOptionSchema"
+            },
+            "maxItems": 25,
+            "description": "The typed options this command accepts"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)$",
+            "description": "The unique identifier of the command"
+          },
+          "application_id": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)$",
+            "description": "The command's owning application"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "id",
+          "application_id"
+        ]
+      },
+      "ApplicationCommandOptionSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The option name, as referenced in the options map"
+          },
+          "description": {
+            "type": "string",
+            "description": "A short description of the option"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ApplicationCommandOptionTypeSchema"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the option must be supplied to invoke the command"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationCommandOptionChoiceSchema"
+            },
+            "maxItems": 25,
+            "description": "A closed set of accepted values for this option"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "type"
+        ]
+      },
+      "ApplicationCommandOptionTypeSchema": {
+        "type": "string",
+        "enum": [
+          "STRING",
+          "INTEGER",
+          "USER",
+          "CHANNEL",
+          "BOOLEAN"
+        ],
+        "x-enumNames": [
+          "STRING",
+          "INTEGER",
+          "USER",
+          "CHANNEL",
+          "BOOLEAN"
+        ],
+        "x-enumDescriptions": [
+          "A text value",
+          "A whole number value",
+          "A user ID, resolved against who/what is visible in the invoking context",
+          "A channel ID, resolved against what is visible in the invoking context",
+          "A true/false value"
+        ],
+        "description": "The data type of a command option"
+      },
+      "ApplicationCommandOptionChoiceSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The user-facing label for this choice"
+          },
+          "value": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "description": "The value submitted when this choice is picked"
+          }
+        },
+        "required": [
+          "name",
+          "value"
+        ]
+      },
+      "BulkOverwriteCommandsRequest": {
+        "type": "object",
+        "properties": {
+          "commands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationCommandSchema"
+            },
+            "maxItems": 100,
+            "description": "The full set of global commands to register, replacing any existing set"
+          }
+        },
+        "required": [
+          "commands"
+        ]
+      },
+      "ApplicationCommandSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The command name, lowercase letters/digits/underscores only"
+          },
+          "description": {
+            "type": "string",
+            "description": "A short description of what the command does"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationCommandOptionSchema"
+            },
+            "maxItems": 25,
+            "description": "The typed options this command accepts"
+          }
+        },
+        "required": [
+          "name",
+          "description"
+        ]
+      },
       "AuthorizeIpRequest": {
         "type": "object",
         "properties": {
@@ -75386,6 +75981,181 @@
             },
             "description": "User IDs to ring for the call"
           }
+        }
+      },
+      "InteractionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)$",
+            "description": "The unique identifier of this interaction"
+          },
+          "application_id": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)$",
+            "description": "The invoked command’s owning application"
+          },
+          "channel_id": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)$",
+            "description": "The channel the command was invoked in"
+          },
+          "guild_id": {
+            "$ref": "#/components/schemas/SnowflakeType"
+          },
+          "command": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The invoked command’s name"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "options": {
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            "description": "The validated option values the command was invoked with"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]*)$",
+                "description": "The unique identifier (snowflake) for this user"
+              },
+              "username": {
+                "type": "string",
+                "description": "The username of the user, not unique across the platform"
+              },
+              "discriminator": {
+                "type": "string",
+                "description": "The four-digit discriminator tag of the user"
+              },
+              "global_name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "The display name of the user, if set"
+              },
+              "avatar": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "The hash of the user avatar image"
+              },
+              "avatar_color": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/Int32Type"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "The dominant avatar color of the user as an integer"
+              },
+              "bot": {
+                "type": "boolean",
+                "description": "Whether the user is a bot account"
+              },
+              "system": {
+                "type": "boolean",
+                "description": "Whether the user is an official system user"
+              },
+              "flags": {
+                "$ref": "#/components/schemas/PublicUserFlags"
+              }
+            },
+            "required": [
+              "id",
+              "username",
+              "discriminator",
+              "global_name",
+              "avatar",
+              "avatar_color",
+              "flags"
+            ],
+            "description": "The user who invoked the command"
+          }
+        },
+        "required": [
+          "id",
+          "application_id",
+          "channel_id",
+          "command",
+          "options",
+          "user"
+        ]
+      },
+      "InteractionCreateRequest": {
+        "type": "object",
+        "properties": {
+          "bot_user_id": {
+            "$ref": "#/components/schemas/SnowflakeType"
+          },
+          "command_name": {
+            "type": "string",
+            "description": "The name of the registered command to invoke"
+          },
+          "options": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InteractionOptionsSchema"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The option values to pass to the command"
+          }
+        },
+        "required": [
+          "bot_user_id",
+          "command_name"
+        ]
+      },
+      "InteractionOptionsSchema": {
+        "type": "object",
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
         }
       },
       "InviteMetadataResponseSchema": {
@@ -78396,6 +79166,17 @@
               }
             ],
             "description": "Klipy clip slug if the meme was sourced from Klipy"
+          },
+          "klipy_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Numeric Klipy clip ID if the meme was sourced from Klipy"
           },
           "tenor_slug_id": {
             "anyOf": [
@@ -82637,6 +83418,10 @@
             "type": "string",
             "description": "The unique Klipy clip slug"
           },
+          "klipy_id": {
+            "type": "string",
+            "description": "The numeric Klipy clip ID, used to look the clip back up via the Klipy API"
+          },
           "title": {
             "type": "string",
             "description": "The title/description of the clip"
@@ -82670,6 +83455,7 @@
         },
         "required": [
           "id",
+          "klipy_id",
           "title",
           "url",
           "src",
@@ -88230,6 +89016,17 @@
             ],
             "description": "Klipy clip slug if the URL is from Klipy"
           },
+          "klipy_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Numeric Klipy clip ID, used to re-resolve the clip via the Klipy API when the meme is shared again"
+          },
           "tenor_slug_id": {
             "anyOf": [
               {
@@ -91808,6 +92605,9 @@
     },
     {
       "name": "Connections"
+    },
+    {
+      "name": "Bots"
     },
     {
       "name": "Messages"

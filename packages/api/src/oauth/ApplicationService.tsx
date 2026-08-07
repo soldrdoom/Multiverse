@@ -36,6 +36,7 @@ import {remapAuthorMessagesToDeletedUser} from '@fluxer/api/src/oauth/Applicatio
 import type {BotAuthService} from '@fluxer/api/src/oauth/BotAuthService';
 import type {BotTokenService} from '@fluxer/api/src/oauth/BotTokenService';
 import {DEFAULT_BOT_TOKEN_NAME} from '@fluxer/api/src/oauth/BotTokenService';
+import type {IApplicationCommandRepository} from '@fluxer/api/src/oauth/repositories/IApplicationCommandRepository';
 import type {IApplicationRepository} from '@fluxer/api/src/oauth/repositories/IApplicationRepository';
 import type {ITeamRepository} from '@fluxer/api/src/oauth/repositories/ITeamRepository';
 import type {IUserRepository} from '@fluxer/api/src/user/IUserRepository';
@@ -56,6 +57,7 @@ export interface ApplicationServiceDeps {
 	userRepository: IUserRepository;
 	snowflakeService: SnowflakeService;
 	applicationRepository: IApplicationRepository;
+	applicationCommandRepository: IApplicationCommandRepository;
 	teamRepository: ITeamRepository;
 	applicationAccessService: ApplicationAccessService;
 	botAuthService: BotAuthService;
@@ -396,6 +398,13 @@ export class ApplicationService {
 
 		if (application.hasBotUser()) {
 			const botUserId = application.getBotUserId()!;
+
+			// application_commands is keyed on bot_user_id, not application_id, and
+			// so does not cascade automatically. Without this, a deleted bot's
+			// commands would linger as ghost autocomplete entries visible to
+			// clients via GET /users/:user_id/application-commands.
+			await this.deps.applicationCommandRepository.deleteAllForBotUser(botUserId);
+
 			const replacementAuthorId = await remapAuthorMessagesToDeletedUser({
 				originalAuthorId: botUserId,
 				channelRepository: this.deps.channelRepository,

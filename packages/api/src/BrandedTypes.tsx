@@ -44,6 +44,7 @@ export type ReportID = Brand<bigint, 'ReportID'>;
 export type NewsStoryID = Brand<bigint, 'NewsStoryID'>;
 export type MemeID = Brand<bigint, 'MemeID'>;
 export type ApplicationID = Brand<bigint, 'ApplicationID'>;
+export type ApplicationCommandID = Brand<bigint, 'ApplicationCommandID'>;
 
 export type InviteCode = Brand<string, 'InviteCode'>;
 export type VanityURLCode = Brand<string, 'VanityURLCode'>;
@@ -95,6 +96,11 @@ export function createMemeID<T extends bigint>(id: T extends BrandedValue ? neve
 }
 export function createApplicationID<T extends bigint>(id: T extends BrandedValue ? never : T): ApplicationID {
 	return brand<T, 'ApplicationID'>(id);
+}
+export function createApplicationCommandID<T extends bigint>(
+	id: T extends BrandedValue ? never : T,
+): ApplicationCommandID {
+	return brand<T, 'ApplicationCommandID'>(id);
 }
 
 export function createInviteCode<T extends string>(code: T extends BrandedValue ? never : T): InviteCode {

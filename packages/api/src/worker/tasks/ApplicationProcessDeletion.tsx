@@ -51,6 +51,7 @@ const applicationProcessDeletion: WorkerTaskHandler = async (payload, helpers) =
 		guildRepository,
 		channelRepository,
 		applicationRepository,
+		applicationCommandRepository,
 		userCacheService,
 		gatewayService,
 		snowflakeService,
@@ -82,6 +83,14 @@ const applicationProcessDeletion: WorkerTaskHandler = async (payload, helpers) =
 				},
 				'Bot user already marked as deleted, skipping profile update',
 			);
+			// application_commands is keyed on bot_user_id, not application_id, and so
+			// does not cascade automatically. Without this, a deleted bot's commands
+			// would linger as ghost autocomplete entries visible via
+			// GET /users/:user_id/application-commands (see ApplicationService.deleteApplication
+			// for the equivalent cleanup on the direct-delete path).
+			if (application.hasBotUser()) {
+				await applicationCommandRepository.deleteAllForBotUser(application.getBotUserId()!);
+			}
 			await applicationRepository.deleteApplication(applicationId);
 			return;
 		}
@@ -148,6 +157,15 @@ const applicationProcessDeletion: WorkerTaskHandler = async (payload, helpers) =
 		}
 
 		Logger.debug({applicationId, botUserId, totalGuilds: guildIds.length}, 'Completed guild member updates');
+
+		// application_commands is keyed on bot_user_id, not application_id, and so
+		// does not cascade automatically. Without this, a deleted bot's commands
+		// would linger as ghost autocomplete entries visible via
+		// GET /users/:user_id/application-commands (see ApplicationService.deleteApplication
+		// for the equivalent cleanup on the direct-delete path).
+		if (application.hasBotUser()) {
+			await applicationCommandRepository.deleteAllForBotUser(application.getBotUserId()!);
+		}
 
 		Logger.debug({applicationId}, 'Deleting application from database');
 		await applicationRepository.deleteApplication(applicationId);

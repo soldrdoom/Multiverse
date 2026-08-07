@@ -18,8 +18,6 @@
  */
 
 import type {Logger} from 'pino';
-import {MASS_DELETE_MAX, type ModerationProvider} from './ModerationService';
-import type {PriceProvider} from './SolPriceService';
 
 /**
  * The message-sending contract this handler was written against (the deleted
@@ -79,52 +77,9 @@ const PLATFORM_DEFLECTION =
 const LIGHTWEIGHT_REPLY =
 	"I'm running in lightweight mode right now, so I can't hold a real conversation — but I'm still here, and smarter days are coming!";
 
-// I.R.I.S.'s first real command. Unlike the canned deflection/lightweight
-// replies above, /sol answers in guild channels too, not just DMs — it's a
-// deliberate exception to the "guild traffic is read but never answered"
-// rule below, not a loosening of it.
-const SOL_COMMAND_PATTERN = /^\/sol$/i;
-const SOL_PRICE_ERROR_REPLY = "Couldn't fetch the SOL price right now — try again in a bit.";
-
-// I.R.I.S.'s first destructive command, gated on guild Administrator (owner
-// or a role with the ADMINISTRATOR bit — see ModerationService.tsx). Like
-// /sol it only makes sense outside DMs, but unlike /sol it stays inside the
-// guild gate below: it's meaningless without a guild to check permissions
-// against, so it doesn't need a bypass.
-const MASS_COMMAND_PATTERN = /^\/mass(?:\s+(\d+))?$/i;
-const MASS_FORBIDDEN_REPLY = 'Only server administrators can use /mass.';
-// Kept distinct from MASS_DELETE_ERROR_REPLY on purpose: a permission-check
-// failure means I.R.I.S. itself couldn't read guild/role data (its own bot
-// role is missing a permission, e.g. Manage Roles), which is a different fix
-// than a delete failure (its bot role is missing Manage Messages/Admin) —
-// collapsing these into one message cost a live-log dive to tell apart once.
-const MASS_PERMISSION_CHECK_ERROR_REPLY = "Couldn't verify your permissions right now — try again in a bit.";
-const MASS_DELETE_ERROR_REPLY = 'Something went wrong deleting those messages — try again in a bit.';
-
 function mentionsPlatform(content: string): boolean {
 	const lower = content.toLowerCase();
 	return PLATFORM_KEYWORDS.some((keyword) => lower.includes(keyword));
-}
-
-function isSolCommand(content: string): boolean {
-	return SOL_COMMAND_PATTERN.test(content.trim());
-}
-
-function formatSolPriceReply(usd: number, change24h: number): string {
-	const arrow = change24h >= 0 ? '▲' : '▼';
-	return `SOL is currently $${usd.toFixed(2)} USD (${arrow} ${Math.abs(change24h).toFixed(2)}% 24h)`;
-}
-
-/** `undefined` = not a /mass invocation at all; `null` = /mass with no/bad count; else the parsed count. */
-function parseMassCommand(content: string): number | null | undefined {
-	const match = MASS_COMMAND_PATTERN.exec(content.trim());
-	if (!match) return undefined;
-	if (match[1] === undefined) return null;
-	return Number(match[1]);
-}
-
-function massUsageReply(): string {
-	return `Usage: /mass <count> — deletes the command message plus the <count> messages before it in this channel (1-${MASS_DELETE_MAX}). Server administrators only.`;
 }
 
 export class MessageHandler {
@@ -136,8 +91,6 @@ export class MessageHandler {
 		private readonly restClient: MessageSender,
 		private readonly channelResolver: ChannelTypeResolver,
 		private readonly log: Logger,
-		private readonly priceProvider: PriceProvider,
-		private readonly moderationProvider: ModerationProvider,
 	) {}
 
 	handleDispatch(eventType: string, data: unknown): void {
@@ -158,19 +111,9 @@ export class MessageHandler {
 			return;
 		}
 
-		// Checked ahead of the guild gate below: /sol is the one command that
-		// answers in guild channels too, not just DMs.
-		if (isSolCommand(message.content)) {
-			await this.handleSolCommand(message.channel_id);
-			return;
-		}
-
 		if (message.guild_id) {
-			const massCount = parseMassCommand(message.content);
-			if (massCount !== undefined) {
-				await this.handleMassCommand(message, message.guild_id, massCount);
-			}
-			// Guild traffic is read but never answered (beyond /sol and /mass).
+			// Guild traffic is read but never answered — /sol and /mass moved to
+			// CommandRegistry.tsx, driven by INTERACTION_CREATE, not this path.
 			return;
 		}
 
@@ -183,62 +126,6 @@ export class MessageHandler {
 
 		const reply = mentionsPlatform(message.content) ? PLATFORM_DEFLECTION : LIGHTWEIGHT_REPLY;
 		await this.restClient.sendMessage(this.apiBaseUrl, message.channel_id, reply);
-	}
-
-	private async handleSolCommand(channelId: string): Promise<void> {
-		this.log.info({channelId}, 'Handling /sol command');
-		try {
-			const {usd, change24h} = await this.priceProvider.getSolPrice();
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, formatSolPriceReply(usd, change24h));
-		} catch (err) {
-			this.log.error({err, channelId}, 'Failed to fetch SOL price');
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, SOL_PRICE_ERROR_REPLY);
-		}
-	}
-
-	private async handleMassCommand(message: MessageCreatePayload, guildId: string, count: number | null): Promise<void> {
-		const {channel_id: channelId, author} = message;
-
-		if (count === null) {
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, massUsageReply());
-			return;
-		}
-		if (!Number.isInteger(count) || count < 1 || count > MASS_DELETE_MAX) {
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, massUsageReply());
-			return;
-		}
-
-		this.log.info({guildId, channelId, requestedBy: author.id, count}, '/mass command invoked');
-
-		let isAdmin: boolean;
-		try {
-			isAdmin = await this.moderationProvider.isGuildAdministrator(guildId, author.id);
-		} catch (err) {
-			this.log.error({err, guildId, channelId, requestedBy: author.id}, 'Failed to verify /mass permission');
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, MASS_PERMISSION_CHECK_ERROR_REPLY);
-			return;
-		}
-		if (!isAdmin) {
-			this.log.warn(
-				{guildId, channelId, requestedBy: author.id},
-				'/mass denied: requester is not a server administrator',
-			);
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, MASS_FORBIDDEN_REPLY);
-			return;
-		}
-
-		try {
-			const deletedCount = await this.moderationProvider.massDeleteMessages({
-				channelId,
-				commandMessageId: message.id,
-				count,
-			});
-			this.log.info({guildId, channelId, requestedBy: author.id, deletedCount}, '/mass completed');
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, `🗑️ Deleted up to ${deletedCount} message(s).`);
-		} catch (err) {
-			this.log.error({err, guildId, channelId, requestedBy: author.id}, '/mass failed');
-			await this.restClient.sendMessage(this.apiBaseUrl, channelId, MASS_DELETE_ERROR_REPLY);
-		}
 	}
 
 	private async isDirectMessageChannel(channelId: string): Promise<boolean> {

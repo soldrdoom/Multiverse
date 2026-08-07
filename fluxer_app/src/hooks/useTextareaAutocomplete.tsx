@@ -35,6 +35,7 @@ import {
 	isSpecialMention,
 	isSticker,
 } from '@app/components/channel/Autocomplete';
+import {useBotCommands} from '@app/hooks/useBotCommands';
 import type {Command} from '@app/hooks/useCommands';
 import {useCommands} from '@app/hooks/useCommands';
 import {ComponentDispatch} from '@app/lib/ComponentDispatch';
@@ -363,6 +364,7 @@ export function useTextareaAutocomplete({
 }: UseTextareaAutocompleteParams): UseTextareaAutocompleteReturn {
 	const {i18n} = useLingui();
 	const commands = useCommands();
+	const botCommands = useBotCommands(channel);
 
 	const [autocompleteOptions, setAutocompleteOptions] = useState<Array<AutocompleteOption>>([]);
 	const [autocompleteType, setAutocompleteType] = useState<AutocompleteType>('mention');
@@ -676,6 +678,7 @@ export function useTextareaAutocomplete({
 	const canUseCommand = useCallback(
 		(command: Command) => {
 			if (command.type === 'simple') return true;
+			if (command.type === 'bot') return true;
 			if (!channel) return false;
 			if (command.requiresGuild && !channel.guildId) return false;
 			if (command.permission) {
@@ -849,7 +852,9 @@ export function useTextareaAutocomplete({
 
 			case 'command': {
 				setAutocompleteType('command');
-				const filteredCommands = filterCommandsByQuery(commands, matchedText ?? '').filter(canUseCommand);
+				const filteredCommands = filterCommandsByQuery([...commands, ...botCommands], matchedText ?? '').filter(
+					canUseCommand,
+				);
 				options = filteredCommands.map((command) => ({
 					type: 'command' as const,
 					command,
@@ -947,6 +952,8 @@ export function useTextareaAutocomplete({
 		i18n,
 		expressionDataVersion,
 		permissionVersion,
+		commands,
+		botCommands,
 	]);
 
 	const handleSelect = useCallback(

@@ -17,7 +17,7 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import type {MessageResponseSchema} from '../types/Api.generated';
+import type {InteractionResponse, MessageResponseSchema} from '../types/Api.generated';
 
 /**
  * Typed map of gateway DISPATCH events. The event list is derived from
@@ -104,6 +104,7 @@ export interface GatewayDispatchEvents {
 	CALL_CREATE: unknown;
 	CALL_UPDATE: unknown;
 	CALL_DELETE: unknown;
+	INTERACTION_CREATE: InteractionResponse;
 }
 
 export type GatewayDispatchEventName = keyof GatewayDispatchEvents;

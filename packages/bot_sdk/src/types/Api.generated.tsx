@@ -122,6 +122,7 @@ export type APIErrorCode =
 	| 'BOT_ALREADY_IN_GUILD'
 	| 'BOT_APPLICATION_NOT_FOUND'
 	| 'BOT_IS_PRIVATE'
+	| 'BOT_NOT_IN_CHANNEL'
 	| 'BOT_USER_AUTH_ENDPOINT_ACCESS_DENIED'
 	| 'BOT_USER_AUTH_SESSION_CREATION_DENIED'
 	| 'BOT_USER_GENERATION_FAILED'
@@ -195,7 +196,9 @@ export type APIErrorCode =
 	| 'INTERNAL_SERVER_ERROR'
 	| 'INVALID_ACLS_FORMAT'
 	| 'INVALID_API_ORIGIN'
+	| 'INVALID_APPLICATION_COMMAND'
 	| 'INVALID_AUTH_TOKEN'
+	| 'INVALID_INTERACTION_OPTION'
 	| 'INVALID_BOT_FLAG'
 	| 'INVALID_CAPTCHA'
 	| 'INVALID_CHANNEL_TYPE_FOR_CALL'
@@ -340,6 +343,7 @@ export type APIErrorCode =
 	| 'TEMPORARY_INVITE_REQUIRES_PRESENCE'
 	| 'TEST_HARNESS_DISABLED'
 	| 'TEST_HARNESS_FORBIDDEN'
+	| 'TOO_MANY_APPLICATION_COMMANDS'
 	| 'TWO_FA_NOT_ENABLED'
 	| 'TWO_FACTOR_REQUIRED'
 	| 'UNAUTHORIZED'
@@ -353,6 +357,7 @@ export type APIErrorCode =
 	| 'UNCLAIMED_ACCOUNT_CANNOT_SEND_DIRECT_MESSAGES'
 	| 'UNCLAIMED_ACCOUNT_CANNOT_SEND_FRIEND_REQUESTS'
 	| 'UNCLAIMED_ACCOUNT_CANNOT_SEND_MESSAGES'
+	| 'UNKNOWN_APPLICATION_COMMAND'
 	| 'UNKNOWN_CHANNEL'
 	| 'UNKNOWN_EMOJI'
 	| 'UNKNOWN_FAVORITE_MEME'
@@ -1672,6 +1677,34 @@ export type ApplicationBotResponse = {
 };
 export type AuthenticatorType = 0 | 1 | 2;
 export type BotFlags = number;
+export type ApplicationCommandListResponse = Array<ApplicationCommandResponse>;
+export type ApplicationCommandResponse = {
+	name: string;
+	description: string;
+	options?: Array<ApplicationCommandOptionSchema>;
+	id: string;
+	application_id: string;
+};
+export type ApplicationCommandOptionSchema = {
+	name: string;
+	description: string;
+	type: ApplicationCommandOptionTypeSchema;
+	required?: boolean;
+	choices?: Array<ApplicationCommandOptionChoiceSchema>;
+};
+export type ApplicationCommandOptionTypeSchema = 'STRING' | 'INTEGER' | 'USER' | 'CHANNEL' | 'BOOLEAN';
+export type ApplicationCommandOptionChoiceSchema = {
+	name: string;
+	value: string | number;
+};
+export type BulkOverwriteCommandsRequest = {
+	commands: Array<ApplicationCommandSchema>;
+};
+export type ApplicationCommandSchema = {
+	name: string;
+	description: string;
+	options?: Array<ApplicationCommandOptionSchema>;
+};
 export type AuthorizeIpRequest = {
 	token: string;
 };
@@ -1939,6 +1972,33 @@ export type CallUpdateBodySchema = {
 export type CallRingBodySchema = {
 	recipients?: Array<SnowflakeType>;
 };
+export type InteractionResponse = {
+	id: string;
+	application_id: string;
+	channel_id: string;
+	guild_id?: SnowflakeType;
+	command: {
+		name: string;
+	};
+	options: Record<string, string | number | boolean>;
+	user: {
+		id: string;
+		username: string;
+		discriminator: string;
+		global_name: string | null;
+		avatar: string | null;
+		avatar_color: Int32Type | null;
+		bot?: boolean;
+		system?: boolean;
+		flags: PublicUserFlags;
+	};
+};
+export type InteractionCreateRequest = {
+	bot_user_id: SnowflakeType;
+	command_name: string;
+	options?: InteractionOptionsSchema | null;
+};
+export type InteractionOptionsSchema = Record<string, string | number | boolean>;
 export type InviteMetadataResponseSchema =
 	| GuildInviteMetadataResponse
 	| GroupDmInviteMetadataResponse
@@ -2297,6 +2357,7 @@ export type FavoriteMemeResponse = {
 	url: string;
 	is_gifv?: boolean;
 	klipy_slug?: string | null;
+	klipy_id?: string | null;
 	tenor_slug_id?: string | null;
 };
 export type CreateFavoriteMemeBodySchema = {
@@ -2986,6 +3047,7 @@ export type KlipyFeaturedResponse = {
 };
 export type KlipyGifResponse = {
 	id: string;
+	klipy_id: string;
 	title: string;
 	url: string;
 	src: string;
@@ -3047,6 +3109,19 @@ export type NewsStoryResponse = {
 	body: string;
 	image_url: string | null;
 	published_at: string;
+	up_votes: number;
+	down_votes: number;
+	my_vote: NewsVoteDirectionType | null;
+};
+export type NewsVoteDirectionType = 'up' | 'down';
+export type NewsStoryVoteResponse = {
+	story_id: string;
+	up_votes: number;
+	down_votes: number;
+	my_vote: NewsVoteDirectionType | null;
+};
+export type NewsStoryVoteRequest = {
+	direction: NewsVoteDirectionType | null;
 };
 export type OAuth2MeResponse = {
 	application: {
@@ -3946,6 +4021,7 @@ export type CreateFavoriteMemeFromUrlBodySchema = {
 	tags?: Array<string> | null;
 	url: string;
 	klipy_slug?: string | null;
+	klipy_id?: string | null;
 	tenor_slug_id?: string | null;
 	name?: string | null;
 };
