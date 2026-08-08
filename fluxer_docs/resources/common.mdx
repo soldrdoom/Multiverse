@@ -154,6 +154,24 @@ Type: [ConnectionResponse](#connectionresponse)[]
 | `rejected` | - |
 | `delisted` | - |
 
+<a id="cosmeticsinvoiceresponse"></a>
+
+## CosmeticsInvoiceResponse
+
+**Related endpoints**
+
+- [`POST /cosmetics/store/{itemId}/invoice`](/api-reference/cosmetics/create-a-purchase-invoice-for-a-cosmetic-item)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| creator_lamports | integer (int53) |  |
+| creator_wallet | string |  |
+| item_id | [SnowflakeType](#snowflaketype) |  |
+| platform_lamports | integer (int53) |  |
+| platform_wallet | string |  |
+| purchase_id | [SnowflakeType](#snowflaketype) |  |
+| recent_blockhash | string |  |
+
 <a id="cosmeticsstoreresponse"></a>
 
 ## CosmeticsStoreResponse
@@ -486,6 +504,7 @@ Type: string
 |-------|------|-------------|
 | buyer_address | string |  |
 | item_id | [SnowflakeType](#snowflaketype) |  |
+| purchase_id? | [SnowflakeType](#snowflaketype) |  |
 | tx_signature | string |  |
 
 <a id="purchasecosmeticresponse"></a>
@@ -498,8 +517,11 @@ Type: string
 
 | Field | Type | Description |
 |-------|------|-------------|
-| nft | [PurchaseCosmeticResponseNft](#purchasecosmeticresponsenft) |  |
+| minted | boolean |  |
+| nft | ?[PurchaseCosmeticResponseNft](#purchasecosmeticresponsenft) |  |
 | ok | boolean |  |
+| paid | boolean |  |
+| purchase_id | [SnowflakeType](#snowflaketype) |  |
 
 <a id="renderspoilers"></a>
 

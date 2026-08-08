@@ -335,6 +335,33 @@ Type: Bitflags32
 | NOBODY | `16` | Block all incoming calls |
 | SILENT_EVERYONE | `32` | Allow calls from everyone but receive them silently |
 
+<a id="linksolanawalletrequest"></a>
+
+## LinkSolanaWalletRequest
+
+**Related endpoints**
+
+- [`POST /users/@me/solana-wallet`](/api-reference/users/link-a-solana-wallet)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| address | string | Base58-encoded Solana wallet address to link to this account |
+| nonce | string | Nonce previously issued by POST /auth/solana/nonce for this address |
+| signature | string | Base64-encoded Ed25519 signature over the challenge message |
+| signedMessage? | string | Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard signIn() wallet |
+
+<a id="linksolanawalletresponse"></a>
+
+## LinkSolanaWalletResponse
+
+**Related endpoints**
+
+- [`POST /users/@me/solana-wallet`](/api-reference/users/link-a-solana-wallet)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| solana_address | string | The Solana wallet address now linked to this account |
+
 <a id="messagelistresponse"></a>
 
 ## MessageListResponse

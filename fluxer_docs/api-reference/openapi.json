@@ -29733,6 +29733,148 @@
         ]
       }
     },
+    "/cosmetics/store/{itemId}/invoice": {
+      "post": {
+        "operationId": "create_cosmetic_invoice",
+        "summary": "Create a purchase invoice for a cosmetic item",
+        "tags": [
+          "Cosmetics"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CosmeticsInvoiceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Create a purchase invoice for a cosmetic item"
+          }
+        },
+        "security": [
+          {
+            "sessionToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The itemId"
+          }
+        ]
+      }
+    },
     "/creators/@me": {
       "get": {
         "operationId": "get_creator_status",
@@ -61844,6 +61986,148 @@
         }
       }
     },
+    "/users/@me/solana-wallet": {
+      "post": {
+        "operationId": "link_solana_wallet",
+        "summary": "Link a Solana wallet",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkSolanaWalletResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - The request was malformed or contained invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication is required or the token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to perform this action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - You are being rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RATE_LIMITED"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "number",
+                      "description": "Seconds to wait before retrying"
+                    },
+                    "global": {
+                      "type": "boolean",
+                      "description": "Whether this is a global rate limit"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retry_after"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying (only on 429)",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "The number of requests that can be made in the current window",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests that can be made",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp when the rate limit resets",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "metadata": {
+            "title": "Link a Solana wallet"
+          }
+        },
+        "description": "Links a Solana wallet to the authenticated account. Proves ownership via the same signed-nonce flow used by Sign-In With Solana (POST /auth/solana/nonce for the nonce, then a wallet signature over it) rather than trusting a client-reported address. Only supports first-time linking: re-linking the wallet already on this account is a harmless no-op, linking a wallet already claimed by a different account is rejected, and switching to a different wallet once one is already linked on this account is also rejected.",
+        "security": [
+          {
+            "sessionToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkSolanaWalletRequest"
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/@me/sudo/mfa-methods": {
       "get": {
         "operationId": "list_sudo_mfa_methods",
@@ -65425,6 +65709,9 @@
           "DONATION_MAGIC_LINK_INVALID",
           "DONATION_MAGIC_LINK_USED",
           "DONOR_NOT_FOUND",
+          "SOLANA_WALLET_ALREADY_LINKED",
+          "SOLANA_WALLET_ALREADY_OWNED",
+          "SOLANA_WALLET_VERIFICATION_FAILED",
           "SUDO_MODE_REQUIRED",
           "TAG_ALREADY_TAKEN",
           "TEAM_MEMBER_ALREADY_EXISTS",
@@ -65721,6 +66008,9 @@
           "Invalid donation magic link",
           "Donation magic link has already been used",
           "Donor was not found",
+          "This wallet is already linked to another account",
+          "Your account already has a linked wallet",
+          "Could not verify ownership of this wallet",
           "Sudo mode is required for this action",
           "This tag is already taken",
           "That user is already a member of this team or has a pending invite",
@@ -79454,57 +79744,76 @@
           "ok": {
             "type": "boolean"
           },
+          "purchase_id": {
+            "type": "string"
+          },
+          "paid": {
+            "type": "boolean"
+          },
+          "minted": {
+            "type": "boolean"
+          },
           "nft": {
-            "type": "object",
-            "properties": {
-              "mint": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "image": {
-                "anyOf": [
-                  {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "mint": {
                     "type": "string"
                   },
-                  {
-                    "type": "null"
+                  "name": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "cosmetic_type": {
+                    "type": "string"
+                  },
+                  "rarity": {
+                    "enum": [
+                      "common",
+                      "uncommon",
+                      "rare",
+                      "epic",
+                      "legendary"
+                    ],
+                    "type": "string",
+                    "x-enumNames": [
+                      "common",
+                      "uncommon",
+                      "rare",
+                      "epic",
+                      "legendary"
+                    ]
                   }
+                },
+                "required": [
+                  "mint",
+                  "name",
+                  "image",
+                  "cosmetic_type",
+                  "rarity"
                 ]
               },
-              "cosmetic_type": {
-                "type": "string"
-              },
-              "rarity": {
-                "enum": [
-                  "common",
-                  "uncommon",
-                  "rare",
-                  "epic",
-                  "legendary"
-                ],
-                "type": "string",
-                "x-enumNames": [
-                  "common",
-                  "uncommon",
-                  "rare",
-                  "epic",
-                  "legendary"
-                ]
+              {
+                "type": "null"
               }
-            },
-            "required": [
-              "mint",
-              "name",
-              "image",
-              "cosmetic_type",
-              "rarity"
             ]
           }
         },
         "required": [
           "ok",
+          "purchase_id",
+          "paid",
+          "minted",
           "nft"
         ]
       },
@@ -79523,6 +79832,10 @@
             "type": "string",
             "minLength": 32,
             "maxLength": 64
+          },
+          "purchase_id": {
+            "type": "string",
+            "minLength": 1
           }
         },
         "required": [
@@ -79618,6 +79931,43 @@
           "rarity",
           "price_lamports",
           "collection_address"
+        ]
+      },
+      "CosmeticsInvoiceResponse": {
+        "type": "object",
+        "properties": {
+          "purchase_id": {
+            "type": "string"
+          },
+          "creator_wallet": {
+            "type": "string"
+          },
+          "creator_lamports": {
+            "type": "integer",
+            "format": "int53"
+          },
+          "platform_wallet": {
+            "type": "string"
+          },
+          "platform_lamports": {
+            "type": "integer",
+            "format": "int53"
+          },
+          "recent_blockhash": {
+            "type": "string"
+          },
+          "item_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "purchase_id",
+          "creator_wallet",
+          "creator_lamports",
+          "platform_wallet",
+          "platform_lamports",
+          "recent_blockhash",
+          "item_id"
         ]
       },
       "CreatorStatusResponse": {
@@ -90780,6 +91130,44 @@
             "description": "Unicode emoji or custom emoji name"
           }
         }
+      },
+      "LinkSolanaWalletResponse": {
+        "type": "object",
+        "properties": {
+          "solana_address": {
+            "type": "string",
+            "description": "The Solana wallet address now linked to this account"
+          }
+        },
+        "required": [
+          "solana_address"
+        ]
+      },
+      "LinkSolanaWalletRequest": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Base58-encoded Solana wallet address to link to this account"
+          },
+          "signature": {
+            "type": "string",
+            "description": "Base64-encoded Ed25519 signature over the challenge message"
+          },
+          "nonce": {
+            "type": "string",
+            "description": "Nonce previously issued by POST /auth/solana/nonce for this address"
+          },
+          "signedMessage": {
+            "type": "string",
+            "description": "Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard signIn() wallet"
+          }
+        },
+        "required": [
+          "address",
+          "signature",
+          "nonce"
+        ]
       },
       "SudoMfaMethodsResponse": {
         "type": "object",
