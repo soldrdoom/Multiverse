@@ -214,6 +214,7 @@ export class User {
 			deletion_reason_code: this.deletionReasonCode,
 			deletion_public_reason: this.deletionPublicReason,
 			deletion_audit_log_reason: this.deletionAuditLogReason,
+			solana_address: this.solanaAddress,
 			acls: this.acls.size > 0 ? this.acls : null,
 			traits: this._traits.size > 0 ? this._traits : null,
 			first_refund_at: this.firstRefundAt,
