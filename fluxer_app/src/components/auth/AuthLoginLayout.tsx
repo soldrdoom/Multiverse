@@ -39,6 +39,7 @@ import SolanaWalletStore from '@app/stores/SolanaWalletStore';
 import VaultStore from '@app/stores/VaultStore';
 import {isDesktop} from '@app/utils/NativeUtils';
 import * as RouterUtils from '@app/utils/RouterUtils';
+import {getSolanaWalletProvider, uint8ArrayToBase64} from '@app/utils/solana/SolanaWalletProvider';
 import {type IpAuthorizationChallenge, type LoginSuccessPayload, startSsoLogin} from '@app/viewmodels/auth/AuthFlow';
 import {Trans, useLingui} from '@lingui/react/macro';
 import clsx from 'clsx';
@@ -205,66 +206,9 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 	const [isSolanaLoading, setIsSolanaLoading] = useState(false);
 
 	const handleSolanaLogin = useCallback(async () => {
-		// Prefer window.phantom.solana for Phantom mobile in-app browser; fall back to other known providers.
-		// Final fallback uses the Wallet Standard registry to support Jupiter and any other standard-compliant wallet.
-		const getWalletStandardProvider = (): any => {
-			try {
-				const registered: any[] = [];
-				// Apps dispatch wallet-standard:app-ready; wallets that are already initialized respond by calling register()
-				window.dispatchEvent(
-					new CustomEvent('wallet-standard:app-ready', {
-						bubbles: false,
-						cancelable: false,
-						composed: false,
-						detail: Object.freeze({register: (w: any) => registered.push(w)}),
-					}),
-				);
-				// Prefer Jupiter by name; fall back to the first registered Solana wallet
-				const wallet =
-					registered.find((w) => w.name === 'Jupiter' && w.chains?.some((c: string) => c.startsWith('solana:'))) ??
-					registered.find((w) => w.chains?.some((c: string) => c.startsWith('solana:')));
-				if (!wallet) return null;
-
-				let account: any = null;
-				const provider: any = {
-					connect: async () => {
-						const {accounts} = await wallet.features['standard:connect'].connect();
-						account = accounts[0];
-						if (!account) throw new Error('No accounts returned from wallet');
-					},
-					signIn: wallet.features['standard:signIn']
-						? async (input: any) => {
-								const [result] = await wallet.features['standard:signIn'].signIn(input);
-								return result;
-							}
-						: undefined,
-					signMessage: async (messageBytes: Uint8Array) => {
-						const [result] = await wallet.features['solana:signMessage'].signMessage({
-							account,
-							message: messageBytes,
-						});
-						// signedMessage contains the exact bytes the wallet signed (may include prefix)
-						return {signature: result.signature, signedMessage: result.signedMessage};
-					},
-				};
-				Object.defineProperty(provider, 'publicKey', {
-					get: () => (account ? {toBase58: () => account.address} : null),
-				});
-				return provider;
-			} catch {
-				return null;
-			}
-		};
-
-		const sol =
-			(window as any).phantom?.solana ??
-			(window as any).solana ??
-			(window as any).solflare ??
-			(window as any).coinbaseSolana ??
-			(window as any).backpack?.solana ??
-			(window as any).magicEden?.solana ??
-			(window as any).station ?? // Jupiter Station mobile in-app browser
-			getWalletStandardProvider();
+		// Wallet detection/connection (injected providers, then Wallet Standard registry fallback)
+		// is shared with the in-app "link wallet" flow — see SolanaWalletProvider.tsx.
+		const sol = getSolanaWalletProvider();
 		if (!sol) {
 			setSwitchError(
 				t`No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps.`,
@@ -274,18 +218,11 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 		setIsSolanaLoading(true);
 		setSwitchError(null);
 
-		// Safe Uint8Array → base64: avoids spread-operator call-stack limits on mobile WebKit
-		const u8ToBase64 = (bytes: Uint8Array): string => {
-			let binary = '';
-			const len = bytes.length;
-			for (let i = 0; i < len; i++) {
-				binary += String.fromCharCode(bytes[i]);
-			}
-			return btoa(binary);
-		};
+		const u8ToBase64 = uint8ArrayToBase64;
 
 		try {
 			await sol.connect();
+			if (!sol.publicKey) throw new Error(t`Wallet connection did not return a public key`);
 			const address: string = sol.publicKey.toBase58();
 			const nonceRes = await fetch('/api/auth/solana/nonce', {
 				method: 'POST',

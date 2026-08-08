@@ -21,13 +21,16 @@ import * as ModalActionCreators from '@app/actions/ModalActionCreators';
 import {modal} from '@app/actions/ModalActionCreators';
 import guildStyles from '@app/components/layout/GuildsLayout.module.css';
 import styles from '@app/components/layout/guild_list/CosmeticsShopButton.module.css';
+import {LazyCosmeticsShopModal} from '@app/components/modals/CosmeticsShopModal.lazy';
 import FocusRing from '@app/components/uikit/focus_ring/FocusRing';
 import {Tooltip} from '@app/components/uikit/tooltip/Tooltip';
 import {useHover} from '@app/hooks/useHover';
 import {useMergeRefs} from '@app/hooks/useMergeRefs';
 import AccessibilityStore from '@app/stores/AccessibilityStore';
+import ModalStore from '@app/stores/ModalStore';
 import {useLingui} from '@lingui/react/macro';
 import {StorefrontIcon} from '@phosphor-icons/react';
+import {clsx} from 'clsx';
 import {motion} from 'framer-motion';
 import {observer} from 'mobx-react-lite';
 import {useRef} from 'react';
@@ -38,19 +41,21 @@ export const CosmeticsShopButton = observer(() => {
 	const buttonRef = useRef<HTMLButtonElement | null>(null);
 	const iconRef = useRef<HTMLDivElement | null>(null);
 	const mergedButtonRef = useMergeRefs([hoverRef, buttonRef]);
+	const isOpen = ModalStore.hasModalOfType(LazyCosmeticsShopModal);
 
-	const handleClick = async () => {
-		const {CosmeticsShopModal} = await import('@app/components/modals/CosmeticsShopModal');
-		ModalActionCreators.push(modal(() => <CosmeticsShopModal />));
+	const handleClick = () => {
+		ModalActionCreators.push(modal(() => <LazyCosmeticsShopModal />));
 	};
 
 	return (
-		<div className={guildStyles.addGuildButton}>
+		<div className={clsx(guildStyles.addGuildButton, styles.wrapper)}>
+			{isOpen && <span className={styles.openNotch} aria-hidden />}
 			<Tooltip position="right" size="large" text={() => t`Cosmetics Shop`}>
 				<FocusRing offset={-2} focusTarget={buttonRef} ringTarget={iconRef}>
 					<button
 						type="button"
 						aria-label={t`Cosmetics Shop`}
+						aria-pressed={isOpen}
 						data-guild-list-focus-item="true"
 						onClick={handleClick}
 						className={styles.button}
@@ -58,9 +63,9 @@ export const CosmeticsShopButton = observer(() => {
 					>
 						<motion.div
 							ref={iconRef}
-							className={guildStyles.railUtilityButtonIcon}
-							animate={{borderRadius: isHovering ? '30%' : '50%'}}
-							initial={{borderRadius: isHovering ? '30%' : '50%'}}
+							className={clsx(guildStyles.railUtilityButtonIcon, styles.iconTile)}
+							animate={{borderRadius: isHovering ? '30%' : '32%'}}
+							initial={{borderRadius: isHovering ? '30%' : '32%'}}
 							transition={{duration: AccessibilityStore.useReducedMotion ? 0 : 0.07, ease: 'easeOut'}}
 							whileHover={AccessibilityStore.useReducedMotion ? undefined : {borderRadius: '30%'}}
 						>

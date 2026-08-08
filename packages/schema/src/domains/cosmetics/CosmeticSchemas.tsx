@@ -33,7 +33,6 @@ export type ProfileCosmeticSlot = z.infer<typeof ProfileCosmeticSlotSchema>;
 export const ServerCosmeticSlotSchema = z.enum([
 	'chat_background',
 	'channel_list_background',
-	'server_banner',
 ]);
 export type ServerCosmeticSlot = z.infer<typeof ServerCosmeticSlotSchema>;
 
@@ -140,10 +139,28 @@ export type UserCosmeticsPublicResponse = z.infer<typeof UserCosmeticsPublicResp
 // ─── Purchase ────────────────────────────────────────────────────────────────
 
 /**
+ * POST /cosmetics/store/:itemId/invoice
+ * Creates a pending purchase and returns the SOL amounts (split creator/platform)
+ * and a fresh blockhash the client needs to build and sign a single transfer
+ * transaction — mirrors the guild-vanity-purchase and user-tip invoice shapes.
+ * This response shape is a hard contract with the client — field names must not change.
+ */
+export const CosmeticsInvoiceResponse = z.object({
+	purchase_id: z.string(),
+	creator_wallet: z.string(),
+	creator_lamports: z.number().int(),
+	platform_wallet: z.string(),
+	platform_lamports: z.number().int(),
+	recent_blockhash: z.string(),
+	item_id: z.string(),
+});
+export type CosmeticsInvoiceResponse = z.infer<typeof CosmeticsInvoiceResponse>;
+
+/**
  * POST /cosmetics/purchase
- * Initiate a cosmetic purchase.  The client first sends a SOL payment on-chain
- * and then posts the confirmed transaction signature here.  The server verifies
- * the transaction, mints the NFT to the buyer's wallet, and returns the new NFT.
+ * The client first sends a SOL payment on-chain (per the invoice above) and then
+ * posts the confirmed transaction signature here.  The server verifies the
+ * transaction, mints the NFT to the buyer's wallet, and returns the new NFT.
  */
 export const PurchaseCosmeticRequest = z.object({
 	/** Catalog item ID from GET /cosmetics/store. */
@@ -152,19 +169,34 @@ export const PurchaseCosmeticRequest = z.object({
 	tx_signature: z.string().min(1),
 	/** Buyer's Solana wallet address (Base58). */
 	buyer_address: z.string().min(32).max(64),
+	/** purchase_id from POST /cosmetics/store/:itemId/invoice, if an invoice was requested first. */
+	purchase_id: z.string().min(1).optional(),
 });
 export type PurchaseCosmeticRequest = z.infer<typeof PurchaseCosmeticRequest>;
 
 export const PurchaseCosmeticResponse = z.object({
 	ok: z.boolean(),
-	/** The newly minted NFT. */
-	nft: z.object({
-		mint: z.string(),
-		name: z.string(),
-		image: z.string().nullable(),
-		cosmetic_type: z.string(),
-		rarity: z.enum(['common', 'uncommon', 'rare', 'epic', 'legendary']),
-	}),
+	/** purchase_id this response refers to (either the one supplied in the request, or a freshly created one). */
+	purchase_id: z.string(),
+	/** Whether the on-chain SOL payment was verified. Always true for a 200 response. */
+	paid: z.boolean(),
+	/**
+	 * Whether the NFT was actually minted. Can be false even when `paid` is true — e.g. this
+	 * deployment has no COSMETICS_MINT_AUTHORITY_SECRET_KEY configured yet (production, pre-mint-launch),
+	 * or the mint attempt itself failed after payment was already verified. Either way, the payment is
+	 * NOT rolled back; `nft` is null and the purchase is retryable/mintable later without repaying.
+	 */
+	minted: z.boolean(),
+	/** The newly minted NFT. null when `minted` is false. */
+	nft: z
+		.object({
+			mint: z.string(),
+			name: z.string(),
+			image: z.string().nullable(),
+			cosmetic_type: z.string(),
+			rarity: z.enum(['common', 'uncommon', 'rare', 'epic', 'legendary']),
+		})
+		.nullable(),
 });
 export type PurchaseCosmeticResponse = z.infer<typeof PurchaseCosmeticResponse>;
 
@@ -300,7 +332,6 @@ export const CreateListingRequest = z.object({
 		'name_effect',
 		'chat_background',
 		'channel_list_background',
-		'server_banner',
 	]),
 	rarity: z.enum(['common', 'uncommon', 'rare', 'epic', 'legendary']),
 	price_lamports: z.number().int().positive(),

@@ -509,6 +509,9 @@ vanity_urls.vanity_url_code_already_taken: Vanity URL code is already taken.
 vanity_urls.vanity_url_code_cannot_contain_fluxer: Vanity URL code can't contain "fluxer".
 vanity_urls.vanity_url_code_length_invalid: Vanity URL code must be between {min} and {max} characters.
 vanity_urls.vanity_url_invalid_characters: Vanity URL can only contain lowercase letters (a-z), digits (0-9), and hyphens (-).
+wallets.solana_wallet_already_linked: This wallet is already linked to another account.
+wallets.solana_wallet_already_owned: Your account already has a linked wallet.
+wallets.solana_wallet_verification_failed: We couldn't verify that you own this wallet. Please try again.
 webhooks.cannot_modify_system_webhook: You can't edit system messages.
 webhooks.max_webhooks_per_channel_reached: You've reached the maximum of {count} {count, plural, one {webhook} other {webhooks}} per channel.
 webhooks.max_webhooks_per_guild_reached: You've reached the maximum of {count} {count, plural, one {webhook} other {webhooks}} per guild.

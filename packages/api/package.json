@@ -8,7 +8,8 @@
     },
     "scripts": {
         "test": "vitest run",
-        "typecheck": "tsgo --noEmit"
+        "typecheck": "tsgo --noEmit",
+        "setup:cosmetics-collection": "tsx scripts/setupCosmeticsCollection.ts"
     },
     "dependencies": {
         "@atproto/api": "*",
@@ -16,6 +17,7 @@
         "@aws-sdk/s3-request-presigner": "*",
         "@bluesky-social/jwk-jose": "*",
         "@bluesky-social/oauth-client-node": "*",
+        "@fluxer/solana_mint": "workspace:*",
         "@opentelemetry/api": "*",
         "@simplewebauthn/server": "*",
         "archiver": "*",
@@ -53,6 +55,7 @@
         "@typescript/native-preview": "catalog:",
         "msw": "*",
         "testcontainers": "*",
+        "tsx": "catalog:",
         "vite-tsconfig-paths": "*",
         "vitest": "*"
     }

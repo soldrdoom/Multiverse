@@ -448,6 +448,12 @@ export const UserTagCheckResponse = z.object({
 });
 export type UserTagCheckResponse = z.infer<typeof UserTagCheckResponse>;
 
+/** POST /users/@me/solana-wallet response — the wallet now linked to the current account. */
+export const LinkSolanaWalletResponse = z.object({
+	solana_address: z.string().describe('The Solana wallet address now linked to this account'),
+});
+export type LinkSolanaWalletResponse = z.infer<typeof LinkSolanaWalletResponse>;
+
 export const UserProfileDataResponse = z.object({
 	bio: z.string().nullable().describe('User biography text'),
 	pronouns: z.string().nullable().describe('User pronouns'),

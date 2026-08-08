@@ -227,6 +227,7 @@ export const Permissions = {
 	PIN_MESSAGES: 1n << 51n,
 	BYPASS_SLOWMODE: 1n << 52n,
 	UPDATE_RTC_REGION: 1n << 53n,
+	MANAGE_COSMETICS: 1n << 54n,
 } as const;
 
 export const PermissionsDescriptions: Record<keyof typeof Permissions, string> = {
@@ -266,6 +267,7 @@ export const PermissionsDescriptions: Record<keyof typeof Permissions, string> =
 	PIN_MESSAGES: 'Allows pinning messages',
 	BYPASS_SLOWMODE: 'Allows bypassing slowmode',
 	UPDATE_RTC_REGION: 'Allows updating the voice region',
+	MANAGE_COSMETICS: 'Allows management and editing of server cosmetics',
 };
 
 export const ALL_PERMISSIONS = Object.values(Permissions).reduce((acc, p) => acc | p, 0n);

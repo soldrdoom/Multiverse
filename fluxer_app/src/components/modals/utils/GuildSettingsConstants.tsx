@@ -128,7 +128,7 @@ const GUILD_SETTINGS_TABS_DESCRIPTORS: Array<GuildSettingsTabDescriptor> = [
 		label: msg`Server Cosmetics`,
 		icon: SparkleIcon,
 		component: GuildCosmeticsTab,
-		permission: Permissions.MANAGE_GUILD,
+		permission: Permissions.MANAGE_COSMETICS,
 	},
 	{
 		type: 'moderation',

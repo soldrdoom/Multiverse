@@ -79753,8 +79753,7 @@
               "badge",
               "name_effect",
               "chat_background",
-              "channel_list_background",
-              "server_banner"
+              "channel_list_background"
             ],
             "type": "string",
             "x-enumNames": [
@@ -79764,8 +79763,7 @@
               "badge",
               "name_effect",
               "chat_background",
-              "channel_list_background",
-              "server_banner"
+              "channel_list_background"
             ]
           },
           "rarity": {
@@ -79837,8 +79835,7 @@
               "badge",
               "name_effect",
               "chat_background",
-              "channel_list_background",
-              "server_banner"
+              "channel_list_background"
             ],
             "type": "string",
             "x-enumNames": [
@@ -79848,8 +79845,7 @@
               "badge",
               "name_effect",
               "chat_background",
-              "channel_list_background",
-              "server_banner"
+              "channel_list_background"
             ]
           },
           "rarity": {
@@ -80495,14 +80491,12 @@
       "ServerCosmeticSlotSchema": {
         "enum": [
           "chat_background",
-          "channel_list_background",
-          "server_banner"
+          "channel_list_background"
         ],
         "type": "string",
         "x-enumNames": [
           "chat_background",
-          "channel_list_background",
-          "server_banner"
+          "channel_list_background"
         ]
       },
       "GuildUpdateRequest": {

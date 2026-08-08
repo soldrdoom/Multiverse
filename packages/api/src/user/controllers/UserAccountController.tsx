@@ -17,6 +17,7 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {SolanaAuthService} from '@fluxer/api/src/auth/services/SolanaAuthService';
 import {requireSudoMode} from '@fluxer/api/src/auth/services/SudoVerificationService';
 import {createGuildID, createUserID} from '@fluxer/api/src/BrandedTypes';
 import {DefaultUserOnly, LoginRequired, LoginRequiredAllowSuspicious} from '@fluxer/api/src/middleware/AuthMiddleware';
@@ -37,6 +38,9 @@ import {UserSettingsUpdateRequest} from '@fluxer/api/src/user/UserModel';
 import {Validator} from '@fluxer/api/src/Validator';
 import {UserFlags} from '@fluxer/constants/src/UserConstants';
 import {MissingAccessError} from '@fluxer/errors/src/domains/core/MissingAccessError';
+import {SolanaWalletAlreadyLinkedError} from '@fluxer/errors/src/domains/user/SolanaWalletAlreadyLinkedError';
+import {SolanaWalletAlreadyOwnedError} from '@fluxer/errors/src/domains/user/SolanaWalletAlreadyOwnedError';
+import {SolanaWalletVerificationError} from '@fluxer/errors/src/domains/user/SolanaWalletVerificationError';
 import {UnknownUserError} from '@fluxer/errors/src/domains/user/UnknownUserError';
 import {SudoVerificationSchema} from '@fluxer/schema/src/domains/auth/AuthSchemas';
 import {
@@ -53,6 +57,7 @@ import {
 	EmailChangeVerifyNewRequest,
 	EmailChangeVerifyOriginalRequest,
 	EmptyBodyRequest,
+	LinkSolanaWalletRequest,
 	PasswordChangeCompleteRequest,
 	PasswordChangeTicketRequest,
 	PasswordChangeVerifyRequest,
@@ -70,6 +75,7 @@ import {
 	EmailChangeStartResponse,
 	EmailChangeVerifyOriginalResponse,
 	EmailTokenResponse,
+	LinkSolanaWalletResponse,
 	PasswordChangeStartResponse,
 	PasswordChangeVerifyResponse,
 	PreloadMessagesResponse,
@@ -144,6 +150,46 @@ export function UserAccountController(app: HonoApp) {
 					authSession: ctx.get('authSession'),
 				}),
 			);
+		},
+	);
+
+	app.post(
+		'/users/@me/solana-wallet',
+		RateLimitMiddleware(RateLimitConfigs.USER_LINK_SOLANA_WALLET),
+		LoginRequired,
+		DefaultUserOnly,
+		Validator('json', LinkSolanaWalletRequest),
+		OpenAPI({
+			operationId: 'link_solana_wallet',
+			summary: 'Link a Solana wallet',
+			responseSchema: LinkSolanaWalletResponse,
+			statusCode: 200,
+			security: ['bearerToken', 'sessionToken'],
+			tags: ['Users'],
+			description:
+				'Links a Solana wallet to the authenticated account. Proves ownership via the same signed-nonce flow used by Sign-In With Solana (POST /auth/solana/nonce for the nonce, then a wallet signature over it) rather than trusting a client-reported address. Only supports first-time linking: re-linking the wallet already on this account is a harmless no-op, linking a wallet already claimed by a different account is rejected, and switching to a different wallet once one is already linked on this account is also rejected.',
+		}),
+		async (ctx) => {
+			const user = ctx.get('user');
+			const {address, signature, nonce, signedMessage} = ctx.req.valid('json');
+			const solanaService = new SolanaAuthService(
+				ctx.get('cacheService'),
+				ctx.get('userRepository'),
+				ctx.get('snowflakeService'),
+				ctx.get('authService').createAuthSession.bind(ctx.get('authService')),
+			);
+			try {
+				const result = await solanaService.linkWallet({user, address, signature, nonce, signedMessage});
+				return ctx.json(result);
+			} catch (err) {
+				if (err instanceof Error && err.message === 'This wallet is already linked to another account') {
+					throw new SolanaWalletAlreadyLinkedError();
+				}
+				if (err instanceof Error && err.message === 'WALLET_ALREADY_OWNED') {
+					throw new SolanaWalletAlreadyOwnedError();
+				}
+				throw new SolanaWalletVerificationError(err instanceof Error ? err.message : 'Wallet verification failed');
+			}
 		},
 	);
 

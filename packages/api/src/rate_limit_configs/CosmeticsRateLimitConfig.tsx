@@ -51,6 +51,11 @@ export const CosmeticsRateLimitConfigs = {
 		config: {limit: 5, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
 
+	INVOICE: {
+		bucket: 'cosmetics:invoice',
+		config: {limit: 10, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+
 	CREATOR_APPLY: {
 		bucket: 'creator:apply',
 		config: {limit: 3, windowMs: ms('1 hour')},

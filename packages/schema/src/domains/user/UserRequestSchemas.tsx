@@ -381,6 +381,21 @@ export type UserGuildSettingsUpdateRequest = z.infer<typeof UserGuildSettingsUpd
 export const EmptyBodyRequest = z.object({}).optional();
 export type EmptyBodyRequest = z.infer<typeof EmptyBodyRequest>;
 
+/**
+ * POST /users/@me/solana-wallet
+ * Links a Solana wallet to the already-authenticated account by proving ownership via a
+ * signed nonce (same nonce/signature shape as the SIWS login flow's /auth/solana/verify).
+ */
+export const LinkSolanaWalletRequest = z.object({
+	address: createStringType(32, 44).describe('Base58-encoded Solana wallet address to link to this account'),
+	signature: createStringType(1, 128).describe('Base64-encoded Ed25519 signature over the challenge message'),
+	nonce: createStringType(1, 64).describe('Nonce previously issued by POST /auth/solana/nonce for this address'),
+	signedMessage: createStringType(1, 512)
+		.optional()
+		.describe('Exact base64-encoded bytes the wallet signed, when reported by a Wallet Standard signIn() wallet'),
+});
+export type LinkSolanaWalletRequest = z.infer<typeof LinkSolanaWalletRequest>;
+
 export const UserTagCheckQueryRequest = z.object({
 	username: UsernameType.describe('The username to check'),
 	discriminator: DiscriminatorType.describe('The discriminator to check'),

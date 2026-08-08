@@ -17,65 +17,56 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import styles from '@app/components/modals/guild_tabs/GuildCosmeticsTab.module.css';
 import {
 	SettingsTabContainer,
 	SettingsTabHeader,
 	SettingsTabSection,
 } from '@app/components/modals/shared/SettingsTabLayout';
-import styles from '@app/components/modals/guild_tabs/GuildCosmeticsTab.module.css';
 import {Button} from '@app/components/uikit/button/Button';
 import {Spinner} from '@app/components/uikit/Spinner';
-import {applyServerCosmetic, clearServerCosmetic} from '@app/services/cosmetics/CosmeticsService';
-import CosmeticsStore from '@app/stores/CosmeticsStore';
+import {useCosmeticSlotEquip} from '@app/hooks/cosmetics/useCosmeticSlotEquip';
+import {RARITY_ORDER, rarityLabel, rarityStyle} from '@app/utils/cosmetics/rarity';
 import type {OwnedCosmeticNft, ServerCosmeticSlot} from '@fluxer/schema/src/domains/cosmetics/CosmeticSchemas';
 import {Trans} from '@lingui/react/macro';
 import {PaintBucketIcon, SparkleIcon, StarIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
-import {useCallback, useEffect, useState} from 'react';
 import type React from 'react';
+import {useState} from 'react';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const SERVER_SLOTS: Array<{slot: ServerCosmeticSlot; label: string; description: string}> = [
-	{slot: 'server_banner', label: 'Server Banner', description: 'A decorative image at the top of the channel list'},
 	{slot: 'chat_background', label: 'Chat Background', description: 'A wallpaper behind messages in the chat area'},
-	{slot: 'channel_list_background', label: 'Channel List Background', description: 'An image behind the channel/category sidebar'},
+	{
+		slot: 'channel_list_background',
+		label: 'Channel List Background',
+		description: 'An image behind the channel/category sidebar',
+	},
 ];
-
-const RARITY_ORDER = ['legendary', 'epic', 'rare', 'uncommon', 'common'] as const;
-
-const RARITY_LABELS: Record<string, string> = {
-	legendary: 'Legendary',
-	epic: 'Epic',
-	rare: 'Rare',
-	uncommon: 'Uncommon',
-	common: 'Common',
-};
-
-const RARITY_STYLE: Record<string, string> = {
-	legendary: styles.rarity_legendary,
-	epic: styles.rarity_epic,
-	rare: styles.rarity_rare,
-	uncommon: styles.rarity_uncommon,
-	common: styles.rarity_common,
-};
 
 // ─── Slot row ────────────────────────────────────────────────────────────────
 
 interface SlotRowProps {
-	guildId: string;
 	slot: ServerCosmeticSlot;
 	label: string;
 	description: string;
 	currentMint: string | null;
-	ownedForSlot: OwnedCosmeticNft[];
+	ownedForSlot: Array<OwnedCosmeticNft>;
 	onApply: (slot: ServerCosmeticSlot, mint: string) => void;
 	onClear: (slot: ServerCosmeticSlot) => void;
 	isSaving: boolean;
 }
 
 const SlotRow: React.FC<SlotRowProps> = ({
-	slot, label, description, currentMint, ownedForSlot, onApply, onClear, isSaving,
+	slot,
+	label,
+	description,
+	currentMint,
+	ownedForSlot,
+	onApply,
+	onClear,
+	isSaving,
 }) => {
 	const [pickerOpen, setPickerOpen] = useState(false);
 	const currentNft = ownedForSlot.find((n) => n.mint === currentMint) ?? null;
@@ -98,8 +89,8 @@ const SlotRow: React.FC<SlotRowProps> = ({
 						{currentNft ? (
 							<span className={styles.appliedName}>
 								{currentNft.name}
-								<span className={`${styles.rarityBadge} ${RARITY_STYLE[currentNft.rarity] ?? ''}`}>
-									{RARITY_LABELS[currentNft.rarity]}
+								<span className={`${styles.rarityBadge} ${rarityStyle(styles, currentNft.rarity)}`}>
+									{rarityLabel(currentNft.rarity)}
 								</span>
 							</span>
 						) : (
@@ -121,7 +112,9 @@ const SlotRow: React.FC<SlotRowProps> = ({
 					</Button>
 				)}
 				{ownedForSlot.length === 0 && !currentMint && (
-					<span className={styles.noneOwned}><Trans>None owned</Trans></span>
+					<span className={styles.noneOwned}>
+						<Trans>None owned</Trans>
+					</span>
 				)}
 			</div>
 
@@ -148,8 +141,8 @@ const SlotRow: React.FC<SlotRowProps> = ({
 										</div>
 									)}
 									<div className={styles.pickerItemName}>{nft.name}</div>
-									<div className={`${styles.rarityBadge} ${RARITY_STYLE[nft.rarity] ?? ''}`}>
-										{RARITY_LABELS[nft.rarity]}
+									<div className={`${styles.rarityBadge} ${rarityStyle(styles, nft.rarity)}`}>
+										{rarityLabel(nft.rarity)}
 									</div>
 								</button>
 							)),
@@ -163,34 +156,8 @@ const SlotRow: React.FC<SlotRowProps> = ({
 // ─── Tab ─────────────────────────────────────────────────────────────────────
 
 const GuildCosmeticsTab: React.FC<{guildId: string}> = observer(({guildId}) => {
-	const [savingSlot, setSavingSlot] = useState<ServerCosmeticSlot | null>(null);
-
-	useEffect(() => {
-		CosmeticsStore.loadOwnedNfts();
-		CosmeticsStore.loadGuildCosmetics(guildId);
-	}, [guildId]);
-
-	const handleApply = useCallback(async (slot: ServerCosmeticSlot, mint: string) => {
-		setSavingSlot(slot);
-		try {
-			const updated = await applyServerCosmetic(guildId, slot, mint);
-			CosmeticsStore.setAppliedGuild(guildId, updated);
-		} finally {
-			setSavingSlot(null);
-		}
-	}, [guildId]);
-
-	const handleClear = useCallback(async (slot: ServerCosmeticSlot) => {
-		setSavingSlot(slot);
-		try {
-			const updated = await clearServerCosmetic(guildId, slot);
-			CosmeticsStore.setAppliedGuild(guildId, updated);
-		} finally {
-			setSavingSlot(null);
-		}
-	}, [guildId]);
-
-	const isLoading = CosmeticsStore.isLoadingNfts;
+	const {savingSlot, isLoading, ownedNfts, currentMint, nftsForSlot, applySlot, clearSlot} =
+		useCosmeticSlotEquip(guildId);
 
 	return (
 		<SettingsTabContainer>
@@ -198,8 +165,8 @@ const GuildCosmeticsTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 				title={<Trans>Server Cosmetics</Trans>}
 				description={
 					<Trans>
-						Apply cosmetic NFTs from your wallet to customize how this server looks for all members.
-						Only cosmetics you own can be applied.
+						Apply cosmetic NFTs from your wallet to customize how this server looks for all members. Only cosmetics you
+						own can be applied.
 					</Trans>
 				}
 			/>
@@ -214,27 +181,28 @@ const GuildCosmeticsTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 						{SERVER_SLOTS.map(({slot, label, description}) => (
 							<SlotRow
 								key={slot}
-								guildId={guildId}
 								slot={slot}
 								label={label}
 								description={description}
-								currentMint={CosmeticsStore.guildSlotMint(guildId, slot)}
-								ownedForSlot={CosmeticsStore.nftsForSlot(slot)}
-								onApply={handleApply}
-								onClear={handleClear}
+								currentMint={currentMint(slot)}
+								ownedForSlot={nftsForSlot(slot)}
+								onApply={(s, mint) => void applySlot(s, mint)}
+								onClear={(s) => void clearSlot(s)}
 								isSaving={savingSlot === slot}
 							/>
 						))}
 					</div>
 
-					{CosmeticsStore.ownedNfts.length === 0 && (
+					{ownedNfts.length === 0 && (
 						<div className={styles.emptyState}>
 							<SparkleIcon size={40} weight="duotone" className={styles.emptyIcon} />
-							<p className={styles.emptyTitle}><Trans>No server cosmetics yet</Trans></p>
+							<p className={styles.emptyTitle}>
+								<Trans>No server cosmetics yet</Trans>
+							</p>
 							<p className={styles.emptyDescription}>
 								<Trans>
-									You don't own any server cosmetic NFTs. Visit the Multiverse Shop
-									to get cosmetics that can be applied to your server.
+									You don't own any server cosmetic NFTs. Visit the Multiverse Shop to get cosmetics that can be applied
+									to your server.
 								</Trans>
 							</p>
 						</div>

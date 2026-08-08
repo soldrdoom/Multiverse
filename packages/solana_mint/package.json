@@ -1,0 +1,26 @@
+{
+	"name": "@fluxer/solana_mint",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./*": "./*"
+	},
+	"scripts": {
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@metaplex-foundation/mpl-token-metadata": "^3.4.0",
+		"@metaplex-foundation/umi": "^1.5.1",
+		"@metaplex-foundation/umi-bundle-defaults": "^1.5.1",
+		"bs58": "*"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"vite-tsconfig-paths": "catalog:",
+		"vitest": "catalog:"
+	}
+}

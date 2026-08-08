@@ -21,6 +21,7 @@ import {Endpoints} from '@app/Endpoints';
 import http from '@app/lib/HttpClient';
 import type {
 	AppliedCosmeticEntry,
+	CosmeticsInvoiceResponse,
 	CreateListingRequest,
 	CreatorApplyResponse,
 	CreatorListingEntry,
@@ -37,30 +38,32 @@ import type {
 // ─── Shop catalog ─────────────────────────────────────────────────────────────
 
 /** Fetch the full cosmetics shop catalog. Returns empty until collection launches. */
-export async function fetchCosmeticsStore(): Promise<StoreListingNft[]> {
-	const response = await http.get<{items: StoreListingNft[]}>({url: Endpoints.COSMETICS_STORE});
+export async function fetchCosmeticsStore(): Promise<Array<StoreListingNft>> {
+	const response = await http.get<{items: Array<StoreListingNft>}>({url: Endpoints.COSMETICS_STORE});
 	return response.body.items;
 }
 
 // ─── NFT listing ──────────────────────────────────────────────────────────────
 
 /** Fetch all cosmetic NFTs the current user owns in their linked Solana wallet. */
-export async function fetchOwnedNfts(): Promise<OwnedCosmeticNft[]> {
-	const response = await http.get<{nfts: OwnedCosmeticNft[]}>({url: Endpoints.NFTS});
+export async function fetchOwnedNfts(): Promise<Array<OwnedCosmeticNft>> {
+	const response = await http.get<{nfts: Array<OwnedCosmeticNft>}>({url: Endpoints.NFTS});
 	return response.body.nfts;
 }
 
 // ─── Profile cosmetics ────────────────────────────────────────────────────────
 
 /** Fetch applied profile cosmetics for the current user. */
-export async function fetchUserCosmetics(): Promise<AppliedCosmeticEntry[]> {
-	const response = await http.get<{applied: AppliedCosmeticEntry[]}>({url: Endpoints.USER_COSMETICS});
+export async function fetchUserCosmetics(): Promise<Array<AppliedCosmeticEntry>> {
+	const response = await http.get<{applied: Array<AppliedCosmeticEntry>}>({url: Endpoints.USER_COSMETICS});
 	return response.body.applied;
 }
 
 /** Fetch applied profile cosmetics for any user (public read for rendering). */
-export async function fetchPublicUserCosmetics(userId: string): Promise<AppliedCosmeticEntry[]> {
-	const response = await http.get<{applied: AppliedCosmeticEntry[]}>({url: Endpoints.USER_COSMETICS_PUBLIC(userId)});
+export async function fetchPublicUserCosmetics(userId: string): Promise<Array<AppliedCosmeticEntry>> {
+	const response = await http.get<{applied: Array<AppliedCosmeticEntry>}>({
+		url: Endpoints.USER_COSMETICS_PUBLIC(userId),
+	});
 	return response.body.applied;
 }
 
@@ -68,8 +71,8 @@ export async function fetchPublicUserCosmetics(userId: string): Promise<AppliedC
 export async function applyProfileCosmetic(
 	slot: ProfileCosmeticSlot,
 	mintAddress: string,
-): Promise<AppliedCosmeticEntry[]> {
-	const response = await http.put<{ok: boolean; applied: AppliedCosmeticEntry[]}>({
+): Promise<Array<AppliedCosmeticEntry>> {
+	const response = await http.put<{ok: boolean; applied: Array<AppliedCosmeticEntry>}>({
 		url: Endpoints.USER_COSMETICS,
 		body: {slot, mint_address: mintAddress},
 	});
@@ -77,8 +80,8 @@ export async function applyProfileCosmetic(
 }
 
 /** Clear a profile cosmetic slot. */
-export async function clearProfileCosmetic(slot: ProfileCosmeticSlot): Promise<AppliedCosmeticEntry[]> {
-	const response = await http.put<{ok: boolean; applied: AppliedCosmeticEntry[]}>({
+export async function clearProfileCosmetic(slot: ProfileCosmeticSlot): Promise<Array<AppliedCosmeticEntry>> {
+	const response = await http.put<{ok: boolean; applied: Array<AppliedCosmeticEntry>}>({
 		url: Endpoints.USER_COSMETICS,
 		body: {slot, mint_address: null},
 	});
@@ -123,6 +126,15 @@ export async function clearServerCosmetic(
 }
 
 // ─── Purchase ─────────────────────────────────────────────────────────────────
+
+/** Response shape for `POST /cosmetics/store/:itemId/invoice`. */
+export type CosmeticsInvoice = CosmeticsInvoiceResponse;
+
+/** Request a payment invoice for a store item — creator/platform SOL split + a recent blockhash. */
+export async function fetchCosmeticsInvoice(itemId: string): Promise<CosmeticsInvoice> {
+	const response = await http.post<CosmeticsInvoice>({url: Endpoints.COSMETICS_STORE_INVOICE(itemId)});
+	return response.body;
+}
 
 // ─── Creator program ──────────────────────────────────────────────────────────
 
@@ -183,18 +195,23 @@ export async function uploadListingImage(file: File): Promise<string> {
 /**
  * Purchase a cosmetic NFT.
  * The caller must first send the SOL payment on-chain and then pass the
- * confirmed transaction signature here.
+ * confirmed transaction signature here. Passing `purchaseId` (from the invoice
+ * returned by `fetchCosmeticsInvoice`) lets the server resolve and complete the
+ * exact pending row created at invoice time instead of creating a new one —
+ * omitting it leaves that invoice-time row permanently stuck at 'pending'.
  * Returns an error until the Multiverse cosmetics collection launches.
  */
 export async function purchaseCosmetic(
 	itemId: string,
 	txSignature: string,
 	buyerAddress: string,
+	purchaseId?: string,
 ): Promise<PurchaseCosmeticResponse> {
 	const body: PurchaseCosmeticRequest = {
 		item_id: itemId,
 		tx_signature: txSignature,
 		buyer_address: buyerAddress,
+		...(purchaseId ? {purchase_id: purchaseId} : {}),
 	};
 	const response = await http.post<PurchaseCosmeticResponse>({
 		url: Endpoints.COSMETICS_PURCHASE,

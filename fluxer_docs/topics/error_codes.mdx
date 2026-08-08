@@ -35,6 +35,7 @@ These error codes are returned in the `code` field of the main error response bo
 | `BOT_ALREADY_IN_GUILD` | Bot is already in this guild |
 | `BOT_APPLICATION_NOT_FOUND` | Bot application not found |
 | `BOT_IS_PRIVATE` | This bot is private and can only be invited by the owner |
+| `BOT_NOT_IN_CHANNEL` | This bot is not present in this channel |
 | `BOT_USER_AUTH_ENDPOINT_ACCESS_DENIED` | Bot users cannot access this authentication endpoint |
 | `BOT_USER_AUTH_SESSION_CREATION_DENIED` | Bot users cannot create authentication sessions |
 | `BOT_USER_GENERATION_FAILED` | Failed to generate bot user |
@@ -108,7 +109,9 @@ These error codes are returned in the `code` field of the main error response bo
 | `INTERNAL_SERVER_ERROR` | Internal server error |
 | `INVALID_ACLS_FORMAT` | Invalid access control list format |
 | `INVALID_API_ORIGIN` | Invalid API origin |
+| `INVALID_APPLICATION_COMMAND` | Invalid application command |
 | `INVALID_AUTH_TOKEN` | Invalid authentication token |
+| `INVALID_INTERACTION_OPTION` | Invalid interaction option |
 | `INVALID_BOT_FLAG` | Invalid bot flag |
 | `INVALID_CAPTCHA` | Invalid captcha response |
 | `INVALID_CHANNEL_TYPE_FOR_CALL` | Invalid channel type for call |
@@ -253,6 +256,7 @@ These error codes are returned in the `code` field of the main error response bo
 | `TEMPORARY_INVITE_REQUIRES_PRESENCE` | Temporary invite requires presence tracking |
 | `TEST_HARNESS_DISABLED` | Test harness is disabled |
 | `TEST_HARNESS_FORBIDDEN` | Test harness access is forbidden |
+| `TOO_MANY_APPLICATION_COMMANDS` | Too many application commands |
 | `TWO_FA_NOT_ENABLED` | Two-factor authentication is not enabled |
 | `TWO_FACTOR_REQUIRED` | Two-factor authentication is required |
 | `UNAUTHORIZED` | Unauthorized |
@@ -266,6 +270,7 @@ These error codes are returned in the `code` field of the main error response bo
 | `UNCLAIMED_ACCOUNT_CANNOT_SEND_DIRECT_MESSAGES` | Unclaimed accounts cannot send direct messages |
 | `UNCLAIMED_ACCOUNT_CANNOT_SEND_FRIEND_REQUESTS` | Unclaimed accounts cannot send friend requests |
 | `UNCLAIMED_ACCOUNT_CANNOT_SEND_MESSAGES` | Unclaimed accounts cannot send messages |
+| `UNKNOWN_APPLICATION_COMMAND` | Unknown application command |
 | `UNKNOWN_CHANNEL` | Unknown channel |
 | `UNKNOWN_EMOJI` | Unknown emoji |
 | `UNKNOWN_FAVORITE_MEME` | Unknown favourite meme |

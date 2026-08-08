@@ -2460,8 +2460,7 @@ export type CreateListingRequest = {
 		| 'badge'
 		| 'name_effect'
 		| 'chat_background'
-		| 'channel_list_background'
-		| 'server_banner';
+		| 'channel_list_background';
 	rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
 	price_lamports: number;
 };
@@ -2476,8 +2475,7 @@ export type UpdateListingRequest = {
 		| 'badge'
 		| 'name_effect'
 		| 'chat_background'
-		| 'channel_list_background'
-		| 'server_banner';
+		| 'channel_list_background';
 	rarity?: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
 	price_lamports?: number;
 };
@@ -2577,7 +2575,7 @@ export type ApplyServerCosmeticRequest = {
 	slot: ServerCosmeticSlotSchema;
 	mint_address: string | null;
 };
-export type ServerCosmeticSlotSchema = 'chat_background' | 'channel_list_background' | 'server_banner';
+export type ServerCosmeticSlotSchema = 'chat_background' | 'channel_list_background';
 export type GuildUpdateRequest = {
 	name?: string;
 	icon?: Base64ImageType | null;

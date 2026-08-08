@@ -247,6 +247,11 @@ function generateGuildGeneralPermissionSpec(i18n: I18n): PermissionSpec {
 				flag: Permissions.MANAGE_GUILD,
 			},
 			{
+				title: i18n._(msg`Manage Cosmetics`),
+				description: i18n._(msg`Apply or clear server-wide cosmetics like the chat and channel list backgrounds.`),
+				flag: Permissions.MANAGE_COSMETICS,
+			},
+			{
 				title: i18n._(msg`Manage Roles`),
 				description: i18n._(
 					msg`Create, edit, or delete roles below your highest role. Also allows editing channel permission overwrites.`,

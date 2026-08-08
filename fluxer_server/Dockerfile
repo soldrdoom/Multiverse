@@ -67,6 +67,7 @@ COPY packages/sentry/package.json ./packages/sentry/
 COPY packages/sms/package.json ./packages/sms/
 COPY packages/snowflake/package.json ./packages/snowflake/
 COPY packages/solana_das/package.json ./packages/solana_das/
+COPY packages/solana_mint/package.json ./packages/solana_mint/
 COPY packages/telemetry/package.json ./packages/telemetry/
 COPY packages/time/package.json ./packages/time/
 COPY packages/ui/package.json ./packages/ui/

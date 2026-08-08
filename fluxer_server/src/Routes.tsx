@@ -125,6 +125,19 @@ export async function mountRoutes(options: MountRoutesOptions): Promise<MountedR
 					? 'Media Proxy service mounted at /media (public-only mode)'
 					: 'Media Proxy service mounted at /media',
 			);
+
+			// Config.endpoints.staticCdn (packages/config/src/EndpointDerivation.tsx) is a bare-root
+			// domain, distinct from Config.endpoints.media (`/media`). On this deployment it resolves
+			// to this same host (see CdnEndpoints.STATIC_HOST), so Cosmetics Shop listing
+			// image/metadata URLs built from it (CosmeticsController.tsx, CosmeticsMintService.tsx)
+			// land at bare-root `/cosmetics/*` / `/cosmetics-metadata/*` here — forward those into the
+			// Media Proxy app directly (it registers matching routes reading the same CDN bucket those
+			// uploads land in) rather than mounting the whole Media Proxy app at `/`, which would also
+			// expose every other media-proxy route (avatars, icons, themes, etc.) at bare root.
+			const mediaProxyApp = services.mediaProxy.app;
+			app.get('/cosmetics/*', async (ctx) => mediaProxyApp.fetch(ctx.req.raw));
+			app.get('/cosmetics-metadata/*', async (ctx) => mediaProxyApp.fetch(ctx.req.raw));
+			logger.info('Cosmetics static asset routes mounted at / (forwarding to Media Proxy)');
 		}
 
 		if (services.admin !== undefined) {

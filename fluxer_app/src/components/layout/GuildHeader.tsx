@@ -26,7 +26,6 @@ import {NativeDragRegion} from '@app/components/layout/NativeDragRegion';
 import {GuildHeaderPopout} from '@app/components/popouts/GuildHeaderPopout';
 import {GuildContextMenu} from '@app/components/uikit/context_menu/GuildContextMenu';
 import type {GuildRecord} from '@app/records/GuildRecord';
-import CosmeticsStore from '@app/stores/CosmeticsStore';
 import MobileLayoutStore from '@app/stores/MobileLayoutStore';
 import PopoutStore from '@app/stores/PopoutStore';
 import * as AvatarUtils from '@app/utils/AvatarUtils';
@@ -49,15 +48,12 @@ export const GuildHeader = observer(({guild}: {guild: GuildRecord}) => {
 
 	const bannerURL = AvatarUtils.getGuildBannerURL({id: guild.id, banner: guild.banner}, true);
 	const isDetachedBanner = guild.features.has(GuildFeatures.DETACHED_BANNER);
-	// Cosmetic server banner shows when no guild-uploaded banner is present (or supplements it).
-	const cosmeticServerBannerUrl = CosmeticsStore.getGuildCosmeticImageUrl(guild.id, 'server_banner');
-	const effectiveBannerURL = bannerURL ?? cosmeticServerBannerUrl;
-	const showIntegratedBanner = Boolean(effectiveBannerURL && !isDetachedBanner);
+	const showIntegratedBanner = Boolean(bannerURL && !isDetachedBanner);
 
 	const headerContainerRef = useRef<HTMLDivElement | null>(null);
 
 	const calculateBannerLayout = useCallback(() => {
-		if (!showIntegratedBanner || !effectiveBannerURL) {
+		if (!showIntegratedBanner || !bannerURL) {
 			return {height: HEADER_MIN_HEIGHT, centerCrop: false};
 		}
 
@@ -75,7 +71,7 @@ export const GuildHeader = observer(({guild}: {guild: GuildRecord}) => {
 			height: Math.max(HEADER_MIN_HEIGHT, Math.min(idealHeight, viewportCap)),
 			centerCrop: isMobile && isCapped,
 		};
-	}, [showIntegratedBanner, effectiveBannerURL, guild.bannerWidth, guild.bannerHeight, isMobile]);
+	}, [showIntegratedBanner, bannerURL, guild.bannerWidth, guild.bannerHeight, isMobile]);
 
 	const [{height: bannerMaxHeight, centerCrop}, setBannerLayout] = useState(() => calculateBannerLayout());
 
@@ -113,7 +109,7 @@ export const GuildHeader = observer(({guild}: {guild: GuildRecord}) => {
 					<>
 						<div
 							className={clsx(styles.bannerBackground, centerCrop && styles.bannerBackgroundCentered)}
-							style={{backgroundImage: `url(${effectiveBannerURL})`}}
+							style={{backgroundImage: `url(${bannerURL})`}}
 						/>
 						<div className={styles.bannerGradient} />
 					</>

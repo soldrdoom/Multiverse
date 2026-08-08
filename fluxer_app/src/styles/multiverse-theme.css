@@ -371,6 +371,20 @@
 	--mv-green-light: hsl(155, calc(100% * var(--saturation-factor)), 71.8%); /* #6fffc2 */
 	--mv-cyan: hsl(187, calc(66% * var(--saturation-factor)), 56.7%); /* #48c9d9 */
 	--mv-lilac: hsl(266, calc(100% * var(--saturation-factor)), 74.1%); /* #b57bff */
+	--mv-sky: hsl(195, calc(100% * var(--saturation-factor)), 71%); /* #5fd4ff */
+
+	/*
+	 * Cosmetic rarity ramp — shared across CosmeticsShopModal, CosmeticsTab,
+	 * and GuildCosmeticsTab (three separate CSS Modules files that each need
+	 * the same five colours, since CSS Modules class names don't cross file
+	 * boundaries). Legendary has no flat token here — it renders as the full
+	 * --gradient-brand-legible pill with --brand-primary-fill text instead of
+	 * a single hue. Order matches RARITY_ORDER in utils/cosmetics/rarity.tsx.
+	 */
+	--rarity-epic: var(--mv-lilac); /* #b57bff */
+	--rarity-rare: var(--mv-sky); /* #5fd4ff */
+	--rarity-uncommon: var(--mv-green); /* #14f195 */
+	--rarity-common: hsl(220, calc(11% * var(--saturation-factor)), 63.5%); /* #8b93a7 */
 	/*
 	 * Bare `H S L` triplets for the two brand endpoints, so translucent
 	 * variants can be built inline as `hsl(var(--mv-purple-hsl) / 0.05)`

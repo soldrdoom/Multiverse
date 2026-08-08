@@ -25,7 +25,7 @@ import type {GuildID, UserID} from '@fluxer/api/src/BrandedTypes';
 export type ProfileCosmeticSlot = 'avatar_frame' | 'profile_banner' | 'profile_effect' | 'badge' | 'name_effect';
 
 /** Slots available on a server (launch set). */
-export type ServerCosmeticSlot = 'chat_background' | 'channel_list_background' | 'server_banner';
+export type ServerCosmeticSlot = 'chat_background' | 'channel_list_background';
 
 // ─── Row types ────────────────────────────────────────────────────────────────
 

@@ -20,29 +20,43 @@
 import crypto from 'node:crypto';
 import {createGuildID, createUserID} from '@fluxer/api/src/BrandedTypes';
 import {Config} from '@fluxer/api/src/Config';
+import {mintPurchasedCosmetic} from '@fluxer/api/src/cosmetics/CosmeticsMintService';
+import {COSMETICS_TREASURY_WALLET} from '@fluxer/api/src/cosmetics/CosmeticsPaymentConfig';
+import {CosmeticsPurchaseRepository} from '@fluxer/api/src/cosmetics/CosmeticsPurchaseRepository';
 import {CosmeticsRepository} from '@fluxer/api/src/cosmetics/CosmeticsRepository';
+import {
+	fetchRecentBlockhash,
+	getFeePayerAddress,
+	pollSolanaTransaction,
+	sumTransfersTo,
+} from '@fluxer/api/src/cosmetics/CosmeticsSolanaUtils';
+import type {CosmeticsPurchaseRow} from '@fluxer/api/src/database/types/CosmeticsPurchaseTypes';
+import {Logger} from '@fluxer/api/src/Logger';
+import {requireAdminACL} from '@fluxer/api/src/middleware/AdminMiddleware';
 import {DefaultUserOnly, LoginRequired} from '@fluxer/api/src/middleware/AuthMiddleware';
 import {RateLimitMiddleware} from '@fluxer/api/src/middleware/RateLimitMiddleware';
 import {OpenAPI} from '@fluxer/api/src/middleware/ResponseTypeMiddleware';
-import {requireAdminACL} from '@fluxer/api/src/middleware/AdminMiddleware';
 import {CosmeticsRateLimitConfigs} from '@fluxer/api/src/rate_limit_configs/CosmeticsRateLimitConfig';
-import {AdminACLs} from '@fluxer/constants/src/AdminACLs';
 import type {HonoApp} from '@fluxer/api/src/types/HonoEnv';
+import {requirePermission} from '@fluxer/api/src/utils/PermissionUtils';
 import {Validator} from '@fluxer/api/src/Validator';
+import {AdminACLs} from '@fluxer/constants/src/AdminACLs';
+import {Permissions} from '@fluxer/constants/src/ChannelConstants';
 import {
-	ApplyProfileCosmeticRequest,
-	ApplyProfileCosmeticResponse,
-	ApplyServerCosmeticRequest,
-	ApplyServerCosmeticResponse,
 	AdminCreatorApplicationsResponse,
 	AdminCreatorsResponse,
 	AdminListingsResponse,
 	AdminUpdateCreatorRequest,
+	ApplyProfileCosmeticRequest,
+	ApplyProfileCosmeticResponse,
+	ApplyServerCosmeticRequest,
+	ApplyServerCosmeticResponse,
+	CosmeticsInvoiceResponse,
+	CosmeticsStoreResponse,
 	CreateListingRequest,
 	CreatorApplyResponse,
-	CreatorListingEntry,
+	type CreatorListingEntry,
 	CreatorStatusResponse,
-	CosmeticsStoreResponse,
 	GuildCosmeticsResponse,
 	ListingResponse,
 	PurchaseCosmeticRequest,
@@ -52,16 +66,48 @@ import {
 	UserCosmeticsPublicResponse,
 	UserCosmeticsResponse,
 } from '@fluxer/schema/src/domains/cosmetics/CosmeticSchemas';
+import {verifyWalletHoldsMint} from '@fluxer/solana_mint/src/MintClient';
+import {isMintingConfigured} from '@fluxer/solana_mint/src/MintConfig';
 import {z} from 'zod';
 
 const cosmeticsRepo = new CosmeticsRepository();
+const cosmeticsPurchaseRepo = new CosmeticsPurchaseRepository();
+
+/** 90/10 creator/platform split — computed from the creator's own commission_rate (defaults to 90). */
+function computeSplit(
+	priceLamports: number,
+	commissionRate: number,
+): {creatorLamports: number; platformLamports: number} {
+	const creatorLamports = Math.floor((priceLamports * commissionRate) / 100);
+	// Platform gets the remainder rather than an independently-rounded share, so the two legs
+	// always sum to exactly priceLamports (no lamports silently lost/gained to rounding).
+	const platformLamports = priceLamports - creatorLamports;
+	return {creatorLamports, platformLamports};
+}
+
+/**
+ * Verifies the caller's linked Solana wallet actually holds `mintAddress` before an "apply
+ * cosmetic" request is persisted — previously these endpoints trusted whatever mint_address the
+ * client sent with no on-chain check at all. Always queries COSMETICS_MINT_RPC_URL (a public,
+ * unauthenticated devnet RPC by default) directly — this is a read-only ownership lookup, not a
+ * minting operation, so it works regardless of whether COSMETICS_MINT_AUTHORITY_SECRET_KEY (the
+ * signer needed to mint) is configured on this deployment. Returns an error message string on
+ * failure, or null on success — fails closed (denies) on any RPC error rather than trusting an
+ * unverifiable claim.
+ */
+async function requireOwnsMint(walletAddress: string | null, mintAddress: string): Promise<string | null> {
+	if (!walletAddress) return 'You must link a Solana wallet before applying cosmetics';
+	const owns = await verifyWalletHoldsMint(walletAddress, mintAddress);
+	if (!owns) return 'Your linked Solana wallet does not hold this NFT';
+	return null;
+}
 
 // ─── Seed catalog ─────────────────────────────────────────────────────────────
 // Placeholder items shown in the shop before the Metaplex collection is live.
 // Replace with a DB/IPFS-backed catalog once collection addresses are known.
 // Prices are in lamports (1 SOL = 1_000_000_000).
 
-const SEED_CATALOG: StoreListingNft[] = [
+const SEED_CATALOG: Array<StoreListingNft> = [
 	// ── Profile cosmetics ──────────────────────────────────────────────────
 	{
 		id: 'seed-avatar-frame-legendary-01',
@@ -187,7 +233,7 @@ const SEED_CATALOG: StoreListingNft[] = [
 	{
 		id: 'seed-chat-bg-legendary-01',
 		name: 'Galaxy Chat Background',
-		description: 'A slowly rotating galaxy fills your server\'s chat.',
+		description: "A slowly rotating galaxy fills your server's chat.",
 		image: null,
 		cosmetic_type: 'chat_background',
 		rarity: 'legendary',
@@ -224,26 +270,6 @@ const SEED_CATALOG: StoreListingNft[] = [
 		price_lamports: 150_000_000,
 		collection_address: null,
 	},
-	{
-		id: 'seed-server-banner-legendary-01',
-		name: 'Stormfront Server Banner',
-		description: 'Dramatic storm clouds roll across the top of your server.',
-		image: null,
-		cosmetic_type: 'server_banner',
-		rarity: 'legendary',
-		price_lamports: 5_500_000_000,
-		collection_address: null,
-	},
-	{
-		id: 'seed-server-banner-uncommon-01',
-		name: 'Sunset Server Banner',
-		description: 'A warm gradient sunset at the top of your server.',
-		image: null,
-		cosmetic_type: 'server_banner',
-		rarity: 'uncommon',
-		price_lamports: 300_000_000,
-		collection_address: null,
-	},
 ];
 
 export function CosmeticsController(app: HonoApp): void {
@@ -275,7 +301,7 @@ export function CosmeticsController(app: HonoApp): void {
 		}),
 		async (_ctx) => {
 			const liveListings = await cosmeticsRepo.getLiveListings();
-			const creatorItems: StoreListingNft[] = liveListings.map((l) => ({
+			const creatorItems: Array<StoreListingNft> = liveListings.map((l) => ({
 				id: l.id,
 				name: l.name,
 				description: l.description,
@@ -349,14 +375,15 @@ export function CosmeticsController(app: HonoApp): void {
 		}),
 		Validator('json', ApplyProfileCosmeticRequest),
 		async (ctx) => {
-			const userId = ctx.get('user').id;
+			const user = ctx.get('user');
+			const userId = user.id;
 			const {slot, mint_address} = ctx.req.valid('json');
 
 			if (mint_address === null) {
 				await cosmeticsRepo.clearProfileCosmetic(userId, slot);
 			} else {
-				// TODO: Verify on-chain ownership (user's wallet holds mint_address from
-				// COSMETICS_COLLECTION_ADDRESS). Skipped until collection is deployed.
+				const ownershipError = await requireOwnsMint(user.solanaAddress, mint_address);
+				if (ownershipError) return ctx.json({error: ownershipError}, 403);
 				await cosmeticsRepo.applyProfileCosmetic(userId, slot, mint_address);
 			}
 
@@ -411,11 +438,106 @@ export function CosmeticsController(app: HonoApp): void {
 	);
 
 	// ─── Purchase ─────────────────────────────────────────────────────────────
+	//
+	// Two-step flow, mirroring the guild-vanity-purchase / user-tip pattern in
+	// fluxer_server/src/Routes.tsx (durable pending row + purchase_id, live
+	// on-chain verification, tx_signature replay protection via a conditional
+	// insert), but split creator/platform like tips rather than single-recipient
+	// like vanity — a cosmetics sale pays both the listing's creator (their
+	// commission_rate, default 90%) and the platform treasury (the remainder).
+	//
+	// Only live creator listings are purchasable — the SEED_CATALOG placeholder
+	// items above have no creator wallet to pay out to and no collection to mint
+	// into yet (see the catalog's own comment: "Replace with a DB/IPFS-backed
+	// catalog once collection addresses are known").
+
+	/**
+	 * POST /cosmetics/store/:itemId/invoice
+	 * Creates a pending purchase and returns the SOL amounts + a fresh blockhash for the
+	 * client to build and sign a single transfer transaction (creator leg + platform leg).
+	 */
+	app.post(
+		'/cosmetics/store/:itemId/invoice',
+		LoginRequired,
+		DefaultUserOnly,
+		RateLimitMiddleware(CosmeticsRateLimitConfigs.INVOICE),
+		OpenAPI({
+			operationId: 'create_cosmetic_invoice',
+			summary: 'Create a purchase invoice for a cosmetic item',
+			responseSchema: CosmeticsInvoiceResponse,
+			statusCode: 200,
+			tags: ['Cosmetics'],
+			description:
+				'Computes the creator/platform SOL split for the given catalog item and returns a fresh ' +
+				'blockhash for the client to build a single transfer transaction against. Only live creator ' +
+				'listings are purchasable.',
+		}),
+		Validator('param', z.object({itemId: z.string().min(1)})),
+		async (ctx) => {
+			const {itemId} = ctx.req.valid('param');
+			const user = ctx.get('user');
+
+			const listing = await cosmeticsRepo.getListingById(itemId);
+			if (!listing || listing.status !== 'live') {
+				return ctx.json({error: 'Item not found'}, 404);
+			}
+
+			const creator = await cosmeticsRepo.getCreatorById(listing.creator_id);
+			if (!creator) {
+				return ctx.json({error: 'Item not found'}, 404);
+			}
+			if (creator.payout_suspended) {
+				return ctx.json({error: 'This item is temporarily unavailable for purchase'}, 403);
+			}
+
+			const {creatorLamports, platformLamports} = computeSplit(listing.price_lamports, creator.commission_rate);
+
+			let recentBlockhash: string;
+			try {
+				recentBlockhash = await fetchRecentBlockhash();
+			} catch {
+				return ctx.json({error: 'Unable to fetch Solana blockhash. Please try again.'}, 503);
+			}
+
+			const purchaseId = crypto.randomUUID();
+			const row: CosmeticsPurchaseRow = {
+				purchase_id: purchaseId,
+				item_id: listing.id,
+				buyer_user_id: user.id,
+				buyer_address: null,
+				creator_id: creator.creator_id,
+				creator_wallet: creator.solana_address,
+				creator_lamports: creatorLamports,
+				platform_wallet: COSMETICS_TREASURY_WALLET,
+				platform_lamports: platformLamports,
+				tx_signature: null,
+				status: 'pending',
+				mint_address: null,
+				created_at: new Date(),
+				paid_at: null,
+				minted_at: null,
+			};
+			await cosmeticsPurchaseRepo.createPurchase(row);
+
+			return ctx.json<CosmeticsInvoiceResponse>({
+				purchase_id: purchaseId,
+				creator_wallet: creator.solana_address,
+				creator_lamports: creatorLamports,
+				platform_wallet: COSMETICS_TREASURY_WALLET,
+				platform_lamports: platformLamports,
+				recent_blockhash: recentBlockhash,
+				item_id: listing.id,
+			});
+		},
+	);
 
 	/**
 	 * POST /cosmetics/purchase
-	 * Verify a SOL payment transaction and mint the purchased NFT to the buyer's wallet.
-	 * Requires the Metaplex collection to be deployed; returns 503 until then.
+	 * Verify a SOL payment transaction (split creator/platform) and mint the purchased NFT
+	 * to the buyer's wallet. Payment verification always happens; minting only happens if
+	 * COSMETICS_MINT_AUTHORITY_SECRET_KEY is configured on this deployment — otherwise the
+	 * purchase is recorded as paid and `minted: false` is returned rather than failing the
+	 * request (this lets payment collection ship ahead of minting going live).
 	 */
 	app.post(
 		'/cosmetics/purchase',
@@ -431,17 +553,198 @@ export function CosmeticsController(app: HonoApp): void {
 			tags: ['Cosmetics'],
 			description:
 				'Verifies the provided Solana transaction signature as payment for the specified catalog item, ' +
-				'then mints the cosmetic NFT to the buyer\'s wallet. ' +
-				'Returns 503 before the Multiverse cosmetics collection is launched.',
+				"then mints the cosmetic NFT to the buyer's wallet if minting is configured on this deployment. " +
+				'Payment is verified independently of minting — an unconfigured mint authority never blocks a paid purchase.',
 		}),
 		Validator('json', PurchaseCosmeticRequest),
 		async (ctx) => {
-			// TODO: Implement when Metaplex collection is deployed:
-			//   1. Look up item_id in the cosmetics catalog.
-			//   2. Verify tx_signature on-chain (correct amount, correct recipient treasury address).
-			//   3. Mint NFT via Candy Machine / Metaplex to buyer_address.
-			//   4. Return the minted NFT details.
-			return ctx.json({error: 'Cosmetics shop not yet launched'}, 503);
+			const user = ctx.get('user');
+			// NOTE: the request's `buyer_address` field is intentionally never destructured/used
+			// here — it's client-supplied and must NEVER be trusted as the mint destination or as
+			// proof of who paid (see the fee-payer check below). The mint destination and payment
+			// ownership are always derived from the authenticated session's own linked wallet.
+			const {item_id: itemId, tx_signature: txSignature, purchase_id: requestedPurchaseId} = ctx.req.valid('json');
+
+			// The mint destination and payment-ownership check are both derived from the
+			// authenticated session's linked wallet, never from client-supplied input.
+			const buyerAddress = user.solanaAddress;
+			if (!buyerAddress) {
+				return ctx.json({error: 'You must link a Solana wallet before purchasing'}, 400);
+			}
+
+			const listing = await cosmeticsRepo.getListingById(itemId);
+			if (!listing || listing.status !== 'live') {
+				return ctx.json({error: 'Item not found'}, 404);
+			}
+
+			const creator = await cosmeticsRepo.getCreatorById(listing.creator_id);
+			if (!creator) {
+				return ctx.json({error: 'Item not found'}, 404);
+			}
+			if (creator.payout_suspended) {
+				return ctx.json({error: 'This item is temporarily unavailable for purchase'}, 403);
+			}
+
+			const {creatorLamports, platformLamports} = computeSplit(listing.price_lamports, creator.commission_rate);
+
+			// Resolve (or create) the purchase row this verification applies to. Recomputing the
+			// expected split fresh from the listing/creator above (rather than only trusting a
+			// stored invoice row) means verification is correct even if the client never called
+			// the invoice endpoint, or the invoice's row went missing for some reason.
+			let purchase: CosmeticsPurchaseRow;
+			if (requestedPurchaseId) {
+				const existing = await cosmeticsPurchaseRepo.getPurchase(requestedPurchaseId);
+				if (!existing || existing.buyer_user_id !== user.id || existing.item_id !== itemId) {
+					return ctx.json({error: 'Purchase not found'}, 404);
+				}
+				if (existing.status !== 'pending') {
+					return ctx.json({error: 'This purchase has already been processed'}, 409);
+				}
+				purchase = existing;
+			} else {
+				purchase = {
+					purchase_id: crypto.randomUUID(),
+					item_id: listing.id,
+					buyer_user_id: user.id,
+					buyer_address: null,
+					creator_id: creator.creator_id,
+					creator_wallet: creator.solana_address,
+					creator_lamports: creatorLamports,
+					platform_wallet: COSMETICS_TREASURY_WALLET,
+					platform_lamports: platformLamports,
+					tx_signature: null,
+					status: 'pending',
+					mint_address: null,
+					created_at: new Date(),
+					paid_at: null,
+					minted_at: null,
+				};
+				await cosmeticsPurchaseRepo.createPurchase(purchase);
+			}
+
+			// Verify the transaction — retry up to 8x with 3s delay for confirmation lag.
+			const txData = await pollSolanaTransaction(txSignature);
+			if (!txData) {
+				return ctx.json(
+					{error: 'Transaction not found after waiting. Please contact support with your tx signature.'},
+					400,
+				);
+			}
+			if (txData.meta?.err !== null && txData.meta?.err !== undefined) {
+				return ctx.json({error: 'Transaction failed on-chain'}, 400);
+			}
+
+			// Bind payment to the authenticated buyer: amount-only verification (below) proves WHAT
+			// was paid but not WHO paid it, and Solana transactions are publicly visible on-chain
+			// before/while the paying user's own client calls this endpoint — without this check, an
+			// attacker who observes a matching-amount transfer could race the legitimate buyer and
+			// claim their payment for a different purchase_id/mint destination. Account 0 is always
+			// the fee-payer/sender for this transaction shape (same convention as the guild-vanity
+			// and tip verification flows in fluxer_server/src/Routes.tsx).
+			const feePayerAddress = getFeePayerAddress(txData);
+			if (feePayerAddress !== buyerAddress) {
+				return ctx.json(
+					{error: 'This transaction was not paid from your linked Solana wallet'},
+					403,
+				);
+			}
+
+			const creatorReceived = sumTransfersTo(txData, purchase.creator_wallet);
+			const platformReceived = sumTransfersTo(txData, purchase.platform_wallet);
+			if (creatorReceived < purchase.creator_lamports) {
+				return ctx.json(
+					{
+						error: `Insufficient payment to creator. Expected ${purchase.creator_lamports} lamports, received ${creatorReceived}`,
+					},
+					400,
+				);
+			}
+			if (platformReceived < purchase.platform_lamports) {
+				return ctx.json(
+					{
+						error: `Insufficient payment to platform. Expected ${purchase.platform_lamports} lamports, received ${platformReceived}`,
+					},
+					400,
+				);
+			}
+
+			const {applied} = await cosmeticsPurchaseRepo.reserveTxSignature(txSignature, purchase.purchase_id);
+			if (!applied) {
+				return ctx.json({error: 'This transaction signature has already been used for another purchase'}, 409);
+			}
+
+			const paidAt = new Date();
+			purchase = {
+				...purchase,
+				tx_signature: txSignature,
+				buyer_address: buyerAddress,
+				status: 'paid',
+				paid_at: paidAt,
+			};
+			await cosmeticsPurchaseRepo.updatePurchase(purchase);
+
+			if (!isMintingConfigured()) {
+				return ctx.json<PurchaseCosmeticResponse>({
+					ok: true,
+					purchase_id: purchase.purchase_id,
+					paid: true,
+					minted: false,
+					nft: null,
+				});
+			}
+
+			try {
+				const minted = await mintPurchasedCosmetic({
+					storageService: ctx.get('storageService'),
+					purchaseId: purchase.purchase_id,
+					listing,
+					destinationWallet: buyerAddress,
+				});
+				if (!minted) {
+					// isMintingConfigured() was true a moment ago but flipped false mid-request — treat
+					// the same as "not configured" rather than as an error; payment already succeeded.
+					return ctx.json<PurchaseCosmeticResponse>({
+						ok: true,
+						purchase_id: purchase.purchase_id,
+						paid: true,
+						minted: false,
+						nft: null,
+					});
+				}
+
+				await cosmeticsPurchaseRepo.updatePurchase({
+					...purchase,
+					status: 'minted',
+					mint_address: minted.mintAddress,
+					minted_at: new Date(),
+				});
+
+				return ctx.json<PurchaseCosmeticResponse>({
+					ok: true,
+					purchase_id: purchase.purchase_id,
+					paid: true,
+					minted: true,
+					nft: {
+						mint: minted.mintAddress,
+						name: listing.name,
+						image: listing.image_url,
+						cosmetic_type: listing.cosmetic_type,
+						rarity: listing.rarity,
+					},
+				});
+			} catch (err) {
+				// Payment is already verified and durably recorded — a minting failure must never
+				// look like a failed/charged-but-nothing-happened purchase to the buyer. The purchase
+				// stays 'paid' and can be minted later (e.g. via an admin retry) without repaying.
+				Logger.error({err, purchaseId: purchase.purchase_id}, 'Cosmetics NFT mint failed after payment was verified');
+				return ctx.json<PurchaseCosmeticResponse>({
+					ok: true,
+					purchase_id: purchase.purchase_id,
+					paid: true,
+					minted: false,
+					nft: null,
+				});
+			}
 		},
 	);
 
@@ -562,11 +865,9 @@ export function CosmeticsController(app: HonoApp): void {
 				cosmeticsRepo.getCreatorByWallet(solanaAddress),
 			]);
 
-			const listings = creator
-				? await cosmeticsRepo.getListingsByCreator(creator.creator_id)
-				: [];
+			const listings = creator ? await cosmeticsRepo.getListingsByCreator(creator.creator_id) : [];
 
-			const listingEntries: CreatorListingEntry[] = listings.map((l) => ({
+			const listingEntries: Array<CreatorListingEntry> = listings.map((l) => ({
 				id: l.id,
 				creator_id: l.creator_id,
 				name: l.name,
@@ -589,12 +890,12 @@ export function CosmeticsController(app: HonoApp): void {
 					: null,
 				creator: creator
 					? {
-						creator_id: creator.creator_id,
-						solana_address: creator.solana_address,
-						commission_rate: creator.commission_rate,
-						payout_suspended: creator.payout_suspended,
-						approved_at: creator.approved_at.toISOString(),
-					}
+							creator_id: creator.creator_id,
+							solana_address: creator.solana_address,
+							commission_rate: creator.commission_rate,
+							payout_suspended: creator.payout_suspended,
+							approved_at: creator.approved_at.toISOString(),
+						}
 					: null,
 				listings: listingEntries,
 			});
@@ -705,7 +1006,7 @@ export function CosmeticsController(app: HonoApp): void {
 			const storageService = ctx.get('storageService');
 			await storageService.uploadAvatar({prefix: 'cosmetics', key, body: buffer});
 
-			const url = `${Config.staticCdn}/cosmetics/${key}`;
+			const url = `${Config.endpoints.staticCdn}/cosmetics/${key}`;
 			return ctx.json({url});
 		},
 	);
@@ -1120,22 +1421,24 @@ export function CosmeticsController(app: HonoApp): void {
 			const guildId = createGuildID(BigInt(ctx.req.valid('param').guildId));
 			const {slot, mint_address} = ctx.req.valid('json');
 
-			// Verify the caller is the guild owner.
+			// Verify the guild exists, then that the caller has permission to manage cosmetics.
 			const guildService = ctx.get('guildService');
-			let guild;
 			try {
-				guild = await guildService.getGuild({userId: user.id, guildId});
+				await guildService.getGuild({userId: user.id, guildId});
 			} catch {
 				return ctx.json({error: 'Unknown guild'}, 404);
 			}
-			if (guild.owner_id !== String(user.id)) {
-				return ctx.json({error: 'Only the server owner can apply server cosmetics'}, 403);
-			}
+			await requirePermission(ctx.get('gatewayService'), {
+				guildId,
+				userId: user.id,
+				permission: Permissions.MANAGE_COSMETICS,
+			});
 
 			if (mint_address === null) {
 				await cosmeticsRepo.clearServerCosmetic(guildId, slot);
 			} else {
-				// TODO: Verify on-chain ownership when collection is deployed.
+				const ownershipError = await requireOwnsMint(user.solanaAddress, mint_address);
+				if (ownershipError) return ctx.json({error: ownershipError}, 403);
 				await cosmeticsRepo.applyServerCosmetic(guildId, slot, mint_address, user.id);
 			}
 

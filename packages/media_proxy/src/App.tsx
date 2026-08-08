@@ -345,6 +345,23 @@ export async function createMediaProxyApp(options: CreateMediaProxyAppOptions): 
 			const path = fullPath.substring(externalIndex + '/external/'.length);
 			return processExternalMedia(ctx, path);
 		});
+
+		// Cosmetics Shop listing images and NFT metadata JSON (packages/api/src/cosmetics/*) are
+		// uploaded into this same CDN bucket via IStorageService#uploadAvatar with prefix
+		// 'cosmetics' / 'cosmetics-metadata' (see CosmeticsController.tsx, CosmeticsMintService.tsx),
+		// but their URLs are built from Config.endpoints.staticCdn — a bare-root "static CDN" domain
+		// distinct from Config.endpoints.media (which is what this app is normally mounted under, at
+		// `/media`; see EndpointDerivation.tsx). On this single-container deployment static_cdn
+		// currently resolves to the same host as everything else, so fluxer_server also forwards
+		// bare-root `/cosmetics/*` and `/cosmetics-metadata/*` requests into this app (see
+		// ServiceInitializer-mounted Routes.tsx). Serve them with the same generic raw-passthrough
+		// used for STATIC_MODE deployments (createStaticProxyHandler) rather than the sharp-based
+		// image handlers above: the key on disk (`cosmetics/<key>` / `cosmetics-metadata/<key>`)
+		// matches the request path 1:1, no resizing is needed, and cosmetics-metadata/*.json isn't
+		// even an image (sharp() would throw on it).
+		const handleCosmeticsStaticAsset = createStaticProxyHandler({s3Utils, bucketStatic: config.s3.bucketCdn});
+		app.get('/cosmetics/*', handleCosmeticsStaticAsset);
+		app.get('/cosmetics-metadata/*', handleCosmeticsStaticAsset);
 	}
 
 	const errorHandler = createErrorHandler({

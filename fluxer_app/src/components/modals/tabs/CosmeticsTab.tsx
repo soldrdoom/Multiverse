@@ -25,14 +25,14 @@ import {
 import styles from '@app/components/modals/tabs/CosmeticsTab.module.css';
 import {Button} from '@app/components/uikit/button/Button';
 import {Spinner} from '@app/components/uikit/Spinner';
-import {applyProfileCosmetic, clearProfileCosmetic} from '@app/services/cosmetics/CosmeticsService';
-import CosmeticsStore from '@app/stores/CosmeticsStore';
+import {useCosmeticSlotEquip} from '@app/hooks/cosmetics/useCosmeticSlotEquip';
+import {RARITY_ORDER, rarityLabel, rarityStyle} from '@app/utils/cosmetics/rarity';
 import type {OwnedCosmeticNft, ProfileCosmeticSlot} from '@fluxer/schema/src/domains/cosmetics/CosmeticSchemas';
 import {Trans} from '@lingui/react/macro';
 import {SparkleIcon, StarIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
-import {useCallback, useEffect, useState} from 'react';
 import type React from 'react';
+import {useState} from 'react';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -44,24 +44,6 @@ const PROFILE_SLOTS: Array<{slot: ProfileCosmeticSlot; label: string; descriptio
 	{slot: 'name_effect', label: 'Name Effect', description: 'An animated decoration on your username'},
 ];
 
-const RARITY_ORDER = ['legendary', 'epic', 'rare', 'uncommon', 'common'] as const;
-
-const RARITY_LABELS: Record<string, string> = {
-	legendary: 'Legendary',
-	epic: 'Epic',
-	rare: 'Rare',
-	uncommon: 'Uncommon',
-	common: 'Common',
-};
-
-const RARITY_STYLE: Record<string, string> = {
-	legendary: styles.rarity_legendary,
-	epic: styles.rarity_epic,
-	rare: styles.rarity_rare,
-	uncommon: styles.rarity_uncommon,
-	common: styles.rarity_common,
-};
-
 // ─── Slot row component ───────────────────────────────────────────────────────
 
 interface SlotRowProps {
@@ -69,13 +51,22 @@ interface SlotRowProps {
 	label: string;
 	description: string;
 	currentMint: string | null;
-	ownedForSlot: OwnedCosmeticNft[];
+	ownedForSlot: Array<OwnedCosmeticNft>;
 	onApply: (slot: ProfileCosmeticSlot, mint: string) => void;
 	onClear: (slot: ProfileCosmeticSlot) => void;
 	isSaving: boolean;
 }
 
-const SlotRow: React.FC<SlotRowProps> = ({slot, label, description, currentMint, ownedForSlot, onApply, onClear, isSaving}) => {
+const SlotRow: React.FC<SlotRowProps> = ({
+	slot,
+	label,
+	description,
+	currentMint,
+	ownedForSlot,
+	onApply,
+	onClear,
+	isSaving,
+}) => {
 	const [pickerOpen, setPickerOpen] = useState(false);
 	const currentNft = ownedForSlot.find((n) => n.mint === currentMint) ?? null;
 
@@ -97,8 +88,8 @@ const SlotRow: React.FC<SlotRowProps> = ({slot, label, description, currentMint,
 						{currentNft ? (
 							<span className={styles.appliedName}>
 								{currentNft.name}
-								<span className={`${styles.rarityBadge} ${RARITY_STYLE[currentNft.rarity] ?? ''}`}>
-									{RARITY_LABELS[currentNft.rarity]}
+								<span className={`${styles.rarityBadge} ${rarityStyle(styles, currentNft.rarity)}`}>
+									{rarityLabel(currentNft.rarity)}
 								</span>
 							</span>
 						) : (
@@ -110,27 +101,19 @@ const SlotRow: React.FC<SlotRowProps> = ({slot, label, description, currentMint,
 
 			<div className={styles.slotActions}>
 				{currentMint && (
-					<Button
-						variant="secondary"
-						small
-						onClick={() => onClear(slot)}
-						disabled={isSaving}
-					>
+					<Button variant="secondary" small onClick={() => onClear(slot)} disabled={isSaving}>
 						<Trans>Remove</Trans>
 					</Button>
 				)}
 				{ownedForSlot.length > 0 && (
-					<Button
-						variant="primary"
-						small
-						onClick={() => setPickerOpen((o) => !o)}
-						disabled={isSaving}
-					>
+					<Button variant="primary" small onClick={() => setPickerOpen((o) => !o)} disabled={isSaving}>
 						{currentMint ? <Trans>Change</Trans> : <Trans>Apply</Trans>}
 					</Button>
 				)}
 				{ownedForSlot.length === 0 && !currentMint && (
-					<span className={styles.noneOwned}><Trans>None owned</Trans></span>
+					<span className={styles.noneOwned}>
+						<Trans>None owned</Trans>
+					</span>
 				)}
 			</div>
 
@@ -157,8 +140,8 @@ const SlotRow: React.FC<SlotRowProps> = ({slot, label, description, currentMint,
 										</div>
 									)}
 									<div className={styles.pickerItemName}>{nft.name}</div>
-									<div className={`${styles.rarityBadge} ${RARITY_STYLE[nft.rarity] ?? ''}`}>
-										{RARITY_LABELS[nft.rarity]}
+									<div className={`${styles.rarityBadge} ${rarityStyle(styles, nft.rarity)}`}>
+										{rarityLabel(nft.rarity)}
 									</div>
 								</button>
 							)),
@@ -172,34 +155,7 @@ const SlotRow: React.FC<SlotRowProps> = ({slot, label, description, currentMint,
 // ─── Tab ─────────────────────────────────────────────────────────────────────
 
 const CosmeticsTab: React.FC<Record<string, unknown>> = observer(() => {
-	const [savingSlot, setSavingSlot] = useState<ProfileCosmeticSlot | null>(null);
-
-	useEffect(() => {
-		CosmeticsStore.loadOwnedNfts();
-		CosmeticsStore.loadProfileCosmetics();
-	}, []);
-
-	const handleApply = useCallback(async (slot: ProfileCosmeticSlot, mint: string) => {
-		setSavingSlot(slot);
-		try {
-			const updated = await applyProfileCosmetic(slot, mint);
-			CosmeticsStore.setAppliedProfile(updated);
-		} finally {
-			setSavingSlot(null);
-		}
-	}, []);
-
-	const handleClear = useCallback(async (slot: ProfileCosmeticSlot) => {
-		setSavingSlot(slot);
-		try {
-			const updated = await clearProfileCosmetic(slot);
-			CosmeticsStore.setAppliedProfile(updated);
-		} finally {
-			setSavingSlot(null);
-		}
-	}, []);
-
-	const isLoading = CosmeticsStore.isLoadingNfts || CosmeticsStore.isLoadingProfile;
+	const {savingSlot, isLoading, ownedNfts, currentMint, nftsForSlot, applySlot, clearSlot} = useCosmeticSlotEquip();
 
 	return (
 		<SettingsTabContainer>
@@ -207,8 +163,8 @@ const CosmeticsTab: React.FC<Record<string, unknown>> = observer(() => {
 				title={<Trans>Profile Cosmetics</Trans>}
 				description={
 					<Trans>
-						Equip cosmetic NFTs from your Solana wallet to customize your profile.
-						Visit the Multiverse Shop to collect new cosmetics.
+						Equip cosmetic NFTs from your Solana wallet to customize your profile. Visit the Multiverse Shop to collect
+						new cosmetics.
 					</Trans>
 				}
 			/>
@@ -226,23 +182,25 @@ const CosmeticsTab: React.FC<Record<string, unknown>> = observer(() => {
 								slot={slot}
 								label={label}
 								description={description}
-								currentMint={CosmeticsStore.profileSlotMint(slot)}
-								ownedForSlot={CosmeticsStore.nftsForSlot(slot)}
-								onApply={handleApply}
-								onClear={handleClear}
+								currentMint={currentMint(slot)}
+								ownedForSlot={nftsForSlot(slot)}
+								onApply={(s, mint) => void applySlot(s, mint)}
+								onClear={(s) => void clearSlot(s)}
 								isSaving={savingSlot === slot}
 							/>
 						))}
 					</div>
 
-					{CosmeticsStore.ownedNfts.length === 0 && (
+					{ownedNfts.length === 0 && (
 						<div className={styles.emptyState}>
 							<SparkleIcon size={40} weight="duotone" className={styles.emptyIcon} />
-							<p className={styles.emptyTitle}><Trans>No cosmetics yet</Trans></p>
+							<p className={styles.emptyTitle}>
+								<Trans>No cosmetics yet</Trans>
+							</p>
 							<p className={styles.emptyDescription}>
 								<Trans>
-									You don't own any cosmetic NFTs yet. Head to the Multiverse Shop to
-									grab your first cosmetic and make your profile unique.
+									You don't own any cosmetic NFTs yet. Head to the Multiverse Shop to grab your first cosmetic and make
+									your profile unique.
 								</Trans>
 							</p>
 						</div>

@@ -46,6 +46,31 @@ services:
       SOLANA_NETWORK: mainnet-beta
       SOLANA_DAS_URL: https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}
       SOLANA_TREASURY_WALLET: 4iLSmzRJzm682ojiqM6xhNaWTAx6EpCcgypYh8srzrii
+      # Cosmetics shop — SOL payment split (platform leg). Deliberately a separate wallet/env
+      # var from SOLANA_TREASURY_WALLET above so cosmetics revenue is tracked independently of
+      # guild-vanity-purchase revenue, even though both currently point at the same address.
+      COSMETICS_TREASURY_WALLET: 4iLSmzRJzm682ojiqM6xhNaWTAx6EpCcgypYh8srzrii
+      # Cosmetics shop — SOL payment *verification* (blockhash fetch + tx polling in
+      # CosmeticsSolanaUtils.tsx). Independent of SOLANA_NETWORK above by design (see
+      # packages/api/src/cosmetics/CosmeticsPaymentConfig.tsx) — while the cosmetics shop is
+      # being hardened, payment verification stays pinned to devnet regardless of which cluster
+      # the rest of the app's Solana features (auth, tokengating, tips, vanity purchases) use.
+      COSMETICS_PAYMENT_RPC_URL: https://api.devnet.solana.com
+      # Cosmetics shop — NFT minting. Independent of SOLANA_NETWORK above by design (see
+      # packages/solana_mint/src/MintConfig.tsx) — minting stays devnet-only regardless of
+      # which cluster the rest of the app's Solana features (auth, tokengating, payments) use.
+      COSMETICS_MINT_RPC_URL: https://api.devnet.solana.com
+      COSMETICS_MINT_AUTHORITY_PUBKEY: wPETY53ikNK1PhcXmBfb52FjhKLn6G8ZvfZTcvh1CwY
+      # Base58-encoded secret key, set in .env (gitignored, root-only, never committed here).
+      # Until .env has this set, minting stays inert and cosmetics purchases are recorded as
+      # paid-but-not-minted (see MintConfig.tsx's isMintingConfigured()).
+      COSMETICS_MINT_AUTHORITY_SECRET_KEY: ${COSMETICS_MINT_AUTHORITY_SECRET_KEY:-}
+      # Set by running `pnpm --filter @fluxer/api run setup:cosmetics-collection` once per
+      # environment (see packages/api/scripts/setupCosmeticsCollection.ts). This is the devnet
+      # "Multiverse Cosmetics" Collection NFT mint address, created 2026-08-08; verified via a
+      # direct getAccountInfo against https://api.devnet.solana.com (real spl-token mint,
+      # decimals 0, supply 1) and via its Metaplex metadata PDA (name "Multiverse Cosmetics").
+      COSMETICS_COLLECTION_ADDRESS: FfPj1eZ3ZjPjad5BvBMK6UW67xf4kCWTQMsdzvoRTmCS
       COREPACK_HOME: /tmp/corepack
     ports:
       - '127.0.0.1:${FLUXER_HTTP_PORT:-8080}:8080'

@@ -99,6 +99,12 @@ import {
 	type CreatorRow,
 } from '@fluxer/api/src/database/types/CosmeticTypes';
 import {
+	COSMETICS_PURCHASE_BY_TX_SIGNATURE_COLUMNS,
+	COSMETICS_PURCHASE_COLUMNS,
+	type CosmeticsPurchaseByTxSignatureRow,
+	type CosmeticsPurchaseRow,
+} from '@fluxer/api/src/database/types/CosmeticsPurchaseTypes';
+import {
 	CSAM_EVIDENCE_EXPIRATION_COLUMNS,
 	CSAM_EVIDENCE_LEGAL_HOLD_COLUMNS,
 	CSAM_EVIDENCE_PACKAGE_COLUMNS,
@@ -1147,6 +1153,18 @@ export const CosmeticListingsByCreator = defineTable<CosmeticListingByCreatorRow
 	columns: COSMETIC_LISTING_BY_CREATOR_COLUMNS,
 	primaryKey: ['creator_id', 'id'],
 	partitionKey: ['creator_id'],
+});
+
+export const CosmeticsPurchases = defineTable<CosmeticsPurchaseRow, 'purchase_id'>({
+	name: 'cosmetics_purchases',
+	columns: COSMETICS_PURCHASE_COLUMNS,
+	primaryKey: ['purchase_id'],
+});
+
+export const CosmeticsPurchasesByTxSignature = defineTable<CosmeticsPurchaseByTxSignatureRow, 'tx_signature'>({
+	name: 'cosmetics_purchases_by_tx_signature',
+	columns: COSMETICS_PURCHASE_BY_TX_SIGNATURE_COLUMNS,
+	primaryKey: ['tx_signature'],
 });
 
 export const GuildVanityPurchases = defineTable<GuildVanityPurchaseRow, 'guild_id' | 'purchase_id'>({

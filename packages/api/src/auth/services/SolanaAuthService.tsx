@@ -322,6 +322,15 @@ export class SolanaAuthService {
 	 * Verifies ownership of the wallet via a signed nonce, then persists the
 	 * solana_address on the user record.  Idempotent — if the same address is
 	 * already linked to this user the call succeeds without error.
+	 *
+	 * Deliberately restricted to first-time linking: if the account already has a
+	 * *different* solana_address set, this throws WALLET_ALREADY_OWNED rather than
+	 * switching it. This is a stopgap, not the real fix — UserIndexRepository.syncIndices
+	 * never deletes the old `users_by_solana_address` reverse-index row when
+	 * solana_address changes, so a switch here would leave the old wallet address
+	 * permanently resolvable via SIWS login to this account even after the user moves
+	 * on from that wallet (sells it, rotates keys, etc). Once that index-cleanup bug has
+	 * its own dedicated fix, this restriction can be lifted.
 	 */
 	/**
 	 * Verifies a wallet re-signature for sudo-mode re-verification (e.g. before changing a
@@ -384,12 +393,14 @@ export class SolanaAuthService {
 		address,
 		signature,
 		nonce,
+		signedMessage,
 	}: {
 		user: User;
 		address: string;
 		signature: string;
 		nonce: string;
-	}): Promise<void> {
+		signedMessage?: string;
+	}): Promise<{solana_address: string}> {
 		// Validate and consume nonce
 		const nonceKey = `${SolanaAuthService.NONCE_PREFIX}${address}`;
 		const storedRaw = await this.cacheService.getAndDelete<string>(nonceKey);
@@ -399,27 +410,61 @@ export class SolanaAuthService {
 		const storedNonce = colonIdx > 0 ? storedRaw.slice(0, colonIdx) : storedRaw;
 		if (storedNonce !== nonce) throw new Error('Invalid or expired nonce');
 
-		// Verify Ed25519 signature over the simple challenge message
-		const messageBytes = Buffer.from(`Sign in to Multiverse\nNonce: ${storedNonce}`, 'utf-8');
+		// Verify Ed25519 signature — same approach as verifySiws()/verifySudoSignature(): prefer
+		// the exact bytes the wallet reported it signed (signIn() wallets return this, and it may
+		// carry a wallet-specific binary prefix), else reconstruct the compact challenge and try
+		// known prefix variants (covers signMessage()-only wallets like classic Phantom).
 		const signatureBytes = Buffer.from(signature, 'base64');
 		const rawPublicKey = decodeBase58(address);
 		const spkiPrefix = Buffer.from('302a300506032b6570032100', 'hex');
 		const spkiKey = Buffer.concat([spkiPrefix, rawPublicKey]);
 		const publicKey = createPublicKey({key: spkiKey, format: 'der', type: 'spki'});
-		const valid = cryptoVerify(null, messageBytes, publicKey, signatureBytes);
+
+		let valid: boolean;
+		if (signedMessage) {
+			const exactBytes = Buffer.from(signedMessage, 'base64');
+			const text = exactBytes.toString('utf-8');
+			const nonceMatch = text.match(/Nonce:\s*([a-f0-9]+)/);
+			if (!nonceMatch || nonceMatch[1] !== storedNonce) {
+				throw new Error('Nonce mismatch in signed message');
+			}
+			valid = cryptoVerify(null, exactBytes, publicKey, signatureBytes);
+		} else {
+			const messageBytes = Buffer.from(`Sign in to Multiverse\nNonce: ${storedNonce}`, 'utf-8');
+			const candidates = [
+				messageBytes,
+				Buffer.concat([OFFCHAIN_MAGIC_19, messageBytes]),
+				Buffer.concat([OFFCHAIN_MAGIC_20, messageBytes]),
+			];
+			valid = candidates.some((candidate) => cryptoVerify(null, candidate, publicKey, signatureBytes));
+		}
 		if (!valid) throw new Error('Invalid signature');
 
-		// Check address not already claimed by a different user
+		// Stopgap: block switching to a different wallet once one is already linked (see the
+		// class-level doc comment on this method for why). Re-linking the SAME address stays a
+		// harmless no-op below.
+		if (user.solanaAddress && user.solanaAddress !== address) {
+			throw new Error('WALLET_ALREADY_OWNED');
+		}
+
+		// Check address not already claimed by a different user. This is a check-then-write —
+		// same race tolerance as finalizeOnboarding's wallet-claim guard above — not a hard
+		// DB-level constraint; two concurrent link attempts for the same brand-new address could
+		// theoretically both pass this check. Acceptable here for the same reason it's accepted
+		// there: exploiting it requires already controlling the wallet's private key, and the
+		// worst outcome is a last-write-wins on which account ends up with the address, not an
+		// unauthorized link.
 		const existing = await this.userRepository.findBySolanaAddress(address);
 		if (existing && existing.id.toString() !== user.id.toString()) {
 			throw new Error('This wallet is already linked to another account');
 		}
 
-		// Already linked to this user — idempotent success
-		if (existing) return;
+		// Already linked to this user — idempotent success, no write needed
+		if (existing) return {solana_address: address};
 
 		// Link wallet to account
 		await this.userRepository.patchUpsert(user.id, {solana_address: address});
+		return {solana_address: address};
 	}
 
 	private async createWalletUser(address: string, username: string, email: string): Promise<User> {

@@ -17,6 +17,18 @@
  * along with Multiverse. If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * Sized off the shared --guild-icon-size rail token (44px, global.css) rather
+ * than the design spec's literal 46×46 — this button sits in the same rail
+ * as every other utility tile (discovery, add-guild, help, web3) and
+ * introducing a one-off size would break the rail's alignment rhythm. The
+ * gradient fill + glow is otherwise per spec.
+ */
+
+.wrapper {
+	position: relative;
+}
+
 .button {
 	position: relative;
 	display: flex;
@@ -27,10 +39,34 @@
 	padding: 0;
 }
 
+/* Brand-gradient storefront tile — purple->green fill with a matching glow,
+   overriding the neutral rail-utility surface (GuildsLayout's
+   .railUtilityButtonIcon) this button otherwise shares with its siblings. */
+.iconTile {
+	background: var(--gradient-brand) !important;
+	box-shadow:
+		0 0 10px hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.35),
+		0 0 12px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.3);
+}
+
 .iconText {
 	height: 1.25rem;
 	width: 1.25rem;
-	/* Inherits the rail tile's neutral glyph colour (55% white -> white on
-	   hover) from GuildsLayout's .railUtilityButtonIcon. */
-	color: inherit;
+	/* Dark glyph on the gradient fill, not the rail's inherited neutral ink. */
+	color: var(--brand-primary-fill);
+}
+
+/* Gradient notch on the rail's left edge while the shop modal is open — per
+   the design handoff's "gradient notch indicator bar on the left when the
+   modal is open" spec. */
+.openNotch {
+	position: absolute;
+	left: -12px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 4px;
+	height: 22px;
+	border-radius: 0 4px 4px 0;
+	background: var(--gradient-brand);
+	box-shadow: 0 0 8px hsla(155, calc(89% * var(--saturation-factor)), 51.2%, 0.5);
 }

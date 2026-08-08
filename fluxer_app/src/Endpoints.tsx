@@ -190,6 +190,7 @@ export const Endpoints = {
 	USER_GUILDS_LIST: '/users/@me/guilds',
 	USER_GUILDS: (guildId: string) => `/users/@me/guilds/${guildId}`,
 	USER_ME: '/users/@me',
+	USER_SOLANA_WALLET: '/users/@me/solana-wallet',
 	USER_MENTION: (messageId: string) => `/users/@me/mentions/${messageId}`,
 	USER_MENTIONS: '/users/@me/mentions',
 	USER_MFA_BACKUP_CODES: '/users/@me/mfa/backup-codes',
@@ -264,6 +265,8 @@ export const Endpoints = {
 	GUILD_COSMETICS: (guildId: string) => `/guilds/${guildId}/cosmetics`,
 	/** POST — purchase a cosmetic NFT after on-chain payment confirmation. */
 	COSMETICS_PURCHASE: '/cosmetics/purchase',
+	/** POST — request a payment invoice (creator/platform split + blockhash) for a store item. */
+	COSMETICS_STORE_INVOICE: (itemId: string) => `/cosmetics/store/${itemId}/invoice`,
 
 	/** POST — submit a creator application (wallet-only, no PII). */
 	CREATOR_APPLY: '/creators/apply',

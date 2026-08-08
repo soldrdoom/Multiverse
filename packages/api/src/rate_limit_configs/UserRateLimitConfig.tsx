@@ -41,6 +41,11 @@ export const UserRateLimitConfigs = {
 		config: {limit: 20, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
 
+	USER_LINK_SOLANA_WALLET: {
+		bucket: 'user:solana_wallet:link',
+		config: {limit: 10, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+
 	USER_EMAIL_CHANGE_START: {
 		bucket: 'user:email_change:start',
 		config: {limit: 10, windowMs: ms('1 minute')},
