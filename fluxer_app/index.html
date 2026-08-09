@@ -21,7 +21,12 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="display" content="standalone">
 <script nonce="{{CSP_NONCE_PLACEHOLDER}}">(function(){
-  /* CACHE-KILLER v2 — one-time purge of stale caches on ALL domains (including production) */
+  /* CACHE-KILLER v2 — one-time purge of stale caches on ALL domains (including production).
+     Preserves `token`/`userId` across the purge: a same-origin SIWS/login flow on the
+     marketing front page can write a real session to localStorage moments before the
+     visitor's first-ever app-route load, and this purge previously wiped that session
+     out from under them before SessionManager ever got to read it, bouncing them back
+     to the front page looking "logged out" despite a successful sign-in. */
   try {
     var KEY = 'mv_ck_v2';
     if (!localStorage.getItem(KEY)) {
@@ -35,8 +40,12 @@
           names.forEach(function(n) { caches.delete(n); });
         });
       }
+      var preservedToken = localStorage.getItem('token');
+      var preservedUserId = localStorage.getItem('userId');
       localStorage.clear();
       sessionStorage.clear();
+      if (preservedToken !== null) localStorage.setItem('token', preservedToken);
+      if (preservedUserId !== null) localStorage.setItem('userId', preservedUserId);
       localStorage.setItem(KEY, '1'); /* write AFTER clear so it survives */
     }
   } catch(e) {}
