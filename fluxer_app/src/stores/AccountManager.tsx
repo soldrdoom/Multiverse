@@ -115,6 +115,12 @@ class AccountManager {
 		}
 
 		await SessionManager.switchAccount(userId);
+		// Same reasoning as logout() below: this is an SPA route swap, not a full reload, so
+		// SolanaWalletStore.walletAddress (an in-memory/persisted observable that is NOT scoped
+		// to an account) would otherwise leak from the previous account into the new one. The
+		// account's real wallet-link state comes from UserStore (part of the freshly-loaded
+		// session data), not this store — see Web3Modal.tsx/WalletChip.tsx.
+		SolanaWalletStore.disconnect();
 		GatewayConnectionStore.startSession(SessionManager.token ?? undefined);
 		RouterUtils.replaceWith(Routes.ME);
 
@@ -129,6 +135,9 @@ class AccountManager {
 
 	async switchToNewAccount(userId: string, token: string, userData?: UserData, skipReload = false): Promise<void> {
 		await SessionManager.login(token, userId, userData);
+		// See switchToAccount()/logout() above — clears any stale, account-unscoped wallet
+		// address left over from whatever account (if any) was previously active in this tab.
+		SolanaWalletStore.disconnect();
 		GatewayConnectionStore.startSession(token);
 		if (!skipReload) {
 			RouterUtils.replaceWith(Routes.ME);

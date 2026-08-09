@@ -23,7 +23,7 @@ import * as Modal from '@app/components/modals/Modal';
 import styles from '@app/components/modals/Web3Modal.module.css';
 import {Button} from '@app/components/uikit/button/Button';
 import {Spinner} from '@app/components/uikit/Spinner';
-import SolanaWalletStore from '@app/stores/SolanaWalletStore';
+import UserStore from '@app/stores/UserStore';
 import VaultStore from '@app/stores/VaultStore';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {CheckCircleIcon, CopyIcon, LockKeyIcon, SignOutIcon} from '@phosphor-icons/react';
@@ -70,10 +70,15 @@ async function fetchSolBalance(address: string): Promise<number | null> {
 export const Web3Modal: React.FC = observer(() => {
 	const {t} = useLingui();
 
-	// Wallet state — read from the persisted store, not the raw injected provider:
-	// the provider only has `publicKey` populated after connect() runs in this page
-	// session, but the store's address survives reloads.
-	const address = SolanaWalletStore.walletAddress;
+	// Wallet state — "is a wallet linked to this account" comes from the account's own
+	// profile (UserStore.getCurrentUser()?.solanaAddress), the server-verified SIWS-linked
+	// field delivered with the normal per-session user payload — the same source WalletChip.tsx,
+	// BuySheet.tsx, and YourItemsView.tsx already use. NOT SolanaWalletStore, which only tracks
+	// whether a wallet browser-extension is actively connected in *this* browser session (a
+	// separate concept originally built for the NFT sticker picker, unscoped to any account).
+	// This is what makes the nav badge and this modal agree with the marketplace's "wallet
+	// linked" gate instead of racing a stale/cross-account browser-persisted value.
+	const address = UserStore.getCurrentUser()?.solanaAddress ?? null;
 	const [balance, setBalance] = useState<number | null>(null);
 	const [balanceLoading, setBalanceLoading] = useState(false);
 	const [copied, setCopied] = useState(false);
