@@ -59,6 +59,10 @@ msgstr "... ({remainingLineCount} ред оставен)"
 msgid "... ({remainingLineCount} lines left)"
 msgstr "... ({remainingLineCount} реда оставени)"
 
+#: src/components/modals/cosmetics_shop/ServerView.tsx:52
+msgid "· SERVER COSMETICS"
+msgstr ""
+
 #: src/components/channel/UserMessage.tsx:201
 #: src/components/channel/UserMessage.tsx:204
 #: src/components/channel/UserMessage.tsx:413
@@ -83,7 +87,8 @@ msgstr "(Няма съдържание)"
 msgid "(only visible to you)"
 msgstr "(видимо само за вас)"
 
-#: src/components/modals/CosmeticsShopModal.tsx:249
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:195
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:272
 msgid "(optional)"
 msgstr ""
 
@@ -111,6 +116,11 @@ msgstr "{0} в {1}"
 #: src/components/voice/StreamInfoPill.tsx:76
 msgid "{0} FPS"
 msgstr "{0} FPS"
+
+#. placeholder {0}: item.name
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:265
+msgid "{0} is now in Your Items."
+msgstr ""
 
 #. placeholder {0}: user.displayName
 #: src/stores/NotificationStore.tsx:510
@@ -217,8 +227,8 @@ msgid "{0}/{totalAttachments}"
 msgstr "{0}/{totalAttachments}"
 
 #. placeholder {0}: creator?.commission_rate
-#: src/components/modals/CosmeticsShopModal.tsx:440
-msgid "{0}% earnings per sale"
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:233
+msgid "{0}% PER SALE"
 msgstr ""
 
 #: src/components/channel/TypingUsers.tsx:65
@@ -454,7 +464,7 @@ msgstr "{baseDescription} Тази граница е конфигурирана 
 msgid "{baseDescription} With Plutonium, your per-file upload limit increases to {0}, plus animated avatars, longer messages, and many other premium features."
 msgstr "{baseDescription} С Plutonium, лимитът за качване на файл на файл се увеличава до {0}, плюс анимирани аватари, по-дълги съобщения и много други премиум функции."
 
-#: src/components/pages/OAuthAuthorizePage.tsx:714
+#: src/components/pages/OAuthAuthorizePage.tsx:762
 msgid "{clientLabel} wants to connect"
 msgstr "{clientLabel} иска да се свърже"
 
@@ -1441,6 +1451,14 @@ msgstr "720p/30fps"
 msgid "8 hours"
 msgstr "8 часа"
 
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:158
+msgid "90% of every sale is paid directly to your Solana wallet, on-chain."
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/RailNav.tsx:179
+msgid "90% TO CREATORS"
+msgstr ""
+
 #: src/components/auth/AuthRegisterFormCore.tsx:300
 msgid "A 4-digit tag will be added automatically to ensure uniqueness"
 msgstr "Автоматично ще се добави 4-цифров таг, за да се гарантира уникалност"
@@ -1474,7 +1492,7 @@ msgstr "минута"
 msgid "A new verification code has been sent."
 msgstr "Изпратен е нов код за потвърждение."
 
-#: src/components/pages/OAuthAuthorizePage.tsx:342
+#: src/components/pages/OAuthAuthorizePage.tsx:374
 msgid "A redirect_uri is required when the bot scope is not the only scope."
 msgstr "Необходим е redirect_uri, когато обхватът на бота не е единственият обхват."
 
@@ -1556,7 +1574,7 @@ msgstr "Приеми заявка за приятелство"
 msgid "Accept invite"
 msgstr "Приеми покана"
 
-#: src/components/pages/InviteLoginPage.tsx:152
+#: src/components/pages/InviteLoginPage.tsx:160
 #: src/components/pages/InviteRegisterPage.tsx:47
 msgid "Accept Invite"
 msgstr "Приеми покана"
@@ -1690,7 +1708,6 @@ msgid "action"
 msgstr "действие"
 
 #: src/components/modals/tabs/AdminPanelTab.tsx:95
-#: src/components/modals/tabs/AdminPanelTab.tsx:288
 msgid "Action failed. Check your permissions."
 msgstr ""
 
@@ -1771,8 +1788,8 @@ msgstr "Добави бот в общност с изискваните разр
 msgid "Add a comment (optional)"
 msgstr "Добави коментар (по избор)"
 
-#: src/components/layout/guild_list/AddGuildButton.tsx:90
-#: src/components/layout/guild_list/AddGuildButton.tsx:95
+#: src/components/layout/guild_list/AddGuildButton.tsx:91
+#: src/components/layout/guild_list/AddGuildButton.tsx:96
 #: src/components/modals/AddGuildModal.tsx:80
 #: src/components/modals/AddGuildModal.tsx:86
 msgid "Add a Community"
@@ -1828,7 +1845,7 @@ msgstr "Добави Bluesky връзка"
 msgid "add bot"
 msgstr ""
 
-#: src/components/pages/OAuthAuthorizePage.tsx:834
+#: src/components/pages/OAuthAuthorizePage.tsx:882
 msgid "Add bot to a community"
 msgstr "Добави бот в общност"
 
@@ -1861,7 +1878,7 @@ msgid "Add Favorite Channels"
 msgstr "Добави любими канали"
 
 #: src/components/channel/direct_message/AddFriendView.tsx:32
-#: src/components/channel/direct_message/DMFriendsView.tsx:207
+#: src/components/channel/direct_message/DMFriendsView.tsx:213
 #: src/components/channel/direct_message/DMList.tsx:737
 #: src/components/channel/direct_message/DMList.tsx:775
 #: src/components/modals/AddFriendSheet.tsx:50
@@ -1887,8 +1904,8 @@ msgstr "Добави приятели към група"
 msgid "Add Item"
 msgstr "Добави елемент"
 
-#: src/utils/PermissionUtils.tsx:352
-#: src/utils/PermissionUtils.tsx:487
+#: src/utils/PermissionUtils.tsx:357
+#: src/utils/PermissionUtils.tsx:492
 msgid "Add new reactions to messages."
 msgstr "Добави нови реакции към съобщения."
 
@@ -1937,8 +1954,8 @@ msgstr "Формуляр за добавяне на телефонен номе�
 msgid "Add Reaction"
 msgstr "Добави реакция"
 
-#: src/utils/PermissionUtils.tsx:351
-#: src/utils/PermissionUtils.tsx:486
+#: src/utils/PermissionUtils.tsx:356
+#: src/utils/PermissionUtils.tsx:491
 msgid "Add Reactions"
 msgstr "Добави реакции"
 
@@ -1973,8 +1990,8 @@ msgstr "Добави в речника"
 
 #: src/components/channel/embeds/media/MediaContainer.tsx:140
 #: src/components/channel/embeds/media/MediaContainer.tsx:145
-#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:294
-#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:333
+#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:296
+#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:335
 #: src/components/media_player/components/InlineAudioPlayer.tsx:354
 #: src/components/media_player/components/InlineAudioPlayer.tsx:360
 #: src/components/modals/MediaModal.tsx:273
@@ -2036,7 +2053,7 @@ msgid "Added to Favorites"
 msgstr "Добавено в любими"
 
 #: src/actions/FavoriteMemeActionCreators.tsx:68
-#: src/actions/FavoriteMemeActionCreators.tsx:113
+#: src/actions/FavoriteMemeActionCreators.tsx:116
 msgid "Added to saved media"
 msgstr "Добавено в запазени медии"
 
@@ -2066,7 +2083,7 @@ msgstr "Допълнителна информация (по избор)"
 msgid "address"
 msgstr "адрес"
 
-#: src/components/modals/Web3Modal.tsx:134
+#: src/components/modals/Web3Modal.tsx:139
 msgid "Address"
 msgstr ""
 
@@ -2114,12 +2131,12 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:626
+#: src/components/modals/tabs/AdminPanelTab.tsx:468
 #: src/components/modals/utils/SettingsConstants.tsx:235
 msgid "Admin Panel"
 msgstr ""
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:629
+#: src/components/modals/tabs/AdminPanelTab.tsx:471
 msgid "Admin Panel sections"
 msgstr ""
 
@@ -2192,12 +2209,12 @@ msgstr "Известия / Подсказки"
 msgid "Alignment controls are only available on wider screens"
 msgstr "Контролите за подравняване са налични само на по-широки екрани"
 
-#: src/components/channel/direct_message/DMFriendsView.tsx:186
+#: src/components/channel/direct_message/DMFriendsView.tsx:192
 #: src/components/channel/GuildMembersPage.tsx:725
 #: src/components/channel/GuildMembersPage.tsx:816
 #: src/components/channel/MobileMemesPicker.tsx:101
 #: src/components/channel/pickers/memes/MemesPickerHeader.tsx:53
-#: src/components/modals/CosmeticsShopModal.tsx:597
+#: src/components/modals/cosmetics_shop/RailNav.tsx:116
 #: src/components/modals/DiscoveryModal.tsx:97
 #: src/components/modals/GuildNotificationSettingsModal.tsx:226
 #: src/constants/AuditLogConstants.tsx:237
@@ -2251,6 +2268,10 @@ msgstr "Всички приятели"
 msgid "All inputs are fully interactive - type to test them out!"
 msgstr "Всички полета са напълно интерактивни – напиши нещо, за да ги изпробваш!"
 
+#: src/components/modals/CosmeticsShopModal.tsx:184
+msgid "ALL ITEMS"
+msgstr ""
+
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Renderers.tsx:159
 msgid "All members"
 msgstr "Всички членове"
@@ -2289,7 +2310,7 @@ msgstr ""
 msgid "All Users"
 msgstr "Всички потребители"
 
-#: src/components/modals/Web3Modal.tsx:220
+#: src/components/modals/Web3Modal.tsx:225
 msgid "All your direct messages are end-to-end encrypted. Only you and your recipient can read them."
 msgstr ""
 
@@ -2601,8 +2622,8 @@ msgid "Animated Emoji ({0})"
 msgstr "Анимирани емоджита ({0})"
 
 #: src/components/channel/embeds/media/EmbedGifv.tsx:807
-#: src/components/modals/MediaViewerModal.tsx:456
-#: src/components/modals/MediaViewerModal.tsx:538
+#: src/components/modals/MediaViewerModal.tsx:469
+#: src/components/modals/MediaViewerModal.tsx:551
 msgid "Animated GIF"
 msgstr "Анимиран GIF"
 
@@ -2627,11 +2648,11 @@ msgstr "Анимираните икони не се поддържат. Моля
 msgid "Animated icons require the ANIMATED_ICON community feature."
 msgstr "Анимираните икони изискват функцията за общност ANIMATED_ICON."
 
-#: src/components/modals/MediaViewerModal.tsx:539
+#: src/components/modals/MediaViewerModal.tsx:552
 msgid "Animated image"
 msgstr "Анимирано изображение"
 
-#: src/components/modals/MediaViewerModal.tsx:432
+#: src/components/modals/MediaViewerModal.tsx:445
 msgid "Animated image preview"
 msgstr "Предварителен преглед на анимирано изображение"
 
@@ -2643,7 +2664,7 @@ msgstr "Анимирани изображения не се поддържат �
 msgid "animated stickers"
 msgstr "анимирани стикери"
 
-#: src/components/modals/MediaViewerModal.tsx:480
+#: src/components/modals/MediaViewerModal.tsx:493
 msgid "Animated video"
 msgstr "Анимирано видео"
 
@@ -2722,15 +2743,15 @@ msgstr "Ниво на мащабиране на приложението"
 msgid "App Zoom Level"
 msgstr "Ниво на увеличение на приложението"
 
-#: src/hooks/useCommands.tsx:51
+#: src/hooks/useCommands.tsx:60
 msgid "Appends (╯°□°)╯︵ ┻━┻ to your message."
 msgstr "Добавя (╯°□°)╯︵ ┻━┻ към съобщението ти."
 
-#: src/hooks/useCommands.tsx:46
+#: src/hooks/useCommands.tsx:55
 msgid "Appends ¯\\_(ツ)_/¯ to your message."
 msgstr "Добавя ¯\\_(ツ)_/¯ към съобщението ти."
 
-#: src/hooks/useCommands.tsx:57
+#: src/hooks/useCommands.tsx:66
 msgid "Appends ┬─┬ ノ( ゜-゜ノ) to your message."
 msgstr "Добавя ┬─┬ ノ( ゜-゜ノ) към съобщението ти."
 
@@ -2777,16 +2798,12 @@ msgstr "Име на приложението"
 msgid "Application name is required"
 msgstr "Името на приложението е задължително"
 
-#: src/components/modals/CosmeticsShopModal.tsx:409
-msgid "Application Not Approved"
-msgstr ""
-
-#: src/components/modals/CosmeticsShopModal.tsx:409
-msgid "Application Pending"
-msgstr ""
-
 #: src/components/modals/tabs/applications_tab/application_detail/TeamSection.tsx:118
 msgid "Application transferred"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:195
+msgid "Application under review"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/ApplicationDetail.tsx:400
@@ -2806,10 +2823,6 @@ msgstr "Приложения"
 msgid "Applications & Bots"
 msgstr "Приложения и ботове"
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:337
-msgid "Applied"
-msgstr ""
-
 #: src/components/modals/tabs/AdvancedTab.tsx:93
 msgid "Applies only to the desktop app on this device."
 msgstr "Важи само за настолното приложение на това устройство."
@@ -2818,27 +2831,35 @@ msgstr "Важи само за настолното приложение на т
 msgid "Applies to both camera and screen sharing"
 msgstr "Валидно както за камерата, така и за споделянето на екрана"
 
-#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:120
+#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:111
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:360
 #: src/components/modals/guild_tabs/GuildMembersDateRangeModal.tsx:75
-#: src/components/modals/tabs/CosmeticsTab.tsx:129
+#: src/components/modals/tabs/CosmeticsTab.tsx:110
 #: src/components/modals/ThemeAcceptModal.tsx:180
 msgid "Apply"
 msgstr "Приложи"
 
-#: src/components/modals/CosmeticsShopModal.tsx:423
-msgid "Apply Again"
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:215
+msgid "APPLY AGAIN"
 msgstr ""
 
-#: src/components/modals/CosmeticsShopModal.tsx:394
-msgid "Apply as Creator"
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:178
+msgid "APPLY AS CREATOR"
 msgstr ""
 
-#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:200
+#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:167
 msgid "Apply cosmetic NFTs from your wallet to customize how this server looks for all members. Only cosmetics you own can be applied."
 msgstr ""
 
-#: src/components/pages/ThemeLoginPage.tsx:163
+#: src/components/modals/cosmetics_shop/ServerView.tsx:57
+msgid "Apply cosmetic NFTs from your wallet to customize how this server looks for every member."
+msgstr ""
+
+#: src/utils/PermissionUtils.tsx:251
+msgid "Apply or clear server-wide cosmetics like the chat and channel list backgrounds."
+msgstr ""
+
+#: src/components/pages/ThemeLoginPage.tsx:171
 #: src/components/pages/ThemeRegisterPage.tsx:54
 msgid "Apply Theme"
 msgstr "Приложи тема"
@@ -2848,12 +2869,10 @@ msgid "Apply to all communities"
 msgstr "Приложи за всички общности"
 
 #: src/components/modals/tabs/AdminPanelTab.tsx:177
-#: src/components/modals/tabs/AdminPanelTab.tsx:355
 msgid "Approve"
 msgstr ""
 
 #: src/components/modals/tabs/AdminPanelTab.tsx:111
-#: src/components/modals/tabs/AdminPanelTab.tsx:294
 msgid "approved"
 msgstr ""
 
@@ -3107,14 +3126,14 @@ msgstr "Ъгълът на артистите"
 msgid "At least one channel must have \"View Channel\" permission enabled for @everyone in order for the vanity URL to work. Currently, no channels are viewable to @everyone."
 msgstr "Поне един канал трябва да има разрешено \"Преглеждане на канала\" за @everyone, за да работи персонализираният URL. В момента няма канали, които @everyone да може да вижда."
 
-#: src/utils/PermissionUtils.tsx:329
-#: src/utils/PermissionUtils.tsx:476
+#: src/utils/PermissionUtils.tsx:334
+#: src/utils/PermissionUtils.tsx:481
 msgid "Attach Files"
 msgstr "Прикачи файлове"
 
 #. placeholder {0}: index + 1
 #: src/components/modals/MediaModal.tsx:1059
-#: src/components/modals/MediaViewerModal.tsx:388
+#: src/components/modals/MediaViewerModal.tsx:401
 msgid "Attachment {0}"
 msgstr "Прикачено {0}"
 
@@ -3198,8 +3217,8 @@ msgid "Audio"
 msgstr "Аудио"
 
 #: src/components/modals/utils/SettingsConstants.tsx:191
-#: src/utils/PermissionUtils.tsx:386
-#: src/utils/PermissionUtils.tsx:501
+#: src/utils/PermissionUtils.tsx:391
+#: src/utils/PermissionUtils.tsx:506
 msgid "Audio & Video"
 msgstr "Аудио и видео"
 
@@ -3232,7 +3251,7 @@ msgstr "изход за аудио"
 msgid "Audio player"
 msgstr "Аудио плейър"
 
-#: src/components/modals/MediaViewerModal.tsx:441
+#: src/components/modals/MediaViewerModal.tsx:454
 msgid "Audio preview"
 msgstr "Аудио преглед"
 
@@ -3291,16 +3310,16 @@ msgstr "тип автор:"
 msgid "Authorization failed"
 msgstr "Неуспешно удостоверяване"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:524
+#: src/components/pages/OAuthAuthorizePage.tsx:572
 msgid "Authorization Failed"
 msgstr "Неуспешно удостоверяване"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:459
-#: src/components/pages/OAuthAuthorizePage.tsx:474
+#: src/components/pages/OAuthAuthorizePage.tsx:492
+#: src/components/pages/OAuthAuthorizePage.tsx:507
 msgid "Authorization failed. Please try again."
 msgstr "Неуспешно удостоверяване. Моля, опитай отново."
 
-#: src/components/pages/OAuthAuthorizePage.tsx:711
+#: src/components/pages/OAuthAuthorizePage.tsx:759
 msgid "Authorization request"
 msgstr "Заявка за удостоверяване"
 
@@ -3309,12 +3328,12 @@ msgstr "Заявка за удостоверяване"
 msgid "authorize"
 msgstr ""
 
-#: src/components/pages/OAuthAuthorizePage.tsx:662
-#: src/components/pages/OAuthAuthorizePage.tsx:911
+#: src/components/pages/OAuthAuthorizePage.tsx:710
+#: src/components/pages/OAuthAuthorizePage.tsx:959
 msgid "Authorize"
 msgstr "Разреши"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:108
+#: src/components/pages/OAuthAuthorizePage.tsx:129
 msgid "Authorize Application"
 msgstr "Разреши приложението"
 
@@ -3478,7 +3497,7 @@ msgstr "Среден пинг:"
 #: src/components/modals/AddConnectionModal.tsx:312
 #: src/components/modals/PhoneAddModal.tsx:237
 #: src/components/modals/RequiredActionModal.tsx:655
-#: src/components/pages/OAuthAuthorizePage.tsx:652
+#: src/components/pages/OAuthAuthorizePage.tsx:700
 #: src/components/pages/report/ReportStepDetails.tsx:243
 msgid "Back"
 msgstr "Назад"
@@ -3507,7 +3526,7 @@ msgstr "Назад към списъка"
 msgid "Back to login"
 msgstr "Назад към входа"
 
-#: src/components/pages/SsoCallbackPage.tsx:119
+#: src/components/pages/SsoCallbackPage.tsx:120
 msgid "Back to Login"
 msgstr "Обратно към входа"
 
@@ -3595,15 +3614,15 @@ msgstr "значка"
 msgid "Badge"
 msgstr "Значка"
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:613
+#: src/components/modals/tabs/AdminPanelTab.tsx:456
 msgid "Badges"
 msgstr ""
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:528
+#: src/components/modals/tabs/AdminPanelTab.tsx:372
 msgid "Badges updated."
 msgstr ""
 
-#: src/components/modals/Web3Modal.tsx:166
+#: src/components/modals/Web3Modal.tsx:171
 msgid "Balance unavailable"
 msgstr ""
 
@@ -3622,7 +3641,7 @@ msgstr "Забрани"
 msgid "Ban {0}"
 msgstr "Забрани {0}"
 
-#: src/hooks/useCommands.tsx:84
+#: src/hooks/useCommands.tsx:93
 msgid "Ban a member from this community."
 msgstr "Забрани член от тази общност."
 
@@ -3646,7 +3665,7 @@ msgstr "Забраната изтича на {0}."
 msgid "Ban Member"
 msgstr "Забрани член"
 
-#: src/utils/PermissionUtils.tsx:266
+#: src/utils/PermissionUtils.tsx:271
 msgid "Ban Members"
 msgstr "Забрани членове"
 
@@ -3721,10 +3740,6 @@ msgstr "Основни текстови полета"
 #: src/components/modals/guild_tabs/GuildAuditLogTab.Utils.tsx:504
 msgid "Because {reason}."
 msgstr "Защото {reason}."
-
-#: src/components/modals/CosmeticsShopModal.tsx:376
-msgid "Become a Creator"
-msgstr ""
 
 #: src/components/modals/guild_tabs/GuildMembersDateRangeModal.tsx:63
 msgid "Before Date"
@@ -3848,7 +3863,7 @@ msgstr "bluesky"
 #: src/components/modals/AddConnectionModal.tsx:86
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:168
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:293
-#: src/components/popouts/UserProfileShared.tsx:283
+#: src/components/popouts/UserProfileShared.tsx:287
 msgid "Bluesky"
 msgstr "Bluesky"
 
@@ -3925,7 +3940,7 @@ msgstr "бот"
 msgid "Bot"
 msgstr "Бот"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:540
+#: src/components/pages/OAuthAuthorizePage.tsx:588
 msgid "Bot added"
 msgstr "Ботът е добавен"
 
@@ -3957,7 +3972,7 @@ msgstr ""
 msgid "Bot Invite"
 msgstr "Покана за бот"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:732
+#: src/components/pages/OAuthAuthorizePage.tsx:780
 msgid "Bot invite (no external redirect)"
 msgstr "Покана за бот (без външно пренасочване)"
 
@@ -3966,7 +3981,7 @@ msgstr "Покана за бот (без външно пренасочване)"
 msgid "Bot Invite Link"
 msgstr ""
 
-#: src/components/pages/OAuthAuthorizePage.tsx:470
+#: src/components/pages/OAuthAuthorizePage.tsx:503
 msgid "Bot is already in this community."
 msgstr "Ботът вече е в тази общност."
 
@@ -3983,7 +3998,7 @@ msgstr ""
 msgid "Bot Profile"
 msgstr "Профил на бота"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:741
+#: src/components/pages/OAuthAuthorizePage.tsx:789
 msgid "Bot scope requested"
 msgstr "Заявен обхват на бота"
 
@@ -4095,8 +4110,8 @@ msgstr "Бутоните показват индикатор за зарежда
 msgid "Buttons with Icons"
 msgstr "Бутони с икони"
 
-#: src/components/modals/CosmeticsShopModal.tsx:120
-msgid "Buy"
+#: src/components/modals/cosmetics_shop/ShopItemCard.tsx:72
+msgid "BUY"
 msgstr ""
 
 #: src/components/modals/guild_tabs/GuildVanityURLTab.tsx:175
@@ -4107,6 +4122,10 @@ msgstr ""
 msgid "Buy for $1.99 (SOL)"
 msgstr ""
 
+#: src/components/modals/cosmetics_shop/FeaturedDropCard.tsx:65
+msgid "BUY NOW"
+msgstr ""
+
 #: src/components/modals/GuildVanityPurchaseModal.tsx:120
 msgid "Buy Permanent Vanity Link"
 msgstr ""
@@ -4115,8 +4134,8 @@ msgstr ""
 msgid "By creating a community, you agree to follow and uphold the <0>Multiverse Community Guidelines</0>."
 msgstr "Като създаваш общност, се съгласяваш да спазваш и поддържаш <0>Правилата на общността Multiverse</0>."
 
-#: src/utils/PermissionUtils.tsx:356
-#: src/utils/PermissionUtils.tsx:491
+#: src/utils/PermissionUtils.tsx:361
+#: src/utils/PermissionUtils.tsx:496
 msgid "Bypass Slowmode"
 msgstr "Заобиколи забавянето"
 
@@ -4264,8 +4283,8 @@ msgstr "Камерите са деактивирани, когато има по
 #: src/components/modals/ClaimAccountModal.tsx:219
 #: src/components/modals/components/MobileSettingsView.tsx:216
 #: src/components/modals/ConfirmModal.tsx:146
-#: src/components/modals/CosmeticsShopModal.tsx:212
-#: src/components/modals/CosmeticsShopModal.tsx:296
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:150
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:296
 #: src/components/modals/CreateDMModal.tsx:88
 #: src/components/modals/CreateFavoriteCategoryModal.tsx:75
 #: src/components/modals/CreatePackModal.tsx:106
@@ -4310,7 +4329,6 @@ msgstr "Камерите са деактивирани, когато има по
 #: src/components/modals/ScreenShareSourceModal.tsx:77
 #: src/components/modals/SudoVerificationModal.tsx:577
 #: src/components/modals/tabs/AdminPanelTab.tsx:223
-#: src/components/modals/tabs/AdminPanelTab.tsx:379
 #: src/components/modals/tabs/applications_tab/ApplicationCreateModal.tsx:214
 #: src/components/modals/tabs/developer_teams_tab/TeamCreateModal.tsx:101
 #: src/components/modals/tabs/my_profile_tab/AvatarUploader.tsx:140
@@ -4320,11 +4338,15 @@ msgstr "Камерите са деактивирани, когато има по
 #: src/components/modals/TimeoutMemberModal.tsx:211
 #: src/components/modals/TipUserModal.tsx:198
 #: src/components/modals/TransferOwnershipModal.tsx:85
-#: src/components/pages/OAuthAuthorizePage.tsx:895
+#: src/components/pages/OAuthAuthorizePage.tsx:943
 #: src/components/popouts/ScheduledMessagesContent.tsx:119
 #: src/utils/modals/AnimatedAvifModalUtils.tsx:45
 msgid "Cancel"
 msgstr "Отказ"
+
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:208
+msgid "CANCEL"
+msgstr ""
 
 #: src/components/channel/direct_message/DMWelcomeSection.tsx:164
 #: src/components/channel/friends/FriendListItem.tsx:170
@@ -4391,6 +4413,7 @@ msgstr "Контроли за подравняване на картата"
 msgid "Careful! You have unsaved changes."
 msgstr "Внимание! Имаш незапазени промени."
 
+#: src/components/modals/cosmetics_shop/RailNav.tsx:106
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:333
 #: src/utils/ChannelUtils.tsx:69
 #: src/utils/modals/guild_tabs/GuildAuditLogTabUtils.tsx:229
@@ -4441,8 +4464,8 @@ msgstr "Център"
 msgid "Centered"
 msgstr "В центъра"
 
-#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:120
-#: src/components/modals/tabs/CosmeticsTab.tsx:129
+#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:111
+#: src/components/modals/tabs/CosmeticsTab.tsx:110
 msgid "Change"
 msgstr ""
 
@@ -4527,11 +4550,11 @@ msgstr "Смени прякора"
 msgid "Change nickname form"
 msgstr "Форма за промяна на прякора"
 
-#: src/utils/PermissionUtils.tsx:280
+#: src/utils/PermissionUtils.tsx:285
 msgid "Change other members' nicknames."
 msgstr "Промени прякорите на други членове."
 
-#: src/utils/PermissionUtils.tsx:274
+#: src/utils/PermissionUtils.tsx:279
 msgid "Change Own Nickname"
 msgstr "Смени собствения прякор"
 
@@ -4569,7 +4592,7 @@ msgstr "Промени имейл адреса си"
 msgid "Change Your MultiverseTag"
 msgstr "Смени MultiverseTag-а си"
 
-#: src/hooks/useCommands.tsx:70
+#: src/hooks/useCommands.tsx:79
 msgid "Change your nickname in this community."
 msgstr "Смени прякора си в тази общност."
 
@@ -4622,8 +4645,8 @@ msgstr "канал"
 msgid "Channel"
 msgstr "Канал"
 
-#: src/utils/PermissionUtils.tsx:379
-#: src/utils/PermissionUtils.tsx:459
+#: src/utils/PermissionUtils.tsx:384
+#: src/utils/PermissionUtils.tsx:464
 msgid "Channel Access"
 msgstr "Достъп до канала"
 
@@ -4701,7 +4724,7 @@ msgstr "Режим на индикатора за писане в списъка
 msgid "Channel list typing indicators"
 msgstr "Индикатори за писане в списъка с канали"
 
-#: src/utils/PermissionUtils.tsx:432
+#: src/utils/PermissionUtils.tsx:437
 msgid "Channel Management"
 msgstr "Управление на канали"
 
@@ -4883,7 +4906,7 @@ msgstr "Китайски (традиционен)"
 msgid "Choose"
 msgstr "Изберете"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:848
+#: src/components/pages/OAuthAuthorizePage.tsx:896
 msgid "Choose a community"
 msgstr "Избери общност"
 
@@ -4958,7 +4981,7 @@ msgstr "Избери как индикаторите за писане се по
 msgid "Choose the category that best describes your community."
 msgstr "Изберете категорията, която най-добре описва вашата общност."
 
-#: src/components/pages/OAuthAuthorizePage.tsx:586
+#: src/components/pages/OAuthAuthorizePage.tsx:634
 msgid "Choose what {clientLabel} can do in your community. Uncheck any permissions you don't want to grant."
 msgstr "Избери какво може да прави {clientLabel} във вашата общност. Отмени отметката на разрешенията, които не искаш да предоставиш."
 
@@ -5070,6 +5093,10 @@ msgstr "Клас '24"
 #: src/components/modals/guild_tabs/GuildMembersDateRangeModal.tsx:72
 msgid "Clear"
 msgstr "Изчисти"
+
+#: src/components/modals/cosmetics_shop/ServerView.tsx:93
+msgid "CLEAR"
+msgstr ""
 
 #: src/components/modals/tabs/developer_options_tab/ToolsTab.tsx:259
 msgid "Clear {trustedDomainsCount} Trusted Domain(s)"
@@ -5307,6 +5334,8 @@ msgstr "Клиентският секрет беше регенериран. А�
 #: src/components/modals/AddFavoriteChannelModal.tsx:200
 #: src/components/modals/BanDetailsModal.tsx:126
 #: src/components/modals/components/SettingsModalHeader.tsx:98
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:155
+#: src/components/modals/CosmeticsShopModal.tsx:133
 #: src/components/modals/InviteModal.tsx:135
 #: src/components/modals/MediaModal.tsx:349
 #: src/components/modals/MobileVideoViewer.tsx:260
@@ -5320,6 +5349,10 @@ msgstr "Клиентският секрет беше регенериран. А�
 #: src/components/voice/VoiceStatsOverlay.tsx:111
 msgid "Close"
 msgstr "Затвори"
+
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:297
+msgid "CLOSE"
+msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:149
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:533
@@ -5453,6 +5486,10 @@ msgstr ""
 #: src/components/modals/channel_tabs/ChannelPermissionsTab.tsx:977
 #: src/components/modals/guild_tabs/GuildRolesTab.tsx:1048
 msgid "Collection Address"
+msgstr ""
+
+#: src/components/modals/CosmeticsShopModal.tsx:175
+msgid "COLLECTION DEPLOYING · DEVNET LIVE"
 msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:78
@@ -5670,7 +5707,7 @@ msgid "Community Record"
 msgstr "Запис на общността"
 
 #: src/components/modals/components/DesktopGuildSettingsView.tsx:233
-#: src/components/modals/GuildSettingsModal.tsx:197
+#: src/components/modals/GuildSettingsModal.tsx:198
 #: src/components/popouts/GuildHeaderPopout.tsx:190
 #: src/components/uikit/context_menu/items/GuildMenuData.tsx:281
 #: src/components/uikit/context_menu/items/GuildMenuItems.tsx:349
@@ -5731,7 +5768,7 @@ msgstr "Първо завършете подканата за ключ за си
 msgid "Completely hide your Plutonium badge from other users"
 msgstr "Напълно скрийте значката Plutonium от другите потребители"
 
-#: src/components/pages/SsoCallbackPage.tsx:129
+#: src/components/pages/SsoCallbackPage.tsx:130
 msgid "Completing sign-in…"
 msgstr "Завършване на влизането…"
 
@@ -5747,7 +5784,7 @@ msgstr "Конфигурирайте AFK канал и таймаут"
 msgid "Configure base access for this channel"
 msgstr "Конфигурирайте основния достъп за този канал"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:583
+#: src/components/pages/OAuthAuthorizePage.tsx:631
 msgid "Configure bot permissions"
 msgstr "Конфигурирайте разрешенията на бота"
 
@@ -5825,8 +5862,11 @@ msgstr "Конфигурирайте профилната си значка"
 msgid "Confirm"
 msgstr "Потвърди"
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:216
+msgid "CONFIRM & SIGN"
+msgstr ""
+
 #: src/components/modals/tabs/AdminPanelTab.tsx:218
-#: src/components/modals/tabs/AdminPanelTab.tsx:376
 msgid "Confirm Approve"
 msgstr ""
 
@@ -5846,7 +5886,6 @@ msgid "Confirm Password"
 msgstr "Потвърдете паролата"
 
 #: src/components/modals/tabs/AdminPanelTab.tsx:219
-#: src/components/modals/tabs/AdminPanelTab.tsx:376
 msgid "Confirm Reject"
 msgstr ""
 
@@ -5854,12 +5893,16 @@ msgstr ""
 msgid "Confirm Remove"
 msgstr ""
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:246
+msgid "Confirming on-chain…"
+msgstr ""
+
 #: src/components/auth/InstanceSelector.tsx:308
 msgid "Connect"
 msgstr "Свържи се"
 
-#: src/utils/PermissionUtils.tsx:389
-#: src/utils/PermissionUtils.tsx:503
+#: src/utils/PermissionUtils.tsx:394
+#: src/utils/PermissionUtils.tsx:508
 msgid "Connect (Join Voice)"
 msgstr "Свържи се (Включи се в гласов канал)"
 
@@ -5871,10 +5914,6 @@ msgstr "Свържи се с гласов канал"
 msgid "Connect with Bluesky"
 msgstr "Свържете се с Bluesky"
 
-#: src/components/modals/CosmeticsShopModal.tsx:365
-msgid "Connect your Solana wallet to your account to apply as a creator."
-msgstr ""
-
 #: src/components/bottomsheets/DirectCallLobbyBottomSheet.tsx:319
 msgid "Connected to call"
 msgstr "Свързан с обаждане"
@@ -5883,7 +5922,7 @@ msgstr "Свързан с обаждане"
 msgid "Connected to Voice"
 msgstr "Свързан с гласов канал"
 
-#: src/components/modals/Web3Modal.tsx:127
+#: src/components/modals/Web3Modal.tsx:132
 msgid "Connected Wallet"
 msgstr ""
 
@@ -5958,7 +5997,7 @@ msgstr "връзки"
 #: src/components/modals/utils/SettingsConstants.tsx:298
 #: src/components/modals/utils/SettingsSearchIndex.tsx:309
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:430
-#: src/components/popouts/UserProfileShared.tsx:413
+#: src/components/popouts/UserProfileShared.tsx:417
 msgid "Connections"
 msgstr "Връзки"
 
@@ -6036,8 +6075,8 @@ msgstr "Контекстните менюта могат да се отворя�
 msgid "Continue"
 msgstr "Продължи"
 
-#: src/components/auth/AuthLoginLayout.tsx:384
-#: src/components/auth/AuthLoginLayout.tsx:438
+#: src/components/auth/AuthLoginLayout.tsx:324
+#: src/components/auth/AuthLoginLayout.tsx:380
 msgid "Continue with SSO"
 msgstr "Продължи с SSO"
 
@@ -6175,7 +6214,7 @@ msgstr "Копирах URL адреса в клипборда"
 #: src/components/modals/GuildVanityPurchaseModal.tsx:156
 #: src/components/modals/shared/CopyLinkSection.tsx:52
 #: src/components/modals/ThemeAcceptModal.tsx:162
-#: src/components/modals/Web3Modal.tsx:149
+#: src/components/modals/Web3Modal.tsx:154
 #: src/lib/markdown/renderers/common/CodeElements.tsx:57
 msgid "Copied!"
 msgstr "Копирано!"
@@ -6387,7 +6426,7 @@ msgstr "Копирайте стойността"
 msgid "Copy Video"
 msgstr "Копирай видео"
 
-#: src/components/modals/Web3Modal.tsx:143
+#: src/components/modals/Web3Modal.tsx:148
 msgid "Copy wallet address"
 msgstr ""
 
@@ -6408,7 +6447,7 @@ msgstr ""
 msgid "Copying image..."
 msgstr "Копиране на изображение..."
 
-#: src/components/modals/CosmeticsShopModal.tsx:651
+#: src/components/modals/CosmeticsShopModal.tsx:170
 msgid "Cosmetic NFTs will be available to purchase here when the Multiverse collection launches. Check back soon!"
 msgstr ""
 
@@ -6416,14 +6455,30 @@ msgstr ""
 msgid "Cosmetics"
 msgstr ""
 
-#: src/components/layout/guild_list/CosmeticsShopButton.tsx:49
 #: src/components/layout/guild_list/CosmeticsShopButton.tsx:53
-#: src/components/modals/CosmeticsShopModal.tsx:566
+#: src/components/layout/guild_list/CosmeticsShopButton.tsx:57
+#: src/components/modals/CosmeticsShopModal.tsx:123
 msgid "Cosmetics Shop"
+msgstr ""
+
+#: src/components/modals/CosmeticsShopModal.tsx:128
+msgid "COSMETICS SHOP"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/RailNav.tsx:78
+msgid "Cosmetics shop sections"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/YourItemsView.tsx:72
+msgid "Cosmetics you buy or that a creator mints to your wallet will show up here, ready to equip."
 msgstr ""
 
 #: src/components/modals/SudoVerificationModal.tsx:349
 msgid "Could not get wallet address."
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:84
+msgid "Could not prepare this purchase."
 msgstr ""
 
 #: src/utils/accounts/AccountSwitcherModalUtils.tsx:156
@@ -6484,10 +6539,6 @@ msgstr "Създай общност"
 msgid "Create a community for you and your friends to chat."
 msgstr "Създай общност за теб и приятелите ти, за да чатите."
 
-#: src/components/modals/CosmeticsShopModal.tsx:450
-msgid "Create a draft listing, then submit it for review. Once approved it appears in the shop and your 90% commission is paid on-chain to your wallet with every sale."
-msgstr ""
-
 #: src/components/modals/AddGuildModal.tsx:120
 msgid "Create a new community or join an existing one."
 msgstr "Създай нова общност или се присъедини към съществуваща."
@@ -6507,17 +6558,17 @@ msgstr ""
 
 #: src/components/modals/InvitePagePreviewModal.tsx:161
 #: src/components/pages/InviteRegisterPage.tsx:150
-#: src/components/pages/RegisterPage.tsx:50
+#: src/components/pages/RegisterPage.tsx:55
 #: src/components/pages/ThemeRegisterPage.tsx:84
 msgid "Create account"
 msgstr "Създай акаунт"
 
-#: src/components/pages/InviteLoginPage.tsx:231
+#: src/components/pages/InviteLoginPage.tsx:239
 #: src/components/pages/InviteRegisterPage.tsx:130
 msgid "Create Account"
 msgstr "Създай акаунт"
 
-#: src/components/pages/RegisterPage.tsx:39
+#: src/components/pages/RegisterPage.tsx:44
 msgid "Create an account"
 msgstr "Създай акаунт"
 
@@ -6567,7 +6618,7 @@ msgstr "Създай категория"
 msgid "Create Channel"
 msgstr "Създай канал"
 
-#: src/components/layout/guild_list/AddGuildButton.tsx:68
+#: src/components/layout/guild_list/AddGuildButton.tsx:69
 #: src/components/modals/AddGuildModal.tsx:127
 #: src/components/modals/AddGuildModal.tsx:293
 msgid "Create Community"
@@ -6577,16 +6628,16 @@ msgstr "Създай общност"
 msgid "Create community form"
 msgstr "Формуляр за създаване на общност"
 
-#: src/components/channel/direct_message/DMList.tsx:1420
+#: src/components/channel/direct_message/DMList.tsx:1424
 #: src/utils/modals/CreateDMModalUtils.tsx:154
 msgid "Create DM"
 msgstr "Създай директно съобщение"
 
-#: src/components/modals/CosmeticsShopModal.tsx:299
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:299
 msgid "Create Draft"
 msgstr ""
 
-#: src/utils/PermissionUtils.tsx:284
+#: src/utils/PermissionUtils.tsx:289
 msgid "Create Emoji & Stickers"
 msgstr "Създайте емоджи и стикери"
 
@@ -6610,8 +6661,8 @@ msgstr "Създай групово директно съобщение"
 msgid "Create Invite"
 msgstr "Създай покана"
 
-#: src/utils/PermissionUtils.tsx:270
-#: src/utils/PermissionUtils.tsx:435
+#: src/utils/PermissionUtils.tsx:275
+#: src/utils/PermissionUtils.tsx:440
 msgid "Create Invite Links"
 msgstr "Създай връзки за покана"
 
@@ -6668,7 +6719,7 @@ msgstr ""
 msgid "Create your first application to get started with the Multiverse API."
 msgstr "Създай първото си приложение, за да започнеш с Multiverse API."
 
-#: src/components/modals/CosmeticsShopModal.tsx:476
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:276
 msgid "Create your first listing draft above."
 msgstr ""
 
@@ -6676,19 +6727,19 @@ msgstr ""
 msgid "Create your Multiverse account"
 msgstr ""
 
-#: src/utils/PermissionUtils.tsx:258
+#: src/utils/PermissionUtils.tsx:263
 msgid "Create, edit, or delete channels and categories."
 msgstr "Създавай, редактирай или изтривай канали и категории."
 
-#: src/utils/PermissionUtils.tsx:252
+#: src/utils/PermissionUtils.tsx:257
 msgid "Create, edit, or delete roles below your highest role. Also allows editing channel permission overwrites."
 msgstr "Създавай, редактирай или изтривай роли под най-високата ти роля. Позволява и редакция на презаписвания на права в каналите."
 
-#: src/utils/PermissionUtils.tsx:450
+#: src/utils/PermissionUtils.tsx:455
 msgid "Create, edit, or delete webhooks for this channel."
 msgstr "Създавай, редактирай или изтривай уебхукове за този канал."
 
-#: src/utils/PermissionUtils.tsx:295
+#: src/utils/PermissionUtils.tsx:300
 msgid "Create, edit, or delete webhooks."
 msgstr "Създавай, редактирай или изтривай уебхукове."
 
@@ -6763,17 +6814,21 @@ msgstr "Колектив на творчески умове"
 msgid "Creative Writing Club"
 msgstr "Клуб по творческо писане"
 
-#: src/components/modals/CosmeticsShopModal.tsx:582
+#: src/components/modals/cosmetics_shop/RailNav.tsx:72
 msgid "Creator"
 msgstr ""
 
 #. placeholder {0}: creator?.creator_id
-#: src/components/modals/CosmeticsShopModal.tsx:437
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:231
 msgid "Creator #{0}"
 msgstr ""
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:612
-msgid "Creator Applications"
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:138
+msgid "CREATOR PROGRAM"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:187
+msgid "CREATOR SHARE (90%)"
 msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:108
@@ -7222,8 +7277,8 @@ msgstr "Заглушете устройството"
 msgid "Deafen Keybind"
 msgstr "Клавишна комбинация за заглушаване"
 
-#: src/utils/PermissionUtils.tsx:414
-#: src/utils/PermissionUtils.tsx:513
+#: src/utils/PermissionUtils.tsx:419
+#: src/utils/PermissionUtils.tsx:518
 msgid "Deafen Members"
 msgstr "Заглуши участници"
 
@@ -7490,7 +7545,7 @@ msgstr "Изтриването на емоджи не успя"
 msgid "Delete Invite"
 msgstr "Изтрий поканата"
 
-#: src/components/modals/CosmeticsShopModal.tsx:518
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:330
 msgid "Delete listing"
 msgstr ""
 
@@ -7504,7 +7559,7 @@ msgstr "Изтрий медия"
 #: src/components/channel/MessageActionBar.tsx:824
 #: src/components/channel/MessageActionMenu.tsx:271
 #: src/components/channel/MessageActionMenu.tsx:337
-#: src/components/modals/MediaViewerModal.tsx:100
+#: src/components/modals/MediaViewerModal.tsx:113
 #: src/components/uikit/context_menu/items/MessageMenuItems.tsx:279
 #: src/stores/KeybindStore.tsx:325
 msgid "Delete Message"
@@ -7523,8 +7578,8 @@ msgstr "Изтрий съобщенията от последния ден"
 msgid "Delete messages from the last week"
 msgstr "Изтрий съобщенията от последната седмица"
 
-#: src/utils/PermissionUtils.tsx:317
-#: src/utils/PermissionUtils.tsx:471
+#: src/utils/PermissionUtils.tsx:322
+#: src/utils/PermissionUtils.tsx:476
 msgid "Delete others' messages. (Pinning is separate below.)"
 msgstr "Изтрий чуждите съобщения. (Закрепването е отделно по-долу.)"
 
@@ -7659,7 +7714,7 @@ msgstr "Опишете какво прави съдържанието незак
 msgid "Describe what your community is about..."
 msgstr "Опишете за какво е вашата общност..."
 
-#: src/components/modals/CosmeticsShopModal.tsx:254
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:202
 msgid "Describe your cosmetic…"
 msgstr ""
 
@@ -7668,7 +7723,7 @@ msgstr ""
 msgid "description"
 msgstr "описание"
 
-#: src/components/modals/CosmeticsShopModal.tsx:249
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:195
 #: src/components/modals/CreatePackModal.tsx:95
 #: src/components/modals/EditPackModal.tsx:91
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:295
@@ -7867,7 +7922,7 @@ msgstr "Лично съобщение"
 msgid "Direct Message"
 msgstr "Лично съобщение"
 
-#: src/components/channel/direct_message/DMList.tsx:1416
+#: src/components/channel/direct_message/DMList.tsx:1420
 #: src/components/layout/guild_list/FluxerButton.tsx:75
 #: src/components/layout/guild_list/FluxerButton.tsx:80
 #: src/components/modals/GuildPrivacySettingsModal.tsx:76
@@ -8071,7 +8126,7 @@ msgstr "Изтрий гласово съобщение"
 msgid "Disconnect"
 msgstr "Прекъсни връзката"
 
-#: src/components/modals/Web3Modal.tsx:183
+#: src/components/modals/Web3Modal.tsx:188
 msgid "Disconnect & Sign Out"
 msgstr ""
 
@@ -8111,7 +8166,7 @@ msgstr "Заявлението за откритие е подадено"
 msgid "Discovery application withdrawn"
 msgstr "Заявлението за откритие е оттеглено"
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:611
+#: src/components/modals/tabs/AdminPanelTab.tsx:455
 msgid "Discovery Applications"
 msgstr ""
 
@@ -8284,7 +8339,7 @@ msgstr "домейн"
 #: src/components/modals/AddConnectionModal.tsx:210
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:168
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:303
-#: src/components/popouts/UserProfileShared.tsx:283
+#: src/components/popouts/UserProfileShared.tsx:287
 msgid "Domain"
 msgstr "Домейн"
 
@@ -8339,6 +8394,10 @@ msgstr "Не показвай индикатори за писане в спис
 #: src/components/search/UserFilterSheet.tsx:152
 msgid "Done"
 msgstr "Готово"
+
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:284
+msgid "DONE"
+msgstr ""
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:189
 msgid "double click"
@@ -8410,8 +8469,8 @@ msgstr "Зона за плъзгане и пускане за качване н�
 msgid "Drag and drop emoji files here"
 msgstr "Плъзнете и пуснете файлове с емоджита тук"
 
-#: src/utils/PermissionUtils.tsx:419
-#: src/utils/PermissionUtils.tsx:516
+#: src/utils/PermissionUtils.tsx:424
+#: src/utils/PermissionUtils.tsx:521
 msgid "Drag members between channels they can access."
 msgstr "Премествайте членове между канали, до които имат достъп."
 
@@ -8509,7 +8568,7 @@ msgstr ""
 msgid "e.g. example.com"
 msgstr "напр. example.com"
 
-#: src/components/modals/CosmeticsShopModal.tsx:242
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:187
 msgid "e.g. Neon Flame Avatar Frame"
 msgstr ""
 
@@ -8526,11 +8585,11 @@ msgstr ""
 msgid "e.g., YubiKey, iPhone, Work Computer"
 msgstr "напр. YubiKey, iPhone, служебен компютър"
 
-#: src/components/modals/Web3Modal.tsx:217
+#: src/components/modals/Web3Modal.tsx:222
 msgid "E2EE active"
 msgstr ""
 
-#: src/components/modals/Web3Modal.tsx:229
+#: src/components/modals/Web3Modal.tsx:234
 msgid "E2EE setting up…"
 msgstr ""
 
@@ -8656,11 +8715,11 @@ msgstr "Редактиране на съобщение"
 msgid "Edit Note"
 msgstr "Редактиране на бележка"
 
-#: src/utils/PermissionUtils.tsx:290
+#: src/utils/PermissionUtils.tsx:295
 msgid "Edit or delete emoji and stickers created by other members."
 msgstr "Редактирайте или изтрийте емоджи и стикери, създадени от други членове."
 
-#: src/utils/PermissionUtils.tsx:445
+#: src/utils/PermissionUtils.tsx:450
 msgid "Edit overwrites for roles and members in this channel."
 msgstr "Редактирайте презаписванията за роли и членове в този канал."
 
@@ -8804,8 +8863,8 @@ msgstr "вграждане"
 msgid "Embed"
 msgstr "Вграждане"
 
-#: src/utils/PermissionUtils.tsx:325
-#: src/utils/PermissionUtils.tsx:475
+#: src/utils/PermissionUtils.tsx:330
+#: src/utils/PermissionUtils.tsx:480
 msgid "Embed Links"
 msgstr "Вграждане на връзки"
 
@@ -8922,6 +8981,10 @@ msgstr "Емоджита"
 #: src/components/layout/FavoritesChannelListContent.tsx:524
 msgid "Empty favorites"
 msgstr "Празни любими"
+
+#: src/components/modals/cosmetics_shop/ServerView.tsx:83
+msgid "Empty slot"
+msgstr ""
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:836
 msgid "empty state"
@@ -9096,7 +9159,7 @@ msgstr "Включени функции: {0}."
 msgid "Enabled NSFW."
 msgstr "NSFW е активирано."
 
-#: src/components/modals/Web3Modal.tsx:232
+#: src/components/modals/Web3Modal.tsx:237
 msgid "Encryption is being initialized. Approve the signature request in your wallet to complete setup."
 msgstr ""
 
@@ -9104,7 +9167,7 @@ msgstr ""
 msgid "Encryption setup failed"
 msgstr ""
 
-#: src/components/modals/Web3Modal.tsx:201
+#: src/components/modals/Web3Modal.tsx:206
 msgid "End-to-End Encryption"
 msgstr ""
 
@@ -9150,7 +9213,7 @@ msgstr "Въведи сигурна парола"
 msgid "Enter a user ID or a full tag like username#0001."
 msgstr ""
 
-#: src/components/modals/CosmeticsShopModal.tsx:180
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:106
 msgid "Enter a valid price greater than 0."
 msgstr ""
 
@@ -9297,8 +9360,16 @@ msgstr "Звукът при влизане е качен успешно"
 msgid "Entrance sounds"
 msgstr "Звуци при влизане"
 
-#: src/components/modals/tabs/CosmeticsTab.tsx:209
+#: src/components/modals/cosmetics_shop/YourItemsView.tsx:119
+msgid "EQUIP"
+msgstr ""
+
+#: src/components/modals/tabs/CosmeticsTab.tsx:165
 msgid "Equip cosmetic NFTs from your Solana wallet to customize your profile. Visit the Multiverse Shop to collect new cosmetics."
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/YourItemsView.tsx:85
+msgid "EQUIPPED"
 msgstr ""
 
 #: src/components/bottomsheets/ChannelSearchBottomSheet.tsx:313
@@ -9615,7 +9686,7 @@ msgstr "Неуспешно изчистване на доверените дом
 msgid "Failed to Close DM"
 msgstr "Неуспешно затваряне на DM"
 
-#: src/components/pages/SsoCallbackPage.tsx:95
+#: src/components/pages/SsoCallbackPage.tsx:96
 msgid "Failed to complete SSO login"
 msgstr "Неуспешно завършване на SSO вход"
 
@@ -9635,7 +9706,7 @@ msgstr "Неуспешно копиране в клипборда"
 msgid "Failed to create bot token. Please try again."
 msgstr ""
 
-#: src/components/modals/CosmeticsShopModal.tsx:202
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:138
 msgid "Failed to create listing."
 msgstr ""
 
@@ -9762,6 +9833,10 @@ msgstr "Неуспешно напускане на общността"
 msgid "Failed to Leave Group"
 msgstr "Неуспешно напускане на групата"
 
+#: src/hooks/cosmetics/useLinkWallet.tsx:139
+msgid "Failed to link wallet"
+msgstr ""
+
 #: src/components/modals/BackgroundImageGalleryModal.tsx:199
 msgid "Failed to load"
 msgstr "Неуспешно зареждане"
@@ -9789,10 +9864,6 @@ msgstr "Неуспешно зареждане на банове. Опитай о
 
 #: src/components/modals/tabs/applications_tab/ApplicationsTabStore.tsx:224
 msgid "Failed to load bot tokens"
-msgstr ""
-
-#: src/components/modals/tabs/AdminPanelTab.tsx:266
-msgid "Failed to load creator applications."
 msgstr ""
 
 #: src/components/modals/guild_tabs/GuildEmojiTab.tsx:336
@@ -9834,11 +9905,11 @@ msgstr "Неуспешно зареждане на гласови региони
 msgid "Failed to Load Webhooks"
 msgstr "Неуспешно зареждане на уебхукове"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:216
+#: src/components/pages/OAuthAuthorizePage.tsx:237
 msgid "Failed to load your communities."
 msgstr "Неуспешно зареждане на твоите общности."
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:468
+#: src/components/modals/tabs/AdminPanelTab.tsx:312
 msgid "Failed to look up user."
 msgstr ""
 
@@ -10004,7 +10075,7 @@ msgstr "Неуспешно стартиране на Bluesky авторизац�
 msgid "Failed to start camera preview. Please check your camera permissions."
 msgstr "Неуспешно стартиране на прегледа на камерата. Провери разрешенията за камерата."
 
-#: src/components/auth/AuthLoginLayout.tsx:198
+#: src/components/auth/AuthLoginLayout.tsx:200
 msgid "Failed to start SSO"
 msgstr "Неуспех при стартиране на SSO"
 
@@ -10012,7 +10083,7 @@ msgstr "Неуспех при стартиране на SSO"
 msgid "Failed to submit report. Please try again."
 msgstr "Неуспешно изпращане на доклад. Опитай отново."
 
-#: src/components/auth/AuthLoginLayout.tsx:175
+#: src/components/auth/AuthLoginLayout.tsx:177
 msgid "Failed to switch account"
 msgstr "Неуспешно превключване на акаунт"
 
@@ -10059,7 +10130,7 @@ msgstr "Неуспешно откачане на съобщение"
 msgid "Failed to update alt text"
 msgstr "Неуспешно актуализиране на алтернативния текст"
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:530
+#: src/components/modals/tabs/AdminPanelTab.tsx:374
 msgid "Failed to update badges. Check your permissions."
 msgstr ""
 
@@ -10193,6 +10264,10 @@ msgstr "Функция"
 #: src/components/alerts/FeatureTemporarilyDisabledModal.tsx:28
 msgid "Feature Temporarily Disabled"
 msgstr "Функцията е временно деактивирана"
+
+#: src/components/modals/cosmetics_shop/FeaturedDropCard.tsx:53
+msgid "FEATURED DROP"
+msgstr ""
 
 #: src/components/modals/utils/SettingsSearchIndex.tsx:262
 msgid "features"
@@ -10520,7 +10595,7 @@ msgstr "Забрави абонаментите"
 msgid "Forgot Password"
 msgstr "Забравена парола"
 
-#: src/components/auth/AuthLoginLayout.tsx:467
+#: src/components/auth/AuthLoginLayout.tsx:409
 #: src/components/pages/ForgotPasswordPage.tsx:83
 msgid "Forgot your password?"
 msgstr "Забравихте паролата си?"
@@ -10856,7 +10931,7 @@ msgstr "Поведение на GIF"
 msgid "GIF Options"
 msgstr "Опции за GIF"
 
-#: src/components/modals/MediaViewerModal.tsx:435
+#: src/components/modals/MediaViewerModal.tsx:448
 msgid "GIF preview"
 msgstr "Преглед на GIF"
 
@@ -11708,8 +11783,8 @@ msgstr "Игнорирай"
 msgid "Ignore Friend Request"
 msgstr "Игнорирай заявка за приятелство"
 
-#: src/utils/PermissionUtils.tsx:357
-#: src/utils/PermissionUtils.tsx:492
+#: src/utils/PermissionUtils.tsx:362
+#: src/utils/PermissionUtils.tsx:497
 msgid "Ignore per-channel message rate limits."
 msgstr "Игнорирай ограниченията за честота на съобщенията в канал."
 
@@ -11728,7 +11803,7 @@ msgid "image"
 msgstr "изображение"
 
 #: src/components/channel/embeds/media/EmbedImage.tsx:391
-#: src/components/modals/MediaViewerModal.tsx:540
+#: src/components/modals/MediaViewerModal.tsx:553
 #: src/components/search/HasFilterSheet.tsx:50
 #: src/utils/FavoriteMemeUtils.tsx:72
 #: src/utils/FavoriteMemeUtils.tsx:99
@@ -11743,7 +11818,7 @@ msgstr "Изображението е копирано в клипборда"
 msgid "Image Options"
 msgstr "Опции за изображение"
 
-#: src/components/modals/MediaViewerModal.tsx:432
+#: src/components/modals/MediaViewerModal.tsx:445
 msgid "Image preview"
 msgstr "Преглед на изображение"
 
@@ -12131,7 +12206,7 @@ msgstr "Невалиден"
 msgid "Invalid audio file"
 msgstr "Невалиден аудио файл"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:526
+#: src/components/pages/OAuthAuthorizePage.tsx:574
 msgid "Invalid authorization request"
 msgstr "Невалидна заявка за удостоверяване"
 
@@ -12149,10 +12224,6 @@ msgstr "Невалиден или изтекъл код"
 #: src/components/auth/BrowserLoginHandoffModal.tsx:160
 msgid "Invalid or expired code. Please try again."
 msgstr "Невалиден или изтекъл код. Моля, опитайте отново."
-
-#: src/components/pages/OAuthAuthorizePage.tsx:501
-msgid "Invalid redirect_uri"
-msgstr "Невалиден redirect_uri"
 
 #: src/components/pages/ConnectionCallbackPage.tsx:69
 #: src/components/pages/PremiumCallbackPage.tsx:82
@@ -12280,7 +12351,7 @@ msgid "Invite modal preview"
 msgstr "Преглед на модал за покана"
 
 #: src/components/modals/InviteAcceptModal.tsx:151
-#: src/components/pages/InviteLoginPage.tsx:193
+#: src/components/pages/InviteLoginPage.tsx:201
 #: src/components/pages/InviteRegisterPage.tsx:92
 msgid "Invite not found"
 msgstr "Поканата не е намерена"
@@ -12456,6 +12527,15 @@ msgstr "Италиански"
 msgid "Italy"
 msgstr "Италия"
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:179
+msgid "ITEM"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/YourItemsView.tsx:57
+#: src/components/modals/CosmeticsShopModal.tsx:186
+msgid "ITEMS"
+msgstr ""
+
 #: src/utils/LocaleUtils.tsx:56
 msgid "Japanese"
 msgstr "Японски"
@@ -12497,7 +12577,7 @@ msgstr "Присъедини се към обаждането"
 
 #: src/components/channel/InviteEmbed.tsx:284
 #: src/components/channel/InviteEmbed.tsx:475
-#: src/components/layout/guild_list/AddGuildButton.tsx:77
+#: src/components/layout/guild_list/AddGuildButton.tsx:78
 #: src/components/modals/AddGuildModal.tsx:132
 #: src/components/modals/AddGuildModal.tsx:416
 #: src/components/modals/InviteAcceptModal.tsx:119
@@ -12792,7 +12872,7 @@ msgstr "ключове"
 msgid "Kick"
 msgstr "Изключи"
 
-#: src/hooks/useCommands.tsx:77
+#: src/hooks/useCommands.tsx:86
 msgid "Kick a member from this community."
 msgstr "Изключи член от тази общност."
 
@@ -12803,7 +12883,7 @@ msgstr "Изключи член от тази общност."
 msgid "Kick Member"
 msgstr "Изключи член"
 
-#: src/utils/PermissionUtils.tsx:262
+#: src/utils/PermissionUtils.tsx:267
 msgid "Kick Members"
 msgstr "Изключи членове"
 
@@ -13076,8 +13156,8 @@ msgstr "Връзка"
 msgid "Link a Solana wallet to set up end-to-end encryption for your direct messages. Your encryption key is derived from your wallet — the same key works on any device where you sign in with the same wallet."
 msgstr ""
 
-#: src/components/modals/CosmeticsShopModal.tsx:363
-msgid "Link a Wallet First"
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:114
+msgid "Link a wallet to become a creator"
 msgstr ""
 
 #: src/utils/modals/guild_tabs/GuildAuditLogTabUtils.tsx:231
@@ -13122,6 +13202,15 @@ msgstr "Предварителни прегледи на връзки"
 msgid "link safety"
 msgstr "безопасност на линковете"
 
+#: src/components/modals/cosmetics_shop/WalletChip.tsx:90
+msgid "Link Wallet"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:235
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:128
+msgid "LINK WALLET"
+msgstr ""
+
 #: src/components/modals/tabs/VaultTab.tsx:71
 msgid "Link Wallet & Enable E2EE"
 msgstr ""
@@ -13154,6 +13243,10 @@ msgstr "свързани акаунти"
 msgid "Linked Devices"
 msgstr "Свързани устройства"
 
+#: src/components/modals/cosmetics_shop/WalletChip.tsx:90
+msgid "Linking…"
+msgstr ""
+
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:313
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:352
 msgid "links"
@@ -13163,12 +13256,16 @@ msgstr "връзки"
 msgid "Links"
 msgstr "Връзки"
 
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:149
+msgid "List cosmetics you create — no personal information required."
+msgstr ""
+
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:218
 msgid "List your community in Discovery so others can find and join it."
 msgstr "Изброете вашата общност в Откритие, за да могат другите да я намерят и присъединят."
 
-#: src/components/modals/CosmeticsShopModal.tsx:378
-msgid "List your cosmetic items in the Multiverse shop and earn 90% of every sale, paid directly to your Solana wallet on-chain. No personal information required."
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:252
+msgid "LISTINGS"
 msgstr ""
 
 #: src/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx:109
@@ -13191,6 +13288,10 @@ msgstr "Литовски"
 msgid "Live"
 msgstr "На живо"
 
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:256
+msgid "LIVE LISTINGS"
+msgstr ""
+
 #: src/components/modals/guild_tabs/GuildAuditLogTab.tsx:658
 msgid "Load more"
 msgstr "Зареди още"
@@ -13208,7 +13309,7 @@ msgstr "зареждане"
 msgid "Loading"
 msgstr "Зареждане"
 
-#: src/components/modals/Web3Modal.tsx:157
+#: src/components/modals/Web3Modal.tsx:162
 msgid "Loading balance…"
 msgstr ""
 
@@ -13216,7 +13317,7 @@ msgstr ""
 msgid "Loading bans..."
 msgstr "Зареждане на забрани..."
 
-#: src/components/pages/OAuthAuthorizePage.tsx:848
+#: src/components/pages/OAuthAuthorizePage.tsx:896
 msgid "Loading communities..."
 msgstr "Зареждане на общности..."
 
@@ -13272,8 +13373,7 @@ msgid "Loading..."
 msgstr "Зарежда се..."
 
 #: src/components/modals/tabs/AdminPanelTab.tsx:140
-#: src/components/modals/tabs/AdminPanelTab.tsx:322
-#: src/components/modals/tabs/AdminPanelTab.tsx:563
+#: src/components/modals/tabs/AdminPanelTab.tsx:407
 msgid "Loading…"
 msgstr ""
 
@@ -13295,13 +13395,13 @@ msgid "Locked"
 msgstr ""
 
 #: src/components/auth/AuthBottomLink.tsx:36
-#: src/components/auth/AuthLoginLayout.tsx:462
+#: src/components/auth/AuthLoginLayout.tsx:404
 #: src/components/auth/MfaScreen.tsx:137
-#: src/components/pages/LoginPage.tsx:129
+#: src/components/pages/LoginPage.tsx:139
 msgid "Log in"
 msgstr "Влез"
 
-#: src/components/pages/InviteLoginPage.tsx:236
+#: src/components/pages/InviteLoginPage.tsx:244
 #: src/components/pages/InviteRegisterPage.tsx:135
 msgid "Log In"
 msgstr "Влез"
@@ -13311,7 +13411,7 @@ msgid "Log in using your browser, then enter the code shown to add the account."
 msgstr "Влез през браузъра си и въведи показания код, за да добавиш акаунта."
 
 #: src/components/auth/auth_login_core/AuthLoginPasskeyActions.tsx:70
-#: src/components/auth/AuthLoginLayout.tsx:489
+#: src/components/auth/AuthLoginLayout.tsx:431
 msgid "Log in via browser"
 msgstr "Влез през браузър"
 
@@ -13401,11 +13501,11 @@ msgstr "Изглед и усещане"
 msgid "Look at the time, {username}! You're on schedule!"
 msgstr "Виж колко е часът, {username}! На график си!"
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:553
+#: src/components/modals/tabs/AdminPanelTab.tsx:397
 msgid "Look Up"
 msgstr ""
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:595
+#: src/components/modals/tabs/AdminPanelTab.tsx:439
 msgid "Look up a user by ID to manage their badges."
 msgstr ""
 
@@ -13475,13 +13575,13 @@ msgstr "Управление на упълномощени приложения"
 msgid "Manage blocked users"
 msgstr "Управление на блокирани потребители"
 
-#: src/utils/PermissionUtils.tsx:439
-#: src/utils/PermissionUtils.tsx:568
+#: src/utils/PermissionUtils.tsx:444
+#: src/utils/PermissionUtils.tsx:573
 msgid "Manage Channel"
 msgstr "Управление на канала"
 
-#: src/utils/PermissionUtils.tsx:257
-#: src/utils/PermissionUtils.tsx:568
+#: src/utils/PermissionUtils.tsx:262
+#: src/utils/PermissionUtils.tsx:573
 msgid "Manage Channels"
 msgstr "Управление на канали"
 
@@ -13493,11 +13593,15 @@ msgstr "Управление на общността"
 msgid "Manage Community Features"
 msgstr "Управление на функции на общността"
 
+#: src/utils/PermissionUtils.tsx:250
+msgid "Manage Cosmetics"
+msgstr ""
+
 #: src/components/modals/utils/SettingsSearchIndex.tsx:279
 msgid "Manage developer applications"
 msgstr "Управление на приложения на разработчици"
 
-#: src/utils/PermissionUtils.tsx:289
+#: src/utils/PermissionUtils.tsx:294
 msgid "Manage Emoji & Stickers"
 msgstr "Управление на емотикони и стикери"
 
@@ -13517,22 +13621,22 @@ msgstr "Управлявай входящите webhook-и, които мога�
 msgid "Manage invites for this channel."
 msgstr "Управлявай поканите за този канал."
 
-#: src/utils/PermissionUtils.tsx:316
-#: src/utils/PermissionUtils.tsx:470
+#: src/utils/PermissionUtils.tsx:321
+#: src/utils/PermissionUtils.tsx:475
 msgid "Manage Messages"
 msgstr "Управление на съобщения"
 
-#: src/utils/PermissionUtils.tsx:279
+#: src/utils/PermissionUtils.tsx:284
 msgid "Manage Nicknames"
 msgstr "Управление на прякори"
 
-#: src/utils/PermissionUtils.tsx:444
+#: src/utils/PermissionUtils.tsx:449
 msgid "Manage Permissions"
 msgstr "Управление на разрешения"
 
 #: src/components/guild/RoleManagement.tsx:276
 #: src/components/modals/guild_tabs/GuildMemberActionsSheet.tsx:335
-#: src/utils/PermissionUtils.tsx:250
+#: src/utils/PermissionUtils.tsx:255
 msgid "Manage Roles"
 msgstr "Управление на роли"
 
@@ -13540,8 +13644,8 @@ msgstr "Управление на роли"
 msgid "Manage the email address you use to sign in to Multiverse"
 msgstr "Управлявай имейл адреса, с който влизаш във Multiverse"
 
-#: src/utils/PermissionUtils.tsx:294
-#: src/utils/PermissionUtils.tsx:449
+#: src/utils/PermissionUtils.tsx:299
+#: src/utils/PermissionUtils.tsx:454
 msgid "Manage Webhooks"
 msgstr "Управление на webhook-и"
 
@@ -13556,6 +13660,10 @@ msgstr "Управлявай имейла, паролата и настройк�
 #: src/components/modals/tabs/account_security_tab/SecurityTab.tsx:353
 msgid "Manage your phone number for SMS two-factor authentication"
 msgstr "Управлявай телефонния си номер за SMS двуфакторна автентикация"
+
+#: src/components/modals/cosmetics_shop/ServerView.tsx:54
+msgid "MANAGER"
+msgstr ""
 
 #: src/components/bottomsheets/ChannelDetailsBottomSheet.tsx:1179
 #: src/components/channel/direct_message/DMList.tsx:615
@@ -13687,6 +13795,14 @@ msgstr "Маркирай Visionary като абонамент"
 msgid "Max Number of Uses"
 msgstr "Максимален брой употреби"
 
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:272
+msgid "Max Supply"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:112
+msgid "Max supply must be a whole number greater than 0, or left blank for unlimited."
+msgstr ""
+
 #: src/components/modals/PackInviteModal.tsx:119
 msgid "Max uses"
 msgstr "Максимални употреби"
@@ -13773,11 +13889,11 @@ msgid "Media from links (embeds)"
 msgstr "Медия от връзки (вграждания)"
 
 #: src/components/channel/MediaActionBottomSheet.tsx:111
-#: src/components/modals/MediaViewerModal.tsx:115
+#: src/components/modals/MediaViewerModal.tsx:128
 msgid "Media Options"
 msgstr "Опции за медии"
 
-#: src/components/modals/MediaViewerModal.tsx:443
+#: src/components/modals/MediaViewerModal.tsx:456
 msgid "Media preview"
 msgstr "Предварителен преглед на медия"
 
@@ -13966,8 +14082,8 @@ msgstr "Споменаване на @here?"
 msgid "Mention Badges"
 msgstr "Значки за споменаване"
 
-#: src/utils/PermissionUtils.tsx:338
-#: src/utils/PermissionUtils.tsx:480
+#: src/utils/PermissionUtils.tsx:343
+#: src/utils/PermissionUtils.tsx:485
 msgid "Mention everyone or any role (even if the role isn't set to be mentionable)."
 msgstr "Споменавай всички или всяка роля (дори ако ролята не е зададена като споменаваема)."
 
@@ -14172,8 +14288,8 @@ msgid "Messages"
 msgstr "Съобщения"
 
 #: src/components/modals/utils/SettingsConstants.tsx:185
-#: src/utils/PermissionUtils.tsx:304
-#: src/utils/PermissionUtils.tsx:466
+#: src/utils/PermissionUtils.tsx:309
+#: src/utils/PermissionUtils.tsx:471
 msgid "Messages & Media"
 msgstr "Съобщения и медия"
 
@@ -14234,11 +14350,33 @@ msgstr "Минимизирай прозореца"
 msgid "mint"
 msgstr ""
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:145
+#: src/components/modals/cosmetics_shop/ShopItemCard.tsx:65
+msgid "minted"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:298
+msgid "MINTED"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/FeaturedDropCard.tsx:71
+#: src/components/modals/cosmetics_shop/RailNav.tsx:181
+msgid "MINTED ON SOLANA"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/YourItemsView.tsx:54
+msgid "MINTED TO"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:258
+msgid "Minted to your wallet"
+msgstr ""
+
 #: src/components/modals/TimeoutMemberModal.tsx:71
 msgid "Minutes"
 msgstr "Минути"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:134
+#: src/components/pages/OAuthAuthorizePage.tsx:155
 msgid "Missing client_id"
 msgstr "Липсва client_id"
 
@@ -14246,7 +14384,7 @@ msgstr "Липсва client_id"
 msgid "Missing Permissions"
 msgstr "Липсват разрешения"
 
-#: src/components/pages/SsoCallbackPage.tsx:77
+#: src/components/pages/SsoCallbackPage.tsx:78
 msgid "Missing SSO code or state. Please try signing in again."
 msgstr "Липсва SSO код или статус. Моля, опитайте да влезете отново."
 
@@ -14360,7 +14498,7 @@ msgid "Mode C"
 msgstr "Режим C"
 
 #: src/components/uikit/context_menu/items/ModerationSubmenu.tsx:152
-#: src/utils/PermissionUtils.tsx:366
+#: src/utils/PermissionUtils.tsx:371
 msgid "Moderation"
 msgstr "Модерация"
 
@@ -14448,8 +14586,8 @@ msgstr "Прехвърли фокуса между бутони, полета и
 msgid "Move focus to the message composer"
 msgstr "Премести фокуса към съставителя на съобщения"
 
-#: src/utils/PermissionUtils.tsx:418
-#: src/utils/PermissionUtils.tsx:515
+#: src/utils/PermissionUtils.tsx:423
+#: src/utils/PermissionUtils.tsx:520
 msgid "Move Members"
 msgstr "Премести членове"
 
@@ -14538,7 +14676,7 @@ msgstr "Multiverse откри ново аудио входно устройст�
 msgid "Multiverse has found a new audio output device named <0>{deviceName}</0>. Do you want to switch to it?"
 msgstr "Multiverse откри ново аудио изходно устройство на име <0>{deviceName}</0>. Искате ли да преминете към него?"
 
-#: src/components/popouts/UserProfileShared.tsx:238
+#: src/components/popouts/UserProfileShared.tsx:242
 msgid "Multiverse Member Since"
 msgstr "Член на Multiverse от"
 
@@ -14737,8 +14875,8 @@ msgstr "Заглуши любими"
 msgid "Mute Keybind"
 msgstr "Клавишна комбинация за заглушаване"
 
-#: src/utils/PermissionUtils.tsx:410
-#: src/utils/PermissionUtils.tsx:512
+#: src/utils/PermissionUtils.tsx:415
+#: src/utils/PermissionUtils.tsx:517
 msgid "Mute Members"
 msgstr "Заглуши членове"
 
@@ -14817,8 +14955,8 @@ msgstr "Моята категория"
 msgid "My Devices"
 msgstr "Моите устройства"
 
-#: src/components/channel/direct_message/DMFriendsView.tsx:104
-#: src/components/channel/direct_message/DMFriendsView.tsx:154
+#: src/components/channel/direct_message/DMFriendsView.tsx:110
+#: src/components/channel/direct_message/DMFriendsView.tsx:160
 msgid "My Friends"
 msgstr "Моите приятели"
 
@@ -14859,7 +14997,7 @@ msgstr "име"
 #: src/components/emojis/EmojiListItem.tsx:141
 #: src/components/modals/CategoryCreateModal.tsx:70
 #: src/components/modals/ChannelCreateModal.tsx:80
-#: src/components/modals/CosmeticsShopModal.tsx:237
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:180
 #: src/components/modals/guild_tabs/guild_overview_tab/sections/BrandingSection.tsx:170
 #: src/components/modals/meme_form/MemeFormFields.tsx:94
 #: src/components/modals/sticker_form/StickerFormFields.tsx:95
@@ -14872,7 +15010,7 @@ msgstr "Име"
 msgid "Name is required"
 msgstr "Името е задължително"
 
-#: src/components/modals/CosmeticsShopModal.tsx:179
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:104
 msgid "Name is required."
 msgstr ""
 
@@ -14984,6 +15122,10 @@ msgstr "Мрежа"
 msgid "Network Error"
 msgstr "Грешка в мрежата"
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:183
+msgid "NETWORK FEE"
+msgstr ""
+
 #: src/components/modals/tabs/developer_options_tab/DeveloperOptionsToggleGroups.tsx:56
 msgid "Networking & Performance"
 msgstr "Мрежа и производителност"
@@ -15053,12 +15195,12 @@ msgstr "Форма за нов имейл"
 msgid "New Group"
 msgstr "Нова група"
 
-#: src/components/modals/CosmeticsShopModal.tsx:467
-msgid "New listing"
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:148
+msgid "New Listing"
 msgstr ""
 
-#: src/components/modals/CosmeticsShopModal.tsx:211
-msgid "New Listing"
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:265
+msgid "NEW LISTING"
 msgstr ""
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:569
@@ -15098,7 +15240,7 @@ msgid "Newest First"
 msgstr "Най-нови първи"
 
 #: src/components/bottomsheets/ChannelSearchBottomSheet.tsx:394
-#: src/components/pages/OAuthAuthorizePage.tsx:902
+#: src/components/pages/OAuthAuthorizePage.tsx:950
 msgid "Next"
 msgstr "Напред"
 
@@ -15168,11 +15310,6 @@ msgstr "нитро"
 #. placeholder {0}: statusLabels[statusFilter] ?? statusFilter
 #: src/components/modals/tabs/AdminPanelTab.tsx:143
 msgid "No {0} applications."
-msgstr ""
-
-#. placeholder {0}: statusLabels[statusFilter] ?? statusFilter
-#: src/components/modals/tabs/AdminPanelTab.tsx:326
-msgid "No {0} creator applications."
 msgstr ""
 
 #: src/components/layout/GuildLayout.tsx:371
@@ -15248,7 +15385,7 @@ msgstr "Няма налични канали"
 msgid "No channels found"
 msgstr "Не са намерени канали"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:864
+#: src/components/pages/OAuthAuthorizePage.tsx:912
 msgid "No communities available with <0>Manage Community</0> permissions."
 msgstr "Няма общности с разрешения за <0>Управление на общността</0>."
 
@@ -15260,7 +15397,8 @@ msgstr "Няма банер на общността"
 msgid "No connections yet"
 msgstr "Все още няма връзки"
 
-#: src/components/modals/tabs/CosmeticsTab.tsx:241
+#: src/components/modals/cosmetics_shop/YourItemsView.tsx:69
+#: src/components/modals/tabs/CosmeticsTab.tsx:198
 msgid "No cosmetics yet"
 msgstr ""
 
@@ -15332,6 +15470,10 @@ msgstr "Няма линкове за покана"
 msgid "No invites created"
 msgstr "Не са създадени покани"
 
+#: src/components/modals/CosmeticsShopModal.tsx:200
+msgid "No items match these filters"
+msgstr ""
+
 #: src/components/keybinds/KeybindRecorder.tsx:279
 msgid "No keybind set"
 msgstr "Не е зададена клавишна комбинация"
@@ -15341,7 +15483,7 @@ msgstr "Не е зададена клавишна комбинация"
 msgid "No limit"
 msgstr "Без ограничение"
 
-#: src/components/modals/CosmeticsShopModal.tsx:474
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:273
 msgid "No listings yet"
 msgstr ""
 
@@ -15349,7 +15491,7 @@ msgstr ""
 msgid "No Logs Yet"
 msgstr "Все още няма логове"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:416
+#: src/components/pages/OAuthAuthorizePage.tsx:446
 msgid "No Manage Community permission"
 msgstr "Няма разрешение за управление на общността"
 
@@ -15491,7 +15633,7 @@ msgstr "Няма насрочени съобщения"
 msgid "No Search Results"
 msgstr "Няма резултати от търсенето"
 
-#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:233
+#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:200
 msgid "No server cosmetics yet"
 msgstr ""
 
@@ -15500,7 +15642,7 @@ msgstr ""
 msgid "No settings found"
 msgstr "Не са открити настройки"
 
-#: src/components/auth/AuthLoginLayout.tsx:268
+#: src/components/auth/AuthLoginLayout.tsx:214
 msgid "No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps."
 msgstr ""
 
@@ -15513,7 +15655,11 @@ msgstr ""
 msgid "No Solana wallet found. Please install Phantom or a compatible wallet extension."
 msgstr ""
 
-#: src/components/pages/OAuthAuthorizePage.tsx:795
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:222
+msgid "No Solana wallet linked to your account yet."
+msgstr ""
+
+#: src/components/pages/OAuthAuthorizePage.tsx:843
 msgid "No specific scopes requested."
 msgstr "Не са заявени конкретни обхвати."
 
@@ -15563,7 +15709,7 @@ msgstr "Няма доверени домейни"
 msgid "No Unread Messages"
 msgstr "Няма непрочетени съобщения"
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:461
+#: src/components/modals/tabs/AdminPanelTab.tsx:305
 msgid "No user found with that ID."
 msgstr ""
 
@@ -15587,8 +15733,12 @@ msgstr "Няма намерени потребители"
 msgid "No verification is required."
 msgstr "Не е нужна проверка."
 
-#: src/components/modals/Web3Modal.tsx:191
+#: src/components/modals/Web3Modal.tsx:196
 msgid "No wallet connected. Sign in with Solana to use Web3 features."
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/WalletChip.tsx:81
+msgid "No wallet linked"
 msgstr ""
 
 #: src/components/modals/channel_tabs/ChannelWebhooksTab.tsx:192
@@ -15628,14 +15778,22 @@ msgstr "Нито едно"
 msgid "None (Normal Behavior)"
 msgstr "Нито едно (обичайно поведение)"
 
-#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:124
-#: src/components/modals/tabs/CosmeticsTab.tsx:133
+#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:116
+#: src/components/modals/tabs/CosmeticsTab.tsx:115
 msgid "None owned"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/ServerView.tsx:127
+msgid "NONE OWNED"
 msgstr ""
 
 #: src/utils/LocaleUtils.tsx:60
 msgid "Norwegian"
 msgstr "Норвежки"
+
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:195
+msgid "Not approved this time"
+msgstr ""
 
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:230
 msgid "Not enough members"
@@ -15828,7 +15986,7 @@ msgstr "Изключено"
 
 #: src/AppConstants.tsx:43
 #: src/components/bottomsheets/ChannelDetailsBottomSheet.tsx:310
-#: src/components/channel/ChannelMembers.tsx:121
+#: src/components/channel/ChannelMembers.tsx:138
 #: src/utils/MemberListUtils.tsx:151
 #: src/utils/MemberListUtils.tsx:189
 msgid "Offline"
@@ -15869,6 +16027,10 @@ msgstr "Включено"
 #: src/components/modals/tabs/chat_settings_tab/DisplayTab.tsx:38
 msgid "On click"
 msgstr "При клик"
+
+#: src/components/modals/CosmeticsShopModal.tsx:129
+msgid "ON-CHAIN MARKETPLACE"
+msgstr ""
 
 #: src/utils/SearchUtils.tsx:246
 msgid "on:"
@@ -15924,8 +16086,8 @@ msgstr "онлайн"
 
 #: src/AppConstants.tsx:39
 #: src/components/bottomsheets/ChannelDetailsBottomSheet.tsx:308
-#: src/components/channel/ChannelMembers.tsx:118
-#: src/components/channel/direct_message/DMFriendsView.tsx:176
+#: src/components/channel/ChannelMembers.tsx:135
+#: src/components/channel/direct_message/DMFriendsView.tsx:182
 #: src/components/channel/friends/views/FriendsList.tsx:102
 #: src/utils/MemberListUtils.tsx:144
 #: src/utils/MemberListUtils.tsx:183
@@ -15994,6 +16156,10 @@ msgstr "Само собственикът на общността може да 
 #: src/components/modals/GroupInvitesModal.tsx:110
 msgid "Only the group owner can manage invites."
 msgstr "Само собственикът на групата може да управлява поканите."
+
+#: src/components/modals/cosmetics_shop/ServerView.tsx:137
+msgid "ONLY THE SERVER OWNER CAN CHANGE THESE · MEMBERS SEE CHANGES INSTANTLY"
+msgstr ""
 
 #: src/components/modals/guild_tabs/GuildVanityURLTab.tsx:186
 msgid "Only the server owner can purchase a permanent vanity link."
@@ -16135,7 +16301,7 @@ msgstr "Отвори във Multiverse за настолния компютър"
 msgid "Open in new tab"
 msgstr "Отвори в нов раздел"
 
-#: src/components/popouts/UserProfileShared.tsx:330
+#: src/components/popouts/UserProfileShared.tsx:334
 #: src/components/uikit/context_menu/FavoritesChannelContextMenu.tsx:152
 #: src/components/uikit/context_menu/items/ChannelMenuData.tsx:506
 #: src/components/uikit/context_menu/items/MediaMenuData.tsx:511
@@ -16143,7 +16309,7 @@ msgstr "Отвори в нов раздел"
 msgid "Open Link"
 msgstr "Отвори връзката"
 
-#: src/components/channel/ChannelTextarea.tsx:951
+#: src/components/channel/ChannelTextarea.tsx:952
 #: src/components/channel/textarea/MobileTextareaLayout.tsx:112
 msgid "Open menu"
 msgstr "Отвори меню"
@@ -16329,8 +16495,8 @@ msgstr "Други"
 msgid "Other Devices"
 msgstr "Други устройства"
 
-#: src/utils/PermissionUtils.tsx:402
-#: src/utils/PermissionUtils.tsx:508
+#: src/utils/PermissionUtils.tsx:407
+#: src/utils/PermissionUtils.tsx:513
 msgid "Otherwise Push-to-talk is required."
 msgstr "Иначе е необходим Push-to-talk."
 
@@ -16430,6 +16596,10 @@ msgstr "Притежавани"
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:385
 #: src/components/modals/tabs/developer_teams_tab/TeamsList.tsx:66
 msgid "Owner"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/ServerView.tsx:54
+msgid "OWNER"
 msgstr ""
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:699
@@ -16603,6 +16773,10 @@ msgstr ""
 msgid "Payment Canceled"
 msgstr "Плащането е отменено"
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:260
+msgid "Payment confirmed — mint pending"
+msgstr ""
+
 #: src/components/modals/GuildVanityPurchaseModal.tsx:108
 msgid "Payment failed. Please try again."
 msgstr ""
@@ -16611,16 +16785,15 @@ msgstr ""
 msgid "Payment Successful"
 msgstr "Плащането е успешно"
 
-#: src/components/modals/CosmeticsShopModal.tsx:444
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:236
 msgid "Payouts suspended"
 msgstr ""
 
 #: src/components/modals/tabs/AdminPanelTab.tsx:110
-#: src/components/modals/tabs/AdminPanelTab.tsx:293
 msgid "pending"
 msgstr ""
 
-#: src/components/channel/direct_message/DMFriendsView.tsx:196
+#: src/components/channel/direct_message/DMFriendsView.tsx:202
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:58
 msgid "Pending"
 msgstr "Изчакващ"
@@ -16697,8 +16870,8 @@ msgid "permissions"
 msgstr "разрешения"
 
 #: src/components/modals/guild_tabs/GuildRolesTab.tsx:1240
-#: src/components/pages/OAuthAuthorizePage.tsx:575
-#: src/components/pages/OAuthAuthorizePage.tsx:702
+#: src/components/pages/OAuthAuthorizePage.tsx:623
+#: src/components/pages/OAuthAuthorizePage.tsx:750
 msgid "Permissions"
 msgstr "Разрешения"
 
@@ -16723,7 +16896,7 @@ msgstr "Лични бележки"
 #: src/components/bottomsheets/ChannelDetailsBottomSheet.tsx:943
 #: src/components/channel/channel_header/useChannelHeaderData.tsx:84
 #: src/components/channel/direct_message/DMList.tsx:1305
-#: src/components/channel/direct_message/DMList.tsx:1392
+#: src/components/channel/direct_message/DMList.tsx:1396
 #: src/components/channel/direct_message/PersonalNotesWelcomeSection.tsx:47
 #: src/components/modals/shared/ForwardChannelSelection.tsx:116
 #: src/utils/ChannelUtils.tsx:108
@@ -16840,8 +17013,8 @@ msgstr "Закрепи го. Закрепи го както трябва."
 msgid "Pin Message"
 msgstr "Закрепи съобщението"
 
-#: src/utils/PermissionUtils.tsx:321
-#: src/utils/PermissionUtils.tsx:474
+#: src/utils/PermissionUtils.tsx:326
+#: src/utils/PermissionUtils.tsx:479
 msgid "Pin Messages"
 msgstr "Закрепи съобщения"
 
@@ -17024,7 +17197,7 @@ msgstr "Моля, потвърдете акаунта си, като задад�
 msgid "Please wait for connection..."
 msgstr "Моля, изчакайте връзката..."
 
-#: src/components/pages/SsoCallbackPage.tsx:133
+#: src/components/pages/SsoCallbackPage.tsx:134
 msgid "Please wait while we complete your sign-in."
 msgstr "Моля, изчакайте, докато завършим влизането ви."
 
@@ -17034,7 +17207,7 @@ msgid "plutonium"
 msgstr "плутоний"
 
 #: src/components/channel/direct_message/DMList.tsx:1326
-#: src/components/channel/direct_message/DMList.tsx:1405
+#: src/components/channel/direct_message/DMList.tsx:1409
 #: src/components/modals/components/FeatureComparisonTable.tsx:127
 #: src/components/modals/utils/SettingsSearchIndex.tsx:261
 msgid "Plutonium"
@@ -17078,7 +17251,7 @@ msgstr "Португалски (Бразилия)"
 msgid "PowerShell"
 msgstr "PowerShell"
 
-#: src/components/auth/AuthLoginLayout.tsx:444
+#: src/components/auth/AuthLoginLayout.tsx:386
 msgid "Prefer using SSO? Continue with {ssoDisplayName}."
 msgstr "Предпочиташ ли да използваш SSO? Продължи с {ssoDisplayName}."
 
@@ -17146,7 +17319,7 @@ msgstr "Предотвратете <0>{0}</0> да изпраща съобщен
 msgid "Prevent <0>{0}</0> from sending messages, reacting, and joining voice channels for the specified duration."
 msgstr "Предотвратете <0>{0}</0> да изпраща съобщения, да реагира и да се присъединява към гласови канали за зададения период."
 
-#: src/utils/PermissionUtils.tsx:370
+#: src/utils/PermissionUtils.tsx:375
 msgid "Prevent members from sending messages, reacting, and joining voice for a duration."
 msgstr "Предотвратете членовете да изпращат съобщения, да реагират и да се присъединяват към гласови канали за определено време."
 
@@ -17230,7 +17403,7 @@ msgstr "Предишен непрочетен канал"
 msgid "Previous Unread Mention"
 msgstr "Предишно непрочетено споменаване"
 
-#: src/components/modals/CosmeticsShopModal.tsx:278
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:254
 msgid "Price (SOL)"
 msgstr ""
 
@@ -17254,8 +17427,8 @@ msgstr "Основно действие"
 msgid "Primary button clicked!"
 msgstr "Основният бутон беше натиснат!"
 
-#: src/utils/PermissionUtils.tsx:406
-#: src/utils/PermissionUtils.tsx:511
+#: src/utils/PermissionUtils.tsx:411
+#: src/utils/PermissionUtils.tsx:516
 msgid "Priority Speaker"
 msgstr "Приоритетен говорител"
 
@@ -17307,10 +17480,14 @@ msgstr "Обработка"
 msgid "Professional Peers"
 msgstr "Професионални колеги"
 
-#: src/components/modals/CosmeticsShopModal.tsx:604
+#: src/components/modals/cosmetics_shop/RailNav.tsx:116
 #: src/components/modals/utils/SettingsConstants.tsx:113
 msgid "Profile"
 msgstr "Профил"
+
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:219
+msgid "PROFILE"
+msgstr ""
 
 #: src/components/modals/components/FeatureComparisonTable.tsx:46
 msgid "Profile badge"
@@ -17324,7 +17501,7 @@ msgstr "цвят на профила"
 msgid "Profile contains offensive or NSFW content"
 msgstr "Профилът съдържа обидно или неприлично съдържание"
 
-#: src/components/modals/tabs/CosmeticsTab.tsx:207
+#: src/components/modals/tabs/CosmeticsTab.tsx:163
 msgid "Profile Cosmetics"
 msgstr ""
 
@@ -17548,7 +17725,8 @@ msgstr "Радио група"
 msgid "Raid Coordination"
 msgstr "Координация на нападение"
 
-#: src/components/modals/CosmeticsShopModal.tsx:270
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:237
+#: src/components/modals/cosmetics_shop/RailNav.tsx:151
 msgid "Rarity"
 msgstr ""
 
@@ -17594,8 +17772,8 @@ msgstr "Реакции"
 msgid "read aloud"
 msgstr "чета на глас"
 
-#: src/utils/PermissionUtils.tsx:333
-#: src/utils/PermissionUtils.tsx:477
+#: src/utils/PermissionUtils.tsx:338
+#: src/utils/PermissionUtils.tsx:482
 msgid "Read Message History"
 msgstr "Прочетете историята на съобщенията"
 
@@ -17756,7 +17934,6 @@ msgid "Reduces echo and feedback from speakers"
 msgstr "Намалява ехо и обратна връзка от говорителите"
 
 #: src/components/modals/tabs/AdminPanelTab.tsx:132
-#: src/components/modals/tabs/AdminPanelTab.tsx:314
 msgid "Refresh"
 msgstr ""
 
@@ -17793,10 +17970,10 @@ msgstr "Прегенерирането ще анулира текущата та
 
 #: src/components/auth/AuthBottomLink.tsx:36
 #: src/components/pages/ForgotPasswordPage.tsx:120
-#: src/components/pages/InviteLoginPage.tsx:81
-#: src/components/pages/LoginPage.tsx:55
-#: src/components/pages/RegisterPage.tsx:62
-#: src/components/pages/ThemeLoginPage.tsx:88
+#: src/components/pages/InviteLoginPage.tsx:85
+#: src/components/pages/LoginPage.tsx:60
+#: src/components/pages/RegisterPage.tsx:67
+#: src/components/pages/ThemeLoginPage.tsx:92
 msgid "Register"
 msgstr "Регистрация"
 
@@ -17820,13 +17997,11 @@ msgstr "Редовни, ботове, системни и изтекли пот�
 #: src/components/channel/channel_view/DMChannelView.tsx:811
 #: src/components/channel/channel_view/DMChannelView.tsx:835
 #: src/components/modals/tabs/AdminPanelTab.tsx:185
-#: src/components/modals/tabs/AdminPanelTab.tsx:363
 #: src/components/voice/IncomingCallUI.tsx:322
 msgid "Reject"
 msgstr "Отхвърли"
 
 #: src/components/modals/tabs/AdminPanelTab.tsx:112
-#: src/components/modals/tabs/AdminPanelTab.tsx:295
 msgid "rejected"
 msgstr ""
 
@@ -17878,9 +18053,9 @@ msgstr "премахни"
 #: src/components/modals/guild_tabs/guild_overview_tab/fields/GuildEmbedSplashUploadField.tsx:101
 #: src/components/modals/guild_tabs/guild_overview_tab/fields/GuildIconUploadField.tsx:107
 #: src/components/modals/guild_tabs/guild_overview_tab/fields/GuildInviteSplashUploadField.tsx:113
-#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:115
+#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:106
 #: src/components/modals/tabs/account_security_tab/SecurityTab.tsx:418
-#: src/components/modals/tabs/CosmeticsTab.tsx:119
+#: src/components/modals/tabs/CosmeticsTab.tsx:105
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:220
 #: src/components/modals/tabs/developer_teams_tab/TeamDetail.tsx:419
 #: src/components/modals/tabs/ExpressionPacksTab.tsx:95
@@ -18008,8 +18183,8 @@ msgstr ""
 
 #: src/components/channel/embeds/media/MediaContainer.tsx:140
 #: src/components/channel/embeds/media/MediaContainer.tsx:145
-#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:293
-#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:333
+#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:295
+#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:335
 #: src/components/media_player/components/InlineAudioPlayer.tsx:354
 #: src/components/media_player/components/InlineAudioPlayer.tsx:360
 #: src/components/modals/MediaModal.tsx:273
@@ -18178,7 +18353,7 @@ msgstr "Премахнато от любими"
 msgid "Removed from group"
 msgstr "Премахнато от групата"
 
-#: src/actions/FavoriteMemeActionCreators.tsx:170
+#: src/actions/FavoriteMemeActionCreators.tsx:173
 msgid "Removed from saved media"
 msgstr "Премахнато от запазените медии"
 
@@ -18222,7 +18397,7 @@ msgstr "Премахва разрешението ATTACH_FILES във всичк
 msgid "Removes SEND_MESSAGES permission in all channels (disables textarea and all buttons)"
 msgstr "Премахва разрешението SEND_MESSAGES във всички канали (деактивира текстовото поле и всички бутони)"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:641
+#: src/components/pages/OAuthAuthorizePage.tsx:689
 msgid "Removing permissions could limit the bot's features."
 msgstr "Премахването на разрешения може да ограничи функциите на бота."
 
@@ -18248,7 +18423,7 @@ msgstr "Преименувай"
 msgid "Rename :{0}:"
 msgstr "Преименувай :{0}:"
 
-#: src/utils/PermissionUtils.tsx:440
+#: src/utils/PermissionUtils.tsx:445
 msgid "Rename and edit this channel's settings."
 msgstr "Преименувай и редактирай настройките на този канал."
 
@@ -18420,7 +18595,7 @@ msgstr "Заяви експортиране на данни"
 msgid "Request Export"
 msgstr "Заяви експортиране"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:785
+#: src/components/pages/OAuthAuthorizePage.tsx:833
 msgid "Requested scopes"
 msgstr "Заявени обхвати"
 
@@ -18460,7 +18635,7 @@ msgstr "Изисква OAuth2 code grant"
 msgid "Require two-factor authentication for moderators before they can ban, kick, timeout, or remove messages."
 msgstr "Изисквай двуфакторна автентикация за модераторите, преди да могат да банват, изхвърлят, поставят таймаут или изтриват съобщения."
 
-#: src/components/pages/OAuthAuthorizePage.tsx:810
+#: src/components/pages/OAuthAuthorizePage.tsx:858
 msgid "Required"
 msgstr "Задължително"
 
@@ -18490,7 +18665,7 @@ msgstr "Изисква всичко от средното ниво, плюс д�
 msgid "Requires Plutonium"
 msgstr "Изисква Plutonium"
 
-#: src/components/channel/ChannelTextarea.tsx:1030
+#: src/components/channel/ChannelTextarea.tsx:1031
 msgid "Reschedule Message"
 msgstr "Пренасрочи съобщението"
 
@@ -18709,13 +18884,9 @@ msgstr "Разкрий спойлера"
 msgid "Review deletion"
 msgstr "Прегледай изтриването"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:720
+#: src/components/pages/OAuthAuthorizePage.tsx:768
 msgid "Review what this app is asking for before you continue."
 msgstr "Прегледай какво иска това приложение, преди да продължиш."
-
-#: src/components/modals/tabs/AdminPanelTab.tsx:342
-msgid "Reviewed"
-msgstr ""
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:655
 msgid "revoke"
@@ -18877,7 +19048,7 @@ msgstr ""
 #: src/components/modals/guild_tabs/GuildRolesTab.tsx:883
 #: src/components/modals/guild_tabs/GuildRolesTab.tsx:1092
 #: src/components/modals/shared/AddOverridePopout.tsx:112
-#: src/components/popouts/UserProfileShared.tsx:256
+#: src/components/popouts/UserProfileShared.tsx:260
 #: src/components/uikit/context_menu/items/GuildMemberMenuItems.tsx:181
 msgid "Roles"
 msgstr "Роли"
@@ -18998,7 +19169,7 @@ msgstr "Запази аватар"
 msgid "Save Background"
 msgstr "Запази фона"
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:589
+#: src/components/modals/tabs/AdminPanelTab.tsx:433
 msgid "Save Badges"
 msgstr ""
 
@@ -19074,7 +19245,7 @@ msgstr "Запазено!"
 msgid "saves"
 msgstr "запазвания"
 
-#: src/components/modals/CosmeticsShopModal.tsx:299
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:299
 msgid "Saving…"
 msgstr ""
 
@@ -19122,8 +19293,8 @@ msgid "scopes"
 msgstr ""
 
 #: src/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:78
-#: src/components/pages/OAuthAuthorizePage.tsx:568
-#: src/components/pages/OAuthAuthorizePage.tsx:695
+#: src/components/pages/OAuthAuthorizePage.tsx:616
+#: src/components/pages/OAuthAuthorizePage.tsx:743
 msgid "Scopes"
 msgstr "Обхвати"
 
@@ -19241,7 +19412,7 @@ msgstr "Търси емоджита..."
 msgid "Search Filters"
 msgstr "Филтри за търсене"
 
-#: src/hooks/useCommands.tsx:91
+#: src/hooks/useCommands.tsx:100
 msgid "Search for and send a GIF."
 msgstr "Потърсете и изпратете GIF."
 
@@ -19256,8 +19427,8 @@ msgstr "Търси канали, хора или общности"
 
 #: src/components/bottomsheets/QuickSwitcherBottomSheet.tsx:270
 #: src/components/bottomsheets/QuickSwitcherBottomSheet.tsx:388
-#: src/components/channel/direct_message/DMFriendsView.tsx:222
-#: src/components/channel/direct_message/DMFriendsView.tsx:226
+#: src/components/channel/direct_message/DMFriendsView.tsx:228
+#: src/components/channel/direct_message/DMFriendsView.tsx:232
 #: src/components/common/FriendSelector.tsx:197
 #: src/components/modals/AddFriendsToGroupModal.tsx:53
 #: src/components/modals/CreateDMModal.tsx:68
@@ -19300,7 +19471,7 @@ msgstr ""
 msgid "Search NFTs…"
 msgstr ""
 
-#: src/components/channel/direct_message/DMFriendsView.tsx:220
+#: src/components/channel/direct_message/DMFriendsView.tsx:226
 msgid "Search online friends"
 msgstr "Търси приятели онлайн"
 
@@ -19312,7 +19483,7 @@ msgstr "Търси само в текущата общност"
 msgid "Search only in the current DM"
 msgstr "Търси само в текущото ЛС"
 
-#: src/components/channel/direct_message/DMFriendsView.tsx:224
+#: src/components/channel/direct_message/DMFriendsView.tsx:230
 msgid "Search pending requests"
 msgstr "Търси чакащи заявки"
 
@@ -19496,7 +19667,7 @@ msgstr "Избери канал или категория"
 msgid "Select a Community"
 msgstr "Избери общност"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:837
+#: src/components/pages/OAuthAuthorizePage.tsx:885
 msgid "Select a community where you have <0>Manage Community</0> permissions."
 msgstr "Избери общност, в която имаш разрешения <0>Управлявай общността</0>."
 
@@ -19620,6 +19791,10 @@ msgstr "Избори"
 msgid "Self-Harm or Suicide"
 msgstr "Самонараняване или самоубийство"
 
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:140
+msgid "Sell your cosmetics. Keep <0>90%</0> of every sale."
+msgstr ""
+
 #: src/components/modals/ShareThemeModal.tsx:158
 #: src/components/modals/tabs/component_gallery_tab/ButtonsTab.tsx:175
 #: src/components/voice/VoiceStatsOverlay.tsx:129
@@ -19632,7 +19807,7 @@ msgstr "Изпрати"
 msgid "Send ({0}/5)"
 msgstr "Изпрати ({0}/5)"
 
-#: src/hooks/useCommands.tsx:88
+#: src/hooks/useCommands.tsx:97
 msgid "Send a direct message to a user."
 msgstr "Изпрати лично съобщение на потребител."
 
@@ -19640,23 +19815,23 @@ msgstr "Изпрати лично съобщение на потребител."
 msgid "Send a link to let others install your emoji pack. The pack installs automatically when the recipient accepts."
 msgstr "Изпрати връзка, за да позволиш на другите да инсталират пакета ти с емоджита. Пакетът се инсталира автоматично, когато получателят приеме."
 
-#: src/hooks/useCommands.tsx:89
+#: src/hooks/useCommands.tsx:98
 msgid "Send a saved media item."
 msgstr "Изпрати запазен медиен елемент."
 
-#: src/hooks/useCommands.tsx:60
+#: src/hooks/useCommands.tsx:69
 msgid "Send a spoiler message (wraps in spoiler tags)."
 msgstr "Изпрати съобщение със спойлер (обвива в тагове за спойлер)."
 
-#: src/hooks/useCommands.tsx:90
+#: src/hooks/useCommands.tsx:99
 msgid "Send a sticker."
 msgstr "Изпрати стикер."
 
-#: src/hooks/useCommands.tsx:64
+#: src/hooks/useCommands.tsx:73
 msgid "Send a text-to-speech message."
 msgstr "Изпратете съобщение с текст към реч"
 
-#: src/hooks/useCommands.tsx:59
+#: src/hooks/useCommands.tsx:68
 msgid "Send an action message (wraps in italics)."
 msgstr "Изпрати действие като съобщение (в курсив)."
 
@@ -19701,8 +19876,8 @@ msgstr "Изпращането на съобщения е изключено"
 msgid "Send messages"
 msgstr "Изпращай съобщения"
 
-#: src/utils/PermissionUtils.tsx:307
-#: src/utils/PermissionUtils.tsx:468
+#: src/utils/PermissionUtils.tsx:312
+#: src/utils/PermissionUtils.tsx:473
 msgid "Send Messages"
 msgstr "Изпращай съобщения"
 
@@ -19730,7 +19905,7 @@ msgstr ""
 msgid "Send SOL to:"
 msgstr ""
 
-#: src/utils/PermissionUtils.tsx:312
+#: src/utils/PermissionUtils.tsx:317
 msgid "Send text-to-speech messages."
 msgstr "Изпращай текстови съобщения чрез говор."
 
@@ -19738,7 +19913,7 @@ msgstr "Изпращай текстови съобщения чрез говор
 msgid "Send tip"
 msgstr ""
 
-#: src/utils/PermissionUtils.tsx:311
+#: src/utils/PermissionUtils.tsx:316
 msgid "Send TTS Messages"
 msgstr "Изпращай TTS съобщения"
 
@@ -19784,11 +19959,16 @@ msgstr "изпратен вграждане"
 msgid "Serve the token file"
 msgstr "Сервирайте файла с токена"
 
-#: src/components/modals/CosmeticsShopModal.tsx:611
+#: src/components/modals/cosmetics_shop/RailNav.tsx:74
+#: src/components/modals/cosmetics_shop/RailNav.tsx:116
 msgid "Server"
 msgstr ""
 
-#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:198
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:226
+msgid "SERVER"
+msgstr ""
+
+#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:165
 #: src/components/modals/utils/GuildSettingsConstants.tsx:128
 msgid "Server Cosmetics"
 msgstr ""
@@ -19821,7 +20001,7 @@ msgstr ""
 msgid "Session expired"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:157
+#: src/components/auth/AuthLoginLayout.tsx:159
 msgid "Session expired for {identifier}. Please log in again."
 msgstr "Сесията за {identifier} е изтекла. Моля, влез отново."
 
@@ -20018,8 +20198,8 @@ msgstr "Задай нивото на проверка на <0>Средно</0>."
 msgid "Set verification level to <0>None</0>."
 msgstr "Задай нивото на проверка на <0>Няма</0>."
 
-#: src/utils/PermissionUtils.tsx:423
-#: src/utils/PermissionUtils.tsx:519
+#: src/utils/PermissionUtils.tsx:428
+#: src/utils/PermissionUtils.tsx:524
 msgid "Set Voice Region"
 msgstr "Задай гласов регион"
 
@@ -20146,7 +20326,7 @@ msgstr ""
 msgid "Shared theme"
 msgstr "Споделена тема"
 
-#: src/components/pages/ThemeLoginPage.tsx:81
+#: src/components/pages/ThemeLoginPage.tsx:85
 #: src/components/pages/ThemeRegisterPage.tsx:80
 msgid "Shared Theme"
 msgstr "Споделена тема"
@@ -20169,12 +20349,12 @@ msgid "Shield"
 msgstr "Щит"
 
 #: src/components/layout/MobileBottomNav.tsx:135
-#: src/components/modals/CosmeticsShopModal.tsx:575
+#: src/components/modals/cosmetics_shop/RailNav.tsx:71
 msgid "Shop"
 msgstr ""
 
-#: src/components/modals/CosmeticsShopModal.tsx:648
-msgid "Shop Opening Soon"
+#: src/components/modals/CosmeticsShopModal.tsx:167
+msgid "Shop opening soon"
 msgstr ""
 
 #: src/components/modals/tabs/VoiceTab.tsx:244
@@ -20515,11 +20695,11 @@ msgstr "изображение на страничната лента"
 msgid "Sign in with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:452
+#: src/components/auth/AuthLoginLayout.tsx:394
 msgid "Sign In with Solana"
 msgstr ""
 
-#: src/components/auth/AuthLoginLayout.tsx:381
+#: src/components/auth/AuthLoginLayout.tsx:321
 msgid "Sign in with your organization's single sign-on provider."
 msgstr "Влез с единния доставчик на удостоверяване на твоята организация."
 
@@ -20545,7 +20725,7 @@ msgstr ""
 msgid "Signal strength loading"
 msgstr "Зареждане на силата на сигнала"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:759
+#: src/components/pages/OAuthAuthorizePage.tsx:807
 msgid "Signed in as"
 msgstr "Вписан като"
 
@@ -20560,6 +20740,10 @@ msgstr "Излизането ще те върне на екрана за вхо�
 #: src/utils/accounts/AccountSwitcherModalUtils.tsx:206
 msgid "Signing out will remove this account from the device."
 msgstr "Излизането ще премахне този акаунт от устройството."
+
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:202
+msgid "SIGNING WITH"
+msgstr ""
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:576
 msgid "silence"
@@ -20774,7 +20958,7 @@ msgstr "Стъпва на стъпки от 5."
 msgid "social"
 msgstr "социален"
 
-#: src/components/auth/AuthLoginLayout.tsx:361
+#: src/components/auth/AuthLoginLayout.tsx:301
 msgid "Solana login failed"
 msgstr ""
 
@@ -20789,6 +20973,10 @@ msgstr "Изчерпан"
 #: src/components/modals/components/PricingCard.tsx:79
 msgid "Sold Out"
 msgstr "Изчерпан"
+
+#: src/components/modals/cosmetics_shop/ShopItemCard.tsx:72
+msgid "SOLD OUT"
+msgstr ""
 
 #: src/components/alerts/FileSizeTooLargeModal.tsx:53
 msgid "Some files you're trying to upload exceed the maximum size limit of {maxSizeFormatted} per file."
@@ -20825,6 +21013,10 @@ msgstr "Нещо се обърка и приложението се срина. 
 msgid "Something went wrong and the app crashed. Try reloading or resetting the app."
 msgstr "Нещо се обърка и приложението се срина. Опитай да презаредиш или нулираш приложението."
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:122
+msgid "Something went wrong during checkout."
+msgstr ""
+
 #: src/components/channel/GuildMembersPage.tsx:1046
 msgid "Something went wrong loading members. Try again later."
 msgstr "Нещо се обърка при зареждането на членовете. Опитайте отново по-късно."
@@ -20851,7 +21043,7 @@ msgstr "Нещо се обърка."
 msgid "Something went wrong. Please try again later."
 msgstr "Нещо се обърка. Моля, опитай по-късно."
 
-#: src/components/modals/CosmeticsShopModal.tsx:326
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:73
 msgid "Something went wrong. Please try again."
 msgstr ""
 
@@ -20939,8 +21131,8 @@ msgstr "Испански (Латинска Америка)"
 msgid "Spanish (Spain)"
 msgstr "Испански (Испания)"
 
-#: src/utils/PermissionUtils.tsx:393
-#: src/utils/PermissionUtils.tsx:504
+#: src/utils/PermissionUtils.tsx:398
+#: src/utils/PermissionUtils.tsx:509
 msgid "Speak"
 msgstr "Говори"
 
@@ -21071,15 +21263,15 @@ msgstr "Квадратни полета за отметки"
 msgid "Square Icon Buttons"
 msgstr "Квадратни иконни бутони"
 
-#: src/components/auth/AuthLoginLayout.tsx:442
+#: src/components/auth/AuthLoginLayout.tsx:384
 msgid "SSO is required to access this workspace."
 msgstr "SSO е необходимо за достъп до това работно пространство."
 
-#: src/components/pages/SsoCallbackPage.tsx:111
+#: src/components/pages/SsoCallbackPage.tsx:112
 msgid "SSO Sign-in Failed"
 msgstr "Неуспешно влизане с SSO"
 
-#: src/components/pages/SsoCallbackPage.tsx:65
+#: src/components/pages/SsoCallbackPage.tsx:66
 msgid "SSO sign-in timed out. Please try again."
 msgstr "Влизането с SSO изтече. Моля, опитайте отново."
 
@@ -21381,8 +21573,8 @@ msgstr "Преглед на потока"
 msgid "Stream Quality"
 msgstr "Качество на потока"
 
-#: src/utils/PermissionUtils.tsx:397
-#: src/utils/PermissionUtils.tsx:505
+#: src/utils/PermissionUtils.tsx:402
+#: src/utils/PermissionUtils.tsx:510
 msgid "Stream Video"
 msgstr "Потоково видео"
 
@@ -21418,9 +21610,21 @@ msgstr "Вариации на стил"
 msgid "styling"
 msgstr "стилизация"
 
+#: src/components/modals/cosmetics_shop/RailNav.tsx:183
+msgid "SUB-CENT FEES"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/FeaturedDropCard.tsx:72
+msgid "SUB-CENT NETWORK FEES"
+msgstr ""
+
 #: src/components/uikit/context_menu/ContextMenu.tsx:440
 msgid "Submenu"
 msgstr "Подменю"
+
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:167
+msgid "Submit a draft, and it goes live in the shop once approved."
+msgstr ""
 
 #: src/components/pages/report/ReportStepComplete.tsx:41
 msgid "Submit another report"
@@ -21430,13 +21634,17 @@ msgstr "Подайте още един доклад"
 msgid "Submit DSA Report"
 msgstr "Подай DSA доклад"
 
-#: src/components/modals/CosmeticsShopModal.tsx:509
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:321
 msgid "Submit for review"
 msgstr ""
 
 #: src/components/modals/IARModal.tsx:258
 msgid "Submit Report"
 msgstr "Подай доклад"
+
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:206
+msgid "SUBMITTED"
+msgstr ""
 
 #: src/components/modals/tabs/component_gallery_tab/ButtonsTab.tsx:256
 msgid "Submitting"
@@ -21563,7 +21771,7 @@ msgstr "Шведски"
 msgid "switch"
 msgstr "превключи"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:772
+#: src/components/pages/OAuthAuthorizePage.tsx:820
 msgid "Switch account"
 msgstr "Смени акаунт"
 
@@ -21735,7 +21943,7 @@ msgstr ""
 msgid "Tap to add a note"
 msgstr "Докосни, за да добавиш бележка"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:737
+#: src/components/pages/OAuthAuthorizePage.tsx:785
 msgid "Target community"
 msgstr "Целева общност"
 
@@ -21966,11 +22174,11 @@ msgid "The app has crashed. Checking for updates that might fix this issue..."
 msgstr "Приложението се срина. Проверяваме за актуализации, които може да отстранят този проблем..."
 
 #. placeholder {0}: successState.guildName
-#: src/components/pages/OAuthAuthorizePage.tsx:544
+#: src/components/pages/OAuthAuthorizePage.tsx:592
 msgid "The bot has been added to <0>{0}</0>."
 msgstr "Ботът е добавен в <0>{0}</0>."
 
-#: src/components/pages/OAuthAuthorizePage.tsx:548
+#: src/components/pages/OAuthAuthorizePage.tsx:596
 msgid "The bot has been added."
 msgstr "Ботът е добавен."
 
@@ -22007,6 +22215,10 @@ msgstr "Работата започва 24 часа след потвържде�
 msgid "The Midnight Gamers"
 msgstr "Полунощните геймъри"
 
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:285
+msgid "The most this item can ever be minted. We suggest a cap based on rarity, but it's just a suggestion — change it or leave it blank for unlimited."
+msgstr ""
+
 #: src/components/modals/MultiverseTagChangeModal.tsx:104
 msgid "The MultiverseTag <0>{multiverseTag}</0> is already taken. Continuing will reroll your discriminator automatically."
 msgstr ""
@@ -22020,7 +22232,7 @@ msgstr "Страницата, която търсиш, не съществува
 msgid "The problem with being faster than light is that you can only live in darkness. Take a breather and try again."
 msgstr "Проблемът да си по-бърз от светлината е, че можеш да живееш само в тъмнина. Отдъхни и опитай пак."
 
-#: src/components/pages/OAuthAuthorizePage.tsx:347
+#: src/components/pages/OAuthAuthorizePage.tsx:381
 msgid "The provided redirect_uri is not registered for this application."
 msgstr "Подаденият redirect_uri не е регистриран за това приложение."
 
@@ -22083,7 +22295,7 @@ msgstr "Темата беше приложена успешно."
 msgid "theme color"
 msgstr "цвят на темата"
 
-#: src/components/pages/ThemeLoginPage.tsx:174
+#: src/components/pages/ThemeLoginPage.tsx:182
 #: src/components/pages/ThemeRegisterPage.tsx:63
 msgid "Theme not found"
 msgstr "Темата не е намерена"
@@ -22104,7 +22316,7 @@ msgstr "Темата е недостъпна"
 msgid "There are no channels available to create an invite for."
 msgstr "Няма налични канали, за които да се създаде покана."
 
-#. placeholder {0}: /* * Copyright (C) 2026 Multiverse Contributors * * This file is part of Multiverse. * * Multiverse is free software: you can redistribute it and/or modify * it under the terms of the GNU Affero General Public License as published by * the Free Software Foundation, either version 3 of the License, or * (at your option) any later version. * * Multiverse is distributed in the hope that it will be useful, * but WITHOUT ANY WARRANTY; without even the implied warranty of * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the * GNU Affero General Public License for more details. * * You should have received a copy of the GNU Affero General Public License * along with Multiverse. If not, see <https://www.gnu.org/licenses/>. */ import * as ContextMenuActionCreators from '@app/actions/ContextMenuActionCreators'; import * as GuildMemberActionCreators from '@app/actions/GuildMemberActionCreators'; import * as ModalActionCreators from '@app/actions/ModalActionCreators'; import {modal} from '@app/actions/ModalActionCreators'; import styles from '@app/components/guild/RoleManagement.module.css'; import {ConfirmModal} from '@app/components/modals/ConfirmModal'; import {GuildSettingsModal} from '@app/components/modals/GuildSettingsModal'; import profileStyles from '@app/components/popouts/UserProfilePopout.module.css'; import {CheckboxItem} from '@app/components/uikit/context_menu/ContextMenu'; import itemStyles from '@app/components/uikit/context_menu/items/MenuItems.module.css'; import {MenuGroup} from '@app/components/uikit/context_menu/MenuGroup'; import {MenuItem} from '@app/components/uikit/context_menu/MenuItem'; import FocusRing from '@app/components/uikit/focus_ring/FocusRing'; import {MenuBottomSheet, type MenuGroupType} from '@app/components/uikit/menu_bottom_sheet/MenuBottomSheet'; import {Tooltip} from '@app/components/uikit/tooltip/Tooltip'; import {useRoleHierarchy} from '@app/hooks/useRoleHierarchy'; import type {GuildRoleRecord} from '@app/records/GuildRoleRecord'; import GuildMemberStore from '@app/stores/GuildMemberStore'; import GuildSettingsModalStore from '@app/stores/GuildSettingsModalStore'; import GuildStore from '@app/stores/GuildStore'; import MobileLayoutStore from '@app/stores/MobileLayoutStore'; import * as ColorUtils from '@app/utils/ColorUtils'; import {Trans, useLingui} from '@lingui/react/macro'; import {PlusIcon, XIcon} from '@phosphor-icons/react'; import {clsx} from 'clsx'; import {observer} from 'mobx-react-lite'; import type React from 'react'; import {useCallback, useMemo, useState} from 'react'; const RoleBadge: React.FC<{ role: GuildRoleRecord; canRemove: boolean; guildId: string; userId: string; }> = observer(function RoleBadge({role, canRemove, guildId, userId}) { const {t} = useLingui(); const roleColor = ColorUtils.int2rgb(role.color); const iconColor = ColorUtils.getBestContrastColor(role.color); const handleRemoveRole = () => { GuildMemberActionCreators.removeRole(guildId, userId, role.id); }; const roleIndicator = <span className={styles.roleIndicator} style={{backgroundColor: roleColor}} />; return ( <div key={role.id} className={clsx(styles.roleBadge, profileStyles.role)}> {canRemove ? ( <Tooltip text={t`Remove role`} position="top"> <FocusRing offset={-2}> <button type="button" className={styles.roleRemoveButton} onClick={handleRemoveRole}> <XIcon weight="bold" className={clsx(styles.roleRemoveIconContainer, profileStyles.roleRemoveIcon)} style={{color: iconColor}} /> {roleIndicator} </button> </FocusRing> </Tooltip> ) : ( <div className={styles.roleRemoveButtonContainer}>{roleIndicator}</div> )} <div aria-hidden={true} className={styles.roleName}> {role.name} </div> </div> ); }); export const RoleList: React.FC<{ guildId: string; userId: string; roles: Array<GuildRoleRecord>; canManage: boolean; }> = observer(function RoleList({guildId, userId, roles, canManage}) { const {canManageRole} = useRoleHierarchy(GuildStore.getGuild(guildId)); if (roles.length === 0 && !canManage) { return null; } return ( <div className={styles.roleListContainer}> {roles.map((role) => { const canRemoveRole = canManage && canManageRole({ id: role.id, position: role.position, permissions: role.permissions, }); return <RoleBadge key={role.id} role={role} canRemove={canRemoveRole} guildId={guildId} userId={userId} />; })} </div> ); }); interface ManageRolesMenuContentProps { guildId: string; userId: string; onClose: () => void; } const ManageRolesMenuContent: React.FC<ManageRolesMenuContentProps> = observer(function ManageRolesMenuContent({ guildId, userId, onClose, }) { const guild = GuildStore.getGuild(guildId); const currentMember = GuildMemberStore.getMember(guildId, userId); const {canManageRole} = useRoleHierarchy(guild); const handleOpenGuildSettings = useCallback(() => { onClose(); if (GuildSettingsModalStore.navigateToTab(guildId, 'roles')) { return; } ModalActionCreators.push(modal(() => <GuildSettingsModal guildId={guildId} initialTab="roles" />)); }, [guildId, onClose]); const allRoles = useMemo(() => { if (!guild) return []; return Object.values(guild.roles) .filter((role) => !role.isEveryone) .sort((a, b) => b.position - a.position) .map((role) => ({ role, canManage: canManageRole({id: role.id, position: role.position, permissions: role.permissions}), })); }, [guild, canManageRole]); const handleToggleRole = useCallback( async (roleId: string, hasRole: boolean, canManage: boolean) => { if (!canManage) return; if (hasRole) { await GuildMemberActionCreators.removeRole(guildId, userId, roleId); } else { await GuildMemberActionCreators.addRole(guildId, userId, roleId); } }, [guildId, userId], ); if (allRoles.length === 0) { return ( <MenuGroup> <MenuItem onClick={handleOpenGuildSettings}> <Trans>No roles yet, add roles in Community Settings</Trans> </MenuItem> </MenuGroup> ); } return ( <MenuGroup> {allRoles.map(({role, canManage}) => { const hasRole = currentMember?.roles.has(role.id) ?? false; return ( <CheckboxItem key={role.id} checked={hasRole} disabled={!canManage} onCheckedChange={() => handleToggleRole(role.id, hasRole, canManage)} closeOnChange={false} > <div className={itemStyles.roleContainer}> <div className={itemStyles.roleIcon} style={{backgroundColor: ColorUtils.int2rgb(role.color)}} /> <span className={clsx(itemStyles.roleName, !canManage && itemStyles.roleDisabled)}>{role.name}</span> </div> </CheckboxItem> ); })} </MenuGroup> ); }); interface ManageRolesBottomSheetProps { isOpen: boolean; onClose: () => void; guildId: string; userId: string; } export const ManageRolesBottomSheet: React.FC<ManageRolesBottomSheetProps> = observer(function ManageRolesBottomSheet({ isOpen, onClose, guildId, userId, }) { const {t} = useLingui(); const guild = GuildStore.getGuild(guildId); const currentMember = GuildMemberStore.getMember(guildId, userId); const {canManageRole} = useRoleHierarchy(guild); const handleOpenGuildSettings = useCallback(() => { onClose(); if (GuildSettingsModalStore.navigateToTab(guildId, 'roles')) { return; } ModalActionCreators.push(modal(() => <GuildSettingsModal guildId={guildId} initialTab="roles" />)); }, [guildId, onClose]); const allRoles = useMemo(() => { if (!guild) return []; return Object.values(guild.roles) .filter((role) => !role.isEveryone) .sort((a, b) => b.position - a.position) .map((role) => ({ role, canManage: canManageRole({id: role.id, position: role.position, permissions: role.permissions}), })); }, [guild, canManageRole]); const menuGroups: Array<MenuGroupType> = useMemo(() => { if (allRoles.length === 0) { return [ { items: [ { icon: <PlusIcon weight="bold" className={styles.iconSize} />, label: t`No roles yet, add roles in Community Settings`, onClick: handleOpenGuildSettings, }, ], }, ]; } return [ { items: allRoles.map(({role, canManage}) => { const hasRole = currentMember?.roles.has(role.id) ?? false; return { label: role.name, checked: hasRole, disabled: !canManage, onChange: async () => { if (!canManage) return; if (hasRole) { await GuildMemberActionCreators.removeRole(guildId, userId, role.id); } else { await GuildMemberActionCreators.addRole(guildId, userId, role.id); } }, icon: ( <div className={styles.roleColorIndicator} style={{backgroundColor: ColorUtils.int2rgb(role.color)}} /> ), }; }), }, ]; }, [allRoles, currentMember, guildId, userId, handleOpenGuildSettings]); return <MenuBottomSheet isOpen={isOpen} onClose={onClose} title={t`Manage Roles`} groups={menuGroups} />; }); function openNoRolesModal(guildId: string) { function NoRolesModalDescription() { const {t} = useLingui(); const handleOpenRolesSettings = useCallback(() => { ModalActionCreators.pop(); if (GuildSettingsModalStore.navigateToTab(guildId, 'roles')) { return; } ModalActionCreators.push(modal(() => <GuildSettingsModal guildId={guildId} initialTab="roles" />)); }, []); return ( <Trans> There are no roles to assign in this community at this time, but you can create a new role in{' '} <button type="button" className={styles.noRolesLink} onClick={handleOpenRolesSettings}> {t`Community Settings > Roles & Permissions`} </button> . </Trans> ); } ModalActionCreators.push( modal(() => ( <ConfirmModal title={<Trans>No Roles Available</Trans>} description={<NoRolesModalDescription />} primaryText={<Trans>OK</Trans>} primaryVariant="primary" secondaryText={false} onPrimary={() => {}} /> )), ); } export const AddRoleButton: React.FC<{ guildId: string; userId: string; }> = observer(function AddRoleButton({guildId, userId}) { const {t} = useLingui(); const guild = GuildStore.getGuild(guildId); const member = GuildMemberStore.getMember(guildId, userId); const isMobile = MobileLayoutStore.enabled; const [showBottomSheet, setShowBottomSheet] = useState(false); const hasRoles = useMemo(() => { if (!guild) return false; return Object.values(guild.roles).some((r) => !r.isEveryone); }, [guild]); const handleClick = useCallback( (event: React.MouseEvent<HTMLButtonElement>) => { if (!hasRoles) { openNoRolesModal(guildId); return; } if (isMobile) { setShowBottomSheet(true); } else { ContextMenuActionCreators.openFromEvent(event, ({onClose}) => ( <ManageRolesMenuContent guildId={guildId} userId={userId} onClose={onClose} /> )); } }, [guildId, userId, isMobile, hasRoles], ); if (!guild || !member) return null; return ( <> <Tooltip text={t`Add Role`}> <FocusRing offset={-2}> <button type="button" className={clsx(styles.addRoleButton, styles.addRoleButtonIcon)} onClick={handleClick}> <PlusIcon weight="bold" className={styles.iconSize} /> </button> </FocusRing> </Tooltip> {isMobile && ( <ManageRolesBottomSheet isOpen={showBottomSheet} onClose={() => setShowBottomSheet(false)} guildId={guildId} userId={userId} /> )} </> ); }); 
+#. placeholder {0}: /* * Copyright (C) 2026 Multiverse Contributors * * This file is part of Multiverse. * * Multiverse is free software: you can redistribute it and/or modify * it under the terms of the GNU Affero General Public License as published by * the Free Software Foundation, either version 3 of the License, or * (at your option) any later version. * * Multiverse is distributed in the hope that it will be useful, * but WITHOUT ANY WARRANTY; without even the implied warranty of * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the * GNU Affero General Public License for more details. * * You should have received a copy of the GNU Affero General Public License * along with Multiverse. If not, see <https://www.gnu.org/licenses/>. */ import * as ContextMenuActionCreators from '@app/actions/ContextMenuActionCreators'; import * as GuildMemberActionCreators from '@app/actions/GuildMemberActionCreators'; import * as ModalActionCreators from '@app/actions/ModalActionCreators'; import {modal} from '@app/actions/ModalActionCreators'; import styles from '@app/components/guild/RoleManagement.module.css'; import {ConfirmModal} from '@app/components/modals/ConfirmModal'; import {LazyGuildSettingsModal as GuildSettingsModal} from '@app/components/modals/GuildSettingsModal.lazy'; import profileStyles from '@app/components/popouts/UserProfilePopout.module.css'; import {CheckboxItem} from '@app/components/uikit/context_menu/ContextMenu'; import itemStyles from '@app/components/uikit/context_menu/items/MenuItems.module.css'; import {MenuGroup} from '@app/components/uikit/context_menu/MenuGroup'; import {MenuItem} from '@app/components/uikit/context_menu/MenuItem'; import FocusRing from '@app/components/uikit/focus_ring/FocusRing'; import {MenuBottomSheet, type MenuGroupType} from '@app/components/uikit/menu_bottom_sheet/MenuBottomSheet'; import {Tooltip} from '@app/components/uikit/tooltip/Tooltip'; import {useRoleHierarchy} from '@app/hooks/useRoleHierarchy'; import type {GuildRoleRecord} from '@app/records/GuildRoleRecord'; import GuildMemberStore from '@app/stores/GuildMemberStore'; import GuildSettingsModalStore from '@app/stores/GuildSettingsModalStore'; import GuildStore from '@app/stores/GuildStore'; import MobileLayoutStore from '@app/stores/MobileLayoutStore'; import * as ColorUtils from '@app/utils/ColorUtils'; import {Trans, useLingui} from '@lingui/react/macro'; import {PlusIcon, XIcon} from '@phosphor-icons/react'; import {clsx} from 'clsx'; import {observer} from 'mobx-react-lite'; import type React from 'react'; import {useCallback, useMemo, useState} from 'react'; const RoleBadge: React.FC<{ role: GuildRoleRecord; canRemove: boolean; guildId: string; userId: string; }> = observer(function RoleBadge({role, canRemove, guildId, userId}) { const {t} = useLingui(); const roleColor = ColorUtils.int2rgb(role.color); const iconColor = ColorUtils.getBestContrastColor(role.color); const handleRemoveRole = () => { GuildMemberActionCreators.removeRole(guildId, userId, role.id); }; const roleIndicator = <span className={styles.roleIndicator} style={{backgroundColor: roleColor}} />; return ( <div key={role.id} className={clsx(styles.roleBadge, profileStyles.role)}> {canRemove ? ( <Tooltip text={t`Remove role`} position="top"> <FocusRing offset={-2}> <button type="button" className={styles.roleRemoveButton} onClick={handleRemoveRole}> <XIcon weight="bold" className={clsx(styles.roleRemoveIconContainer, profileStyles.roleRemoveIcon)} style={{color: iconColor}} /> {roleIndicator} </button> </FocusRing> </Tooltip> ) : ( <div className={styles.roleRemoveButtonContainer}>{roleIndicator}</div> )} <div aria-hidden={true} className={styles.roleName}> {role.name} </div> </div> ); }); export const RoleList: React.FC<{ guildId: string; userId: string; roles: Array<GuildRoleRecord>; canManage: boolean; }> = observer(function RoleList({guildId, userId, roles, canManage}) { const {canManageRole} = useRoleHierarchy(GuildStore.getGuild(guildId)); if (roles.length === 0 && !canManage) { return null; } return ( <div className={styles.roleListContainer}> {roles.map((role) => { const canRemoveRole = canManage && canManageRole({ id: role.id, position: role.position, permissions: role.permissions, }); return <RoleBadge key={role.id} role={role} canRemove={canRemoveRole} guildId={guildId} userId={userId} />; })} </div> ); }); interface ManageRolesMenuContentProps { guildId: string; userId: string; onClose: () => void; } const ManageRolesMenuContent: React.FC<ManageRolesMenuContentProps> = observer(function ManageRolesMenuContent({ guildId, userId, onClose, }) { const guild = GuildStore.getGuild(guildId); const currentMember = GuildMemberStore.getMember(guildId, userId); const {canManageRole} = useRoleHierarchy(guild); const handleOpenGuildSettings = useCallback(() => { onClose(); if (GuildSettingsModalStore.navigateToTab(guildId, 'roles')) { return; } ModalActionCreators.push(modal(() => <GuildSettingsModal guildId={guildId} initialTab="roles" />)); }, [guildId, onClose]); const allRoles = useMemo(() => { if (!guild) return []; return Object.values(guild.roles) .filter((role) => !role.isEveryone) .sort((a, b) => b.position - a.position) .map((role) => ({ role, canManage: canManageRole({id: role.id, position: role.position, permissions: role.permissions}), })); }, [guild, canManageRole]); const handleToggleRole = useCallback( async (roleId: string, hasRole: boolean, canManage: boolean) => { if (!canManage) return; if (hasRole) { await GuildMemberActionCreators.removeRole(guildId, userId, roleId); } else { await GuildMemberActionCreators.addRole(guildId, userId, roleId); } }, [guildId, userId], ); if (allRoles.length === 0) { return ( <MenuGroup> <MenuItem onClick={handleOpenGuildSettings}> <Trans>No roles yet, add roles in Community Settings</Trans> </MenuItem> </MenuGroup> ); } return ( <MenuGroup> {allRoles.map(({role, canManage}) => { const hasRole = currentMember?.roles.has(role.id) ?? false; return ( <CheckboxItem key={role.id} checked={hasRole} disabled={!canManage} onCheckedChange={() => handleToggleRole(role.id, hasRole, canManage)} closeOnChange={false} > <div className={itemStyles.roleContainer}> <div className={itemStyles.roleIcon} style={{backgroundColor: ColorUtils.int2rgb(role.color)}} /> <span className={clsx(itemStyles.roleName, !canManage && itemStyles.roleDisabled)}>{role.name}</span> </div> </CheckboxItem> ); })} </MenuGroup> ); }); interface ManageRolesBottomSheetProps { isOpen: boolean; onClose: () => void; guildId: string; userId: string; } export const ManageRolesBottomSheet: React.FC<ManageRolesBottomSheetProps> = observer(function ManageRolesBottomSheet({ isOpen, onClose, guildId, userId, }) { const {t} = useLingui(); const guild = GuildStore.getGuild(guildId); const currentMember = GuildMemberStore.getMember(guildId, userId); const {canManageRole} = useRoleHierarchy(guild); const handleOpenGuildSettings = useCallback(() => { onClose(); if (GuildSettingsModalStore.navigateToTab(guildId, 'roles')) { return; } ModalActionCreators.push(modal(() => <GuildSettingsModal guildId={guildId} initialTab="roles" />)); }, [guildId, onClose]); const allRoles = useMemo(() => { if (!guild) return []; return Object.values(guild.roles) .filter((role) => !role.isEveryone) .sort((a, b) => b.position - a.position) .map((role) => ({ role, canManage: canManageRole({id: role.id, position: role.position, permissions: role.permissions}), })); }, [guild, canManageRole]); const menuGroups: Array<MenuGroupType> = useMemo(() => { if (allRoles.length === 0) { return [ { items: [ { icon: <PlusIcon weight="bold" className={styles.iconSize} />, label: t`No roles yet, add roles in Community Settings`, onClick: handleOpenGuildSettings, }, ], }, ]; } return [ { items: allRoles.map(({role, canManage}) => { const hasRole = currentMember?.roles.has(role.id) ?? false; return { label: role.name, checked: hasRole, disabled: !canManage, onChange: async () => { if (!canManage) return; if (hasRole) { await GuildMemberActionCreators.removeRole(guildId, userId, role.id); } else { await GuildMemberActionCreators.addRole(guildId, userId, role.id); } }, icon: ( <div className={styles.roleColorIndicator} style={{backgroundColor: ColorUtils.int2rgb(role.color)}} /> ), }; }), }, ]; }, [allRoles, currentMember, guildId, userId, handleOpenGuildSettings]); return <MenuBottomSheet isOpen={isOpen} onClose={onClose} title={t`Manage Roles`} groups={menuGroups} />; }); function openNoRolesModal(guildId: string) { function NoRolesModalDescription() { const {t} = useLingui(); const handleOpenRolesSettings = useCallback(() => { ModalActionCreators.pop(); if (GuildSettingsModalStore.navigateToTab(guildId, 'roles')) { return; } ModalActionCreators.push(modal(() => <GuildSettingsModal guildId={guildId} initialTab="roles" />)); }, []); return ( <Trans> There are no roles to assign in this community at this time, but you can create a new role in{' '} <button type="button" className={styles.noRolesLink} onClick={handleOpenRolesSettings}> {t`Community Settings > Roles & Permissions`} </button> . </Trans> ); } ModalActionCreators.push( modal(() => ( <ConfirmModal title={<Trans>No Roles Available</Trans>} description={<NoRolesModalDescription />} primaryText={<Trans>OK</Trans>} primaryVariant="primary" secondaryText={false} onPrimary={() => {}} /> )), ); } export const AddRoleButton: React.FC<{ guildId: string; userId: string; }> = observer(function AddRoleButton({guildId, userId}) { const {t} = useLingui(); const guild = GuildStore.getGuild(guildId); const member = GuildMemberStore.getMember(guildId, userId); const isMobile = MobileLayoutStore.enabled; const [showBottomSheet, setShowBottomSheet] = useState(false); const hasRoles = useMemo(() => { if (!guild) return false; return Object.values(guild.roles).some((r) => !r.isEveryone); }, [guild]); const handleClick = useCallback( (event: React.MouseEvent<HTMLButtonElement>) => { if (!hasRoles) { openNoRolesModal(guildId); return; } if (isMobile) { setShowBottomSheet(true); } else { ContextMenuActionCreators.openFromEvent(event, ({onClose}) => ( <ManageRolesMenuContent guildId={guildId} userId={userId} onClose={onClose} /> )); } }, [guildId, userId, isMobile, hasRoles], ); if (!guild || !member) return null; return ( <> <Tooltip text={t`Add Role`}> <FocusRing offset={-2}> <button type="button" className={clsx(styles.addRoleButton, styles.addRoleButtonIcon)} onClick={handleClick}> <PlusIcon weight="bold" className={styles.iconSize} /> </button> </FocusRing> </Tooltip> {isMobile && ( <ManageRolesBottomSheet isOpen={showBottomSheet} onClose={() => setShowBottomSheet(false)} guildId={guildId} userId={userId} /> )} </> ); }); 
 #: src/components/guild/RoleManagement.tsx:291
 msgid "There are no roles to assign in this community at this time, but you can create a new role in <0>{0}</0>."
 msgstr "В момента няма роли, които да бъдат назначени в тази общност, но можете да създадете нова роля в <0>{0}</0>."
@@ -22175,7 +22387,7 @@ msgstr "Това действие не може да бъде отменено. 
 msgid "This action requires verification to continue."
 msgstr "Това действие изисква проверка, за да продължиш."
 
-#: src/components/pages/OAuthAuthorizePage.tsx:371
+#: src/components/pages/OAuthAuthorizePage.tsx:401
 msgid "This application"
 msgstr "Това приложение"
 
@@ -22186,7 +22398,7 @@ msgstr "Това приложение"
 msgid "This attachment has expired"
 msgstr "Това прикачено съдържание е изтекло"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:628
+#: src/components/pages/OAuthAuthorizePage.tsx:676
 msgid "This bot is requesting the Administrator permission. We do not recommend granting this to production apps unless you fully trust the developer. Consider asking them to request a reduced set of permissions. Close this page if you are unsure."
 msgstr "Този бот иска разрешение Администратор. Не препоръчваме да го даваш на продукционни приложения, освен ако изцяло не се доверяваш на разработчика. Можеш да го помолиш да заяви по-малък набор от разрешения. Затвори тази страница, ако не си сигурен."
 
@@ -22256,7 +22468,7 @@ msgstr "Тази общност все още няма уебхукове. От�
 msgid "This community has reached its maximum member limit and is not accepting new members at this time."
 msgstr "Тази общност е достигнала максималния брой членове и в момента не приема нови."
 
-#: src/components/pages/InviteLoginPage.tsx:218
+#: src/components/pages/InviteLoginPage.tsx:226
 #: src/components/pages/InviteRegisterPage.tsx:117
 msgid "This community has temporarily disabled invites."
 msgstr "Тази общност временно е деактивирала поканите."
@@ -22270,12 +22482,12 @@ msgid "This community is marked as age-restricted and may contain content that i
 msgstr "Тази общност е маркирана като ограничена по възраст и може да съдържа съдържание, което не е безопасно за работа или което може да е неподходящо за някои потребители."
 
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:176
-#: src/components/popouts/UserProfileShared.tsx:301
+#: src/components/popouts/UserProfileShared.tsx:305
 msgid "This connection has been verified."
 msgstr "Тази връзка е потвърдена."
 
 #: src/components/modals/tabs/LinkedAccountsTab.tsx:176
-#: src/components/popouts/UserProfileShared.tsx:301
+#: src/components/popouts/UserProfileShared.tsx:305
 msgid "This connection has not been verified."
 msgstr "Тази връзка не е потвърдена."
 
@@ -22351,7 +22563,7 @@ msgid "This invite link never expires."
 msgstr "Тази покана връзка не изтича."
 
 #: src/components/modals/InviteAcceptModal.tsx:152
-#: src/components/pages/InviteLoginPage.tsx:194
+#: src/components/pages/InviteLoginPage.tsx:202
 #: src/components/pages/InviteRegisterPage.tsx:93
 msgid "This invite may have expired or been deleted."
 msgstr "Тази покана може да е изтекла или изтрита."
@@ -22430,6 +22642,10 @@ msgstr "Това е описанието на втората опция"
 msgid "This is the third option description"
 msgstr "Това е описанието на третата опция"
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:166
+msgid "This item is sold out."
+msgstr ""
+
 #: src/components/modals/tabs/chat_settings_tab/InteractionTab.tsx:90
 msgid "This message doesn't show the action bar"
 msgstr "Това съобщение не показва лентата с действия"
@@ -22453,6 +22669,10 @@ msgstr "Това премахва всички преди това упълно�
 #: src/components/channel/MentionEveryonePopout.tsx:45
 msgid "this role"
 msgstr "тази роля"
+
+#: src/components/modals/cosmetics_shop/ServerView.tsx:52
+msgid "THIS SERVER"
+msgstr ""
 
 #: src/components/modals/tabs/accessibility_tab/AnimationTab.tsx:67
 msgid "This setting is currently overridden by your reduced motion preferences"
@@ -22492,12 +22712,12 @@ msgstr "Тази тема все още се зарежда."
 msgid "This theme link is missing data."
 msgstr "Този линк към тема няма данни."
 
-#: src/components/pages/ThemeLoginPage.tsx:175
+#: src/components/pages/ThemeLoginPage.tsx:183
 #: src/components/pages/ThemeRegisterPage.tsx:64
 msgid "This theme may have been removed or the link is invalid."
 msgstr "Тази тема може да е премахната или линкът да е невалиден."
 
-#: src/components/popouts/UserProfileShared.tsx:264
+#: src/components/popouts/UserProfileShared.tsx:268
 msgid "This user has no roles in this community."
 msgstr "Този потребител няма роли в тази общност."
 
@@ -22534,7 +22754,7 @@ msgstr "Това ще скрие всички UI елементи, свърза�
 msgid "This will invalidate your existing backup codes and generate new ones."
 msgstr "Това ще анулира вашите съществуващи кодове за резервно копие и ще генерира нови."
 
-#: src/components/channel/ChannelTextarea.tsx:1034
+#: src/components/channel/ChannelTextarea.tsx:1035
 msgid "This will modify the existing scheduled message rather than sending immediately."
 msgstr "Това ще промени съществуващото планирано съобщение, вместо да го изпраща веднага."
 
@@ -22650,7 +22870,7 @@ msgstr "Продължителност на таймаута"
 msgid "Timeout ends {0} ({1})"
 msgstr "Таймаутът свършва {0} ({1})"
 
-#: src/utils/PermissionUtils.tsx:369
+#: src/utils/PermissionUtils.tsx:374
 msgid "Timeout Members"
 msgstr "Членове в таймаут"
 
@@ -22916,6 +23136,14 @@ msgstr "Горна подсказка"
 msgid "Topic"
 msgstr "Тема"
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:192
+msgid "TOTAL"
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:243
+msgid "TOTAL EARNED"
+msgstr ""
+
 #: src/components/debug/MessageDebugModal.tsx:178
 msgid "Total Parsing Time:"
 msgstr "Общо време за парсиране:"
@@ -23043,9 +23271,13 @@ msgstr "Опитайте отново"
 #: src/components/modals/channel_tabs/ChannelInvitesTab.tsx:231
 #: src/components/modals/channel_tabs/ChannelWebhooksTab.tsx:162
 #: src/components/NetworkErrorScreen.tsx:56
-#: src/components/pages/SsoCallbackPage.tsx:116
+#: src/components/pages/SsoCallbackPage.tsx:117
 msgid "Try Again"
 msgstr "Опитайте отново"
+
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:300
+msgid "TRY AGAIN"
+msgstr ""
 
 #: src/components/auth/MfaScreen.tsx:148
 msgid "Try another method"
@@ -23064,6 +23296,10 @@ msgstr "Опитайте друг термин за търсене"
 #: src/components/channel/InviteEmbed.tsx:387
 msgid "Try asking for a new invite."
 msgstr "Опитайте да поискате нова покана."
+
+#: src/components/modals/CosmeticsShopModal.tsx:203
+msgid "Try clearing a filter in the rail to see more of the catalog."
+msgstr ""
 
 #: src/components/bottomsheets/ChannelSearchBottomSheet.tsx:334
 msgid "Try different filters or search terms"
@@ -23099,7 +23335,7 @@ msgstr "Турски"
 msgid "Turn Off All Device Cameras"
 msgstr "Изключване на всички камери на устройства"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:788
+#: src/components/pages/OAuthAuthorizePage.tsx:836
 msgid "Turn off anything you're not comfortable with. Some features may stop working."
 msgstr "Изключете всичко, с което не се чувствате комфортно. Някои функции може да спрат да работят."
 
@@ -23133,7 +23369,7 @@ msgstr "Изключване на потока"
 msgid "Turn On Camera"
 msgstr "Включване на камерата"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:823
+#: src/components/pages/OAuthAuthorizePage.tsx:871
 msgid "Turning off scopes may prevent the app from working correctly."
 msgstr "Изключването на обхватите може да попречи на правилната работа на приложението."
 
@@ -23189,7 +23425,8 @@ msgstr "Двуфакторното удостоверяване е активи�
 msgid "Two-factor authentication is enabled"
 msgstr "Двуфакторното удостоверяване е активирано"
 
-#: src/components/modals/CosmeticsShopModal.tsx:262
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:211
+#: src/components/modals/cosmetics_shop/RailNav.tsx:128
 msgid "Type"
 msgstr ""
 
@@ -23473,6 +23710,10 @@ msgstr "Разбрано"
 msgid "Undo"
 msgstr "Отмяна"
 
+#: src/components/modals/cosmetics_shop/YourItemsView.tsx:110
+msgid "UNEQUIP"
+msgstr ""
+
 #: src/components/channel/direct_message/DMList.tsx:220
 #: src/components/uikit/context_menu/items/ChannelMenuItems.tsx:395
 msgid "Unfavorite Channel"
@@ -23514,7 +23755,7 @@ msgstr "Единица"
 msgid "Unknown"
 msgstr "Непознато"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:171
+#: src/components/pages/OAuthAuthorizePage.tsx:192
 msgid "Unknown application or it no longer exists."
 msgstr "Непознато приложение или вече не съществува."
 
@@ -23536,7 +23777,7 @@ msgstr "Непознат канал"
 msgid "Unknown Channel"
 msgstr "Непознат канал"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:247
+#: src/components/pages/OAuthAuthorizePage.tsx:268
 msgid "Unknown community"
 msgstr "Непозната общност"
 
@@ -23603,6 +23844,7 @@ msgstr "непознато-споменаване"
 msgid "unknown-role"
 msgstr "непозната-роля"
 
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:282
 #: src/components/modals/PackInviteModal.tsx:59
 msgid "Unlimited"
 msgstr "Неограничено"
@@ -23843,7 +24085,7 @@ msgstr "Непотвърден имейл"
 msgid "Up to 4K/60fps"
 msgstr "До 4K/60fps"
 
-#: src/components/channel/ChannelTextarea.tsx:1031
+#: src/components/channel/ChannelTextarea.tsx:1032
 msgid "Update"
 msgstr "Актуализиране"
 
@@ -23867,7 +24109,7 @@ msgstr "Актуализиране на изчакването"
 msgid "Update your icon, name, banner, and invite background"
 msgstr "Актуализирайте иконата, името, банера и фона на поканата"
 
-#: src/utils/PermissionUtils.tsx:275
+#: src/utils/PermissionUtils.tsx:280
 msgid "Update your own nickname."
 msgstr "Актуализирайте собствения си прякор."
 
@@ -23893,7 +24135,7 @@ msgstr "Актуализирани разрешени разрешения."
 msgid "Updated denied permissions."
 msgstr "Актуализирани отказани разрешения."
 
-#: src/actions/FavoriteMemeActionCreators.tsx:153
+#: src/actions/FavoriteMemeActionCreators.tsx:156
 msgid "Updated saved media"
 msgstr "Актуализирани запазени медии"
 
@@ -23954,7 +24196,7 @@ msgstr "Актуализирах темата на {0}."
 msgid "Updated the webhook avatar."
 msgstr "Актуализирах аватара на webhooks."
 
-#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:292
+#: src/components/channel/pickers/gif/GifPickerGridItem.tsx:294
 msgid "Updating favorites…"
 msgstr "Актуализиране на любими…"
 
@@ -23997,6 +24239,10 @@ msgstr "Качи файл"
 
 #: src/components/modals/utils/SettingsSectionRegistry.tsx:682
 msgid "Upload an icon for your application, independent of its bot's avatar."
+msgstr ""
+
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:165
+msgid "Upload art"
 msgstr ""
 
 #: src/utils/modals/AnimatedAvifModalUtils.tsx:43
@@ -24048,15 +24294,11 @@ msgstr "Качи файл"
 msgid "Upload Icon"
 msgstr "Качи икона"
 
-#: src/components/modals/CosmeticsShopModal.tsx:225
-msgid "Upload image"
-msgstr ""
-
 #: src/components/webhooks/WebhookListItem.tsx:213
 msgid "Upload Image"
 msgstr "Качи изображение"
 
-#: src/utils/PermissionUtils.tsx:285
+#: src/utils/PermissionUtils.tsx:290
 msgid "Upload new emoji and stickers, and manage your own creations."
 msgstr "Качете нови емоджи и стикери и управлявайте собствените си творения."
 
@@ -24093,7 +24335,7 @@ msgstr "Качвам {emojiText}. Това може да отнеме малко
 msgid "Uploading Emojis"
 msgstr "Качване на емоджита"
 
-#: src/components/modals/CosmeticsShopModal.tsx:299
+#: src/components/modals/cosmetics_shop/CreateListingForm.tsx:299
 msgid "Uploading…"
 msgstr ""
 
@@ -24129,8 +24371,8 @@ msgstr "URL адреси за изтегляне на прикачени фай�
 msgid "US East"
 msgstr "Източна САЩ"
 
-#: src/utils/PermissionUtils.tsx:337
-#: src/utils/PermissionUtils.tsx:479
+#: src/utils/PermissionUtils.tsx:342
+#: src/utils/PermissionUtils.tsx:484
 msgid "Use @everyone/@here and @roles"
 msgstr "Използвай @everyone/@here и @roles"
 
@@ -24188,17 +24430,17 @@ msgstr "Използвай тъмна тема в цялото приложен�
 msgid "Use Different Email"
 msgstr "Използвай различен имейл"
 
-#: src/utils/PermissionUtils.tsx:343
+#: src/utils/PermissionUtils.tsx:348
 msgid "Use emoji from other communities."
 msgstr "Използвай емоджита от други общности."
 
-#: src/utils/PermissionUtils.tsx:342
-#: src/utils/PermissionUtils.tsx:483
+#: src/utils/PermissionUtils.tsx:347
+#: src/utils/PermissionUtils.tsx:488
 msgid "Use External Emoji"
 msgstr "Използвай външни емоджита"
 
-#: src/utils/PermissionUtils.tsx:347
-#: src/utils/PermissionUtils.tsx:484
+#: src/utils/PermissionUtils.tsx:352
+#: src/utils/PermissionUtils.tsx:489
 msgid "Use External Stickers"
 msgstr "Използвай външни стикери"
 
@@ -24251,8 +24493,8 @@ msgstr "Използвай този бутон, за да изчистиш вс�
 msgid "Use this shortcut system-wide"
 msgstr "Използвай тази клавишна комбинация в цялата система"
 
-#: src/utils/PermissionUtils.tsx:401
-#: src/utils/PermissionUtils.tsx:507
+#: src/utils/PermissionUtils.tsx:406
+#: src/utils/PermissionUtils.tsx:512
 msgid "Use Voice Activity"
 msgstr "Използвай гласова активност"
 
@@ -24298,7 +24540,7 @@ msgstr "Отстраняване на грешки на потребител"
 msgid "User has vanished"
 msgstr "Потребителят е изчезнал"
 
-#: src/components/modals/tabs/AdminPanelTab.tsx:548
+#: src/components/modals/tabs/AdminPanelTab.tsx:392
 msgid "User ID"
 msgstr ""
 
@@ -24709,7 +24951,7 @@ msgid "video preview"
 msgstr "предварителен преглед на видео"
 
 #: src/components/modals/MediaModal.tsx:1079
-#: src/components/modals/MediaViewerModal.tsx:438
+#: src/components/modals/MediaViewerModal.tsx:451
 msgid "Video preview"
 msgstr "Преглед на видео"
 
@@ -24803,8 +25045,8 @@ msgstr "Прегледай повикването"
 msgid "View call controls"
 msgstr "Преглед на контролите на повикването"
 
-#: src/utils/PermissionUtils.tsx:380
-#: src/utils/PermissionUtils.tsx:460
+#: src/utils/PermissionUtils.tsx:385
+#: src/utils/PermissionUtils.tsx:465
 msgid "View Channel"
 msgstr "Преглед на канала"
 
@@ -25145,6 +25387,14 @@ msgstr "Доброволни герои"
 msgid "Waiting for wallet confirmation…"
 msgstr ""
 
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:246
+msgid "Waiting for wallet signature…"
+msgstr ""
+
+#: src/components/auth/AuthLoginLayout.tsx:225
+msgid "Wallet connection did not return a public key"
+msgstr ""
+
 #: src/components/modals/SudoVerificationModal.tsx:377
 msgid "Wallet signing failed. Please try again."
 msgstr ""
@@ -25302,6 +25552,10 @@ msgstr "Изпратихме код на {email}."
 msgid "We will prefill {prefillEmail} once the browser login opens."
 msgstr "Ще попълним предварително {prefillEmail}, след като се отвори браузърното влизане."
 
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:199
+msgid "We'll notify you once it's processed."
+msgstr ""
+
 #: src/components/pages/EmailRevertPage.tsx:80
 msgid "We'll restore your previous email, sign out old sessions, remove phone numbers, disable MFA, and secure your account with a new password."
 msgstr "Ще възстановим предишния ви имейл, ще излезем от старите сесии, ще премахнем телефонните номера, ще деактивираме МФА и ще защитим акаунта ви с нова парола."
@@ -25369,7 +25623,7 @@ msgstr "Изпратихме инструкции за нулиране на п�
 
 #: src/components/layout/guild_list/Web3Button.tsx:49
 #: src/components/layout/guild_list/Web3Button.tsx:53
-#: src/components/modals/Web3Modal.tsx:121
+#: src/components/modals/Web3Modal.tsx:126
 msgid "Web3 & Identity"
 msgstr ""
 
@@ -25428,7 +25682,7 @@ msgstr "Уикенд войни"
 msgid "Welcome and system messages will appear here."
 msgstr "Тук ще се появяват съобщения за добре дошли и системни съобщения."
 
-#: src/components/auth/AuthLoginLayout.tsx:431
+#: src/components/auth/AuthLoginLayout.tsx:372
 msgid "Welcome back"
 msgstr "Добре дошли отново"
 
@@ -25651,7 +25905,7 @@ msgstr "Уау, това е тежко."
 msgid "Why are you reporting this?"
 msgstr "Защо докладвате това?"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:728
+#: src/components/pages/OAuthAuthorizePage.tsx:776
 msgid "Will send you back to"
 msgstr "Ще ви върне към"
 
@@ -25846,7 +26100,7 @@ msgstr "Можете да заявите експорт на данни ведн
 msgid "You can request a new export once every 7 days"
 msgstr "Можете да поискате нов експорт веднъж на 7 дни"
 
-#: src/components/pages/InviteLoginPage.tsx:221
+#: src/components/pages/InviteLoginPage.tsx:229
 #: src/components/pages/InviteRegisterPage.tsx:120
 msgid "You can still create an account or log in. If invites are re-enabled later, you can use this same link to join."
 msgstr "Все още можете да си създадете акаунт или да влезете. Ако поканите бъдат активирани по-късно, можете да използвате същия линк, за да се присъедините."
@@ -25968,11 +26222,11 @@ msgstr "Нямате разрешение да инсталирате този �
 msgid "You don't have permission to join this voice channel"
 msgstr "Нямаш разрешение да се присъединиш към този гласов канал"
 
-#: src/components/modals/tabs/CosmeticsTab.tsx:243
+#: src/components/modals/tabs/CosmeticsTab.tsx:201
 msgid "You don't own any cosmetic NFTs yet. Head to the Multiverse Shop to grab your first cosmetic and make your profile unique."
 msgstr ""
 
-#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:235
+#: src/components/modals/guild_tabs/GuildCosmeticsTab.tsx:203
 msgid "You don't own any server cosmetic NFTs. Visit the Multiverse Shop to get cosmetics that can be applied to your server."
 msgstr ""
 
@@ -26158,8 +26412,8 @@ msgstr "Трябва да потвърдите имейла си, за да из
 msgid "You still don't hold the required token for this channel"
 msgstr ""
 
-#: src/components/pages/OAuthAuthorizePage.tsx:669
-#: src/components/pages/OAuthAuthorizePage.tsx:919
+#: src/components/pages/OAuthAuthorizePage.tsx:717
+#: src/components/pages/OAuthAuthorizePage.tsx:967
 msgid "You will be taken to <0><1>{redirectHostname}</1></0> after authorizing."
 msgstr "Ще бъдете пренасочени към <0><1>{redirectHostname}</1></0> след упълномощаването."
 
@@ -26181,7 +26435,7 @@ msgstr "Няма да получавате известия на настоле�
 msgid "You'll appear offline"
 msgstr "Ще изглеждате като офлайн"
 
-#: src/components/pages/OAuthAuthorizePage.tsx:877
+#: src/components/pages/OAuthAuthorizePage.tsx:925
 msgid "You'll configure which permissions the bot receives on the next screen."
 msgstr "Ще конфигурирате кои разрешения получава ботът на следващия екран."
 
@@ -26254,6 +26508,10 @@ msgstr "Във гласовия канал сте"
 msgid "You're sending messages too quickly"
 msgstr "Изпращате съобщения твърде бързо"
 
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:117
+msgid "You're signed in, but no Solana wallet is linked to this account yet. Link one to apply as a creator and receive payouts."
+msgstr ""
+
 #: src/components/voice/StreamWatchHoverPopout.tsx:167
 msgid "You're Streaming!"
 msgstr "Стримваш!"
@@ -26284,7 +26542,7 @@ msgid "You've been invited to join a group DM by"
 msgstr "Поканени сте да се присъедините към групов DM от"
 
 #: src/components/channel/ThemeEmbed.tsx:69
-#: src/components/pages/ThemeLoginPage.tsx:80
+#: src/components/pages/ThemeLoginPage.tsx:84
 #: src/components/pages/ThemeRegisterPage.tsx:79
 msgid "You've got CSS!"
 msgstr "Имате CSS!"
@@ -26365,12 +26623,8 @@ msgstr "Акаунтът ви е твърде нов, за да изпращат
 msgid "Your application is pending review. You can still update your listing details or withdraw the application."
 msgstr "Вашето заявление е в процес на преглед. Все още можете да актуализирате детайлите на вашето обявление или да оттеглите заявлението."
 
-#: src/components/modals/CosmeticsShopModal.tsx:413
-msgid "Your application is under review. We'll notify you when it's processed."
-msgstr ""
-
-#: src/components/modals/CosmeticsShopModal.tsx:414
-msgid "Your application was not approved this time. You can apply again."
+#: src/components/modals/cosmetics_shop/CreatorPanel.tsx:201
+msgid "Your application wasn't approved this time. You can apply again."
 msgstr ""
 
 #: src/components/layout/app_layout/nagbars/DesktopNotificationNagbar.tsx:53
@@ -26396,6 +26650,10 @@ msgstr "Вашата общност е изброена в Discovery. Может
 #: src/components/modals/guild_tabs/GuildDiscoveryTab.tsx:233
 msgid "Your community needs at least {minMemberCount} members before it can be listed in Discovery."
 msgstr "Вашата общност се нуждае от поне {minMemberCount} членове, преди да може да бъде изброена в Discovery."
+
+#: src/components/modals/cosmetics_shop/YourItemsView.tsx:53
+msgid "YOUR COSMETICS"
+msgstr ""
 
 #. placeholder {0}: user?.email
 #: src/components/modals/RequiredActionModal.tsx:456
@@ -26458,6 +26716,10 @@ msgstr "IP адресът ви е забранен в тази общност и
 #: src/components/alerts/UserIpBannedFromGuildModal.tsx:29
 msgid "Your IP is Banned"
 msgstr "Вашият IP е забранен"
+
+#: src/components/modals/cosmetics_shop/RailNav.tsx:73
+msgid "Your Items"
+msgstr ""
 
 #: src/components/modals/tabs/VaultTab.tsx:88
 msgid "Your keypair is active. All direct messages are encrypted end-to-end — only you and your recipient can read them."
@@ -26533,6 +26795,11 @@ msgstr ""
 
 #: src/components/modals/TipUserModal.tsx:142
 msgid "Your SOL is on its way to {displayName}."
+msgstr ""
+
+#. placeholder {0}: item.name
+#: src/components/modals/cosmetics_shop/BuySheet.tsx:267
+msgid "Your SOL payment for {0} was confirmed on-chain. Minting isn't configured yet — the NFT will appear in Your Items once it is."
 msgstr ""
 
 #: src/components/voice/PiPOverlay.tsx:782

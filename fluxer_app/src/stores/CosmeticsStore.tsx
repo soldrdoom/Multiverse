@@ -31,6 +31,7 @@ import {
 	updateListing,
 } from '@app/services/cosmetics/CosmeticsService';
 import AuthenticationStore from '@app/stores/AuthenticationStore';
+import UserStore from '@app/stores/UserStore';
 import type {
 	AppliedCosmeticEntry,
 	CreateListingRequest,
@@ -40,7 +41,7 @@ import type {
 	StoreListingNft,
 	UpdateListingRequest,
 } from '@fluxer/schema/src/domains/cosmetics/CosmeticSchemas';
-import {makeAutoObservable} from 'mobx';
+import {makeAutoObservable, reaction} from 'mobx';
 
 /**
  * CosmeticsStore — global singleton holding:
@@ -80,6 +81,33 @@ class CosmeticsStore {
 
 	constructor() {
 		makeAutoObservable(this, {}, {autoBind: true});
+
+		// creatorStatus (in particular its wallet_linked flag) is fetched once per call to
+		// loadCreatorStatus() and does not otherwise track the account's linked wallet. Without
+		// this, linking/unlinking a wallet through any path other than a manual reload (e.g. a
+		// future settings-page unlink, or a link performed while CreatorPanel/BuySheet aren't
+		// mounted to trigger their own effects) would leave creatorStatus silently stale for the
+		// rest of the session. Only refetch if status has been loaded before — an unmounted/never
+		// -opened shop shouldn't eagerly hit GET /creators/@me just because the address changed.
+		//
+		// Deferred via queueMicrotask, matching NotificationStore.tsx's accountReactionDisposer
+		// setup: CosmeticsStore is a module-level singleton (`export default new CosmeticsStore()`
+		// below), and reaction()'s tracked function runs once synchronously at registration time
+		// to establish its dependencies. Registering it directly in this constructor hit a real
+		// circular-import ordering issue — UserStore was still `undefined` at that point (its own
+		// module, via ClaimAccountModal.tsx et al., transitively imports back into this module
+		// graph before UserStore's `export default new UserStore()` line runs) — confirmed live via
+		// a MobX "Cannot read properties of undefined (reading 'getCurrentUser')" uncaught reaction
+		// error on every page load. Deferring to a microtask runs this after all modules have
+		// finished their synchronous top-level evaluation, sidestepping the ordering entirely.
+		queueMicrotask(() => {
+			reaction(
+				() => UserStore.getCurrentUser()?.solanaAddress,
+				() => {
+					if (this.creatorStatus !== null) void this.loadCreatorStatus();
+				},
+			);
+		});
 	}
 
 	// ─── Loaders ─────────────────────────────────────────────────────────────

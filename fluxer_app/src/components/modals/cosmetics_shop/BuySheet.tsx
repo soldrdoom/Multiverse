@@ -19,6 +19,7 @@
 
 import styles from '@app/components/modals/CosmeticsShopModal.module.css';
 import {Spinner} from '@app/components/uikit/Spinner';
+import {useLinkWallet} from '@app/hooks/cosmetics/useLinkWallet';
 import {type CosmeticsInvoice, fetchCosmeticsInvoice, purchaseCosmetic} from '@app/services/cosmetics/CosmeticsService';
 import CosmeticsStore from '@app/stores/CosmeticsStore';
 import UserStore from '@app/stores/UserStore';
@@ -27,6 +28,7 @@ import {isWalletRejectionError, payMultiSolTransfer} from '@app/utils/SolanaWall
 import type {StoreListingNft} from '@fluxer/schema/src/domains/cosmetics/CosmeticSchemas';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {ArrowSquareOutIcon, CheckIcon, StarIcon, WarningIcon, XIcon} from '@phosphor-icons/react';
+import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useEffect, useState} from 'react';
 
@@ -50,13 +52,14 @@ interface BuySheetProps {
 	onClose: () => void;
 }
 
-export const BuySheet: React.FC<BuySheetProps> = ({item, onClose}) => {
+export const BuySheet: React.FC<BuySheetProps> = observer(({item, onClose}) => {
 	const {t} = useLingui();
 	const [phase, setPhase] = useState<Phase>('confirm');
 	const [invoice, setInvoice] = useState<CosmeticsInvoice | null>(null);
 	const [invoiceError, setInvoiceError] = useState<string | null>(null);
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [txSignature, setTxSignature] = useState<string | null>(null);
+	const {isLinking, linkError, linkWallet} = useLinkWallet();
 
 	// Identity — "does this account have a wallet to buy with" — comes from the account's own
 	// profile (UserStore.solanaAddress), not SolanaWalletStore (browser-extension connection
@@ -214,9 +217,24 @@ export const BuySheet: React.FC<BuySheetProps> = ({item, onClose}) => {
 							</button>
 						</div>
 						{!buyerAddress && (
-							<p className={styles.buySheetErrorBox}>
-								<WarningIcon weight="bold" size={16} /> <Trans>Link a Solana wallet to your account first.</Trans>
-							</p>
+							<>
+								<p className={styles.buySheetErrorBox}>
+									<WarningIcon weight="bold" size={16} /> <Trans>No Solana wallet linked to your account yet.</Trans>
+								</p>
+								{linkError && (
+									<p className={styles.buySheetErrorBox}>
+										<WarningIcon weight="bold" size={16} /> {linkError}
+									</p>
+								)}
+								<button
+									type="button"
+									className={styles.btnSheen}
+									onClick={() => void linkWallet()}
+									disabled={isLinking}
+								>
+									{isLinking ? <Spinner /> : <Trans>LINK WALLET</Trans>}
+								</button>
+							</>
 						)}
 					</>
 				)}
@@ -287,4 +305,4 @@ export const BuySheet: React.FC<BuySheetProps> = ({item, onClose}) => {
 			</div>
 		</div>
 	);
-};
+});

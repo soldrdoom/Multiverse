@@ -53,6 +53,9 @@ export const CosmeticsShopModal: React.FC = observer(() => {
 
 	useEffect(() => {
 		CosmeticsStore.loadStoreItems();
+		// Fetch on every modal open (not just once per app session) so a wallet linked/unlinked
+		// while the modal was closed doesn't leave CreatorPanel showing stale gate state.
+		CosmeticsStore.loadCreatorStatus();
 	}, []);
 
 	const guildId = SelectedGuildStore.selectedGuildId;

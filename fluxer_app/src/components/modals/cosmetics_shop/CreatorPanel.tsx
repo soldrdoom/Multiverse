@@ -20,6 +20,7 @@
 import styles from '@app/components/modals/CosmeticsShopModal.module.css';
 import {CreateListingForm} from '@app/components/modals/cosmetics_shop/CreateListingForm';
 import {Spinner} from '@app/components/uikit/Spinner';
+import {useLinkWallet} from '@app/hooks/cosmetics/useLinkWallet';
 import CosmeticsStore from '@app/stores/CosmeticsStore';
 import {rarityLabel, SLOT_LABELS} from '@app/utils/cosmetics/rarity';
 import {Trans, useLingui} from '@lingui/react/macro';
@@ -57,6 +58,7 @@ export const CreatorPanel: React.FC = observer(() => {
 	const [deleting, setDeleting] = useState<string | null>(null);
 	const [applyError, setApplyError] = useState<string | null>(null);
 	const [showCreateForm, setShowCreateForm] = useState(false);
+	const {isLinking, linkError, linkWallet} = useLinkWallet();
 
 	useEffect(() => {
 		CosmeticsStore.loadCreatorStatus();
@@ -100,22 +102,31 @@ export const CreatorPanel: React.FC = observer(() => {
 		);
 	}
 
-	// No wallet linked — Solana wallet linking happens through Sign-In-With-Solana
-	// at login/onboarding; there's no in-app "connect wallet" flow to hand off to
-	// yet, so this is informational rather than a CTA (a deviation from the design
-	// spec's "LINK WALLET" outline pill — see task report).
+	// No wallet linked. The user is already signed in — this only needs to link a wallet to
+	// the existing account (SolanaAuthService.linkWallet via POST /users/@me/solana-wallet),
+	// not sign in again — so it reuses the same in-browser flow as the header WalletChip via
+	// useLinkWallet(), rather than pointing at the unrelated SIWS login flow.
 	if (!status || !status.wallet_linked) {
 		return (
 			<div className={styles.emptyState}>
 				<WalletIcon size={44} weight="duotone" className={styles.emptyIcon} />
 				<p className={styles.emptyTitle}>
-					<Trans>Link a Wallet First</Trans>
+					<Trans>Link a wallet to become a creator</Trans>
 				</p>
 				<p className={styles.emptyDescription}>
 					<Trans>
-						Sign in with a Solana wallet to link it to your account, then come back here to apply as a creator.
+						You're signed in, but no Solana wallet is linked to this account yet. Link one to apply as a creator and
+						receive payouts.
 					</Trans>
 				</p>
+				{linkError && (
+					<p className={styles.creatorError}>
+						<WarningIcon weight="bold" size={16} /> {linkError}
+					</p>
+				)}
+				<button type="button" className={styles.applyButton} onClick={() => void linkWallet()} disabled={isLinking}>
+					{isLinking ? <Spinner /> : <Trans>LINK WALLET</Trans>}
+				</button>
 			</div>
 		);
 	}
