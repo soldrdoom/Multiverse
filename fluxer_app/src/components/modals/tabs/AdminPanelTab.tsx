@@ -233,162 +233,6 @@ const DiscoveryApplicationsPanel = () => {
 	);
 };
 
-// ─── Creator Applications ─────────────────────────────────────────────────────
-
-interface CreatorApplication {
-	solana_address: string;
-	username: string | null;
-	status: string;
-	applied_at: string;
-	reviewed_at: string | null;
-}
-
-type CreatorReviewState = {address: string; action: 'approve' | 'reject'} | null;
-
-const CreatorApplicationsPanel = () => {
-	const {t} = useLingui();
-	const [applications, setApplications] = useState<Array<CreatorApplication>>([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
-	const [reviewing, setReviewing] = useState<CreatorReviewState>(null);
-	const [statusFilter, setStatusFilter] = useState<'pending' | 'approved' | 'rejected'>('pending');
-
-	const loadApplications = useCallback(async () => {
-		setLoading(true);
-		setError(null);
-		try {
-			const res = await http.get<{applications: Array<CreatorApplication>}>({
-				url: Endpoints.ADMIN_CREATOR_APPLICATIONS,
-			});
-			const all = res.body?.applications ?? [];
-			setApplications(all.filter((a) => a.status === statusFilter));
-		} catch {
-			setError(t`Failed to load creator applications.`);
-		} finally {
-			setLoading(false);
-		}
-	}, [statusFilter, t]);
-
-	useEffect(() => {
-		void loadApplications();
-	}, [loadApplications]);
-
-	const submitReview = useCallback(async () => {
-		if (!reviewing) return;
-		const {address, action} = reviewing;
-		const endpoint =
-			action === 'approve'
-				? Endpoints.ADMIN_CREATOR_APPLICATION_APPROVE(address)
-				: Endpoints.ADMIN_CREATOR_APPLICATION_REJECT(address);
-		try {
-			await http.post({url: endpoint});
-			setReviewing(null);
-			void loadApplications();
-		} catch {
-			setError(t`Action failed. Check your permissions.`);
-		}
-	}, [reviewing, loadApplications, t]);
-
-	const statusLabels: Record<string, string> = {
-		pending: t`pending`,
-		approved: t`approved`,
-		rejected: t`rejected`,
-	};
-
-	return (
-		<>
-			<div className={styles.toolbar}>
-				<div className={styles.filterRow}>
-					{(['pending', 'approved', 'rejected'] as const).map((s) => (
-						<button
-							key={s}
-							type="button"
-							className={styles.filterBtn + (statusFilter === s ? ' ' + styles.filterBtnActive : '')}
-							onClick={() => setStatusFilter(s)}
-						>
-							{s.charAt(0).toUpperCase() + s.slice(1)}
-						</button>
-					))}
-				</div>
-				<Button small onClick={() => void loadApplications()}>
-					<Trans>Refresh</Trans>
-				</Button>
-			</div>
-
-			{error != null && <div className={styles.error}>{error}</div>}
-
-			{loading ? (
-				<div className={styles.emptyState}>
-					<Trans>Loading…</Trans>
-				</div>
-			) : applications.length === 0 ? (
-				<div className={styles.emptyState}>
-					{t`No ${statusLabels[statusFilter] ?? statusFilter} creator applications.`}
-				</div>
-			) : (
-				<div className={styles.list}>
-					{applications.map((app) => (
-						<div key={app.solana_address} className={styles.card}>
-							<div className={styles.cardHeader}>
-								<div className={styles.cardMeta}>
-									{app.username != null && <span className={styles.applicantUsername}>{app.username}</span>}
-									<span className={styles.walletAddress}>{app.solana_address}</span>
-									<span className={styles.date}>
-										<Trans>Applied</Trans> {new Date(app.applied_at).toLocaleDateString()}
-									</span>
-								</div>
-								{app.reviewed_at != null && (
-									<span className={styles.date}>
-										<Trans>Reviewed</Trans> {new Date(app.reviewed_at).toLocaleDateString()}
-									</span>
-								)}
-							</div>
-
-							{reviewing?.address !== app.solana_address && statusFilter === 'pending' && (
-								<div className={styles.actions}>
-									<Button
-										small
-										variant="primary"
-										onClick={() => setReviewing({address: app.solana_address, action: 'approve'})}
-										leftIcon={<CheckCircleIcon size={14} weight="bold" />}
-									>
-										<Trans>Approve</Trans>
-									</Button>
-									<Button
-										small
-										variant="danger-primary"
-										onClick={() => setReviewing({address: app.solana_address, action: 'reject'})}
-										leftIcon={<XCircleIcon size={14} weight="bold" />}
-									>
-										<Trans>Reject</Trans>
-									</Button>
-								</div>
-							)}
-
-							{reviewing?.address === app.solana_address && (
-								<div className={styles.reviewForm}>
-									<div className={styles.actions}>
-										<Button
-											small
-											variant={reviewing.action === 'approve' ? 'primary' : 'danger-primary'}
-											onClick={() => void submitReview()}
-										>
-											{reviewing.action === 'approve' ? <Trans>Confirm Approve</Trans> : <Trans>Confirm Reject</Trans>}
-										</Button>
-										<Button small variant="secondary" onClick={() => setReviewing(null)}>
-											<Trans>Cancel</Trans>
-										</Button>
-									</div>
-								</div>
-							)}
-						</div>
-					))}
-				</div>
-			)}
-		</>
-	);
-};
-
 // ─── Badges ────────────────────────────────────────────────────────────────
 
 interface AdminUserLookupResult {
@@ -601,7 +445,7 @@ const BadgesPanel = () => {
 
 // ─── Admin Panel Tab ──────────────────────────────────────────────────────────
 
-type AdminSection = 'discovery' | 'creator' | 'badges';
+type AdminSection = 'discovery' | 'badges';
 
 const AdminPanelTab = () => {
 	const {t} = useLingui();
@@ -609,7 +453,6 @@ const AdminPanelTab = () => {
 
 	const menuItems: Array<{id: AdminSection; label: string}> = [
 		{id: 'discovery', label: t`Discovery Applications`},
-		{id: 'creator', label: t`Creator Applications`},
 		{id: 'badges', label: t`Badges`},
 	];
 
@@ -617,7 +460,6 @@ const AdminPanelTab = () => {
 
 	const renderSection = () => {
 		if (activeSection === 'discovery') return <DiscoveryApplicationsPanel />;
-		if (activeSection === 'creator') return <CreatorApplicationsPanel />;
 		return <BadgesPanel />;
 	};
 

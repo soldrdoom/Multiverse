@@ -313,10 +313,6 @@ export const Endpoints = {
 	ADMIN_DISCOVERY_REJECT: (guildId: string) => `/admin/discovery/applications/${guildId}/reject`,
 	ADMIN_DISCOVERY_REMOVE: (guildId: string) => `/admin/discovery/guilds/${guildId}/remove`,
 
-	ADMIN_CREATOR_APPLICATIONS: '/admin/creator-applications',
-	ADMIN_CREATOR_APPLICATION_APPROVE: (address: string) => `/admin/creator-applications/${address}/approve`,
-	ADMIN_CREATOR_APPLICATION_REJECT: (address: string) => `/admin/creator-applications/${address}/reject`,
-
 	ADMIN_USERS_LOOKUP: '/admin/users/lookup',
 	ADMIN_UPDATE_USER_FLAGS: '/admin/users/update-flags',
 	ADMIN_UPDATE_USER_VISIONARY: '/admin/users/update-visionary',

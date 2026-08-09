@@ -79,7 +79,8 @@ export function getSections(): Array<NavSection> {
 					path: '/ip-bans',
 					activeKey: 'ip-bans',
 					requiredAcls: [AdminACLs.BAN_IP_CHECK, AdminACLs.BAN_IP_ADD, AdminACLs.BAN_IP_REMOVE],
-					description: 'Block or allow specific IP addresses or CIDR ranges at the network level, independent of account bans.',
+					description:
+						'Block or allow specific IP addresses or CIDR ranges at the network level, independent of account bans.',
 				},
 				{
 					title: 'Email Bans',
@@ -117,14 +118,16 @@ export function getSections(): Array<NavSection> {
 					path: '/system-dms',
 					activeKey: 'system-dms',
 					requiredAcls: [AdminACLs.SYSTEM_DM_SEND],
-					description: 'Send a one-off direct message from the system account to a filtered set of users, and track delivery.',
+					description:
+						'Send a one-off direct message from the system account to a filtered set of users, and track delivery.',
 				},
 				{
 					title: 'Archives',
 					path: '/archives',
 					activeKey: 'archives',
 					requiredAcls: [AdminACLs.ARCHIVE_VIEW_ALL, AdminACLs.ARCHIVE_TRIGGER_USER, AdminACLs.ARCHIVE_TRIGGER_GUILD],
-					description: 'Trigger or review data export archives for a specific user or guild (e.g. for compliance/legal requests).',
+					description:
+						'Trigger or review data export archives for a specific user or guild (e.g. for compliance/legal requests).',
 				},
 				{
 					title: 'Asset Purge',
@@ -158,7 +161,8 @@ export function getSections(): Array<NavSection> {
 					path: '/audit-logs',
 					activeKey: 'audit-logs',
 					requiredAcls: [AdminACLs.AUDIT_LOG_VIEW],
-					description: 'Search the trail of every admin action taken across the platform, filterable by admin and target.',
+					description:
+						'Search the trail of every admin action taken across the platform, filterable by admin and target.',
 				},
 			],
 		},
@@ -170,7 +174,8 @@ export function getSections(): Array<NavSection> {
 					path: '/search-index',
 					activeKey: 'search-index',
 					requiredAcls: [AdminACLs.GUILD_LOOKUP],
-					description: 'Trigger reindexing of search collections (users, guilds, messages, etc.) when results look stale.',
+					description:
+						'Trigger reindexing of search collections (users, guilds, messages, etc.) when results look stale.',
 				},
 				{
 					title: 'Voice Regions',
@@ -216,6 +221,26 @@ export function getSections(): Array<NavSection> {
 			],
 		},
 		{
+			title: 'Creators',
+			items: [
+				{
+					title: 'Creator Applications',
+					path: '/creator-applications?status=pending',
+					activeKey: 'creator-applications',
+					requiredAcls: [AdminACLs.CREATOR_APPLICATION_REVIEW],
+					description:
+						'Review applications from users requesting creator (cosmetic seller) status — approve or reject.',
+				},
+				{
+					title: 'Creator Listings',
+					path: '/creator-listings?status=pending_review',
+					activeKey: 'creator-listings',
+					requiredAcls: [AdminACLs.CREATOR_LISTING_REVIEW],
+					description: 'Review cosmetic listings submitted by approved creators before they go live in the shop.',
+				},
+			],
+		},
+		{
 			title: 'Discovery',
 			items: [
 				{
@@ -223,7 +248,8 @@ export function getSections(): Array<NavSection> {
 					path: '/discovery?status=pending',
 					activeKey: 'discovery',
 					requiredAcls: [AdminACLs.DISCOVERY_REVIEW],
-					description: 'Review guild applications to the server discovery directory — approve, reject, or remove listings.',
+					description:
+						'Review guild applications to the server discovery directory — approve, reject, or remove listings.',
 				},
 				{
 					title: 'Badges',

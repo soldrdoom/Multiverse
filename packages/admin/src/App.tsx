@@ -28,6 +28,7 @@ import {createAdminRoutes} from '@fluxer/admin/src/routes/Admin';
 import {createAuthRoutes} from '@fluxer/admin/src/routes/Auth';
 import {createBadgesRoutes} from '@fluxer/admin/src/routes/Badges';
 import {createBansRoutes} from '@fluxer/admin/src/routes/Bans';
+import {createCreatorsRoutes} from '@fluxer/admin/src/routes/Creators';
 import {createDiscoveryRoutes} from '@fluxer/admin/src/routes/Discovery';
 import {createGuildsRoutes} from '@fluxer/admin/src/routes/Guilds';
 import {createMessagesRoutes} from '@fluxer/admin/src/routes/Messages';
@@ -170,6 +171,7 @@ export function createAdminApp(options: CreateAdminAppOptions): AdminAppResult {
 		createMessagesRoutes,
 		createVoiceRoutes,
 		createDiscoveryRoutes,
+		createCreatorsRoutes,
 		createAdminRoutes,
 	];
 
