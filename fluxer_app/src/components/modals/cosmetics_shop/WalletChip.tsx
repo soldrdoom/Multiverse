@@ -20,9 +20,12 @@
 import styles from '@app/components/modals/CosmeticsShopModal.module.css';
 import {Endpoints} from '@app/Endpoints';
 import http from '@app/lib/HttpClient';
+import CosmeticsStore from '@app/stores/CosmeticsStore';
 import SolanaWalletStore from '@app/stores/SolanaWalletStore';
+import UserStore from '@app/stores/UserStore';
 import {getApiErrorMessage} from '@app/utils/ApiErrorUtils';
 import {getSolanaWalletProvider, uint8ArrayToBase64} from '@app/utils/solana/SolanaWalletProvider';
+import type {User} from '@fluxer/schema/src/domains/user/UserResponseSchemas';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
@@ -117,7 +120,12 @@ function shortenAddress(address: string): string {
 
 export const WalletChip: React.FC = observer(() => {
 	const {t} = useLingui();
-	const address = SolanaWalletStore.walletAddress;
+	// Identity — "does this account have a wallet linked" — comes from the account's own
+	// profile (UserStore), NOT SolanaWalletStore (which only tracks whether a wallet
+	// browser-extension is actively connected in *this* browser session, a separate concept
+	// originally built for the NFT sticker picker). This is what makes the chip show the
+	// account's real linked wallet on a fresh session, with no "connect" click required.
+	const address = UserStore.getCurrentUser()?.solanaAddress ?? null;
 	const [balance, setBalance] = useState<number | null>(null);
 	const [isLinking, setIsLinking] = useState(false);
 	const [linkError, setLinkError] = useState<string | null>(null);
@@ -138,9 +146,26 @@ export const WalletChip: React.FC = observer(() => {
 		setLinkError(null);
 		try {
 			const linkedAddress = await linkWalletToAccount();
-			// Backend confirmed the signature and persisted the link — now safe to reflect it
-			// in the reactive store WalletChip (and any other "connected wallet" UI) reads from.
+			// Backend confirmed the signature and persisted the link. Reflect it in both:
+			// - SolanaWalletStore, the reactive "wallet extension connected in this browser"
+			//   state that other UI (e.g. the NFT sticker picker, Web3 & Identity menu) reads.
+			// - UserStore, the account's own profile record — this is the source of truth
+			//   WalletChip itself displays from, and there is no gateway USER_UPDATE dispatch
+			//   for a wallet link, so this optimistic local patch is what makes the chip flip
+			//   to "linked" immediately instead of only after the next full profile refetch.
 			SolanaWalletStore.setConnectedAddress(linkedAddress);
+			const currentUser = UserStore.getCurrentUser();
+			if (currentUser) {
+				UserStore.handleUserUpdate({id: currentUser.id, solana_address: linkedAddress} as User);
+			}
+			// CreatorPanel (a sibling in the shop modal, not an ancestor/descendant of this
+			// component) gates on CosmeticsStore.creatorStatus.wallet_linked, fetched once on its
+			// own mount from GET /creators/@me. That fetch happened before this link existed, so
+			// without an explicit reload here the gate would keep showing "Link a Wallet First"
+			// until the modal is closed and reopened. CosmeticsStore is a MobX singleton and
+			// CreatorPanel is an observer, so this reaches it immediately as long as both are
+			// mounted — no prop wiring or context needed.
+			void CosmeticsStore.loadCreatorStatus();
 		} catch (error) {
 			setLinkError(getApiErrorMessage(error) ?? (error instanceof Error ? error.message : t`Failed to link wallet`));
 		} finally {

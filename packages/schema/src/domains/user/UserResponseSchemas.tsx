@@ -122,6 +122,7 @@ export const UserPrivateResponse = UserPartialResponse.extend({
 	has_unread_gift_inventory: z.boolean().describe('Whether there are unread items in the gift inventory'),
 	unread_gift_inventory_count: Int32Type.describe('The number of unread gift inventory items'),
 	used_mobile_client: z.boolean().describe('Whether the user has ever used the mobile client'),
+	solana_address: z.string().nullable().describe('The Solana wallet address linked to this account, if any'),
 	pending_bulk_message_deletion: z
 		.object({
 			scheduled_at: z.string().describe('ISO8601 timestamp of when the deletion was scheduled'),
@@ -409,6 +410,7 @@ export interface UserPrivate extends UserPartial, UserProfile {
 	readonly unread_gift_inventory_count: number;
 	readonly used_mobile_client: boolean;
 	readonly traits: ReadonlyArray<string>;
+	readonly solana_address: string | null;
 }
 
 export type User = UserPartial & Partial<UserPrivate>;

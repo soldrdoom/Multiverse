@@ -68,6 +68,7 @@ export class UserRecord {
 	readonly accentColor?: number | null;
 	readonly mfaEnabled?: boolean;
 	readonly phone?: string | null;
+	readonly solanaAddress?: string | null;
 	readonly authenticatorTypes?: ReadonlyArray<number>;
 	private readonly _verified?: boolean;
 	private readonly _premiumType?: number | null;
@@ -114,6 +115,7 @@ export class UserRecord {
 		if ('accent_color' in user) this.accentColor = user.accent_color;
 		if ('mfa_enabled' in user) this.mfaEnabled = user.mfa_enabled;
 		if ('phone' in user) this.phone = user.phone;
+		if ('solana_address' in user) this.solanaAddress = user.solana_address;
 		if ('authenticator_types' in user) this.authenticatorTypes = user.authenticator_types;
 		if ('verified' in user) this._verified = user.verified;
 		if ('premium_type' in user) this._premiumType = user.premium_type;
@@ -323,6 +325,14 @@ export class UserRecord {
 			...(this.phone !== undefined || 'phone' in updates
 				? {phone: 'phone' in updates && updates.phone !== undefined ? (updates.phone as string | null) : this.phone}
 				: {}),
+			...(this.solanaAddress !== undefined || 'solana_address' in updates
+				? {
+						solana_address:
+							'solana_address' in updates && updates.solana_address !== undefined
+								? (updates.solana_address as string | null)
+								: this.solanaAddress,
+					}
+				: {}),
 			...(this.authenticatorTypes !== undefined || updates.authenticator_types !== undefined
 				? {authenticator_types: updates.authenticator_types ?? this.authenticatorTypes}
 				: {}),
@@ -518,6 +528,7 @@ export class UserRecord {
 			this.pronouns === other.pronouns &&
 			this.mfaEnabled === other.mfaEnabled &&
 			this.phone === other.phone &&
+			this.solanaAddress === other.solanaAddress &&
 			JSON.stringify(this.authenticatorTypes) === JSON.stringify(other.authenticatorTypes) &&
 			this._verified === other._verified &&
 			this._premiumType === other._premiumType &&
@@ -580,6 +591,7 @@ export class UserRecord {
 			...(this.accentColor !== undefined ? {accent_color: this.accentColor} : {}),
 			...(this.mfaEnabled !== undefined ? {mfa_enabled: this.mfaEnabled} : {}),
 			...(this.phone !== undefined ? {phone: this.phone} : {}),
+			...(this.solanaAddress !== undefined ? {solana_address: this.solanaAddress} : {}),
 			...(this.authenticatorTypes !== undefined ? {authenticator_types: this.authenticatorTypes} : {}),
 			...(this._verified !== undefined ? {verified: this._verified} : {}),
 			...(this._premiumType !== undefined ? {premium_type: this._premiumType} : {}),

@@ -20,7 +20,7 @@
 import styles from '@app/components/modals/CosmeticsShopModal.module.css';
 import {Spinner} from '@app/components/uikit/Spinner';
 import {useCosmeticSlotEquip} from '@app/hooks/cosmetics/useCosmeticSlotEquip';
-import SolanaWalletStore from '@app/stores/SolanaWalletStore';
+import UserStore from '@app/stores/UserStore';
 import {compareRarity, rarityLabel, rarityStyle, SLOT_LABELS} from '@app/utils/cosmetics/rarity';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {SparkleIcon, StarIcon} from '@phosphor-icons/react';
@@ -36,7 +36,11 @@ function shortenAddress(address: string): string {
 export const YourItemsView: React.FC = observer(() => {
 	const {t} = useLingui();
 	const {savingSlot, isLoading, ownedNfts, currentMint, applySlot, clearSlot} = useCosmeticSlotEquip();
-	const address = SolanaWalletStore.walletAddress;
+	// Display-only identity ("minted to which wallet") — the account's own linked wallet
+	// (UserStore), not SolanaWalletStore's browser-extension connection state. Owned NFTs are
+	// already fetched server-side from the authenticated user's linked wallet regardless of
+	// whether an extension is connected in this browser session.
+	const address = UserStore.getCurrentUser()?.solanaAddress ?? null;
 
 	const equippable = ownedNfts
 		.filter((nft) => nft.cosmetic_type != null)

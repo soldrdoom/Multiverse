@@ -195,6 +195,7 @@ export function mapUserToPrivateResponse(user: User): UserPrivateResponse {
 		unread_gift_inventory_count:
 			user.giftInventoryServerSeq != null ? user.giftInventoryServerSeq - (user.giftInventoryClientSeq ?? 0) : 0,
 		used_mobile_client: !!(user.flags & UserFlags.USED_MOBILE_CLIENT),
+		solana_address: user.solanaAddress,
 		pending_bulk_message_deletion:
 			user.pendingBulkMessageDeletionAt != null
 				? {

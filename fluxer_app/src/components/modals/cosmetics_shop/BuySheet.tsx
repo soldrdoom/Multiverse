@@ -21,7 +21,7 @@ import styles from '@app/components/modals/CosmeticsShopModal.module.css';
 import {Spinner} from '@app/components/uikit/Spinner';
 import {type CosmeticsInvoice, fetchCosmeticsInvoice, purchaseCosmetic} from '@app/services/cosmetics/CosmeticsService';
 import CosmeticsStore from '@app/stores/CosmeticsStore';
-import SolanaWalletStore from '@app/stores/SolanaWalletStore';
+import UserStore from '@app/stores/UserStore';
 import {SLOT_LABELS} from '@app/utils/cosmetics/rarity';
 import {isWalletRejectionError, payMultiSolTransfer} from '@app/utils/SolanaWalletPayment';
 import type {StoreListingNft} from '@fluxer/schema/src/domains/cosmetics/CosmeticSchemas';
@@ -58,7 +58,16 @@ export const BuySheet: React.FC<BuySheetProps> = ({item, onClose}) => {
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [txSignature, setTxSignature] = useState<string | null>(null);
 
-	const buyerAddress = SolanaWalletStore.walletAddress;
+	// Identity — "does this account have a wallet to buy with" — comes from the account's own
+	// profile (UserStore.solanaAddress), not SolanaWalletStore (browser-extension connection
+	// state). The actual wallet-extension connection needed to *sign* the payment is a separate
+	// concern handled independently by payMultiSolTransfer() below at click time; the backend
+	// also independently verifies the fee-payer of the signed transaction matches this account's
+	// linked wallet (packages/api/src/cosmetics/CosmeticsController.tsx), so gating "can this
+	// purchase be attempted" on account identity rather than on live extension-connection state
+	// is both correct and what lets a returning user with a linked wallet buy without first
+	// clicking a redundant "connect" step.
+	const buyerAddress = UserStore.getCurrentUser()?.solanaAddress ?? null;
 	const priceSol = (item.price_lamports / LAMPORTS_PER_SOL).toFixed(2);
 	const isSoldOut = item.max_supply !== null && item.minted_count >= item.max_supply;
 
