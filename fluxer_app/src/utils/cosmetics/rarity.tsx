@@ -44,6 +44,19 @@ export const RARITY_LABELS: Record<Rarity, string> = {
 	common: 'Common',
 };
 
+/**
+ * Suggested default `max_supply` per rarity, shown as a pre-fill in the creator listing form.
+ * This is a UX convenience only — never enforced server-side, and the creator can always
+ * override it (including clearing it back to unlimited). `null` means "suggest unlimited".
+ */
+export const RARITY_DEFAULT_MAX_SUPPLY: Record<Rarity, number | null> = {
+	legendary: 1,
+	epic: 10,
+	rare: 50,
+	uncommon: 250,
+	common: null,
+};
+
 /** CSS-module class KEY per rarity — look up on the consumer's own `styles` object. */
 export const RARITY_STYLE_KEYS: Record<Rarity, string> = {
 	legendary: 'rarity_legendary',

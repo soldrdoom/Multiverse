@@ -20,10 +20,19 @@
 import crypto from 'node:crypto';
 import {createGuildID, createUserID} from '@fluxer/api/src/BrandedTypes';
 import {Config} from '@fluxer/api/src/Config';
-import {mintPurchasedCosmetic} from '@fluxer/api/src/cosmetics/CosmeticsMintService';
+import {
+	CosmeticListingSoldOutOnChainError,
+	ensureListingMintSetup,
+	ListingMintSetupFailedError,
+	mintPurchasedCosmetic,
+} from '@fluxer/api/src/cosmetics/CosmeticsMintService';
 import {COSMETICS_TREASURY_WALLET} from '@fluxer/api/src/cosmetics/CosmeticsPaymentConfig';
 import {CosmeticsPurchaseRepository} from '@fluxer/api/src/cosmetics/CosmeticsPurchaseRepository';
-import {CosmeticsRepository} from '@fluxer/api/src/cosmetics/CosmeticsRepository';
+import {
+	CosmeticsRepository,
+	isPendingMintSetupSentinel,
+	ListingMaxSupplyBelowMintedError,
+} from '@fluxer/api/src/cosmetics/CosmeticsRepository';
 import {
 	fetchRecentBlockhash,
 	getFeePayerAddress,
@@ -46,6 +55,7 @@ import {
 	AdminCreatorApplicationsResponse,
 	AdminCreatorsResponse,
 	AdminListingsResponse,
+	AdminPurchaseLookupResponse,
 	AdminUpdateCreatorRequest,
 	ApplyProfileCosmeticRequest,
 	ApplyProfileCosmeticResponse,
@@ -66,7 +76,7 @@ import {
 	UserCosmeticsPublicResponse,
 	UserCosmeticsResponse,
 } from '@fluxer/schema/src/domains/cosmetics/CosmeticSchemas';
-import {verifyWalletHoldsMint} from '@fluxer/solana_mint/src/MintClient';
+import {verifyWalletHoldsCoreAsset} from '@fluxer/solana_mint/src/CoreMintClient';
 import {isMintingConfigured} from '@fluxer/solana_mint/src/MintConfig';
 import {z} from 'zod';
 
@@ -86,7 +96,18 @@ function computeSplit(
 }
 
 /**
- * Verifies the caller's linked Solana wallet actually holds `mintAddress` before an "apply
+ * Sanitizes a listing's `collection_address` for API responses — the raw column doubles as an
+ * internal lazy-setup completion gate and can transiently hold a pending-setup sentinel value
+ * (`'pending:<claim-timestamp>'`, see `isPendingMintSetupSentinel`) while setup is in progress.
+ * Callers/clients should only ever see a real address or `null`, matching the documented "null
+ * until collection is deployed" contract.
+ */
+function publicCollectionAddress(collectionAddress: string | null): string | null {
+	return isPendingMintSetupSentinel(collectionAddress) ? null : collectionAddress;
+}
+
+/**
+ * Verifies the caller's linked Solana wallet actually holds `assetAddress` before an "apply
  * cosmetic" request is persisted — previously these endpoints trusted whatever mint_address the
  * client sent with no on-chain check at all. Always queries COSMETICS_MINT_RPC_URL (a public,
  * unauthenticated devnet RPC by default) directly — this is a read-only ownership lookup, not a
@@ -94,10 +115,16 @@ function computeSplit(
  * signer needed to mint) is configured on this deployment. Returns an error message string on
  * failure, or null on success — fails closed (denies) on any RPC error rather than trusting an
  * unverifiable claim.
+ *
+ * Uses `verifyWalletHoldsCoreAsset` (Metaplex Core, ownership read directly off the asset
+ * account's own `owner` field), NOT `MintClient.tsx`'s legacy `verifyWalletHoldsMint`
+ * (`getTokenAccountsByOwner`-based SPL-Token-Metadata check) — these cosmetics are minted as Core
+ * assets, which have no associated SPL token account for the legacy check to find. See
+ * `CoreMintClient.tsx`'s header comment.
  */
-async function requireOwnsMint(walletAddress: string | null, mintAddress: string): Promise<string | null> {
+async function requireOwnsMint(walletAddress: string | null, assetAddress: string): Promise<string | null> {
 	if (!walletAddress) return 'You must link a Solana wallet before applying cosmetics';
-	const owns = await verifyWalletHoldsMint(walletAddress, mintAddress);
+	const owns = await verifyWalletHoldsCoreAsset(walletAddress, assetAddress);
 	if (!owns) return 'Your linked Solana wallet does not hold this NFT';
 	return null;
 }
@@ -118,6 +145,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'legendary',
 		price_lamports: 5_000_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-avatar-frame-epic-01',
@@ -128,6 +157,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'epic',
 		price_lamports: 2_000_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-avatar-frame-rare-01',
@@ -138,6 +169,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'rare',
 		price_lamports: 750_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-avatar-frame-uncommon-01',
@@ -148,6 +181,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'uncommon',
 		price_lamports: 250_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-avatar-frame-common-01',
@@ -158,6 +193,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'common',
 		price_lamports: 100_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-profile-banner-legendary-01',
@@ -168,6 +205,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'legendary',
 		price_lamports: 4_000_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-profile-banner-rare-01',
@@ -178,6 +217,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'rare',
 		price_lamports: 500_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-profile-effect-epic-01',
@@ -188,6 +229,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'epic',
 		price_lamports: 1_500_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-badge-legendary-01',
@@ -198,6 +241,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'legendary',
 		price_lamports: 10_000_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-badge-rare-01',
@@ -208,6 +253,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'rare',
 		price_lamports: 600_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-name-effect-epic-01',
@@ -218,6 +265,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'epic',
 		price_lamports: 1_200_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-name-effect-uncommon-01',
@@ -228,6 +277,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'uncommon',
 		price_lamports: 200_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	// ── Server cosmetics ───────────────────────────────────────────────────
 	{
@@ -239,6 +290,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'legendary',
 		price_lamports: 6_000_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-chat-bg-rare-01',
@@ -249,6 +302,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'rare',
 		price_lamports: 800_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-channel-list-bg-epic-01',
@@ -259,6 +314,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'epic',
 		price_lamports: 1_800_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 	{
 		id: 'seed-channel-list-bg-common-01',
@@ -269,6 +326,8 @@ const SEED_CATALOG: Array<StoreListingNft> = [
 		rarity: 'common',
 		price_lamports: 150_000_000,
 		collection_address: null,
+		max_supply: null,
+		minted_count: 0,
 	},
 ];
 
@@ -309,7 +368,9 @@ export function CosmeticsController(app: HonoApp): void {
 				cosmetic_type: l.cosmetic_type,
 				rarity: l.rarity,
 				price_lamports: l.price_lamports,
-				collection_address: l.collection_address,
+				collection_address: publicCollectionAddress(l.collection_address),
+				max_supply: l.max_supply,
+				minted_count: l.minted_count,
 			}));
 			return _ctx.json<CosmeticsStoreResponse>({items: [...SEED_CATALOG, ...creatorItems]});
 		},
@@ -481,6 +542,12 @@ export function CosmeticsController(app: HonoApp): void {
 			if (!listing || listing.status !== 'live') {
 				return ctx.json({error: 'Item not found'}, 404);
 			}
+			// Early UX gate only — not the correctness boundary. A plain (non-atomic) read is fine
+			// here: the actual supply cap is enforced atomically by `reserveMintSlot` at purchase
+			// time, right before the mint attempt.
+			if (listing.max_supply !== null && listing.minted_count >= listing.max_supply) {
+				return ctx.json({error: 'This item is sold out'}, 409);
+			}
 
 			const creator = await cosmeticsRepo.getCreatorById(listing.creator_id);
 			if (!creator) {
@@ -488,6 +555,22 @@ export function CosmeticsController(app: HonoApp): void {
 			}
 			if (creator.payout_suspended) {
 				return ctx.json({error: 'This item is temporarily unavailable for purchase'}, 403);
+			}
+
+			// Lazily deploy this listing's on-chain mint setup (Collection, optional Candy Machine,
+			// shared metadata) the first time anyone tries to buy it — before any payment-related
+			// work, so a setup failure never happens after a buyer has already paid. Skipped
+			// entirely when minting isn't configured on this deployment: forcing setup then would
+			// turn every invoice request into a guaranteed 503 rather than the intended "payment
+			// collection ships ahead of minting" degrade.
+			if (isMintingConfigured()) {
+				try {
+					await ensureListingMintSetup(listing, ctx.get('storageService'));
+				} catch (err) {
+					Logger.error({err, itemId: listing.id}, 'Cosmetics listing mint setup failed during invoice creation');
+					const message = err instanceof ListingMintSetupFailedError ? err.message : 'Setup failed, please try again';
+					return ctx.json({error: message}, 503);
+				}
 			}
 
 			const {creatorLamports, platformLamports} = computeSplit(listing.price_lamports, creator.commission_rate);
@@ -585,6 +668,20 @@ export function CosmeticsController(app: HonoApp): void {
 				return ctx.json({error: 'This item is temporarily unavailable for purchase'}, 403);
 			}
 
+			// Same lazy setup as the invoice route above — `purchase_id` is optional here, so a
+			// client can call this route directly without ever hitting invoice first, meaning this
+			// route needs its own setup gate rather than relying on the invoice route having already
+			// run it. Must happen before any payment verification below.
+			if (isMintingConfigured()) {
+				try {
+					await ensureListingMintSetup(listing, ctx.get('storageService'));
+				} catch (err) {
+					Logger.error({err, itemId: listing.id}, 'Cosmetics listing mint setup failed during purchase');
+					const message = err instanceof ListingMintSetupFailedError ? err.message : 'Setup failed, please try again';
+					return ctx.json({error: message}, 503);
+				}
+			}
+
 			const {creatorLamports, platformLamports} = computeSplit(listing.price_lamports, creator.commission_rate);
 
 			// Resolve (or create) the purchase row this verification applies to. Recomputing the
@@ -668,10 +765,21 @@ export function CosmeticsController(app: HonoApp): void {
 				);
 			}
 
-			const {applied} = await cosmeticsPurchaseRepo.reserveTxSignature(txSignature, purchase.purchase_id);
-			if (!applied) {
+			const {applied: txSignatureApplied} = await cosmeticsPurchaseRepo.reserveTxSignature(
+				txSignature,
+				purchase.purchase_id,
+			);
+			if (!txSignatureApplied) {
 				return ctx.json({error: 'This transaction signature has already been used for another purchase'}, 409);
 			}
+
+			// Atomically reserve one unit of this listing's supply cap (if it has one) — the
+			// correctness boundary for "only N of this can ever be minted", as opposed to the plain
+			// read check in the invoice route above which is just an early UX gate. The buyer's SOL
+			// payment has already landed on-chain by this point (verified above), so a sold-out
+			// result here can't simply be rejected as if nothing happened — the purchase is still
+			// recorded as 'paid' below, and the buyer is told to contact support for a refund.
+			const {applied: slotReserved} = await cosmeticsRepo.reserveMintSlot(listing.id);
 
 			const paidAt = new Date();
 			purchase = {
@@ -682,6 +790,26 @@ export function CosmeticsController(app: HonoApp): void {
 				paid_at: paidAt,
 			};
 			await cosmeticsPurchaseRepo.updatePurchase(purchase);
+
+			if (!slotReserved) {
+				Logger.error(
+					{purchaseId: purchase.purchase_id, itemId: listing.id},
+					'Cosmetics purchase paid but listing sold out before a mint slot could be reserved',
+				);
+				// Distinct from the ordinary 'paid' status so support can actually find this purchase
+				// via GET /admin/cosmetics/purchases/:purchaseId — 'paid' alone is indistinguishable
+				// from "payment verified, minting simply not configured/attempted yet".
+				purchase = {...purchase, status: 'sold_out_refund_needed'};
+				await cosmeticsPurchaseRepo.updatePurchase(purchase);
+				return ctx.json(
+					{
+						error:
+							'Your payment was received, but this item sold out while your purchase was being processed. ' +
+							`Please contact support with your purchase ID (${purchase.purchase_id}) and transaction signature for a refund or resolution.`,
+					},
+					409,
+				);
+			}
 
 			if (!isMintingConfigured()) {
 				return ctx.json<PurchaseCosmeticResponse>({
@@ -733,6 +861,31 @@ export function CosmeticsController(app: HonoApp): void {
 					},
 				});
 			} catch (err) {
+				if (err instanceof CosmeticListingSoldOutOnChainError) {
+					// The Candy Machine — the real, on-chain-enforced cap — rejected the mint even
+					// though `reserveMintSlot`'s local cache pre-check believed there was room. This
+					// is the same situation as `slotReserved` being false above: the buyer's SOL
+					// payment already landed on-chain, so the purchase stays recorded 'paid' and the
+					// buyer is told to contact support rather than the purchase silently vanishing.
+					Logger.error(
+						{err, purchaseId: purchase.purchase_id, itemId: listing.id},
+						'Cosmetics purchase paid but Candy Machine rejected the mint as sold out on-chain',
+					);
+					await cosmeticsRepo.clampMintedCountToMaxSupply(listing.id);
+					// Same "distinct from plain 'paid'" reasoning as the reserveMintSlot pre-check
+					// above — this purchase needs a support-actioned refund and must be findable via
+					// GET /admin/cosmetics/purchases/:purchaseId.
+					purchase = {...purchase, status: 'sold_out_refund_needed'};
+					await cosmeticsPurchaseRepo.updatePurchase(purchase);
+					return ctx.json(
+						{
+							error:
+								'Your payment was received, but this item sold out on-chain before your purchase could be minted. ' +
+								`Please contact support with your purchase ID (${purchase.purchase_id}) and transaction signature for a refund or resolution.`,
+						},
+						409,
+					);
+				}
 				// Payment is already verified and durably recorded — a minting failure must never
 				// look like a failed/charged-but-nothing-happened purchase to the buyer. The purchase
 				// stays 'paid' and can be minted later (e.g. via an admin retry) without repaying.
@@ -876,8 +1029,10 @@ export function CosmeticsController(app: HonoApp): void {
 				cosmetic_type: l.cosmetic_type,
 				rarity: l.rarity,
 				price_lamports: l.price_lamports,
-				collection_address: l.collection_address,
+				collection_address: publicCollectionAddress(l.collection_address),
 				status: l.status,
+				max_supply: l.max_supply,
+				minted_count: l.minted_count,
 				created_at: l.created_at.toISOString(),
 				updated_at: l.updated_at.toISOString(),
 			}));
@@ -942,6 +1097,7 @@ export function CosmeticsController(app: HonoApp): void {
 				cosmetic_type: data.cosmetic_type,
 				rarity: data.rarity,
 				price_lamports: data.price_lamports,
+				max_supply: data.max_supply ?? null,
 			});
 
 			const entry: CreatorListingEntry = {
@@ -953,8 +1109,10 @@ export function CosmeticsController(app: HonoApp): void {
 				cosmetic_type: listing.cosmetic_type,
 				rarity: listing.rarity,
 				price_lamports: listing.price_lamports,
-				collection_address: listing.collection_address,
+				collection_address: publicCollectionAddress(listing.collection_address),
 				status: listing.status,
+				max_supply: listing.max_supply,
+				minted_count: listing.minted_count,
 				created_at: listing.created_at.toISOString(),
 				updated_at: listing.updated_at.toISOString(),
 			};
@@ -1048,7 +1206,15 @@ export function CosmeticsController(app: HonoApp): void {
 			}
 
 			const patch = ctx.req.valid('json');
-			const updated = await cosmeticsRepo.updateListing(id, patch);
+			let updated: Awaited<ReturnType<typeof cosmeticsRepo.updateListing>>;
+			try {
+				updated = await cosmeticsRepo.updateListing(id, patch);
+			} catch (err) {
+				if (err instanceof ListingMaxSupplyBelowMintedError) {
+					return ctx.json({error: err.message}, 400);
+				}
+				throw err;
+			}
 			if (!updated) return ctx.json({error: 'Listing not found'}, 404);
 
 			return ctx.json<ListingResponse>({
@@ -1061,8 +1227,10 @@ export function CosmeticsController(app: HonoApp): void {
 					cosmetic_type: updated.cosmetic_type,
 					rarity: updated.rarity,
 					price_lamports: updated.price_lamports,
-					collection_address: updated.collection_address,
+					collection_address: publicCollectionAddress(updated.collection_address),
 					status: updated.status,
+					max_supply: updated.max_supply,
+					minted_count: updated.minted_count,
 					created_at: updated.created_at.toISOString(),
 					updated_at: updated.updated_at.toISOString(),
 				},
@@ -1117,8 +1285,10 @@ export function CosmeticsController(app: HonoApp): void {
 					cosmetic_type: updated.cosmetic_type,
 					rarity: updated.rarity,
 					price_lamports: updated.price_lamports,
-					collection_address: updated.collection_address,
+					collection_address: publicCollectionAddress(updated.collection_address),
 					status: updated.status,
+					max_supply: updated.max_supply,
+					minted_count: updated.minted_count,
 					created_at: updated.created_at.toISOString(),
 					updated_at: updated.updated_at.toISOString(),
 				},
@@ -1338,8 +1508,10 @@ export function CosmeticsController(app: HonoApp): void {
 					cosmetic_type: l.cosmetic_type,
 					rarity: l.rarity,
 					price_lamports: l.price_lamports,
-					collection_address: l.collection_address,
+					collection_address: publicCollectionAddress(l.collection_address),
 					status: l.status,
+					max_supply: l.max_supply,
+					minted_count: l.minted_count,
 					created_at: l.created_at.toISOString(),
 					updated_at: l.updated_at.toISOString(),
 				})),
@@ -1364,6 +1536,15 @@ export function CosmeticsController(app: HonoApp): void {
 		Validator('param', z.object({id: z.string().min(1)})),
 		async (ctx) => {
 			const {id} = ctx.req.valid('param');
+			const listing = await cosmeticsRepo.getListingById(id);
+			if (!listing) return ctx.json({error: 'Listing not found'}, 404);
+			// Mirrors the creator-facing submit route's own draft-only gate (see
+			// POST /creators/@me/listings/:id/submit above) — without this check, a direct API call
+			// (or a race between two admins) could approve a listing that was never submitted for
+			// review (draft), already live, already rejected, or delisted.
+			if (listing.status !== 'pending_review') {
+				return ctx.json({error: 'Only listings pending review can be approved'}, 409);
+			}
 			const updated = await cosmeticsRepo.setListingStatus(id, 'live');
 			if (!updated) return ctx.json({error: 'Listing not found'}, 404);
 			return ctx.json({ok: true});
@@ -1387,9 +1568,66 @@ export function CosmeticsController(app: HonoApp): void {
 		Validator('param', z.object({id: z.string().min(1)})),
 		async (ctx) => {
 			const {id} = ctx.req.valid('param');
+			const listing = await cosmeticsRepo.getListingById(id);
+			if (!listing) return ctx.json({error: 'Listing not found'}, 404);
+			// Same server-side status gate as approve above — only a listing actually awaiting
+			// review can be rejected through this route.
+			if (listing.status !== 'pending_review') {
+				return ctx.json({error: 'Only listings pending review can be rejected'}, 409);
+			}
 			const updated = await cosmeticsRepo.setListingStatus(id, 'rejected');
 			if (!updated) return ctx.json({error: 'Listing not found'}, 404);
 			return ctx.json({ok: true});
+		},
+	);
+
+	/**
+	 * GET /admin/cosmetics/purchases/:purchaseId
+	 * Support-facing lookup of a single cosmetics purchase by ID — needed to act on a refund for
+	 * a purchase whose payment landed but which could never be minted because the listing sold out
+	 * (status 'sold_out_refund_needed', set in the purchase route above when
+	 * `reserveMintSlot` fails or `CosmeticListingSoldOutOnChainError` is caught). Read-only: does
+	 * not itself trigger a refund or mutate the purchase — CREATOR_PURCHASE_LOOKUP is a narrowly-
+	 * scoped read capability (mirrors USER_LOOKUP/GUILD_LOOKUP/MESSAGE_LOOKUP's "detailed single
+	 * record by ID for support" convention elsewhere in AdminACLs), not CREATOR_LISTING_REVIEW —
+	 * this route can't approve/reject/delist anything.
+	 */
+	app.get(
+		'/admin/cosmetics/purchases/:purchaseId',
+		requireAdminACL(AdminACLs.CREATOR_PURCHASE_LOOKUP),
+		OpenAPI({
+			operationId: 'admin_lookup_cosmetics_purchase',
+			summary: 'Look up a cosmetics purchase',
+			description:
+				'Retrieves a single cosmetics purchase by ID for support/refund handling. Requires CREATOR_PURCHASE_LOOKUP permission.',
+			responseSchema: AdminPurchaseLookupResponse,
+			statusCode: 200,
+			tags: ['Admin', 'Creators'],
+		}),
+		Validator('param', z.object({purchaseId: z.string().min(1)})),
+		async (ctx) => {
+			const {purchaseId} = ctx.req.valid('param');
+			const purchase = await cosmeticsPurchaseRepo.getPurchase(purchaseId);
+			if (!purchase) return ctx.json({error: 'Purchase not found'}, 404);
+
+			return ctx.json<AdminPurchaseLookupResponse>({
+				purchase_id: purchase.purchase_id,
+				item_id: purchase.item_id,
+				buyer_user_id: String(purchase.buyer_user_id),
+				buyer_address: purchase.buyer_address,
+				creator_id: purchase.creator_id,
+				creator_wallet: purchase.creator_wallet,
+				creator_lamports: purchase.creator_lamports,
+				platform_wallet: purchase.platform_wallet,
+				platform_lamports: purchase.platform_lamports,
+				total_lamports: purchase.creator_lamports + purchase.platform_lamports,
+				tx_signature: purchase.tx_signature,
+				status: purchase.status,
+				mint_address: purchase.mint_address,
+				created_at: purchase.created_at.toISOString(),
+				paid_at: purchase.paid_at?.toISOString() ?? null,
+				minted_at: purchase.minted_at?.toISOString() ?? null,
+			});
 		},
 	);
 

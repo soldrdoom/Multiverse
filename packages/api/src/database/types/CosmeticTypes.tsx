@@ -147,9 +147,51 @@ export interface CosmeticListingRow {
 	cosmetic_type: string;
 	rarity: CosmeticRarity;
 	price_lamports: number;
-	/** Set when the Metaplex collection is deployed; null until then. */
+	/**
+	 * The listing's Metaplex Core Collection address. Also doubles as the lazy-setup
+	 * completion gate: `null` means setup has never been attempted, a sentinel string of the form
+	 * `'pending:<claim-timestamp>'` means setup is currently in progress (claimed via an LWT in
+	 * `CosmeticsRepository.claimListingMintSetup`, see `isPendingMintSetupSentinel`/
+	 * `PENDING_MINT_SETUP_SENTINEL_PREFIX` — the embedded timestamp lets a stale claim from a
+	 * crashed setup attempt be reclaimed after a staleness threshold), and any other non-null value
+	 * is the real, deployed Collection address. See `CosmeticsMintService.ensureListingMintSetup`
+	 * for the full lazy-setup flow. API responses should never leak the pending sentinel to
+	 * clients — sanitize to `null` at the response-mapping boundary.
+	 */
 	collection_address: string | null;
+	/**
+	 * The listing's Core Candy Machine address — only ever set for capped listings
+	 * (`max_supply !== null`), populated once by `ensureListingMintSetup` alongside
+	 * `collection_address`. Always `null` for uncapped listings, which mint directly into the
+	 * Collection with no Candy Machine involved.
+	 */
+	candy_machine_address: string | null;
+	/**
+	 * The listing's shared off-chain metadata JSON URI (name/description/image/attributes),
+	 * built once by `ensureListingMintSetup` and reused for every mint of this listing — NOT
+	 * rebuilt per-purchase.
+	 */
+	metadata_uri: string | null;
 	status: CosmeticListingStatus;
+	/**
+	 * Maximum number of times this listing can ever be minted. null means unlimited — the
+	 * default for every listing (including all pre-existing rows, since this is a KV row and
+	 * not a rigid SQL schema, no migration is needed). A creator-chosen ceiling, not derived
+	 * from rarity — rarity only suggests a default in the creation UI.
+	 *
+	 * This is now a fast local cache/pre-check, not the source of truth for capped listings —
+	 * the on-chain Candy Machine's `itemsAvailable`/`itemsRedeemed` counters are the real
+	 * enforcement boundary (see `mintFromCandyMachine` in `@fluxer/solana_mint/src/CoreMintClient`).
+	 */
+	max_supply: number | null;
+	/**
+	 * Number of purchase-time mint slots atomically reserved against this listing so far.
+	 * NOT the same as "number of purchase rows" — only incremented by `reserveMintSlot`'s
+	 * versioned update, exactly once per successfully reserved slot.
+	 */
+	minted_count: number;
+	/** Optimistic-concurrency version for `executeVersionedUpdate` (see `reserveMintSlot`). */
+	version: number | null;
 	created_at: Date;
 	updated_at: Date;
 }
@@ -164,7 +206,12 @@ export const COSMETIC_LISTING_COLUMNS = [
 	'rarity',
 	'price_lamports',
 	'collection_address',
+	'candy_machine_address',
+	'metadata_uri',
 	'status',
+	'max_supply',
+	'minted_count',
+	'version',
 	'created_at',
 	'updated_at',
 ] as const satisfies ReadonlyArray<keyof CosmeticListingRow>;

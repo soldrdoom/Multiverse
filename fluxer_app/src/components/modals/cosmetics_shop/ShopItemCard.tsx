@@ -34,12 +34,18 @@ interface ShopItemCardProps {
 
 export const ShopItemCard: React.FC<ShopItemCardProps> = ({item, onSelect}) => {
 	const priceSol = (item.price_lamports / LAMPORTS_PER_SOL).toFixed(2);
+	const isSoldOut = item.max_supply !== null && item.minted_count >= item.max_supply;
 
 	return (
 		<button
 			type="button"
-			className={clsx(styles.itemCard, item.rarity === 'legendary' && styles.itemCardLegendaryGlow)}
+			className={clsx(
+				styles.itemCard,
+				item.rarity === 'legendary' && styles.itemCardLegendaryGlow,
+				isSoldOut && styles.itemCardSoldOut,
+			)}
 			onClick={() => onSelect(item)}
+			disabled={isSoldOut}
 		>
 			<div className={styles.itemArt}>
 				{item.image ? (
@@ -54,11 +60,16 @@ export const ShopItemCard: React.FC<ShopItemCardProps> = ({item, onSelect}) => {
 			<div className={styles.itemBody}>
 				<div className={styles.itemName}>{item.name}</div>
 				<div className={styles.itemType}>{(SLOT_LABELS[item.cosmetic_type] ?? item.cosmetic_type).toUpperCase()}</div>
+				{item.max_supply !== null && (
+					<div className={styles.supplyBadge}>
+						{item.minted_count} / {item.max_supply} <Trans>minted</Trans>
+					</div>
+				)}
 			</div>
 			<div className={styles.itemFooter}>
 				<span className={styles.itemPrice}>◎ {priceSol}</span>
-				<span className={styles.buyPill}>
-					<Trans>BUY</Trans>
+				<span className={clsx(styles.buyPill, isSoldOut && styles.buyPillDisabled)}>
+					{isSoldOut ? <Trans>SOLD OUT</Trans> : <Trans>BUY</Trans>}
 				</span>
 			</div>
 		</button>

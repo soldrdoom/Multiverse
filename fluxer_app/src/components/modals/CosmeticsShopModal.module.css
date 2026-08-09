@@ -703,6 +703,16 @@ html.reduced-motion .featuredWrap {
 	box-shadow: 0 0 24px hsla(267, calc(100% * var(--saturation-factor)), 63.5%, 0.28);
 }
 
+.itemCardSoldOut {
+	cursor: not-allowed;
+	opacity: 0.55;
+}
+
+.itemCardSoldOut:hover {
+	transform: none;
+	border-color: var(--mv-hairline);
+}
+
 .itemArt {
 	position: relative;
 	height: 108px;
@@ -757,6 +767,13 @@ html.reduced-motion .featuredWrap {
 	color: var(--mv-ink-quiet);
 }
 
+.supplyBadge {
+	font-family: var(--font-mono);
+	font-size: 10px;
+	letter-spacing: 0.04em;
+	color: var(--mv-ink-quieter);
+}
+
 .itemFooter {
 	display: flex;
 	align-items: center;
@@ -793,6 +810,15 @@ html.reduced-motion .featuredWrap {
 
 .buyPill:hover {
 	filter: brightness(1.1);
+}
+
+.buyPillDisabled {
+	background: var(--mv-surface-chat);
+	color: var(--mv-ink-quiet);
+}
+
+.buyPillDisabled:hover {
+	filter: none;
 }
 
 /* ── Rarity badges ────────────────────────────────────────────────────────── */
@@ -1725,6 +1751,13 @@ html.reduced-motion .featuredWrap {
 .formError {
 	font-size: 0.8125rem;
 	color: var(--status-danger);
+}
+
+.formHint {
+	font-size: 0.75rem;
+	color: var(--mv-ink-quieter);
+	margin: 0;
+	line-height: 1.4;
 }
 
 .formActions {

@@ -119,4 +119,5 @@ export const AdminACLs = {
 	CREATOR_VIEW: 'creator:view',
 	CREATOR_LISTING_REVIEW: 'creator:listing:review',
 	CREATOR_LISTING_VIEW: 'creator:listing:view',
+	CREATOR_PURCHASE_LOOKUP: 'creator:purchase:lookup',
 } as const;

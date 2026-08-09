@@ -60,6 +60,7 @@ export const BuySheet: React.FC<BuySheetProps> = ({item, onClose}) => {
 
 	const buyerAddress = SolanaWalletStore.walletAddress;
 	const priceSol = (item.price_lamports / LAMPORTS_PER_SOL).toFixed(2);
+	const isSoldOut = item.max_supply !== null && item.minted_count >= item.max_supply;
 
 	useEffect(() => {
 		let cancelled = false;
@@ -76,7 +77,7 @@ export const BuySheet: React.FC<BuySheetProps> = ({item, onClose}) => {
 	}, [item.id, t]);
 
 	const handleConfirm = async () => {
-		if (!invoice || !buyerAddress) return;
+		if (!invoice || !buyerAddress || isSoldOut) return;
 		setPhase('paying');
 		setErrorMessage(null);
 		try {
@@ -127,6 +128,11 @@ export const BuySheet: React.FC<BuySheetProps> = ({item, onClose}) => {
 							<div>
 								<div className={styles.buySheetItemName}>{item.name}</div>
 								<div className={styles.itemType}>{SLOT_LABELS[item.cosmetic_type] ?? item.cosmetic_type}</div>
+								{item.max_supply !== null && (
+									<div className={styles.supplyBadge}>
+										{item.minted_count} / {item.max_supply} <Trans>minted</Trans>
+									</div>
+								)}
 							</div>
 						</div>
 						<button
@@ -143,7 +149,11 @@ export const BuySheet: React.FC<BuySheetProps> = ({item, onClose}) => {
 
 				{phase === 'confirm' && (
 					<>
-						{invoiceError ? (
+						{isSoldOut ? (
+							<p className={styles.buySheetErrorBox}>
+								<WarningIcon weight="bold" size={16} /> <Trans>This item is sold out.</Trans>
+							</p>
+						) : invoiceError ? (
 							<p className={styles.buySheetErrorBox}>
 								<WarningIcon weight="bold" size={16} /> {invoiceError}
 							</p>
@@ -189,7 +199,7 @@ export const BuySheet: React.FC<BuySheetProps> = ({item, onClose}) => {
 								type="button"
 								className={styles.btnSheen}
 								onClick={() => void handleConfirm()}
-								disabled={!invoice || !buyerAddress}
+								disabled={isSoldOut || !invoice || !buyerAddress}
 							>
 								<Trans>CONFIRM & SIGN</Trans>
 							</button>

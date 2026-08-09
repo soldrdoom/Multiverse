@@ -200,6 +200,45 @@ export const PurchaseCosmeticResponse = z.object({
 });
 export type PurchaseCosmeticResponse = z.infer<typeof PurchaseCosmeticResponse>;
 
+/**
+ * Mirrors `CosmeticsPurchaseStatus` in `packages/api/src/database/types/CosmeticsPurchaseTypes.tsx`
+ * (the source of truth — this is a schema-side copy for admin-response typing, not re-exported
+ * from the DB layer to keep `@fluxer/schema` free of an `@fluxer/api` dependency).
+ */
+export const CosmeticsPurchaseStatusSchema = z.enum(['pending', 'paid', 'minted', 'failed', 'sold_out_refund_needed']);
+export type CosmeticsPurchaseStatusSchema = z.infer<typeof CosmeticsPurchaseStatusSchema>;
+
+/**
+ * GET /admin/cosmetics/purchases/:purchaseId
+ * Support-facing lookup of a single purchase by ID — e.g. to action a refund for a
+ * 'sold_out_refund_needed' purchase. Read-only; does not itself trigger a refund or mutate the
+ * purchase.
+ */
+export const AdminPurchaseLookupResponse = z.object({
+	purchase_id: z.string(),
+	/** Catalog item (listing) ID this purchase was for. */
+	item_id: z.string(),
+	buyer_user_id: z.string(),
+	/** Buyer's Solana wallet — set once payment is verified. */
+	buyer_address: z.string().nullable(),
+	creator_id: z.number().int(),
+	creator_wallet: z.string(),
+	creator_lamports: z.number().int(),
+	platform_wallet: z.string(),
+	platform_lamports: z.number().int(),
+	/** creator_lamports + platform_lamports — the total amount the buyer paid. */
+	total_lamports: z.number().int(),
+	/** Confirmed Solana transaction signature for the SOL payment. Set once payment is verified. */
+	tx_signature: z.string().nullable(),
+	status: CosmeticsPurchaseStatusSchema,
+	/** Mint address of the minted NFT. Set only once minting succeeds. */
+	mint_address: z.string().nullable(),
+	created_at: z.string().datetime(),
+	paid_at: z.string().datetime().nullable(),
+	minted_at: z.string().datetime().nullable(),
+});
+export type AdminPurchaseLookupResponse = z.infer<typeof AdminPurchaseLookupResponse>;
+
 // ─── NFT listing ──────────────────────────────────────────────────────────────
 
 /** A single cosmetic NFT held in the user's wallet. */
@@ -244,6 +283,10 @@ export const StoreListingNft = z.object({
 	price_lamports: z.number().int(),
 	/** Metaplex collection address. null until collection is deployed. */
 	collection_address: z.string().nullable(),
+	/** Maximum number of times this item can ever be minted. null means unlimited. */
+	max_supply: z.number().int().positive().nullable(),
+	/** Number of units minted (or reserved for minting) so far. */
+	minted_count: z.number().int().nonnegative(),
 });
 export type StoreListingNft = z.infer<typeof StoreListingNft>;
 
@@ -283,6 +326,10 @@ export const CreatorListingEntry = z.object({
 	price_lamports: z.number().int().positive(),
 	collection_address: z.string().nullable(),
 	status: CosmeticListingStatus,
+	/** Maximum number of times this listing can ever be minted. null means unlimited. */
+	max_supply: z.number().int().positive().nullable(),
+	/** Number of units minted (or reserved for minting) so far. */
+	minted_count: z.number().int().nonnegative(),
 	created_at: z.string().datetime(),
 	updated_at: z.string().datetime(),
 });
@@ -335,6 +382,12 @@ export const CreateListingRequest = z.object({
 	]),
 	rarity: z.enum(['common', 'uncommon', 'rare', 'epic', 'legendary']),
 	price_lamports: z.number().int().positive(),
+	/**
+	 * Maximum number of times this listing can ever be minted. Omitted or explicit null both mean
+	 * unlimited. Rarity only suggests a default in the creator UI — this is never enforced from
+	 * rarity server-side, the creator always has full control.
+	 */
+	max_supply: z.number().int().positive().nullable().optional(),
 });
 export type CreateListingRequest = z.infer<typeof CreateListingRequest>;
 

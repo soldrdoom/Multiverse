@@ -108,6 +108,11 @@ function formatSol(lamports: number): string {
 	return `◎ ${(lamports / LAMPORTS_PER_SOL).toFixed(2)}`;
 }
 
+function formatSupply(listing: CreatorListing): string {
+	if (listing.max_supply === null) return 'Unlimited';
+	return `${listing.minted_count} / ${listing.max_supply}`;
+}
+
 export interface CreatorListingsPageProps {
 	config: Config;
 	session: Session;
@@ -182,6 +187,7 @@ export const CreatorListingsPage: FC<CreatorListingsPageProps> = ({
 													<TableHeaderCell>Type</TableHeaderCell>
 													<TableHeaderCell>Rarity</TableHeaderCell>
 													<TableHeaderCell>Price</TableHeaderCell>
+													<TableHeaderCell>Supply</TableHeaderCell>
 													<TableHeaderCell>Status</TableHeaderCell>
 													<TableHeaderCell>Created</TableHeaderCell>
 													{canTakeAction && <TableHeaderCell>Actions</TableHeaderCell>}
@@ -216,6 +222,7 @@ export const CreatorListingsPage: FC<CreatorListingsPageProps> = ({
 														<TableCell>{listing.cosmetic_type}</TableCell>
 														<TableCell>{listing.rarity}</TableCell>
 														<TableCell>{formatSol(listing.price_lamports)}</TableCell>
+														<TableCell>{formatSupply(listing)}</TableCell>
 														<TableCell>
 															<Badge variant={getStatusBadgeVariant(listing.status)} size="sm">
 																{formatStatusLabel(listing.status)}

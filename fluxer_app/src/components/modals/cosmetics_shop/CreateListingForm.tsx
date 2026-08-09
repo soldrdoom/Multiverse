@@ -20,7 +20,14 @@
 import styles from '@app/components/modals/CosmeticsShopModal.module.css';
 import {uploadListingImage} from '@app/services/cosmetics/CosmeticsService';
 import CosmeticsStore from '@app/stores/CosmeticsStore';
-import {PROFILE_SLOT_TYPES, RARITY_LABELS, RARITY_ORDER, SLOT_LABELS} from '@app/utils/cosmetics/rarity';
+import {
+	PROFILE_SLOT_TYPES,
+	RARITY_DEFAULT_MAX_SUPPLY,
+	RARITY_LABELS,
+	RARITY_ORDER,
+	type Rarity,
+	SLOT_LABELS,
+} from '@app/utils/cosmetics/rarity';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {ImageIcon, XIcon} from '@phosphor-icons/react';
 import type React from 'react';
@@ -51,12 +58,18 @@ export const CreateListingForm: React.FC<CreateListingFormProps> = ({onCreated, 
 	const typeId = `${idPrefix}-type`;
 	const rarityId = `${idPrefix}-rarity`;
 	const priceId = `${idPrefix}-price`;
+	const maxSupplyId = `${idPrefix}-max-supply`;
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [cosmeticType, setCosmeticType] = useState<string>(ALL_COSMETIC_TYPES[0]);
 	const [rarity, setRarity] = useState<string>('common');
 	const [priceSol, setPriceSol] = useState('');
+	// Blank means unlimited. Pre-filled with a rarity-based suggestion (see RARITY_DEFAULT_MAX_SUPPLY)
+	// but never clobbered once the creator has typed into the field themselves — maxSupplyTouched
+	// tracks that so switching rarity after a manual edit doesn't silently overwrite it.
+	const [maxSupply, setMaxSupply] = useState('');
+	const [maxSupplyTouched, setMaxSupplyTouched] = useState(false);
 	const [imageFile, setImageFile] = useState<File | null>(null);
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
 	const [uploading, setUploading] = useState(false);
@@ -70,12 +83,36 @@ export const CreateListingForm: React.FC<CreateListingFormProps> = ({onCreated, 
 		setImagePreview(URL.createObjectURL(file));
 	};
 
+	const handleRarityChange = (nextRarity: string) => {
+		setRarity(nextRarity);
+		// Only auto-fill the suggestion while the creator hasn't typed into max supply themselves —
+		// never clobber a value they already chose.
+		if (!maxSupplyTouched) {
+			const suggested = RARITY_DEFAULT_MAX_SUPPLY[nextRarity as Rarity] ?? null;
+			setMaxSupply(suggested === null ? '' : String(suggested));
+		}
+	};
+
+	const handleMaxSupplyChange = (value: string) => {
+		setMaxSupplyTouched(true);
+		setMaxSupply(value);
+	};
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		const priceLamports = Math.round(parseFloat(priceSol) * 1_000_000_000);
 		if (!name.trim()) return setError(t`Name is required.`);
 		if (!priceSol || Number.isNaN(priceLamports) || priceLamports <= 0)
 			return setError(t`Enter a valid price greater than 0.`);
+
+		let maxSupplyValue: number | null = null;
+		if (maxSupply.trim() !== '') {
+			const parsed = Number.parseInt(maxSupply, 10);
+			if (Number.isNaN(parsed) || parsed <= 0) {
+				return setError(t`Max supply must be a whole number greater than 0, or left blank for unlimited.`);
+			}
+			maxSupplyValue = parsed;
+		}
 
 		setError(null);
 		setSaving(true);
@@ -93,6 +130,7 @@ export const CreateListingForm: React.FC<CreateListingFormProps> = ({onCreated, 
 				cosmetic_type: cosmeticType as (typeof ALL_COSMETIC_TYPES)[number],
 				rarity: rarity as (typeof RARITY_ORDER)[number],
 				price_lamports: priceLamports,
+				max_supply: maxSupplyValue,
 			});
 			onCreated();
 		} catch (err: unknown) {
@@ -202,7 +240,7 @@ export const CreateListingForm: React.FC<CreateListingFormProps> = ({onCreated, 
 						id={rarityId}
 						className={styles.formSelect}
 						value={rarity}
-						onChange={(e) => setRarity(e.target.value)}
+						onChange={(e) => handleRarityChange(e.target.value)}
 					>
 						{[...RARITY_ORDER].reverse().map((r) => (
 							<option key={r} value={r}>
@@ -227,6 +265,28 @@ export const CreateListingForm: React.FC<CreateListingFormProps> = ({onCreated, 
 						required
 					/>
 				</div>
+			</div>
+
+			<div className={styles.formField}>
+				<label className={styles.formLabel} htmlFor={maxSupplyId}>
+					<Trans>Max Supply</Trans> <span className={styles.formLabelOptional}>{t`(optional)`}</span>
+				</label>
+				<input
+					id={maxSupplyId}
+					className={styles.formInput}
+					type="number"
+					min="1"
+					step="1"
+					value={maxSupply}
+					onChange={(e) => handleMaxSupplyChange(e.target.value)}
+					placeholder={t`Unlimited`}
+				/>
+				<p className={styles.formHint}>
+					<Trans>
+						The most this item can ever be minted. We suggest a cap based on rarity, but it's just a suggestion — change
+						it or leave it blank for unlimited.
+					</Trans>
+				</p>
 			</div>
 
 			{error != null && <p className={styles.formError}>{error}</p>}

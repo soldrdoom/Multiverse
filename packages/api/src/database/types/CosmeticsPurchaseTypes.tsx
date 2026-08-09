@@ -19,7 +19,7 @@
 
 import type {UserID} from '@fluxer/api/src/BrandedTypes';
 
-export type CosmeticsPurchaseStatus = 'pending' | 'paid' | 'minted' | 'failed';
+export type CosmeticsPurchaseStatus = 'pending' | 'paid' | 'minted' | 'failed' | 'sold_out_refund_needed';
 
 /**
  * A single cosmetics-shop purchase attempt — created (status 'pending') when the
@@ -27,6 +27,14 @@ export type CosmeticsPurchaseStatus = 'pending' | 'paid' | 'minted' | 'failed';
  * payment (split creator/platform) is verified, and finally to 'minted' once the
  * NFT has been minted to the buyer's wallet (or left at 'paid' forever if minting
  * isn't configured on this deployment — see COSMETICS_MINT_AUTHORITY_SECRET_KEY).
+ *
+ * 'sold_out_refund_needed': the payment was verified and landed on-chain, but the listing sold
+ * out (either the local `minted_count` cache in `reserveMintSlot`, or the on-chain Candy Machine
+ * itself via `CosmeticListingSoldOutOnChainError`) before a mint slot could be secured. Distinct
+ * from the ordinary 'paid' case (payment verified, minting simply not configured/attempted yet on
+ * this deployment) specifically so support can find these via
+ * `GET /admin/cosmetics/purchases/:purchaseId` and action a refund — see
+ * `CosmeticsController.tsx`'s purchase route.
  * Primary key: purchase_id (UUID).
  */
 export interface CosmeticsPurchaseRow {

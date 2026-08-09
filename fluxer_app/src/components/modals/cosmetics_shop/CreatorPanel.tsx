@@ -281,6 +281,12 @@ export const CreatorPanel: React.FC = observer(() => {
 									{' · '}
 									{rarityLabel(listing.rarity).toUpperCase()}
 									{' · '}◎ {(listing.price_lamports / LAMPORTS_PER_SOL).toFixed(2)}
+									{listing.max_supply !== null && (
+										<>
+											{' · '}
+											{listing.minted_count} / {listing.max_supply} {t`MINTED`}
+										</>
+									)}
 								</span>
 							</div>
 							<span
