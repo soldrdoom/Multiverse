@@ -77,6 +77,7 @@ catalogs:
     "combokeys": "3.0.1"
     "crc-32": "1.2.2"
     "cron-parser": "5.5.0"
+    "dompurify": "3.4.13"
     "emoji-regex": "10.6.0"
     "eventemitter3": "5.0.4"
     "framer-motion": "12.34.0"

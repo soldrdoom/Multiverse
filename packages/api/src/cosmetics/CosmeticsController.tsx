@@ -39,6 +39,7 @@ import {
 	pollSolanaTransaction,
 	sumTransfersTo,
 } from '@fluxer/api/src/cosmetics/CosmeticsSolanaUtils';
+import {sanitizeCosmeticSvg} from '@fluxer/api/src/cosmetics/CosmeticsSvgSanitizer';
 import type {CosmeticsPurchaseRow} from '@fluxer/api/src/database/types/CosmeticsPurchaseTypes';
 import {Logger} from '@fluxer/api/src/Logger';
 import {requireAdminACL} from '@fluxer/api/src/middleware/AdminMiddleware';
@@ -1142,27 +1143,59 @@ export function CosmeticsController(app: HonoApp): void {
 			const file = body['image'];
 			if (!(file instanceof File)) return ctx.json({error: 'Missing image file'}, 400);
 
-			const ALLOWED_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
+			const ALLOWED_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/svg+xml']);
 			const EXT_MAP: Record<string, string> = {
 				'image/png': 'png',
 				'image/jpeg': 'jpg',
 				'image/webp': 'webp',
 				'image/gif': 'gif',
+				'image/svg+xml': 'svg',
 			};
 			if (!ALLOWED_TYPES.has(file.type)) {
-				return ctx.json({error: 'Only PNG, JPG, WebP, and GIF images are allowed'}, 400);
+				return ctx.json({error: 'Only PNG, JPG, WebP, GIF, and SVG images are allowed'}, 400);
 			}
 
 			const MAX_BYTES = 4 * 1024 * 1024;
 			if (file.size > MAX_BYTES) return ctx.json({error: 'Image must be under 4 MB'}, 400);
 
-			const buffer = new Uint8Array(await file.arrayBuffer());
+			let buffer = new Uint8Array(await file.arrayBuffer());
+
+			// SVG is the one allowed type that can carry executable content (<script>,
+			// event-handler attributes, javascript:/data:text/html URIs, off-origin
+			// resource references). It's rendered in-app only via <img src=...>, which
+			// can't execute any of that — but the stored file is also served back
+			// directly from the CDN origin, and a direct top-level navigation to that
+			// URL *would* execute it. Sanitize (never trust the client-declared MIME
+			// type alone) before this ever reaches storage. See
+			// CosmeticsSvgSanitizer.tsx for the full threat model.
+			if (file.type === 'image/svg+xml') {
+				const rawSvg = new TextDecoder('utf-8').decode(buffer);
+				const {ok, sanitized} = sanitizeCosmeticSvg(rawSvg);
+				if (!ok || !sanitized) {
+					return ctx.json({error: 'That SVG could not be safely processed'}, 400);
+				}
+				buffer = new TextEncoder().encode(sanitized);
+			}
+
 			const hash = crypto.createHash('md5').update(buffer).digest('hex').slice(0, 12);
 			const ext = EXT_MAP[file.type];
 			const key = `${creator.creator_id}/${hash}.${ext}`;
 
+			// uploadObject (not uploadAvatar) so we can pass an explicit contentType:
+			// uploadAvatar never threads one through to the underlying PUT, so objects
+			// stored via it are served back as generic application/octet-stream. That's
+			// harmless for raster formats (browsers sniff <img> content by bytes) but it
+			// would either break in-app SVG rendering (if we relied on sniffing) or, if a
+			// future fix makes sniffing stricter, silently reintroduce exactly the
+			// direct-navigation risk the sanitizer above closes. Set it correctly here
+			// instead of depending on that default.
 			const storageService = ctx.get('storageService');
-			await storageService.uploadAvatar({prefix: 'cosmetics', key, body: buffer});
+			await storageService.uploadObject({
+				bucket: Config.s3.buckets.cdn,
+				key: `cosmetics/${key}`,
+				body: buffer,
+				contentType: file.type,
+			});
 
 			const url = `${Config.endpoints.staticCdn}/cosmetics/${key}`;
 			return ctx.json({url});

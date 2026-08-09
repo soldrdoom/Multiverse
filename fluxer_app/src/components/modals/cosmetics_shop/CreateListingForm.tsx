@@ -169,7 +169,7 @@ export const CreateListingForm: React.FC<CreateListingFormProps> = ({onCreated, 
 				<input
 					ref={fileInputRef}
 					type="file"
-					accept="image/png,image/jpeg,image/webp,image/gif"
+					accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
 					className={styles.hiddenFileInput}
 					onChange={handleImageChange}
 				/>

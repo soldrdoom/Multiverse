@@ -25,6 +25,7 @@
         "bowser": "*",
         "cassandra-driver": "*",
         "css-select": "*",
+        "dompurify": "catalog:",
         "domhandler": "*",
         "fast-xml-parser": "*",
         "hi-base32": "*",
@@ -34,6 +35,7 @@
         "idna-uts46-hx": "*",
         "itty-time": "*",
         "jose": "*",
+        "jsdom": "catalog:",
         "livekit-server-sdk": "*",
         "lodash": "*",
         "luxon": "*",
@@ -49,6 +51,7 @@
     },
     "devDependencies": {
         "@types/archiver": "*",
+        "@types/jsdom": "catalog:",
         "@types/lodash": "*",
         "@types/luxon": "*",
         "@types/node": "*",
