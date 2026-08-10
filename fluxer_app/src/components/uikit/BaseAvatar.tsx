@@ -33,6 +33,23 @@ import {useLingui} from '@lingui/react/macro';
 import {motion} from 'framer-motion';
 import React, {useEffect, useId, useState} from 'react';
 
+/**
+ * Frame cosmetics are authored as square art on their own canvas, and creators
+ * reasonably draw the decorative ring somewhere inside that canvas rather than
+ * flush with its outer edge (e.g. "Circuit Halo" sits at ~84% of the way from
+ * center to edge). If we composited the frame at exactly the avatar's own box
+ * size, that ring lands *inside* the avatar's circular photo instead of around
+ * it, and gets visually swallowed by the photo underneath.
+ *
+ * Rendering the frame overlay oversized (centered, via a paint-time transform
+ * so layout/click targets are untouched) pushes any reasonably-authored ring
+ * outside the avatar's own circle with real margin, without needing to know
+ * anything about a specific asset's geometry. This is deliberately generic —
+ * it should hold up for arbitrary future creator-submitted frame art, not just
+ * this one asset.
+ */
+const AVATAR_FRAME_OVERSCAN = 1.4;
+
 interface BaseAvatarProps {
 	size: number;
 	avatarUrl: string;
@@ -252,6 +269,11 @@ export const BaseAvatar = React.forwardRef<HTMLDivElement, BaseAvatarProps>(
 								height: '100%',
 								pointerEvents: 'none',
 								objectFit: 'cover',
+								// See AVATAR_FRAME_OVERSCAN: scale the overlay up around its own
+								// center so decorative ring art clears the avatar's circular photo
+								// instead of being composited at the exact same box size.
+								transform: `scale(${AVATAR_FRAME_OVERSCAN})`,
+								transformOrigin: 'center',
 							}}
 						/>
 					)}
