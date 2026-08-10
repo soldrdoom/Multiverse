@@ -45,9 +45,21 @@ export async function fetchCosmeticsStore(): Promise<Array<StoreListingNft>> {
 
 // ─── NFT listing ──────────────────────────────────────────────────────────────
 
-/** Fetch all cosmetic NFTs the current user owns in their linked Solana wallet. */
+/** Fetch all cosmetic NFTs the current user owns in their linked Solana wallet (mainnet DAS only). */
 export async function fetchOwnedNfts(): Promise<Array<OwnedCosmeticNft>> {
 	const response = await http.get<{nfts: Array<OwnedCosmeticNft>}>({url: Endpoints.NFTS});
+	return response.body.nfts;
+}
+
+/**
+ * Fetch cosmetics-shop NFTs the current user's linked wallet currently holds, read live via DAS
+ * against whichever cluster the cosmetics-mint pipeline is actually configured for
+ * (COSMETICS_DAS_URL — currently devnet). Complements `fetchOwnedNfts` above, which only ever
+ * reads mainnet DAS and can't see devnet-minted cosmetics; a given item is only ever minted on one
+ * network, so callers should merge both lists.
+ */
+export async function fetchOwnedCosmeticNfts(): Promise<Array<OwnedCosmeticNft>> {
+	const response = await http.get<{nfts: Array<OwnedCosmeticNft>}>({url: Endpoints.COSMETICS_OWNED_NFTS});
 	return response.body.nfts;
 }
 

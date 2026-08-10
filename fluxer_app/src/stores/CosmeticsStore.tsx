@@ -24,6 +24,7 @@ import {
 	fetchCosmeticsStore,
 	fetchCreatorStatus,
 	fetchGuildCosmetics,
+	fetchOwnedCosmeticNfts,
 	fetchOwnedNfts,
 	fetchPublicUserCosmetics,
 	fetchUserCosmetics,
@@ -134,12 +135,30 @@ class CosmeticsStore {
 		}
 	}
 
+	/**
+	 * Loads owned NFTs from both ownership sources and merges them:
+	 *   - `fetchOwnedNfts()` — mainnet DAS (`GET /nfts`), unchanged from before. Still needed for
+	 *     real mainnet-minted cosmetics once this product actually launches on mainnet.
+	 *   - `fetchOwnedCosmeticNfts()` — cosmetics-shop purchase records, verified against whichever
+	 *     network the cosmetics-mint pipeline is actually configured for (currently devnet). This is
+	 *     what makes "Your Items" correctly show cosmetics minted by the devnet-pinned pipeline.
+	 * A given item can only ever be minted on one network, so a plain concatenation with de-dupe by
+	 * mint address is sufficient — no network-priority logic needed. Each source fails independently
+	 * so an error from one doesn't wipe out results already fetched from the other.
+	 */
 	async loadOwnedNfts(): Promise<void> {
 		if (this.isLoadingNfts) return;
 		this.isLoadingNfts = true;
 		try {
-			const nfts = await fetchOwnedNfts();
-			this.ownedNfts = nfts;
+			const [mainnetNfts, cosmeticsNfts] = await Promise.all([
+				fetchOwnedNfts().catch(() => [] as OwnedCosmeticNft[]),
+				fetchOwnedCosmeticNfts().catch(() => [] as OwnedCosmeticNft[]),
+			]);
+			const byMint = new Map<string, OwnedCosmeticNft>();
+			for (const nft of [...mainnetNfts, ...cosmeticsNfts]) {
+				byMint.set(nft.mint, nft);
+			}
+			this.ownedNfts = [...byMint.values()];
 		} catch {
 			this.ownedNfts = [];
 		} finally {

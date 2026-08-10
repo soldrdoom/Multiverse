@@ -93,3 +93,11 @@ export const COSMETICS_PURCHASE_BY_TX_SIGNATURE_COLUMNS = [
 	'tx_signature',
 	'purchase_id',
 ] as const satisfies ReadonlyArray<keyof CosmeticsPurchaseByTxSignatureRow>;
+
+// NOTE: a `buyer_user_id → purchase_id` secondary index (`cosmetics_purchases_by_buyer` /
+// `CosmeticsPurchaseByBuyerRow`) used to live here, backing `GET /cosmetics/owned-nfts`'s "what has
+// this user purchased" lookup. That endpoint was redesigned (2026-08) to read current wallet
+// contents live via DAS instead of purchase history (a cosmetic is a real tradeable NFT and can
+// change hands after being bought, so "who bought it" and "who owns it now" are different
+// questions) — see `CosmeticsController.tsx`'s owned-nfts route. The index had no other caller and
+// was removed rather than left as dead machinery.

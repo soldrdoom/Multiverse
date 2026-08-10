@@ -33,6 +33,7 @@ import {
 	isPendingMintSetupSentinel,
 	ListingMaxSupplyBelowMintedError,
 } from '@fluxer/api/src/cosmetics/CosmeticsRepository';
+import type {CosmeticListingRow} from '@fluxer/api/src/database/types/CosmeticTypes';
 import {
 	fetchRecentBlockhash,
 	getFeePayerAddress,
@@ -63,6 +64,7 @@ import {
 	ApplyServerCosmeticRequest,
 	ApplyServerCosmeticResponse,
 	CosmeticsInvoiceResponse,
+	CosmeticsOwnedNftsResponse,
 	CosmeticsStoreResponse,
 	CreateListingRequest,
 	CreatorApplyResponse,
@@ -70,6 +72,7 @@ import {
 	CreatorStatusResponse,
 	GuildCosmeticsResponse,
 	ListingResponse,
+	type OwnedCosmeticNft,
 	PurchaseCosmeticRequest,
 	PurchaseCosmeticResponse,
 	type StoreListingNft,
@@ -77,8 +80,9 @@ import {
 	UserCosmeticsPublicResponse,
 	UserCosmeticsResponse,
 } from '@fluxer/schema/src/domains/cosmetics/CosmeticSchemas';
+import {fetchGatingAssetsForWallet} from '@fluxer/solana_das/src/NftFetcher';
 import {verifyWalletHoldsCoreAsset} from '@fluxer/solana_mint/src/CoreMintClient';
-import {isMintingConfigured} from '@fluxer/solana_mint/src/MintConfig';
+import {COSMETICS_DAS_URL, isMintingConfigured} from '@fluxer/solana_mint/src/MintConfig';
 import {z} from 'zod';
 
 const cosmeticsRepo = new CosmeticsRepository();
@@ -375,6 +379,103 @@ export function CosmeticsController(app: HonoApp): void {
 				minted_count: l.minted_count ?? 0,
 			}));
 			return _ctx.json<CosmeticsStoreResponse>({items: [...SEED_CATALOG, ...creatorItems]});
+		},
+	);
+
+	/**
+	 * GET /cosmetics/owned-nfts
+	 * Returns cosmetics-shop items the current user's linked wallet *currently* holds, read live
+	 * from DAS (COSMETICS_DAS_URL) rather than from Multiverse's own purchase records.
+	 *
+	 * Deliberately NOT named `/nfts` — see the shadowing-incident note above this function.
+	 *
+	 * This is intentionally NOT a replacement for `GET /v1/nfts` (fluxer_server/src/Routes.tsx),
+	 * which reads mainnet-only DAS (SOLANA_DAS_URL) and is also relied on by the unrelated NFT
+	 * sticker picker. That route can never see a cosmetic minted while the cosmetics-mint pipeline
+	 * is devnet-pinned (as it currently is on this deployment), because the two DAS/RPC configs are
+	 * deliberately decoupled (see MintConfig.tsx's header comment) — this route exists to cover that
+	 * gap with its own DAS endpoint.
+	 *
+	 * IMPORTANT — this was previously implemented by looking up the user's *purchase history*
+	 * (`cosmetics_purchases_by_buyer`) and re-verifying each purchased mint's ownership. That
+	 * approach was wrong: cosmetics are real tradeable NFTs, and a user who acquires one by trading
+	 * rather than buying through Multiverse would never have a purchase row, so it would never show
+	 * up in their "Your Items" even though their wallet genuinely holds it. This version instead
+	 * enumerates the wallet's *current* holdings via DAS and filters to Multiverse's own known
+	 * cosmetic collections (`CosmeticsRepository.getListingsWithCollectionAddress`) — same
+	 * "current wallet contents, not who bought what" architecture as the mainnet `GET /v1/nfts` path
+	 * above, just pointed at a separate (devnet) DAS endpoint.
+	 *
+	 * Deliberately uses `fetchGatingAssetsForWallet`/`parseDasAssetForGating` (mint + collection
+	 * only), NOT `fetchNftsForWallet`/`parseDasAsset` — the latter drops any asset it can't resolve
+	 * a display image for, and DAS's *off-chain* metadata resolution (content.files/content.links/
+	 * content.metadata.attributes) has been observed empty for real devnet-minted Core cosmetics
+	 * well after mint confirmation, even though the on-chain fields (interface/ownership/grouping)
+	 * were correct. Display fields (name/image/cosmetic_type/rarity) are instead taken from this
+	 * deployment's own listing row for the matched collection — see COSMETICS_DAS_URL's doc comment
+	 * in MintConfig.tsx for the full story.
+	 */
+	app.get(
+		'/cosmetics/owned-nfts',
+		LoginRequired,
+		DefaultUserOnly,
+		RateLimitMiddleware(CosmeticsRateLimitConfigs.GET_NFTS),
+		OpenAPI({
+			operationId: 'get_cosmetics_owned_nfts',
+			summary: 'Get cosmetics-shop NFTs currently held by the current user',
+			responseSchema: CosmeticsOwnedNftsResponse,
+			statusCode: 200,
+			tags: ['Cosmetics'],
+			description:
+				"Returns cosmetic NFTs the current user's linked Solana wallet currently holds, read live " +
+				'from DAS and filtered to known Multiverse cosmetic collections. Complements GET /nfts, ' +
+				'which only ever reads mainnet and cannot see devnet-minted cosmetics.',
+		}),
+		async (ctx) => {
+			const user = ctx.get('user');
+			const buyerAddress = user.solanaAddress;
+			if (!buyerAddress) {
+				return ctx.json({error: 'No Solana wallet linked to this account'}, 404);
+			}
+
+			// Inert until an operator provisions a DAS-capable endpoint for the cosmetics-mint
+			// pipeline's cluster — see COSMETICS_DAS_URL's doc comment. Degrade to an empty list
+			// rather than error, matching isMintingConfigured()'s "unconfigured => inert" convention.
+			if (!COSMETICS_DAS_URL) {
+				return ctx.json<CosmeticsOwnedNftsResponse>({nfts: []});
+			}
+
+			const knownListings = await cosmeticsRepo.getListingsWithCollectionAddress();
+			if (knownListings.length === 0) {
+				return ctx.json<CosmeticsOwnedNftsResponse>({nfts: []});
+			}
+			const listingByCollection = new Map<string, CosmeticListingRow>(
+				knownListings.map((l) => [l.collection_address as string, l]),
+			);
+
+			let heldAssets: Awaited<ReturnType<typeof fetchGatingAssetsForWallet>>;
+			try {
+				heldAssets = await fetchGatingAssetsForWallet(buyerAddress, COSMETICS_DAS_URL);
+			} catch (err) {
+				Logger.error({err, wallet: buyerAddress}, 'Failed to fetch cosmetics-owned NFTs from DAS');
+				return ctx.json({error: 'Failed to fetch owned cosmetics. Please try again.'}, 502);
+			}
+
+			const nfts: Array<OwnedCosmeticNft> = [];
+			for (const asset of heldAssets) {
+				if (!asset.collectionMint) continue;
+				const listing = listingByCollection.get(asset.collectionMint);
+				if (!listing) continue; // Not one of Multiverse's own cosmetic collections.
+				nfts.push({
+					mint: asset.mint,
+					name: listing.name,
+					image: listing.image_url,
+					cosmetic_type: listing.cosmetic_type,
+					rarity: listing.rarity,
+				});
+			}
+
+			return ctx.json<CosmeticsOwnedNftsResponse>({nfts});
 		},
 	);
 
@@ -742,10 +843,7 @@ export function CosmeticsController(app: HonoApp): void {
 			// and tip verification flows in fluxer_server/src/Routes.tsx).
 			const feePayerAddress = getFeePayerAddress(txData);
 			if (feePayerAddress !== buyerAddress) {
-				return ctx.json(
-					{error: 'This transaction was not paid from your linked Solana wallet'},
-					403,
-				);
+				return ctx.json({error: 'This transaction was not paid from your linked Solana wallet'}, 403);
 			}
 
 			const creatorReceived = sumTransfersTo(txData, purchase.creator_wallet);

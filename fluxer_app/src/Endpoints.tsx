@@ -256,6 +256,13 @@ export const Endpoints = {
 
 	/** GET — fetch the public cosmetics shop catalog. */
 	COSMETICS_STORE: '/cosmetics/store',
+	/**
+	 * GET — fetch cosmetics-shop NFTs the current user's linked wallet currently holds, read live
+	 * via DAS against the cosmetics-mint pipeline's own cluster (COSMETICS_DAS_URL, currently
+	 * devnet). Complements NFTS above, which only ever reads mainnet DAS and can't see devnet-minted
+	 * cosmetics — see MintConfig.tsx's `COSMETICS_DAS_URL`.
+	 */
+	COSMETICS_OWNED_NFTS: '/cosmetics/owned-nfts',
 
 	/** GET — fetch applied profile cosmetics for the current user. */
 	USER_COSMETICS: '/users/@me/cosmetics',

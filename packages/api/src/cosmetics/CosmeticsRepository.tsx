@@ -436,6 +436,22 @@ export class CosmeticsRepository {
 		return all.filter((l) => l.status === 'live');
 	}
 
+	/**
+	 * Listings that have completed on-chain mint setup and therefore have a real, usable
+	 * `collection_address` — excludes both `null` (setup never run) and the transient
+	 * pending-setup sentinel (`isPendingMintSetupSentinel`, setup in progress/crashed mid-claim).
+	 * Backs `GET /cosmetics/owned-nfts`'s DAS-grouping → listing join: only assets grouped under
+	 * one of these collection addresses can possibly be a Multiverse-minted cosmetic, so this is
+	 * also what keeps a wallet's unrelated NFTs from ever being misclassified as cosmetics.
+	 */
+	async getListingsWithCollectionAddress(): Promise<CosmeticListingRow[]> {
+		const all = await this.getAllListings();
+		return all.filter(
+			(l): l is CosmeticListingRow & {collection_address: string} =>
+				l.collection_address !== null && !isPendingMintSetupSentinel(l.collection_address),
+		);
+	}
+
 	async createListing(
 		creatorId: number,
 		data: {

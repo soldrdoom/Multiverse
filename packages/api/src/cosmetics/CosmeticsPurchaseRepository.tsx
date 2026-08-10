@@ -38,6 +38,15 @@ const FETCH_PURCHASE_BY_TX_SIGNATURE_CQL = CosmeticsPurchasesByTxSignature.selec
  * purchase_id, plus a tx_signature → purchase_id index used as a conditional
  * (INSERT ... IF NOT EXISTS) lock so the same on-chain transaction can never be
  * applied to more than one purchase.
+ *
+ * NOTE: this previously also maintained a `buyer_user_id → purchase_id` secondary index
+ * (`cosmetics_purchases_by_buyer`) to back `GET /cosmetics/owned-nfts`'s "what has this user
+ * purchased" lookup. That endpoint was redesigned (2026-08) to read *current wallet contents* live
+ * via DAS instead — purchase history isn't the same thing as current ownership, since a cosmetic is
+ * a real tradeable NFT and can change hands outside Multiverse after being bought. The by-buyer
+ * index had no other caller, so it was removed rather than left as dead machinery; if a genuine
+ * "purchase history" UI (distinct from "current ownership") is ever wanted, re-add it then rather
+ * than resurrecting this comment's old code from git history.
  */
 export class CosmeticsPurchaseRepository {
 	async createPurchase(row: CosmeticsPurchaseRow): Promise<void> {

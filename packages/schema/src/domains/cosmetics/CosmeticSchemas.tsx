@@ -266,6 +266,21 @@ export const NftsResponse = z.object({
 });
 export type NftsResponse = z.infer<typeof NftsResponse>;
 
+/**
+ * GET /cosmetics/owned-nfts — returns Multiverse cosmetics-shop NFTs the current user's linked
+ * wallet *currently* holds, read live from DAS (`COSMETICS_DAS_URL`, currently devnet — the same
+ * cluster the cosmetics-mint pipeline mints onto) and filtered to known Multiverse cosmetic
+ * collections. Reflects actual wallet contents, not purchase history — a cosmetic is a real
+ * tradeable NFT, so a user who acquires one by trading rather than buying through Multiverse still
+ * sees it here. Deliberately separate from `NftsResponse`/`GET /nfts`, which reads mainnet-only DAS
+ * (`SOLANA_DAS_URL`) and can never see a devnet-minted cosmetic — see `CosmeticsController.tsx`'s
+ * owned-nfts route and `COSMETICS_DAS_URL` in `@fluxer/solana_mint/src/MintConfig`.
+ */
+export const CosmeticsOwnedNftsResponse = z.object({
+	nfts: z.array(OwnedCosmeticNft),
+});
+export type CosmeticsOwnedNftsResponse = z.infer<typeof CosmeticsOwnedNftsResponse>;
+
 // ─── Shop catalog ─────────────────────────────────────────────────────────────
 
 /** A single item available for purchase in the cosmetics shop. */

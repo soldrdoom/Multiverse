@@ -60,6 +60,13 @@ services:
       # packages/solana_mint/src/MintConfig.tsx) — minting stays devnet-only regardless of
       # which cluster the rest of the app's Solana features (auth, tokengating, payments) use.
       COSMETICS_MINT_RPC_URL: https://api.devnet.solana.com
+      # Cosmetics shop — "Your Items" ownership lookup (GET /cosmetics/owned-nfts). Needs a
+      # DAS-capable endpoint (not a plain RPC url like COSMETICS_MINT_RPC_URL above) pointed at the
+      # SAME cluster the cosmetics-mint pipeline actually mints onto (devnet). Reuses the Helius API
+      # key already embedded in SOLANA_DAS_URL below, verified live against devnet Core-asset
+      # indexing before wiring this in — see packages/solana_mint/src/MintConfig.tsx's
+      # COSMETICS_DAS_URL doc comment for what DAS does and doesn't reliably return for these assets.
+      COSMETICS_DAS_URL: https://devnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}
       COSMETICS_MINT_AUTHORITY_PUBKEY: wPETY53ikNK1PhcXmBfb52FjhKLn6G8ZvfZTcvh1CwY
       # Base58-encoded secret key, set in .env (gitignored, root-only, never committed here).
       # Until .env has this set, minting stays inert and cosmetics purchases are recorded as
