@@ -73,6 +73,15 @@ class CosmeticsStore {
 
 	/** Creator program state for the current user. */
 	creatorStatus: CreatorStatusResponse | null = null;
+	/**
+	 * Set when the most recent `loadCreatorStatus()` call failed (network error, rate limit, a
+	 * malformed-row 500, etc.) — deliberately distinct from `creatorStatus === null`, which by
+	 * itself is ambiguous between "confirmed: this account genuinely has no creator status yet"
+	 * and "we don't know, the fetch failed". `CreatorPanel.tsx` must only show the "link a wallet"
+	 * CTA for the confirmed case; a real fetch failure should show its own honest error state.
+	 * Cleared on every successful `loadCreatorStatus()` call.
+	 */
+	creatorStatusError: string | null = null;
 	isLoadingCreatorStatus = false;
 
 	isLoadingNfts = false;
@@ -207,8 +216,10 @@ class CosmeticsStore {
 		this.isLoadingCreatorStatus = true;
 		try {
 			this.creatorStatus = await fetchCreatorStatus();
-		} catch {
+			this.creatorStatusError = null;
+		} catch (err: unknown) {
 			this.creatorStatus = null;
+			this.creatorStatusError = err instanceof Error ? err.message : 'Failed to load creator status';
 		} finally {
 			this.isLoadingCreatorStatus = false;
 		}
@@ -249,6 +260,7 @@ class CosmeticsStore {
 		this.appliedGuild = new Map();
 		this.appliedUsers = new Map();
 		this.creatorStatus = null;
+		this.creatorStatusError = null;
 	}
 
 	// ─── Computed helpers ─────────────────────────────────────────────────────

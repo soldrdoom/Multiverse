@@ -370,8 +370,9 @@ export function CosmeticsController(app: HonoApp): void {
 				rarity: l.rarity,
 				price_lamports: l.price_lamports,
 				collection_address: publicCollectionAddress(l.collection_address),
-				max_supply: l.max_supply,
-				minted_count: l.minted_count,
+				// Defensive default — see the matching comment in GET /creators/@me below.
+				max_supply: l.max_supply ?? null,
+				minted_count: l.minted_count ?? 0,
 			}));
 			return _ctx.json<CosmeticsStoreResponse>({items: [...SEED_CATALOG, ...creatorItems]});
 		},
@@ -1032,8 +1033,11 @@ export function CosmeticsController(app: HonoApp): void {
 				price_lamports: l.price_lamports,
 				collection_address: publicCollectionAddress(l.collection_address),
 				status: l.status,
-				max_supply: l.max_supply,
-				minted_count: l.minted_count,
+				// Defensive: a handful of legacy/manually-written rows are missing these entirely
+				// (see the 2026-08 creators_by_wallet/listing data-repair incident) — default rather
+				// than let a malformed row 500 this entire endpoint for the whole creator dashboard.
+				max_supply: l.max_supply ?? null,
+				minted_count: l.minted_count ?? 0,
 				created_at: l.created_at.toISOString(),
 				updated_at: l.updated_at.toISOString(),
 			}));
@@ -1262,8 +1266,11 @@ export function CosmeticsController(app: HonoApp): void {
 					price_lamports: updated.price_lamports,
 					collection_address: publicCollectionAddress(updated.collection_address),
 					status: updated.status,
-					max_supply: updated.max_supply,
-					minted_count: updated.minted_count,
+					// Defensive default — see the matching comment in GET /creators/@me above; a
+					// legacy/malformed `existing` row merged by updateListing/setListingStatus could
+					// otherwise still be missing these.
+					max_supply: updated.max_supply ?? null,
+					minted_count: updated.minted_count ?? 0,
 					created_at: updated.created_at.toISOString(),
 					updated_at: updated.updated_at.toISOString(),
 				},
@@ -1320,8 +1327,11 @@ export function CosmeticsController(app: HonoApp): void {
 					price_lamports: updated.price_lamports,
 					collection_address: publicCollectionAddress(updated.collection_address),
 					status: updated.status,
-					max_supply: updated.max_supply,
-					minted_count: updated.minted_count,
+					// Defensive default — see the matching comment in GET /creators/@me above; a
+					// legacy/malformed `existing` row merged by updateListing/setListingStatus could
+					// otherwise still be missing these.
+					max_supply: updated.max_supply ?? null,
+					minted_count: updated.minted_count ?? 0,
 					created_at: updated.created_at.toISOString(),
 					updated_at: updated.updated_at.toISOString(),
 				},
@@ -1543,8 +1553,9 @@ export function CosmeticsController(app: HonoApp): void {
 					price_lamports: l.price_lamports,
 					collection_address: publicCollectionAddress(l.collection_address),
 					status: l.status,
-					max_supply: l.max_supply,
-					minted_count: l.minted_count,
+					// Defensive default — see the matching comment in GET /creators/@me above.
+					max_supply: l.max_supply ?? null,
+					minted_count: l.minted_count ?? 0,
 					created_at: l.created_at.toISOString(),
 					updated_at: l.updated_at.toISOString(),
 				})),

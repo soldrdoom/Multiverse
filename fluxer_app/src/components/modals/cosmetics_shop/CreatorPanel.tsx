@@ -52,6 +52,7 @@ const STATUS_LISTING_LABEL: Record<string, string> = {
 export const CreatorPanel: React.FC = observer(() => {
 	const {t} = useLingui();
 	const status = CosmeticsStore.creatorStatus;
+	const statusError = CosmeticsStore.creatorStatusError;
 	const isLoading = CosmeticsStore.isLoadingCreatorStatus;
 	const [applying, setApplying] = useState(false);
 	const [submitting, setSubmitting] = useState<string | null>(null);
@@ -98,6 +99,31 @@ export const CreatorPanel: React.FC = observer(() => {
 		return (
 			<div className={styles.loadingContainer}>
 				<Spinner />
+			</div>
+		);
+	}
+
+	// A genuine fetch failure (network error, rate limit, an unexpected 500, etc.) — distinct
+	// from `!status`, which by itself doesn't tell us whether the account really has no creator
+	// status yet or the request simply failed. Showing the "link a wallet" CTA here would hide a
+	// real backend error behind a misleading call to action, so this must be checked first.
+	if (statusError) {
+		return (
+			<div className={styles.emptyState}>
+				<WarningIcon size={44} weight="duotone" className={styles.emptyIcon} />
+				<p className={styles.emptyTitle}>
+					<Trans>Something went wrong</Trans>
+				</p>
+				<p className={styles.emptyDescription}>
+					<Trans>We couldn't load your creator status. Please try again.</Trans>
+				</p>
+				<button
+					type="button"
+					className={styles.applyButtonOutline}
+					onClick={() => void CosmeticsStore.loadCreatorStatus()}
+				>
+					<Trans>RETRY</Trans>
+				</button>
 			</div>
 		);
 	}

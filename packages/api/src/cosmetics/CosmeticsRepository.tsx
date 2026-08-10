@@ -21,6 +21,7 @@ import type {GuildID, UserID} from '@fluxer/api/src/BrandedTypes';
 import {
 	Db,
 	deleteOneOrMany,
+	executeConditional,
 	executeVersionedUpdate,
 	fetchMany,
 	fetchOne,
@@ -89,6 +90,8 @@ const FETCH_CREATOR_BY_ID_CQL = Creators.selectCql({
 });
 
 const FETCH_ALL_CREATORS_CQL = Creators.selectCql({});
+
+const FETCH_ALL_CREATOR_IDS_CQL = Creators.selectCql({columns: ['creator_id']});
 
 const FETCH_CREATOR_BY_WALLET_CQL = CreatorsByWallet.selectCql({
 	where: CreatorsByWallet.where.eq('solana_address'),
@@ -327,25 +330,53 @@ export class CosmeticsRepository {
 
 	/**
 	 * Create a new creator record. Assigns the next sequential creator_id.
-	 * Creator approvals are infrequent (admin-only) so the MAX+1 approach is safe.
+	 *
+	 * IMPORTANT: this backend's SQLite/KV query shim (`executeQuerySqlite`'s 'select' case in
+	 * `Cassandra.tsx`) does not implement SQL aggregate functions — a `SELECT MAX(creator_id)`
+	 * scans every row and projects a literal `max_id` column that no stored row actually has, so
+	 * it silently returns `undefined` for every row and `MAX+1` collapses to always `1`. Do not
+	 * reintroduce a `MAX()`/`COUNT()`/etc. query here. Instead: scan all creators to compute the
+	 * current max `creator_id` in JS, then atomically claim `max + 1` via the same
+	 * insertIfNotExists/executeConditional LWT-style CAS primitive already used elsewhere in this
+	 * codebase for collision-sensitive inserts (see `AuthRegistrationService.registerWithEmail`,
+	 * `CosmeticsPurchaseRepository.recordPurchase`, `UserTipRepository`, etc.) — this guarantees a
+	 * concurrent createCreator call can never overwrite an existing row, even though the initial
+	 * scan-then-write is not itself atomic. Creator approvals are admin-only and rare, so a short
+	 * bounded retry loop on claim collision is the right amount of complexity here.
 	 */
 	async createCreator(solanaAddress: string): Promise<CreatorRow> {
-		const maxRow = await fetchOne<{max_id: number | null}>(`SELECT MAX(creator_id) as max_id FROM creators`, {});
-		const nextId = (maxRow?.max_id ?? 0) + 1;
+		const MAX_CLAIM_ATTEMPTS = 10;
 
-		const row: CreatorRow = {
-			creator_id: nextId,
-			solana_address: solanaAddress,
-			commission_rate: 90,
-			payout_suspended: false,
-			approved_at: new Date(),
-		};
-		await upsertOne(Creators.upsertAll(row));
+		for (let attempt = 0; attempt < MAX_CLAIM_ATTEMPTS; attempt++) {
+			const existingIds = await fetchMany<Pick<CreatorRow, 'creator_id'>>(FETCH_ALL_CREATOR_IDS_CQL, {});
+			const maxId = existingIds.reduce((max, r) => Math.max(max, r.creator_id), 0);
+			const nextId = maxId + 1;
 
-		// Keep wallet → id index in sync.
-		await upsertOne(CreatorsByWallet.upsertAll({solana_address: solanaAddress, creator_id: nextId}));
+			const row: CreatorRow = {
+				creator_id: nextId,
+				solana_address: solanaAddress,
+				commission_rate: 90,
+				payout_suspended: false,
+				approved_at: new Date(),
+			};
 
-		return row;
+			const {applied} = await executeConditional(Creators.insertIfNotExists(row));
+			if (!applied) {
+				// Another createCreator call claimed this id between our scan and our insert (or a
+				// row with this id already existed for some other reason) — rescan and retry rather
+				// than silently overwriting it.
+				continue;
+			}
+
+			// Keep wallet → id index in sync.
+			await upsertOne(CreatorsByWallet.upsertAll({solana_address: solanaAddress, creator_id: nextId}));
+
+			return row;
+		}
+
+		throw new Error(
+			`createCreator: failed to claim a unique creator_id after ${MAX_CLAIM_ATTEMPTS} attempts (repeated concurrent collisions)`,
+		);
 	}
 
 	async updateCreator(
