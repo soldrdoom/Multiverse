@@ -75,6 +75,19 @@ fi
 echo "==> building frontend"
 pnpm --filter fluxer_app build
 
+# --- Preserve the outgoing image as a rollback point -------------------------
+# This step was, until now, only a runbook note a human/agent had to remember to
+# run by hand before the `docker build` below overwrites `multiverse-server:local`.
+# It got skipped at least 5 times (2026-07-29 x3, 2026-08-11 x2) for exactly that
+# reason. Making it unconditional here, not documentation, is the actual fix.
+if docker image inspect multiverse-server:local >/dev/null 2>&1; then
+  ROLLBACK_TAG="rollback-$(date -u +%Y%m%d)-pre-${BUILD_SHA}"
+  echo "==> tagging outgoing image as multiverse-server:$ROLLBACK_TAG before it's replaced"
+  docker tag multiverse-server:local "multiverse-server:$ROLLBACK_TAG"
+else
+  echo "==> no existing multiverse-server:local image to preserve (first build on this box?)"
+fi
+
 # --- Image -------------------------------------------------------------------
 # The four --build-arg values MUST match the four exports above. That pairing is
 # the reason this file exists.
