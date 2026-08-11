@@ -39,6 +39,7 @@ import sodium from 'libsodium-wrappers';
 import http from '@app/lib/HttpClient';
 import {Endpoints} from '@app/Endpoints';
 import {Logger} from '@app/lib/Logger';
+import {signRawMessage, type SolanaWalletProviderLike} from '@app/utils/solana/SolanaWalletProvider';
 
 const logger = new Logger('VaultService');
 
@@ -57,9 +58,52 @@ const canonicalId = (userId: string): string =>
 const vaultChallenge = (userId: string): string =>
 	`[Multiverse] Unlock Identity Vault for: ${canonicalId(userId)}`;
 
+/**
+ * Verify the wallet signed exactly the requested challenge bytes — no wallet-added
+ * prefix/encoding tolerance. Ed25519 signing is deterministic for a given (key, message),
+ * so requiring byte-exact agreement on every device is the only way to *guarantee* two
+ * devices derive the identical Identity Vault key; a backend-style multi-prefix-candidate
+ * match (see SolanaAuthService.tsx) would let two devices that each prefix the challenge
+ * differently pass individually while still silently diverging from each other.
+ */
+export function verifyChallengeIntegrity(challengeBytes: Uint8Array, signedMessage?: Uint8Array): void {
+	if (!signedMessage) {
+		logger.warn(
+			'Wallet did not report the exact bytes it signed (signedMessage) — cannot verify the ' +
+				'challenge was signed unmodified. If this wallet transforms the challenge bytes before ' +
+				'signing, cross-device Identity Vault key derivation may silently diverge.',
+		);
+		return;
+	}
+	if (!bytesEqual(signedMessage, challengeBytes)) {
+		throw new Error(
+			"Your wallet modified the message before signing it, which isn't compatible with Identity " +
+				"Vault's cross-device key derivation. Try a different wallet or connection method.",
+		);
+	}
+}
+
+function bytesEqual(a: Uint8Array, b: Uint8Array): boolean {
+	if (a.length !== b.length) return false;
+	for (let i = 0; i < a.length; i++) {
+		if (a[i] !== b[i]) return false;
+	}
+	return true;
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 
-export type SignFn = (messageBytes: Uint8Array) => Promise<{signature: Uint8Array}>;
+export type SignFn = (
+	messageBytes: Uint8Array,
+) => Promise<{signature: Uint8Array; signedMessage?: Uint8Array}>;
+
+/**
+ * Builds a VaultService SignFn from a connected wallet provider — shared by every
+ * initializeVault call site so key derivation always goes through the same signing path.
+ */
+export function createVaultSignFn(provider: SolanaWalletProviderLike): SignFn {
+	return (messageBytes: Uint8Array) => signRawMessage(provider, messageBytes);
+}
 
 export interface VaultKeyPair {
 	publicKeyB64: string;
@@ -71,7 +115,7 @@ export interface VaultKeyPair {
  * with the backend, and persist the encrypted private key in IndexedDB.
  *
  * @param userId       The authenticated user's Snowflake ID string.
- * @param signFn       Callback that delegates to `window.phantom?.solana.signMessage`.
+ * @param signFn       Callback built via `createVaultSignFn` from a connected wallet provider.
  * @returns            The derived keypair (base64 strings).
  */
 export async function initializeVault(userId: string, signFn: SignFn): Promise<VaultKeyPair> {
@@ -80,8 +124,12 @@ export async function initializeVault(userId: string, signFn: SignFn): Promise<V
 
 	// 1. Sign the deterministic challenge with the user's wallet.
 	const challengeBytes = new TextEncoder().encode(vaultChallenge(uid));
-	const {signature: ed25519Sig} = await signFn(challengeBytes);
+	const {signature: ed25519Sig, signedMessage} = await signFn(challengeBytes);
 	const sigBytes = new Uint8Array(ed25519Sig as ArrayLike<number>); // normalise mobile bridge
+
+	// 1b. Verify the wallet actually signed the exact challenge bytes we requested —
+	// see verifyChallengeIntegrity for why exactness (not prefix-tolerant matching) matters.
+	verifyChallengeIntegrity(challengeBytes, signedMessage);
 
 	// 2. Hash the 64-byte Ed25519 signature → 64-byte output; take first 32 as seed.
 	const hashBuffer = await crypto.subtle.digest('SHA-512', sigBytes);

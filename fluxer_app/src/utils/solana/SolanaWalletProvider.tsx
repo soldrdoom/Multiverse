@@ -121,6 +121,33 @@ export function getSolanaWalletProvider(): SolanaWalletProviderLike | null {
 	);
 }
 
+export interface RawSignResult {
+	signature: Uint8Array;
+	signedMessage?: Uint8Array;
+}
+
+/**
+ * Calls the wallet's signMessage() with exactly one argument — the raw message bytes.
+ * Do NOT add a second "display hint" argument (e.g. {display: 'utf8'}): on some mobile
+ * wallet bridges (Phantom mobile) it changes what bytes are actually signed, which breaks
+ * both SIWS backend verification (AuthLoginLayout's handleSolanaLogin) and Identity
+ * Vault's cross-device key derivation (VaultService's initializeVault) — both require
+ * knowing/matching exactly what was signed.
+ *
+ * Normalizes `signature`/`signedMessage` to real Uint8Array instances — some mobile
+ * bridges return array-like objects across the JS boundary rather than real typed arrays.
+ */
+export async function signRawMessage(
+	provider: SolanaWalletProviderLike,
+	messageBytes: Uint8Array,
+): Promise<RawSignResult> {
+	const result = await provider.signMessage(messageBytes);
+	return {
+		signature: new Uint8Array(result.signature as ArrayLike<number>),
+		signedMessage: result.signedMessage ? new Uint8Array(result.signedMessage as ArrayLike<number>) : undefined,
+	};
+}
+
 /** Safe Uint8Array → base64: avoids spread-operator call-stack limits on mobile WebKit. */
 export function uint8ArrayToBase64(bytes: Uint8Array): string {
 	let binary = '';

@@ -32,14 +32,14 @@ import {useLoginFormController} from '@app/hooks/useLoginFlow';
 import {IS_DEV} from '@app/lib/Env';
 import {type Account, SessionExpiredError} from '@app/lib/SessionManager';
 import {Routes} from '@app/Routes';
-import {initializeVault, loadPrivateKey} from '@app/services/vault/VaultService';
+import {createVaultSignFn, initializeVault, loadPrivateKey} from '@app/services/vault/VaultService';
 import AccountManager from '@app/stores/AccountManager';
 import RuntimeConfigStore from '@app/stores/RuntimeConfigStore';
 import SolanaWalletStore from '@app/stores/SolanaWalletStore';
 import VaultStore from '@app/stores/VaultStore';
 import {isDesktop} from '@app/utils/NativeUtils';
 import * as RouterUtils from '@app/utils/RouterUtils';
-import {getSolanaWalletProvider, uint8ArrayToBase64} from '@app/utils/solana/SolanaWalletProvider';
+import {getSolanaWalletProvider, signRawMessage, uint8ArrayToBase64} from '@app/utils/solana/SolanaWalletProvider';
 import {type IpAuthorizationChallenge, type LoginSuccessPayload, startSsoLogin} from '@app/viewmodels/auth/AuthFlow';
 import {Trans, useLingui} from '@lingui/react/macro';
 import clsx from 'clsx';
@@ -253,14 +253,15 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 			} else {
 				// Legacy signMessage() fallback — sign the SIWS text the backend built.
 				// Do NOT pass the 'utf8' display hint: on Phantom mobile it can alter how bytes
-				// are presented/signed, causing backend verification to fail.
+				// are presented/signed, causing backend verification to fail. (Enforced by
+				// signRawMessage calling provider.signMessage with exactly one argument.)
 				const msgBytes = new Uint8Array(new TextEncoder().encode(message));
-				const result = await sol.signMessage(msgBytes);
-				sig64 = u8ToBase64(new Uint8Array(result.signature as ArrayLike<number>));
+				const result = await signRawMessage(sol, msgBytes);
+				sig64 = u8ToBase64(result.signature);
 				// Wallet Standard wallets return signedMessage = exact bytes signed (may include prefix).
 				// Pass it to the backend so verification uses what was actually signed.
 				if (result.signedMessage) {
-					signedMessageB64 = u8ToBase64(new Uint8Array(result.signedMessage as ArrayLike<number>));
+					signedMessageB64 = u8ToBase64(result.signedMessage);
 				}
 			}
 
@@ -290,10 +291,7 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 			const userId = result.user_id;
 			const existingKey = await loadPrivateKey(userId).catch(() => null);
 			if (!existingKey) {
-				const signFn = async (messageBytes: Uint8Array) => {
-					const sig = await sol.signMessage(messageBytes);
-					return {signature: new Uint8Array(sig.signature as ArrayLike<number>)};
-				};
+				const signFn = createVaultSignFn(sol);
 				const derived = await initializeVault(userId, signFn);
 				VaultStore.setKeyPair(derived);
 			}

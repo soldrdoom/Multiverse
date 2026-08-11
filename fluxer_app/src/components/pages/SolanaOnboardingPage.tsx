@@ -24,7 +24,8 @@ import {Button} from '@app/components/uikit/button/Button';
 import {useMultiverseDocumentTitle} from '@app/hooks/useMultiverseDocumentTitle';
 import {useForm} from '@app/hooks/useForm';
 import {completeLoginSession} from '@app/viewmodels/auth/AuthFlow';
-import {initializeVault} from '@app/services/vault/VaultService';
+import {createVaultSignFn, initializeVault} from '@app/services/vault/VaultService';
+import {getSolanaWalletProvider} from '@app/utils/solana/SolanaWalletProvider';
 import SolanaWalletStore from '@app/stores/SolanaWalletStore';
 import VaultStore from '@app/stores/VaultStore';
 import {Trans, useLingui} from '@lingui/react/macro';
@@ -106,18 +107,14 @@ const SolanaOnboardingPage = observer(function SolanaOnboardingPage() {
 			await completeLoginSession({token: data.token, userId: data.user_id});
 
 			// Initialize E2EE vault — wallet is still connected from the sign-in step.
-			const sol = (window as any).phantom?.solana ?? (window as any).solana;
-			if (sol?.isConnected) {
+			const sol = getSolanaWalletProvider();
+			if (sol?.publicKey) {
 				// SIWS talks to the injected provider directly and never otherwise touches
 				// SolanaWalletStore — sync it now so UI that reads "wallet connected" state
 				// from it (e.g. the Web3 & Identity side menu) reflects the new session.
-				const connectedAddress: string | undefined = sol.publicKey?.toBase58?.();
-				if (connectedAddress) SolanaWalletStore.setConnectedAddress(connectedAddress);
+				SolanaWalletStore.setConnectedAddress(sol.publicKey.toBase58());
 
-				const signFn = async (messageBytes: Uint8Array) => {
-					const sig = await sol.signMessage(messageBytes);
-					return {signature: new Uint8Array(sig.signature as ArrayLike<number>)};
-				};
+				const signFn = createVaultSignFn(sol);
 				const derived = await initializeVault(data.user_id, signFn).catch(() => null);
 				if (derived) VaultStore.setKeyPair(derived);
 			}

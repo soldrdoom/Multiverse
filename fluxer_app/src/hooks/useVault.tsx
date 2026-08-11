@@ -19,8 +19,9 @@
 
 import {useCallback, useEffect, useState} from 'react';
 import AuthenticationStore from '@app/stores/AuthenticationStore';
-import {initializeVault, rehydrateVault} from '@app/services/vault/VaultService';
+import {createVaultSignFn, initializeVault, rehydrateVault} from '@app/services/vault/VaultService';
 import type {VaultKeyPair} from '@app/services/vault/VaultService';
+import {getSolanaWalletProvider} from '@app/utils/solana/SolanaWalletProvider';
 import VaultStore from '@app/stores/VaultStore';
 
 export type VaultStatus = 'idle' | 'pending' | 'unlocked' | 'error';
@@ -58,10 +59,11 @@ export function useVault(): UseVaultReturn {
 			return;
 		}
 
-		// Prefer Phantom; fall back to legacy window.solana.
-		const provider = (window as any).phantom?.solana ?? (window as any).solana;
+		const provider = getSolanaWalletProvider();
 		if (!provider) {
-			setError('No Solana wallet detected. Install Phantom to use the Identity Vault.');
+			setError(
+				'No Solana wallet detected. Please use Phantom, Solflare, Backpack, Coinbase Wallet, Magic Eden, or Jupiter, or open this page inside one of those apps.',
+			);
 			setStatus('error');
 			return;
 		}
@@ -70,16 +72,11 @@ export function useVault(): UseVaultReturn {
 		setError(null);
 
 		try {
-			if (!provider.isConnected) {
-				await provider.connect();
-			}
+			await provider.connect();
 
 			// Derive and persist the vault key from a single deterministic wallet signature.
 			// The wallet is always linked to the account (Solana is the only login method).
-			const signFn = async (messageBytes: Uint8Array) => {
-				const result = await provider.signMessage(messageBytes);
-				return {signature: new Uint8Array(result.signature as ArrayLike<number>)};
-			};
+			const signFn = createVaultSignFn(provider);
 
 			const derived = await initializeVault(userId, signFn);
 			setKeyPair(derived);
