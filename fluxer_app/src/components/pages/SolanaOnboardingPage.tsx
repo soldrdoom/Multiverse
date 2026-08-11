@@ -26,6 +26,7 @@ import {useForm} from '@app/hooks/useForm';
 import {completeLoginSession} from '@app/viewmodels/auth/AuthFlow';
 import {createVaultSignFn, initializeVault} from '@app/services/vault/VaultService';
 import {getSolanaWalletProvider} from '@app/utils/solana/SolanaWalletProvider';
+import * as ToastActionCreators from '@app/actions/ToastActionCreators';
 import SolanaWalletStore from '@app/stores/SolanaWalletStore';
 import VaultStore from '@app/stores/VaultStore';
 import {Trans, useLingui} from '@lingui/react/macro';
@@ -115,7 +116,14 @@ const SolanaOnboardingPage = observer(function SolanaOnboardingPage() {
 				SolanaWalletStore.setConnectedAddress(sol.publicKey.toBase58());
 
 				const signFn = createVaultSignFn(sol);
-				const derived = await initializeVault(data.user_id, signFn).catch(() => null);
+				const derived = await initializeVault(data.user_id, signFn).catch((err) => {
+					// Surface via toast (not local state) since this component may already be
+					// navigating away by the time initializeVault settles — see verifyChallengeIntegrity
+					// in VaultService.ts for why this can now throw where it silently didn't before.
+					const message = err instanceof Error ? err.message : t`Failed to set up secure messaging.`;
+					ToastActionCreators.createToast({type: 'error', children: message});
+					return null;
+				});
 				if (derived) VaultStore.setKeyPair(derived);
 			}
 		},
